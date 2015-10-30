@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<manifest xmlns="http://tizen.org/ns/packages" api-version="2.4" package="org.tizen.message" version="1.0.0">
+    <profile name="mobile"/>
+    <ui-application appid="org.tizen.message" exec="/usr/apps/org.tizen.message/bin/message" multiple="false" nodisplay="false" taskmanage="true" type="capp">
+        <label>Messages</label>
+        <icon>message.png</icon>
+    </ui-application>
+    <privileges>
+        <privilege>http://tizen.org/privilege/location</privilege>
+        <privilege>http://tizen.org/privilege/datasharing</privilege>
+        <privilege>http://tizen.org/privilege/network.get</privilege>
+        <privilege>http://tizen.org/privilege/wifidirect</privilege>
+        <privilege>http://tizen.org/privilege/callhistory.read</privilege>
+        <privilege>http://tizen.org/privilege/contact.write</privilege>
+        <privilege>http://tizen.org/privilege/power</privilege>
+        <privilege>http://tizen.org/privilege/content.write</privilege>
+        <privilege>http://tizen.org/privilege/message.write</privilege>
+        <privilege>http://tizen.org/privilege/push</privilege>
+        <privilege>http://tizen.org/privilege/account.read</privilege>
+        <privilege>http://tizen.org/privilege/externalstorage</privilege>
+        <privilege>http://tizen.org/privilege/recorder</privilege>
+        <privilege>http://tizen.org/privilege/packagemanager.info</privilege>
+        <privilege>http://tizen.org/privilege/mediastorage</privilege>
+        <privilege>http://tizen.org/privilege/internet</privilege>
+        <privilege>http://tizen.org/privilege/nfc.cardemulation</privilege>
+        <privilege>http://tizen.org/privilege/calendar.write</privilege>
+        <privilege>http://tizen.org/privilege/window.priority.set</privilege>
+        <privilege>http://tizen.org/privilege/volume.set</privilege>
+        <privilege>http://tizen.org/privilege/callhistory.write</privilege>
+        <privilege>http://tizen.org/privilege/alarm.set</privilege>
+        <privilege>http://tizen.org/privilege/call</privilege>
+        <privilege>http://tizen.org/privilege/email</privilege>
+        <privilege>http://tizen.org/privilege/contact.read</privilege>
+        <privilege>http://tizen.org/privilege/systemsettings</privilege>
+        <privilege>http://tizen.org/privilege/shortcut</privilege>
+        <privilege>http://tizen.org/privilege/keymanager</privilege>
+        <privilege>http://tizen.org/privilege/camera</privilege>
+        <privilege>http://tizen.org/privilege/appmanager.launch</privilege>
+        <privilege>http://tizen.org/privilege/led</privilege>
+        <privilege>http://tizen.org/privilege/display</privilege>
+        <privilege>http://tizen.org/privilege/alarm.get</privilege>
+        <privilege>http://tizen.org/privilege/network.profile</privilege>
+        <privilege>http://tizen.org/privilege/calendar.read</privilege>
+        <privilege>http://tizen.org/privilege/account.write</privilege>
+        <privilege>http://tizen.org/privilege/nfc</privilege>
+        <privilege>http://tizen.org/privilege/bluetooth</privilege>
+        <privilege>http://tizen.org/privilege/network.set</privilege>
+        <privilege>http://tizen.org/privilege/notification</privilege>
+        <privilege>http://tizen.org/privilege/externalstorage.appdata</privilege>
+        <privilege>http://tizen.org/privilege/haptic</privilege>
+        <privilege>http://tizen.org/privilege/download</privilege>
+        <privilege>http://tizen.org/privilege/message.read</privilege>
+        <privilege>http://tizen.org/privilege/telephony</privilege>
+    </privileges>
+</manifest>

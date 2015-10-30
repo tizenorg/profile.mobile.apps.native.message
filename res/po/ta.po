@@ -1,0 +1,915 @@
+msgid "IDS_COM_BODY_HOME"
+msgstr "வீடு"
+
+msgid "IDS_MSGC_POP_DATA_ROAMING_IS_DISABLED_ENABLE_DATA_ROAMING_AND_TRY_AGAIN"
+msgstr "தரவு ரோமிங் செயல்நீக்கப்பட்டுள்ளது. தரவு ரோமிங் செயல்படுத்தி மீண்டும் முயலுக."
+
+msgid "IDS_MSGF_POP_NEW_MESSAGE"
+msgstr "புதிய தகவல்"
+
+msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
+msgstr "ரத்துசெய்க"
+
+msgid "IDS_MSG_ACBUTTON_DONE_ABB"
+msgstr "முடிந்தது"
+
+msgid "IDS_COM_BODY_UNKNOWN"
+msgstr "தெரியாத"
+
+msgid "IDS_COM_BODY_MOBILE"
+msgstr "மொபைல்"
+
+msgid "IDS_MSGC_POP_MOBILE_DATA_IS_DISABLED_ENABLE_MOBILE_DATA_AND_TRY_AGAIN"
+msgstr "மொபைல் தரவு செயல்நீக்கப்பட்டுள்ளது. மொபைல் தரவை செயல்படுத்தி மீண்டும் முயலுக."
+
+msgid "IDS_TPLATFORM_ACBUTTON_SEND_ABB"
+msgstr "அனுப்புக"
+
+msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
+msgstr "ஆதரிக்கபடாத ஊடக வகை."
+
+msgid "IDS_MSGC_POP_UNABLE_TO_SEND_MESSAGES_WHILE_IN_FLIGHT_MODE_DISABLE_FLIGHT_MODE_AND_TRY_AGAIN"
+msgstr "ஃப்ளைட் முறையில் இருக்கும் போது தகவல்களை அனுப்ப இயலாது. ஃப்ளைட் முறையை செயல்நீக்கிவிட்டு மீண்டும் முயற்சிக்கவும்"
+
+msgid "IDS_MSGC_POP_UNABLE_TO_ADD_FILE_IS_FORWARD_LOCKED"
+msgstr "பகிர்தல் இயலாது.\nஃகோப்பு பகிர்தல் லாக்கில் உள்ளது"
+
+msgid "IDS_MSGC_POP_THERE_IS_NOT_ENOUGH_SPACE_IN_YOUR_DEVICE_STORAGE_GO_TO_SETTINGS_POWER_AND_STORAGE_STORAGE_THEN_DELETE_SOME_FILES_AND_TRY_AGAIN"
+msgstr "உங்கள் சாதன சேமிப்பகத்தில் போதுமான இடம் இல்லை. அமைவுகள் > பவர் மற்றும் சேமிப்பகம் > சேமிப்பகம் என்பதற்குச் செல்லவும், பின்னர் சில கோப்புகளை நீக்கிவிட்டு மீண்டும் முயலவும்."
+
+msgid "IDS_MSGC_POP_TEXT_AT_TOP"
+msgstr "உரை மேலே"
+
+msgid "IDS_MSGC_POP_TEXT_AT_BOTTOM"
+msgstr "உரை கீழே"
+
+msgid "IDS_MSGC_POP_SELECT_LAYOUT"
+msgstr "தளவைமைப்பை தேர்வுசெய்க"
+
+msgid "IDS_MSGC_POP_MMSCANTADD"
+msgstr "உட்பொருளை சேர்க்கஇயலவில்லை."
+
+msgid "IDS_MSGC_POP_MESSAGE_SCHEDULED_TO_BE_SENT_TO_PS_SEND_NOW_Q"
+msgstr "%s என்பவருக்கு அனுப்ப, தகவலானது திட்டமிடப்பட்டுள்ளது. இப்போது அனுப்பவா?"
+
+msgid "IDS_MSGC_POP_MAXIMUM_MESSAGE_SIZE_REACHED"
+msgstr "அதிகபட்ச தகவல் அளவை அடைந்தது."
+
+msgid "IDS_MSGC_POP_LOW_BATTERY"
+msgstr "மின்கலம் திறன் குறைந்தது."
+
+msgid "IDS_MSGC_POP_DURATION_MUST_BE_AT_LEAST_PD_SECONDS"
+msgstr "இடைவெளி குறைந்த்து %d வினாடிகள் இருக்க வேண்டும்."
+
+msgid "IDS_MSGC_POP_DISABLING_FLIGHT_MODE_ING"
+msgstr "ஃப்ளைட் முறையை செயல்நீக்குகிறது..."
+
+msgid "IDS_MSGC_POP_COPIED_TO_SIM_CARD"
+msgstr "SIM அட்டைக்கு நகல்செய்யப்பட்டது."
+
+msgid "IDS_MSGC_POP_CANCELLED"
+msgstr "இரத்தானது."
+
+msgid "IDS_MSGC_OPT_USE_OTHER_CONTACT_INFO_ABB"
+msgstr "மற்ற தொடர்பு விபரம் பயன்படுத்துக"
+
+msgid "IDS_MSGC_OPT_SEND_VIA"
+msgstr "வழியாக அனுப்பு"
+
+msgid "IDS_MSGC_OPT_IMAGE"
+msgstr "படிமம்"
+
+msgid "IDS_MSGC_OPT_EMAIL"
+msgstr "மின்னஞ்சல்"
+
+msgid "IDS_MSGC_OPT_EDIT_ITEM_REPLACE"
+msgstr "மாற்றுக"
+
+msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
+msgstr "காண்க"
+
+msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
+msgstr "அகற்றுக"
+
+msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
+msgstr "இயக்குக"
+
+msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
+msgstr "பெறுநர்"
+
+msgid "IDS_MSGC_OPT_CANCEL_MESSAGE"
+msgstr "தகவல்களை ரத்துசெய்க"
+
+msgid "IDS_MSGC_HEADER_RECIPIENT_LIST"
+msgstr "பெறுநர் பட்டியல்"
+
+msgid "IDS_MSGC_HEADER_PREVIEW"
+msgstr "முன்பார்வை"
+
+msgid "IDS_MSGC_HEADER_DURATION_FOR_SLIDE_PD_PD"
+msgstr "ஸ்லைடு %d/%dக்கான இடைவேளை"
+
+msgid "IDS_MSGC_BODY_WAIT_WHILE_ITEMS_ARE_ADDED_TO_SLIDESHOW"
+msgstr "ஸ்லைடு ஷோவில் உருப்படிகள் சேர்க்கப்படும் வரை காத்திருக்கவும்."
+
+msgid "IDS_MSGC_BODY_UNABLE_TO_SEND_MESSAGE"
+msgstr "தகவல் அனுப்ப இயலவில்லை."
+
+msgid "IDS_MSGC_BODY_SELECT_RINGTONE"
+msgstr "ரிங்டோன் தேர்வுசெய்க"
+
+msgid "IDS_MSGC_BODY_READ_REPORT_WILL_BE_SENT"
+msgstr "வாசிப்பு அறிக்கை அனுப்பப்படும்."
+
+msgid "IDS_MSGC_BODY_NOT_REQUESTED"
+msgstr "கோரப்படவில்லை"
+
+msgid "IDS_MSGC_BODY_MAXIMUM_NUMBER_OF_RECIPIENTS_HPD_REACHED"
+msgstr "அதிகபட்ச பெறுநர்களின் (%d) எண்ணிக்கையை அடைந்தது."
+
+msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
+msgstr "பொருளை பதி."
+
+msgid "IDS_MSGC_BODY_DUPLICATED_RECIPIENT"
+msgstr "நகலான பெறுநர்கள்."
+
+msgid "IDS_MSGF_SK_FORWARD_LITE"
+msgstr "பகிர்"
+
+msgid "IDS_MSGF_POP_UNABLE_TO_SAVE"
+msgstr "சேமிக்க இயலாது."
+
+msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
+msgstr "இடத்தை தேட இயலவில்லை."
+
+msgid "IDS_MSGF_POP_UNABLE_TO_DELETE"
+msgstr "நீக்க இயலாது."
+
+msgid "IDS_MSGF_POP_UNABLE_TO_COPY"
+msgstr "நகலெடுக்க இயலாது."
+
+msgid "IDS_MSGF_POP_SOME_CHARACTERS_MAY_BE_LOST_CONTINUE_Q"
+msgstr "சில எழுத்துகள் இழக்கப்படலாம். தொடரவா?"
+
+msgid "IDS_MSGF_POP_SIM_NOT_INSERTED"
+msgstr "சிம் செருகப்படவில்லை."
+
+msgid "IDS_MSGF_POP_SAVING_FAILED"
+msgstr "சேமிப்பு தோல்வி."
+
+msgid "IDS_MSGF_POP_SAVED_IN_MY_FILES"
+msgstr "எனது கோப்புகளில் சேமிக்கப்பட்டது."
+
+msgid "IDS_MSGF_POP_RETRIEVING_MESSAGE_FAILED"
+msgstr "தகவல் சீர்செய்தல் தோல்வி"
+
+msgid "IDS_MSGF_POP_RESTRICTED_CONTENT_TYPE_ATTACH_ANYWAY_Q"
+msgstr "தடைசெய்யப்பட்ட உள்ளடக்க வகை. எந்த வகையிலாவது இணைக்கவா?"
+
+msgid "IDS_MSGF_POP_RESTORING_ING"
+msgstr "மீ.சேமிக்கிறது..."
+
+msgid "IDS_MSGF_POP_REJECTED"
+msgstr "மறுக்கப்பட்டது."
+
+msgid "IDS_MSGF_POP_READ_REPORT"
+msgstr "வாசிப்பறிக்கை"
+
+msgid "IDS_MSGF_POP_NO_NUMBER"
+msgstr "எண் இல்லை"
+
+msgid "IDS_MSGF_POP_NO_ATTACHMENTS"
+msgstr "இணைப்புகள் இல்லை"
+
+msgid "IDS_MSGF_POP_NEW_MESSAGES"
+msgstr "புதிய தகவல்கள்"
+
+msgid "IDS_MSGF_POP_MESSAGE_COPIED_FROM_SIM_CARD"
+msgstr "SIM அட்டையிலிருந்து தகவல் நகல் செய்யப்பட்டது."
+
+msgid "IDS_MSGF_POP_MAXIMUM_NUMBER_OF_RECIPIENTS_IS_PD_SOME_RECIPIENTS_MAY_BE_LOST"
+msgstr "அதிகபட்ச பெறுநர்களின் எண்ணிக்கை %d. சில பெறுநர்கள் இழக்கப்பட்டிருக்கலாம்"
+
+msgid "IDS_MSGF_POP_MAXIMUM_NUMBER_OF_ATTACHMENTS_HPS_EXCEEDED"
+msgstr "அதிகபட்ச இணைப்புகளின் எண்ணிக்கையை (%s) அடைந்தது."
+
+msgid "IDS_MSGF_POP_MAXIMUM_CHARACTERS"
+msgstr "அதிகபட்ச எழுத்துக்களின் எண்ணிக்கையை அடைந்தது."
+
+msgid "IDS_MSGF_POP_IN_PROGRESS_ING"
+msgstr "செயலில்..."
+
+msgid "IDS_MSGF_POP_INTIALISING"
+msgstr "துவங்குகிறது…"
+
+msgid "IDS_MSGF_POP_IF_YOU_DONT_WANT_TO_REPLACE_THE_FILE_RENAME_IT"
+msgstr "கோப்பினை இடமாற்ற நீங்கள் விரும்பாவிடில், மறுபெயரிடுக."
+
+msgid "IDS_MSGF_POP_HELP_PAGE_MESSAGE_FOR_ONE_FILE"
+msgstr "இணைக்கப்பட்ட ஒரு தகவலை இந்தக் கோப்பு கொண்டுள்ளது அது காண்பிக்கப்படவில்லை."
+
+msgid "IDS_MSGF_POP_HELP_PAGE_MESSAGE"
+msgstr "இணைக்கப்பட்ட ஒரு தகவலை இந்தக் கோப்பு கொண்டுள்ளது அது காண்பிக்கப்படவில்லை."
+
+msgid "IDS_MSGF_POP_FILE_NAME_ALREADY_EXISTS"
+msgstr "கோப்பு பெயர் முன்பே உள்ளது."
+
+msgid "IDS_MSGF_POP_DELETING"
+msgstr "நீக்குகிறது…"
+
+msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
+msgstr "கிளிப்போர்டிற்கு நகலெடுக்கப்பட்டது."
+
+msgid "IDS_MSGF_POP_CONVERTING_TO_TEXT_MESSAGE_ING"
+msgstr "உரை தகவலாக மாற்றுகிறது..."
+
+msgid "IDS_MSGF_POP_CONVERTING_TO_MULTIMEDIA_MESSAGE_ING"
+msgstr "பல்லூடக தகவலாக மாற்றுகிறது..."
+
+msgid "IDS_MSGF_POP_BLOCK_PS_Q"
+msgstr "%s முடக்கவா?"
+
+msgid "IDS_MSGF_POP_ABOUT_TO_GO_ONLINE_CONTINUE_Q"
+msgstr "நீங்கள் (%s) ஆன்லைனில் செல்ல இருக்கிறீர்கள். தொடரவா?"
+
+msgid "IDS_MSGF_OPT_TEXT_MESSAGE"
+msgstr "உரைத் தகவல்"
+
+msgid "IDS_MSGF_OPT_SUBJECT_COLON"
+msgstr "பொருள்:"
+
+msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
+msgstr "மின்னஞ்சல் வழி அனுப்பு"
+
+msgid "IDS_MSGF_OPT_SENDER_ABB"
+msgstr "அனுப்புநர்"
+
+msgid "IDS_MSGF_OPT_SELECT"
+msgstr "தேர்வுசெய்க"
+
+msgid "IDS_MSGF_OPT_SAVE_ATTACHMENT"
+msgstr "இணைப்பை சேமி."
+
+msgid "IDS_MSGF_OPT_SAVE"
+msgstr "சேமிக்கவும்"
+
+msgid "IDS_MSGF_OPT_REMOVE"
+msgstr "அகற்றுக"
+
+msgid "IDS_MSGF_OPT_INSTALL"
+msgstr "நிறுவுக"
+
+msgid "IDS_MSGF_OPT_FORWARD"
+msgstr "பகிர்"
+
+msgid "IDS_MSGF_OPT_EDIT_MESSAGE"
+msgstr "தகவலை திருத்துக"
+
+msgid "IDS_MSGF_OPT_DELETE_Q"
+msgstr "நீக்கவா?"
+
+msgid "IDS_MSGF_OPT_DELETE_MESSAGES"
+msgstr "தகவலை நீக்குக"
+
+msgid "IDS_MSGF_HEADER_SELECT_MESSAGES"
+msgstr "தகவல்கள் தேர்வு"
+
+msgid "IDS_MSGF_HEADER_SAVE_ALL"
+msgstr "எல்லாம் சேமி"
+
+msgid "IDS_MSGF_HEADER_MESSAGE_DETAILS"
+msgstr "தகவல் விவரங்கள்"
+
+msgid "IDS_MSGF_HEADER_EXPIRES_C_PS"
+msgstr "காலவதி: %s"
+
+msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
+msgstr "மேம்படுத்தப்பட்ட தேடல்"
+
+msgid "IDS_MSGF_BUTTON_SAVE_ALL_ATTACHMENTS_ABB"
+msgstr "எல்லா இணைப்பு. சேமி"
+
+msgid "IDS_MSGF_BODY_UNKNOWN"
+msgstr "தெரியாத"
+
+msgid "IDS_MSGF_BODY_TO_C"
+msgstr "பெறுநர்:"
+
+msgid "IDS_MSGF_BODY_TEXT_MESSAGES"
+msgstr "உரைத் தகவல்கள்"
+
+msgid "IDS_MSGF_BODY_SIM_MEMORY_FULL_DELETE_SOME_ITEMS"
+msgstr "SIM நினைவகம் நிரம்பயுள்ளது . சில உருப்படிகளை நீக்குக."
+
+msgid "IDS_MSGF_BODY_SETTINGS"
+msgstr "அமைவுகள்"
+
+msgid "IDS_MSGF_BODY_SENT_M_DATE_C"
+msgstr "அனுப்பியவை:"
+
+msgid "IDS_MSGF_BODY_REQUESTED"
+msgstr "கோரப்பட்டது."
+
+msgid "IDS_MSGF_BODY_RECIPIENTS"
+msgstr "பெறுநர்கள்"
+
+msgid "IDS_MSGF_BODY_RECEIVED_M_DATE_C"
+msgstr "பெறப்பட்டவை:"
+
+msgid "IDS_MSGF_BODY_RECEIVED"
+msgstr "பெறப்பட்டது."
+
+msgid "IDS_MSGF_BODY_READ_REPORT"
+msgstr "வாசிப்பறிக்கை"
+
+msgid "IDS_MSGF_BODY_PUSH_MESSAGES"
+msgstr "புஷ் தகவல்கள்"
+
+msgid "IDS_MSGF_BODY_PD_MESSAGES"
+msgstr "%d தகவல்கள்"
+
+msgid "IDS_MSGF_BODY_PD_CONVERSATIONS"
+msgstr "%d உரையாடல்கள்"
+
+msgid "IDS_MSGF_BODY_OTHER"
+msgstr "மற்றவை"
+
+msgid "IDS_MSGF_BODY_NO_SUBJECT"
+msgstr "பொருள் இல்லை"
+
+msgid "IDS_MSGF_BODY_NO_NAME"
+msgstr "பெயர் இல்லை"
+
+msgid "IDS_MSGF_BODY_MULTIMEDIA_MESSAGE_NOTIFICATION"
+msgstr "பல்லூடக தகவல் அறிவிப்பு"
+
+msgid "IDS_MSGF_BODY_MULTIMEDIA_MESSAGE"
+msgstr "பல்லூடகத் தகவல்"
+
+msgid "IDS_MSGF_BODY_MSGSIZE_KB"
+msgstr "KB"
+
+msgid "IDS_MSGF_BODY_MMSREADREPLYMSGREAD"
+msgstr "வாசி"
+
+msgid "IDS_MSGF_BODY_MMSDELIVERYMSGREJECTED"
+msgstr "தகவல் மறுக்கப்பட்டது."
+
+msgid "IDS_MSGF_BODY_MMS"
+msgstr "MMS"
+
+msgid "IDS_MSGF_BODY_MESSAGE_SIZE"
+msgstr "தகவல் அளவு"
+
+msgid "IDS_MSGF_BODY_MESSAGE_OPTIONS"
+msgstr "தகவல் தெரிவுகள்"
+
+msgid "IDS_MSGF_BODY_MESSAGE_DELIVERED"
+msgstr "தகவல் சேர்க்கப்பட்டது"
+
+msgid "IDS_MSGF_BODY_MESSAGE"
+msgstr "தகவல்"
+
+msgid "IDS_MSGF_BODY_ME"
+msgstr "நான்"
+
+msgid "IDS_MSGF_BODY_MAXIMUM_NUMBER_OF_ATTACHMENTS_HP1SS_EXCEEDED_ONLY_FIRST_P2SS_WILL_BE_ADDED"
+msgstr "அதிகபட்ச இணைப்புகளின் எண்ணிக்கையை (%1$s) தாண்டியது. %2$s-க்கு முந்தியவை மட்டுமே இணைக்கப்படும்."
+
+msgid "IDS_MSGF_BODY_INVALID_RECIPIENT"
+msgstr "தவறான பெறுநர்."
+
+msgid "IDS_MSGF_BODY_FROM"
+msgstr "அனுப்புநர்"
+
+msgid "IDS_MSGF_BODY_FLFROM"
+msgstr "அனுப்புநர்:"
+
+msgid "IDS_MSGF_BODY_EXPIRED"
+msgstr "காலாவதியானது"
+
+msgid "IDS_MSGF_BODY_DETAILSSENDINGFAILED"
+msgstr "அனுப்புதல் தோல்வி."
+
+msgid "IDS_MSGF_BODY_DELIVERY_REPORT"
+msgstr "சேர்க்கை அறிக்கை"
+
+msgid "IDS_MSGF_BODY_CP_MESSAGES"
+msgstr "சிபி தகவல்கள்"
+
+msgid "IDS_MSGF_BODY_COPY_TEXT"
+msgstr "உரையை நகல்செய்க"
+
+msgid "IDS_MSGF_BODY_CB_MESSAGES"
+msgstr "CB தகவல்கள்"
+
+msgid "IDS_MSGF_BODY_ALL"
+msgstr "எல்லாம்"
+
+msgid "IDS_MSGF_BODY_1_MESSAGE"
+msgstr "1 தகவல்"
+
+msgid "IDS_MSGF_BODY_1_CONVERSATION"
+msgstr "1 உரையாடல்"
+
+msgid "IDS_MSGS_BODY_REQUEST_A_READ_REPORT_FOR_EACH_MESSAGE_YOU_SEND"
+msgstr "நீங்கள் அனுப்புகிற தகவல் ஒவ்வொன்றிற்கும் வாசிப்பு அறிக்கை கோரவும்."
+
+msgid "IDS_MSGS_BODY_REQUEST_A_DELIVERY_REPORT_FOR_EACH_MESSAGE_YOU_SEND"
+msgstr "நீங்கள் அனுப்புகிற தகவல் ஒவ்வொன்றிற்கும் சேர்க்கை அறிக்கை கோரவும்."
+
+msgid "IDS_MSGS_BODY_RADIO_BUTTON"
+msgstr "ரேடியோ பொத்தான்"
+
+msgid "IDS_MSGS_BODY_ON_OFF_BUTTON_T_TTS"
+msgstr "ஆன்/ஆஃப் பொத்தான்"
+
+msgid "IDS_MSGS_BODY_EXPANDABLE_LIST_T_TTS"
+msgstr "விரிவாக்கத்தக்க பட்டியல்"
+
+msgid "IDS_MSGS_BODY_AUTOMATICALLY_RETRIEVE_MMS_MESSAGES"
+msgstr "MMS தகவல்களை தானாக சீர்செய்க."
+
+msgid "IDS_MSG_TPOP_UNABLE_TO_PREVIEW_FILE_UNSUPPORTED_FILE_TYPE"
+msgstr "கோப்பை முன்பார்வையிட இயலவில்லை. ஆதரிக்கப்படாத கோப்பு வகை."
+
+msgid "IDS_MSG_TPOP_UNABLE_TO_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "சில பெறுநர்களைச் சேர்க்க இயலவில்லை. எண்கள் தவறானவை."
+
+msgid "IDS_MSG_TPOP_UNABLE_TO_ADD_RECIPIENT_NUMBER_NOT_VALID"
+msgstr "பெறுநரைச் சேர்க்க இயலவில்லை. எண் தவறானது."
+
+msgid "IDS_MSG_TPOP_UNABLE_TO_ADD_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "பெறுநர்களைச் சேர்க்க இயலவில்லை. எண்கள் தவறானவை."
+
+msgid "IDS_MSG_TPOP_UNABLE_TO_ADD_ATTACHMENT_MAXIMUM_NUMBER_OF_ATTACHMENTS_HPD_REACHED"
+msgstr "இணைப்பைச் சேர்க்க இயலவில்லை. இணைப்புகளின் அதிகபட்ச எண்ணிக்கையை (%d) அடைந்தது."
+
+msgid "IDS_MSG_TPOP_THIS_NUMBER_IS_NOT_VALID"
+msgstr "இந்த எண் தவறானது."
+
+msgid "IDS_MSG_TPOP_SELECTED_MESSAGES_COPIED_TO_MOBILE_DEVICE"
+msgstr "தேர்வுசெய்த தகவல்கள், மொபைல் சாதனத்தில் நகலெடுக்கப்பட்டன."
+
+msgid "IDS_MSG_TPOP_PD_MESSAGES_MOVED_TO_MESSAGE_LIST"
+msgstr "%d தகவல்கள், தகவல் பட்டியலுக்கு நகர்த்தப்பட்டன."
+
+msgid "IDS_MSG_TPOP_NUMBER_REMOVED_FROM_MESSAGE_BLOCK_LIST"
+msgstr "தடுப்புப் பட்டியலில் இருந்து எண் நீக்கப்பட்டது."
+
+msgid "IDS_MSG_TPOP_NUMBER_ADDED_TO_MESSAGE_BLOCK_LIST"
+msgstr "தடுப்புப் பட்டியலில் எண் சேர்க்கப்பட்டது."
+
+msgid "IDS_MSG_TPOP_MESSAGE_COPIED_TO_PS_SIM_CARD"
+msgstr "%s SIM அட்டைக்கு தகவல் நகல் செய்யப்பட்டது."
+
+msgid "IDS_MSG_TPOP_MAXIMUM_NUMBER_OF_CHARACTERS_EXCEEDED"
+msgstr "அதிகபட்ச எழுத்துக்களின் எண்ணிக்கையை கடந்துவிட்டது."
+
+msgid "IDS_MSG_TPOP_MAXIMUM_MESSAGE_SIZE_HPS_EXCEEDED_RESIZING_ATTACHMENTS_ING"
+msgstr "அதிகபட்ச தகவல் அளவு (%s) தாண்டியது. இணைப்புகளின் அளவை மாற்றுகிறது..."
+
+msgid "IDS_MSG_TPOP_INVALID_CHARACTER_ENTERED"
+msgstr "தவறான எழுத்து உள்ளிடப்பட்டது"
+
+msgid "IDS_MSG_TPOP_ADD_RECIPIENTS"
+msgstr "பெறுநர்களைச் சேர்க்கவும்."
+
+msgid "IDS_MSG_TPOP_1_MESSAGE_MOVED_TO_MESSAGE_LIST"
+msgstr "தகவல் பட்டியலுக்கு 1 தகவல் நகர்த்தப்பட்டது."
+
+msgid "IDS_MSG_TMBODY_TEXT_MESSAGES"
+msgstr "உரைத் தகவல்கள்"
+
+msgid "IDS_MSG_TMBODY_SOUND"
+msgstr "ஒலி"
+
+msgid "IDS_MSG_TMBODY_MULTIMEDIA_MESSAGES"
+msgstr "பல்லூடகத் தகவல்கள்"
+
+msgid "IDS_MSG_TMBODY_MESSAGES_ON_SIM_CARD"
+msgstr "SIM அட்டையிலுள்ள தகவல்கள்"
+
+msgid "IDS_MSG_TMBODY_INPUT_MODE"
+msgstr "உள்ளீட்டு முறை"
+
+msgid "IDS_MSG_TMBODY_AUTO_RETRIEVE_WHILE_ROAMING"
+msgstr "ரோமிங்கில் தானி. மீட்டெடுப்பு"
+
+msgid "IDS_MSG_TMBODY_AUTO_RETRIEVE"
+msgstr "தானியங்கு மீட்டெடுப்பு"
+
+msgid "IDS_MSG_SK_SEND_NOW"
+msgstr "இ. அனுப்புக"
+
+msgid "IDS_MSG_SK_NO_ABB"
+msgstr "இல்லை"
+
+msgid "IDS_MSG_SBODY_SELECT_AN_INPUT_MODE_FOR_COMPOSING_MESSAGES"
+msgstr "தகவல்களை உருவாக்க உள்ளீட்டு முறையைத் தேர்வுசெய்யவும்."
+
+msgid "IDS_MSG_SBODY_NONE_M_STATUS"
+msgstr "ஒன்றுமில்லை"
+
+msgid "IDS_MSG_SBODY_MANAGE_THE_MESSAGES_STORED_ON_YOUR_SIM_CARD"
+msgstr "உங்கள் SIM அட்டையில் சேமிக்கப்பட்ட தகவல்களை நிர்வகிக்கவும்."
+
+msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
+msgstr "உங்கள் தகவல் தவிர்க்கப்படும். பெறுநர்கள் எவரும் தேர்ந்தெடுக்கப்படவில்லை."
+
+msgid "IDS_MSG_POP_UNABLE_TO_SEND_SCHEDULED_MESSAGE_SET_ANOTHER_TIME"
+msgstr "திட்டமிடபட்ட தகவலை அனுப்ப இயலவில்லை. மற்றொரு நேரம் அமைக்கவும்."
+
+msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
+msgstr "அழைப்பின்போது இயக்க இயலாது."
+
+msgid "IDS_MSG_POP_UNABLE_TO_ATTACH_FILE_FILE_SIZE_TOO_LARGE_TRY_SENDING_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
+msgstr "கோப்பினை இணைக்க இயலவில்லை. கோப்பு அளவு மிகப் பெரியது. மின்னஞ்சல், ப்ளூடூத், Wi-Fi போன்றவை மூலம் அனுப்ப முயற்சிக்கவும்."
+
+msgid "IDS_MSG_POP_TO_SEND_THIS_MULTIMEDIA_MESSAGE_THE_DEVICE_WILL_CONNECT_TO_A_DIFFERENT_MOBILE_NETWORK_THIS_WILL_DISCONNECT_YOUR_DEVICE_FROM_YOUR_MSG"
+msgstr "இந்த பல்லூடகத் தகவலை அனுப்ப, சாதனம் வேறொரு மொபைல் நெட்வொர்க்குடன் இணைக்கப்படும். இது உங்கள் நடப்பு மொபைல் நெட்வொர்க்கிலிருந்து உங்கள் சாதனத்தைத் துண்டிக்கும்."
+
+msgid "IDS_MSG_POP_TO_DOWNLOAD_THIS_MULTIMEDIA_MESSAGE_THE_DEVICE_WILL_CONNECT_TO_A_DIFFERENT_MOBILE_NETWORK_MSG"
+msgstr "இந்த பல்லூடக தகவலைப் பதிவிறக்க, சாதனம் வேறொரு மொபைல் நெட்வொர்க்குடன் இணைக்கப்படும். இது உங்கள் நடப்பு மொபைல் நெட்வொர்க்கிலிருந்து உங்கள் சாதனத்தைத் துண்டிக்கும்."
+
+msgid "IDS_MSG_POP_THIS_MESSAGE_WILL_BE_RESENT"
+msgstr "இந்தத் தகவல் மீண்டும் அனுப்பப்படும்."
+
+msgid "IDS_MSG_POP_PD_MESSAGES_WILL_BE_DELETED"
+msgstr "%d தகவல்களும் நீக்கப்படும்."
+
+msgid "IDS_MSG_POP_PD_CONVERSATIONS_WILL_BE_DELETED"
+msgstr "%d உரையாடல்கள் நீக்கப்படும்."
+
+msgid "IDS_MSG_POP_NO_TEMPLATES_IN_LIST"
+msgstr "பட்டியலில் டெம்ப்ளேட்கள் எதுவும் இல்லை"
+
+msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
+msgstr "உள்வரும் தகவல்கள் மட்டும்"
+
+msgid "IDS_MSG_POP_INCLUDE_ORIGINAL_TEXT_IN_OUTGOING_MESSAGE"
+msgstr "வெளிச்செல்லும் தகவலில் அசல் உரையை உள்ளடக்கவும்"
+
+msgid "IDS_MSG_POP_DURATION_MUST_BE_SHORTER_THAN_PD_SECONDS"
+msgstr "காலஅளவு %d வினாடிகளை விட குறைவாக இருக்க வேண்டும்."
+
+msgid "IDS_MSG_POP_DELETED"
+msgstr "நீக்கப்பட்டது."
+
+msgid "IDS_MSG_POP_1_MESSAGE_WILL_BE_DELETED"
+msgstr "1 தகவல் நீக்கப்படும்."
+
+msgid "IDS_MSG_POP_1_CONVERSATION_WILL_BE_DELETED"
+msgstr "1 உரையாடல் நீக்கப்படும்."
+
+msgid "IDS_MSG_OPT_VIEW_DETAILS_ABB"
+msgstr "விவரங்களை காட்டுக"
+
+msgid "IDS_MSG_OPT_VIEW_CONTACT_DETAILS_ABB"
+msgstr "தொடர்பு விவரங்களைக் காணவும்"
+
+msgid "IDS_MSG_OPT_VIEW_AS_SLIDESHOW_ABB"
+msgstr "ஸ்லைட்ஷோவாகக் காணவும்"
+
+msgid "IDS_MSG_OPT_VIDEOS"
+msgstr "நிகழ்படங்கள்"
+
+msgid "IDS_MSG_OPT_UPDATE_CONTACT"
+msgstr "தொடர்பைப் புதுப்பிக்கவும்"
+
+msgid "IDS_MSG_OPT_UNICODE"
+msgstr "யுனிகோடு முறை"
+
+msgid "IDS_MSG_OPT_TEXT"
+msgstr "உரை"
+
+msgid "IDS_MSG_OPT_TAKE_PICTURE_ABB"
+msgstr "படம் எடுக்கவும்"
+
+msgid "IDS_MSG_OPT_SETTINGS"
+msgstr "அமைவுகள்"
+
+msgid "IDS_MSG_OPT_SEARCH"
+msgstr "தேடவும்"
+
+msgid "IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"
+msgstr "இணைப்புகளை சேமிக்கவும்"
+
+msgid "IDS_MSG_OPT_RESEND"
+msgstr "மீண்டும் அனுப்புக"
+
+msgid "IDS_MSG_OPT_REPLY"
+msgstr "பதில்"
+
+msgid "IDS_MSG_OPT_REMOVE_FROM_BLOCK_LIST_ABB"
+msgstr "தடு. பட்டி. இருந்து நீக்கவும்"
+
+msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
+msgstr "நிகழ்படம் பதிக"
+
+msgid "IDS_MSG_OPT_RECORD_AUDIO_FILE_ABB"
+msgstr "கேட்பொலிக் கோப்பைப் பதிக"
+
+msgid "IDS_MSG_OPT_QUICK_RESPONSE_ABB"
+msgstr "துரித பதில்"
+
+msgid "IDS_MSG_OPT_NONE"
+msgstr "ஒன்றுமில்லை"
+
+msgid "IDS_MSG_OPT_MAKE_VOICE_CALL"
+msgstr "குரல் அழைப்பு செய்யவும்"
+
+msgid "IDS_MSG_OPT_IMAGES"
+msgstr "படிமங்கள்"
+
+msgid "IDS_MSG_OPT_GSM_ALPHABET_ABB"
+msgstr "GSM அகரவரிசை"
+
+msgid "IDS_MSG_OPT_EXPORT_TO_DEVICE_MEMORY"
+msgstr "சாதன நினைவகத்திற்கு ஏற்றுக"
+
+msgid "IDS_MSG_OPT_EDIT"
+msgstr "திருத்துக"
+
+msgid "IDS_MSG_OPT_DELETE_MESSAGE"
+msgstr "தகவல் நீக்குக"
+
+msgid "IDS_MSG_OPT_DELETE_CONVERSATION_ABB"
+msgstr "உரையாடலை நீக்கவும்"
+
+msgid "IDS_MSG_OPT_DELETE"
+msgstr "நீக்கு"
+
+msgid "IDS_MSG_OPT_DEFAULT"
+msgstr "டீஃபால்ட்"
+
+msgid "IDS_MSG_OPT_CREATE_CONTACT_ABB"
+msgstr "தொடர்பை உருவாக்கவும்"
+
+msgid "IDS_MSG_OPT_COPY_TO_SIM_CARD_ABB"
+msgstr "SIM அட்டைக்கு நகலெடுக்கவும்"
+
+msgid "IDS_MSG_OPT_COPY_TO_DEVICE_ABB"
+msgstr "சாதனத்தில் நகலெடுக்கவும்"
+
+msgid "IDS_MSG_OPT_COPY_TEXT"
+msgstr "உரையை நகல்செய்க"
+
+msgid "IDS_MSG_OPT_COPY"
+msgstr "நகல்"
+
+msgid "IDS_MSG_OPT_BACK_UP"
+msgstr "பின்சேமிப்பு"
+
+msgid "IDS_MSG_OPT_AUTOMATIC"
+msgstr "தானியக்கம்"
+
+msgid "IDS_MSG_OPT_AUDIO_FILES_ABB2"
+msgstr "கேட்பொலிக் கோப்புகள்"
+
+msgid "IDS_MSG_OPT_ATTACHMENT_ABB"
+msgstr "இணைப்பு"
+
+msgid "IDS_MSG_OPT_ADD_TO_CONTACTS_ABB"
+msgstr "தொடர்புகளில் சேர்க்கவும்"
+
+msgid "IDS_MSG_OPT_ADD_TO_BLOCK_LIST_ABB"
+msgstr "தடுப்புப் பட்டியலில் சேர்."
+
+msgid "IDS_MSG_OPT_ADD_RECIPIENTS_ABB"
+msgstr "பெறுநர்களைச் சேர்க்கவும்"
+
+msgid "IDS_MSG_NPBODY_SEARCH"
+msgstr "தேடல்"
+
+msgid "IDS_MSG_NPBODY_NO_RESULTS_FOUND_ABB"
+msgstr "முடிவுகள் எதுவும் இல்லை"
+
+msgid "IDS_MSG_NPBODY_NO_QUICK_RESPONSES"
+msgstr "துரித பதில்கள் எதுவுமில்லை"
+
+msgid "IDS_MSG_NPBODY_NO_PHRASES_BLOCKED"
+msgstr "சொற்றொடர்கள் எதுவும் தடைசெய்யப்படவில்லை"
+
+msgid "IDS_MSG_NPBODY_NO_MESSAGES_ON_SIM_CARD"
+msgstr "SIM அட்டையில் தகவல்கள் இல்லை"
+
+msgid "IDS_MSG_NPBODY_NO_MESSAGES"
+msgstr "தகவல்கள் இல்லை"
+
+msgid "IDS_MSG_NPBODY_NO_BLOCKED_NUMBERS"
+msgstr "தடுக்கப்பட்ட எண்கள் ஏதுமில்லை"
+
+msgid "IDS_MSG_MBODY_VIBRATION"
+msgstr "அதிர்வு"
+
+msgid "IDS_MSG_MBODY_UNKNOWN_NUMBER"
+msgstr "தெரியாத எண்"
+
+msgid "IDS_MSG_MBODY_TEXT_MESSAGE_CENTRE_NUMBER_ABB"
+msgstr "உரைத் தகவல் மைய எண்"
+
+msgid "IDS_MSG_MBODY_SELECT_ALL"
+msgstr "எல்லாம் தேர்வு"
+
+msgid "IDS_MSG_MBODY_ALERTS"
+msgstr "விழிப்பூட்டல்கள்"
+
+msgid "IDS_MSG_HEADER_TRANSLATE"
+msgstr "மொழிபெயர்ப்பு"
+
+msgid "IDS_MSG_HEADER_TEXT_MESSAGES_ABB"
+msgstr "உரைத் தகவல்கள்"
+
+msgid "IDS_MSG_HEADER_SWITCH_MOBILE_NETWORK_ABB2"
+msgstr "மொபைல் நெட்வொர்க்கை மாற்றுக"
+
+msgid "IDS_MSG_HEADER_SMS_CENTRE_ABB2"
+msgstr "SMS மையம்"
+
+msgid "IDS_MSG_HEADER_SETTINGS"
+msgstr "அமைவுகள்"
+
+msgid "IDS_MSG_HEADER_SELECT_RECIPIENT"
+msgstr "பெறுவோர் தேர்ந்தெடு"
+
+msgid "IDS_MSG_HEADER_PD_SELECTED_ABB3"
+msgstr "%d தேர்வு"
+
+msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
+msgstr "SIM அட்டையிலுள்ள தகவல்கள்"
+
+msgid "IDS_MSG_HEADER_MESSAGES"
+msgstr "தகவல்கள்"
+
+msgid "IDS_MSG_HEADER_INPUT_MODE_ABB"
+msgstr "உள்ளீட்டு முறை"
+
+msgid "IDS_MSG_HEADER_FILE_SIZE_TOO_LARGE_ABB"
+msgstr "கோப்பு அளவு மிகவும் பெரிது"
+
+msgid "IDS_MSG_HEADER_FAILED_TO_SEND_MESSAGE_ABB"
+msgstr "தகவலை அனுப்புவதில் தோல்வி"
+
+msgid "IDS_MSG_HEADER_DISCARD_MESSAGE_M_CLOSE_ABB"
+msgstr "தகவலை தவிர்க்கவும்"
+
+msgid "IDS_MSG_HEADER_DELETE"
+msgstr "நீக்குக"
+
+msgid "IDS_MSG_HEADER_CREATE"
+msgstr "உருவாக்கவும்"
+
+msgid "IDS_MSG_HEADER_ATTENTION"
+msgstr "கவனம்"
+
+msgid "IDS_MSG_HEADER_ADD_CONTENT_ABB"
+msgstr "உள்ளடக்கத்தைச் சேர்க்கவும்"
+
+msgid "IDS_MSG_BUTTON_SWITCH_ABB2"
+msgstr "மாறவும்"
+
+msgid "IDS_MSG_BUTTON_SAVE_ABB2"
+msgstr "சேமிக்கவும்"
+
+msgid "IDS_MSG_BUTTON_RESEND_ABB"
+msgstr "மீ. அனுப்பவும்"
+
+msgid "IDS_MSG_BUTTON_REMOVE_ABB"
+msgstr "அகற்றுக"
+
+msgid "IDS_MSG_BUTTON_OK_ABB"
+msgstr "சரி"
+
+msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
+msgstr "பதிவிறக்குக"
+
+msgid "IDS_MSG_BUTTON_DISCARD_ABB"
+msgstr "தவிர்."
+
+msgid "IDS_MSG_BUTTON_DELETE_ABB4"
+msgstr "நீக்கவும்"
+
+msgid "IDS_MSG_BUTTON_CANCEL_ABB2"
+msgstr "ரத்து"
+
+msgid "IDS_MSG_BUTTON_CANCEL_ABB"
+msgstr "ரத்து"
+
+msgid "IDS_MSG_BUTTON2_CONTACTS_ABB_M_APPLICATION_NAME"
+msgstr "தொடர்புகள்"
+
+msgid "IDS_MSG_BODY_YOU_HAVE_SELECTED_A_SOUND_N_SHOT_FILE_SOUND_DATA_IS_NOT_SUPPORTED_FOR_MMS_SO_ONLY_THE_PICTURE_WILL_BE_ATTACHED"
+msgstr "ஒலி & ஷாட் கோப்பினை தேர்ந்தெடுத்துள்ளீர்கள். MMSக்கு ஒலித்தரவு ஆதரிக்கப்படவில்லை எனவே படம் மட்டுமே இணைக்கப்படும்."
+
+msgid "IDS_MSG_BODY_YES"
+msgstr "ஆம்"
+
+msgid "IDS_MSG_BODY_WAITING_TO_SEND_ING_M_STATUS"
+msgstr "அனுப்பக் காத்திருக்கிறது..."
+
+msgid "IDS_MSG_BODY_UNABLE_TO_SEND_THIS_MESSAGE_INSERT_YOUR_SIM_CARD_AND_TRY_AGAIN"
+msgstr "இந்த தகவலை அனுப்ப இயலவில்லை. உங்கள் SIM அட்டையை நுழைத்து மீண்டும் முயலுக."
+
+msgid "IDS_MSG_BODY_TYPE_C"
+msgstr "வகை:"
+
+msgid "IDS_MSG_BODY_TO_USE_RESTRICTED_MEDIA_TYPES_CHANGE_YOUR_MMS_CREATION_MODE_SETTING"
+msgstr "தடைசெய்யப்பட்ட ஊடக வகைகளை பயன்படுத்த உங்கள் MMS உருவாக்கல் முறை அமைவை மாற்றவும்."
+
+msgid "IDS_MSG_BODY_TIME_SENT_C"
+msgstr "அனுப்பப்பட்ட நேரம்:"
+
+msgid "IDS_MSG_BODY_TIME_RECEIVED_C"
+msgstr "பெறப்பட்ட நேரம்:"
+
+msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
+msgstr "தேர்வுப் பெட்டி"
+
+msgid "IDS_MSG_BODY_STATUS_C"
+msgstr "நிலை:"
+
+msgid "IDS_MSG_BODY_SENT_M_STATUS"
+msgstr "அனுப்பியவை"
+
+msgid "IDS_MSG_BODY_SENDING_ING_M_STATUS_ABB"
+msgstr "அனுப்பு..."
+
+msgid "IDS_MSG_BODY_SENDING_FAILED_M_STATUS"
+msgstr "அனுப்புதல் தோல்வியுற்றது"
+
+msgid "IDS_MSG_BODY_SEC"
+msgstr "நொடி"
+
+msgid "IDS_MSG_BODY_RETRIEVE_MESSAGES_AUTOMATICALLY_WHILE_ROAMING"
+msgstr "ரோமிங்கின்போது தகவல்களை தானாக மீட்டெடுக்கவும்."
+
+msgid "IDS_MSG_BODY_RETRIEVE_MESSAGES_AUTOMATICALLY"
+msgstr "தகவல்களை தானாக மீட்டெடுக்கவும்."
+
+msgid "IDS_MSG_BODY_READ_REPORT_C_PS"
+msgstr "படித்ததன் அறிக்கை: %s"
+
+msgid "IDS_MSG_BODY_OTHER_PERSON"
+msgstr "வேறு நபர்"
+
+msgid "IDS_MSG_BODY_MESSAGE"
+msgstr "தகவல்"
+
+msgid "IDS_MSG_BODY_MEMO_T_MAINMENU"
+msgstr "மெமோ"
+
+msgid "IDS_MSG_BODY_FAILED_M_STATUS_ABB2"
+msgstr "தோல்வி."
+
+msgid "IDS_MSG_BODY_ENTER_TEXT_M_NOUN"
+msgstr "உரை உள்ளிடவும்"
+
+msgid "IDS_MSG_BODY_DRAFT_M_STATUS_ABB"
+msgstr "வரைவு"
+
+msgid "IDS_MSG_BODY_DELIVERY_REPORT_C_PS"
+msgstr "சேர்க்கை அறிக்கை: %s"
+
+msgid "IDS_MSG_BODY_CB_MESSAGE"
+msgstr "CB message"
+
+msgid "IDS_MSG_BODY_CALENDAR_M_APPLICATION_NAME_ABB"
+msgstr "நாட்காட்டி"
+
+msgid "IDS_MSG_BODY_AFTER_YOU_SEND_OR_RECEIVE_MESSAGES_THEY_WILL_BE_SHOWN_HERE"
+msgstr "தகவல்களை நீங்கள் அனுப்பிய பிறகு அல்லது பெற்ற பிறகு, அவை இங்கே காண்பிக்கப்படும்."
+
+msgid "IDS_MSG_BODY_AFTER_YOU_CREATE_QUICK_RESPONSES_THEY_WILL_BE_SHOWN_HERE"
+msgstr "நீங்கள் துரித பதில்களை உருவாக்கிய பிறகு, அவை இங்கே காட்டப்படும்."
+
+msgid "IDS_MSG_BODY_AFTER_YOU_COPY_MESSAGES_TO_THE_SIM_CARD_THEY_WILL_BE_SHOWN_HERE"
+msgstr "நீங்கள் தகவல்களை SIM அட்டைக்கு நகல் செய்த பிறகு, அவை இங்கே காட்டப்படும்."
+
+msgid "IDS_MSG_BODY_AFTER_YOU_ADD_PHRASES_THEY_WILL_BE_SHOWN_HERE"
+msgstr "நீங்கள் சொற்றொடர்களைச் சேர்த்த பிறகு, அவை இங்கே காட்டப்படும்."
+
+msgid "IDS_MSG_BODY_AFTER_YOU_ADD_NUMBERS_TO_THE_MESSAGE_BLOCK_LIST_THEY_WILL_BE_SHOWN_HERE"
+msgstr "தகவல் தடுப்புப் பட்டியலில் எண்களைச் சேர்த்த பிறகு, அவை இங்கே காட்டப்படும்."
+
+msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
+msgstr "நீக்குக"
+
+msgid "IDS_ST_BODY_LOADING_ING"
+msgstr "லோடிங்..."
+
+msgid "IDS_MSGS_BODY_NOTIFICATIONS"
+msgstr "அறிவிப்புகள்"
+
+msgid "IDS_MSG_HEADER_ME"
+msgstr "நான்"
+
+msgid "IDS_MSG_BUTTON_SEND_ABB5"
+msgstr "அனு."
+
+msgid "IDS_MSG_BUTTON_SEND_ABB3"
+msgstr "அனு."
+
+msgid "IDS_MSG_ACBUTTON_SEND_ABB3"
+msgstr "அனுப்பு"
+

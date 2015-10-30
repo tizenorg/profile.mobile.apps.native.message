@@ -1,0 +1,2880 @@
+#define BUTTON_STATE_ENABLED 0
+#define BUTTON_STATE_DISABLED 1
+
+#define BUTTON_TEXT_STYLE1_BG_BORDER_INC 12 12 14 16
+#define BUTTON_TEXT_STYLE1_PADDING_MIN_INC 8 0
+#define BUTTON_TEXT_STYLE1_BG_MIN_INC 30 20
+#define BUTTON_TEXT_STYLE1_VISIBLE_BG_MIN_INC 30 20
+#define BUTTON_TEXT_STYLE1_ICONONLY_BG_MIN_INC 30 20
+
+#define BUTTON_TEXT_STYLE1_VISIBLE_ICON_RECT_MIN_MAX_INC 28 28
+#define BUTTON_TEXT_STYLE1_VISIBLE_PADDING_ICON_TEXT_MIN_INC 0 0
+#define BUTTON_TEXT_STYLE1_VISIBLE_ICON_MIN_MAX_INC 28 28
+#define BUTTON_TEXT_STYLE1_ICONONLY_ICON_MIN_MAX_INC 28 28
+#define BUTTON_BG_BORDER_INC 8 8 8 8
+
+//text
+#define BUTTON_TEXT_STYLE1_NORMAL_COLOR_INC 249 249 249 255
+#define BUTTON_TEXT_STYLE1_FONT_SIZE_INC 16
+#define BUTTON_TEXT_STYLE1_EASY_MODE_FONT_SIZE_INC 36
+#define BUTTON_TEXT_STYLE1_PRESSED_COLOR_INC 249 249 249 255
+#define BUTTON_TEXT_STYLE1_FOCUSED_COLOR_INC 249 249 249 255
+#define BUTTON_TEXT_STYLE1_DISABLED_COLOR_INC 48 49 50 255
+
+#define COLOR_BLACK 			0 0 0 255
+#define COLOR_BLACK_TRANSPARENT 0 0 0 204
+#define COLOR_WHITE				255 255 255 255
+#define COLOR_GRAY				245 245 242 255
+#define COLOR_DARK_GRAY			213 213 212 255
+#define COLOR_BLUE 				2 61 132 255
+#define COLOR_DARK_BLUE			1 37 79 255
+#define COLOR_BLUE_TRANSPARENT	179 197 218 255
+#define COLOR_RED				224 33 33 255
+
+#define TITLE_CT_THUMBNAIL_WIDTH_HEIGHT 66
+
+collections {
+
+    base_scale: 1.8;
+
+externals {
+   external: "elm";
+   external: "feedback";
+}
+
+   plugins {
+      plugin {
+         name: "touch_sound";
+         source: "feedback";
+         param:  "FEEDBACK_TYPE_SOUND FEEDBACK_PATTERN_TAP"; // FEEDBACK_TYPE_SOUND, FEEDBACK_PATTERN_TOUCH_TAP
+         /* 2014.06.11 updated from libsvi(feedback)
+          Above plugin will run below external function:
+          int feedback_play_type(feedback_type_e type, feedback_pattern_e pattern);
+
+          param1: feedback_type_e
+          FEEDBACK_TYPE_NONE = 0,
+          FEEDBACK_TYPE_SOUND = 1,
+          FEEDBACK_TYPE_VIBRATION,
+          FEEDBACK_TYPE_LED,
+          FEEDBACK_TYPE_END
+
+          * param2 enumeration:
+          FEEDBACK_PATTERN_TAP = 0,
+          FEEDBACK_PATTERN_SIP,
+          FEEDBACK_PATTERN_SIP_BACKSPACE,
+          FEEDBACK_PATTERN_SIP_FUNCTION,
+          FEEDBACK_PATTERN_SIP_FJKEY,
+          ...
+
+          * Fore information, please refer the libsvi libraries.
+          * git: slp-info.sec.samsung.net:29418/magnolia/framework/system/libsvi
+          * web: http://slp-info.sec.samsung.net/gerrit/plugins/gitiles/magnolia/framework/system/libsvi
+          */
+      }
+   }
+
+sounds {
+	sample {
+		name: "touch_sound" AS_IS;
+		source: "Tizen_Touch.wav";
+	}
+}
+
+///////////////////////////////////////////////////////
+// easy mode list 3.1.1.1 button (for Icon + Text)
+//////////////////////////////////////////////////////
+group {
+	name: "elm/button/base/easymode_icon_text_button";
+	data {
+		item: "focus_highlight" "on";
+	}
+	images {
+		image: "00_button_01_bg.#.png" COMP;
+		image: "00_button_01_bg_dim_ef.#.png" COMP;
+		image: "00_button_01_bg_ef.#.png" COMP;
+		image: "00_button_01_bg_focus.#.png" COMP;
+		image: "00_button_01_bg_press_ef.#.png" COMP;
+	}
+	parts {
+		part {
+			name: "button_image";
+			scale: 1;
+			description {
+				state: "default" 0.0;
+				min: 66 49;
+				image {
+					normal: "00_button_01_bg.#.png";
+				}
+				color_class: "W011";
+			}
+			description {
+				state: "clicked" 0.0;
+				inherit: "default" 0.0;
+				color_class: "B042";
+			}
+			description {
+				state: "disabled" 0.0;
+				inherit: "default" 0.0;
+				color_class: "W011D";
+			}
+			description {
+				state: "focused" 0.0;
+				inherit: "default" 0.0;
+			}
+		}
+		part {
+			name: "button_effect_image";
+			scale: 1;
+			description {
+				state: "default" 0.0;
+				image {
+					normal: "00_button_01_bg_ef.#.png";
+				}
+			}
+			description {
+				state: "clicked" 0.0;
+				inherit: "default" 0.0;
+				image.normal: "00_button_01_bg_press_ef.#.png";
+			}
+			description {
+				state: "disabled" 0.0;
+				inherit: "default" 0.0;
+				image.normal: "00_button_01_bg_dim_ef.#.png";
+			}
+		}
+		part {
+			name: "focus_image";
+			scale: 1;
+			mouse_events: 0;
+			repeat_events: 1;
+			description {
+				state: "default" 0.0;
+				visible: 0;
+				rel1.to : "button_image";
+				rel2.to : "button_image";
+				image {
+					normal: "00_button_01_bg_focus.#.png";
+				}
+			}
+			description {
+				state: "focused" 0.0;
+				inherit: "default" 0.0;
+				visible: 1;
+				color_class: "W161";
+			}
+		}
+		part {
+			name: "swallow.inner.layout";
+			type: SWALLOW;
+			scale: 1;
+			mouse_events: 1;
+			repeat_events: 1;
+			clip_to: "clipper";
+			description {
+				state: "default" 0.0;
+				align: 0.5 0.5;
+				rel1 { relative: 0.0 0.0; to: "button_image";}
+				rel2 { relative: 1.0 1.0; to: "button_image"; }
+			}
+		}
+		part {
+			name: "over2";
+			type: RECT;
+			repeat_events: 1;
+			ignore_flags: ON_HOLD;
+			description {
+				state: "default" 0.0;
+				color: 0 0 0 0;
+			}
+		}
+		part {
+			name: "over3";
+			type: RECT;
+			repeat_events: 1;
+			description {
+				state: "default" 0.0;
+				color: 0 0 0 0;
+			}
+		}
+		part {
+			name: "clipper";
+			type: RECT;
+			scale: 1;
+			description {
+				state: "default" 0.0;
+				color_class: "F031L1";
+			}
+			description {
+				state: "clicked" 0.0;
+				color_class: "F031L1P";
+			}
+			description {
+				state: "disabled" 0.0;
+				color_class: "F031L1D";
+			}
+		}
+		part { name: "disabler";
+			type: RECT;
+			description {
+				state: "default" 0.0;
+				color: 0 0 0 0;
+				visible: 0;
+			}
+			description {
+				state: "disabled" 0.0;
+				inherit: "default" 0.0;
+				visible: 1;
+			}
+		}
+	}
+	programs {
+		program {
+			name: "button_click";
+			signal: "mouse,down,1";
+			source: "over2";
+			action: SIGNAL_EMIT "elm,action,press" "";
+			after: "button_click_anim";
+		}
+		program {
+			name: "button_click_anim";
+			action: STATE_SET "clicked" 0.0;
+			target: "button_image";
+			target: "button_effect_image";
+			target: "clipper";
+		}
+		program {
+			name: "button_unpress";
+			action: SIGNAL_EMIT "elm,action,unpress" "";
+		}
+		program {
+			name: "button_mouseout_clicked";
+			signal: "mouse,up,1";
+			source: "over3";
+			script {
+				set_state(PART:"button_image", "default", 0.0);
+				set_state(PART:"clipper", "default", 0.0);
+			}
+			after: button_unpress;
+		}
+		program {
+			name: "disable";
+			signal: "elm,state,disabled";
+			source: "elm";
+			action: STATE_SET "disabled" 0.0;
+	        target: "button_image";
+			target: "button_effect_image";
+	        target: "disabler";
+	        target: "clipper";
+		}
+		program {
+			name: "enable";
+			signal: "elm,state,enabled";
+			source: "elm";
+			action: STATE_SET "default" 0.0;
+	        target: "button_image";
+			target: "button_effect_image";
+	        target: "clipper";
+	        target: "disabler";
+		}
+		program {
+			name: "button_click2";
+			signal: "mouse,down,1";
+			source: "over3";
+			action: STATE_SET "clicked" 0.0;
+			target: "over3";
+		}
+		program {
+			name: "button_unclick2";
+			signal: "mouse,clicked,1";
+			source: "over3";
+			action: STATE_SET "default" 0.0;
+			target: "over3";
+		}
+		program {
+			name: "button_unclick3";
+			signal: "mouse,clicked,1";
+			source: "over2";
+			action: SIGNAL_EMIT "elm,action,click" "";
+		}
+		program {
+			name: "focused";
+			action: STATE_SET "focused" 0.0;
+			target: "button_image";
+			target: "button_effect_image";
+		}
+		program {
+			name: "unfocused";
+			action: STATE_SET "default" 0.0;
+			target: "button_image";
+			target: "button_effect_image";
+		}
+		program {
+			name: "button_sound";
+			signal: "mouse,clicked,1";
+			source: "over3";
+			action: RUN_PLUGIN "touch_sound";
+		}
+		program {
+			name: "action_focus";
+			signal: "elm,action,focus_highlight,show";
+			source: "elm";
+			action: STATE_SET "focused" 0.0;
+			target: "focus_image";
+			target: "button_effect_image";
+		}
+		program {
+			name: "action_unfocus";
+			signal: "elm,action,focus_highlight,hide";
+			source: "elm";
+			action: STATE_SET "default" 0.0;
+			target: "focus_image";
+			target: "button_effect_image";
+		}
+	}
+}
+
+///////////////////////////////////////////////////////////////////
+// send button
+///////////////////////////////////////////////////
+
+group {
+	name: "elm/button/base/sendbutton";	/* elm/button/base/search_button */
+	data {
+		item: "focus_highlight" "on";
+	}
+	images {
+		image: "00_button_01_bg_dim_ef.#.png" COMP;
+		image: "00_button_01_bg_ef.#.png" COMP;
+		image: "00_button_01_bg_focus.#.png" COMP;
+		image: "00_button_01_bg_press_ef.#.png" COMP;
+		image: "00_search_btn_press.#.png" COMP;
+	}
+	script {
+		public button_state = BUTTON_STATE_ENABLED;
+	}
+	parts {
+		part {
+			name: "button_image";
+			scale: 1;
+			description {
+				state: "default" 0.0;
+				image {
+					normal: "00_search_btn_press.#.png";
+				}
+				color_class: "W011";
+			}
+			description {
+				state: "clicked" 0.0;
+				inherit: "default" 0.0;
+				color_class: "B0215P";
+			}
+			description {
+				state: "disabled" 0.0;
+				inherit: "default" 0.0;
+				color_class: "W011D";
+			}
+			description {
+				state: "focused" 0.0;
+				inherit: "default" 0.0;
+			}
+		}
+		part {
+			name: "button_effect_image";
+			scale: 1;
+			description {
+				state: "default" 0.0;
+				image {
+					normal: "00_button_01_bg_ef.#.png";
+				}
+			}
+			description {
+				state: "clicked" 0.0;
+				inherit: "default" 0.0;
+				image.normal: "00_button_01_bg_press_ef.#.png";
+			}
+			description {
+				state: "disabled" 0.0;
+				inherit: "default" 0.0;
+				image.normal: "00_button_01_bg_dim_ef.#.png";
+			}
+		}
+		part {
+			name: "focus_image";
+			scale: 1;
+			mouse_events: 0;
+			repeat_events: 1;
+			description {
+				state: "default" 0.0;
+				visible: 0;
+				rel1.to : "button_image";
+				rel2.to : "button_image";
+				image {
+					normal: "00_button_01_bg_focus.#.png";
+				}
+			}
+			description {
+				state: "focused" 0.0;
+				inherit: "default" 0.0;
+				visible: 1;
+				color_class: "W161";
+			}
+		}
+		part {
+			name: "padding_left_top";
+			type: SPACER;
+			scale: 1;
+			mouse_events: 0;
+			description {
+				state: "default" 0.0;
+				align: 0.0 0.0;
+				rel2.relative: 0.0 0.0;
+				min: BUTTON_TEXT_STYLE1_PADDING_MIN_INC;
+				fixed: 1 1;
+			}
+		}
+		part {
+			name: "bg";
+			type: RECT;
+			scale: 1;
+			mouse_events: 0;
+			description {
+				state: "default" 0.0;
+				min: BUTTON_TEXT_STYLE1_BG_MIN_INC;
+				visible: 0;
+			}
+			description {
+				state: "visible" 0.0;
+				inherit: "default" 0.0;
+				min: BUTTON_TEXT_STYLE1_VISIBLE_BG_MIN_INC;
+			}
+			description {
+				state: "icononly" 0.0;
+				inherit: "default" 0.0;
+				min: BUTTON_TEXT_STYLE1_ICONONLY_BG_MIN_INC;
+			}
+		}
+		part {
+			name: "padding_right_bottom";
+			type: SPACER;
+			scale: 1;
+			mouse_events: 0;
+			description {
+				state: "default" 0.0;
+				align: 1.0 1.0;
+				rel1.relative: 1.0 1.0;
+				min: BUTTON_TEXT_STYLE1_PADDING_MIN_INC;
+				fixed: 1 1;
+			}
+		}
+		part {
+			name: "icon_rect";
+			type: RECT;
+			scale: 1;
+			mouse_events: 0;
+			description {
+				state: "default" 0.0;
+				visible: 0;
+				min: 0 0;
+				fixed: 1 0;
+				rel1 {
+					relative: 1.0 1.0;
+					to: "padding_left_top";
+				}
+				rel2 {
+					relative: 1.0 0.0;
+					to_x: "padding_left_top";
+					to_y: "padding_right_bottom";
+				}
+				align: 0.0 0.5;
+			}
+			description {
+				state: "visible" 0.0;
+				inherit: "default" 0.0;
+				min: BUTTON_TEXT_STYLE1_VISIBLE_ICON_RECT_MIN_MAX_INC;
+				max: BUTTON_TEXT_STYLE1_VISIBLE_ICON_RECT_MIN_MAX_INC;
+			}
+			description {
+				state: "icononly" 0.0;
+				inherit: "default" 0.0;
+			}
+		}
+		part {
+			name: "padding_after_icon";
+			type: SPACER;
+			scale: 1;
+			mouse_events: 0;
+			description {
+				state: "default" 0.0; //when only icon or no icon is there
+				align: 0.0 0.0;
+				rel1 {
+					relative: 1.0 0.0;
+					to: "icon_rect";
+				}
+				rel2.to: "icon_rect";
+				fixed: 1 0;
+				min: 0 0;
+			}
+			description {
+				state: "visible" 0.0;
+				inherit: "default" 0.0;
+				min: BUTTON_TEXT_STYLE1_VISIBLE_PADDING_ICON_TEXT_MIN_INC;
+			}
+			description {
+				state: "icononly" 0.0;
+				inherit: "default" 0.0;
+			}
+		}
+		part {
+			name: "padding_before_text";
+			type: SPACER;
+			scale: 1;
+			mouse_events: 0;
+			description {
+				state: "default" 0.0; //when only icon or no icon is there
+				align: 1.0 0.5;
+				rel1 {
+					relative: 0.0 1.0;
+					to_x: "elm.text";
+					to_y: "padding_left_top";
+				}
+				rel2 {
+					relative: 0.0 0.0;
+					to_x: "elm.text";
+					to_y: "padding_right_bottom";
+				}
+				fixed: 1 0;
+				min: BUTTON_TEXT_STYLE1_VISIBLE_PADDING_ICON_TEXT_MIN_INC;
+			}
+		}
+		part {
+			name: "elm.swallow.content";
+			type: SWALLOW;
+			scale: 1;
+			clip_to: "clipper";
+			description {
+				state: "default" 0.0;
+				visible: 0;
+				align: 0.0 0.5;
+				rel1 {
+					relative: 1.0 1.0;
+					to: "padding_left_top";
+				}
+				rel2 {
+					relative: 1.0 0.0;
+					to_x: "padding_left_top";
+					to_y: "padding_right_bottom";
+				}
+				fixed: 1 0;
+			}
+			description {
+				state: "visible" 0.0;
+				fixed: 1 0;
+				min: BUTTON_TEXT_STYLE1_VISIBLE_ICON_MIN_MAX_INC;
+				max: BUTTON_TEXT_STYLE1_VISIBLE_ICON_MIN_MAX_INC;
+				align: 1.0 0.5;
+				rel1 {
+					relative: 0.0 1.0;
+					to_x: "padding_before_text";
+					to_y: "padding_left_top";
+				}
+				rel2 {
+					relative: 0.0 0.0;
+					to_x: "padding_before_text";
+					to_y: "padding_right_bottom";
+				}
+			}
+			description {
+				state: "icononly" 0.0;
+				min: BUTTON_TEXT_STYLE1_ICONONLY_ICON_MIN_MAX_INC;
+				max: BUTTON_TEXT_STYLE1_ICONONLY_ICON_MIN_MAX_INC;
+			}
+			description {
+				state: "easymode_layout" 0.0;
+				inherit: "default" 0.0;
+				visible: 1;
+				align: 0.5 0.5;
+			}
+		}
+		part {
+			name: "elm.text";
+			type: TEXT;
+			mouse_events: 0;
+			effect: SHADOW BOTTOM;
+			scale: 1;
+			clip_to: "clipper";
+			description {
+				state: "default" 0.0;
+				visible: 0;
+				rel1 {
+					relative: 1.0 1.0;
+					to_x: "padding_after_icon";
+					to_y: "padding_left_top";
+				}
+				rel2 {
+					relative: 0.0 0.0;
+					to: "padding_right_bottom";
+				}
+				color: BUTTON_TEXT_STYLE1_NORMAL_COLOR_INC;
+				text {
+					font: "Tizen:style=Regular";
+					size: BUTTON_TEXT_STYLE1_FONT_SIZE_INC;
+					min: 0 0;
+					max: 1 0;
+					text_class: "tizen";
+				}
+			}
+			description {
+				state: "visible" 0.0;
+				inherit: "default" 0.0;
+				visible: 1;
+			}
+			description {
+				state: "clicked" 0.0;
+				inherit: "default" 0.0;
+				visible: 1;
+				color: BUTTON_TEXT_STYLE1_PRESSED_COLOR_INC;
+			}
+			description {
+				state: "disabled" 0.0;
+				inherit: "default" 0.0;
+			}
+			description {
+				state: "disabled_visible" 0.0;
+				inherit: "default" 0.0;
+				color: BUTTON_TEXT_STYLE1_DISABLED_COLOR_INC;
+				visible: 1;
+			}
+			description {
+				state: "focused" 0.0;
+				inherit: "default" 0.0;
+				visible: 1;
+				color: BUTTON_TEXT_STYLE1_FOCUSED_COLOR_INC;
+			}
+		}
+		part {
+			name: "over2";
+			type: RECT;
+			repeat_events: 1;
+			ignore_flags: ON_HOLD;
+			description {
+				state: "default" 0.0;
+				color: 0 0 0 0;
+			}
+		}
+		part {
+			name: "over3";
+			type: RECT;
+			repeat_events: 1;
+			description {
+				state: "default" 0.0;
+				color: 0 0 0 0;
+			}
+		}
+		part {
+			name: "clipper";
+			type: RECT;
+			scale: 1;
+			description {
+				state: "default" 0.0;
+				color: 255 255 255 255;
+			}
+			description {
+				state: "clicked" 0.0;
+				color: 255 255 255 255;
+			}
+			description {
+				state: "disabled" 0.0;
+				color: 255 255 255 76;
+			}
+		}
+		part {
+			name: "disabler";
+			type: RECT;
+			description {
+				state: "default" 0.0;
+				color: 0 0 0 0;
+				visible: 0;
+			}
+			description {
+				state: "disabled" 0.0;
+				inherit: "default" 0.0;
+				visible: 1;
+			}
+		}
+  	}
+	programs {
+		program {
+			name: "button_click";
+			signal: "mouse,down,1";
+			source: "over2";
+			action: SIGNAL_EMIT "elm,action,press" "";
+			after: "button_click_anim";
+		}
+		program {
+			name: "button_click_anim";
+			action: STATE_SET "clicked" 0.0;
+			target: "button_image";
+			target: "button_effect_image";
+			target: "clipper";
+			after: "text_clicked";
+		}
+		program {
+			name: "text_clicked";
+			script {
+				new st[31];
+				new Float:vl;
+				get_state(PART:"elm.text", st, 30, vl);
+				if (!strcmp(st, "visible"))
+					set_state(PART:"elm.text", "clicked", 0.0);
+			}
+		}
+		program {
+			name: "button_unpress";
+			action: SIGNAL_EMIT "elm,action,unpress" "";
+		}
+		program {
+			name: "button_mouseout_clicked";
+			signal: "mouse,up,1";
+			source: "over3";
+			script {
+				new st[31];
+				new Float:vl;
+				get_state(PART:"elm.swallow.content", st, 30, vl);
+
+				if (strcmp(st, "icononly")) {
+					emit("elm,action,default,text,set", "");
+					set_state(PART:"elm.text", "visible", 0.0);
+				}
+
+				if (get_int(button_state) != BUTTON_STATE_DISABLED) {
+					set_state(PART:"button_image", "default", 0.0);
+					set_state(PART:"button_effect_image", "default", 0.0);
+					set_state(PART:"clipper", "default", 0.0);
+				}
+			}
+			after: button_unpress;
+		}
+		program {
+			name: "touch_snd";
+			signal: "mouse,clicked,1";
+			source: "over2";
+			action: RUN_PLUGIN "touch_sound";
+			after: button_unclick3;
+		}
+		program {
+			name: "button_unclick3";
+			action: SIGNAL_EMIT "elm,action,click" "";
+		}
+		program {
+			name: "text_show";
+			signal: "elm,state,text,visible";
+			source: "elm";
+			script {
+				new st[31];
+				new Float:vl;
+				get_state(PART:"elm.swallow.content", st, 30, vl);
+
+				if (!strcmp(st, "icononly")) {
+					set_state(PART:"elm.swallow.content", "visible", 0.0);
+					set_state(PART:"icon_rect", "visible", 0.0);
+					set_state(PART:"padding_after_icon", "visible", 0.0);
+					set_state(PART:"bg", "visible", 0.0);
+				}
+
+				if (get_int(button_state) != BUTTON_STATE_DISABLED)
+					set_state(PART:"elm.text", "visible", 0.0);
+				else
+					set_state(PART:"elm.text", "disabled_visible", 0.0);
+			}
+		}
+		program {
+			name: "text_hide";
+			signal: "elm,state,text,hidden";
+			source: "elm";
+			script {
+				new st[31];
+				new Float:vl;
+				get_state(PART:"elm.swallow.content", st, 30, vl);
+
+				if (!strcmp(st, "visible")) {
+					set_state(PART:"elm.swallow.content", "icononly", 0.0);
+					set_state(PART:"icon_rect", "icononly", 0.0);
+					set_state(PART:"padding_after_icon", "icononly", 0.0);
+					set_state(PART:"bg", "icononly", 0.0);
+				}
+				set_state(PART:"elm.text", "default", 0.0);
+			}
+		}
+		program {
+			name: "icon_show";
+			signal: "elm,state,icon,visible";
+			source: "elm";
+			script {
+				new st[31];
+				new Float:vl;
+				get_state(PART:"elm.text", st, 30, vl);
+
+				if (!strcmp(st, "visible")) {
+					set_state(PART:"elm.swallow.content", "visible", 0.0);
+					set_state(PART:"icon_rect", "visible", 0.0);
+					set_state(PART:"padding_after_icon", "visible", 0.0);
+					set_state(PART:"bg", "visible", 0.0);
+				} else {
+					set_state(PART:"elm.swallow.content", "icononly", 0.0);
+					set_state(PART:"icon_rect", "icononly", 0.0);
+					set_state(PART:"padding_after_icon", "icononly", 0.0);
+					set_state(PART:"bg", "icononly", 0.0);
+				}
+			}
+		}
+		program {
+			name: "icon_hide";
+			signal: "elm,state,icon,hidden";
+			source: "elm";
+			action: STATE_SET "default" 0.0;
+			target: "elm.swallow.content";
+			target: "padding_after_icon";
+			target: "icon_rect";
+			target: "bg";
+		}
+		program {
+			name: "disable";
+			signal: "elm,state,disabled";
+			source: "elm";
+			action: STATE_SET "disabled" 0.0;
+			target: "button_image";
+			target: "button_effect_image";
+			target: "disabler";
+			target: "clipper";
+			after: "disable_text";
+		}
+		program {
+			name: "disable_text";
+			script {
+				new st[31];
+				new Float:vl;
+				get_state(PART:"elm.text", st, 30, vl);
+
+				if (!strcmp(st, "visible"))
+					set_state(PART:"elm.text", "disabled_visible", 0.0);
+				else
+					set_state(PART:"elm.text", "disabled", 0.0);
+
+				set_int(button_state, BUTTON_STATE_DISABLED);
+			}
+		}
+		program {
+			name: "enable";
+			signal: "elm,state,enabled";
+			source: "elm";
+			action: STATE_SET "default" 0.0;
+			target: "button_image";
+			target: "button_effect_image";
+			target: "clipper";
+			target: "disabler";
+			after: "enable_text";
+		}
+		program {
+			name: "enable_text";
+			script {
+				new st[31];
+				new Float:vl;
+				get_state(PART:"elm.text", st, 30, vl);
+
+				if (!strcmp(st, "disabled_visible"))
+					set_state(PART:"elm.text", "visible", 0.0);
+				else
+					set_state(PART:"elm.text", "default", 0.0);
+
+				set_int(button_state, BUTTON_STATE_ENABLED);
+			}
+		}
+		program {
+			name: "change_easymode";
+			signal: "elm,state,easymode";
+			source: "elm";
+			action: STATE_SET "easymode_layout" 0.0;
+			target: "elm.swallow.content";
+		}
+		program {
+			name: "focused";
+			action: STATE_SET "focused" 0.0;
+			target: "button_image";
+			target: "button_effect_image";
+			target: "elm.text";
+		}
+		program {
+			name: "unfocused";
+			action: STATE_SET "default" 0.0;
+			target: "button_image";
+			target: "button_effect_image";
+			after: "unfocus_text";
+		}
+		program {
+			name: "unfocus_text";
+			action: STATE_SET "visible" 0.0;
+			target: "elm.text";
+		}
+		program {
+			name: "action_focus";
+			signal: "elm,action,focus_highlight,show";
+			source: "elm";
+			action: STATE_SET "focused" 0.0;
+			target: "focus_image";
+		}
+		program {
+			name: "action_unfocus";
+			signal: "elm,action,focus_highlight,hide";
+			source: "elm";
+			action: STATE_SET "default" 0.0;
+			target: "focus_image";
+		}
+	}
+}
+
+//////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////
+// button for bubble warning / scheduled message /
+/////////////////////////////////////////////////////////////////
+#define MSG_BUBBLE_BUTTON_STYLE(style_name, bg_image, press_image, dim_image, btn_image) \
+group { \
+	name: "elm/button/base/"style_name; \
+	data.item: "focus_highlight" "on"; \
+	images { \
+		image: bg_image COMP; \
+		image: press_image COMP; \
+		image: dim_image COMP; \
+		image: btn_image COMP; \
+	} \
+	parts { \
+		part { \
+			name: "button_image"; \
+			scale: 1; \
+			description { \
+				state: "default" 0.0; \
+				min: 40 40; \
+				max: 40 40; \
+				image.normal: bg_image; \
+			} \
+			description { \
+				state: "clicked" 0.0; \
+				inherit: "default" 0.0; \
+				image.normal: press_image; \
+			} \
+			description { \
+				state: "disabled" 0.0; \
+				inherit: "default" 0.0; \
+				image.normal: dim_image; \
+			} \
+		} \
+		part { \
+			name: "left_top_padding"; \
+			scale: 1; \
+			type: SPACER; \
+			description { \
+				state: "default" 0.0; \
+				min: 6 6; \
+				max: 6 6; \
+				fixed: 1 1; \
+				align: 0.0 0.0; \
+				rel1.to: "button_image"; \
+				rel2.to: "button_image"; \
+			} \
+		} \
+		part {  \
+			name: "right_bottom_padding";  \
+			scale: 1; \
+			type: SPACER; \
+			description { \
+				state: "default" 0.0; \
+				min: 5 5; \
+				max: 7 7; \
+				fixed: 1 1; \
+				align: 1.0 1.0; \
+				rel1.to: "button_image"; \
+				rel1.relative: 1.0 1.0; \
+				rel2.to: "button_image"; \
+			} \
+		}  \
+		part {  \
+			name: "button_center_part";  \
+			scale: 1; \
+			description { \
+				state: "default" 0.0; \
+				min: 30 30; \
+				max: 30 30; \
+				image.normal: btn_image; \
+				align: 0.5 0.5; \
+			} \
+		}  \
+		part {  \
+			name: "elm.swallow.icon.shadow.proxy";  \
+			type: PROXY; \
+			clip_to: "elm.icon.proxy.clipper"; \
+			scale: 1; \
+			description { \
+				state: "default" 0.0; \
+				source: "button_center_part"; \
+				proxy.source_clip: 0; \
+				rel1 { to: "button_center_part"; } \
+				rel2 { to: "button_center_part"; } \
+			} \
+			description { \
+				state: "clicked" 0.0; \
+				inherit: "default" 0.0; \
+				rel1 { to: "button_center_part";  } \
+				rel2 { to: "button_center_part"; } \
+			} \
+			description { \
+				state: "disabled" 0.0; \
+				inherit: "default" 0.0; \
+			} \
+		}  \
+		part {  \
+			name: "elm.swallow.icon.proxy";  \
+			type: PROXY; \
+			scale: 1; \
+			clip_to: "icon_clipper"; \
+			description { \
+				state: "default" 0.0; \
+				source: "button_center_part"; \
+				proxy.source_clip: 0; \
+				rel1.to: "button_center_part"; \
+				rel2.to: "button_center_part"; \
+			} \
+		}  \
+		part {  \
+			name: "elm.icon.proxy.clipper";  \
+			type: RECT; \
+			description { \
+				state: "default" 0.0; \
+				color: 0 0 0 255; \
+			} \
+			description { \
+				state: "clicked" 0.0; \
+				color: 0 0 0 255; \
+			} \
+			description { \
+				state: "disabled" 0.0; \
+				color: 34 44 72 255; \
+			} \
+		} \
+		part {  \
+			name: "icon_clipper"; \
+			type: RECT; \
+			scale: 1; \
+			description { \
+				state: "default" 0.0; \
+				color: 250 250 250 255; \
+			} \
+			description { \
+				state: "clicked" 0.0; \
+				color: 250 250 250 255; \
+			} \
+			description { \
+				state: "disabled" 0.0; \
+				color: 166 167 169 255; \
+			} \
+		}  \
+		part {  \
+			name: "over1";  \
+			type: RECT; \
+			ignore_flags: ON_HOLD; \
+			description { \
+				state: "default" 0.0; \
+				color: 0 0 0 0; \
+				min: 30 30; \
+			} \
+		} \
+		part {  \
+			name: "over2";  \
+			type: RECT; \
+			repeat_events: 1; \
+			description { \
+				state: "default" 0.0; \
+				color: 0 0 0 0; \
+			} \
+		}  \
+		part {  \
+			name: "disabler";  \
+			type: RECT; \
+			description { \
+				state: "default" 0.0; \
+				color: 0 0 0 0; \
+				visible: 0; \
+			} \
+			description { \
+				state: "disabled" 0.0; \
+				inherit: "default" 0.0; \
+				visible: 1; \
+			} \
+		}  \
+	}  \
+	programs { \
+		program { \
+			name: "button_click"; \
+			signal: "mouse,down,1"; \
+			source: "over1"; \
+			action: SIGNAL_EMIT "elm,action,press" ""; \
+			after: "button_click_anim"; \
+		} \
+		program { \
+			name: "button_click_anim"; \
+			action: STATE_SET "clicked" 0.0; \
+			target: "button_image"; \
+			target: "elm.swallow.icon.shadow.proxy"; \
+			target: "elm.icon.proxy.clipper"; \
+			target: "icon_clipper"; \
+		} \
+		program { \
+			name: "button_double_click"; \
+			signal: "mouse,down,1,double"; \
+			source: "over1"; \
+			after: "button_click_anim"; \
+		} \
+		program { \
+			name: "button_unclick"; \
+			signal: "mouse,up,1"; \
+			source: "over2"; \
+			action: SIGNAL_EMIT "elm,action,unpress" ""; \
+			after: "button_unclick_anim"; \
+		} \
+		program { \
+			name: "button_unclick_anim"; \
+			action: STATE_SET "default" 0.0; \
+			target: "button_image"; \
+			target: "elm.swallow.icon.shadow.proxy"; \
+			target: "elm.icon.proxy.clipper"; \
+			target: "icon_clipper"; \
+		} \
+		program { \
+			name: "touch_snd"; \
+			signal: "mouse,clicked,1"; \
+			source: "over1"; \
+			action: RUN_PLUGIN "touch_sound"; \
+			after: "button_unclick3"; \
+		} \
+		program { \
+			name: "button_unclick3"; \
+			action: SIGNAL_EMIT "elm,action,click" ""; \
+		} \
+		program { \
+			name: "disable"; \
+			signal: "elm,state,disabled"; \
+			source: "elm"; \
+			action: STATE_SET "disabled" 0.0; \
+			target: "disabler"; \
+			target: "button_image"; \
+			target: "elm.swallow.icon.shadow.proxy"; \
+			target: "elm.icon.proxy.clipper"; \
+			target: "icon_clipper"; \
+		} \
+		program { \
+			name: "enable"; \
+			signal: "elm,state,enabled"; \
+			source: "elm"; \
+			action: STATE_SET "default" 0.0; \
+			target: "disabler"; \
+			target: "button_image"; \
+			target: "elm.swallow.icon.shadow.proxy"; \
+			target: "elm.icon.proxy.clipper"; \
+			target: "icon_clipper"; \
+		} \
+	} \
+}
+
+MSG_BUBBLE_BUTTON_STYLE("resend_button", "M01_circle_button_delete.png", "M01_circle_button_delete_press.png", "M01_circle_button_delete_dim.png", "M01_btn_warning.png")
+MSG_BUBBLE_BUTTON_STYLE("scheduled_button", "M01_circle_button.png", "M01_circle_button_press.png", "M01_circle_button_dim.png", "M01_btn_schedule.png")
+MSG_BUBBLE_BUTTON_STYLE("edit_button", "M01_circle_button_press.png", "M01_circle_button_press.png", "M01_circle_button_press.png", "badge_icon_draft_pencil.png")
+
+#define MSG_BUTTON_CIRCLE_STYLE(style_name, image_normal, image_effect, image_dim_effect, min_width, min_height) \
+   group { name: "elm/button/base/"style_name; \
+      data { \
+         item: "focus_highlight" "on"; \
+      } \
+      images { \
+         image: image_normal COMP; \
+         image: image_effect COMP; \
+         image: image_dim_effect COMP; \
+         image: 00_circle_button_focus.png COMP; \
+         image: 00_circle_button_bg.png COMP; \
+      } \
+      script { \
+         public mouse_down = 0; \
+         public multi_down = 0; \
+      } \
+      parts { \
+         part { name: "button_image"; \
+            type: RECT; \
+            scale: 1; \
+            description { state: "default" 0.0; \
+               min: 40 40; \
+               max: 40 40; \
+               color: 0 0 0 0; \
+            } \
+         } \
+         part { name: "button_bg"; \
+            scale: 1; \
+            description { state: "default" 0.0; \
+               min: 40 40; \
+               max: 40 40; \
+               image.normal: "00_circle_button_bg.png"; \
+               rel1.to: "button_image"; \
+               rel2.to: "button_image"; \
+               visible: 0 ; \
+            } \
+            description { state: "pressed" 0.0; \
+               inherit: "default" 0.0; \
+               visible: 1 ; \
+               color_class: "B042"; \
+            } \
+          } \
+         part { name: "left_top_padding"; \
+            scale: 1; \
+            type: SPACER; \
+            description { state: "default" 0.0; \
+               min: 8 8; \
+               max: 8 8; \
+               fixed: 1 1; \
+               align: 0.0 0.0; \
+               rel1.to: "button_image"; \
+               rel2.to: "button_image"; \
+            } \
+         } \
+         part { name: "right_bottom_padding"; \
+            scale: 1; \
+            type: SPACER; \
+            description { state: "default" 0.0; \
+               min: 8 8; \
+               max: 8 8; \
+               fixed: 1 1; \
+               align: 1.0 1.0; \
+               rel1 { \
+                  relative: 1.0 1.0; \
+                  to: "button_image"; \
+               } \
+               rel2.to: "button_image"; \
+            } \
+         } \
+         part { name: "button_center_part"; \
+            scale: 1; \
+            description { state: "default" 0.0; \
+               min: 30 30; \
+               max: 30 30; \
+               image.normal: image_normal; \
+               rel1 { \
+                  relative: 1.0 1.0; \
+                  to: "left_top_padding"; \
+               } \
+               rel2 { \
+                  relative: 0.0 0.0; \
+                  to: "right_bottom_padding"; \
+               } \
+               color_class: "F032L21"; \
+            } \
+            description { state: "pressed" 0.0; \
+               inherit: "default" 0.0; \
+               color_class: "F032L21P"; \
+            } \
+            description { state: "disabled" 0.0; \
+               inherit: "default" 0.0; \
+               color_class: "F032L21D"; \
+            } \
+         } \
+         part { name: "button_center_part_effect"; \
+            scale: 1; \
+            description { state: "default" 0.0; \
+                rel1.to: "button_center_part"; \
+                rel2.to: "button_center_part"; \
+                image.normal: image_effect; \
+            } \
+            description { state: "pressed" 0.0; \
+                inherit: "default" 0.0; \
+                visible: 0; \
+            } \
+            description { state: "disabled" 0.0; \
+                inherit: "default" 0.0; \
+                image.normal: image_dim_effect; \
+            } \
+         } \
+         part { name: "focus_image"; \
+            scale: 1; \
+            mouse_events: 0; \
+            repeat_events: 1; \
+              description { state: "default" 0.0; \
+                 min: 40 40; \
+                 max: 40 40; \
+                 visible: 0; \
+                 rel1.to : "button_image"; \
+                 rel2.to : "button_image"; \
+                 image { \
+                  normal: "00_circle_button_focus.png"; \
+               } \
+            } \
+            description { state: "focused" 0.0; \
+               inherit: "default" 0.0; \
+               visible: 1; \
+               color_class: "W161";\
+            } \
+         } \
+         part { name: "over1"; \
+            type: RECT; \
+            ignore_flags: ON_HOLD; \
+            description { state: "default" 0.0; \
+               color: 0 0 0 0; \
+               min: min_width min_height; \
+            } \
+         } \
+         part { name: "over2"; \
+            type: RECT; \
+            repeat_events: 1; \
+            description { state: "default" 0.0; \
+               color: 0 0 0 0; \
+            } \
+         } \
+         part { name: "disabler"; \
+            type: RECT; \
+            description { state: "default" 0.0; \
+               color: 0 0 0 0; \
+               visible: 0; \
+            } \
+            description { state: "disabled" 0.0; \
+               inherit: "default" 0.0; \
+               visible: 1; \
+            } \
+         } \
+      } \
+      programs { \
+         program { name: "button_press"; \
+            signal: "mouse,down,1*"; \
+            source: "over1"; \
+            script { \
+               if ((get_int(multi_down) == 0) && (get_int(mouse_down) == 0)) \
+                 { \
+                     set_int(mouse_down, 1); \
+                     run_program(PROGRAM:"button_press2"); \
+                 } \
+            } \
+         } \
+         program { name: "button_press2"; \
+            action: SIGNAL_EMIT "elm,action,press" ""; \
+            after: "button_press_anim"; \
+         } \
+         program { name: "button_press_anim"; \
+            action: STATE_SET "pressed" 0.0; \
+            target: "button_bg"; \
+            target: "button_center_part"; \
+            target: "button_center_part_effect"; \
+         } \
+         program { name: "button_unpress"; \
+            signal: "mouse,up,1*"; \
+            source: "over2"; \
+            script { \
+               if (get_int(mouse_down) == 1) \
+                 { \
+                    set_int(mouse_down, 0); \
+                    run_program(PROGRAM:"button_unpress2"); \
+                    run_program(PROGRAM:"button_unpress_anim"); \
+                 } \
+            } \
+         } \
+         program { name: "button_unpress2"; \
+            action: SIGNAL_EMIT "elm,action,unpress" ""; \
+         } \
+         program { name: "button_unpress_anim"; \
+            action: STATE_SET "default" 0.0; \
+            target: "button_bg"; \
+            target: "button_center_part"; \
+            target: "button_center_part_effect"; \
+         } \
+         program { name: "key_press"; \
+            signal: "elm,action,pressed"; \
+            source: "elm"; \
+            action: STATE_SET "pressed" 0.0; \
+            target: "button_bg"; \
+            target: "button_center_part"; \
+            target: "button_center_part_effect"; \
+         } \
+         program { name: "key_unpress"; \
+            signal: "elm,action,unpressed"; \
+            source: "elm"; \
+            action: STATE_SET "default" 0.0; \
+            target: "button_bg"; \
+            target: "button_center_part"; \
+            target: "button_center_part_effect"; \
+         } \
+         program { name: "button_click"; \
+            signal: "mouse,clicked,1"; \
+            source: "over1"; \
+            script { \
+               if (get_int(multi_down) == 0) { \
+                 run_program(PROGRAM:"play_sound"); \
+                 run_program(PROGRAM:"button_click2"); \
+               } \
+            } \
+         } \
+         program { name: "play_sound"; \
+            action: RUN_PLUGIN "touch_sound"; \
+         } \
+         program { name: "button_click2"; \
+            action: SIGNAL_EMIT "elm,action,click" ""; \
+         } \
+         program { name: "disable"; \
+            signal: "elm,state,disabled"; \
+            source: "elm"; \
+            action: STATE_SET "disabled" 0.0; \
+            target: "disabler"; \
+            target: "button_center_part"; \
+            target: "button_center_part_effect"; \
+         } \
+         program { name: "enable"; \
+            signal: "elm,state,enabled"; \
+            source: "elm"; \
+            action: STATE_SET "default" 0.0; \
+            target: "disabler"; \
+            target: "button_center_part"; \
+            target: "button_center_part_effect"; \
+         } \
+         program { name: "action_focus"; \
+            signal: "elm,action,focus_highlight,show"; \
+            source: "elm"; \
+            action: STATE_SET "focused" 0.0; \
+            target: "focus_image"; \
+         } \
+         program { name: "action_unfocus"; \
+            signal: "elm,action,focus_highlight,hide"; \
+            source: "elm"; \
+            action: STATE_SET "default" 0.0; \
+            target: "focus_image"; \
+         } \
+         program { \
+            name: "multi_down"; \
+            signal: "elm,action,multi,down"; \
+            source: "elm"; \
+            script { \
+               set_int(multi_down, 1); \
+            } \
+         } \
+         program { \
+            name: "multi_up"; \
+            signal: "elm,action,multi,up"; \
+            source: "elm"; \
+            script { \
+               set_int(multi_down, 0); \
+            } \
+         } \
+      } \
+   }
+
+MSG_BUTTON_CIRCLE_STYLE("attachment_remove_button", "00_button_delete.png", "00_button_delete_ef.png", "00_button_delete_dim_ef.png",40, 40)
+
+
+/* thread contact image circle button. */
+#define MSG_BUTTON_THREAD_CONTACT_CIRCLE_STYLE(style_name, min_width, min_height) \
+   group { name: "elm/button/base/"style_name; \
+      data { \
+         item: "focus_highlight" "on"; \
+      } \
+      images { \
+         image: 00_circle_button_focus.png COMP; \
+         image: 00_circle_button_bg.png COMP; \
+      } \
+      script { \
+         public mouse_down = 0; \
+         public multi_down = 0; \
+      } \
+      parts { \
+         part { name: "button_image"; \
+            type: RECT; \
+            scale: 1; \
+            description { state: "default" 0.0; \
+               min: 99 99; \
+               max: 99 99; \
+               color: 0 0 0 0; \
+            } \
+         } \
+         part { name: "button_bg"; \
+            scale: 1; \
+            description { state: "default" 0.0; \
+               min: 99 99; \
+               max: 99 99; \
+               image.normal: "00_circle_button_bg.png"; \
+               rel1.to: "button_image"; \
+               rel2.to: "button_image"; \
+               visible: 0 ; \
+            } \
+            description { state: "pressed" 0.0; \
+               inherit: "default" 0.0; \
+               visible: 1 ; \
+               color: 0 0 0 0; \
+            } \
+          } \
+         part { name: "left_top_padding"; \
+            scale: 1; \
+            type: SPACER; \
+            description { state: "default" 0.0; \
+               min: 0 0; \
+               max: 0 0; \
+               fixed: 1 1; \
+               align: 0.0 0.0; \
+               rel1.to: "button_image"; \
+               rel2.to: "button_image"; \
+            } \
+         } \
+         part { name: "right_bottom_padding"; \
+            scale: 1; \
+            type: SPACER; \
+            description { state: "default" 0.0; \
+               min: 0 0; \
+               max: 0 0; \
+               fixed: 1 1; \
+               align: 1.0 1.0; \
+               rel1 { \
+                  relative: 1.0 1.0; \
+                  to: "button_image"; \
+               } \
+               rel2.to: "button_image"; \
+            } \
+         } \
+         part { name: "elm.swallow.content"; \
+         type: SWALLOW; \
+            scale: 1; \
+            description { state: "default" 0.0; \
+               min: 99 99; \
+               max: 99 99; \
+               rel1 { \
+                  relative: 1.0 1.0; \
+                  to: "left_top_padding"; \
+               } \
+               rel2 { \
+                  relative: 0.0 0.0; \
+                  to: "right_bottom_padding"; \
+               } \
+            } \
+         } \
+         part { name: "focus_image"; \
+            scale: 1; \
+            mouse_events: 0; \
+            repeat_events: 1; \
+              description { state: "default" 0.0; \
+                 min: 99 99; \
+                 max: 99 99; \
+                 visible: 0; \
+                 rel1.to : "button_image"; \
+                 rel2.to : "button_image"; \
+                 image { \
+                  normal: "00_circle_button_focus.png"; \
+               } \
+            } \
+            description { state: "focused" 0.0; \
+               inherit: "default" 0.0; \
+               visible: 1; \
+               color_class: "W161";\
+            } \
+         } \
+         part { name: "over1"; \
+            type: RECT; \
+            ignore_flags: ON_HOLD; \
+            description { state: "default" 0.0; \
+               color: 0 0 0 0; \
+               min: min_width min_height; \
+            } \
+         } \
+         part { name: "over2"; \
+            type: RECT; \
+            repeat_events: 1; \
+            description { state: "default" 0.0; \
+               color: 0 0 0 0; \
+            } \
+         } \
+         part { name: "disabler"; \
+            type: RECT; \
+            description { state: "default" 0.0; \
+               color: 0 0 0 0; \
+               visible: 0; \
+            } \
+            description { state: "disabled" 0.0; \
+               inherit: "default" 0.0; \
+               visible: 1; \
+            } \
+         } \
+      } \
+      programs { \
+         program { name: "button_press"; \
+            signal: "mouse,down,1*"; \
+            source: "over1"; \
+            script { \
+               if ((get_int(multi_down) == 0) && (get_int(mouse_down) == 0)) \
+                 { \
+                     set_int(mouse_down, 1); \
+                     run_program(PROGRAM:"button_press2"); \
+                 } \
+            } \
+         } \
+         program { name: "button_press2"; \
+            action: SIGNAL_EMIT "elm,action,press" ""; \
+            after: "button_press_anim"; \
+         } \
+         program { name: "button_press_anim"; \
+            action: STATE_SET "pressed" 0.0; \
+            target: "button_bg"; \
+            target: "elm.swallow.content"; \
+         } \
+         program { name: "button_unpress"; \
+            signal: "mouse,up,1*"; \
+            source: "over2"; \
+            script { \
+               if (get_int(mouse_down) == 1) \
+                 { \
+                    set_int(mouse_down, 0); \
+                    run_program(PROGRAM:"button_unpress2"); \
+                    run_program(PROGRAM:"button_unpress_anim"); \
+                 } \
+            } \
+         } \
+         program { name: "button_unpress2"; \
+            action: SIGNAL_EMIT "elm,action,unpress" ""; \
+         } \
+         program { name: "button_unpress_anim"; \
+            action: STATE_SET "default" 0.0; \
+            target: "button_bg"; \
+            target: "elm.swallow.content"; \
+         } \
+         program { name: "key_press"; \
+            signal: "elm,action,pressed"; \
+            source: "elm"; \
+            action: STATE_SET "pressed" 0.0; \
+            target: "button_bg"; \
+            target: "elm.swallow.content"; \
+         } \
+         program { name: "key_unpress"; \
+            signal: "elm,action,unpressed"; \
+            source: "elm"; \
+            action: STATE_SET "default" 0.0; \
+            target: "button_bg"; \
+            target: "elm.swallow.content"; \
+         } \
+         program { name: "button_click"; \
+            signal: "mouse,clicked,1"; \
+            source: "over1"; \
+            script { \
+               if (get_int(multi_down) == 0) { \
+                 run_program(PROGRAM:"play_sound"); \
+                 run_program(PROGRAM:"button_click2"); \
+               } \
+            } \
+         } \
+         program { name: "play_sound"; \
+            action: RUN_PLUGIN "touch_sound"; \
+         } \
+         program { name: "button_click2"; \
+            action: SIGNAL_EMIT "elm,action,click" ""; \
+         } \
+         program { name: "disable"; \
+            signal: "elm,state,disabled"; \
+            source: "elm"; \
+            action: STATE_SET "disabled" 0.0; \
+            target: "disabler"; \
+            target: "elm.swallow.content"; \
+         } \
+         program { name: "enable"; \
+            signal: "elm,state,enabled"; \
+            source: "elm"; \
+            action: STATE_SET "default" 0.0; \
+            target: "disabler"; \
+            target: "elm.swallow.content"; \
+         } \
+         program { name: "action_focus"; \
+            signal: "elm,action,focus_highlight,show"; \
+            source: "elm"; \
+            action: STATE_SET "focused" 0.0; \
+            target: "focus_image"; \
+         } \
+         program { name: "action_unfocus"; \
+            signal: "elm,action,focus_highlight,hide"; \
+            source: "elm"; \
+            action: STATE_SET "default" 0.0; \
+            target: "focus_image"; \
+         } \
+         program { \
+            name: "multi_down"; \
+            signal: "elm,action,multi,down"; \
+            source: "elm"; \
+            script { \
+               set_int(multi_down, 1); \
+            } \
+         } \
+         program { \
+            name: "multi_up"; \
+            signal: "elm,action,multi,up"; \
+            source: "elm"; \
+            script { \
+               set_int(multi_down, 0); \
+            } \
+         } \
+      } \
+   }
+
+MSG_BUTTON_THREAD_CONTACT_CIRCLE_STYLE("circle_button", 99, 99)
+///////////////////////////////////////////////////////////////////////////////////////
+#define BUTTON_ICON_STYLES(style_name , min_width, min_height) \
+   group { name: "elm/button/base/"style_name; \
+      images { \
+      } \
+      script { \
+         public mouse_down = 0; \
+         public multi_down = 0; \
+      } \
+      parts { \
+         part { name: "button_image"; \
+            type: SPACER; \
+            scale: 1; \
+            description { state: "default" 0.0; \
+               min: min_width min_height; \
+               max: min_width min_height; \
+            } \
+         } \
+         part { name: "button_center_part"; \
+			type : SWALLOW ; \
+            mouse_events: 0; \
+            scale: 1; \
+            description { state: "default" 0.0; \
+               rel1.to: "button_image"; \
+               rel2.to: "button_image"; \
+            } \
+            description { state: "pressed" 0.0; \
+               inherit: "default" 0.0; \
+            } \
+            description { state: "disabled" 0.0; \
+               inherit: "default" 0.0; \
+            } \
+         } \
+         part { name: "over1"; \
+            type: RECT; \
+            repeat_events: 1; \
+            ignore_flags: ON_HOLD; \
+            description { state: "default" 0.0; \
+               rel1.to: "button_image"; \
+               rel2.to: "button_image"; \
+               color: 0 0 0 0; \
+            } \
+         } \
+         part { name: "over2"; \
+            type: RECT; \
+            repeat_events: 1; \
+            description { state: "default" 0.0; \
+               rel1.to: "button_image"; \
+               rel2.to: "button_image"; \
+               color: 0 0 0 0; \
+            } \
+         } \
+         part { name: "disabler"; \
+            type: RECT; \
+            description { state: "default" 0.0; \
+               rel1.to: "button_image"; \
+               rel2.to: "button_image"; \
+               color: 0 0 0 0; \
+               visible: 0; \
+            } \
+            description { state: "disabled" 0.0; \
+               inherit: "default" 0.0; \
+               visible: 1; \
+            } \
+         } \
+      } \
+      programs { \
+         program { name: "button_press"; \
+            signal: "mouse,down,1*"; \
+            source: "over1"; \
+            script { \
+               if ((get_int(multi_down) == 0) && (get_int(mouse_down) == 0)) \
+                 { \
+                     set_int(mouse_down, 1); \
+                     run_program(PROGRAM:"button_press2"); \
+                 } \
+            } \
+         } \
+         program { name: "button_press2"; \
+            action: SIGNAL_EMIT "elm,action,press" ""; \
+            after: "button_press_anim"; \
+         } \
+         program { name: "button_press_anim"; \
+            action: STATE_SET "pressed" 0.0; \
+            target: "button_center_part"; \
+         } \
+         program { name: "key_press"; \
+            signal: "elm,action,pressed"; \
+            source: "elm"; \
+            action: STATE_SET "pressed" 0.0; \
+            target: "button_center_part"; \
+         } \
+         program { name: "key_unpress"; \
+            signal: "elm,action,unpressed"; \
+            source: "elm"; \
+            action: STATE_SET "default" 0.0; \
+            target: "button_center_part"; \
+         } \
+         program { name: "button_unpress"; \
+            signal: "mouse,up,1*"; \
+            source: "over2"; \
+            script { \
+               if (get_int(mouse_down) == 1) \
+                 { \
+                    set_int(mouse_down, 0); \
+                    run_program(PROGRAM:"button_unpress2"); \
+                    run_program(PROGRAM:"button_unpress_anim"); \
+                 } \
+            } \
+         } \
+         program { name: "button_unpress2"; \
+            action: SIGNAL_EMIT "elm,action,unpress" ""; \
+         } \
+         program { name: "button_unpress_anim"; \
+            action: STATE_SET "default" 0.0; \
+            target: "button_center_part"; \
+         } \
+         program { name: "button_click"; \
+            signal: "mouse,clicked,1"; \
+            source: "over2"; \
+            script { \
+               if (get_int(multi_down) == 0) { \
+                 run_program(PROGRAM:"touch_sound"); \
+                 run_program(PROGRAM:"button_click2"); \
+               } \
+            } \
+         } \
+         program { name: "touch_sound"; \
+            action: RUN_PLUGIN "touch_sound"; \
+         } \
+         program { name: "button_click2"; \
+            action: SIGNAL_EMIT "elm,action,click" ""; \
+         } \
+         program { name: "disable"; \
+            signal: "elm,state,disabled"; \
+            source: "elm"; \
+            action: STATE_SET "disabled" 0.0; \
+            target: "disabler"; \
+            target: "button_center_part"; \
+         } \
+         program { name: "enable"; \
+            signal: "elm,state,enabled"; \
+            source: "elm"; \
+            action: STATE_SET "default" 0.0; \
+            target: "disabler"; \
+            target: "button_center_part"; \
+         } \
+         program { \
+            name: "multi_down"; \
+            signal: "elm,action,multi,down"; \
+            source: "elm"; \
+            script { \
+               set_int(multi_down, 1); \
+            } \
+         } \
+         program { \
+            name: "multi_up"; \
+            signal: "elm,action,multi,up"; \
+            source: "elm"; \
+            script { \
+               set_int(multi_down, 0); \
+            } \
+         } \
+      } \
+   }
+
+BUTTON_ICON_STYLES("send_custom",  46 , 40)
+
+#define BUTTON_ICON_SEND_SIM_STYLES(STYLE_NAME , MIN_WIDTH, MIN_HEIGHT, BG_CN_R, BG_CN_G, BG_CN_B, BG_CN_A, BG_CP_R, BG_CP_G, BG_CP_B, BG_CP_A, BG_CD_R, BG_CD_G, BG_CD_B, BG_CD_A, SIM_IMG_PATH) \
+   group { name: "elm/button/base/"STYLE_NAME; \
+      images { \
+	      image: "btn_send_message_sim_bg.png" COMP; \
+	      image: SIM_IMG_PATH COMP; \
+      } \
+      script { \
+         public mouse_down = 0; \
+         public multi_down = 0; \
+      } \
+      parts { \
+         part { name: "button_image"; \
+            type: SPACER; \
+            scale: 1; \
+            description { state: "default" 0.0; \
+               min: MIN_WIDTH MIN_HEIGHT; \
+               max: MIN_WIDTH MIN_HEIGHT; \
+            } \
+         } \
+         part { name: "button_center_part"; \
+            mouse_events: 0; \
+            scale: 1; \
+            description { state: "default" 0.0; \
+               rel1.to: "button_image"; \
+               rel2.to: "button_image"; \
+               image.normal : "btn_send_message_sim_bg.png"; \
+               color: BG_CN_R BG_CN_G BG_CN_B BG_CN_A; \
+            } \
+            description { state: "pressed" 0.0; \
+               inherit: "default" 0.0; \
+               color: BG_CP_R BG_CP_G BG_CP_B BG_CP_A; \
+            } \
+            description { state: "disabled" 0.0; \
+               inherit: "default" 0.0; \
+               color: BG_CD_R BG_CD_G BG_CD_B BG_CD_A; \
+            } \
+         } \
+         part { \
+			name: "button_sim"; \
+			scale: 1; \
+			description { \
+				state: "default" 0.0; \
+				rel1.to: "button_image"; \
+				rel2.to: "button_image"; \
+				image.normal : SIM_IMG_PATH; \
+				color: COLOR_BLUE; \
+			} \
+		} \
+         part { name: "over1"; \
+            type: RECT; \
+            repeat_events: 1; \
+            ignore_flags: ON_HOLD; \
+            description { state: "default" 0.0; \
+               rel1.to: "button_image"; \
+               rel2.to: "button_image"; \
+               color: 0 0 0 0; \
+            } \
+         } \
+         part { name: "over2"; \
+            type: RECT; \
+            repeat_events: 1; \
+            description { state: "default" 0.0; \
+               rel1.to: "button_image"; \
+               rel2.to: "button_image"; \
+               color: 0 0 0 0; \
+            } \
+         } \
+         part { name: "disabler"; \
+            type: RECT; \
+            description { state: "default" 0.0; \
+               rel1.to: "button_image"; \
+               rel2.to: "button_image"; \
+               color: 0 0 0 0; \
+               visible: 0; \
+            } \
+            description { state: "disabled" 0.0; \
+               inherit: "default" 0.0; \
+               visible: 1; \
+            } \
+         } \
+      } \
+      programs { \
+         program { name: "button_press"; \
+            signal: "mouse,down,1*"; \
+            source: "over1"; \
+            script { \
+               if ((get_int(multi_down) == 0) && (get_int(mouse_down) == 0)) \
+                 { \
+                     set_int(mouse_down, 1); \
+                     run_program(PROGRAM:"button_press2"); \
+                 } \
+            } \
+         } \
+         program { name: "button_press2"; \
+            action: SIGNAL_EMIT "elm,action,press" ""; \
+            after: "button_press_anim"; \
+         } \
+         program { name: "button_press_anim"; \
+            action: STATE_SET "pressed" 0.0; \
+            target: "button_center_part"; \
+         } \
+         program { name: "key_press"; \
+            signal: "elm,action,pressed"; \
+            source: "elm"; \
+            action: STATE_SET "pressed" 0.0; \
+            target: "button_center_part"; \
+         } \
+         program { name: "key_unpress"; \
+            signal: "elm,action,unpressed"; \
+            source: "elm"; \
+            action: STATE_SET "default" 0.0; \
+            target: "button_center_part"; \
+         } \
+         program { name: "button_unpress"; \
+            signal: "mouse,up,1*"; \
+            source: "over2"; \
+            script { \
+               if (get_int(mouse_down) == 1) \
+                 { \
+                    set_int(mouse_down, 0); \
+                    run_program(PROGRAM:"button_unpress2"); \
+                    run_program(PROGRAM:"button_unpress_anim"); \
+                 } \
+            } \
+         } \
+         program { name: "button_unpress2"; \
+            action: SIGNAL_EMIT "elm,action,unpress" ""; \
+         } \
+         program { name: "button_unpress_anim"; \
+            action: STATE_SET "default" 0.0; \
+            target: "button_center_part"; \
+         } \
+         program { name: "button_click"; \
+            signal: "mouse,clicked,1"; \
+            source: "over2"; \
+            script { \
+               if (get_int(multi_down) == 0) { \
+                 run_program(PROGRAM:"touch_sound"); \
+                 run_program(PROGRAM:"button_click2"); \
+               } \
+            } \
+         } \
+         program { name: "touch_sound"; \
+            action: RUN_PLUGIN "touch_sound"; \
+         } \
+         program { name: "button_click2"; \
+            action: SIGNAL_EMIT "elm,action,click" ""; \
+         } \
+         program { name: "disable"; \
+            signal: "elm,state,disabled"; \
+            source: "elm"; \
+            action: STATE_SET "disabled" 0.0; \
+            target: "disabler"; \
+            target: "button_center_part"; \
+         } \
+         program { name: "enable"; \
+            signal: "elm,state,enabled"; \
+            source: "elm"; \
+            action: STATE_SET "default" 0.0; \
+            target: "disabler"; \
+            target: "button_center_part"; \
+         } \
+         program { \
+            name: "multi_down"; \
+            signal: "elm,action,multi,down"; \
+            source: "elm"; \
+            script { \
+               set_int(multi_down, 1); \
+            } \
+         } \
+         program { \
+            name: "multi_up"; \
+            signal: "elm,action,multi,up"; \
+            source: "elm"; \
+            script { \
+               set_int(multi_down, 0); \
+            } \
+         } \
+      } \
+   }
+
+	BUTTON_ICON_SEND_SIM_STYLES("send_custom/sim_1" , 46, 42, 107, 211, 255, 255, 31, 188, 255, 255, 107, 211, 255, 71, "btn_send_message_sim_1.png")
+	BUTTON_ICON_SEND_SIM_STYLES("send_custom/sim_2" , 46, 42, 214, 106, 236, 255, 123, 19, 144, 255, 214, 106, 236, 71, "btn_send_message_sim_2.png")
+	BUTTON_ICON_SEND_SIM_STYLES("send_custom/sim_call" , 46, 42, 160, 243, 109, 255, 114, 237, 38, 255, 160, 243, 109, 71, "btn_send_message_sim_phone.png")
+	BUTTON_ICON_SEND_SIM_STYLES("send_custom/sim_messages" , 46, 42, 255, 251, 240, 255, 254, 231, 165, 255, 255, 251, 240, 71, "btn_send_message_sim_messages.png")
+	BUTTON_ICON_SEND_SIM_STYLES("send_custom/sim_data" , 46, 42, 255, 240, 230, 255, 254, 133, 52, 255, 255, 240, 230, 71, "btn_send_message_sim_data.png")
+	BUTTON_ICON_SEND_SIM_STYLES("send_custom/sim_internet" , 46, 42, 26, 72, 224, 255, 18, 50, 155, 255, 26, 72, 224, 71, "btn_send_message_sim_internet.png")
+	BUTTON_ICON_SEND_SIM_STYLES("send_custom/sim_home" , 46, 42, 46, 255, 185, 255, 0, 224, 150, 255, 46, 255, 185, 71, "btn_send_message_sim_home.png")
+	BUTTON_ICON_SEND_SIM_STYLES("send_custom/sim_office" , 46, 42, 59, 74, 84, 255, 27, 35, 39, 255, 59, 74, 84, 71, "btn_send_message_sim_office.png")
+	BUTTON_ICON_SEND_SIM_STYLES("send_custom/sim_heart" , 46, 42, 248, 216, 233, 255, 237, 151, 197, 255, 248, 216, 233, 71, "btn_send_message_sim_heart.png")
+
+#define BUTTON_BODY_STYLES(style_name ,img_width, img_height, bg_width, bg_height) \
+   group { name: "elm/button/base/"style_name; \
+      images { \
+      } \
+      script { \
+         public mouse_down = 0; \
+         public multi_down = 0; \
+      } \
+      parts { \
+         part { name: "button_bg"; \
+            type: SPACER; \
+            scale: 1; \
+            description { state: "default" 0.0; \
+               min: bg_width bg_height; \
+               max: bg_width bg_height; \
+            } \
+         } \
+         part { name: "button_image"; \
+            type: SPACER; \
+            scale: 1; \
+            description { state: "default" 0.0; \
+               min: img_width img_height; \
+               max: img_width img_height; \
+            } \
+         } \
+         part { name: "button_center_part"; \
+			type : SWALLOW ; \
+            mouse_events: 0; \
+            scale: 1; \
+            description { state: "default" 0.0; \
+               rel1.to: "button_image"; \
+               rel2.to: "button_image"; \
+            } \
+            description { state: "pressed" 0.0; \
+               inherit: "default" 0.0; \
+            } \
+            description { state: "disabled" 0.0; \
+               inherit: "default" 0.0; \
+            } \
+         } \
+         part { name: "over1"; \
+            type: RECT; \
+            repeat_events: 1; \
+            ignore_flags: ON_HOLD; \
+            description { state: "default" 0.0; \
+               rel1.to: "button_bg"; \
+               rel2.to: "button_bg"; \
+               color: 0 0 0 0; \
+            } \
+         } \
+         part { name: "over2"; \
+            type: RECT; \
+            repeat_events: 1; \
+            description { state: "default" 0.0; \
+               rel1.to: "button_bg"; \
+               rel2.to: "button_bg"; \
+               color: 0 0 0 0; \
+            } \
+         } \
+         part { name: "disabler"; \
+            type: RECT; \
+            description { state: "default" 0.0; \
+               rel1.to: "button_bg"; \
+               rel2.to: "button_bg"; \
+               color: 0 0 0 0; \
+               visible: 0; \
+            } \
+            description { state: "disabled" 0.0; \
+               inherit: "default" 0.0; \
+               visible: 1; \
+            } \
+         } \
+      } \
+      programs { \
+         program { name: "button_press"; \
+            signal: "mouse,down,1*"; \
+            source: "over1"; \
+            script { \
+               if ((get_int(multi_down) == 0) && (get_int(mouse_down) == 0)) \
+                 { \
+                     set_int(mouse_down, 1); \
+                     run_program(PROGRAM:"button_press2"); \
+                 } \
+            } \
+         } \
+         program { name: "button_press2"; \
+            action: SIGNAL_EMIT "elm,action,press" ""; \
+            after: "button_press_anim"; \
+         } \
+         program { name: "button_press_anim"; \
+            action: STATE_SET "pressed" 0.0; \
+            target: "button_center_part"; \
+         } \
+         program { name: "key_press"; \
+            signal: "elm,action,pressed"; \
+            source: "elm"; \
+            action: STATE_SET "pressed" 0.0; \
+            target: "button_center_part"; \
+         } \
+         program { name: "key_unpress"; \
+            signal: "elm,action,unpressed"; \
+            source: "elm"; \
+            action: STATE_SET "default" 0.0; \
+            target: "button_center_part"; \
+         } \
+         program { name: "button_unpress"; \
+            signal: "mouse,up,1*"; \
+            source: "over2"; \
+            script { \
+               if (get_int(mouse_down) == 1) \
+                 { \
+                    set_int(mouse_down, 0); \
+                    run_program(PROGRAM:"button_unpress2"); \
+                    run_program(PROGRAM:"button_unpress_anim"); \
+                 } \
+            } \
+         } \
+         program { name: "button_unpress2"; \
+            action: SIGNAL_EMIT "elm,action,unpress" ""; \
+         } \
+         program { name: "button_unpress_anim"; \
+            action: STATE_SET "default" 0.0; \
+            target: "button_center_part"; \
+         } \
+         program { name: "button_click"; \
+            signal: "mouse,clicked,1"; \
+            source: "over2"; \
+            script { \
+               if (get_int(multi_down) == 0) { \
+                 run_program(PROGRAM:"touch_sound"); \
+                 run_program(PROGRAM:"button_click2"); \
+               } \
+            } \
+         } \
+         program { name: "touch_sound"; \
+            action: RUN_PLUGIN "touch_sound"; \
+         } \
+         program { name: "button_click2"; \
+            action: SIGNAL_EMIT "elm,action,click" ""; \
+         } \
+         program { name: "disable"; \
+            signal: "elm,state,disabled"; \
+            source: "elm"; \
+            action: STATE_SET "disabled" 0.0; \
+            target: "disabler"; \
+            target: "button_center_part"; \
+         } \
+         program { name: "enable"; \
+            signal: "elm,state,enabled"; \
+            source: "elm"; \
+            action: STATE_SET "default" 0.0; \
+            target: "disabler"; \
+            target: "button_center_part"; \
+         } \
+         program { \
+            name: "multi_down"; \
+            signal: "elm,action,multi,down"; \
+            source: "elm"; \
+            script { \
+               set_int(multi_down, 1); \
+            } \
+         } \
+         program { \
+            name: "multi_up"; \
+            signal: "elm,action,multi,up"; \
+            source: "elm"; \
+            script { \
+               set_int(multi_down, 0); \
+            } \
+         } \
+      } \
+   }
+
+BUTTON_BODY_STYLES("body_button",50,50,50,50)
+BUTTON_BODY_STYLES("contact_button",46,46,75,87)
+
+///////////////////////////////////////////////////////////////////
+// button for navi title
+///////////////////////////////////////////////////
+group {
+	name: "elm/button/base/title_button";
+	data {
+		item: "focus_highlight" "on";
+	}
+	images {
+		image: "00_title_press.#.png" COMP;
+		image: "M01_title_expanded_circle_thumbnail_mask.png" COMP;
+		image: "00_focus_01.#.png" COMP;
+	}
+	parts {
+		part { name: "focus_image";
+			description {
+				state: "default" 0.0;
+				image.normal: "00_focus_01.#.png";
+				color_class: "W161";
+				visible: 0;
+			}
+			description {
+				state: "focused" 0.0;
+				inherit: "default" 0.0;
+				visible: 1;
+			}
+		}
+		part {
+			name: "padding_top";
+			type: SPACER;
+			scale: 1;
+			description {
+				state: "default" 0.0;
+				fixed: 0 1;
+				min: 0 4;
+				align: 0.5 0.0;
+				rel1 {relative: 0.0 0.0;}
+				rel2 {relative: 1.0 0.0;}
+			}
+		}
+		part {
+			name: "padding_bottom";
+			type: SPACER;
+			scale: 1;
+			description {
+				state: "default" 0.0;
+				fixed: 0 1;
+				min: 0 4;
+				align: 0.5 1.0;
+				rel1 {relative: 0.0 1.0; offset: 0 -4;}
+				rel2 {relative: 1.0 1.0;}
+			}
+		}
+		part {
+			name: "padding_left";
+			type: SPACER;
+			scale: 1;
+			description {
+				state: "default" 0.0;
+				fixed: 1 0;
+				min: 15 0;
+				max: 15 0;
+				align: 0.0 0.5;
+				rel1 {relative: 0.0 1.0; to_y:"padding_top";}
+				rel2 {relative: 0.0 0.0; to_y:"padding_bottom";}
+			}
+		}
+		part {
+			name: "button_image";
+			type: IMAGE;
+			scale: 1;
+			description {
+				state: "default" 0.0;
+				visible: 0;
+				rel1 {relative: 0.0 0.0; }
+				rel2 {relative: 1.0 1.0; }
+			}
+			description {
+				state: "clicked" 0.0;
+				inherit: "default" 0.0;
+				visible: 1;
+				image.normal: "00_title_press.#.png";
+				color: COLOR_DARK_BLUE;
+			}
+			description {
+				state: "disabled" 0.0;
+				inherit: "default" 0.0;
+			}
+		}
+		part {
+			name: "title_icon";
+			type: SWALLOW;
+			scale: 1;
+			description {
+				state: "default" 0.0;
+				align: 0.0 0.5;
+				fixed: 1 1;
+				min: 66 66;
+				max: 66 66;
+				rel1 {relative: 1.0 1.0; to: "padding_left"; to_y:"padding_top";}
+				rel2 {relative: 1.0 0.0; to: "padding_left"; to_y:"padding_bottom";}
+			}
+		}
+		part {
+			name: "title_icon.over";
+			type: IMAGE;
+			scale: 1;
+			description {
+				state: "default" 0.0;
+				rel1 {relative: 0 0; to: "title_icon";}
+				rel2 {relative: 1 1; to: "title_icon";}
+				image.normal: "M01_title_expanded_circle_thumbnail_mask.png";
+				min: TITLE_CT_THUMBNAIL_WIDTH_HEIGHT TITLE_CT_THUMBNAIL_WIDTH_HEIGHT;
+				max: TITLE_CT_THUMBNAIL_WIDTH_HEIGHT TITLE_CT_THUMBNAIL_WIDTH_HEIGHT;
+				fixed: 1 1;
+				color_class: "B011";
+			}
+			description {
+				state: "clicked" 0.0;
+				inherit: "default" 0.0;
+				color: COLOR_DARK_BLUE;
+			}
+		}
+		part{
+			name : "tag.icon";
+			type : SWALLOW;
+			scale : 1;
+			description{
+				state: "default" 0.0;
+				fixed : 1 1;
+				min : 30 30;
+				max : 30 30;
+				align : 1.0 1.0;
+				rel2 {to: "title_icon.over"; relative:1.0 1.0;}
+			}
+		}
+		part {
+			name: "title_icon_padding";
+			type: RECT;
+			scale: 1;
+			description {
+				state: "default" 0.0;
+				min: 25 0;
+				max: 25 0;
+				fixed: 1 1;
+				align: 0.0 0.5;
+				rel1 {relative: 1.0 1.0; to_x: "title_icon"; to_y:"padding_top";}
+				rel2 {relative: 1.0 0.0; to_x: "title_icon"; to_y:"padding_bottom";}
+			}
+		}
+		part {
+			name: "title_text_bg";
+			type: RECT;
+			scale: 1;
+			description {
+				state: "default" 0.0;
+				min: 0 32;
+				fixed: 0 1;
+				align: 0.0 0.5;
+				rel1 { relative: 1.0 1.0; to_x: "title_icon_padding"; to_y:"padding_top";}
+				rel2 { relative: 0.0 0.0; to_x: "padding_right"; to_y:"padding_bottom";}
+				color: 0 0 0 0;
+			}
+			description {
+				state: "subtitle_enable" 0.0;
+				min: 0 32;
+				max: 9999 32;
+				fixed: 0 1;
+				align: 0.0 0.0;
+				rel1 { relative: 1.0 1.0; to_x: "title_icon_padding"; to_y:"padding_top";}
+				rel2 { relative: 0.0 0.0; to_x: "padding_right"; to_y:"padding_bottom";}
+				color: 0 0 0 0;
+			}
+		}
+		part {
+			name: "elm.text";
+			type: TEXT;
+			mouse_events: 0;
+			scale: 1;
+			clip_to: "clipper";
+			description {
+				state: "default" 0.0;
+				visible: 1;
+				text {
+					align: 0.0 0.5;
+					size: 30;
+				}
+				min: 0 32;
+				color: COLOR_WHITE;
+				align: 0.0 0.5;
+				rel1.to: "title_text_bg";
+				rel2.to: "title_text_bg";
+			}
+			description {
+				state: "subtitle_enable" 0.0;
+				inherit: "default" 0.0;
+				min: 0 32;
+				max: 6666 32;
+			}
+		}
+		part {
+			name: "subtitle_text_bg";
+			type: SPACER;
+			scale: 1;
+			description {
+				state: "default" 0.0;
+				min: 0 0;
+				max: 0 0;
+				fixed: 1 1;
+			}
+			description {
+				state: "subtitle_enable" 0.0;
+				min: 0 32;
+				fixed: 0 1;
+				rel1 { relative: 1.0 1.0; to_x: "title_icon_padding"; to_y: "title_text_bg";}
+				rel2 { relative: 0.0 0.0; to_x: "padding_right"; to_y:"padding_bottom";}
+				align: 0.0 0.0;
+			}
+		}
+
+		part {
+			name: "elm.text.subtitle";
+			type: TEXT;
+			mouse_events: 0;
+			clip_to: "clipper";
+			description {
+				state: "default" 0.0;
+				min: 0 0;
+				max: 0 0;
+				visible: 0;
+			}
+			description {
+				state: "subtitle_enable" 0.0;
+				text {
+					size: 24;
+					align: 0.0 0.5;
+				}
+				color: COLOR_BLUE;
+				min: 0 32;
+				fixed: 0 1;
+				align: 0.0 0.5;
+				rel1.to: "subtitle_text_bg";
+				rel2.to: "subtitle_text_bg";
+				visible: 1;
+			}
+		}
+		part {
+			name: "padding_right";
+			type: SPACER;
+			scale: 1;
+			description {
+				state: "default" 0.0;
+				min: 15 0;
+				fixed: 1 0;
+				align: 1.0 0.5;
+				rel1{ relative: 1.0 0.0; offset: -15 0; }
+				rel2{ relative: 1.0 1.0; }
+			}
+		}
+		part {
+			name: "over2";
+			type: RECT;
+			repeat_events: 1;
+			ignore_flags: ON_HOLD;
+			description {
+				state: "default" 0.0;
+				color: 0 0 0 0;
+				rel1 {relative: 0.0 0.0; to: "title_icon"; }
+				rel2 {relative: 0.0 1.0; to: "padding_right"; }
+			}
+		}
+		part {
+			name: "over3";
+			type: RECT;
+			repeat_events: 1;
+			description {
+				state: "default" 0.0;
+				color: 0 0 0 0;
+				rel1 {relative: 0.0 0.0; to: "title_icon"; }
+				rel2 {relative: 0.0 1.0; to: "padding_right"; }
+			}
+		}
+		part {
+			name: "clipper";
+			type: RECT;
+			description {
+				state: "default" 0.0;
+				color: 250 250 250 255;
+			}
+		}
+		part {
+			name: "disabler";
+			type: RECT;
+			description {
+				state: "default" 0.0;
+				color: 0 0 0 0;
+				visible: 0;
+			}
+			description {
+				state: "disabled" 0.0;
+				inherit: "default" 0.0;
+				visible: 1;
+			}
+		}
+	}
+	programs {
+		program {
+			name: "button_click";
+			signal: "mouse,down,1";
+			source: "over2";
+			action: SIGNAL_EMIT "elm,action,press" "";
+			action: RUN_PLUGIN "touch_sound";
+			action: STATE_SET "clicked" 0.0;
+			target: "button_image";
+			target: "title_icon.over";
+		}
+		program {
+			name: "button_unclick";
+			signal: "mouse,up,1";
+			source: "over3";
+			action: SIGNAL_EMIT "elm,action,unpress" "";
+			action: STATE_SET "default" 0.0;
+			target: "button_image";
+			target: "title_icon.over";
+		}
+		program {
+			name: "show_subtitle";
+			signal: "show,subtitle";
+			source: "";
+			action: STATE_SET "subtitle_enable" 0.0;
+			target: "title_text_bg";
+			target: "subtitle_text_bg";
+			target: "elm.text";
+			target: "elm.text.subtitle";
+		}
+		program {
+			name: "hide_subtitle";
+			signal: "hide,subtitle";
+			source: "";
+			action: STATE_SET "default" 0.0;
+			target: "title_text_bg";
+			target: "subtitle_text_bg";
+			target: "elm.text";
+			target: "elm.text.subtitle";
+		}
+		program {
+			name: "button_clicked";
+			signal: "mouse,clicked,1";
+			source: "over2";
+			action: RUN_PLUGIN "touch_sound";
+			after: "button_unclick3";
+		}
+		program {
+			name: "button_unclick3";
+			action: SIGNAL_EMIT "elm,action,click" "";
+		}
+		program {
+			name: "action_focus";
+			signal: "elm,action,focus_highlight,show";
+			source: "elm";
+			action: STATE_SET "focused" 0.0;
+			target: "focus_image";
+		}
+		program {
+			name: "action_unfocus";
+			signal: "elm,action,focus_highlight,hide";
+			source: "elm";
+			action: STATE_SET "default" 0.0;
+			target: "focus_image";
+		}
+	}
+}
+
+/////////////////////////////////////////////////////////////////
+// button for translate
+/////////////////////////////////////////////////////////////////
+#define MSG_BUBBLE_BUTTON_STYLE_TRANSLATE(style_name, bg_image, press_image, dim_image, btn_image) \
+group { \
+	name: "elm/button/base/"style_name; \
+	data.item: "focus_highlight" "on"; \
+	images { \
+		image: bg_image COMP; \
+		image: press_image COMP; \
+		image: dim_image COMP; \
+		image: btn_image COMP; \
+	} \
+	parts { \
+		part { \
+			name: "button_image"; \
+			scale: 1; \
+			description { \
+				state: "default" 0.0; \
+				min: 40 40; \
+				max: 40 40; \
+				image.normal: bg_image; \
+			} \
+			description { \
+				state: "clicked" 0.0; \
+				inherit: "default" 0.0; \
+				image.normal: press_image; \
+			} \
+			description { \
+				state: "disabled" 0.0; \
+				inherit: "default" 0.0; \
+				image.normal: dim_image; \
+			} \
+		} \
+		part { \
+			name: "left_top_padding"; \
+			scale: 1; \
+			type: SPACER; \
+			description { \
+				state: "default" 0.0; \
+				min: 6 6; \
+				max: 6 6; \
+				fixed: 1 1; \
+				align: 0.0 0.0; \
+				rel1.to: "button_image"; \
+				rel2.to: "button_image"; \
+			} \
+		} \
+		part {  \
+			name: "right_bottom_padding";  \
+			scale: 1; \
+			type: SPACER; \
+			description { \
+				state: "default" 0.0; \
+				min: 7 7; \
+				max: 7 7; \
+				fixed: 1 1; \
+				align: 1.0 1.0; \
+				rel1.to: "button_image"; \
+				rel1.relative: 1.0 1.0; \
+				rel2.to: "button_image"; \
+			} \
+		}  \
+		part {  \
+			name: "button_center_part";  \
+			scale: 1; \
+			description { \
+				state: "default" 0.0; \
+				min: 30 30; \
+				max: 30 30; \
+				image.normal: btn_image; \
+				align: 0.5 0.5; \
+			} \
+		}  \
+		part {  \
+			name: "elm.swallow.icon.shadow.proxy";  \
+			type: PROXY; \
+			clip_to: "elm.icon.proxy.clipper"; \
+			scale: 1; \
+			description { \
+				state: "default" 0.0; \
+				source: "button_center_part"; \
+				proxy.source_clip: 0; \
+				rel1 { to: "button_center_part"; } \
+				rel2 { to: "button_center_part"; } \
+			} \
+			description { \
+				state: "clicked" 0.0; \
+				inherit: "default" 0.0; \
+				rel1 { to: "button_center_part";  } \
+				rel2 { to: "button_center_part"; } \
+			} \
+			description { \
+				state: "disabled" 0.0; \
+				inherit: "default" 0.0; \
+			} \
+		}  \
+		part {  \
+			name: "elm.swallow.icon.proxy";  \
+			type: PROXY; \
+			scale: 1; \
+			clip_to: "icon_clipper"; \
+			description { \
+				state: "default" 0.0; \
+				source: "button_center_part"; \
+				proxy.source_clip: 0; \
+				rel1.to: "button_center_part"; \
+				rel2.to: "button_center_part"; \
+			} \
+		}  \
+		part {  \
+			name: "elm.icon.proxy.clipper";  \
+			type: RECT; \
+			description { \
+				state: "default" 0.0; \
+				color: 0 0 0 255; \
+			} \
+			description { \
+				state: "clicked" 0.0; \
+				color: 0 0 0 255; \
+			} \
+			description { \
+				state: "disabled" 0.0; \
+				color: 34 44 72 255; \
+			} \
+		} \
+		part {  \
+			name: "icon_clipper"; \
+			type: RECT; \
+			scale: 1; \
+			description { \
+				state: "default" 0.0; \
+				color: 250 250 250 255; \
+			} \
+			description { \
+				state: "clicked" 0.0; \
+				color: 250 250 250 255; \
+			} \
+			description { \
+				state: "disabled" 0.0; \
+				color: 166 167 169 255; \
+			} \
+		}  \
+		part {  \
+			name: "over1";  \
+			type: RECT; \
+			ignore_flags: ON_HOLD; \
+			description { \
+				state: "default" 0.0; \
+				color: 0 0 0 0; \
+				min: 40 40; \
+			} \
+		} \
+		part {  \
+			name: "over2";  \
+			type: RECT; \
+			repeat_events: 1; \
+			description { \
+				state: "default" 0.0; \
+				color: 0 0 0 0; \
+			} \
+		}  \
+		part {  \
+			name: "disabler";  \
+			type: RECT; \
+			description { \
+				state: "default" 0.0; \
+				color: 0 0 0 0; \
+				visible: 0; \
+			} \
+			description { \
+				state: "disabled" 0.0; \
+				inherit: "default" 0.0; \
+				visible: 1; \
+			} \
+		}  \
+	}  \
+	programs { \
+		program { \
+			name: "button_click"; \
+			signal: "mouse,down,1"; \
+			source: "over1"; \
+			action: SIGNAL_EMIT "elm,action,press" ""; \
+			after: "button_click_anim"; \
+		} \
+		program { \
+			name: "button_click_anim"; \
+			action: STATE_SET "clicked" 0.0; \
+			target: "button_image"; \
+			target: "elm.swallow.icon.shadow.proxy"; \
+			target: "elm.icon.proxy.clipper"; \
+			target: "icon_clipper"; \
+		} \
+		program { \
+			name: "button_double_click"; \
+			signal: "mouse,down,1,double"; \
+			source: "over1"; \
+			after: "button_click_anim"; \
+		} \
+		program { \
+			name: "button_unclick"; \
+			signal: "mouse,up,1"; \
+			source: "over2"; \
+			action: SIGNAL_EMIT "elm,action,unpress" ""; \
+			after: "button_unclick_anim"; \
+		} \
+		program { \
+			name: "button_unclick_anim"; \
+			action: STATE_SET "default" 0.0; \
+			target: "button_image"; \
+			target: "elm.swallow.icon.shadow.proxy"; \
+			target: "elm.icon.proxy.clipper"; \
+			target: "icon_clipper"; \
+		} \
+		program { \
+			name: "touch_snd"; \
+			signal: "mouse,clicked,1"; \
+			source: "over1"; \
+			action: RUN_PLUGIN "touch_sound"; \
+			after: "button_unclick3"; \
+		} \
+		program { \
+			name: "button_unclick3"; \
+			action: SIGNAL_EMIT "elm,action,click" ""; \
+		} \
+		program { \
+			name: "disable"; \
+			signal: "elm,state,disabled"; \
+			source: "elm"; \
+			action: STATE_SET "disabled" 0.0; \
+			target: "disabler"; \
+			target: "button_image"; \
+			target: "elm.swallow.icon.shadow.proxy"; \
+			target: "elm.icon.proxy.clipper"; \
+			target: "icon_clipper"; \
+		} \
+		program { \
+			name: "enable"; \
+			signal: "elm,state,enabled"; \
+			source: "elm"; \
+			action: STATE_SET "default" 0.0; \
+			target: "disabler"; \
+			target: "button_image"; \
+			target: "elm.swallow.icon.shadow.proxy"; \
+			target: "elm.icon.proxy.clipper"; \
+			target: "icon_clipper"; \
+		} \
+	} \
+}
+
+MSG_BUBBLE_BUTTON_STYLE_TRANSLATE("translate_button", "M01_circle_button.png", "M01_circle_button_press.png", "M01_circle_button_dim.png", "M01_btn_translate.png")
+
+}

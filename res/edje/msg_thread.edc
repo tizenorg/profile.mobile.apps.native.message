@@ -1,0 +1,58 @@
+collections {
+
+    base_scale: 1.8;
+
+    group { name: "msg_thread";
+      parts {
+         part { name: "swl.bg";
+            type: SWALLOW;
+            scale: 1;
+            description { state: "default" 0.0;
+            }
+         }
+         part { name: "swl.searchbar";
+            type: SWALLOW;
+            mouse_events: 1;
+            scale: 1;
+            description { state: "default" 0.0;
+               min: 0 0;
+               fixed: 0 1;
+               align: 0.5 1.0;
+               rel2 {
+                  relative: 1.0 0.0;
+               }
+            }
+            description { state: "visible" 0.0;
+               inherit: "default" 0.0;
+               align: 0.5 0.0;
+            }
+         }
+         part { name: "swl.list";
+            type: SWALLOW;
+            mouse_events: 1;
+            scale: 1;
+            description { state: "default" 0.0;
+               align: 0.0 0.0;
+               rel1 {
+                  relative: 0.0 1.0;
+                  to: "swl.searchbar";
+               }
+            }
+         }
+      }
+      programs {
+         program { name: "show_searchbar";
+            signal: "show_searchbar";
+            source: "";
+            action: STATE_SET "visible" 0.0;
+            target: "swl.searchbar";
+         }
+         program { name: "hide_searchbar";
+            signal: "hide_searchbar";
+            source: "";
+            action: STATE_SET "default" 0.0;
+            target: "swl.searchbar";
+         }
+      }
+   }
+}

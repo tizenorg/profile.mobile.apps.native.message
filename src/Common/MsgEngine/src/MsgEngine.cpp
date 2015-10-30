@@ -1,0 +1,200 @@
+/*
+ * Copyright (c) 2009-2015 Samsung Electronics Co., Ltd All Rights Reserved
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+#include "MsgEngine.h"
+
+#ifdef TIZEN_PRIVATE_API
+#include "private/MsgStoragePrivate.h"
+#include "private/MsgTransportPrivate.h"
+#include "private/MsgSettingsPrivate.h"
+#else
+ // TODO: msg public headers
+#endif
+
+#include <assert.h>
+
+using namespace Msg;
+
+const std::string handleIsNullStr = "MsgHandle is null!";
+const std::string notImplPublicStr = "Msg. public API is not implemented";
+
+MsgEngine::MsgEngine()
+    : m_MsgHandle(nullptr)
+{
+}
+
+MsgEngine::~MsgEngine()
+{
+    closeService();
+}
+
+int MsgEngine::openService()
+{
+    TRACE;
+    if(m_MsgHandle)
+    {
+        MSG_LOG_ERROR("Handle already has been opened");
+    }
+    int result = 0;
+
+
+#ifdef TIZEN_PRIVATE_API
+    int res = msg_open_msg_handle(&m_MsgHandle);
+    MSG_LOG_ERROR("handle open error = ", res);
+
+    m_MsgStorage.reset(new MsgStoragePrivate(m_MsgHandle));
+    m_MsgTransport.reset(new MsgTransportPrivate(m_MsgHandle));
+    m_MsgSettings.reset(new MsgSettingsPrivate(m_MsgHandle));
+#else
+    // TODO: impl for public API
+
+	result = messages_open_service(&m_MsgHandle);
+
+	/*	if(result == MESSAGES_ERROR_NONE)
+	{
+		m_MsgStorage.reset(new MsgStorage(m_ServiceHandle));
+	}*/
+#endif
+
+    return result;
+}
+
+int MsgEngine::closeService()
+{
+    int result = 0;
+    if(m_MsgHandle)
+    {
+#ifdef TIZEN_PRIVATE_API
+        msg_close_msg_handle(&m_MsgHandle);
+#else
+        result = messages_close_service(m_MsgHandle);
+#endif
+
+        m_MsgHandle = nullptr;
+    }
+    return result;
+}
+
+bool MsgEngine::isReady(std::string &errorMsg) const
+{
+#ifdef TIZEN_PRIVATE_API
+    if(!m_MsgHandle)
+    {
+        errorMsg = handleIsNullStr;
+        return false;
+    }
+#else
+    errorMsg = notImplPublicStr;
+    return false;
+#endif
+    return true;
+}
+
+MsgStorage &MsgEngine::getStorage()
+{
+    assert(m_MsgStorage.get());
+    return *m_MsgStorage;
+}
+
+const MsgStorage &MsgEngine::getStorage() const
+{
+    assert(m_MsgStorage.get());
+    return *m_MsgStorage;
+}
+
+MsgTransport &MsgEngine::getTransport()
+{
+    assert(m_MsgTransport.get());
+    return *m_MsgTransport;
+}
+
+const MsgTransport &MsgEngine::getTransport() const
+{
+    assert(m_MsgTransport.get());
+    return *m_MsgTransport;
+}
+
+MsgSettings &MsgEngine::getSettings()
+{
+    assert(m_MsgSettings.get());
+    return *m_MsgSettings;
+}
+
+const MsgSettings &MsgEngine::getSettings() const
+{
+    assert(m_MsgSettings.get());
+    return *m_MsgSettings;
+}
+
+std::string MsgEngine::whatError(int error)
+{
+#ifdef TIZEN_PRIVATE_API
+	// TODO: impl for private API
+#else
+    switch(error)
+    {
+        case MESSAGES_ERROR_NONE:
+            return "MESSAGES_ERROR_NONE";
+        break;
+        case MESSAGES_ERROR_OUT_OF_MEMORY:
+            return "MESSAGES_ERROR_OUT_OF_MEMORY";
+        break;
+        case MESSAGES_ERROR_INVALID_PARAMETER:
+            return "MESSAGES_ERROR_INVALID_PARAMETER";
+        break;
+        case MESSAGES_ERROR_SERVER_NOT_READY:
+            return "MESSAGES_ERROR_SERVER_NOT_READY";
+        break;
+        case MESSAGES_ERROR_COMMUNICATION_WITH_SERVER_FAILED:
+            return "MESSAGES_ERROR_COMMUNICATION_WITH_SERVER_FAILED";
+        break;
+        case MESSAGES_ERROR_OUT_OF_RANGE:
+            return "MESSAGES_ERROR_OUT_OF_RANGE";
+        break;
+        case MESSAGES_ERROR_SENDING_FAILED:
+            return "MESSAGES_ERROR_SENDING_FAILED";
+        break;
+        case MESSAGES_ERROR_OPERATION_FAILED:
+            return "MESSAGES_ERROR_OPERATION_FAILED";
+        break;
+        case MESSAGES_ERROR_NO_SIM_CARD:
+            return "MESSAGES_ERROR_NO_SIM_CARD";
+        break;
+        case MESSAGES_ERROR_NO_DATA:
+            return "MESSAGES_ERROR_NO_DATA";
+        break;
+        case MESSAGES_ERROR_PERMISSION_DENIED:
+            return "MESSAGES_ERROR_PERMISSION_DENIED";
+        break;
+        case MESSAGES_ERROR_NOT_SUPPORTED:
+            return "MESSAGES_ERROR_NOT_SUPPORTED";
+        break;
+        default:
+            return "SOME ANOTHER ERROR";
+            break;
+    }
+
+#endif
+    return "SOME ANOTHER ERROR";
+}
+
+int MsgEngine::calculateTextLen(const std::string &text) const
+{
+    // TODO:
+   //  msg_util_calculate_text_length;
+    return text.length();
+}

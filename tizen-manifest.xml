@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<manifest xmlns="http://tizen.org/ns/packages" api-version="2.4" package="org.tizen.message-pub" version="1.0.0">
+    <profile name="mobile"/>
+    <ui-application appid="org.tizen.message-pub" exec="message-pub" launch_mode="single" multiple="false" nodisplay="false" taskmanage="true" type="capp">
+        <label>Message-pub</label>
+        <icon>message.png</icon>
+    </ui-application>
+    <privileges>
+        <privilege>http://tizen.org/privilege/datasharing</privilege>
+        <privilege>http://tizen.org/privilege/callhistory.read</privilege>
+        <privilege>http://tizen.org/privilege/contact.write</privilege>
+        <privilege>http://tizen.org/privilege/message.write</privilege>
+        <privilege>http://tizen.org/privilege/content.write</privilege>
+        <privilege>http://tizen.org/privilege/telephony</privilege>
+        <privilege>http://tizen.org/privilege/message.read</privilege>
+        <privilege>http://tizen.org/privilege/contact.read</privilege>
+    </privileges>
+</manifest>

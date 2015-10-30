@@ -1,0 +1,27 @@
+
+SET(SRC_EDC ${CMAKE_CURRENT_SOURCE_DIR}/edje)
+SET(SRC_IMG ${CMAKE_CURRENT_SOURCE_DIR}/images)
+SET(SRC_EDJ_RES ${CMAKE_SOURCE_DIR}/edje)
+
+FILE(GLOB EDC_FILES ${SRC_EDC}/*.edc)
+
+FOREACH(FILE ${EDC_FILES})
+
+    get_filename_component(FILE_NAME ${FILE} NAME_WE)
+   
+    ADD_CUSTOM_TARGET(${FILE_NAME}.edj
+            COMMAND edje_cc
+            -id ${SRC_EDJ_RES}/images
+            -sd ${SRC_EDJ_RES}/sounds
+            ${SRC_EDC}/${FILE_NAME}.edc ${CMAKE_BINARY_DIR}/${FILE_NAME}.edj
+            DEPENDS ${SRC_EDC}/${FILE_NAME}.edc
+    )
+    
+    ADD_DEPENDENCIES(${PROJECT_NAME} ${FILE_NAME}.edj)
+    INSTALL(FILES ${CMAKE_BINARY_DIR}/${FILE_NAME}.edj DESTINATION ${EDJDIR})
+    
+ENDFOREACH()
+
+INSTALL(DIRECTORY ${SRC_IMG}/ DESTINATION ${IMGDIR})
+
+ADD_SUBDIRECTORY(po)
