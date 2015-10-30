@@ -1,0 +1,915 @@
+msgid "IDS_COM_BODY_HOME"
+msgstr "Home"
+
+msgid "IDS_MSGC_POP_DATA_ROAMING_IS_DISABLED_ENABLE_DATA_ROAMING_AND_TRY_AGAIN"
+msgstr "Hindi pinagana ang data roaming. Paganahin ang data roaming at subukang muli."
+
+msgid "IDS_MSGF_POP_NEW_MESSAGE"
+msgstr "Bagong mensahe"
+
+msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
+msgstr "KANSELAHIN"
+
+msgid "IDS_MSG_ACBUTTON_DONE_ABB"
+msgstr "TAPOS NA"
+
+msgid "IDS_COM_BODY_UNKNOWN"
+msgstr "Hindi alam"
+
+msgid "IDS_COM_BODY_MOBILE"
+msgstr "Mobile"
+
+msgid "IDS_MSGC_POP_MOBILE_DATA_IS_DISABLED_ENABLE_MOBILE_DATA_AND_TRY_AGAIN"
+msgstr "Hindi pinagana ang mobile data. Paganahin ang mobile data at subukang muli."
+
+msgid "IDS_TPLATFORM_ACBUTTON_SEND_ABB"
+msgstr "IPADALA"
+
+msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
+msgstr "Hindi sinusuportahang uri ng media."
+
+msgid "IDS_MSGC_POP_UNABLE_TO_SEND_MESSAGES_WHILE_IN_FLIGHT_MODE_DISABLE_FLIGHT_MODE_AND_TRY_AGAIN"
+msgstr "Hindi makapagpadala ng mga mensahe habang nasa Flight mode. Huwag paganahin ang Flight mode at subukang muli."
+
+msgid "IDS_MSGC_POP_UNABLE_TO_ADD_FILE_IS_FORWARD_LOCKED"
+msgstr "Hindi maipasa.\nNaka-lock ang pagpapasa ng file"
+
+msgid "IDS_MSGC_POP_THERE_IS_NOT_ENOUGH_SPACE_IN_YOUR_DEVICE_STORAGE_GO_TO_SETTINGS_POWER_AND_STORAGE_STORAGE_THEN_DELETE_SOME_FILES_AND_TRY_AGAIN"
+msgstr "Walang sapat na espasyo sa iyong device storage. Pumunta sa Mga setting > Power at storage > Storage, pagkatapos ay mag-delete ng ilang file at subukan muli."
+
+msgid "IDS_MSGC_POP_TEXT_AT_TOP"
+msgstr "Text sa itaas"
+
+msgid "IDS_MSGC_POP_TEXT_AT_BOTTOM"
+msgstr "Text sa ibaba"
+
+msgid "IDS_MSGC_POP_SELECT_LAYOUT"
+msgstr "Pumili ng layout"
+
+msgid "IDS_MSGC_POP_MMSCANTADD"
+msgstr "Hindi maidagdag ang content."
+
+msgid "IDS_MSGC_POP_MESSAGE_SCHEDULED_TO_BE_SENT_TO_PS_SEND_NOW_Q"
+msgstr "Naka-iskedyul na ipapadala ang mensahe kay %s. Ipadala ngayon?"
+
+msgid "IDS_MSGC_POP_MAXIMUM_MESSAGE_SIZE_REACHED"
+msgstr "Naabot na ang maximum na laki ng mensahe."
+
+msgid "IDS_MSGC_POP_LOW_BATTERY"
+msgstr "Mahina na ang baterya."
+
+msgid "IDS_MSGC_POP_DURATION_MUST_BE_AT_LEAST_PD_SECONDS"
+msgstr "Hindi dapat mas maikli sa %d segundo ang tagal."
+
+msgid "IDS_MSGC_POP_DISABLING_FLIGHT_MODE_ING"
+msgstr "Hindi pinapagana ang Flight mode..."
+
+msgid "IDS_MSGC_POP_COPIED_TO_SIM_CARD"
+msgstr "Kinopya sa SIM card."
+
+msgid "IDS_MSGC_POP_CANCELLED"
+msgstr "Kinansela."
+
+msgid "IDS_MSGC_OPT_USE_OTHER_CONTACT_INFO_ABB"
+msgstr "Gumamit ng ibang impormasyon ng contact"
+
+msgid "IDS_MSGC_OPT_SEND_VIA"
+msgstr "Ipadala sa pamamagitan ng"
+
+msgid "IDS_MSGC_OPT_IMAGE"
+msgstr "Larawan"
+
+msgid "IDS_MSGC_OPT_EMAIL"
+msgstr "Email"
+
+msgid "IDS_MSGC_OPT_EDIT_ITEM_REPLACE"
+msgstr "Palitan"
+
+msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
+msgstr "View"
+
+msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
+msgstr "Alisin"
+
+msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
+msgstr "I-play"
+
+msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
+msgstr "Kay"
+
+msgid "IDS_MSGC_OPT_CANCEL_MESSAGE"
+msgstr "Cancel message"
+
+msgid "IDS_MSGC_HEADER_RECIPIENT_LIST"
+msgstr "Listahan ng recipient"
+
+msgid "IDS_MSGC_HEADER_PREVIEW"
+msgstr "I-preview"
+
+msgid "IDS_MSGC_HEADER_DURATION_FOR_SLIDE_PD_PD"
+msgstr "Tagal ng slide %d/%d"
+
+msgid "IDS_MSGC_BODY_WAIT_WHILE_ITEMS_ARE_ADDED_TO_SLIDESHOW"
+msgstr "Maghintay habang idinadagdag ang mga item sa slideshow."
+
+msgid "IDS_MSGC_BODY_UNABLE_TO_SEND_MESSAGE"
+msgstr "Hindi maipadala ang mensahe."
+
+msgid "IDS_MSGC_BODY_SELECT_RINGTONE"
+msgstr "Pumili ng ringtone"
+
+msgid "IDS_MSGC_BODY_READ_REPORT_WILL_BE_SENT"
+msgstr "Ipapadala ang ulat ng pagbabasa."
+
+msgid "IDS_MSGC_BODY_NOT_REQUESTED"
+msgstr "Hindi hiniling"
+
+msgid "IDS_MSGC_BODY_MAXIMUM_NUMBER_OF_RECIPIENTS_HPD_REACHED"
+msgstr "Naabot na ang maximum na bilang ng mga recipient (%d)."
+
+msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
+msgstr "Ilagay ang paksa."
+
+msgid "IDS_MSGC_BODY_DUPLICATED_RECIPIENT"
+msgstr "Na-duplicate na recipient."
+
+msgid "IDS_MSGF_SK_FORWARD_LITE"
+msgstr "Fwd"
+
+msgid "IDS_MSGF_POP_UNABLE_TO_SAVE"
+msgstr "Hindi ma-save"
+
+msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
+msgstr "Hindi matagpuan ang lokasyon."
+
+msgid "IDS_MSGF_POP_UNABLE_TO_DELETE"
+msgstr "Hindi ma-delete."
+
+msgid "IDS_MSGF_POP_UNABLE_TO_COPY"
+msgstr "Hindi makopya."
+
+msgid "IDS_MSGF_POP_SOME_CHARACTERS_MAY_BE_LOST_CONTINUE_Q"
+msgstr "Maaari mawala ang ilang character. Magpatuloy?"
+
+msgid "IDS_MSGF_POP_SIM_NOT_INSERTED"
+msgstr "Hindi nakalagay ang SIM"
+
+msgid "IDS_MSGF_POP_SAVING_FAILED"
+msgstr "Nabigo ang pag-save."
+
+msgid "IDS_MSGF_POP_SAVED_IN_MY_FILES"
+msgstr "Naka-save sa Aking Mga File."
+
+msgid "IDS_MSGF_POP_RETRIEVING_MESSAGE_FAILED"
+msgstr "Nabigo ang pagkuha ng mensahe"
+
+msgid "IDS_MSGF_POP_RESTRICTED_CONTENT_TYPE_ATTACH_ANYWAY_Q"
+msgstr "Pinagbabawal na uri ng nilalaman. I-attach pa rin?"
+
+msgid "IDS_MSGF_POP_RESTORING_ING"
+msgstr "Ipinapanumbalik..."
+
+msgid "IDS_MSGF_POP_REJECTED"
+msgstr "Tinanggihan."
+
+msgid "IDS_MSGF_POP_READ_REPORT"
+msgstr "Ulat sa pagbabasa"
+
+msgid "IDS_MSGF_POP_NO_NUMBER"
+msgstr "Walang numero"
+
+msgid "IDS_MSGF_POP_NO_ATTACHMENTS"
+msgstr "Walang mga attachment"
+
+msgid "IDS_MSGF_POP_NEW_MESSAGES"
+msgstr "Mga bagong mensahe"
+
+msgid "IDS_MSGF_POP_MESSAGE_COPIED_FROM_SIM_CARD"
+msgstr "Nakopya ang mensahe mula sa USIM card."
+
+msgid "IDS_MSGF_POP_MAXIMUM_NUMBER_OF_RECIPIENTS_IS_PD_SOME_RECIPIENTS_MAY_BE_LOST"
+msgstr "Ang maximum na bilang ng recipient ay %d. Maaaring mawala ang ilang recipient."
+
+msgid "IDS_MSGF_POP_MAXIMUM_NUMBER_OF_ATTACHMENTS_HPS_EXCEEDED"
+msgstr "Lumagpas na sa maximum na bilang ng mga attachment (%s)."
+
+msgid "IDS_MSGF_POP_MAXIMUM_CHARACTERS"
+msgstr "Naabot na ang maximum na bilang ng mga character."
+
+msgid "IDS_MSGF_POP_IN_PROGRESS_ING"
+msgstr "Isinasagawa..."
+
+msgid "IDS_MSGF_POP_INTIALISING"
+msgstr "Sinisimulan..."
+
+msgid "IDS_MSGF_POP_IF_YOU_DONT_WANT_TO_REPLACE_THE_FILE_RENAME_IT"
+msgstr "Kung ayaw mong palitan ang file, palitan mo ang pangalan nito."
+
+msgid "IDS_MSGF_POP_HELP_PAGE_MESSAGE_FOR_ONE_FILE"
+msgstr "Ang mensaheng ito ay may kasamang naka-attach na file na hindi ipinapakita."
+
+msgid "IDS_MSGF_POP_HELP_PAGE_MESSAGE"
+msgstr "Ang mensaheng ito ay may mga naka-attach na file na hindi ipinapakita."
+
+msgid "IDS_MSGF_POP_FILE_NAME_ALREADY_EXISTS"
+msgstr "Mayroon nang kapangalan ang file."
+
+msgid "IDS_MSGF_POP_DELETING"
+msgstr "Tinatanggal..."
+
+msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
+msgstr "Kinopya sa clipboard."
+
+msgid "IDS_MSGF_POP_CONVERTING_TO_TEXT_MESSAGE_ING"
+msgstr "Kino-convert sa text message..."
+
+msgid "IDS_MSGF_POP_CONVERTING_TO_MULTIMEDIA_MESSAGE_ING"
+msgstr "Kino-convert sa multimedia message..."
+
+msgid "IDS_MSGF_POP_BLOCK_PS_Q"
+msgstr "I-block ang %s?"
+
+msgid "IDS_MSGF_POP_ABOUT_TO_GO_ONLINE_CONTINUE_Q"
+msgstr "Mag-o-online ka(%s). Magpatuloy?"
+
+msgid "IDS_MSGF_OPT_TEXT_MESSAGE"
+msgstr "Text message"
+
+msgid "IDS_MSGF_OPT_SUBJECT_COLON"
+msgstr "Paksa:"
+
+msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
+msgstr "Ipadala sa pamamagitan ng Email"
+
+msgid "IDS_MSGF_OPT_SENDER_ABB"
+msgstr "Nagpadala"
+
+msgid "IDS_MSGF_OPT_SELECT"
+msgstr "Piliin"
+
+msgid "IDS_MSGF_OPT_SAVE_ATTACHMENT"
+msgstr "I-save ang attachment"
+
+msgid "IDS_MSGF_OPT_SAVE"
+msgstr "I-save"
+
+msgid "IDS_MSGF_OPT_REMOVE"
+msgstr "Alisin"
+
+msgid "IDS_MSGF_OPT_INSTALL"
+msgstr "I-install"
+
+msgid "IDS_MSGF_OPT_FORWARD"
+msgstr "Ipasa"
+
+msgid "IDS_MSGF_OPT_EDIT_MESSAGE"
+msgstr "I-edit ang mensahe"
+
+msgid "IDS_MSGF_OPT_DELETE_Q"
+msgstr "I-delete?"
+
+msgid "IDS_MSGF_OPT_DELETE_MESSAGES"
+msgstr "I-delete ang mga mensahe"
+
+msgid "IDS_MSGF_HEADER_SELECT_MESSAGES"
+msgstr "Pumili ng mga mensahe"
+
+msgid "IDS_MSGF_HEADER_SAVE_ALL"
+msgstr "I-save lahat"
+
+msgid "IDS_MSGF_HEADER_MESSAGE_DETAILS"
+msgstr "Mga detalye ng mensahe"
+
+msgid "IDS_MSGF_HEADER_EXPIRES_C_PS"
+msgstr "Mag-e-expire sa: %s"
+
+msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
+msgstr "Advanced na paghahanap"
+
+msgid "IDS_MSGF_BUTTON_SAVE_ALL_ATTACHMENTS_ABB"
+msgstr "Save all attachments"
+
+msgid "IDS_MSGF_BODY_UNKNOWN"
+msgstr "Hindi alam"
+
+msgid "IDS_MSGF_BODY_TO_C"
+msgstr "Para kay:"
+
+msgid "IDS_MSGF_BODY_TEXT_MESSAGES"
+msgstr "Mga text message"
+
+msgid "IDS_MSGF_BODY_SIM_MEMORY_FULL_DELETE_SOME_ITEMS"
+msgstr "Puno na ang memory ng SIM. Mag-delete ng ilang item."
+
+msgid "IDS_MSGF_BODY_SETTINGS"
+msgstr "Mga Setting"
+
+msgid "IDS_MSGF_BODY_SENT_M_DATE_C"
+msgstr "Ipinadala:"
+
+msgid "IDS_MSGF_BODY_REQUESTED"
+msgstr "Hiniling."
+
+msgid "IDS_MSGF_BODY_RECIPIENTS"
+msgstr "Mga Recipient"
+
+msgid "IDS_MSGF_BODY_RECEIVED_M_DATE_C"
+msgstr "Natanggap:"
+
+msgid "IDS_MSGF_BODY_RECEIVED"
+msgstr "Natanggap."
+
+msgid "IDS_MSGF_BODY_READ_REPORT"
+msgstr "Ulat sa pagbabasa"
+
+msgid "IDS_MSGF_BODY_PUSH_MESSAGES"
+msgstr "Mga push message"
+
+msgid "IDS_MSGF_BODY_PD_MESSAGES"
+msgstr "%d (na) mensahe"
+
+msgid "IDS_MSGF_BODY_PD_CONVERSATIONS"
+msgstr "%d (na) pag-uusap"
+
+msgid "IDS_MSGF_BODY_OTHER"
+msgstr "Iba pa"
+
+msgid "IDS_MSGF_BODY_NO_SUBJECT"
+msgstr "Walang paksa"
+
+msgid "IDS_MSGF_BODY_NO_NAME"
+msgstr "Walang pangalan"
+
+msgid "IDS_MSGF_BODY_MULTIMEDIA_MESSAGE_NOTIFICATION"
+msgstr "Notification ng multimedia message"
+
+msgid "IDS_MSGF_BODY_MULTIMEDIA_MESSAGE"
+msgstr "Multimedia message"
+
+msgid "IDS_MSGF_BODY_MSGSIZE_KB"
+msgstr "KB"
+
+msgid "IDS_MSGF_BODY_MMSREADREPLYMSGREAD"
+msgstr "Nabasa na"
+
+msgid "IDS_MSGF_BODY_MMSDELIVERYMSGREJECTED"
+msgstr "Tinanggihan ang mensahe."
+
+msgid "IDS_MSGF_BODY_MMS"
+msgstr "MMS"
+
+msgid "IDS_MSGF_BODY_MESSAGE_SIZE"
+msgstr "Laki ng mensahe"
+
+msgid "IDS_MSGF_BODY_MESSAGE_OPTIONS"
+msgstr "Mga pagpipilian sa mensahe"
+
+msgid "IDS_MSGF_BODY_MESSAGE_DELIVERED"
+msgstr "Na-deliver na ang mensahe"
+
+msgid "IDS_MSGF_BODY_MESSAGE"
+msgstr "Mensahe"
+
+msgid "IDS_MSGF_BODY_ME"
+msgstr "Ako"
+
+msgid "IDS_MSGF_BODY_MAXIMUM_NUMBER_OF_ATTACHMENTS_HP1SS_EXCEEDED_ONLY_FIRST_P2SS_WILL_BE_ADDED"
+msgstr "Sumobra sa maximum na bilang ng mga attachment (%1$s). Tanging ang unang %2$s ang maidadagdag."
+
+msgid "IDS_MSGF_BODY_INVALID_RECIPIENT"
+msgstr "Di-wasto ang recipient."
+
+msgid "IDS_MSGF_BODY_FROM"
+msgstr "Mula kay"
+
+msgid "IDS_MSGF_BODY_FLFROM"
+msgstr "Mula kay:"
+
+msgid "IDS_MSGF_BODY_EXPIRED"
+msgstr "Nag-expire na"
+
+msgid "IDS_MSGF_BODY_DETAILSSENDINGFAILED"
+msgstr "Nabigo ang pagpapadala."
+
+msgid "IDS_MSGF_BODY_DELIVERY_REPORT"
+msgstr "Ulat sa pagpapadala"
+
+msgid "IDS_MSGF_BODY_CP_MESSAGES"
+msgstr "Mga CP message"
+
+msgid "IDS_MSGF_BODY_COPY_TEXT"
+msgstr "Kopyahin ang text"
+
+msgid "IDS_MSGF_BODY_CB_MESSAGES"
+msgstr "Mga CB message"
+
+msgid "IDS_MSGF_BODY_ALL"
+msgstr "Lahat"
+
+msgid "IDS_MSGF_BODY_1_MESSAGE"
+msgstr "1 mensahe"
+
+msgid "IDS_MSGF_BODY_1_CONVERSATION"
+msgstr "1 pag-uusap"
+
+msgid "IDS_MSGS_BODY_REQUEST_A_READ_REPORT_FOR_EACH_MESSAGE_YOU_SEND"
+msgstr "Para sa bawat mensaheng ipapadala mo, humiling ng ulat na nabasa na ito."
+
+msgid "IDS_MSGS_BODY_REQUEST_A_DELIVERY_REPORT_FOR_EACH_MESSAGE_YOU_SEND"
+msgstr "Para sa bawat mensaheng ipapadala mo, humiling ng ulat na naipadala na ito."
+
+msgid "IDS_MSGS_BODY_RADIO_BUTTON"
+msgstr "Radio button"
+
+msgid "IDS_MSGS_BODY_ON_OFF_BUTTON_T_TTS"
+msgstr "Button na I-on/I-off"
+
+msgid "IDS_MSGS_BODY_EXPANDABLE_LIST_T_TTS"
+msgstr "Napapalawak na listahan"
+
+msgid "IDS_MSGS_BODY_AUTOMATICALLY_RETRIEVE_MMS_MESSAGES"
+msgstr "Awtomatikong kunin ang mga mensaheng MMS."
+
+msgid "IDS_MSG_TPOP_UNABLE_TO_PREVIEW_FILE_UNSUPPORTED_FILE_TYPE"
+msgstr "Hindi ma-preview ang file. Hindi sinusuportahang uri ng file."
+
+msgid "IDS_MSG_TPOP_UNABLE_TO_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Hindi makapagdagdag ng mga tatanggap. Hindi wasto ang mga numero."
+
+msgid "IDS_MSG_TPOP_UNABLE_TO_ADD_RECIPIENT_NUMBER_NOT_VALID"
+msgstr "Hindi makapagdagdag ng tatanggap. Hindi wasto ang numero."
+
+msgid "IDS_MSG_TPOP_UNABLE_TO_ADD_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Hindi makapagdagdag ng mga tatanggap. Hindi wasto ang mga numero."
+
+msgid "IDS_MSG_TPOP_UNABLE_TO_ADD_ATTACHMENT_MAXIMUM_NUMBER_OF_ATTACHMENTS_HPD_REACHED"
+msgstr "Hindi makapagdagdag ng kalakip. Naabot na ang pinakamaraming bilang ng kalakip (%d)."
+
+msgid "IDS_MSG_TPOP_THIS_NUMBER_IS_NOT_VALID"
+msgstr "Hindi-wasto ang numerong ito."
+
+msgid "IDS_MSG_TPOP_SELECTED_MESSAGES_COPIED_TO_MOBILE_DEVICE"
+msgstr "Nakopya sa mobile na device ang napiling mga mensahe."
+
+msgid "IDS_MSG_TPOP_PD_MESSAGES_MOVED_TO_MESSAGE_LIST"
+msgstr "Inilipat ang %d mensahe sa listahan ng mensahe."
+
+msgid "IDS_MSG_TPOP_NUMBER_REMOVED_FROM_MESSAGE_BLOCK_LIST"
+msgstr "Inalis ang numero sa listahan ng naka-block na mensahe."
+
+msgid "IDS_MSG_TPOP_NUMBER_ADDED_TO_MESSAGE_BLOCK_LIST"
+msgstr "Idinagdag sa listahan ng naka-block na mensahe ang numero."
+
+msgid "IDS_MSG_TPOP_MESSAGE_COPIED_TO_PS_SIM_CARD"
+msgstr "Nakopya ang mensahe sa %s SIM card."
+
+msgid "IDS_MSG_TPOP_MAXIMUM_NUMBER_OF_CHARACTERS_EXCEEDED"
+msgstr "Lumampas sa maximum na bilang ng mga character."
+
+msgid "IDS_MSG_TPOP_MAXIMUM_MESSAGE_SIZE_HPS_EXCEEDED_RESIZING_ATTACHMENTS_ING"
+msgstr "Nalampasan na ang maximum na laki ng mensahe na (%s). Pinapalitan ang laki ng mga kalakip..."
+
+msgid "IDS_MSG_TPOP_INVALID_CHARACTER_ENTERED"
+msgstr "Nagpasok ng di wastong character"
+
+msgid "IDS_MSG_TPOP_ADD_RECIPIENTS"
+msgstr "Magdagdag ng mga recipient."
+
+msgid "IDS_MSG_TPOP_1_MESSAGE_MOVED_TO_MESSAGE_LIST"
+msgstr "Inilipat ang 1 mensahe sa listahan ng mensahe."
+
+msgid "IDS_MSG_TMBODY_TEXT_MESSAGES"
+msgstr "Mga teksto message"
+
+msgid "IDS_MSG_TMBODY_SOUND"
+msgstr "Tunog"
+
+msgid "IDS_MSG_TMBODY_MULTIMEDIA_MESSAGES"
+msgstr "Mga multimedia message"
+
+msgid "IDS_MSG_TMBODY_MESSAGES_ON_SIM_CARD"
+msgstr "Mga mensahe sa SIM card"
+
+msgid "IDS_MSG_TMBODY_INPUT_MODE"
+msgstr "Mode ng pagpasok"
+
+msgid "IDS_MSG_TMBODY_AUTO_RETRIEVE_WHILE_ROAMING"
+msgstr "I-awtomatikong kunin habang naka-roaming"
+
+msgid "IDS_MSG_TMBODY_AUTO_RETRIEVE"
+msgstr "I-awtomatikong kunin"
+
+msgid "IDS_MSG_SK_SEND_NOW"
+msgstr "Ipadala"
+
+msgid "IDS_MSG_SK_NO_ABB"
+msgstr "Hindi"
+
+msgid "IDS_MSG_SBODY_SELECT_AN_INPUT_MODE_FOR_COMPOSING_MESSAGES"
+msgstr "Pumili ng mode sa pagpasok para sa pagsusulat ng mga mensahe."
+
+msgid "IDS_MSG_SBODY_NONE_M_STATUS"
+msgstr "Wala"
+
+msgid "IDS_MSG_SBODY_MANAGE_THE_MESSAGES_STORED_ON_YOUR_SIM_CARD"
+msgstr "Pangasiwaan ang mga mensaheng nakaimbak sa iyong SIM card."
+
+msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
+msgstr "Tatanggalin ang iyong mensahe. Walang napiling mga tatanggap."
+
+msgid "IDS_MSG_POP_UNABLE_TO_SEND_SCHEDULED_MESSAGE_SET_ANOTHER_TIME"
+msgstr "Hindi maipadala ang nakaiskedyul na mensaheng ito. Itakda sa ibang oras."
+
+msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
+msgstr "Hindi ma-play habang nasa tawag."
+
+msgid "IDS_MSG_POP_UNABLE_TO_ATTACH_FILE_FILE_SIZE_TOO_LARGE_TRY_SENDING_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
+msgstr "Hindi ma-attach ang file. Masyadong malaki ang file. Subukang magpadala sa pamamagitan ng Email, Bluetooth, Wi-Fi, atbp."
+
+msgid "IDS_MSG_POP_TO_SEND_THIS_MULTIMEDIA_MESSAGE_THE_DEVICE_WILL_CONNECT_TO_A_DIFFERENT_MOBILE_NETWORK_THIS_WILL_DISCONNECT_YOUR_DEVICE_FROM_YOUR_MSG"
+msgstr "Para ipadala ang multimedia message na ito, kokonekta ang device sa ibang mobile network. Ididiskonekta nito ang iyong device mula sa iyong kasalukuyang mobile network."
+
+msgid "IDS_MSG_POP_TO_DOWNLOAD_THIS_MULTIMEDIA_MESSAGE_THE_DEVICE_WILL_CONNECT_TO_A_DIFFERENT_MOBILE_NETWORK_MSG"
+msgstr "Para i-download ang multimedia message na ito, kokonekta ang aparato sa isang magkaibang mobile network. Ididiskonekta nito ang iyong device mula sa iyong kasalukuyang mobile network."
+
+msgid "IDS_MSG_POP_THIS_MESSAGE_WILL_BE_RESENT"
+msgstr "Muling ipapadala ang mensahe ng ito."
+
+msgid "IDS_MSG_POP_PD_MESSAGES_WILL_BE_DELETED"
+msgstr "%d mensahe ang tatanggalin."
+
+msgid "IDS_MSG_POP_PD_CONVERSATIONS_WILL_BE_DELETED"
+msgstr "Ide-delete ang %d (na) pag-uusap."
+
+msgid "IDS_MSG_POP_NO_TEMPLATES_IN_LIST"
+msgstr "Walang template sa listahan."
+
+msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
+msgstr "Mga papasok na mensahe lang"
+
+msgid "IDS_MSG_POP_INCLUDE_ORIGINAL_TEXT_IN_OUTGOING_MESSAGE"
+msgstr "Isama ang orihinal na text sa papalabas na mensahe"
+
+msgid "IDS_MSG_POP_DURATION_MUST_BE_SHORTER_THAN_PD_SECONDS"
+msgstr "Mas maikli dapat sa %d (na) segundo ang tagal."
+
+msgid "IDS_MSG_POP_DELETED"
+msgstr "Na-delete na."
+
+msgid "IDS_MSG_POP_1_MESSAGE_WILL_BE_DELETED"
+msgstr "1 mensahe ang tatanggalin."
+
+msgid "IDS_MSG_POP_1_CONVERSATION_WILL_BE_DELETED"
+msgstr "Ide-delete ang 1 pag-uusap."
+
+msgid "IDS_MSG_OPT_VIEW_DETAILS_ABB"
+msgstr "Tingnan ang mga detalye"
+
+msgid "IDS_MSG_OPT_VIEW_CONTACT_DETAILS_ABB"
+msgstr "Tingnan mga detalye ng contact"
+
+msgid "IDS_MSG_OPT_VIEW_AS_SLIDESHOW_ABB"
+msgstr "Tingnan bilang slideshow"
+
+msgid "IDS_MSG_OPT_VIDEOS"
+msgstr "Mga Video"
+
+msgid "IDS_MSG_OPT_UPDATE_CONTACT"
+msgstr "I-update ang contact"
+
+msgid "IDS_MSG_OPT_UNICODE"
+msgstr "Unicode"
+
+msgid "IDS_MSG_OPT_TEXT"
+msgstr "Text"
+
+msgid "IDS_MSG_OPT_TAKE_PICTURE_ABB"
+msgstr "Kumuha ng litrato"
+
+msgid "IDS_MSG_OPT_SETTINGS"
+msgstr "Mga Setting"
+
+msgid "IDS_MSG_OPT_SEARCH"
+msgstr "Maghanap"
+
+msgid "IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"
+msgstr "I-save ang mga attachment"
+
+msgid "IDS_MSG_OPT_RESEND"
+msgstr "Ipadala muli"
+
+msgid "IDS_MSG_OPT_REPLY"
+msgstr "Tumugon"
+
+msgid "IDS_MSG_OPT_REMOVE_FROM_BLOCK_LIST_ABB"
+msgstr "Alisin sa block list"
+
+msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
+msgstr "Mag-record ng video"
+
+msgid "IDS_MSG_OPT_RECORD_AUDIO_FILE_ABB"
+msgstr "Magrekord ng file na audio"
+
+msgid "IDS_MSG_OPT_QUICK_RESPONSE_ABB"
+msgstr "Maikling tugon"
+
+msgid "IDS_MSG_OPT_NONE"
+msgstr "Wala"
+
+msgid "IDS_MSG_OPT_MAKE_VOICE_CALL"
+msgstr "Mag-voice call"
+
+msgid "IDS_MSG_OPT_IMAGES"
+msgstr "Mga Larawan"
+
+msgid "IDS_MSG_OPT_GSM_ALPHABET_ABB"
+msgstr "Alpabeto ng GSM"
+
+msgid "IDS_MSG_OPT_EXPORT_TO_DEVICE_MEMORY"
+msgstr "I-export sa memory ng device."
+
+msgid "IDS_MSG_OPT_EDIT"
+msgstr "I-edit"
+
+msgid "IDS_MSG_OPT_DELETE_MESSAGE"
+msgstr "I-delete ang mensahe"
+
+msgid "IDS_MSG_OPT_DELETE_CONVERSATION_ABB"
+msgstr "I-delete ang pag-uusap"
+
+msgid "IDS_MSG_OPT_DELETE"
+msgstr "I-delete"
+
+msgid "IDS_MSG_OPT_DEFAULT"
+msgstr "Default"
+
+msgid "IDS_MSG_OPT_CREATE_CONTACT_ABB"
+msgstr "Lumikha ng contact"
+
+msgid "IDS_MSG_OPT_COPY_TO_SIM_CARD_ABB"
+msgstr "Kopyahin sa SIM card"
+
+msgid "IDS_MSG_OPT_COPY_TO_DEVICE_ABB"
+msgstr "Kopyahin sa device"
+
+msgid "IDS_MSG_OPT_COPY_TEXT"
+msgstr "Kopyahin ang text"
+
+msgid "IDS_MSG_OPT_COPY"
+msgstr "Kopyahin"
+
+msgid "IDS_MSG_OPT_BACK_UP"
+msgstr "Mag-back up"
+
+msgid "IDS_MSG_OPT_AUTOMATIC"
+msgstr "Awtomatiko"
+
+msgid "IDS_MSG_OPT_AUDIO_FILES_ABB2"
+msgstr "Mga file na audio"
+
+msgid "IDS_MSG_OPT_ATTACHMENT_ABB"
+msgstr "Attachment"
+
+msgid "IDS_MSG_OPT_ADD_TO_CONTACTS_ABB"
+msgstr "Idagdag sa Mga Contact"
+
+msgid "IDS_MSG_OPT_ADD_TO_BLOCK_LIST_ABB"
+msgstr "Idagdag sa block list"
+
+msgid "IDS_MSG_OPT_ADD_RECIPIENTS_ABB"
+msgstr "Magdagdag ng mga tatanggap"
+
+msgid "IDS_MSG_NPBODY_SEARCH"
+msgstr "Paghahanap"
+
+msgid "IDS_MSG_NPBODY_NO_RESULTS_FOUND_ABB"
+msgstr "Walang mga resultang nakita"
+
+msgid "IDS_MSG_NPBODY_NO_QUICK_RESPONSES"
+msgstr "Walang mga mabilis na tugon"
+
+msgid "IDS_MSG_NPBODY_NO_PHRASES_BLOCKED"
+msgstr "Walang na-block na parirala"
+
+msgid "IDS_MSG_NPBODY_NO_MESSAGES_ON_SIM_CARD"
+msgstr "Walang mga mensahe sa SIM card"
+
+msgid "IDS_MSG_NPBODY_NO_MESSAGES"
+msgstr "Walang mga mensahe"
+
+msgid "IDS_MSG_NPBODY_NO_BLOCKED_NUMBERS"
+msgstr "Walang mga naka-block na numero"
+
+msgid "IDS_MSG_MBODY_VIBRATION"
+msgstr "Pag-vibrate"
+
+msgid "IDS_MSG_MBODY_UNKNOWN_NUMBER"
+msgstr "Hindi alam na numero"
+
+msgid "IDS_MSG_MBODY_TEXT_MESSAGE_CENTRE_NUMBER_ABB"
+msgstr "Numero ng center ng text message"
+
+msgid "IDS_MSG_MBODY_SELECT_ALL"
+msgstr "Piliin lahat"
+
+msgid "IDS_MSG_MBODY_ALERTS"
+msgstr "Mga alert"
+
+msgid "IDS_MSG_HEADER_TRANSLATE"
+msgstr "I-translate"
+
+msgid "IDS_MSG_HEADER_TEXT_MESSAGES_ABB"
+msgstr "Mga teksto message"
+
+msgid "IDS_MSG_HEADER_SWITCH_MOBILE_NETWORK_ABB2"
+msgstr "Lumipat ng mobile network"
+
+msgid "IDS_MSG_HEADER_SMS_CENTRE_ABB2"
+msgstr "SMS center"
+
+msgid "IDS_MSG_HEADER_SETTINGS"
+msgstr "Mga Setting"
+
+msgid "IDS_MSG_HEADER_SELECT_RECIPIENT"
+msgstr "Pumili ng recipient"
+
+msgid "IDS_MSG_HEADER_PD_SELECTED_ABB3"
+msgstr "%d ang napili"
+
+msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
+msgstr "Mga mensahe sa SIM card"
+
+msgid "IDS_MSG_HEADER_MESSAGES"
+msgstr "Mga Mensahe"
+
+msgid "IDS_MSG_HEADER_INPUT_MODE_ABB"
+msgstr "Input mode"
+
+msgid "IDS_MSG_HEADER_FILE_SIZE_TOO_LARGE_ABB"
+msgstr "Masyadong malaki ang file"
+
+msgid "IDS_MSG_HEADER_FAILED_TO_SEND_MESSAGE_ABB"
+msgstr "Hindi naipadala ang mensahe"
+
+msgid "IDS_MSG_HEADER_DISCARD_MESSAGE_M_CLOSE_ABB"
+msgstr "I-discard ang mensahe"
+
+msgid "IDS_MSG_HEADER_DELETE"
+msgstr "I-delete"
+
+msgid "IDS_MSG_HEADER_CREATE"
+msgstr "Gumawa"
+
+msgid "IDS_MSG_HEADER_ATTENTION"
+msgstr "Atensyon"
+
+msgid "IDS_MSG_HEADER_ADD_CONTENT_ABB"
+msgstr "Magdagdag ng nilalaman"
+
+msgid "IDS_MSG_BUTTON_SWITCH_ABB2"
+msgstr "Lumipat"
+
+msgid "IDS_MSG_BUTTON_SAVE_ABB2"
+msgstr "I-save"
+
+msgid "IDS_MSG_BUTTON_RESEND_ABB"
+msgstr "Muling ipadala"
+
+msgid "IDS_MSG_BUTTON_REMOVE_ABB"
+msgstr "Alisin"
+
+msgid "IDS_MSG_BUTTON_OK_ABB"
+msgstr "OK"
+
+msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
+msgstr "Download"
+
+msgid "IDS_MSG_BUTTON_DISCARD_ABB"
+msgstr "Itapon"
+
+msgid "IDS_MSG_BUTTON_DELETE_ABB4"
+msgstr "Tanggalin"
+
+msgid "IDS_MSG_BUTTON_CANCEL_ABB2"
+msgstr "Kanselahin"
+
+msgid "IDS_MSG_BUTTON_CANCEL_ABB"
+msgstr "Kanselahin"
+
+msgid "IDS_MSG_BUTTON2_CONTACTS_ABB_M_APPLICATION_NAME"
+msgstr "Mga Contact"
+
+msgid "IDS_MSG_BODY_YOU_HAVE_SELECTED_A_SOUND_N_SHOT_FILE_SOUND_DATA_IS_NOT_SUPPORTED_FOR_MMS_SO_ONLY_THE_PICTURE_WILL_BE_ATTACHED"
+msgstr "Pumili ka ng sound & shot na file. Hindi sinusuportahan ang data ng tunog para sa MMS kaya ang litrato lang ang maa-attach."
+
+msgid "IDS_MSG_BODY_YES"
+msgstr "Oo"
+
+msgid "IDS_MSG_BODY_WAITING_TO_SEND_ING_M_STATUS"
+msgstr "Naghihintay maipadala..."
+
+msgid "IDS_MSG_BODY_UNABLE_TO_SEND_THIS_MESSAGE_INSERT_YOUR_SIM_CARD_AND_TRY_AGAIN"
+msgstr "Hindi mapadala ang mensaheng ito. Ilagay ang SIM card mo at subukang muli."
+
+msgid "IDS_MSG_BODY_TYPE_C"
+msgstr "Uri:"
+
+msgid "IDS_MSG_BODY_TO_USE_RESTRICTED_MEDIA_TYPES_CHANGE_YOUR_MMS_CREATION_MODE_SETTING"
+msgstr "Upang gumamit ng mga pinaghihigpitang uri ng media, palitan ang iyong mga setting ng MMS creation mode."
+
+msgid "IDS_MSG_BODY_TIME_SENT_C"
+msgstr "Oras nang ipinadala:"
+
+msgid "IDS_MSG_BODY_TIME_RECEIVED_C"
+msgstr "Oras nang natanggap:"
+
+msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
+msgstr "Tick box"
+
+msgid "IDS_MSG_BODY_STATUS_C"
+msgstr "Katayuan:"
+
+msgid "IDS_MSG_BODY_SENT_M_STATUS"
+msgstr "Ipinadala"
+
+msgid "IDS_MSG_BODY_SENDING_ING_M_STATUS_ABB"
+msgstr "Ipinapadala..."
+
+msgid "IDS_MSG_BODY_SENDING_FAILED_M_STATUS"
+msgstr "Hindi nagawang ipadala"
+
+msgid "IDS_MSG_BODY_SEC"
+msgstr "seg"
+
+msgid "IDS_MSG_BODY_RETRIEVE_MESSAGES_AUTOMATICALLY_WHILE_ROAMING"
+msgstr "Awtomatikong kunin ang mga mensahe habang naka-roaming."
+
+msgid "IDS_MSG_BODY_RETRIEVE_MESSAGES_AUTOMATICALLY"
+msgstr "Awtomatikong kunin ang mga mensahe."
+
+msgid "IDS_MSG_BODY_READ_REPORT_C_PS"
+msgstr "Ulat sa pagbabasa: %s"
+
+msgid "IDS_MSG_BODY_OTHER_PERSON"
+msgstr "Ibang tao"
+
+msgid "IDS_MSG_BODY_MESSAGE"
+msgstr "Mensahe"
+
+msgid "IDS_MSG_BODY_MEMO_T_MAINMENU"
+msgstr "Memo"
+
+msgid "IDS_MSG_BODY_FAILED_M_STATUS_ABB2"
+msgstr "Hindi nagawa"
+
+msgid "IDS_MSG_BODY_ENTER_TEXT_M_NOUN"
+msgstr "Magpasok ng text"
+
+msgid "IDS_MSG_BODY_DRAFT_M_STATUS_ABB"
+msgstr "Draft"
+
+msgid "IDS_MSG_BODY_DELIVERY_REPORT_C_PS"
+msgstr "Ulat sa paghahatid: %s"
+
+msgid "IDS_MSG_BODY_CB_MESSAGE"
+msgstr "CB message"
+
+msgid "IDS_MSG_BODY_CALENDAR_M_APPLICATION_NAME_ABB"
+msgstr "Kalendaryo"
+
+msgid "IDS_MSG_BODY_AFTER_YOU_SEND_OR_RECEIVE_MESSAGES_THEY_WILL_BE_SHOWN_HERE"
+msgstr "Pagkatapos mong magpadala o makatanggap ng mga mensahe, ipapakita ang mga iyon dito."
+
+msgid "IDS_MSG_BODY_AFTER_YOU_CREATE_QUICK_RESPONSES_THEY_WILL_BE_SHOWN_HERE"
+msgstr "Pagkatapos mong lumikha ng mga mabilis na sagot, ipapakita ang mga iyon dito."
+
+msgid "IDS_MSG_BODY_AFTER_YOU_COPY_MESSAGES_TO_THE_SIM_CARD_THEY_WILL_BE_SHOWN_HERE"
+msgstr "Pagkatapos mong kopyahin ang mensahe sa SIM card, ipapakita ang mga iyon dito."
+
+msgid "IDS_MSG_BODY_AFTER_YOU_ADD_PHRASES_THEY_WILL_BE_SHOWN_HERE"
+msgstr "Pagkatapos mong magdagdag ng mga Parirala, ipapakita ang mga iyon dito."
+
+msgid "IDS_MSG_BODY_AFTER_YOU_ADD_NUMBERS_TO_THE_MESSAGE_BLOCK_LIST_THEY_WILL_BE_SHOWN_HERE"
+msgstr "Pagkatapos mong magdagdag ng mga numero sa listahan ng naka-block na mensahe, ipapakita ang mga iyon dito."
+
+msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
+msgstr "TANGGALIN"
+
+msgid "IDS_ST_BODY_LOADING_ING"
+msgstr "Naglo-load..."
+
+msgid "IDS_MSGS_BODY_NOTIFICATIONS"
+msgstr "Mga Notification"
+
+msgid "IDS_MSG_HEADER_ME"
+msgstr "Ako"
+
+msgid "IDS_MSG_BUTTON_SEND_ABB5"
+msgstr "Ipadala"
+
+msgid "IDS_MSG_BUTTON_SEND_ABB3"
+msgstr "Send"
+
+msgid "IDS_MSG_ACBUTTON_SEND_ABB3"
+msgstr "IPADALA"
+
