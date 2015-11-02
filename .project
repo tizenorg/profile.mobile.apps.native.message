@@ -96,12 +96,12 @@
 		<link>
 			<name>Include_Path</name>
 			<type>2</type>
-			<location>/home/denis/GBS-ROOT/local/BUILD-ROOTS/scratch.armv7l.0/usr/include</location>
+			<locationURI>PARENT-1-WORKSPACE_LOC/custom-buildroots/messages-new-profile.tizen_3.0.note/local/BUILD-ROOTS/scratch.aarch64.0/usr/include</locationURI>
 		</link>
 	</linkedResources>
 	<filteredResources>
 		<filter>
-			<id>1375096574237</id>
+			<id>1446463626770</id>
 			<name></name>
 			<type>26</type>
 			<matcher>
@@ -110,12 +110,21 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1427296954637</id>
+			<id>1446463626772</id>
 			<name></name>
 			<type>26</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
 				<arguments>1.0-projectRelativePath-matches-false-false-*/.tpk</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1446463626775</id>
+			<name></name>
+			<type>26</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-location-matches-false-false-test</arguments>
 			</matcher>
 		</filter>
 	</filteredResources>
