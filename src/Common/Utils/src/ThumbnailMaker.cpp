@@ -18,6 +18,8 @@
 #include "ThumbnailMaker.h"
 #include <Elementary.h>
 #include <stdlib.h>
+#include "ResourceUtils.h"
+#include "Logger.h"
 
 using namespace Msg;
 
@@ -25,24 +27,27 @@ const int defaultThumbSize = 74;
 #define COLOR_BLUE 2, 61, 132, 255
 #define RAND (rand() % 220)
 #define COLOR_RAND RAND, RAND, RAND, 255
+#define MSG_THUMB_STYLE_LIST    "list_ic_user_thumb_masking"
 
 Evas_Object *ThumbnailMaker::make(Evas_Object *parent, Type type, const char *path)
 {
-    Evas_Object *ic = elm_image_add(parent);
+    Evas_Object *ic = nullptr;
 
     if (type == UserType)
     {
-       // TODO:
-      //  void * mask = ea_image_effect_mask(path, MSG_THREAD_LIST_THUMB_USER_MASK_74x74, defaultThumbSize, defaultThumbSize, 0, 0);
-        Evas_Object *ic_obj = elm_image_object_get(ic);
-        evas_object_image_colorspace_set(ic_obj, EVAS_COLORSPACE_ARGB8888);
-        evas_object_image_size_set(ic_obj, ELM_SCALE_SIZE(defaultThumbSize), ELM_SCALE_SIZE(defaultThumbSize));
-     //   evas_object_image_data_set(ic_obj, mask);
-        evas_object_image_alpha_set(ic_obj, EINA_TRUE);
-      //  evas_object_event_callback_add(ic_obj, EVAS_CALLBACK_DEL, __msg_common_image_mask_delete_cb, nullptr);
+        ic = elm_layout_add(parent);
+        std::string edjePath = ResourceUtils::getResourcePath(THUMBNAIL_EDJ_PATH);
+        elm_layout_file_set(ic, edjePath.c_str(), MSG_THUMB_STYLE_LIST);
+
+        Evas_Object *img = elm_image_add(ic);
+        elm_image_file_set(img, path, nullptr);
+        evas_object_size_hint_min_set(img, ELM_SCALE_SIZE(defaultThumbSize), ELM_SCALE_SIZE(defaultThumbSize));
+        elm_image_fill_outside_set(img, EINA_TRUE);
+        elm_object_part_content_set(ic, "content", img);
     }
     else
     {
+        ic = elm_image_add(parent);
         elm_image_file_set(ic, path, nullptr);
         evas_object_color_set(ic, COLOR_RAND);
         evas_object_size_hint_min_set(ic, ELM_SCALE_SIZE(defaultThumbSize), ELM_SCALE_SIZE(defaultThumbSize));

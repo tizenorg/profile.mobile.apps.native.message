@@ -21,17 +21,25 @@
 #include "Logger.h"
 #include "ResourceUtils.h"
 #include "ThumbnailMaker.h"
+#include "MsgEngine.h"
+#include "App.h"
+#include "MsgThreadItem.h"
 
 #include <Elementary.h>
 
 using namespace Msg;
 
-ThreadListItem::ThreadListItem(BaseMsgThreadItemRef threadItem)
+ThreadListItem::ThreadListItem(BaseMsgThreadItemRef threadItem, App &app)
     : m_pMsgThreadItem(threadItem)
+    , m_App(app)
 {
     MSG_LOG("Constructor");
     setState(IconState, false);
     setCheckedState(false, false);
+
+    AddressList addressList = m_App.getMsgEngine().getStorage().getAddressListByThreadId(m_pMsgThreadItem->getId());
+    m_CountContact = addressList.size();
+    m_ThumbPath = updateThumbnailPath(addressList[0]);
 }
 
 ThreadListItem::~ThreadListItem()
@@ -61,9 +69,34 @@ std::string ThreadListItem::getMessage()
 
 Evas_Object *ThreadListItem::getThumbnail()
 {
-    std::string resPath = ResourceUtils::getResourcePath(THUMB_CONTACT_IMG_PATH);
-    Evas_Object *img = ThumbnailMaker::make(*getOwner(), ThumbnailMaker::MsgType, resPath.c_str());
-    return img;
+    std::string resPath;
+    ThumbnailMaker::Type type = ThumbnailMaker::MsgType;
+
+    if(m_CountContact > 1)
+    {
+        resPath = ResourceUtils::getResourcePath(THUMB_GROUP_IMG_PATH);
+    }
+    else if(m_CountContact == 1)
+    {
+        resPath = m_ThumbPath;
+        if(resPath.empty())
+        {
+            resPath = ResourceUtils::getResourcePath(THUMB_CONTACT_IMG_PATH);
+        }
+        else
+        {
+            type = ThumbnailMaker::UserType;
+        }
+    }
+
+    return ThumbnailMaker::make(*getOwner(), type, resPath.c_str());
+}
+
+std::string ThreadListItem::updateThumbnailPath(const std::string &number)
+{
+    ContactPersonNumber contactPersonNumber = m_App.getContactManager().getContactPersonNumber(number);
+    const char *str = contactPersonNumber.getThumbnailPath();
+    return str ? str : "";
 }
 
 std::string ThreadListItem::getTime()
