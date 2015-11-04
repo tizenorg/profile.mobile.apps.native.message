@@ -41,7 +41,6 @@ BuildRequires:  pkgconfig(notification)
 BuildRequires:  pkgconfig(efl-extension)
 BuildRequires:  pkgconfig(capi-system-runtime-info)
 BuildRequires:  pkgconfig(storage)
-BuildRequires:  boost-devel
 
 #private
 BuildRequires:  pkgconfig(msg-service)

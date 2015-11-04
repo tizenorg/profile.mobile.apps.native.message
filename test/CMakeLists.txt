@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.6)
 
-file(GLOB TEST_SRC *.cpp)
+file(GLOB TEST_SRC TC/*.cpp)
 
 FILE(GLOB_RECURSE APP_SRCS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
 	${CMAKE_SOURCE_DIR}/src/Common/*.cpp
@@ -10,11 +10,9 @@ FILE(GLOB_RECURSE APP_SRCS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
 	${CMAKE_SOURCE_DIR}/src/Viewer/*.cpp
 )
 
-FIND_PACKAGE(Boost COMPONENTS system filesystem unit_test_framework REQUIRED)
-INCLUDE_DIRECTORIES( ${Boost_INCLUDE_DIR} )
-ADD_DEFINITIONS(-DBOOST_TEST_DYN_LINK)
-
 INCLUDE_DIRECTORIES(
+	${CMAKE_CURRENT_SOURCE_DIR}/thirdparties/gmock/gtest/include
+	${CMAKE_CURRENT_SOURCE_DIR}/thirdparties/gmock/include
 	${CMAKE_SOURCE_DIR}/src/Common/AppControl/inc
 	${CMAKE_SOURCE_DIR}/src/Common/ContactManager/inc
 	${CMAKE_SOURCE_DIR}/src/Common/Controller/inc
@@ -31,6 +29,8 @@ INCLUDE_DIRECTORIES(
 	${CMAKE_CURRENT_SOURCE_DIR}/src/Viewer/View/inc/
 )
 
+ADD_SUBDIRECTORY(thirdparties/gmock)
+
 ADD_DEFINITIONS(${pkgs_CFLAGS})
 ADD_EXECUTABLE(messages-test
 	${APP_SRCS}
@@ -38,9 +38,7 @@ ADD_EXECUTABLE(messages-test
 )
 
 TARGET_LINK_LIBRARIES(messages-test
-	${Boost_FILESYSTEM_LIBRARY}
-	${Boost_SYSTEM_LIBRARY}
-	${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+	gmock
 	${pkgs_LDFLAGS}
 )
 
