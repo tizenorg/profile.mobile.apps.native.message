@@ -28,6 +28,7 @@
 #include "ThreadListItemType.h"
 #include "SelectAllListItem.h"
 #include "Popup.h"
+#include "ContactManager.h"
 
 #include <Elementary.h>
 #include <sstream>
@@ -101,7 +102,7 @@ void MsgThread::fillThreadList()
     MsgThreadList list = getMsgEngine().getStorage().getThreadList();
     for(auto listItem : list)
     {
-        ThreadListItem *item = new ThreadListItem(listItem);
+        ThreadListItem *item = new ThreadListItem(listItem, getApp());
         m_pThreadListView->appendItem(item->getViewItem());
     }
 }

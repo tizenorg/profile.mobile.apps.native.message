@@ -1,0 +1,36 @@
+#define CIRCLE_MASK(NAME, MASK)\
+group {\
+	name: NAME;\
+		images {\
+             	image: MASK COMP;\
+		}\
+	parts {\
+		part {\
+			name: "masking";\
+			type: IMAGE;\
+			scale: 1;\
+			precise_is_inside: 1;\
+			description {\
+				state: "default" 0.0;\
+				rel1.relative: 0.0 0.0;\
+				rel2.relative: 1.0 1.0;\
+				image.normal: MASK;\
+			}\
+		}\
+		part {\
+			name: "content";\
+			scale: 1;\
+			type: SWALLOW;\
+			clip_to: "masking";\
+			description {\
+				state: "default" 0.0;\
+				rel1.relative: 0.0 0.0;\
+				rel2.relative: 1.0 1.0;\
+			}\
+		}\
+	}\
+}
+
+collections {
+	CIRCLE_MASK("list_ic_user_thumb_masking", "list_ic_user_thumb_masking.png")
+}
