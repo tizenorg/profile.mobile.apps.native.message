@@ -21,6 +21,9 @@
 #include "ThreadListViewItem.h"
 #include "ViewItemController.h"
 #include "MsgThreadItem.h"
+#include "ContactPersonNumber.h"
+#include "ContactManager.h"
+#include "App.h"
 
 namespace Msg
 {
@@ -28,7 +31,7 @@ namespace Msg
         : public ThreadListViewItem
     {
         public:
-            ThreadListItem(BaseMsgThreadItemRef threadItem);
+            ThreadListItem(BaseMsgThreadItemRef threadItem, App &app);
             virtual ~ThreadListItem();
 
             virtual ThreadListViewItem &getViewItem();
@@ -41,12 +44,15 @@ namespace Msg
             virtual std::string getTime();
             virtual std::string getStatus();
             virtual Evas_Object *getThumbnail();
+            std::string updateThumbnail(const std::string &number);
             virtual Evas_Object *getIcon();
+
 
             Evas_Object *makeUnreadBadge(int unreadCount);
 
         private:
             BaseMsgThreadItemRef m_pMsgThreadItem;
+            App &m_App;
     };
 }
 

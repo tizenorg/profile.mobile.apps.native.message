@@ -37,6 +37,7 @@
 #define MSG_THREAD_EDJ_PATH              EDJ_PATH"/msg_thread.edj"
 #define CONTACTS_SEARCH_EDJ_PATH         EDJ_PATH"/contact_search.edj"
 #define MSG_BODY_EDJ_PATH                EDJ_PATH"/msg_body.edj"
+#define THUMBNAIL_EDJ_PATH               EDJ_PATH"/msg_thumbnail.edj"
 
 // Images:
 #define THUMB_CONTACT_IMG_PATH           IMAGE_PATH"/list_ic_contacts.png"
@@ -45,6 +46,9 @@
 #define THUMB_PUSH_IMG_PATH              IMAGE_PATH"/list_ic_push_message.png"
 #define THUMB_OTA_IMG_PATH               IMAGE_PATH"/list_ic_OTA_message.png"
 #define THUMB_USER_MASK_74x74_IMG_PATH   IMAGE_PATH"/list_ic_user_thumb_masking.png"
+
+// Styles:
+#define MSG_THUMB_STYLE_LIST             "list_ic_user_thumb_masking"
 
 // Colors:
 #define BUTTON_COLOR                     2, 61, 132, 255
