@@ -138,6 +138,7 @@
         {
             _contacts_person_number.person_id,
             _contacts_person_number.display_name,
+            _contacts_person_number.image_thumbnail_path
         };
 
         contacts_query_create(_contacts_person_number._uri, &query);
@@ -169,8 +170,8 @@
                 {
                     contacts_record_destroy(crValue, true);
                 }
-                ctRrr = contacts_list_next(list);
             }
+            ctRrr = contacts_list_next(list);
         }
         contacts_list_destroy(list, false);
 

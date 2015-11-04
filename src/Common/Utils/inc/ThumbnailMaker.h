@@ -19,6 +19,7 @@
 #define ThumbnailMaker_h_
 
 #include <Evas.h>
+#include <string>
 
 namespace Msg
 {
@@ -32,7 +33,7 @@ namespace Msg
             };
 
         public:
-            static Evas_Object *make(Evas_Object *parent, Type type, const char *path);
+            static Evas_Object *make(Evas_Object *parent, Type type, const std::string &path);
     };
 }
 
