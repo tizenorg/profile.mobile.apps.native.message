@@ -38,6 +38,7 @@
 #define CONTACTS_SEARCH_EDJ_PATH         EDJ_PATH"/contact_search.edj"
 #define MSG_BODY_EDJ_PATH                EDJ_PATH"/msg_body.edj"
 #define THUMBNAIL_EDJ_PATH               EDJ_PATH"/msg_thumbnail.edj"
+#define MSG_TITLE_EDJ_PATH               EDJ_PATH"/msg_title.edj"
 
 // Images:
 #define THUMB_CONTACT_IMG_PATH           IMAGE_PATH"/list_ic_contacts.png"
