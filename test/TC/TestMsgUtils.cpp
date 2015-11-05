@@ -72,3 +72,13 @@ TEST( TestMsgUtils, isValidEmailTest)
 	ASSERT_FALSE(Msg::MsgUtils::isValidEmail(" leadingspace@example.com"));
 	ASSERT_FALSE(Msg::MsgUtils::isValidEmail("trailing space@example.com"));
 }
+
+TEST( TestMsgUtils, makeNormalizedNumberTest)
+{
+    ASSERT_EQ(Msg::MsgUtils::makeNormalizedNumber("+38(045)34332"), "+3804534332");
+    ASSERT_EQ(Msg::MsgUtils::makeNormalizedNumber("+380453-43-32"), "+3804534332");
+    ASSERT_EQ(Msg::MsgUtils::makeNormalizedNumber("+380453 43 32"), "+3804534332");
+    ASSERT_EQ(Msg::MsgUtils::makeNormalizedNumber("+380453*43*32"), "+380453*43*32");
+    ASSERT_EQ(Msg::MsgUtils::makeNormalizedNumber("+380453- *43-32"), "+380453*4332");
+    ASSERT_EQ(Msg::MsgUtils::makeNormalizedNumber("+38(045)343-32-12-115"), "+380453433212115");
+}

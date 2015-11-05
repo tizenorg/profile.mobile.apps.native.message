@@ -111,3 +111,16 @@ std::string MsgUtils::getMediaTitle(const std::string &path)
     return std::string(alert_title);
 }
 
+static std::string MsgUtils::makeNormalizedNumber(const std::string &number)
+{
+    std::string normalizedNumber;
+    for(auto symbol : number)
+    {
+        if(isdigit(symbol) || symbol == '*' || symbol == '#' || symbol == '+')
+        {
+            normalizedNumber += symbol;
+        }
+    }
+    return normalizedNumber;
+}
+
