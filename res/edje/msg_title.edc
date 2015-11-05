@@ -1,0 +1,426 @@
+#include "colors_define.inl"
+
+#define TITLE_HEIGHT 110
+#define PADDING_SIZE_DEFAULT 32
+#define PADDING_SIZE_ZERO 0
+#define PADDING_SIZE_L_BUTTON 10
+#define PADDING_SIZE_R_BUTTON 17
+#define PADDING_SIZE_R_EMPTY 90
+#define SWALLOW_NORMAL 80
+#define SWALLOW_LARGE 176
+
+collections {
+
+   base_scale: 2.6;
+
+   styles {
+      style {
+         name: "title_font_default";
+         base: "font=Samsung Condensed:style=Latin font_size=50 align=center color=#fafafa ellipsis=1.0";
+      }
+      style {
+         name: "title_font_light";
+         base: "font=Samsung Condensed:style=Latin font_size=50 align=center color=#52cde0 ellipsis=1.0";
+      }
+   }
+
+   group {
+      name: "title";
+      script {
+         public is_light_color = 0;
+         public is_title_button = 0;
+      }
+      parts {
+         part {
+            name: "base";
+            type: RECT;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               min: 0 TITLE_HEIGHT;
+               max: -1 TITLE_HEIGHT;
+               rel1.relative: 0.0 0.0;
+               rel2.relative: 1.0 1.0;
+            }
+            description {
+               state: "hide" 0.0;
+               inherit: "default" 0.0;
+               min: 0 0;
+               max: 0 0;
+            }
+         }
+         part {
+            name: "rect.bg";
+            type: RECT;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               rel1.to: "base";
+               rel2.to: "base";
+               color: TITLE_BG_BLUE;
+            }
+            description {
+               state: "light" 0.0;
+               inherit: "default" 0.0;
+               color: TITLE_BG_WHITE;
+            }
+         }
+         part {
+            name: "pad.left";
+            type: SPACER;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               min: PADDING_SIZE_DEFAULT 0;
+               max: PADDING_SIZE_DEFAULT -1;
+               rel1 {
+                  relative: 0.0 0.0;
+                  to: "rect.bg";
+               }
+               rel2 {
+                  relative: 0.0 1.0;
+                  to_y: "rect.bg";
+               }
+               align: 0.0 0.5;
+               fixed: 1 0;
+            }
+            description {
+               state: "zero" 0.0;
+               inherit: "default" 0.0;
+               min: PADDING_SIZE_ZERO 0;
+               max: PADDING_SIZE_ZERO -1;
+            }
+            description {
+               state: "button" 0.0;
+               inherit: "default" 0.0;
+               min: PADDING_SIZE_L_BUTTON 0;
+               max: PADDING_SIZE_L_BUTTON -1;
+            }
+         }
+         part {
+            name: "swallow.left";
+            type: SWALLOW;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               min: PADDING_SIZE_ZERO 0;
+               max: PADDING_SIZE_ZERO -1;
+               rel1 {
+                  relative: 1.0 0.0;
+                  to: "pad.left";
+               }
+               rel2 {
+                  relative: 1.0 1.0;
+                  to_y: "pad.left";
+               }
+               align: 0.0 0.5;
+               visible: 0;
+            }
+            description {
+               state: "normal" 0.0;
+               inherit: "default" 0.0;
+               visible: 1;
+               min: SWALLOW_NORMAL 0;
+               max: SWALLOW_NORMAL -1;
+            }
+            description {
+               state: "large" 0.0;
+               inherit: "normal" 0.0;
+               min: SWALLOW_LARGE 0;
+               max: SWALLOW_LARGE -1;
+            }
+         }
+         part {
+            name: "pad.center";
+            type: SPACER;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               rel1 {
+                  relative: 1.0 0.0;
+                  to: "swallow.left";
+               }
+               rel2 {
+                  relative: 0.0 1.0;
+                  to: "swallow.right";
+               }
+               align: 0.5 0.5;
+               fixed: 1 0;
+            }
+         }
+         part {
+            name: "swallow.center";
+            type: SWALLOW;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               visible: 0;
+               rel1 {
+                  to: "pad.center";
+               }
+               rel2 {
+                  to: "pad.center";
+               }
+               align: 0.5 0.5;
+            }
+            description {
+               state: "show" 0.0;
+               inherit: "default" 0.0;
+               visible: 1;
+            }
+         }
+         part {
+            name: "text.center";
+            type: TEXTBLOCK;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               visible: 1;
+               rel1 {
+                  to: "pad.center";
+               }
+               rel2 {
+                  to: "pad.center";
+               }
+               align: 0.5 0.5;
+               text {
+                  style: "title_font_default";
+               }
+               fixed: 1 0;
+            }
+            description {
+               state: "light" 0.0;
+               inherit: "default" 0.0;
+               text {
+                  style: "title_font_light";
+               }
+            }
+            description {
+               state: "hide" 0.0;
+               inherit: "default" 0.0;
+               visible: 0;
+            }
+         }
+         part {
+            name: "swallow.right";
+            type: SWALLOW;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               min: PADDING_SIZE_ZERO 0;
+               max: PADDING_SIZE_ZERO -1;
+               rel1 {
+                  relative: 0.0 0.0;
+                  to_y: "pad.right";
+               }
+               rel2 {
+                  relative: 0.0 1.0;
+                  to: "pad.right";
+               }
+               align: 1.0 0.5;
+               visible: 0;
+            }
+            description {
+               state: "normal" 0.0;
+               inherit: "default" 0.0;
+               visible: 1;
+               min: SWALLOW_NORMAL 0;
+               max: SWALLOW_NORMAL -1;
+            }
+            description {
+               state: "large" 0.0;
+               inherit: "normal" 0.0;
+               min: SWALLOW_LARGE 0;
+               max: SWALLOW_LARGE -1;
+            }
+         }
+         part {
+            name: "pad.right";
+            type: SPACER;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               min: PADDING_SIZE_DEFAULT 0;
+               max: PADDING_SIZE_DEFAULT -1;
+               rel1 {
+                  relative: 1.0 0.0;
+                  to_y: "rect.bg";
+               }
+               rel2 {
+                  relative: 1.0 1.0;
+                  to: "rect.bg";
+               }
+               align: 1.0 0.5;
+               fixed: 1 0;
+            }
+            description {
+               state: "zero" 0.0;
+               inherit: "default" 0.0;
+               min: PADDING_SIZE_ZERO 0;
+               max: PADDING_SIZE_ZERO -1;
+            }
+            description {
+               state: "button" 0.0;
+               inherit: "default" 0.0;
+               min: PADDING_SIZE_R_BUTTON 0;
+               max: PADDING_SIZE_R_BUTTON -1;
+            }
+            description {
+               state: "empty" 0.0;
+               inherit: "default" 0.0;
+               min: PADDING_SIZE_R_EMPTY 0;
+               max: PADDING_SIZE_R_EMPTY -1;
+            }
+         }
+      }
+      programs {
+         program {
+            name: "show_title";
+            signal: "title,state,show";
+            source: "*";
+            action: STATE_SET "default" 0.0;
+            target: "base";
+         }
+         program {
+            name: "hide_title";
+            signal: "title,state,hide";
+            source: "*";
+            action: STATE_SET "hide" 0.0;
+            target: "base";
+         }
+         program {
+            name: "switch_color_blue";
+            signal: "title,color,blue";
+            source: "*";
+            script {
+               set_int(is_light_color, 0);
+               set_state(PART:"rect.bg", "default", 0.0);
+               if (get_int(is_title_button) != 1) {
+                  set_state(PART:"text.center", "default", 0.0);
+               }
+            }
+         }
+         program {
+            name: "switch_color_white";
+            signal: "title,color,white";
+            source: "*";
+            script {
+               set_int(is_light_color, 1);
+               set_state(PART:"rect.bg", "light", 0.0);
+               if (get_int(is_title_button) != 1) {
+                  set_state(PART:"text.center", "light", 0.0);
+               }
+            }
+         }
+         program {
+            name: "clear_left";
+            signal: "left,clear";
+            source: "*";
+            action: STATE_SET "default" 0.0;
+            target: "pad.left";
+            target: "swallow.left";
+         }
+         program {
+            name: "clear_right";
+            signal: "right,clear";
+            source: "*";
+            action: STATE_SET "default" 0.0;
+            target: "pad.right";
+            target: "swallow.right";
+         }
+         program {
+            name: "clear_sides";
+            signal: "sides,clear";
+            source: "*";
+            after: "clear_left";
+            after: "clear_right";
+         }
+         program {
+            name: "show_cancel_btn";
+            signal: "cancel,show,btn";
+            source: "*";
+            script {
+               set_state(PART:"pad.left", "zero", 0.0);
+               set_state(PART:"swallow.left", "large", 0.0);
+            }
+         }
+         program {
+            name: "show_done_btn";
+            signal: "done,show,btn";
+            source: "*";
+            script {
+               set_state(PART:"pad.right", "zero", 0.0);
+               set_state(PART:"swallow.right", "large", 0.0);
+            }
+         }
+         program {
+            name: "show_back_btn";
+            signal: "back,show,btn";
+            source: "*";
+            script {
+               set_state(PART:"pad.left", "button", 0.0);
+               set_state(PART:"swallow.left", "normal", 0.0);
+            }
+         }
+         program {
+            name: "show_empty_right";
+            signal: "empty,right,show";
+            source: "*";
+            script {
+               set_state(PART:"pad.right", "empty", 0.0);
+               set_state(PART:"swallow.right", "default", 0.0);
+            }
+         }
+         program {
+            name: "show_down_btn";
+            signal: "down,show,btn";
+            source: "*";
+            script {
+               set_state(PART:"pad.right", "button", 0.0);
+               set_state(PART:"swallow.right", "normal", 0.0);
+            }
+         }
+         program {
+            name: "show_selection_mode";
+            signal: "show,selection,btn";
+            source: "*";
+            after: "show_cancel_btn";
+            after: "show_done_btn";
+         }
+         program {
+            name: "show_btn_center";
+            signal: "center,show,btn";
+            source: "*";
+            script {
+               set_int(is_title_button, 1);
+               set_state(PART:"text.center", "hide", 0.0);
+               set_state(PART:"swallow.center", "show", 0.0);
+            }
+         }
+         program {
+            name: "hide_btn_center";
+            signal: "center,hide,btn";
+            source: "*";
+            script {
+               set_int(is_title_button, 0);
+               set_state(PART:"swallow.center", "default", 0.0);
+               if (get_int(is_light_color) == 1) {
+                  set_state(PART:"text.center", "light", 0.0);
+               }
+               else {
+                  set_state(PART:"text.center", "default", 0.0);
+               }
+            }
+         }
+         program {
+            name: "show_searchbar_place";
+            signal: "search,show";
+            source: "*";
+            action: STATE_SET "button" 0.0;
+            target: "pad.right";
+            after: "show_back_btn";
+            after: "show_btn_center";
+         }
+      }
+   }
+}
