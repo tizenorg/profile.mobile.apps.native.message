@@ -64,7 +64,7 @@ namespace Msg
             void finit();
 
         private:
-            msg_handle_t m_ServiceHandleImpl;
+            msg_handle_t m_ServiceHandle;
             msg_struct_t m_GeneralOpt;
             msg_struct_t m_SmsSendOpt;
             msg_struct_t m_MmsSendOpt;

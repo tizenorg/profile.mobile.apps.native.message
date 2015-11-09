@@ -18,30 +18,30 @@
 #define __MSG_THREAD_ITEM_H__
 
 #include "MsgThreadItem.h"
-
-#include <msg.h>
+#include "MsgListHandlePrivate.h"
+#include "MsgStructListPrivate.h"
+#include "MsgStructPrivate.h"
 
 namespace Msg
 {
     class MsgThreadItemPrivate
-        : public MsgThreadItem
+        : public MsgStructPrivate
+        , public MsgThreadItem
     {
         public:
-            MsgThreadItemPrivate(msg_handle_t serviceHandle, ThreadId threadId);
+            MsgThreadItemPrivate(bool release, msg_struct_t msgStruct = nullptr);
             virtual ~MsgThreadItemPrivate();
 
-            virtual void update();
-            virtual MsgConversationList getConversationList() const;
-
-        private:
-            void initConversationList(MsgConversationList &list) const;
-            void updateName(msg_struct_t threadInfo = nullptr);
-            void updateLastMessage(msg_struct_t threadInfo = nullptr);
-            void updateLastTime(msg_struct_t threadInfo = nullptr);
-
-        private:
-            msg_handle_t m_ServiceHandle;
+            virtual ThreadId getId() const;
+            virtual std::string getName() const;
+            virtual std::string getLastMessage() const;
+            virtual time_t getTime() const;
+            virtual int getStatus() const;
+            virtual int getUnreadCount() const;
     };
+
+    typedef class MsgListHandlePrivate<MsgThreadItemPrivate, MsgThreadItem> MsgThreadListHandlePrivate;
+    typedef class MsgStructListPrivate<MsgThreadItemPrivate, MsgThreadItem> MsgThreadStructListPrivate;
 }
 
 #endif /* __MSG_THREAD_ITEM_H__ */

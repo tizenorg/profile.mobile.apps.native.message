@@ -19,6 +19,7 @@
 #define RecipientItem_h_
 
 #include "RecipientViewItem.h"
+#include "MsgAddress.h"
 
 #include <string>
 
@@ -30,14 +31,23 @@ namespace Msg
         : public RecipientViewItem
     {
         public:
-            RecipientItem();
+            RecipientItem(const std::string &address,
+                          MsgAddress::AddressType addressType,
+                          MsgAddress::RecipientType recipientType = MsgAddress::To);
             virtual ~RecipientItem();
 
-            void setAddress(const std::string &number);
-            std::string getAddress() const ;
+            const std::string &getAddress() const;
+            MsgAddress::AddressType getAddressType() const;
+            MsgAddress::RecipientType getRecipientType() const;
+
+            void setAddress(const std::string &address);
+            void setRecipientType(MsgAddress::RecipientType type);
+            void setAddressType(MsgAddress::AddressType type);
 
         private:
             std::string m_Address;
+            MsgAddress::AddressType m_AddressType;
+            MsgAddress::RecipientType m_RecipientType;
     };
 }
 

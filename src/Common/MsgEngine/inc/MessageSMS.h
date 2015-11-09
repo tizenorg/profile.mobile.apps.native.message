@@ -17,9 +17,17 @@
 #define _MESSAGE_SMS_H__
 
 #include "Message.h"
+#include "MsgList.h"
+
+#include <memory>
 
 namespace Msg
 {
+    class MessageSMS;
+    typedef std::shared_ptr<MessageSMS> MessageSMSRef;
+    typedef MsgList<MessageSMS> MessageSMSList;
+    typedef std::shared_ptr<MsgList<MessageSMS>> MessageSMSListRef;
+
     class MessageSMS:
         public virtual Message
     {
@@ -27,6 +35,7 @@ namespace Msg
             MessageSMS();
             virtual ~MessageSMS();
 
+            virtual std::string getText() const = 0;
             virtual void setText(const std::string &text) = 0;
     };
 }

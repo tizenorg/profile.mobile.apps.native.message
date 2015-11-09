@@ -17,38 +17,30 @@
 #ifndef __MSG_CONVERSATION_ITEM_H__
 #define __MSG_CONVERSATION_ITEM_H__
 
-#include <string>
-#include <memory>
-#include <list>
-
 #include "MsgTypes.h"
 #include "Message.h"
+#include "MsgList.h"
+
+#include <string>
+#include <time.h>
+#include <memory>
 
 namespace Msg
 {
     class MsgConversationItem;
-    typedef std::shared_ptr<MsgConversationItem> BaseMsgConversationItemRef;
-    typedef std::list<BaseMsgConversationItemRef> MsgConversationList;
+    typedef std::shared_ptr<MsgConversationItem> MsgConversationItemRef;
+    typedef std::shared_ptr<MsgList<MsgConversationItem>> MsgConversationListRef;
 
     class MsgConversationItem
     {
         public:
-            MsgConversationItem(ThreadId threadId, ConvItemId convItemId);
             virtual ~MsgConversationItem();
-            ThreadId getThreadId() const;
-            ConvItemId getId() const;
-            const std::string &getText() const;
-            int getTime() const;
-            Message::Direction getDirection() const;
 
-            virtual void update();
-
-        protected:
-            ThreadId m_ThreadId;
-            ConvItemId m_ItemId;
-            std::string m_MsgText;
-            Message::Direction m_Direction;
-            int m_Time;
+            virtual ThreadId getThreadId() const = 0;
+            virtual ConvItemId getId() const = 0;
+            virtual std::string getText() const = 0;
+            virtual time_t getTime() const = 0;
+            virtual Message::Direction getDirection() const = 0;
     };
 }
 

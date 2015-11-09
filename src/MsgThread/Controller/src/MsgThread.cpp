@@ -99,10 +99,12 @@ void MsgThread::showMainCtxPopup()
 
 void MsgThread::fillThreadList()
 {
-    MsgThreadList list = getMsgEngine().getStorage().getThreadList();
-    for(auto listItem : list)
+    MsgThreadListRef list = getMsgEngine().getStorage().getThreadList();
+
+    int length = list->getLength();
+    for(int i = 0; i < length; ++i)
     {
-        ThreadListItem *item = new ThreadListItem(listItem, getApp());
+        ThreadListItem *item = new ThreadListItem(list->at(i), getApp());
         m_pThreadListView->appendItem(item->getViewItem());
     }
 }
@@ -119,9 +121,9 @@ void MsgThread::navigateToSettings()
     getParent().push(*frame);
 }
 
-void MsgThread::navigateToConversation(BaseMsgThreadItemRef threadItem)
+void MsgThread::navigateToConversation(ThreadId threadId)
 {
-    Conversation *frame = new Conversation(getParent(), threadItem);
+    Conversation *frame = new Conversation(getParent(), threadId);
     getParent().push(*frame);
 }
 
@@ -193,16 +195,15 @@ void MsgThread::checkHandler(SelectAllListItem &item)
 
 void MsgThread::checkHandler(ThreadListItem &item)
 {
-    ThreadId threadId = item.getModel()->getId();
+    ThreadId threadId = item.getThreadId();
     MSG_LOG("Checked (id : state) = ", threadId, ":", item.getCheckedState());
 }
 
 void MsgThread::selectHandler(ThreadListItem &item)
 {
-    BaseMsgThreadItemRef msgIt = item.getModel();
-    ThreadId threadId = msgIt->getId();
+    ThreadId threadId = item.getThreadId();
     MSG_LOG("Selected MsgThreadItem id = ", threadId);
-    navigateToConversation(msgIt);
+    navigateToConversation(threadId);
 }
 
 void MsgThread::onHwBackButtonClicked()
@@ -293,7 +294,7 @@ void MsgThread::deleteSelectedItems()
     {
         if(it->getCheckedState())
         {
-            getMsgEngine().getStorage().deleteThread(it->getModel()->getId());
+            getMsgEngine().getStorage().deleteThread(it->getThreadId());
         }
     }
 }

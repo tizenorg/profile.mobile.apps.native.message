@@ -40,16 +40,19 @@ void Conversation::createBubbleList(Evas_Object *parent)
 
 void Conversation::fillConversationList()
 {
-    if(m_pBubbleBox && m_ThreadItem)
+    if(m_pBubbleBox)
     {
         m_pBubbleBox->clear();
 
-        MsgConversationList convList = m_ThreadItem->getConversationList();
-        for(auto convItem: convList)
+        MsgConversationListRef convList = getMsgEngine().getStorage().getConversationList(m_ThreadId);
+        int convListLen = convList->getLength();
+
+        for(int i = 0; i < convListLen; ++i)
         {
-            BubbleView *bubble = new BubbleView(*m_pBubbleBox, (BubbleView::Style)convItem->getDirection());
+            MsgConversationItem &item = convList->at(i);
+            BubbleView *bubble = new BubbleView(*m_pBubbleBox, (BubbleView::Style)item.getDirection());
             bubble->show();
-            bubble->setText(convItem->getText());
+            bubble->setText(item.getText());
             bubble->setTime("10:23 PM");
             m_pBubbleBox->packEnd(*bubble);
         }

@@ -18,17 +18,10 @@
 
 namespace Msg
 {
-    typedef int ThreadId;
-    typedef int ConvItemId;
-
-    enum class MsgAddress
-    {
-        Invalid,
-        Number,
-        Email
-    };
+    // TODO: wrap to struct ?
+    typedef unsigned int ThreadId;
+    typedef unsigned int ConvItemId;
+    typedef unsigned int MsgId;
 }
-
-
 
 #endif /* MSGTYPES_H_ */

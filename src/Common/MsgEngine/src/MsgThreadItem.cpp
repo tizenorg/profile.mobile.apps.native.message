@@ -18,54 +18,8 @@
 
 using namespace Msg;
 
-MsgThreadItem::MsgThreadItem(ThreadId threadId)
-    : m_Id(threadId)
-    , m_Time(0)
-{
-
-}
-
 MsgThreadItem::~MsgThreadItem()
 {
 
 }
 
-void MsgThreadItem::update()
-{
-
-}
-
-ThreadId MsgThreadItem::getId() const
-{
-    return m_Id;
-}
-
-const std::string &MsgThreadItem::getName() const
-{
-    return m_Name;
-}
-
-const std::string &MsgThreadItem::getLastMessage() const
-{
-    return m_LastMessage;
-}
-
-std::string MsgThreadItem::getIcon() const
-{
-    return "iconPath";
-}
-
-int MsgThreadItem::getTime() const
-{
-    return m_Time;
-}
-
-int MsgThreadItem::getStatus() const
-{
-    return 0;
-}
-
-int MsgThreadItem::getUnreadCount() const
-{
-    return 2;
-}

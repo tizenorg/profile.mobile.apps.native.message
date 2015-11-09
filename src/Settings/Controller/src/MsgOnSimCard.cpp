@@ -67,13 +67,13 @@ void MsgOnSimCard::onViewItemCreated()
     setTitleTranslatable();
     setHwButtonListener(getContent(), this);
 
-    auto list = getMsgEngine().getStorage().getSimMsgList();
+ /*   auto list = getMsgEngine().getStorage().getSimMsgList();
     for(auto msg : list)
     {
         MSG_LOG(msg->getNumber());
         MSG_LOG(msg->getText());
         MSG_LOG(msg->getTime());
-    }
+    }*/
 }
 
 void MsgOnSimCard::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)

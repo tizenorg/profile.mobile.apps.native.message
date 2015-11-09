@@ -21,14 +21,11 @@
 
 #include <msg_storage.h>
 
-
 using namespace Msg;
 
-const int defaultStrFiledLength = 128;
-
-MsgThreadItemPrivate::MsgThreadItemPrivate(msg_handle_t serviceHandle, ThreadId threadId)
-    : MsgThreadItem(threadId)
-    , m_ServiceHandle(serviceHandle)
+MsgThreadItemPrivate::MsgThreadItemPrivate(bool release, msg_struct_t msgStruct)
+    : MsgStructPrivate(release, msgStruct)
+    , MsgThreadItem()
 {
 
 }
@@ -38,79 +35,52 @@ MsgThreadItemPrivate::~MsgThreadItemPrivate()
 
 }
 
-void MsgThreadItemPrivate::updateName(msg_struct_t threadInfo)
+ThreadId MsgThreadItemPrivate::getId() const
 {
-    if(threadInfo)
-    {
-        char threadData[128] = {0};
-        msg_get_str_value(threadInfo, MSG_THREAD_NAME_STR, threadData, defaultStrFiledLength);
-        MSG_LOG_INFO(m_Name);
-        m_Name = std::string(threadData);
-    }
+    int id = -1;
+    msg_get_int_value(m_MsgStruct, MSG_THREAD_ID_INT, &id);
+    return id;
 }
 
-void MsgThreadItemPrivate::updateLastMessage(msg_struct_t threadInfo)
+std::string MsgThreadItemPrivate::getName() const
 {
-    if(threadInfo)
+    std::string res;
+    char buf[MAX_DISPLAY_NAME_LEN + 1];
+    if(msg_get_str_value(m_MsgStruct, MSG_THREAD_NAME_STR, buf, MAX_DISPLAY_NAME_LEN) == 0)
     {
-        char threadData[128] = {0};
-        msg_get_str_value(threadInfo, MSG_THREAD_MSG_DATA_STR, threadData, defaultStrFiledLength);
-        MSG_LOG_INFO(m_LastMessage);
-        m_LastMessage = std::string(threadData);
+        res.assign(buf);
     }
+    return res;
 }
 
-void MsgThreadItemPrivate::updateLastTime(msg_struct_t threadInfo)
+std::string MsgThreadItemPrivate::getLastMessage() const
 {
-    if(threadInfo)
+    std::string res;
+    char buf[MAX_MSG_TEXT_LEN + 1];
+    if(msg_get_str_value(m_MsgStruct, MSG_THREAD_MSG_DATA_STR, buf, MAX_MSG_TEXT_LEN) == 0)
     {
-        int time = 0;
-        msg_get_int_value(threadInfo, MSG_THREAD_MSG_TIME_INT, &time);
-        MSG_LOG_INFO(m_Time);
-        m_Time = time;
+        res.assign(buf);
     }
+    return res;
 }
 
-void MsgThreadItemPrivate::update()
+time_t MsgThreadItemPrivate::getTime() const
 {
-    msg_struct_t threadInfo = msg_create_struct(MSG_STRUCT_THREAD_INFO);
-    int result = msg_get_thread(m_ServiceHandle, m_Id, threadInfo);
-    if(result == MSG_SUCCESS)
-    {
-        updateName(threadInfo);
-        updateLastMessage(threadInfo);
-        updateLastTime(threadInfo);
-        msg_release_struct(&threadInfo);
-    }
-    else
-    {
-        MSG_LOG_INFO(result);
-    }
+    int time = 0;
+    msg_get_int_value(m_MsgStruct, MSG_THREAD_MSG_TIME_INT, &time);
+    return time;
 }
 
-void MsgThreadItemPrivate::initConversationList(MsgConversationList &list) const
+int MsgThreadItemPrivate::getStatus() const
 {
-    msg_struct_list_s convList;
-    int error = msg_get_conversation_view_list(m_ServiceHandle, m_Id, &convList);
-    if(error == MSG_SUCCESS)
-    {
-        int convItemId = 0;
-        for (int i = 0; i <= convList.nCount - 1; i++)
-        {
-            if(MSG_SUCCESS == msg_get_int_value(convList.msg_struct_info[i], MSG_CONV_MSG_ID_INT, &convItemId))
-            {
-                BaseMsgConversationItemRef ref(new MsgConversationItemPrivate(m_ServiceHandle, m_Id, convItemId));
-                ref->update();
-                list.push_back(ref);
-            }
-        }
-        msg_release_list_struct(&convList);
-    }
+    // TODO: impl
+    return 0;
 }
 
-MsgConversationList MsgThreadItemPrivate::getConversationList() const
+int MsgThreadItemPrivate::getUnreadCount() const
 {
-    MsgConversationList list;
-    initConversationList(list);
-    return list;
+    int unread = 0;
+    msg_get_int_value(m_MsgStruct, MSG_THREAD_UNREAD_COUNT_INT, &unread);
+    return unread;
 }
+

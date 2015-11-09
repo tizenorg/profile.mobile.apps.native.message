@@ -92,7 +92,7 @@ namespace Msg
             void fillThreadList();
             void composeNewMessage();
             void navigateToSettings();
-            void navigateToConversation(BaseMsgThreadItemRef threadItem);
+            void navigateToConversation(ThreadId threadId);
             void showMainCtxPopup();
             void setMode(Mode mode);
             void setDeleteMode(bool value);

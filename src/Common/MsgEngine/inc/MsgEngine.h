@@ -63,11 +63,11 @@ namespace Msg
             std::unique_ptr<MsgStorage>  m_MsgStorage;
             std::unique_ptr<MsgTransport> m_MsgTransport;
             std::unique_ptr<MsgSettings> m_MsgSettings;
-		#ifdef TIZEN_PRIVATE_API
+        #ifdef TIZEN_PRIVATE_API
             msg_handle_t m_MsgHandle;
-		#else
+        #else
             messages_service_h m_MsgHandle;
-		#endif
+        #endif
 
     };
 }

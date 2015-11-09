@@ -16,28 +16,28 @@
 #ifndef _MESSAGE_SMS_PRIVATE_H__
 #define _MESSAGE_SMS_PRIVATE_H__
 
-#include "MessagePrivate.h"
 #include "MessageSMS.h"
+#include "MessagePrivate.h"
+#include "MsgListHandlePrivate.h"
+#include "MsgStructListPrivate.h"
 
 namespace Msg
 {
     class MessageSMSPrivate
-        : public MessageSMS
-        , public MessagePrivate
+        : public MessagePrivate
+        , public MessageSMS
     {
         public:
-            MessageSMSPrivate(msg_handle_t mainHandle);
-            MessageSMSPrivate(msg_handle_t mainHandle, msg_struct_t msgStruct);
+            MessageSMSPrivate(bool release, msg_struct_t msgStruct = nullptr);
             virtual ~MessageSMSPrivate();
 
             virtual Type getType() const;
             virtual void setText(const std::string &text);
-
             virtual std::string getText() const;
-
-        private:
-            void initBaseHandle();
     };
+
+    typedef class MsgListHandlePrivate<MessageSMSPrivate, MessageSMS> SmsListHandlePrivate;
+    typedef class MsgStructListPrivate<MessageSMSPrivate, MessageSMS> SmsStructListPrivate;
 }
 
 #endif /* _MESSAGE_SMS_PRIVATE_H__ */

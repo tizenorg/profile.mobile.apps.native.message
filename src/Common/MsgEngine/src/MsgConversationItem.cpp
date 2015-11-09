@@ -18,46 +18,7 @@
 
 using namespace Msg;
 
-MsgConversationItem::MsgConversationItem(ThreadId threadId, ConvItemId convItemId)
-    : m_ThreadId(threadId)
-    , m_ItemId(convItemId)
-    , m_Direction()
-    , m_Time()
-{
-
-}
-
 MsgConversationItem::~MsgConversationItem()
 {
 
-}
-
-void MsgConversationItem::update()
-{
-
-}
-
-ThreadId MsgConversationItem::getThreadId() const
-{
-    return m_ThreadId;
-}
-
-ConvItemId MsgConversationItem::getId() const
-{
-    return m_ItemId;
-}
-
-const std::string &MsgConversationItem::getText() const
-{
-    return m_MsgText;
-}
-
-int MsgConversationItem::getTime() const
-{
-    return m_Time;
-}
-
-Message::Direction MsgConversationItem::getDirection() const
-{
-    return m_Direction;
 }

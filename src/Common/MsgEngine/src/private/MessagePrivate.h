@@ -18,37 +18,32 @@
 #define _MESSAGE_PRIVATE_H__
 
 #include "Message.h"
+#include "MsgStructPrivate.h"
+#include "MsgAddressPrivate.h"
 
 #include <msg_types.h>
 
 namespace Msg
 {
-    class MessagePrivate:
-        public virtual Message
+    class MessagePrivate
+        : public virtual Message
+        , public MsgStructPrivate
     {
         public:
-            MessagePrivate(msg_handle_t handle);
+            MessagePrivate(bool release, msg_struct_t msgStruct = nullptr);
             virtual ~MessagePrivate();
 
-            inline msg_struct_t getMsgStruct() const;
-            virtual void setAddressList(const AddressList &addressList);
-            virtual AddressList getAddressList() const;
+            virtual MsgId getId() const;
             virtual ThreadId getThreadId() const;
             virtual time_t getTime() const;
-            virtual std::string getNumber() const;
+            virtual const MsgAddressListHandlePrivate &getAddressList() const;
+            virtual MsgAddressPrivate &addAddress();
+            virtual void addAddresses(const MsgAddressList &list);
 
         protected:
-            void setMsgStruct(msg_struct_t msgStruct);
-
-        private:
-            msg_struct_t m_pMsgStruct;
-            msg_handle_t m_pHandle;
+            mutable MsgAddressPrivate m_Address;
+            mutable MsgAddressListHandlePrivate m_AddressList;
     };
-
-    inline msg_struct_t MessagePrivate::getMsgStruct() const
-    {
-        return m_pMsgStruct;
-    }
 }
 
 #endif /* _MESSAGE_PRIVATE_H__ */

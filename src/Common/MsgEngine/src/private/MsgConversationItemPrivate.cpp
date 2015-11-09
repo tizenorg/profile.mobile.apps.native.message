@@ -16,15 +16,15 @@
 
 #include "MsgConversationItemPrivate.h"
 #include "Logger.h"
+#include "MsgUtilsPrivate.h"
+
 #include <msg_storage.h>
+#include <assert.h>
 
 using namespace Msg;
 
-const int defaultStrFiledLength = 128;
-
-MsgConversationItemPrivate::MsgConversationItemPrivate(msg_handle_t serviceHandle, ThreadId threadId, ConvItemId convItemId)
-    : MsgConversationItem(threadId, convItemId)
-    , m_ServiceHandle(serviceHandle)
+MsgConversationItemPrivate::MsgConversationItemPrivate(bool release, msg_struct_t msgStruct)
+    : MsgStructPrivate(release, msgStruct)
 {
 
 }
@@ -34,55 +34,41 @@ MsgConversationItemPrivate::~MsgConversationItemPrivate()
 
 }
 
-void MsgConversationItemPrivate::update()
+ConvItemId MsgConversationItemPrivate::getId() const
 {
-    msg_struct_t convInfo = msg_create_struct(MSG_STRUCT_CONV_INFO);
-    int result = msg_get_conversation(m_ServiceHandle, m_ItemId, convInfo);
-    if(result == MSG_SUCCESS)
-    {
-        updateText(convInfo);
-        updateTime(convInfo);
-        updateDirection(convInfo);
-        msg_release_struct(&convInfo);
-    }
-    else
-    {
-        MSG_LOG_INFO(result);
-    }
+    int id = -1;
+    msg_get_int_value(m_MsgStruct, MSG_CONV_MSG_ID_INT, &id);
+    return id;
 }
 
-void MsgConversationItemPrivate::updateText(msg_struct_t convItemInfo)
+ThreadId MsgConversationItemPrivate::getThreadId() const
 {
-    if(convItemInfo)
-    {
-        char convItemText[defaultStrFiledLength] = {0};
-        msg_get_str_value(convItemInfo, MSG_CONV_MSG_TEXT_STR, convItemText, defaultStrFiledLength);
-
-        m_MsgText = std::string(convItemText);
-        MSG_LOG_INFO(m_MsgText);
-    }
+    int id = -1;
+    msg_get_int_value(m_MsgStruct, MSG_CONV_MSG_THREAD_ID_INT, &id);
+    return id;
 }
 
-void MsgConversationItemPrivate::updateTime(msg_struct_t convItemInfo)
+std::string MsgConversationItemPrivate::getText() const
 {
-    if(convItemInfo)
+    std::string text;
+    char buf[MAX_MSG_TEXT_LEN + 1];
+    if(msg_get_str_value(m_MsgStruct, MSG_CONV_MSG_TEXT_STR, buf, MAX_MSG_TEXT_LEN) == 0)
     {
-        int time = 0;
-        msg_get_int_value(convItemInfo, MSG_CONV_MSG_DISPLAY_TIME_INT, &time);
-
-        m_Time = time;
-        MSG_LOG_INFO(m_Time);
+        text.assign(buf);
     }
+    return text;
 }
 
-void MsgConversationItemPrivate::updateDirection(msg_struct_t convItemInfo)
+time_t MsgConversationItemPrivate::getTime() const
 {
-    if(convItemInfo)
-    {
-        int direction = 0;
-        msg_get_int_value(convItemInfo, MSG_CONV_MSG_DIRECTION_INT, &direction);
+    int time = 0;
+    msg_get_int_value(m_MsgStruct, MSG_CONV_MSG_DISPLAY_TIME_INT, &time);
+    return time;
+}
 
-        m_Direction = (Message::Direction)direction;
-        MSG_LOG_INFO(m_Direction);
-    }
+Message::Direction MsgConversationItemPrivate::getDirection() const
+{
+    int direction = 0;
+    msg_get_int_value(m_MsgStruct, MSG_CONV_MSG_DIRECTION_INT, &direction);
+    return MsgUtilsPrivate::nativeToDirection(direction);
 }

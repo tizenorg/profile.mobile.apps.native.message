@@ -19,6 +19,7 @@
 #define MsgUtils_H_
 
 #include "MsgTypes.h"
+#include "MsgAddress.h"
 
 #include <string>
 #include <list>
@@ -32,7 +33,7 @@ namespace Msg
             static std::list<std::string> tokenizeRecipients(const std::string &inputText);
             static bool isValidNumber(const std::string &address);
             static bool isValidEmail(const std::string &address);
-            static MsgAddress getAddressType(const std::string &address);
+            static MsgAddress::AddressType getAddressType(const std::string &address);
             static std::string getMediaTitle(const std::string &path);
             static std::string makeNormalizedNumber(const std::string &number);
     };
