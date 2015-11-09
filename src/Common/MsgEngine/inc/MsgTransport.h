@@ -28,7 +28,8 @@ namespace Msg
             MsgTransport();
             virtual ~MsgTransport();
 
-            virtual void sendMessage(const MessageRef msg) = 0;
+            virtual void sendMessage(const Message &msg, ThreadId *threadId = nullptr) = 0;
+            void sendMessage(const MessageRef &msg, ThreadId *threadId = nullptr);
     };
 }
 

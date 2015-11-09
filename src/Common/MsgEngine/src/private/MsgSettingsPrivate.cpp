@@ -31,7 +31,7 @@ using namespace Msg;
 
 MsgSettingsPrivate::MsgSettingsPrivate(msg_handle_t serviceHandle)
     : MsgSettings()
-    , m_ServiceHandleImpl(serviceHandle)
+    , m_ServiceHandle(serviceHandle)
     , m_GeneralOpt()
     , m_SmsSendOpt()
     , m_MmsSendOpt()
@@ -48,16 +48,16 @@ MsgSettingsPrivate::~MsgSettingsPrivate()
 void MsgSettingsPrivate::init()
 {
     m_GeneralOpt = msg_create_struct(MSG_STRUCT_SETTING_GENERAL_OPT);
-    msg_get_general_opt(m_ServiceHandleImpl, m_GeneralOpt);
+    msg_get_general_opt(m_ServiceHandle, m_GeneralOpt);
 
     m_SmsSendOpt = msg_create_struct(MSG_STRUCT_SETTING_SMS_SEND_OPT);
-    msg_get_sms_send_opt(m_ServiceHandleImpl, m_SmsSendOpt);
+    msg_get_sms_send_opt(m_ServiceHandle, m_SmsSendOpt);
 
     m_MmsSendOpt = msg_create_struct(MSG_STRUCT_SETTING_MMS_SEND_OPT);
-    msg_get_mms_send_opt(m_ServiceHandleImpl, m_MmsSendOpt);
+    msg_get_mms_send_opt(m_ServiceHandle, m_MmsSendOpt);
 
     m_MmsRecvOpt = msg_create_struct(MSG_STRUCT_SETTING_MMS_RECV_OPT);
-    msg_get_mms_recv_opt(m_ServiceHandleImpl, m_MmsRecvOpt);
+    msg_get_mms_recv_opt(m_ServiceHandle, m_MmsRecvOpt);
 }
 
 void MsgSettingsPrivate::finit()
@@ -96,7 +96,7 @@ int MsgSettingsPrivate::getDisplayNameMaxLen() const
 void MsgSettingsPrivate::setAlerts(bool value)
 {
     msg_set_bool_value(m_GeneralOpt, MSG_GENERAL_MSG_NOTIFICATION_BOOL, value);
-    msg_set_general_opt(m_ServiceHandleImpl, m_GeneralOpt);
+    msg_set_general_opt(m_ServiceHandle, m_GeneralOpt);
 }
 
 bool MsgSettingsPrivate::getAlerts() const
@@ -119,9 +119,9 @@ void MsgSettingsPrivate::setNotiSound(const std::string &soundPath)
     else
     {
         msg_set_int_value(m_GeneralOpt, MSG_GENERAL_RINGTONE_TYPE_INT, MSG_RINGTONE_TYPE_USER);
-        msg_set_str_value(m_GeneralOpt, MSG_GENERAL_RINGTONE_PATH_STR, soundPath.c_str(), soundPath.size());
+        msg_set_str_value(m_GeneralOpt, MSG_GENERAL_RINGTONE_PATH_STR, (char*)soundPath.c_str(), soundPath.size());
     }
-    msg_set_general_opt(m_ServiceHandleImpl, m_GeneralOpt);
+    msg_set_general_opt(m_ServiceHandle, m_GeneralOpt);
 
     for(auto listener: m_Listeners)
     {
@@ -154,7 +154,7 @@ std::string MsgSettingsPrivate::getNotiSound() const
 void MsgSettingsPrivate::setVibration(bool value)
 {
     msg_set_bool_value(m_GeneralOpt, MSG_GENERAL_MSG_VIBRATION_BOOL, value);
-    msg_set_general_opt(m_ServiceHandleImpl, m_GeneralOpt);
+    msg_set_general_opt(m_ServiceHandle, m_GeneralOpt);
 }
 
 bool MsgSettingsPrivate::getVibration() const
@@ -167,7 +167,7 @@ bool MsgSettingsPrivate::getVibration() const
 void MsgSettingsPrivate::setSmsDelivReport(bool value)
 {
     msg_set_bool_value(m_SmsSendOpt, MSG_SMS_SENDOPT_DELIVERY_REPORT_BOOL, value);
-    msg_set_sms_send_opt(m_ServiceHandleImpl, m_SmsSendOpt);
+    msg_set_sms_send_opt(m_ServiceHandle, m_SmsSendOpt);
 }
 
 bool MsgSettingsPrivate::getSmsDelivReport() const
@@ -180,7 +180,7 @@ bool MsgSettingsPrivate::getSmsDelivReport() const
 void MsgSettingsPrivate::setMmsDelivReport(bool value)
 {
     msg_set_bool_value(m_MmsSendOpt, MSG_MMS_SENDOPT_DELIVERY_REPORT_BOOL, value);
-    msg_set_mms_send_opt(m_ServiceHandleImpl, m_MmsSendOpt);
+    msg_set_mms_send_opt(m_ServiceHandle, m_MmsSendOpt);
 }
 
 bool MsgSettingsPrivate::getMmsDelivReport() const
@@ -193,7 +193,7 @@ bool MsgSettingsPrivate::getMmsDelivReport() const
 void MsgSettingsPrivate::setMmsReadReport(bool value)
 {
     msg_set_bool_value(m_MmsSendOpt, MSG_MMS_SENDOPT_READ_REPLY_BOOL, value);
-    msg_set_mms_send_opt(m_ServiceHandleImpl, m_MmsSendOpt);
+    msg_set_mms_send_opt(m_ServiceHandle, m_MmsSendOpt);
 }
 
 bool MsgSettingsPrivate::getMmsReadReport() const
@@ -207,7 +207,7 @@ void MsgSettingsPrivate::setMmsAutoRetr(bool value)
 {
     int retrType= value ? MSG_HOME_AUTO_DOWNLOAD : MSG_HOME_MANUAL;
     msg_set_int_value(m_MmsRecvOpt, MSG_MMS_RECVOPT_HOME_RETRIEVE_TYPE_INT, retrType);
-    msg_set_mms_recv_opt(m_ServiceHandleImpl, m_MmsRecvOpt);
+    msg_set_mms_recv_opt(m_ServiceHandle, m_MmsRecvOpt);
 }
 
 bool MsgSettingsPrivate::getMmsAutoRetr() const
@@ -223,7 +223,7 @@ void MsgSettingsPrivate::setMmsAutoRetrRoaming(bool value)
 {
     int retrType = value ? MSG_ABROAD_AUTO_DOWNLOAD : MSG_ABROAD_MANUAL;
     msg_set_int_value(m_MmsRecvOpt, MSG_MMS_RECVOPT_ABROAD_RETRIEVE_TYPE_INT, retrType);
-    msg_set_mms_recv_opt(m_ServiceHandleImpl, m_MmsRecvOpt);
+    msg_set_mms_recv_opt(m_ServiceHandle, m_MmsRecvOpt);
 }
 
 bool MsgSettingsPrivate::getMmsAutoRetrRoaming() const

@@ -16,18 +16,19 @@
 #ifndef __MESSAGE_H__
 #define __MESSAGE_H__
 
-#include <memory>
-#include <vector>
 #include <string>
+#include <memory>
 
 #include "MsgTypes.h"
+#include "MsgAddress.h"
+#include "MsgList.h"
 
 namespace Msg
 {
     class Message;
     typedef std::shared_ptr<Message> MessageRef;
-    typedef std::vector<MessageRef> MessageRefList;
-    typedef std::vector<std::string> AddressList;
+    typedef MsgList<Message> MessageList;
+    typedef std::shared_ptr<MsgList<Message>> MessageListRef;
 
     class Message
     {
@@ -42,23 +43,20 @@ namespace Msg
             {
                 MT_Unknown,
                 MT_SMS,
-                MT_MMS,
-                MT_MAX
+                MT_MMS
             };
 
         public:
-            Message();
             virtual ~Message();
 
             virtual Type getType() const = 0;
-            virtual void setAddressList(const AddressList &addressList) = 0;
+            virtual MsgId getId() const = 0;
             virtual ThreadId getThreadId() const = 0;
-            virtual std::string getText() const = 0;
             virtual time_t getTime() const = 0;
-            virtual std::string getNumber() const = 0;
+            virtual const MsgAddressList &getAddressList() const = 0;
+            virtual MsgAddress &addAddress() = 0;
+            virtual void addAddresses(const MsgAddressList &list) = 0;
     };
 }
-
-
 
 #endif /* __MESSAGE_H__ */

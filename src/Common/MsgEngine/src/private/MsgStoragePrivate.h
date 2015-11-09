@@ -17,12 +17,10 @@
 #ifndef __MSG_STORAGE_PRIVATE_H__
 #define __MSG_STORAGE_PRIVATE_H__
 
-#include <msg.h>
-#include <msg_storage.h>
-#include <msg_transport.h>
-#include <messages.h>
-
 #include "MsgStorage.h"
+
+#include <msg.h>
+#include <msg_storage_types.h>
 
 namespace Msg
 {
@@ -33,24 +31,28 @@ namespace Msg
             MsgStoragePrivate(msg_handle_t serviceHandle);
             virtual ~MsgStoragePrivate();
 
-            virtual MsgThreadList getThreadList() const;
-            virtual MessageRefList getSimMsgList() const;
+            // Thread:
+            virtual MsgThreadListRef getThreadList();
+            virtual MsgThreadItemRef getThread(ThreadId id);
+            virtual ThreadId getThreadId(const MsgAddressList &addressList);
             virtual int deleteThread(ThreadId id);
-            virtual AddressList getAddressListByThreadId(ThreadId id);
-            virtual BaseMsgThreadItemRef getThread(ThreadId id) const;
-            virtual ThreadId getThreadId(const AddressList &addressList) const;
-            virtual MessageRef createMessage(const MsgDataContainer & dataContainer);
+            virtual MsgAddressListRef getAddressList(ThreadId id);
+
+            // Message:
+            virtual MessageRef createMessage(Message::Type type);
+            virtual MessageSMSListRef getSimMsgList();
+
+            // Conversation:
+            virtual MsgConversationListRef getConversationList(ThreadId id);
 
         private:
             static void msg_storage_change_cb(msg_handle_t handle, msg_storage_change_type_t storageChangeType, msg_id_list_s *pMsgIdList, void *user_param);
             void onStorageChange();
 
-        private:
-            void initThreadList(MsgThreadList &list) const;
-            void initSimMsgList(MessageRefList &list) const;
+            MessageSMS *createSms();
 
         private:
-            msg_handle_t m_ServiceHandleImpl;
+            msg_handle_t m_ServiceHandle;
     };
 }
 

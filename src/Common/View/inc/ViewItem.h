@@ -31,6 +31,8 @@ namespace Msg
     {
         public:
             ViewItem();
+            ViewItem(ViewItem&) = delete;
+            ViewItem& operator=(const ViewItem&) = delete;
             virtual ~ViewItem();
 
             inline operator Elm_Object_Item *() const;

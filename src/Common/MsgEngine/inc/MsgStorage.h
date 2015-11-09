@@ -24,6 +24,8 @@
 
 #include "MsgThreadItem.h"
 #include "Message.h"
+#include "MessageSMS.h"
+#include "MsgConversationItem.h"
 
 namespace Msg
 {
@@ -39,15 +41,20 @@ namespace Msg
             void addListener(IMsgStorageListener &listener);
             void removeListener(IMsgStorageListener &listener);
 
-            virtual MsgThreadList getThreadList() const = 0;
-            virtual MessageRefList getSimMsgList() const = 0;
-            virtual BaseMsgThreadItemRef getThread(ThreadId id) const = 0;
-            virtual ThreadId getThreadId(const AddressList &addressList) const = 0;
+            // Thread:
+            virtual MsgThreadListRef getThreadList() = 0;
+            virtual MsgThreadItemRef getThread(ThreadId id) = 0;
+            virtual ThreadId getThreadId(const MsgAddressList &addressList) = 0;
             virtual int deleteThread(ThreadId id) = 0;
+            virtual MsgAddressListRef getAddressList(ThreadId id) = 0;
 
-            virtual AddressList getAddressListByThreadId(ThreadId id) = 0;
+            // Message:
+            virtual MessageRef createMessage(Message::Type type) = 0;
+            virtual MessageSMSListRef getSimMsgList() = 0;
+            MessageSMSRef createSms();
 
-            virtual MessageRef createMessage(const MsgDataContainer &dataContainer) = 0;
+            // Conversation:
+            virtual MsgConversationListRef getConversationList(ThreadId id) = 0;
 
         protected:
             typedef std::vector<IMsgStorageListener *> MsgStorageListeners;

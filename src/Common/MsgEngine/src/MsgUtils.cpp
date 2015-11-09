@@ -68,15 +68,19 @@ bool MsgUtils::isValidEmail(const std::string &address)
     return std::regex_match(address,emailTemplate);
 }
 
-MsgAddress MsgUtils::getAddressType(const std::string &address)
+MsgAddress::AddressType MsgUtils::getAddressType(const std::string &address)
 {
-    if (isValidNumber(address))
-        return MsgAddress::Number;
+    if(isValidNumber(address))
+    {
+        return MsgAddress::Phone;
+    }
 
     if(isValidEmail(address))
+    {
         return MsgAddress::Email;
+    }
 
-    return MsgAddress::Invalid;
+    return MsgAddress::UnknownAddressType;
 }
 
 std::string MsgUtils::getMediaTitle(const std::string &path)
@@ -111,7 +115,7 @@ std::string MsgUtils::getMediaTitle(const std::string &path)
     return std::string(alert_title);
 }
 
-static std::string MsgUtils::makeNormalizedNumber(const std::string &number)
+std::string MsgUtils::makeNormalizedNumber(const std::string &number)
 {
     std::string normalizedNumber;
     for(auto symbol : number)

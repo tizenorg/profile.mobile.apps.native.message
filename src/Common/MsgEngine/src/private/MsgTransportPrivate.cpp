@@ -21,7 +21,7 @@ using namespace Msg;
 
 MsgTransportPrivate::MsgTransportPrivate(msg_handle_t serviceHandle)
     : MsgTransport()
-    , m_ServiceHandleImpl(serviceHandle)
+    , m_ServiceHandle(serviceHandle)
 {
 
 }
@@ -31,7 +31,7 @@ MsgTransportPrivate::~MsgTransportPrivate()
 
 }
 
-void MsgTransportPrivate::sendMessage(const MessageRef msg)
+void MsgTransportPrivate::sendMessage(const Message &msg, ThreadId *threadId)
 {
     msg_struct_t req = msg_create_struct(MSG_STRUCT_REQUEST_INFO);
 
@@ -39,10 +39,15 @@ void MsgTransportPrivate::sendMessage(const MessageRef msg)
     msg_get_struct_handle(req, MSG_REQUEST_SENDOPT_HND, &sendOpt);
     msg_set_bool_value(sendOpt, MSG_SEND_OPT_SETTING_BOOL, false);
 
-    MessagePrivate &privMsg = dynamic_cast<MessagePrivate&>(*msg);
+    const MessagePrivate &privMsg = dynamic_cast<const MessagePrivate&>(msg);
 
-    msg_set_struct_handle(req, MSG_REQUEST_MESSAGE_HND, privMsg.getMsgStruct());
-    msg_sms_send_message(m_ServiceHandleImpl, req);
+    msg_set_struct_handle(req, MSG_REQUEST_MESSAGE_HND, privMsg);
+    msg_sms_send_message(m_ServiceHandle, req);
+
+    if(threadId)
+    {
+        msg_get_thread_id_by_address2(m_ServiceHandle, privMsg.getAddressList(), (msg_thread_id_t*)threadId);
+    }
 
     msg_release_struct(&req);
 }

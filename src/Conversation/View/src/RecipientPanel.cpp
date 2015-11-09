@@ -78,7 +78,7 @@ void RecipientPanel::setGuideText(const char *text)
     elm_object_part_text_set(m_pEntry, "elm.guide", text);
 }
 
-RecipientPanel::RecipientViewItemList RecipientPanel::getItems() const
+RecipientViewItemList RecipientPanel::getItems() const
 {
     RecipientViewItemList res;
 

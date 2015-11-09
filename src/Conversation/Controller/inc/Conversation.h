@@ -28,7 +28,6 @@
 #include "ListView.h"
 
 #include "MsgStorage.h"
-#include "MsgDataContainer.h"
 #include "MsgTransport.h"
 
 #include <Ecore.h>
@@ -51,7 +50,7 @@ namespace Msg
     {
         public:
             Conversation(NaviFrameController &parent);
-            Conversation(NaviFrameController &parent, BaseMsgThreadItemRef threadItem);
+            Conversation(NaviFrameController &parent, ThreadId threadId);
             virtual ~Conversation();
 
         private:
@@ -96,10 +95,14 @@ namespace Msg
         private:
             // Common:
             void create(Mode mode);
-            void sendMessage();
             void setMode(Mode mode);
             void setNewMessageMode();
             void setConversationMode();
+
+            void sendMessage();
+            void fillMessage(Message &msg);
+            void fillMsgAddress(Message &msg);
+            void fillMsgBody(MessageSMS &msg);
 
             // Message input:
             void createMsgInput(Evas_Object *parent);
@@ -131,7 +134,7 @@ namespace Msg
             MessageInputPanel *m_pMsgInputPanel;
             Body *m_pBody;
             RecipientPanel *m_pRecipientPanel;
-            BaseMsgThreadItemRef m_ThreadItem;
+            ThreadId m_ThreadId;
             Ecore_Idler *m_pPredictSearchIdler;
     };
 }

@@ -32,11 +32,14 @@ namespace Msg
         : public ThreadListViewItem
     {
         public:
-            ThreadListItem(BaseMsgThreadItemRef threadItem, App &app);
+            ThreadListItem(const MsgThreadItem &threadItem, App &app);
             virtual ~ThreadListItem();
 
             virtual ThreadListViewItem &getViewItem();
-            BaseMsgThreadItemRef getModel() const;
+            ThreadId getThreadId() const;
+
+            void updateModel(const MsgThreadItem &threadItem);
+            void updateThumbnail(const MsgThreadItem &threadItem);
 
         private:
             // ThreadListViewItem:
@@ -47,15 +50,17 @@ namespace Msg
             virtual Evas_Object *getThumbnail();
             virtual Evas_Object *getIcon();
 
-            void updateThumbnail();
             Evas_Object *makeUnreadBadge(int unreadCount);
 
         private:
-            BaseMsgThreadItemRef m_pMsgThreadItem;
+            ThreadId m_ThreadId;
             App &m_App;
-            int m_CountContact;
-            std::string m_ThumbPath;
             ThumbnailMaker::Type m_ThumbType;
+            std::string m_ThumbPath;
+            std::string m_Name;
+            std::string m_Message;
+            std::string m_Time;
+            std::string m_Status;
     };
 }
 

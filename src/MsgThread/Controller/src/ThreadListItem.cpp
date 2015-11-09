@@ -28,21 +28,19 @@
 
 using namespace Msg;
 
-ThreadListItem::ThreadListItem(BaseMsgThreadItemRef threadItem, App &app)
-    : m_pMsgThreadItem(threadItem)
+ThreadListItem::ThreadListItem(const MsgThreadItem &threadItem, App &app)
+    : ThreadListViewItem()
+    , m_ThreadId(threadItem.getId())
     , m_App(app)
-    , m_CountContact(0)
     , m_ThumbType(ThumbnailMaker::MsgType)
 {
-    MSG_LOG("Constructor");
     setState(IconState, false);
     setCheckedState(false, false);
-    updateThumbnail();
+    updateModel(threadItem);
 }
 
 ThreadListItem::~ThreadListItem()
 {
-    MSG_LOG("Destructor");
 }
 
 ThreadListViewItem &ThreadListItem::getViewItem()
@@ -50,19 +48,19 @@ ThreadListViewItem &ThreadListItem::getViewItem()
     return *this;
 }
 
-BaseMsgThreadItemRef ThreadListItem::getModel() const
+ThreadId ThreadListItem::getThreadId() const
 {
-    return m_pMsgThreadItem;
+    return m_ThreadId;
 }
 
 std::string ThreadListItem::getName()
 {
-    return m_pMsgThreadItem->getName();
+    return m_Name;
 }
 
 std::string ThreadListItem::getMessage()
 {
-    return m_pMsgThreadItem->getLastMessage();
+    return m_Message;
 }
 
 Evas_Object *ThreadListItem::getThumbnail()
@@ -70,27 +68,31 @@ Evas_Object *ThreadListItem::getThumbnail()
     return ThumbnailMaker::make(*getOwner(), m_ThumbType, m_ThumbPath);
 }
 
-void ThreadListItem::updateThumbnail()
+void ThreadListItem::updateThumbnail(const MsgThreadItem &threadItem)
 {
-    AddressList addressList = m_App.getMsgEngine().getStorage().getAddressListByThreadId(m_pMsgThreadItem->getId());
+    const MsgAddressListRef addressList = m_App.getMsgEngine().getStorage().getAddressList(threadItem.getId());
 
-    m_CountContact = addressList.size();
-    m_ThumbType = ThumbnailMaker::MsgType;
-    if(m_CountContact > 1)
+    if(addressList)
     {
-        m_ThumbPath = ResourceUtils::getResourcePath(THUMB_GROUP_IMG_PATH);
-    }
-    else if(m_CountContact == 1)
-    {
-        const char *thumbPath = m_App.getContactManager().getContactPersonNumber(addressList[0]).getThumbnailPath();
-        if(!thumbPath)
+        int countContact = addressList->getLength();
+        m_ThumbType = ThumbnailMaker::MsgType;
+        if(countContact > 1)
         {
-            m_ThumbPath = ResourceUtils::getResourcePath(THUMB_CONTACT_IMG_PATH);
+            m_ThumbPath = ResourceUtils::getResourcePath(THUMB_GROUP_IMG_PATH);
         }
-        else
+        else if(countContact == 1)
         {
-            m_ThumbPath.assign(thumbPath);
-            m_ThumbType = ThumbnailMaker::UserType;
+            const MsgAddress &addr = addressList->at(0);
+            const char *thumbPath = m_App.getContactManager().getContactPersonNumber(addr.getAddress()).getThumbnailPath();
+            if(thumbPath)
+            {
+                m_ThumbPath.assign(thumbPath);
+                m_ThumbType = ThumbnailMaker::UserType;
+            }
+            else
+            {
+                m_ThumbPath = ResourceUtils::getResourcePath(THUMB_CONTACT_IMG_PATH);
+            }
         }
     }
 }
@@ -119,5 +121,12 @@ Evas_Object *ThreadListItem::makeUnreadBadge(int unreadCount)
     return label;
 }
 
+void ThreadListItem::updateModel(const MsgThreadItem &threadItem)
+{
+    m_ThreadId = threadItem.getId();
+    m_Message = threadItem.getLastMessage();
+    m_Name = threadItem.getName();
 
+    updateThumbnail(threadItem);
+}
 

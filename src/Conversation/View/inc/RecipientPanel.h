@@ -27,13 +27,12 @@
 namespace Msg
 {
     class IRecipientPanelListener;
+    class RecipientViewItem;
+    typedef std::vector<RecipientViewItem*> RecipientViewItemList;
 
     class RecipientPanel
         : public View
     {
-        public:
-            typedef std::vector<RecipientViewItem*> RecipientViewItemList;
-
         public:
             RecipientPanel(Evas_Object *parent, int entryMaxCharCount);
             virtual ~RecipientPanel();

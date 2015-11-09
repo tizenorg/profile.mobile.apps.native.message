@@ -84,12 +84,10 @@ void Conversation::addRecipient(const std::string &address, const std::string &d
     assert(m_pRecipientPanel);
     if(m_pRecipientPanel)
     {
-        MsgAddress addressType = MsgUtils::getAddressType(address);
-        if(addressType == MsgAddress::Number || addressType == MsgAddress::Email)
+        MsgAddress::AddressType addressType = MsgUtils::getAddressType(address);
+        if(addressType == MsgAddress::Phone || addressType == MsgAddress::Email)
         {
-            RecipientItem *item = new RecipientItem;
-            item->setDisplayName(dispName);
-            item->setAddress(address);
+            RecipientItem *item = new RecipientItem(address, addressType);
             m_pRecipientPanel->appendItem(*item);
         }
         else

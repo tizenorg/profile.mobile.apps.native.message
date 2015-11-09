@@ -18,38 +18,27 @@
 
 #include "MsgConversationItem.h"
 #include "MsgTypes.h"
-#include <vector>
+
 #include <memory>
+#include <time.h>
 
 namespace Msg
 {
     class MsgThreadItem;
-    typedef std::shared_ptr<MsgThreadItem> BaseMsgThreadItemRef;
-    typedef std::vector<BaseMsgThreadItemRef> MsgThreadList;
+    typedef std::shared_ptr<MsgThreadItem> MsgThreadItemRef;
+    typedef std::shared_ptr<MsgList<MsgThreadItem>> MsgThreadListRef;
 
     class MsgThreadItem
     {
         public:
-            MsgThreadItem(ThreadId threadId);
             virtual ~MsgThreadItem();
 
-            virtual void update();
-
-            ThreadId getId() const;
-            const std::string &getName() const;
-            const std::string &getLastMessage() const;
-            std::string getIcon() const;
-            int getTime() const;
-            int getStatus() const;
-            int getUnreadCount() const;
-
-            virtual MsgConversationList getConversationList() const = 0;
-
-        protected:
-            ThreadId m_Id;
-            std::string m_Name;
-            std::string m_LastMessage;
-            int m_Time;
+            virtual ThreadId getId() const = 0;
+            virtual std::string getName() const = 0;
+            virtual std::string getLastMessage() const = 0;
+            virtual time_t getTime() const = 0;
+            virtual int getStatus() const = 0;
+            virtual int getUnreadCount() const = 0;
     };
 }
 

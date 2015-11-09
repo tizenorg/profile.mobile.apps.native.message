@@ -18,10 +18,6 @@
 
 using namespace Msg;
 
-Message::Message()
-{
-
-}
 
 Message::~Message()
 {

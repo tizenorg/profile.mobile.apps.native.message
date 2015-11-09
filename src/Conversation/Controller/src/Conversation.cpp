@@ -21,6 +21,7 @@
 #include "Scroller.h"
 #include "App.h"
 #include "Message.h"
+#include "MessageSMS.h"
 #include "Logger.h"
 #include "Box.h"
 #include "RecipientItem.h"
@@ -40,12 +41,13 @@ Conversation::Conversation(NaviFrameController &parent)
     , m_pMsgInputPanel(nullptr)
     , m_pBody(nullptr)
     , m_pRecipientPanel(nullptr)
+    , m_ThreadId()
     , m_pPredictSearchIdler(nullptr)
 {
     create(NewMessageMode);
 }
 
-Conversation::Conversation(NaviFrameController &parent, BaseMsgThreadItemRef threadItem)
+Conversation::Conversation(NaviFrameController &parent,ThreadId threadId)
     : FrameController(parent)
     , m_Mode(InitMode)
     , m_pLayout(nullptr)
@@ -55,7 +57,7 @@ Conversation::Conversation(NaviFrameController &parent, BaseMsgThreadItemRef thr
     , m_pMsgInputPanel(nullptr)
     , m_pBody(nullptr)
     , m_pRecipientPanel(nullptr)
-    , m_ThreadItem(threadItem)
+    , m_ThreadId(threadId)
     , m_pPredictSearchIdler(nullptr)
 
 {
@@ -157,6 +159,61 @@ void Conversation::setConversationMode()
     m_pScroller->setContent(*m_pBubbleBox);
 }
 
+void Conversation::fillMessage(Message &msg)
+{
+    if(MessageSMS *sms = dynamic_cast<MessageSMS*>(&msg))
+    {
+        fillMsgBody(*sms);
+    }
+
+    fillMsgAddress(msg);
+}
+
+void Conversation::fillMsgAddress(Message &msg)
+{
+    if(m_Mode == ConversationMode)
+    {
+        MsgAddressListRef addressList = getMsgEngine().getStorage().getAddressList(m_ThreadId);
+        msg.addAddresses(*addressList);
+    }
+    else if(m_Mode == NewMessageMode)
+    {
+        assert(m_pRecipientPanel);
+        if(m_pRecipientPanel)
+        {
+            RecipientViewItemList list = m_pRecipientPanel->getItems();
+            for(auto &it : list)
+            {
+                RecipientItem *recipItem = static_cast<RecipientItem*>(it);
+                MsgAddress &msgAddr = msg.addAddress();
+                msgAddr.setAddress(recipItem->getAddress());
+                msgAddr.setRecipientType(recipItem->getRecipientType());
+                msgAddr.setAddressType(recipItem->getAddressType());
+            }
+        }
+    }
+}
+
+void Conversation::fillMsgBody(MessageSMS &msg)
+{
+    // TODO: mms + attachments
+    msg.setText(m_pBody->getText());
+}
+
+void Conversation::sendMessage()
+{
+    MessageSMSRef msg = getMsgEngine().getStorage().createSms();
+    fillMessage(*msg);
+    MSG_LOG("m_ThreadId = ", m_ThreadId);
+    getMsgEngine().getTransport().sendMessage(msg, &m_ThreadId);
+    MSG_LOG("m_ThreadId = ", m_ThreadId);
+
+    if(m_Mode == NewMessageMode)
+    {
+        setMode(ConversationMode);
+    }
+}
+
 void Conversation::onMsgStorageChange()
 {
     MSG_LOG("");
@@ -169,47 +226,6 @@ void Conversation::onViewItemCreated()
 {
     getNaviBar().setTitle("Conversation");
     setHwButtonListener(getContent(), this);
-}
-
-void Conversation::sendMessage()
-{
-    MsgDataContainer msgContainer;
-
-    msgContainer.setText(m_pBody->getText());
-    msgContainer.setType(Message::MT_SMS);
-
-    if(m_Mode == ConversationMode)
-    {
-        assert(m_ThreadItem);
-        if(m_ThreadItem)
-        {
-            AddressList addressList = getMsgEngine().getStorage().getAddressListByThreadId(m_ThreadItem->getId());
-            msgContainer.addAddressList(addressList);
-        }
-    }
-    else if(m_Mode == NewMessageMode)
-    {
-        assert(m_pRecipientPanel);
-        if(m_pRecipientPanel)
-        {
-            RecipientPanel::RecipientViewItemList list = m_pRecipientPanel->getItems();
-            for(auto &it : list)
-            {
-                RecipientItem *recipItem = static_cast<RecipientItem*>(it);
-                msgContainer.addAddress(recipItem->getAddress());
-            }
-        }
-    }
-
-    MessageRef msg = getMsgEngine().getStorage().createMessage(msgContainer);
-    getMsgEngine().getTransport().sendMessage(msg);
-
-    if(m_Mode == NewMessageMode)
-    {
-        ThreadId id = getMsgEngine().getStorage().getThreadId(msgContainer.getAddressList());
-        m_ThreadItem = getMsgEngine().getStorage().getThread(id);
-        setMode(ConversationMode);
-    }
 }
 
 Evas_Object *Conversation::getContent()

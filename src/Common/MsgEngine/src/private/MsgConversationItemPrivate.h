@@ -17,31 +17,29 @@
 #define __MSG_CONVERSATION_ITEM_PRIVATE_H__
 
 #include "MsgConversationItem.h"
-#include <msg.h>
+#include "MsgStructPrivate.h"
+#include "MsgListHandlePrivate.h"
+#include "MsgStructListPrivate.h"
 
 namespace Msg
 {
     class MsgConversationItemPrivate
-        : public MsgConversationItem
+        : public MsgStructPrivate
+        , public MsgConversationItem
     {
         public:
-            MsgConversationItemPrivate(msg_handle_t serviceHandle, ThreadId threadId, ConvItemId convItemId);
+            MsgConversationItemPrivate(bool release, msg_struct_t msgStruct = nullptr);
             virtual ~MsgConversationItemPrivate();
 
-            virtual void update();
-
-        private:
-            void updateText(msg_struct_t convItemInfo = nullptr);
-            void updateTime(msg_struct_t convItemInfo = nullptr);
-            void updateDirection(msg_struct_t convItemInfo = nullptr);
-
-        private:
-            msg_handle_t m_ServiceHandle;
+            virtual ConvItemId getId() const;
+            virtual ThreadId getThreadId() const;
+            virtual std::string getText() const;
+            virtual time_t getTime() const;
+            virtual Message::Direction getDirection() const;
     };
+
+    typedef class MsgListHandlePrivate<MsgConversationItemPrivate, MsgConversationItem> MsgConversationListHandlePrivate;
+    typedef class MsgStructListPrivate<MsgConversationItemPrivate, MsgConversationItem> MsgConversationStructListPrivate;
 }
-
-
-
-
 
 #endif /* __MSG_CONVERSATION_ITEM_PRIVATE_H__ */

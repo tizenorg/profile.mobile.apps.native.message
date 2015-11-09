@@ -19,8 +19,13 @@
 
 using namespace Msg;
 
-RecipientItem::RecipientItem()
-    : RecipientViewItem()
+
+RecipientItem::RecipientItem(const std::string &address,
+                             MsgAddress::AddressType addressType,
+                             MsgAddress::RecipientType recipientType)
+    : m_Address(address)
+    , m_AddressType(addressType)
+    , m_RecipientType(recipientType)
 {
 }
 
@@ -28,12 +33,34 @@ RecipientItem::~RecipientItem()
 {
 }
 
+const std::string &RecipientItem::getAddress() const
+{
+    return m_Address;
+}
+
+MsgAddress::AddressType RecipientItem::getAddressType() const
+{
+    return m_AddressType;
+}
+
+MsgAddress::RecipientType RecipientItem::getRecipientType() const
+{
+    return m_RecipientType;
+}
+
 void RecipientItem::setAddress(const std::string &address)
 {
     m_Address = address;
 }
 
-std::string RecipientItem::getAddress() const
+void RecipientItem::setRecipientType(MsgAddress::RecipientType type)
 {
-    return m_Address;
+    m_RecipientType = type;
 }
+
+void RecipientItem::setAddressType(MsgAddress::AddressType type)
+{
+    m_AddressType = type;
+}
+
+

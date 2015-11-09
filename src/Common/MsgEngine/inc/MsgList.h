@@ -12,31 +12,37 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
  */
 
-#ifndef _MSG_TRANSPORT_PRIVATE_H__
-#define _MSG_TRANSPORT_PRIVATE_H__
+#ifndef MsgList_H_
+#define MsgList_H_
 
-#include "MsgTransport.h"
-
-#include <msg.h>
-#include <msg_storage.h>
-#include <msg_transport.h>
 
 namespace Msg
 {
-    class MsgTransportPrivate
-        : public MsgTransport
+    template<typename T>
+    class MsgList
     {
         public:
-            MsgTransportPrivate(msg_handle_t serviceHandle);
-            virtual ~MsgTransportPrivate();
+            typedef T Type;
 
-            virtual void sendMessage(const Message &msg, ThreadId *threadId);
+        public:
+            virtual ~MsgList() {}
+            virtual const T &at(int i) const = 0;
+            virtual T &at(int i) = 0;
+            virtual int getLength() const = 0;
 
-        private:
-            msg_handle_t m_ServiceHandle;
+            inline const T &operator[](int i) const
+            {
+                return at(i);
+            }
+
+            inline const T &operator[](int i)
+            {
+                return at(i);
+            }
     };
 }
 
-#endif /* _MSG_TRANSPORT_PRIVATE_H__ */
+#endif /* MsgList_H_ */
