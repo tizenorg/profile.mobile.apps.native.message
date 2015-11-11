@@ -53,7 +53,4 @@ TEST( TestTextDecorator, defaultFormatTest )
 
     foundPos = result.find("<color=#000000ff");
     ASSERT_NE(foundPos, std::string::npos);
-
-    foundPos = result.find("<align=left");
-    ASSERT_NE(foundPos, std::string::npos);
 }

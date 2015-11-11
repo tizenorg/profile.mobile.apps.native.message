@@ -90,5 +90,8 @@ void FrameController::resetCtxPopup()
     }
 }
 
-
+void FrameController::onViewItemCreated()
+{
+    NaviFrameItem::onViewItemCreated();
+}
 

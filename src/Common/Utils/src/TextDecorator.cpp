@@ -48,7 +48,7 @@ namespace
 
 TextStyle::TextStyle()
     : m_Color(defaultColor)
-    , m_Align(TextAlign::Left)
+    , m_Align(TextAlign::None)
     , m_Size(defaultFontSize)
 {
 }
@@ -106,8 +106,16 @@ std::string TextDecorator::make(const std::string &text,
                                 TextAlign align)
 {
     std::ostringstream ss;
-    ss << OPEN_TAG("font_size", size) << OPEN_TAG("color", color) << OPEN_TAG("align", alignAsString(align));
+    ss << OPEN_TAG("font_size", size) << OPEN_TAG("color", color);
+    if (align != TextAlign::None)
+    {
+        ss << OPEN_TAG("align", alignAsString(align));
+    }
     ss << text;
-    ss << CLOSE_TAG("color") << CLOSE_TAG("font_size") << CLOSE_TAG("align");
+    if (align != TextAlign::None)
+    {
+        ss << CLOSE_TAG("align");
+    }
+    ss << CLOSE_TAG("color") << CLOSE_TAG("font_size");
     return ss.str();
 }

@@ -40,7 +40,7 @@ void MsgThread::setSearchMode(bool value)
 
     m_pLayout->showSearchPanel(value);
     m_pSearchPanel->setEntryFocus(value);
-    getNaviBar().show(!value);
+    getNaviBar().setVisible(!value);
 }
 
 void MsgThread::onSearchButtonClicked(MsgThreadSearchPanel &obj)
