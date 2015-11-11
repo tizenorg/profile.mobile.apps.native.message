@@ -55,5 +55,5 @@ TEST( TestTextDecorator, defaultFormatTest )
     ASSERT_NE(foundPos, std::string::npos);
 
     foundPos = result.find("<align=left");
-    ASSERT_NE(foundPos, std::string::npos);
+    ASSERT_EQ(foundPos, std::string::npos);
 }

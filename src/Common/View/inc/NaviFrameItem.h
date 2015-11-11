@@ -19,6 +19,7 @@
 #define NaviFrameItem_h_
 
 #include "ViewItem.h"
+#include "View.h"
 
 #include <string>
 #include <memory>
@@ -38,7 +39,9 @@ namespace Msg
             {
                 NaviCancelButtonId = 0,
                 NaviOkButtonId,
+                NaviCenterButtonId,
                 NaviPrevButtonId,
+                NaviDownButtonId,
                 NaviButtonMax
             };
 
@@ -57,59 +60,81 @@ namespace Msg
         protected:
             virtual void onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId) {};
 
+            //ViewItem
+            virtual void onViewItemCreated();
+
         private:
             NaviFrameView &m_Owner;
             NaviBar *m_pNaviBar;
     };
 
     class NaviFrameItem::NaviBar
+        :public View
     {
         friend class NaviFrameItem;
 
         public:
+            enum NaviColorId
+            {
+                NaviBlueColorId = 0,
+                NaviWhiteColorId,
+                NaviColorMax
+            };
+
+        public:
             NaviFrameItem &getOwner();
             const NaviFrameItem &getOwner() const;
-            void show(bool value, bool transition = false);
-            bool isVisible();
+            void setVisible(bool visible);
             void setTitle(const std::string &title);
             void setTitle(const TText &title);
             std::string getTitle() const;
-            void setBadge(const std::string &badge);
-            void showBadge(bool value);
-            std::string getBadge() const;
             void showButton(NaviButtonId id, bool value);
             void disabledButton(NaviButtonId id, bool value);
+            void setButtonText(NaviButtonId id, const std::string &text);
+            void setButtonText(NaviButtonId id, const TText &text);
+            void clearBar();
+            void switchToSearch(Evas_Object *searchPanel);
+            void setColor(NaviColorId id);
+            void expandDownButton(bool value);
 
         private:
 
             NaviBar(NaviFrameItem &onwer);
-            ~NaviBar();
+            virtual ~NaviBar();
 
             void getButton(NaviButtonId id);
+            void setButtonColor(NaviButtonId id, NaviColorId titleColor);
             void showCancelButtonPart(bool value);
             void showOkButtonPart(bool value);
-            void setContent(Evas_Object * obj, const char *part);
+            void showCenterButtonPart(bool value, bool expand = false);
+            void showPrevButtonPart(bool value);
+            void showDownButtonPart(bool value);
+            void initNaviBar();
 
             static void on_button_clicked(void *data, Evas_Object *obj, void *event_info);
+            static void on_button_delete(void *data, Evas *e, Evas_Object *obj, void *event_info);
 
         private:
             struct ButtonStruct
             {
-                ButtonStruct(Evas_Object *b = nullptr, const char *p = nullptr, const char *s = nullptr)
+                ButtonStruct(Evas_Object *b = nullptr, const char *p = nullptr, const char *s = nullptr, const char *d = "IDS_MSG_OPT_DEFAULT")
                     : button(b)
                     , part(p)
                     , style(s)
+                    , default_text_id(d)
                 {
                 }
                 Evas_Object *button;
                 const char *part;
                 const char *style;
+                const char *default_text_id;
             };
 
         private:
             NaviFrameItem &m_Owner;
             std::string m_Badge;
             ButtonStruct ButtonList[NaviButtonMax];
+            NaviColorId m_CurrentColor;
     };
 }
 

@@ -64,7 +64,9 @@ void MsgOnSimCard::create()
 
 void MsgOnSimCard::onViewItemCreated()
 {
+    FrameController::onViewItemCreated();
     setTitleTranslatable();
+    getNaviBar().setColor(NaviBar::NaviWhiteColorId);
     setHwButtonListener(getContent(), this);
 
  /*   auto list = getMsgEngine().getStorage().getSimMsgList();

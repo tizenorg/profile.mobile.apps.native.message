@@ -166,7 +166,7 @@ namespace Msg
 
     inline void View::setText(const std::string &text, const char *part)
     {
-        setText(part, text.c_str());
+        setText(text.c_str(), part);
     }
 
     inline void View::setText(const TText &text, const char *part)

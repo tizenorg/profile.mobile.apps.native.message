@@ -224,7 +224,9 @@ void Conversation::onMsgStorageChange()
 
 void Conversation::onViewItemCreated()
 {
+    FrameController::onViewItemCreated();
     getNaviBar().setTitle("Conversation");
+    getNaviBar().setColor(NaviBar::NaviWhiteColorId);
     setHwButtonListener(getContent(), this);
 }
 

@@ -77,7 +77,9 @@ MsgThread::~MsgThread()
 
 void MsgThread::onViewItemCreated()
 {
+    FrameController::onViewItemCreated();
     getNaviBar().setTitle(msgt("IDS_MSG_HEADER_MESSAGES"));
+    getNaviBar().setColor(NaviBar::NaviBlueColorId);
     setHwButtonListener(getContent(), this);
 }
 
