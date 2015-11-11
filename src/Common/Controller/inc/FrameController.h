@@ -49,6 +49,9 @@ namespace Msg
             ContextPopup &getCtxPopup();
             void resetCtxPopup();
 
+            // NaviFrameItem
+            virtual void onViewItemCreated();
+
         private:
             Popup *m_pPopup;
             ContextPopup *m_pCtxPopup;

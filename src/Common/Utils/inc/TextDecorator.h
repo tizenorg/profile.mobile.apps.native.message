@@ -24,6 +24,7 @@ namespace Msg
 {
     enum class TextAlign
     {
+        None,
         Left,
         Center,
         Right
@@ -37,7 +38,7 @@ namespace Msg
 
         public:
             TextStyle();
-            TextStyle(int size, const std::string &color, TextAlign align = TextAlign::Left);
+            TextStyle(int size, const std::string &color, TextAlign align = TextAlign::None);
             ~TextStyle();
 
             void setColor(const std::string &color);
@@ -61,7 +62,7 @@ namespace Msg
             static std::string make(const std::string &text,
                                     int size = TextStyle::defaultFontSize,
                                     const std::string &color = TextStyle::defaultColor,
-                                    TextAlign align = TextAlign::Left);
+                                    TextAlign align = TextAlign::None);
     };
 }
 
