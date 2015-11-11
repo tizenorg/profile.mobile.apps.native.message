@@ -364,7 +364,9 @@ void Settings::autoRetRoamingItemHandler(SettingsListItem &item)
 
 void Settings::onViewItemCreated()
 {
+    FrameController::onViewItemCreated();
     getNaviBar().setTitle("Settings");
+    getNaviBar().setColor(NaviBar::NaviWhiteColorId);
 }
 
 Evas_Object *Settings::getContent()

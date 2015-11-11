@@ -36,7 +36,9 @@ Viewer::~Viewer()
 
 void Viewer::onViewItemCreated()
 {
+    FrameController::onViewItemCreated();
     getNaviBar().setTitle("Viewer");
+    getNaviBar().setColor(NaviBar::NaviBlueColorId);
     setHwButtonListener(getContent(), this);
 }
 
