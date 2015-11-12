@@ -64,6 +64,9 @@ namespace Msg
             virtual void onViewItemCreated();
 
         private:
+            void setTitleVisibility(bool visible);
+
+        private:
             NaviFrameView &m_Owner;
             NaviBar *m_pNaviBar;
     };

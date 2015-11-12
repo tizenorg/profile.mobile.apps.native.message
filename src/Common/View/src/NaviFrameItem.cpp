@@ -77,6 +77,19 @@ const NaviFrameView &NaviFrameItem::getOwner() const
     return m_Owner;
 }
 
+void NaviFrameItem::setTitleVisibility(bool visible)
+{
+    if (visible)
+    {
+        setContent(*m_pNaviBar, naviTitlePart);
+        evas_object_show(*m_pNaviBar);
+    }
+    else
+    {
+        evas_object_hide(elm_object_item_part_content_unset(getElmObjItem(), naviTitlePart));
+    }
+}
+
 NaviFrameItem::NaviBar::NaviBar(NaviFrameItem &onwer)
     : m_Owner(onwer)
     , ButtonList()
@@ -108,12 +121,9 @@ const NaviFrameItem &NaviFrameItem::NaviBar::getOwner() const
     return m_Owner;
 }
 
-//TODO: fix show (update title part in naviframe item manually)
 void NaviFrameItem::NaviBar::setVisible(bool visible)
 {
-    const char *sig = visible ? "title,state,show" :"title,state,hide";
-    emitSignal(sig, "*");
-    elm_naviframe_item_title_visible_set(getOwner(), visible);
+    getOwner().setTitleVisibility(visible);
 }
 
 void NaviFrameItem::NaviBar::setTitle(const std::string &title)
