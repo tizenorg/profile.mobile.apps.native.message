@@ -15,10 +15,54 @@
  *
  */
 
+#include <app.h>
 #include <gtest/gtest.h>
+#include <iostream>
+#include <vector>
+#include <string>
+#include <Config.h>
+#include <dlog.h>
+#include <Elementary.h>
 
-GTEST_API_ int main(int argc, char **argv)
+static int instancesNum = 0;
+
+struct FinishTestListener : public testing::EmptyTestEventListener
 {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+	virtual ~FinishTestListener()
+	{}
+	virtual void OnTestProgramEnd(const testing::UnitTest& /*unit_test*/)
+	{
+		elm_exit();
+	}
+};
+
+
+static void _win_focused_cb(void *data, Evas_Object *obj, void *event)
+{
+	if (instancesNum == 0) // preventing from multiple call of RUN_ALL_TESTS()
+	{
+		RUN_ALL_TESTS();
+		++instancesNum;
+	}
 }
+
+
+EAPI_MAIN int elm_main(int argc, char **argv)
+{
+	::testing::InitGoogleTest(&argc, argv);
+
+	::testing::TestEventListeners& listeners = ::testing::UnitTest::GetInstance()->listeners();
+	listeners.Append(new FinishTestListener());
+
+	Evas_Object *win = elm_win_util_standard_add("dummy-win", "Dummy Test Window");
+	elm_win_autodel_set(win, EINA_TRUE);
+	elm_win_focus_highlight_enabled_set(win, EINA_TRUE);
+	evas_object_smart_callback_add(win, "focus,in", _win_focused_cb, NULL);
+
+	evas_object_resize(win, 400, 400);
+	evas_object_show(win);
+	elm_run();
+	return 0;
+}
+
+ELM_MAIN()
