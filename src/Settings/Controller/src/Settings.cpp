@@ -365,8 +365,9 @@ void Settings::autoRetRoamingItemHandler(SettingsListItem &item)
 void Settings::onViewItemCreated()
 {
     FrameController::onViewItemCreated();
-    getNaviBar().setTitle("Settings");
     getNaviBar().setColor(NaviBar::NaviWhiteColorId);
+    getNaviBar().setTitle(msgt("IDS_MSG_HEADER_SETTINGS"));
+    getNaviBar().showButton(NaviPrevButtonId, true);
 }
 
 Evas_Object *Settings::getContent()
@@ -405,4 +406,12 @@ void Settings::onNotiSoundChanged(MsgSettings &msgSetting)
 {
     updateSoundItem();
     m_pSoundItem->update();
+}
+
+void Settings::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
+{
+    if(buttonId == NaviPrevButtonId)
+    {
+        getParent().pop();
+    }
 }

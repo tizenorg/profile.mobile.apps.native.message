@@ -46,6 +46,7 @@ namespace Msg
 
             // NaviFrameItem:
             virtual void onViewItemCreated();
+            virtual void onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId);
 
             // IListViewListener:
             virtual void onListItemSelected(ListItem &listItem, void *funcData);
