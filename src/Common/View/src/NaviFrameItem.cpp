@@ -98,7 +98,7 @@ NaviFrameItem::NaviBar::NaviBar(NaviFrameItem &onwer)
     ButtonList[NaviCancelButtonId] = ButtonStruct(nullptr, cancelButtonPart, cancelButtonStyle, cancelButtonDefTextId);
     ButtonList[NaviOkButtonId] = ButtonStruct(nullptr, okButtonPart, okButtonStyle, okButtonDefTextId);
     //TODO: implement style for center button
-    ButtonList[NaviCenterButtonId] = ButtonStruct(nullptr, centerButtonPart, prevButtonStyle);
+    ButtonList[NaviCenterButtonId] = ButtonStruct(nullptr, centerButtonPart, cancelButtonStyle);
     ButtonList[NaviPrevButtonId] = ButtonStruct(nullptr, prevButtonPart, prevButtonStyle);
     ButtonList[NaviDownButtonId] = ButtonStruct(nullptr, downButtonPart, downButtonStyle);
 }
@@ -289,12 +289,31 @@ void NaviFrameItem::NaviBar::setColor(NaviColorId id)
 
 void NaviFrameItem::NaviBar::setButtonText(NaviButtonId id, const std::string &text)
 {
-    elm_object_text_set(ButtonList[id].button, text.c_str());
+    //TODO: implement text color in edc
+    TextStyle style;
+
+    switch(m_CurrentColor)
+    {
+        case NaviBlueColorId:
+            style.setColor(textColorBlueTitleButtons);
+            break;
+
+        case NaviWhiteColorId:
+            style.setColor(textColorWhiteTitleButtons);
+            break;
+
+        default:
+            break;
+    }
+    style.setSize(textSizeTitleButtons);
+    elm_object_text_set(ButtonList[id].button, TextDecorator::make(text, style).c_str());
 }
 
 void NaviFrameItem::NaviBar::setButtonText(NaviButtonId id, const TText &text)
 {
-    elm_object_domain_translatable_text_set(ButtonList[id].button, text.getDomain(), text.getMsg());
+    setText(ButtonList[id].button, text);
+    //TODO: implement text color in edc
+    setButtonColor(id, m_CurrentColor);
 }
 
 void NaviFrameItem::NaviBar::setButtonColor(NaviButtonId id, NaviColorId titleColor)
@@ -337,7 +356,7 @@ void NaviFrameItem::NaviBar::setButtonColor(NaviButtonId id, NaviColorId titleCo
         const char *buttonText = elm_object_text_get(ButtonList[id].button);
         if (buttonText != nullptr)
         {
-            setButtonText(id, TextDecorator::make(buttonText, style).c_str());
+            elm_object_text_set(ButtonList[id].button, TextDecorator::make(buttonText, style).c_str());
         }
     }
 }

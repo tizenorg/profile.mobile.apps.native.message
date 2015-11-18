@@ -225,8 +225,19 @@ void Conversation::onMsgStorageChange()
 void Conversation::onViewItemCreated()
 {
     FrameController::onViewItemCreated();
-    getNaviBar().setTitle("Conversation");
     getNaviBar().setColor(NaviBar::NaviWhiteColorId);
+    std::string conversationName = getMsgEngine().getStorage().getThread(m_ThreadId)->getName();
+    if(conversationName.empty())
+    {
+        getNaviBar().setTitle(msgt("IDS_MSGF_POP_NEW_MESSAGE"));
+    }
+    else
+    {
+        //TODO: enable down button when needed
+        getNaviBar().showButton(NaviCenterButtonId, true);
+        getNaviBar().setButtonText(NaviCenterButtonId, conversationName);
+    }
+    getNaviBar().showButton(NaviPrevButtonId, true);
     setHwButtonListener(getContent(), this);
 }
 
@@ -246,3 +257,29 @@ void Conversation::onHwMoreButtonClicked()
     MSG_LOG("");
 }
 
+void Conversation::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
+{
+    //TODO: Handle other buttons
+    switch(buttonId)
+    {
+        case NaviPrevButtonId:
+            onHwBackButtonClicked();
+            break;
+
+        case NaviDownButtonId:
+            break;
+
+        case NaviCenterButtonId:
+            break;
+
+        case NaviCancelButtonId:
+            break;
+
+        case NaviOkButtonId:
+            break;
+
+        default:
+            MSG_LOG_ERROR("Invalid buttonId: ", buttonId);
+            break;
+    }
+}
