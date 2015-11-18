@@ -365,8 +365,9 @@ void Settings::autoRetRoamingItemHandler(SettingsListItem &item)
 void Settings::onAttached(ViewItem &item)
 {
     FrameController::onAttached(item);
-    getNaviBar().setTitle("Settings");
     getNaviBar().setColor(NaviBar::NaviWhiteColorId);
+    getNaviBar().setTitle(msgt("IDS_MSG_HEADER_SETTINGS"));
+    getNaviBar().showButton(NaviPrevButtonId, true);
     setContent(*m_pList);
 }
 
@@ -401,4 +402,12 @@ void Settings::onNotiSoundChanged(MsgSettings &msgSetting)
 {
     updateSoundItem();
     m_pSoundItem->update();
+}
+
+void Settings::onButtonClicked(const NaviFrameItem &item, NaviButtonId buttonId)
+{
+    if(buttonId == NaviPrevButtonId)
+    {
+        getParent().pop();
+    }
 }
