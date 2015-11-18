@@ -32,7 +32,6 @@ namespace Msg
     {
         public:
             ListView(Evas_Object *parent);
-            ListView(View &parent);
             virtual ~ListView();
 
             void setListener(IListViewListener *listener);

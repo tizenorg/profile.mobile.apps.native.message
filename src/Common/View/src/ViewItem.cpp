@@ -34,7 +34,7 @@ void ViewItem::setElmObjItem(Elm_Object_Item *item)
     m_pItem = item;
     setData(this);
     elm_object_item_del_cb_set(m_pItem, on_delete_cb);
-    onViewItemCreated();
+    onAttached(*this);
 }
 
 void ViewItem::destroy()

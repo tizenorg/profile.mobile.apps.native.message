@@ -34,17 +34,12 @@ Viewer::~Viewer()
 {
 }
 
-void Viewer::onViewItemCreated()
+void Viewer::onAttached(ViewItem &item)
 {
-    FrameController::onViewItemCreated();
+    FrameController::onAttached(item);
     getNaviBar().setTitle("Viewer");
     getNaviBar().setColor(NaviBar::NaviBlueColorId);
     setHwButtonListener(getContent(), this);
-}
-
-Evas_Object *Viewer::getContent()
-{
-    return nullptr;
 }
 
 void Viewer::onHwBackButtonClicked()

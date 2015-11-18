@@ -32,7 +32,7 @@ namespace Msg
             virtual ~NaviFrameView();
 
             bool isLastFrame() const;
-            void push(NaviFrameItem &item, Evas_Object *content);
+            void push(NaviFrameItem &item, Evas_Object *content = nullptr);
             void push(NaviFrameItem &item, View &content);
             void pop();
 

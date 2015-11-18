@@ -34,14 +34,6 @@ NaviFrameController::NaviFrameController(App &app)
     init();
 }
 
-NaviFrameController::NaviFrameController(ViewController *controller)
-    : ViewController(controller)
-    , NaviFrameView(controller->getEvasObject())
-{
-    MSG_LOG("Constructor: ", this);
-    init();
-}
-
 NaviFrameController::~NaviFrameController()
 {
     MSG_LOG("Destructor: ", this);
@@ -49,30 +41,12 @@ NaviFrameController::~NaviFrameController()
 
 void NaviFrameController::init()
 {
-    setHwButtonListener(getEvasObject(), this);
-}
-
-NaviFrameView &NaviFrameController::getView()
-{
-    return *this;
-}
-
-Evas_Object *NaviFrameController::getEvasObject() const
-{
-    return NaviFrameView::getEo();
+    setHwButtonListener(getEo(), this);
 }
 
 void NaviFrameController::push(FrameController &frame)
 {
-    NaviFrameItem &item = frame.getViewItem();
-    Evas_Object *content = frame.getContent();
-
-    if(!content)
-    {
-        MSG_LOG_ERROR("Frame's content is null");
-    }
-
-    NaviFrameView::push(item, frame.getContent());
+    NaviFrameView::push(frame);
 }
 
 void NaviFrameController::pop()

@@ -20,17 +20,29 @@
 
 #include <cstddef>
 #include <cassert>
+#include <map>
 
 using namespace Msg;
 
 View::View()
     : m_pEo(nullptr)
 {
-
 }
 
 View::~View()
 {
+}
+
+Evas_Object_Event_Cb View::getCb(Evas_Callback_Type type)
+{
+    static std::map<Evas_Callback_Type, Evas_Object_Event_Cb> cbMap =
+    {
+        {EVAS_CALLBACK_FREE, on_free_cb},
+        {EVAS_CALLBACK_DEL, on_del_cb}
+    };
+
+    auto it = cbMap.find(type);
+    return it != cbMap.end() ? it->second : nullptr;
 }
 
 void View::destroy()
@@ -40,19 +52,15 @@ void View::destroy()
 
 void View::setEventCb(Evas_Callback_Type type)
 {
-    if(!m_pEo)
-        return;
-
-    switch(type)
+    Evas_Object_Event_Cb cb = getCb(type);
+    if(cb)
     {
-        case EVAS_CALLBACK_FREE:
-            evas_object_event_callback_add(m_pEo, type, on_free_cb, this);
-        break;
-
-        default:
-            MSG_LOG_ERROR("Not implemented");
-            assert(false);
-            break;
+        evas_object_event_callback_add(m_pEo, type, cb, this);
+    }
+    else
+    {
+        MSG_LOG_ERROR("Not implemented");
+        assert(false);
     }
 }
 
@@ -60,29 +68,27 @@ void View::setEo(Evas_Object *eo)
 {
     if(m_pEo)
     {
+        // TODO: impl. reset EO if nedded
         MSG_LOG_ERROR("m_pEo not null");
-        unsetEventCb(EVAS_CALLBACK_FREE);
+        assert(false);
     }
 
     m_pEo = eo;
     setEventCb(EVAS_CALLBACK_FREE);
+    setEventCb(EVAS_CALLBACK_DEL);
 }
 
 void View::unsetEventCb(Evas_Callback_Type type)
 {
-    if(!m_pEo)
-        return;
-
-    switch(type)
+    Evas_Object_Event_Cb cb = getCb(type);
+    if(cb)
     {
-        case EVAS_CALLBACK_FREE:
-            evas_object_event_callback_del(m_pEo, type, on_free_cb);
-        break;
-
-        default:
-            MSG_LOG_ERROR("Not implemented");
-            assert(false);
-            break;
+        evas_object_event_callback_del(m_pEo, type, cb);
+    }
+    else
+    {
+        MSG_LOG_ERROR("Not implemented");
+        assert(false);
     }
 }
 
@@ -98,6 +104,13 @@ void View::on_free_cb(void *data, Evas *e, Evas_Object *obj, void *event_info)
     View *view = static_cast<View*>(data);
     if(view)
         view->onViewDestroyed();
+}
+
+void View::on_del_cb(void *data, Evas *e, Evas_Object *obj, void *event_info)
+{
+    View *view = static_cast<View*>(data);
+    if(view)
+        view->onBeforeDelete(*view);
 }
 
 void View::expand()

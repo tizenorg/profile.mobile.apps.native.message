@@ -51,7 +51,7 @@ MsgOnSimCard::~MsgOnSimCard()
 
 void MsgOnSimCard::create()
 {
-    m_pList = new ListView(getParent().getEvasObject());
+    m_pList = new ListView(getParent());
     m_pList->setListener(this);
     m_pList->expand();
     m_pList->setMultiSelection(false);
@@ -62,12 +62,13 @@ void MsgOnSimCard::create()
     m_pList->appendItem(*item);
 }
 
-void MsgOnSimCard::onViewItemCreated()
+void MsgOnSimCard::onAttached(ViewItem &item)
 {
-    FrameController::onViewItemCreated();
+    FrameController::onAttached(item);
     setTitleTranslatable();
     getNaviBar().setColor(NaviBar::NaviWhiteColorId);
-    setHwButtonListener(getContent(), this);
+    setHwButtonListener(*m_pList, this);
+    setContent(*m_pList);
 
  /*   auto list = getMsgEngine().getStorage().getSimMsgList();
     for(auto msg : list)
@@ -92,11 +93,6 @@ void MsgOnSimCard::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
         }
     }
     setMode(NormalMode);
-}
-
-Evas_Object *MsgOnSimCard::getContent()
-{
-    return *m_pList;
 }
 
 void MsgOnSimCard::onListItemChecked(ListItem &listItem, void *funcData)

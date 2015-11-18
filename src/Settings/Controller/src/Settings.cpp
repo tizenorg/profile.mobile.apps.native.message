@@ -61,7 +61,7 @@ void Settings::create()
     if(!isExistingMmsAutoRetrRoamingBackup())
         setMmsAutoRetrRoamingBackup(getMsgSettings().getMmsAutoRetrRoaming());
 
-    m_pList = new ListView(getParent().getEvasObject());
+    m_pList = new ListView(getParent());
     m_pList->setListener(this);
     m_pList->expand();
     m_pList->setMultiSelection(false);
@@ -362,16 +362,12 @@ void Settings::autoRetRoamingItemHandler(SettingsListItem &item)
     updateAutoRetRoamingItem();
 }
 
-void Settings::onViewItemCreated()
+void Settings::onAttached(ViewItem &item)
 {
-    FrameController::onViewItemCreated();
+    FrameController::onAttached(item);
     getNaviBar().setTitle("Settings");
     getNaviBar().setColor(NaviBar::NaviWhiteColorId);
-}
-
-Evas_Object *Settings::getContent()
-{
-    return *m_pList;
+    setContent(*m_pList);
 }
 
 void Settings::callItemHandler(SettingsListItem &item)

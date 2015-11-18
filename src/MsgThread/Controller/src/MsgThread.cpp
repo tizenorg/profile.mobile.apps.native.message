@@ -50,7 +50,7 @@ MsgThread::MsgThread(NaviFrameController &parent)
     , m_pSearchPanel(nullptr)
     , m_Mode(InitMode)
 {
-    m_pLayout = new MsgThreadLayout(getParent().getEvasObject());
+    m_pLayout = new MsgThreadLayout(getParent());
     m_pLayout->show();
 
     Evas_Object *searchPanel = createSearchPanel(*m_pLayout);
@@ -75,17 +75,13 @@ MsgThread::~MsgThread()
     getMsgEngine().getStorage().removeListener(*this);
 }
 
-void MsgThread::onViewItemCreated()
+void MsgThread::onAttached(ViewItem &item)
 {
-    FrameController::onViewItemCreated();
+    FrameController::onAttached(item);
     getNaviBar().setTitle(msgt("IDS_MSG_HEADER_MESSAGES"));
     getNaviBar().setColor(NaviBar::NaviBlueColorId);
-    setHwButtonListener(getContent(), this);
-}
-
-Evas_Object *MsgThread::getContent()
-{
-    return *m_pLayout;
+    setHwButtonListener(*m_pLayout, this);
+    setContent(*m_pLayout);
 }
 
 void MsgThread::showMainCtxPopup()

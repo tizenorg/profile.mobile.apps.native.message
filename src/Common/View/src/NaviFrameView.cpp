@@ -22,11 +22,6 @@
 
 using namespace Msg;
 
-namespace
-{
-    const char *naviTitleStyleEmpty = "empty";
-}
-
 NaviFrameView::NaviFrameView(Evas_Object *parent)
     : View()
 {
@@ -58,7 +53,6 @@ bool NaviFrameView::isLastFrame() const
 void NaviFrameView::push(NaviFrameItem &item, Evas_Object *content)
 {
     Elm_Object_Item *it = elm_naviframe_item_push(getEo(), NULL, NULL, NULL, content, NULL);
-    elm_naviframe_item_style_set(it, naviTitleStyleEmpty);
     item.setElmObjItem(it);
 }
 

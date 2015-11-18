@@ -29,16 +29,12 @@ namespace Msg
 
     class NaviFrameController
         : public ViewController
-        , protected NaviFrameView
+        , public NaviFrameView
         , private IHwButtonListener
     {
         public:
             NaviFrameController(App &app);
-            NaviFrameController(ViewController *controller);
             virtual ~NaviFrameController();
-
-            NaviFrameView &getView();
-            virtual Evas_Object *getEvasObject() const;
 
             void push(FrameController &frame);
             void pop();

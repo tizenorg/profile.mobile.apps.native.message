@@ -44,11 +44,8 @@ namespace Msg
             void showSelectAllItem(bool show, bool resetCheck = true);
 
         private:
-            // FrameController:
-            virtual Evas_Object *getContent();
-
             // NaviFrameItem:
-            virtual void onViewItemCreated();
+            virtual void onAttached(ViewItem &item);
             virtual void onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId);
             void calcChecked(int &check, int &total) const;
             int getItemsCount() const;

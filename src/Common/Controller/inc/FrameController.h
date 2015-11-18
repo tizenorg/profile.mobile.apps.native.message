@@ -30,7 +30,7 @@ namespace Msg
 
     class FrameController
         : public ViewItemController
-        , protected NaviFrameItem
+        , public NaviFrameItem
         , private IPopupListener
         , private IContextPopupListener
     {
@@ -39,8 +39,6 @@ namespace Msg
             virtual ~FrameController();
 
             virtual NaviFrameController &getParent();
-            virtual NaviFrameItem &getViewItem();
-            virtual Evas_Object *getContent() = 0;
 
         protected:
             Popup &getPopup();
@@ -50,7 +48,7 @@ namespace Msg
             void resetCtxPopup();
 
             // NaviFrameItem
-            virtual void onViewItemCreated();
+            virtual void onAttached(ViewItem &item);
 
         private:
             Popup *m_pPopup;

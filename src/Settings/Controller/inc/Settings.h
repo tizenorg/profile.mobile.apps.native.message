@@ -41,11 +41,8 @@ namespace Msg
             virtual ~Settings();
 
         private:
-            // FrameController:
-            virtual Evas_Object *getContent();
-
             // NaviFrameItem:
-            virtual void onViewItemCreated();
+            virtual void onAttached(ViewItem &item);
 
             // IListViewListener:
             virtual void onListItemSelected(ListItem &listItem, void *funcData);

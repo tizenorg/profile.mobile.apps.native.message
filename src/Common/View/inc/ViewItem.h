@@ -56,7 +56,7 @@ namespace Msg
             inline static void setText(Elm_Object_Item *it, const TText &text, const char *part = nullptr);
 
         protected:
-            virtual void onViewItemCreated() {};
+            virtual void onAttached(ViewItem &item) {};
             void setElmObjItem(Elm_Object_Item *item);
 
         private:

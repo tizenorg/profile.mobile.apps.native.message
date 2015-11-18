@@ -127,7 +127,7 @@ bool MainApp::onAppCreate()
     m_pWindow->show();
 
     m_pRootController = new NaviFrameController(*this);
-    m_pWindow->setContent(m_pRootController->getEvasObject());
+    m_pWindow->setContent(*m_pRootController);
 
     return true;
 }

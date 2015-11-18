@@ -34,11 +34,9 @@ namespace Msg
             virtual ~Viewer();
 
         private:
-            // FrameController:
-            virtual Evas_Object *getContent();
 
             // NaviFrameItem:
-            virtual void onViewItemCreated();
+            virtual void onAttached(ViewItem &item);
 
             // IHwButtonListener:
             virtual void onHwBackButtonClicked();

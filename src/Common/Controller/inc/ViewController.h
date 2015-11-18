@@ -32,8 +32,6 @@ namespace Msg
             ViewController(App &app);
             ViewController(BaseController *parent);
             virtual ~ViewController();
-
-            virtual Evas_Object *getEvasObject() const = 0;
     };
 }
 

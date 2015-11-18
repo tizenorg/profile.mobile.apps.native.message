@@ -61,7 +61,7 @@ namespace Msg
             virtual void onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId) {};
 
             //ViewItem
-            virtual void onViewItemCreated();
+            virtual void onAttached(ViewItem &item);
 
         private:
             void setTitleVisibility(bool visible);
@@ -72,7 +72,7 @@ namespace Msg
     };
 
     class NaviFrameItem::NaviBar
-        :public View
+        : public View
     {
         friend class NaviFrameItem;
 
@@ -115,7 +115,6 @@ namespace Msg
             void initNaviBar();
 
             static void on_button_clicked(void *data, Evas_Object *obj, void *event_info);
-            static void on_button_delete(void *data, Evas *e, Evas_Object *obj, void *event_info);
 
         private:
             struct ButtonStruct
@@ -136,7 +135,7 @@ namespace Msg
         private:
             NaviFrameItem &m_Owner;
             std::string m_Badge;
-            ButtonStruct ButtonList[NaviButtonMax];
+            ButtonStruct m_ButtonList[NaviButtonMax];
             NaviColorId m_CurrentColor;
     };
 }

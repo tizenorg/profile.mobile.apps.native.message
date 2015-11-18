@@ -76,7 +76,7 @@ Conversation::~Conversation()
 
 void Conversation::create(Mode mode)
 {
-    m_pLayout = new ConversationLayout(getParent().getEvasObject());
+    m_pLayout = new ConversationLayout(getParent());
     m_pLayout->show();
     m_pLayout->expand();
 
@@ -222,17 +222,13 @@ void Conversation::onMsgStorageChange()
     m_pScroller->navigateToBottom();
 }
 
-void Conversation::onViewItemCreated()
+void Conversation::onAttached(ViewItem &item)
 {
-    FrameController::onViewItemCreated();
+    FrameController::onAttached(item);
     getNaviBar().setTitle("Conversation");
     getNaviBar().setColor(NaviBar::NaviWhiteColorId);
-    setHwButtonListener(getContent(), this);
-}
-
-Evas_Object *Conversation::getContent()
-{
-    return *m_pLayout;
+    setHwButtonListener(*m_pLayout, this);
+    setContent(*m_pLayout);
 }
 
 void Conversation::onHwBackButtonClicked()

@@ -25,7 +25,7 @@ using namespace Msg;
 
 FrameController::FrameController(NaviFrameController &parent)
     : ViewItemController(&parent)
-    , NaviFrameItem(parent.getView())
+    , NaviFrameItem(parent)
     , m_pPopup(nullptr)
     , m_pCtxPopup(nullptr)
 {
@@ -43,11 +43,6 @@ FrameController::~FrameController()
 NaviFrameController &FrameController::getParent()
 {
     return static_cast<NaviFrameController &>(ViewItemController::getParent());
-}
-
-NaviFrameItem &FrameController::getViewItem()
-{
-    return *this;
 }
 
 Popup &FrameController::getPopup()
@@ -90,8 +85,8 @@ void FrameController::resetCtxPopup()
     }
 }
 
-void FrameController::onViewItemCreated()
+void FrameController::onAttached(ViewItem &item)
 {
-    NaviFrameItem::onViewItemCreated();
+    NaviFrameItem::onAttached(item);
 }
 

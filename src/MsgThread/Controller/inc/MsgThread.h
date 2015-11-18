@@ -50,11 +50,8 @@ namespace Msg
             virtual ~MsgThread();
 
         private:
-            // FrameController:
-            virtual Evas_Object *getContent();
-
             // NaviFrameItem:
-            virtual void onViewItemCreated();
+            virtual void onAttached(ViewItem &item);
             virtual void onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId);
 
             // IHwButtonListener:

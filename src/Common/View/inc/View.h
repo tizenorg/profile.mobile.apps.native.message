@@ -63,17 +63,21 @@ namespace Msg
             inline void setText(const TText &text, const char *part = nullptr);
             inline static void setText(Evas_Object *obj, const TText &text, const char *part = nullptr);
 
-        private:
-            View(View&) = delete;
-            View& operator=(View&) = delete;
-
         protected:
+            virtual void onBeforeDelete(View &view) {};
+
             void setEventCb(Evas_Callback_Type type);
             void unsetEventCb(Evas_Callback_Type type);
             void setEo(Evas_Object *eo);
 
         private:
+            View(View&) = delete;
+            View& operator=(View&) = delete;
+            Evas_Object_Event_Cb getCb(Evas_Callback_Type);
+
+        private:
             static void on_free_cb(void *data, Evas *e, Evas_Object *obj, void *event_info);
+            static void on_del_cb(void *data, Evas *e, Evas_Object *obj, void *event_info);
 
         private:
             Evas_Object *m_pEo;

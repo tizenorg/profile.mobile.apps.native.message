@@ -32,8 +32,6 @@ namespace Msg
             ViewItemController(App &app);
             ViewItemController(BaseController *parent);
             virtual ~ViewItemController();
-
-            virtual ViewItem &getViewItem() = 0;
     };
 }
 
