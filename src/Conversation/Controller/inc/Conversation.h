@@ -111,7 +111,7 @@ namespace Msg
             // Recipients:
             void createRecipientPanel(Evas_Object *parent);
             void addRecipientsFromEntry();
-            void addRecipient(const std::string &address, const std::string &dispName);
+            void addRecipient(const std::string &address, const std::string &dispName, MsgAddress::AddressType addressType = MsgAddress::UnknownAddressType);
             void clearRecipientEntry();
 
             // Bubble:

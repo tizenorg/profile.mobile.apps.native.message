@@ -67,36 +67,43 @@ void Conversation::addRecipientsFromEntry()
     if(m_pRecipientPanel)
     {
         std::string text = m_pRecipientPanel->getEntryText();
-        auto list = MsgUtils::tokenizeRecipients(text);
+        TokenizedRecipients result = MsgUtils::tokenizeRecipients(text);
 
-        for(auto & it : list)
+        for(auto & it : result.validResults)
         {
-            addRecipient(it, it);
+            if(it.second == MsgAddress::Phone)
+            {
+                it.first = MsgUtils::makeNormalizedNumber(it.first);
+            }
+            addRecipient(it.first, it.first, it.second);
         }
-
-        m_pRecipientPanel->showMbe(true);
-        m_pRecipientPanel->clearEntry();
+        m_pRecipientPanel->setEntryText(result.invalidResult);
     }
 }
 
-void Conversation::addRecipient(const std::string &address, const std::string &dispName)
+void Conversation::addRecipient(const std::string &address, const std::string &dispName, MsgAddress::AddressType addressType)
 {
     assert(m_pRecipientPanel);
     if(m_pRecipientPanel)
     {
-        MsgAddress::AddressType addressType = MsgUtils::getAddressType(address);
+        if(addressType == MsgAddress::UnknownAddressType)
+        {
+            addressType = MsgUtils::getAddressType(address);
+        }
         if(addressType == MsgAddress::Phone || addressType == MsgAddress::Email)
         {
             RecipientItem *item = new RecipientItem(address, addressType);
+            item->setDisplayName(dispName);
             m_pRecipientPanel->appendItem(*item);
+            if(m_pRecipientPanel->getEntryFocus())
+            {
+                m_pRecipientPanel->showMbe(true);
+            }
         }
         else
         {
             MSG_LOG("invalid recipient: ", address);
         }
-
-        if(m_pRecipientPanel->getEntryFocus())
-            m_pRecipientPanel->showMbe(true);
     }
 }
 
@@ -106,9 +113,13 @@ void Conversation::onKeyDown(RecipientPanel &obj, Evas_Event_Key_Down *ev)
     {
         MSG_LOG("Key: ", ev->keyname);
 
-        if((strcmp(ev->keyname, "Return") == 0) || (strcmp(ev->keyname, "semicolon") == 0) || (strcmp(ev->keyname, "comma") == 0))
+        if((strcmp(ev->keyname, "Return") == 0))
         {
             m_pBody->setFocus(true);
+        }
+        else if ((strcmp(ev->keyname, "semicolon") == 0) || (strcmp(ev->keyname, "comma") == 0))
+        {
+            addRecipientsFromEntry();
         }
         else
         {
