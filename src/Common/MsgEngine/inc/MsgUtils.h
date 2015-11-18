@@ -27,10 +27,16 @@
 
 namespace Msg
 {
+    struct Tokenized
+    {
+        std::list<std::pair<std::string, MsgAddress::AddressType>> validResults;
+        std::string invalidResult;
+    };
+
     class MsgUtils
     {
         public:
-            static std::list<std::string> tokenizeRecipients(const std::string &inputText);
+            static Tokenized tokenizeRecipients(const std::string &inputText);
             static bool isValidNumber(const std::string &address);
             static bool isValidEmail(const std::string &address);
             static MsgAddress::AddressType getAddressType(const std::string &address);

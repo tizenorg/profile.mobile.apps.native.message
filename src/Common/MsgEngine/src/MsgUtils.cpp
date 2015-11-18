@@ -31,25 +31,41 @@ namespace
     unsigned addrLenMin = 1;
     const unsigned numberLenMin = 3;
     const unsigned numberLenMax = 15;
-    const char *delimiters = " ,\n\r\t;";
+    const char *delimiters = ",;";
     const char *numberRegex = "\\+?([[:digit:]][ *\\(\\)-]*){2,14}[[:digit:]]$";
     const char *emailRegex = "(([[:alnum:]_!#$%&'*+/=?`{|}~^-]+)|(^\"([[:alnum:]_!#$%&'*+/=?`{|}~^-\\(\\)<>\\[\\]:;@,. (\\\\)(\\\")])+\"))+(?:\\.(([[:alnum:]_!#$%&'*+/=?`{|}~^-]+)|(\"([[:alnum:]_!#$%&'*+/=?`{|}~^-\\(\\)<>\\[\\]:;@,. (\\\\)(\\\")])+\")))*@[[:alnum:]-]+(?:\\.[[:alnum:]-]+)*";
 }
 
-std::list<std::string> MsgUtils::tokenizeRecipients(const std::string &inputText)
+Tokenized MsgUtils::tokenizeRecipients(const std::string &inputText)
 {
-    std::list<std::string> res;
-    char *str = strdup(inputText.c_str());
-    char *next = strtok(str, delimiters);
+    Tokenized result;
+    std::string::size_type begin = inputText.find_first_not_of(delimiters);
+    std::string::size_type end = inputText.find_first_of(delimiters, begin);
+    std::string token;
+    MsgAddress::AddressType addressType = MsgAddress::UnknownAddressType;
 
-    while(next)
+    while(begin != end)
     {
-        res.push_back(next);
-        next = strtok(NULL, delimiters);
+        if(begin != std::string::npos)
+        {
+            token = inputText.substr(begin, end != std::string::npos ? end-begin : std::string::npos);
+            begin = inputText.find_first_not_of(delimiters, end);
+            result.invalidResult.append(token);
+            addressType = getAddressType(result.invalidResult);
+            if(addressType != MsgAddress::UnknownAddressType)
+            {
+                result.validResults.push_back(std::make_pair(result.invalidResult, addressType));
+                result.invalidResult.clear();
+            }
+            else if(end != std::string::npos)
+            {
+                result.invalidResult.append(inputText.substr(end, begin != std::string::npos ? begin-end : std::string::npos));
+            }
+            end = inputText.find_first_of(delimiters, begin);
+        }
     }
 
-    free(str);
-    return res;
+    return result;
 }
 
 bool MsgUtils::isValidNumber(const std::string &address)

@@ -82,3 +82,36 @@ TEST( TestMsgUtils, makeNormalizedNumberTest)
     ASSERT_EQ(Msg::MsgUtils::makeNormalizedNumber("+380453- *43-32"), "+380453*4332");
     ASSERT_EQ(Msg::MsgUtils::makeNormalizedNumber("+38(045)343-32-12-115"), "+380453433212115");
 }
+
+TEST( TestMsgUtils, tokenizeRecipients)
+{
+    Msg::Tokenized expectedResult = {{{"123", Msg::MsgAddress::Phone}, {"345", Msg::MsgAddress::Phone}}, ""};
+    Msg::Tokenized actualResult = Msg::MsgUtils::tokenizeRecipients("123,345");
+    ASSERT_EQ(expectedResult.validResults, actualResult.validResults);
+    ASSERT_EQ(expectedResult.invalidResult, actualResult.invalidResult);
+
+    expectedResult = {{{"1233", Msg::MsgAddress::Phone}}, "45,"};
+    actualResult = Msg::MsgUtils::tokenizeRecipients("1233,45,");
+    ASSERT_EQ(expectedResult.validResults, actualResult.validResults);
+    ASSERT_EQ(expectedResult.invalidResult, actualResult.invalidResult);
+
+    expectedResult = {{}, "asad,1234,"};
+    actualResult = Msg::MsgUtils::tokenizeRecipients("asad,1234,");
+    ASSERT_EQ(expectedResult.validResults, actualResult.validResults);
+    ASSERT_EQ(expectedResult.invalidResult, actualResult.invalidResult);
+
+    expectedResult = {{{"abc.\"dc,d;\"@mail.com", Msg::MsgAddress::Email}, {"+380777777", Msg::MsgAddress::Phone}}, ""};
+    actualResult = Msg::MsgUtils::tokenizeRecipients("abc.\"dc,d;\"@mail.com,+380777777");
+    ASSERT_EQ(expectedResult.validResults, actualResult.validResults);
+    ASSERT_EQ(expectedResult.invalidResult, actualResult.invalidResult);
+
+    expectedResult = {{{"6238", Msg::MsgAddress::Phone}, {"abc.\"dc,d;\"@mail.com", Msg::MsgAddress::Email},{"+380777777", Msg::MsgAddress::Phone}}, ""};
+    actualResult = Msg::MsgUtils::tokenizeRecipients(",,,6238;abc.\"dc,d;\"@mail.com,+380777777");
+    ASSERT_EQ(expectedResult.validResults, actualResult.validResults);
+    ASSERT_EQ(expectedResult.invalidResult, actualResult.invalidResult);
+
+    expectedResult = {{}, ""};
+    actualResult = Msg::MsgUtils::tokenizeRecipients("");
+    ASSERT_EQ(expectedResult.validResults, actualResult.validResults);
+    ASSERT_EQ(expectedResult.invalidResult, actualResult.invalidResult);
+}
