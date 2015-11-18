@@ -41,6 +41,7 @@ namespace Msg
             void appendItem(RecipientViewItem &item);
             void showMbe(bool show);
             std::string getEntryText() const;
+            void setEntryText(const std::string &utf8);
             RecipientViewItemList getItems() const;
             bool hasItems()const ;
             bool getEntryFocus() const;

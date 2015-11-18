@@ -122,6 +122,18 @@ std::string RecipientPanel::getEntryText() const
     return result;
 }
 
+void RecipientPanel::setEntryText(const std::string &utf8)
+{
+    char *text = elm_entry_utf8_to_markup(utf8.c_str());
+
+    if(text)
+    {
+        elm_entry_entry_set(m_pEntry, text);
+        elm_entry_cursor_end_set(m_pEntry);
+        free(text);
+    }
+}
+
 void RecipientPanel::create(Evas_Object *parent)
 {
     Evas_Object *box = elm_box_add(parent);
