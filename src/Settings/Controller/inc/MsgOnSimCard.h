@@ -46,7 +46,7 @@ namespace Msg
         private:
             // NaviFrameItem:
             virtual void onAttached(ViewItem &item);
-            virtual void onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId);
+            virtual void onButtonClicked(const NaviFrameItem &item, NaviButtonId buttonId);
             void calcChecked(int &check, int &total) const;
             int getItemsCount() const;
 
