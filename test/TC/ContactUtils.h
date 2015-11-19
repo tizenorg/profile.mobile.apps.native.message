@@ -6,6 +6,7 @@
 #include "ContactPersonNumber.h"
 #include "contacts.h"
 #include <functional>
+#include "Logger.h"
 
 namespace Msg
 {
@@ -17,6 +18,8 @@ namespace Msg
                 static ContactUtils &getInst();
 
                 int createContact(const std::string &strName, const std::string &strNumber);
+                void renameContact(int contactId, const std::string &newName);
+                std::string getNameById(int contactId) const;
                 void removeContact(int contactId);
 
             private:
