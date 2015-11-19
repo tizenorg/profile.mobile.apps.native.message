@@ -42,6 +42,73 @@ namespace Msg
             return contact_id;
         }
 
+        bool ContactUtils::getContactName(int contactId, contacts_record_h &contact, contacts_record_h &name)
+        {
+            int error = CONTACTS_ERROR_NONE;
+
+            error = contacts_db_get_record(_contacts_contact._uri, contactId, &contact);
+            if (error != CONTACTS_ERROR_NONE)
+            {
+                MSG_LOG_ERROR("contacts_db_get_record failed");
+                return false;
+            }
+
+            error = contacts_record_get_child_record_at_p(contact, _contacts_contact.name, 0, &name);
+            if (error != CONTACTS_ERROR_NONE)
+            {
+                MSG_LOG_ERROR("contacts_record_get_child_record_at_p failed");
+                contacts_record_destroy(contact, true);
+                return false;
+            }
+
+            return true;
+        }
+
+        void ContactUtils::renameContact(int contactId, const std::string &newName)
+        {
+            contacts_record_h contact = NULL;
+            contacts_record_h name = NULL;
+            int error = CONTACTS_ERROR_NONE;
+
+            if (getContactName(contactId, contact, name))
+            {
+                contacts_record_set_str(name, _contacts_name.first, newName.c_str());
+
+                error = contacts_db_update_record(contact);
+                if (error != CONTACTS_ERROR_NONE)
+                {
+                    MSG_LOG_ERROR("contacts_db_update_record failed");
+                    contacts_record_destroy(contact, true);
+                    return;
+                }
+
+                contacts_record_destroy(contact, true);
+            }
+        }
+
+        std::string ContactUtils::getNameById(int contactId) const
+        {
+            contacts_record_h contact = NULL;
+            contacts_record_h name = NULL;
+            char *str = nullptr;
+            int error = CONTACTS_ERROR_NONE;
+            std::string result;
+
+            if (getContactName(contactId, contact, name))
+            {
+                contacts_record_get_str(name, _contacts_name.first, &str);
+                if (str)
+                {
+                    result = str;
+                    free(str);
+                }
+
+                contacts_record_destroy(contact, true);
+            }
+
+            return result;
+        }
+
         void ContactUtils::removeContact(int contactId)
         {
         	contacts_db_delete_record(_contacts_contact._uri, contactId);
