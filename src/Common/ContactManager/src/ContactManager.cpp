@@ -20,6 +20,8 @@
 #include "ContactPersonNumber.h"
 #include "ContactPersonEmail.h"
 
+#include <algorithm>
+
  namespace Msg
  {
     ContactManager::ContactManager()
@@ -27,13 +29,25 @@
         MSG_LOG("");
         int error = contacts_connect();
         if(error != 0)
+        {
             MSG_LOG_ERROR(whatError(error));
+        }
+
+        error = contacts_db_add_changed_cb(_contacts_contact._uri, contactChangedCb, this);
+        if(error != 0)
+        {
+            MSG_LOG_ERROR(whatError(error));
+        }
     }
 
     ContactManager::~ContactManager()
     {
         MSG_LOG("");
-        int error = contacts_disconnect();
+        int error = contacts_db_remove_changed_cb(_contacts_contact._uri, contactChangedCb, this);
+        if(error != 0)
+            MSG_LOG_ERROR(whatError(error));
+
+        error = contacts_disconnect();
         if(error != 0)
             MSG_LOG_ERROR(whatError(error));
     }
@@ -178,5 +192,31 @@
         return ContactPersonNumber (cResValue);
     }
 
+    void ContactManager::contactChangedCb(const char *view_uri, void *user_data)
+    {
+        ContactManager *self = static_cast<ContactManager *>(user_data);
+        for (auto listener : self->m_Listeners)
+        {
+            listener->onContactChanged();
+        }
+    }
+
+    void ContactManager::addListener(IContactDbChangeListener &listener)
+    {
+        auto found = std::find(m_Listeners.begin(), m_Listeners.end(), &listener);
+        if (found == m_Listeners.end())
+        {
+            m_Listeners.push_back(&listener);
+        }
+    }
+
+    void ContactManager::removeListener(IContactDbChangeListener &listener)
+    {
+        auto found = std::find(m_Listeners.begin(), m_Listeners.end(), &listener);
+        if (found != m_Listeners.end())
+        {
+            m_Listeners.erase(found);
+        }
+    }
 }
 

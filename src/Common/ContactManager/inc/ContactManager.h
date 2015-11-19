@@ -28,21 +28,74 @@
 
 namespace Msg
 {
+    /*
+     *@brief        A listener to be notified after contact-information will be changed in contacts-db
+     */
+    class IContactDbChangeListener;
+    /*
+     *@brief        class that work with contacts database.
+     *@brief        Search contacts, add listeners, register callback on changes in database.
+     */
     class ContactManager
     {
         public:
             ContactManager();
             ~ContactManager();
+            ContactManager(ContactManager&) = delete;
+            ContactManager &operator=(ContactManager&) = delete;
 
         public:
+            /*
+             *@brief        function return what kind of error occurred
+             *@param[in]    error - number of error
+             *@return       kind of error
+             */
             static std::string whatError(int error);
-
+            /*
+             * @brief       Looks for contact information based on a given keyword
+             * @param       keyword - search keyword
+             */
             template<typename T>
             ContactList<T> search(const std::string &keyword);
+            /*
+             *@brief        function find by number: id, name and thumbnail path
+             *@param[in]    number - contact person number
+             *@return       ContactPersonNumber
+             */
             ContactPersonNumber getContactPersonNumber(const std::string &number) const;
+            /*
+             *@brief        function add listener on contacts database
+             *@param[in]    listener
+             */
+            void addListener(IContactDbChangeListener &listener);
+            /*
+             *@brief        function remove listener
+             *@param[in]    listener - listener to be remove
+             */
+            void removeListener(IContactDbChangeListener &listener);
+
+        private:
+            /*
+             *@brief        a callback passed to contacts_db_add_changed_cb() to get notifications
+                            about contacts modifications from contact service
+             *@param[in]    view_uri - The view URI of records whose changes are monitored
+             *@param[in]    user_data - the user data passed from the callback registration function
+             */
+            static void contactChangedCb(const char *view_uri, void *user_data);
+
+        private:
+            std::list<IContactDbChangeListener *> m_Listeners;
+    };
+
+    class IContactDbChangeListener
+    {
+        public:
+            virtual ~IContactDbChangeListener() {}
+            /*
+             *@brief        a method called when changing of some contact-record has been occurred
+             */
+            virtual void onContactChanged() {};
     };
 }
-
-
 
 #endif /* __ContactManager_h__ */

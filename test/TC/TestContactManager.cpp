@@ -19,27 +19,31 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include "ContactUtils.h"
+#include "BaseController.h"
+#include "Logger.h"
 
 using namespace Msg;
 
 class TestContactManager: public testing::Test
 {
-protected:
-	virtual void SetUp()
-	{
-		m_ContactId = -100; //dummy id
-	}
-	virtual void TearDown()
-	{
-		if (m_ContactId != -100)
-		{
-			Msg::Test::ContactUtils::getInst().removeContact(m_ContactId);
-		}
-	}
+    protected:
+        virtual void SetUp()
+        {
+            m_ContactId = -100; //dummy id
+        }
 
-	int m_ContactId;
-	ContactManager m_ContactManager;
+        virtual void TearDown()
+        {
+            if (m_ContactId != -100)
+            {
+                Msg::Test::ContactUtils::getInst().removeContact(m_ContactId);
+            }
+        }
+        int m_ContactId;
+        ContactManager m_ContactManager;
 };
+
+//____________________________________________________________________________//
 
 TEST_F( TestContactManager, FindNameSasha )
 {
@@ -73,3 +77,39 @@ TEST_F( TestContactManager, FindNameVova )
 
     ASSERT_EQ(result, strName);
 }
+
+//____________________________________________________________________________//
+
+TEST_F( TestContactManager, TestGetNameById )
+{
+    const std::string strNumber = "0971234567";
+    const std::string strName = "Test1";
+
+    m_ContactId = Msg::Test::ContactUtils::getInst().createContact(strName, strNumber);
+
+    ContactPersonNumber item = m_ContactManager.getContactPersonNumber(strNumber);
+    std::string result1 = item.getDispName();
+
+    std::string result2 = Msg::Test::ContactUtils::getInst().getNameById(m_ContactId);
+
+    ASSERT_EQ(result1, result2);
+}
+
+//____________________________________________________________________________//
+
+TEST_F( TestContactManager, TestRenameContact )
+{
+    const std::string strNumber = "0971234567";
+    const std::string strName = "Test1";
+    const std::string newName = "Test2";
+
+    m_ContactId = Msg::Test::ContactUtils::getInst().createContact(strName, strNumber);
+    Msg::Test::ContactUtils::getInst().renameContact(m_ContactId, newName);
+
+    std::string result = Msg::Test::ContactUtils::getInst().getNameById(m_ContactId);
+
+    ASSERT_EQ(newName, result);
+}
+
+//____________________________________________________________________________//
+
