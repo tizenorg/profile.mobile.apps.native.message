@@ -42,6 +42,33 @@ namespace Msg
             return contact_id;
         }
 
+        void ContactUtils::renameContact(int contactId, const std::string &newName)
+        {
+            contacts_record_h contact = NULL;
+            contacts_record_h name = NULL;
+
+            contacts_db_get_record(_contacts_contact._uri, contactId, &contact);
+            contacts_record_get_child_record_at_p(contact, _contacts_contact.name, 0, &name);
+            contacts_record_set_str(name, _contacts_name.first, newName.c_str());
+
+            if (contacts_db_update_record(contact) != CONTACTS_ERROR_NONE)
+            {
+                MSG_LOG_ERROR("contacts_db_update_record is failed!");
+            }
+        }
+
+        std::string ContactUtils::getNameById(int contactId)
+        {
+            contacts_record_h contact = NULL;
+            contacts_record_h name = NULL;
+            char *str = nullptr;
+
+            contacts_db_get_record(_contacts_contact._uri, contactId, &contact);
+            contacts_record_get_child_record_at_p(contact, _contacts_contact.name, 0, &name);
+            contacts_record_get_str(name, _contacts_name.first, &str);
+            return (str == nullptr) ? "" : str;
+        }
+
         void ContactUtils::removeContact(int contactId)
         {
         	contacts_db_delete_record(_contacts_contact._uri, contactId);
