@@ -41,6 +41,7 @@ BuildRequires:  pkgconfig(notification)
 BuildRequires:  pkgconfig(efl-extension)
 BuildRequires:  pkgconfig(capi-system-runtime-info)
 BuildRequires:  pkgconfig(storage)
+BuildRequires:  pkgconfig(libtzplatform-config)
 
 #private
 BuildRequires:  pkgconfig(msg-service)
@@ -54,17 +55,17 @@ BuildRequires:  gettext-tools
 %description
 message lite application.
 
-%define PREFIX           /usr/apps/%{name}
-%define OPTPREFIX        /opt/usr/apps/%{name}
+%define PREFIX           %{TZ_SYS_RO_APP}/%{name}
+%define OPTPREFIX        %{TZ_SYS_RO_APP}/%{name}
 %define RESDIR           %{PREFIX}/res
 %define EDJDIR           %{RESDIR}/edje
 %define DATADIR          %{OPTPREFIX}/data
 %define IMGDIR           %{RESDIR}/images
 %define BINDIR           %{PREFIX}/bin
 %define LIBDIR           %{PREFIX}/lib
-%define MANIFESTDIR      /usr/share/packages
-%define SMACKDIR         /etc/smack/accesses.d
-%define ICONDIR          /usr/share/icons/default/small
+%define MANIFESTDIR      %{TZ_SYS_RO_PACKAGES}
+%define SMACKDIR         %{TZ_SYS_SMACK}/accesses.d
+%define ICONDIR          %{TZ_SYS_RO_ICONS}/default/small
 %define LOCALEDIR        %{RESDIR}/locale
 
 %prep

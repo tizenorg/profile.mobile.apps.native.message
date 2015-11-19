@@ -59,6 +59,7 @@ pkg_check_modules(pkgs REQUIRED
             libpng
             efl-extension
             storage
+            libtzplatform-config
 )
 
 ADD_DEFINITIONS("-DAPP_DIR=\"${PKGDIR}\"")

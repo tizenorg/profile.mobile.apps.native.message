@@ -18,13 +18,14 @@
 #include "SettingsSound.h"
 #include "MsgEngine.h"
 #include <app.h>
+#include <tzplatform_config.h>
 
 using namespace Msg;
 
 namespace
 {
     const char *sRingtoneKeyPath = "path";
-    const char *sRingtoneValuePath = "/opt/usr/share/settings/Alerts";
+    const char *sRingtoneValuePath = tzplatform_mkpath(TZ_USER_SHARE, "settings/Alerts");
     const char *sRingtoneKeySelectType = "select_type";
     const char *sRingtoneValueSingleFile = "SINGLE_FILE";
     const char *sRingtoneKeyFileType = "file_type";
