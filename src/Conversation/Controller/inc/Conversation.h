@@ -64,6 +64,7 @@ namespace Msg
         private:
             // NaviFrameItem:
             virtual void onAttached(ViewItem &item);
+            virtual void onButtonClicked(const NaviFrameItem &item, NaviButtonId buttonId);
 
             // IMsgStorageListener:
             virtual void onMsgStorageChange();
