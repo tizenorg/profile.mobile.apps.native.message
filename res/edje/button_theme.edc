@@ -3135,38 +3135,6 @@ MSG_BUBBLE_BUTTON_STYLE_TRANSLATE("translate_button", "M01_circle_button.png", "
             }
          }
          program {
-            name: "pass_event_enable";
-            signal: "elm,event,pass,enabled";
-            source: "elm";
-            script {
-               set_mouse_events(PART:"event", 0);
-            }
-         }
-         program {
-            name: "pass_event_disable";
-            signal: "elm,event,pass,disabled";
-            source:"elm";
-            script {
-               set_mouse_events(PART:"event", 1);
-            }
-         }
-         program {
-            name: "repeat_event_enable";
-            signal: "elm,event,repeat,enabled";
-            source: "elm";
-            script {
-              set_repeat_events(PART:"event", 1);
-            }
-         }
-         program {
-            name: "repeat_event_disable";
-            signal: "elm,event,repeat,disabled";
-            source:"elm";
-            script {
-               set_repeat_events(PART:"event", 0);
-            }
-         }
-         program {
             name: "make_blue";
             signal: "button,color,blue";
             source: "*";
@@ -3449,38 +3417,6 @@ MSG_BUBBLE_BUTTON_STYLE_TRANSLATE("translate_button", "M01_circle_button.png", "
             source: "elm";
             script {
                set_int(multi_down, 0);
-            }
-         }
-         program {
-            name: "pass_event_enable";
-            signal: "elm,event,pass,enabled";
-            source: "elm";
-            script {
-               set_mouse_events(PART:"event", 0);
-            }
-         }
-         program {
-            name: "pass_event_disable";
-            signal: "elm,event,pass,disabled";
-            source:"elm";
-            script {
-               set_mouse_events(PART:"event", 1);
-            }
-         }
-         program {
-            name: "repeat_event_enable";
-            signal: "elm,event,repeat,enabled";
-            source: "elm";
-            script {
-               set_repeat_events(PART:"event", 1);
-            }
-         }
-         program {
-            name: "repeat_event_disable";
-            signal: "elm,event,repeat,disabled";
-            source:"elm";
-            script {
-               set_repeat_events(PART:"event", 0);
             }
          }
          program {
