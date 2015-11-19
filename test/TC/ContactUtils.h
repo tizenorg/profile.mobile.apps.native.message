@@ -17,6 +17,8 @@ namespace Msg
                 static ContactUtils &getInst();
 
                 int createContact(const std::string &strName, const std::string &strNumber);
+                void renameContact(int contactId, const std::string &newName);
+                std::string getNameById(int contactId);
                 void removeContact(int contactId);
 
             private:

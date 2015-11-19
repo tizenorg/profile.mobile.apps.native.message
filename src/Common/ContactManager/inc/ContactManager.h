@@ -28,11 +28,15 @@
 
 namespace Msg
 {
+    class IContactDbChangeListener;
+
     class ContactManager
     {
         public:
             ContactManager();
             ~ContactManager();
+            ContactManager(ContactManager&) = delete;
+            ContactManager &operator=(ContactManager&) = delete;
 
         public:
             static std::string whatError(int error);
@@ -40,9 +44,23 @@ namespace Msg
             template<typename T>
             ContactList<T> search(const std::string &keyword);
             ContactPersonNumber getContactPersonNumber(const std::string &number) const;
+
+            void addListener(IContactDbChangeListener &listener);
+            void removeListener(IContactDbChangeListener &listener);
+
+        private:
+            static void contactChangedCb(const char *view_uri, void *user_data);
+
+        private:
+            std::vector<IContactDbChangeListener *> m_Listeners;
+    };
+
+    class IContactDbChangeListener
+    {
+        public:
+            virtual ~IContactDbChangeListener() {}
+            virtual void onContactChanged() {};
     };
 }
-
-
 
 #endif /* __ContactManager_h__ */
