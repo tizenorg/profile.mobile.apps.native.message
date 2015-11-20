@@ -95,6 +95,7 @@ NaviFrameItem::NaviBar::NaviBar(NaviFrameItem &onwer)
     : m_Owner(onwer)
     , m_ButtonList()
     , m_CurrentColor(NaviBlueColorId)
+    , m_SearchBar(nullptr)
 {
     m_ButtonList[NaviCancelButtonId] = ButtonStruct(nullptr, cancelButtonPart, cancelButtonStyle, cancelButtonDefTextId);
     m_ButtonList[NaviOkButtonId] = ButtonStruct(nullptr, okButtonPart, okButtonStyle, okButtonDefTextId);
@@ -228,7 +229,7 @@ void NaviFrameItem::NaviBar::showOkButtonPart(bool value)
     }
 }
 
-void NaviFrameItem::NaviBar::showCenterButtonPart(bool value, bool expand)
+void NaviFrameItem::NaviBar::showCenterButtonPart(bool value)
 {
     const char *sig = value ? "center,show,btn" : "center,hide,btn";
     emitSignal(sig, "*");
@@ -387,9 +388,26 @@ void NaviFrameItem::NaviBar::clearBar()
     }
 }
 
-void NaviFrameItem::NaviBar::switchToSearch(Evas_Object *searchPanel)
+void NaviFrameItem::NaviBar::setSearch(Evas_Object *searchPanel)
 {
-    //TODO: implement switchToSearch
+    m_SearchBar = searchPanel;
+}
+
+Evas_Object *NaviFrameItem::NaviBar::getSearch()
+{
+    return m_SearchBar;
+}
+
+void NaviFrameItem::NaviBar::showSearch()
+{
+    emitSignal("search,show", "*");
+    setContent(m_SearchBar, m_ButtonList[NaviCenterButtonId].part);
+}
+
+void NaviFrameItem::NaviBar::hideSearch()
+{
+    showButton(NaviCenterButtonId, false);
+    showDownButtonPart(false);
 }
 
 void NaviFrameItem::NaviBar::expandDownButton(bool value)

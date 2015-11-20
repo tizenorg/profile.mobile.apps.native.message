@@ -53,15 +53,12 @@ MsgThread::MsgThread(NaviFrameController &parent)
     m_pLayout = new MsgThreadLayout(getParent());
     m_pLayout->show();
 
-    Evas_Object *searchPanel = createSearchPanel(*m_pLayout);
-
     m_pThreadListView = new ThreadListView(*m_pLayout);
     m_pThreadListView->setListener(this);
     m_pThreadListView->setMultiSelection(false);
     m_pThreadListView->show();
 
     m_pLayout->setList(*m_pThreadListView);
-    m_pLayout->setSearchPanel(searchPanel);
 
     fillThreadList();
 
@@ -80,6 +77,7 @@ void MsgThread::onAttached(ViewItem &item)
     FrameController::onAttached(item);
     getNaviBar().setTitle(msgt("IDS_MSG_HEADER_MESSAGES"));
     getNaviBar().setColor(NaviBar::NaviBlueColorId);
+    getNaviBar().setSearch(createSearchPanel(getNaviBar()));
     setHwButtonListener(*m_pLayout, this);
     setContent(*m_pLayout);
 }

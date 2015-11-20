@@ -32,15 +32,19 @@ Evas_Object *MsgThread::createSearchPanel(Evas_Object *parent)
 
 void MsgThread::setSearchMode(bool value)
 {
+    getNaviBar().showButton(NaviPrevButtonId, value);
     if(value)
     {
         m_Mode = SearchMode;
         m_pSearchPanel->clearEntry();
+        getNaviBar().showSearch();
+    }
+    else
+    {
+        getNaviBar().hideSearch();
     }
 
-    m_pLayout->showSearchPanel(value);
     m_pSearchPanel->setEntryFocus(value);
-    getNaviBar().setVisible(!value);
 }
 
 void MsgThread::onSearchButtonClicked(MsgThreadSearchPanel &obj)

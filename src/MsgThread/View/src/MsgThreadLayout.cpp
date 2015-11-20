@@ -50,14 +50,3 @@ void MsgThreadLayout::setBg(Evas_Object *bg)
 {
     elm_object_part_content_set(m_pLayout, "swl.bg", bg);
 }
-
-void MsgThreadLayout::setSearchPanel(Evas_Object *panel)
-{
-    elm_object_part_content_set(m_pLayout, "swl.searchbar", panel);
-}
-
-void MsgThreadLayout::showSearchPanel(bool vale)
-{
-    const char *sig = vale ? "show_searchbar" : "hide_searchbar";
-    elm_object_signal_emit(m_pLayout, sig, "");
-}

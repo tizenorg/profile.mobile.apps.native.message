@@ -32,9 +32,6 @@ namespace Msg
 
             void setList(Evas_Object *list);
             void setBg(Evas_Object *bg);
-            void setSearchPanel(Evas_Object *panel);
-
-            void showSearchPanel(bool vale);
 
         private:
             void create(Evas_Object *parent);
