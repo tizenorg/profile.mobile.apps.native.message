@@ -39,6 +39,7 @@ void Viewer::onAttached(ViewItem &item)
     FrameController::onAttached(item);
     getNaviBar().setTitle("Viewer");
     getNaviBar().setColor(NaviBar::NaviBlueColorId);
+    getNaviBar().showButton(NaviPrevButtonId, true);
     setHwButtonListener(getContent(), this);
 }
 
@@ -50,4 +51,12 @@ void Viewer::onHwBackButtonClicked()
 void Viewer::onHwMoreButtonClicked()
 {
 
+}
+
+void Viewer::onButtonClicked(const NaviFrameItem &item, NaviButtonId buttonId)
+{
+    if(buttonId == NaviPrevButtonId)
+    {
+        getParent().pop();
+    }
 }
