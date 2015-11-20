@@ -96,7 +96,8 @@ namespace Msg
             void setButtonText(NaviButtonId id, const std::string &text);
             void setButtonText(NaviButtonId id, const TText &text);
             void clearBar();
-            void switchToSearch(Evas_Object *searchPanel);
+            void showSearch(Evas_Object *searchPanel);
+            void hideSearch();
             void setColor(NaviColorId id);
             void expandDownButton(bool value);
 
@@ -109,7 +110,7 @@ namespace Msg
             void setButtonColor(NaviButtonId id, NaviColorId titleColor);
             void showCancelButtonPart(bool value);
             void showOkButtonPart(bool value);
-            void showCenterButtonPart(bool value, bool expand = false);
+            void showCenterButtonPart(bool value);
             void showPrevButtonPart(bool value);
             void showDownButtonPart(bool value);
             void initNaviBar();

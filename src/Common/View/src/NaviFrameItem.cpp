@@ -216,7 +216,7 @@ void NaviFrameItem::NaviBar::showOkButtonPart(bool value)
     emitSignal(sig, "*");
 }
 
-void NaviFrameItem::NaviBar::showCenterButtonPart(bool value, bool expand)
+void NaviFrameItem::NaviBar::showCenterButtonPart(bool value)
 {
     const char *sig = value ? "center,show,btn" : "center,hide,btn";
     emitSignal(sig, "*");
@@ -360,9 +360,16 @@ void NaviFrameItem::NaviBar::clearBar()
     }
 }
 
-void NaviFrameItem::NaviBar::switchToSearch(Evas_Object *searchPanel)
+void NaviFrameItem::NaviBar::showSearch(Evas_Object *searchPanel)
 {
-    //TODO: implement switchToSearch
+    emitSignal("search,show", "*");
+    setContent(searchPanel, m_ButtonList[NaviCenterButtonId].part);
+}
+
+void NaviFrameItem::NaviBar::hideSearch()
+{
+    showButton(NaviCenterButtonId, false);
+    showDownButtonPart(false);
 }
 
 void NaviFrameItem::NaviBar::expandDownButton(bool value)

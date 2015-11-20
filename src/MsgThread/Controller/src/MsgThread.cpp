@@ -53,15 +53,13 @@ MsgThread::MsgThread(NaviFrameController &parent)
     m_pLayout = new MsgThreadLayout(getParent());
     m_pLayout->show();
 
-    Evas_Object *searchPanel = createSearchPanel(*m_pLayout);
-
+    createSearchPanel(*m_pLayout);
     m_pThreadListView = new ThreadListView(*m_pLayout);
     m_pThreadListView->setListener(this);
     m_pThreadListView->setMultiSelection(false);
     m_pThreadListView->show();
 
     m_pLayout->setList(*m_pThreadListView);
-    m_pLayout->setSearchPanel(searchPanel);
 
     fillThreadList();
 
