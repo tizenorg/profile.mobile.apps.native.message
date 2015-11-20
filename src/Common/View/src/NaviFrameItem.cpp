@@ -207,13 +207,27 @@ void NaviFrameItem::NaviBar::disabledButton(NaviButtonId id, bool value)
 void NaviFrameItem::NaviBar::showCancelButtonPart(bool value)
 {
     const char *sig = value ? "cancel,show,btn" : "left,clear";
-    emitSignal(sig, "*");
+    if(value)
+    {
+        emitSignal(sig, "*");
+    }
+    else if(getContent(cancelButtonPart) == nullptr)
+    {
+        emitSignal(sig, "*");
+    }
 }
 
 void NaviFrameItem::NaviBar::showOkButtonPart(bool value)
 {
     const char *sig = value ? "done,show,btn" : "right,clear";
-    emitSignal(sig, "*");
+    if(value)
+    {
+        emitSignal(sig, "*");
+    }
+    else if(getContent(okButtonPart) == nullptr)
+    {
+        emitSignal(sig, "*");
+    }
 }
 
 void NaviFrameItem::NaviBar::showCenterButtonPart(bool value, bool expand)
@@ -226,14 +240,33 @@ void NaviFrameItem::NaviBar::showPrevButtonPart(bool value)
 {
     const char *sig1 = value ? "back,show,btn" : "left,clear";
     const char *sig2 = value ? "empty,right,show" : "right,clear";
-    emitSignal(sig1, "*");
-    emitSignal(sig2, "*");
+
+    if(value)
+    {
+        emitSignal(sig1, "*");
+    }
+    else if(getContent(prevButtonPart) == nullptr)
+    {
+        emitSignal(sig1, "*");
+    }
+
+    if(getContent(downButtonPart) == nullptr)
+    {
+        emitSignal(sig2, "*");
+    }
 }
 
 void NaviFrameItem::NaviBar::showDownButtonPart(bool value)
 {
     const char *sig = value ? "down,show,btn" : "right,clear";
-    emitSignal(sig, "*");
+    if(value)
+    {
+        emitSignal(sig, "*");
+    }
+    else if(getContent(downButtonPart) == nullptr)
+    {
+        emitSignal(sig, "*");
+    }
 }
 
 void NaviFrameItem::NaviBar::on_button_clicked(void *data, Evas_Object *obj, void *event_info)

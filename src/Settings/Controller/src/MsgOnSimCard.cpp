@@ -65,8 +65,8 @@ void MsgOnSimCard::create()
 void MsgOnSimCard::onAttached(ViewItem &item)
 {
     FrameController::onAttached(item);
-    setTitleTranslatable();
     getNaviBar().setColor(NaviBar::NaviWhiteColorId);
+    setTitleWithButtons(false);
     setHwButtonListener(*m_pList, this);
     setContent(*m_pList);
 
@@ -91,6 +91,10 @@ void MsgOnSimCard::onButtonClicked(const NaviFrameItem &item, NaviButtonId butto
         {
             //TODO: copySelectedItems();
         }
+    }
+    else if(buttonId == NaviPrevButtonId)
+    {
+        getParent().pop();
     }
     setMode(NormalMode);
 }
@@ -253,8 +257,10 @@ void MsgOnSimCard::setTitleWithButtons(bool value)
 {
     setTitleTranslatable();
 
+    getNaviBar().clearBar();
     getNaviBar().showButton(NaviOkButtonId, value);
     getNaviBar().showButton(NaviCancelButtonId, value);
+    getNaviBar().showButton(NaviPrevButtonId, !value);
 
     m_pList->setCheckMode(value);
     m_pList->checkAllItems(false);
