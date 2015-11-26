@@ -53,7 +53,7 @@ void Viewer::onHwMoreButtonClicked()
 
 }
 
-void Viewer::onButtonClicked(const NaviFrameItem &item, NaviButtonId buttonId)
+void Viewer::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
 {
     if(buttonId == NaviPrevButtonId)
     {

@@ -52,7 +52,6 @@ namespace Msg
             void onClearButtonClicked(Evas_Object *obj, void *eventInfo);
 
         private:
-            Evas_Object *m_pLayout;
             Evas_Object *m_pEntry;
             Evas_Object *m_pClearButton;
             IMsgThreadSearchPanelListener *m_pListener;

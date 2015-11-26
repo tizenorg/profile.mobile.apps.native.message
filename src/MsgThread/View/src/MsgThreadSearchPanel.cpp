@@ -24,8 +24,7 @@
 using namespace Msg;
 
 MsgThreadSearchPanel::MsgThreadSearchPanel(Evas_Object *parent)
-    : m_pLayout(nullptr)
-    , m_pEntry(nullptr)
+    : m_pEntry(nullptr)
     , m_pClearButton(nullptr)
     , m_pListener(nullptr)
 {

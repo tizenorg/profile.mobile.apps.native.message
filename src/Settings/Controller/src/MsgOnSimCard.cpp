@@ -79,7 +79,7 @@ void MsgOnSimCard::onAttached(ViewItem &item)
     }*/
 }
 
-void MsgOnSimCard::onButtonClicked(const NaviFrameItem &item, NaviButtonId buttonId)
+void MsgOnSimCard::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
 {
     if(buttonId == NaviOkButtonId)
     {

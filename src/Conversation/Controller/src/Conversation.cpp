@@ -253,7 +253,7 @@ void Conversation::onHwMoreButtonClicked()
     MSG_LOG("");
 }
 
-void Conversation::onButtonClicked(const NaviFrameItem &item, NaviButtonId buttonId)
+void Conversation::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
 {
     //TODO: Handle other buttons
     switch(buttonId)

@@ -404,7 +404,7 @@ void Settings::onNotiSoundChanged(MsgSettings &msgSetting)
     m_pSoundItem->update();
 }
 
-void Settings::onButtonClicked(const NaviFrameItem &item, NaviButtonId buttonId)
+void Settings::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
 {
     if(buttonId == NaviPrevButtonId)
     {

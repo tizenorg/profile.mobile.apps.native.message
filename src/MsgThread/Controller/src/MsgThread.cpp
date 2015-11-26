@@ -295,7 +295,7 @@ void MsgThread::deleteSelectedItems()
     }
 }
 
-void MsgThread::onButtonClicked(const NaviFrameItem &item, NaviButtonId buttonId)
+void MsgThread::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
 {
     MSG_LOG("NaviButton id:", buttonId);
     if(buttonId == NaviOkButtonId)

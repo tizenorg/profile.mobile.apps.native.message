@@ -58,7 +58,7 @@ namespace Msg
             const NaviFrameView &getOwner() const;
 
         protected:
-            virtual void onButtonClicked(const NaviFrameItem &item, NaviButtonId buttonId) {};
+            virtual void onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId) {};
 
             //ViewItem
             virtual void onAttached(ViewItem &item);

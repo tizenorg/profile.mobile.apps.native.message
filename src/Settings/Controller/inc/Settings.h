@@ -43,7 +43,7 @@ namespace Msg
         private:
             // NaviFrameItem:
             virtual void onAttached(ViewItem &item);
-            virtual void onButtonClicked(const NaviFrameItem &item, NaviButtonId buttonId);
+            virtual void onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId);
 
             // IListViewListener:
             virtual void onListItemSelected(ListItem &listItem, void *funcData);
