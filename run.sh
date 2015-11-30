@@ -296,13 +296,13 @@ install()
     do
       current_package=$current_package_name-$VERSION-$RELEASE.$PLATFORM.rpm
       ShowMessage "Installing the package $current_package ..."
-      #$SDB install $RPMSPATH/$current_package
+      $SDB install $RPMSPATH/$current_package
       #if hasPrefix $current_package; then
         # install with pkgcmd
         #SdbShell "pkgcmd -q -i -t rpm -p $TEMPDIR/$current_package"
       #else
         # uninstall with rpm
-        SdbShell "rpm -ivh --force --nodeps $TEMPDIR/$current_package"
+        #SdbShell "rpm -ivh --force --nodeps $TEMPDIR/$current_package"
       #fi
     done
 
@@ -314,7 +314,7 @@ install()
         SdbShell "rpm -i $TEMPDIR/$DEBUGSOURCEPKGNAME.rpm"
     fi
 
-    SdbShell "pkg_initdb"
+    #SdbShell "pkg_initdb"
 }
 
 ##--------------- Running ----------------##
@@ -348,12 +348,12 @@ installApp()
   checkConnection
   initPackageList
 
-  $SDB root on
+  #$SDB root on
   #uninstall
-  push
+  #push
   install
 
-  $SDB root off
+  #$SDB root off
 }
 
 runApp()

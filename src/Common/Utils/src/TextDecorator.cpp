@@ -29,7 +29,7 @@ const int TextStyle::defaultFontSize = 28;
 
 namespace
 {
-    const char * alignAsString(TextAlign align)
+    const char *alignAsString(TextAlign align)
     {
         switch(align)
         {
@@ -39,6 +39,9 @@ namespace
                 return "left";
             case TextAlign::Right:
                 return "right";
+            case TextAlign::None:
+            default:
+                break;
         }
 
         assert(false);

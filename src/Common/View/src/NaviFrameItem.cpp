@@ -95,11 +95,12 @@ NaviFrameItem::NaviBar::NaviBar(NaviFrameItem &onwer)
     : m_Owner(onwer)
     , m_ButtonList()
     , m_CurrentColor(NaviBlueColorId)
+    , m_SearchBar(nullptr)
 {
     m_ButtonList[NaviCancelButtonId] = ButtonStruct(nullptr, cancelButtonPart, cancelButtonStyle, cancelButtonDefTextId);
     m_ButtonList[NaviOkButtonId] = ButtonStruct(nullptr, okButtonPart, okButtonStyle, okButtonDefTextId);
     //TODO: implement style for center button
-    m_ButtonList[NaviCenterButtonId] = ButtonStruct(nullptr, centerButtonPart, prevButtonStyle);
+    m_ButtonList[NaviCenterButtonId] = ButtonStruct(nullptr, centerButtonPart, cancelButtonStyle);
     m_ButtonList[NaviPrevButtonId] = ButtonStruct(nullptr, prevButtonPart, prevButtonStyle);
     m_ButtonList[NaviDownButtonId] = ButtonStruct(nullptr, downButtonPart, downButtonStyle);
 }
@@ -206,17 +207,29 @@ void NaviFrameItem::NaviBar::disabledButton(NaviButtonId id, bool value)
 
 void NaviFrameItem::NaviBar::showCancelButtonPart(bool value)
 {
-    const char *sig = value ? "cancel,show,btn" : "left,clear";
-    emitSignal(sig, "*");
+    if(value)
+    {
+        emitSignal("cancel,show,btn", "*");
+    }
+    else if(getContent(cancelButtonPart) == nullptr)
+    {
+        emitSignal("left,clear", "*");
+    }
 }
 
 void NaviFrameItem::NaviBar::showOkButtonPart(bool value)
 {
-    const char *sig = value ? "done,show,btn" : "right,clear";
-    emitSignal(sig, "*");
+    if(value)
+    {
+        emitSignal("done,show,btn", "*");
+    }
+    else if(getContent(okButtonPart) == nullptr)
+    {
+        emitSignal("right,clear", "*");
+    }
 }
 
-void NaviFrameItem::NaviBar::showCenterButtonPart(bool value, bool expand)
+void NaviFrameItem::NaviBar::showCenterButtonPart(bool value)
 {
     const char *sig = value ? "center,show,btn" : "center,hide,btn";
     emitSignal(sig, "*");
@@ -224,16 +237,31 @@ void NaviFrameItem::NaviBar::showCenterButtonPart(bool value, bool expand)
 
 void NaviFrameItem::NaviBar::showPrevButtonPart(bool value)
 {
-    const char *sig1 = value ? "back,show,btn" : "left,clear";
-    const char *sig2 = value ? "empty,right,show" : "right,clear";
-    emitSignal(sig1, "*");
-    emitSignal(sig2, "*");
+    if(value)
+    {
+        emitSignal("back,show,btn", "*");
+    }
+    else if(getContent(prevButtonPart) == nullptr)
+    {
+        emitSignal("left,clear", "*");
+    }
+
+    if(getContent(downButtonPart) == nullptr)
+    {
+        emitSignal("empty,right,show", "*");
+    }
 }
 
 void NaviFrameItem::NaviBar::showDownButtonPart(bool value)
 {
-    const char *sig = value ? "down,show,btn" : "right,clear";
-    emitSignal(sig, "*");
+    if(value)
+    {
+        emitSignal("down,show,btn", "*");
+    }
+    else if(getContent(downButtonPart) == nullptr)
+    {
+        emitSignal("right,clear", "*");
+    }
 }
 
 void NaviFrameItem::NaviBar::on_button_clicked(void *data, Evas_Object *obj, void *event_info)
@@ -279,12 +307,31 @@ void NaviFrameItem::NaviBar::setColor(NaviColorId id)
 
 void NaviFrameItem::NaviBar::setButtonText(NaviButtonId id, const std::string &text)
 {
-    elm_object_text_set(m_ButtonList[id].button, text.c_str());
+    //TODO: implement text color in edc
+    TextStyle style;
+
+    switch(m_CurrentColor)
+    {
+        case NaviBlueColorId:
+            style.setColor(textColorBlueTitleButtons);
+            break;
+
+        case NaviWhiteColorId:
+            style.setColor(textColorWhiteTitleButtons);
+            break;
+
+        default:
+            break;
+    }
+    style.setSize(textSizeTitleButtons);
+    elm_object_text_set(m_ButtonList[id].button, TextDecorator::make(text, style).c_str());
 }
 
 void NaviFrameItem::NaviBar::setButtonText(NaviButtonId id, const TText &text)
 {
-    elm_object_domain_translatable_text_set(m_ButtonList[id].button, text.getDomain(), text.getMsg());
+    setText(m_ButtonList[id].button, text);
+    //TODO: implement text color in edc
+    setButtonColor(id, m_CurrentColor);
 }
 
 void NaviFrameItem::NaviBar::setButtonColor(NaviButtonId id, NaviColorId titleColor)
@@ -327,7 +374,7 @@ void NaviFrameItem::NaviBar::setButtonColor(NaviButtonId id, NaviColorId titleCo
         const char *buttonText = elm_object_text_get(m_ButtonList[id].button);
         if (buttonText != nullptr)
         {
-            setButtonText(id, TextDecorator::make(buttonText, style).c_str());
+            elm_object_text_set(m_ButtonList[id].button, TextDecorator::make(buttonText, style).c_str());
         }
     }
 }
@@ -341,9 +388,31 @@ void NaviFrameItem::NaviBar::clearBar()
     }
 }
 
-void NaviFrameItem::NaviBar::switchToSearch(Evas_Object *searchPanel)
+void NaviFrameItem::NaviBar::setSearch(Evas_Object *searchPanel)
 {
-    //TODO: implement switchToSearch
+    m_SearchBar = searchPanel;
+}
+
+Evas_Object *NaviFrameItem::NaviBar::getSearch()
+{
+    return m_SearchBar;
+}
+
+const Evas_Object *NaviFrameItem::NaviBar::getSearch() const
+{
+    return m_SearchBar;
+}
+
+void NaviFrameItem::NaviBar::showSearch()
+{
+    emitSignal("search,show", "*");
+    setContent(m_SearchBar, m_ButtonList[NaviCenterButtonId].part);
+}
+
+void NaviFrameItem::NaviBar::hideSearch()
+{
+    showButton(NaviCenterButtonId, false);
+    showDownButtonPart(false);
 }
 
 void NaviFrameItem::NaviBar::expandDownButton(bool value)

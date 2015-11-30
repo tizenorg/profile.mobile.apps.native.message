@@ -37,6 +37,7 @@ namespace Msg
 
             // NaviFrameItem:
             virtual void onAttached(ViewItem &item);
+            virtual void onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId);
 
             // IHwButtonListener:
             virtual void onHwBackButtonClicked();
