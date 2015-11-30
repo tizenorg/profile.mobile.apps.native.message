@@ -58,6 +58,7 @@ namespace Msg
 
         protected:
             typedef std::vector<IMsgStorageListener *> MsgStorageListeners;
+            typedef std::vector<MsgId> MsgIdList;
 
         protected:
             MsgStorageListeners m_Listeners;

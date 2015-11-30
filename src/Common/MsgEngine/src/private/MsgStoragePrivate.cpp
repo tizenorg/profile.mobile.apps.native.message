@@ -34,7 +34,12 @@ MsgStoragePrivate::MsgStoragePrivate(msg_handle_t serviceHandle)
     msg_reg_storage_change_callback(m_ServiceHandle, msg_storage_change_cb, this);
 }
 
-void MsgStoragePrivate::onStorageChange()
+void MsgStoragePrivate::onStorageUpdate(MsgIdList msgIdList)
+{
+    //TODO
+}
+
+void MsgStoragePrivate::onStorageInsert(MsgIdList msgIdList)
 {
     for(auto listener: m_Listeners)
     {
@@ -42,16 +47,46 @@ void MsgStoragePrivate::onStorageChange()
     }
 }
 
+void MsgStoragePrivate::onStorageDelete(MsgIdList msgIdList)
+{
+    for(auto listener: m_Listeners)
+    {
+        listener->onMsgStorageChange();
+    }
+}
+
+void MsgStoragePrivate::onStorageContact(MsgIdList msgIdList)
+{
+    //TODO
+}
+
+
 void MsgStoragePrivate::msg_storage_change_cb(msg_handle_t handle, msg_storage_change_type_t storageChangeType, msg_id_list_s *pMsgIdList, void *user_param)
 {
     TRACE;
     MsgStoragePrivate *self = static_cast<MsgStoragePrivate *>(user_param);
+    MsgIdList msgIdList;
+
+    int count = pMsgIdList->nCount;
+    for(int i = 0; i < count; i++)
+    {
+        msgIdList.push_back(pMsgIdList->msgIdList[i]);
+    }
+
     switch(storageChangeType)
     {
-        //TODO : Implement appropriate functionality
-        default:
-            self->onStorageChange();
-        break;
+        case MSG_STORAGE_CHANGE_UPDATE:
+            self->onStorageUpdate(msgIdList);
+            break;
+        case MSG_STORAGE_CHANGE_INSERT:
+            self->onStorageInsert(msgIdList);
+            break;
+        case MSG_STORAGE_CHANGE_DELETE:
+            self->onStorageDelete(msgIdList);
+            break;
+        case MSG_STORAGE_CHANGE_CONTACT:
+            self->onStorageContact(msgIdList);
+            break;
     }
 }
 

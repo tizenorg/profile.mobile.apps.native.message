@@ -29,7 +29,7 @@ MsgTransport::~MsgTransport()
 
 }
 
-void MsgTransport::sendMessage(const MessageRef &msg, ThreadId *threadId)
+MsgTransport::ComposerReturnType MsgTransport::sendMessage(const MessageRef &msg, ThreadId *threadId)
 {
-    sendMessage(*msg, threadId);
+    return sendMessage(*msg, threadId);
 }

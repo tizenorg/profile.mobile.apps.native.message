@@ -25,11 +25,20 @@ namespace Msg
     class MsgTransport
     {
         public:
+            enum ComposerReturnType {
+                ComposerReturnSuccess           = 0,
+                ComposerReturnFail              = -1,
+                ComposerReturnNullPointer       = -2,
+                ComposerReturnNoSIM             = -3,
+                ComposerReturnMemoryFull        = -4,
+            };
+
+        public:
             MsgTransport();
             virtual ~MsgTransport();
 
-            virtual void sendMessage(const Message &msg, ThreadId *threadId = nullptr) = 0;
-            void sendMessage(const MessageRef &msg, ThreadId *threadId = nullptr);
+            virtual ComposerReturnType sendMessage(const Message &msg, ThreadId *threadId = nullptr) = 0;
+            ComposerReturnType sendMessage(const MessageRef &msg, ThreadId *threadId = nullptr);
     };
 }
 
