@@ -214,7 +214,7 @@ void Conversation::sendMessage()
     }
 }
 
-void Conversation::onMsgStorageChange()
+void Conversation::onMsgStorageChange(const MsgIdList &idList)
 {
     MSG_LOG("");
 

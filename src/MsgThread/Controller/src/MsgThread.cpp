@@ -248,7 +248,7 @@ void MsgThread::onPopupButtonClicked(Popup &popup, int buttonId)
     resetPopup();
 }
 
-void MsgThread::onMsgStorageChange()
+void MsgThread::onMsgStorageChange(const MsgIdList &idList)
 {
     m_pThreadListView->clear(); // FIXME: temporary solution for demo
     fillThreadList();

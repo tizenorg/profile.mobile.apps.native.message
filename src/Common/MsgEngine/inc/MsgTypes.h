@@ -16,12 +16,16 @@
 #ifndef MSGTYPES_H_
 #define MSGTYPES_H_
 
+#include <vector>
+
 namespace Msg
 {
     // TODO: wrap to struct ?
     typedef unsigned int ThreadId;
     typedef unsigned int ConvItemId;
     typedef unsigned int MsgId;
+
+    typedef std::vector<MsgId> MsgIdList;
 }
 
 #endif /* MSGTYPES_H_ */

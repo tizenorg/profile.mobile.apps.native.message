@@ -59,7 +59,7 @@ namespace Msg
             virtual void onHwMoreButtonClicked();
 
             // IMsgStorageListener:
-            virtual void onMsgStorageChange();
+            virtual void onMsgStorageChange(const MsgIdList &idList);
 
             // IListViewListener:
             virtual void onListItemSelected(ListItem &listItem, void *funcData);

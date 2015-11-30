@@ -46,8 +46,11 @@ namespace Msg
             virtual MsgConversationListRef getConversationList(ThreadId id);
 
         private:
+            typedef void (IMsgStorageListener::*ListenerMethod)(const MsgIdList &);
+
+            void notifyListeners(const MsgIdList &idList, ListenerMethod method);
+
             static void msg_storage_change_cb(msg_handle_t handle, msg_storage_change_type_t storageChangeType, msg_id_list_s *pMsgIdList, void *user_param);
-            void onStorageChange();
 
             MessageSMS *createSms();
 

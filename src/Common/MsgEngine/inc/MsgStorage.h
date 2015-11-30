@@ -67,7 +67,14 @@ namespace Msg
     {
         public:
             virtual ~IMsgStorageListener() {};
-            virtual void onMsgStorageChange() {};
+
+            // TODO: delete this
+            virtual void onMsgStorageChange(const MsgIdList &msgIdList) {};
+
+            virtual void onMsgStorageUpdate(const MsgIdList &msgIdList) {};
+            virtual void onMsgStorageInsert(const MsgIdList &msgIdList) {};
+            virtual void onMsgStorageDelete(const MsgIdList &msgIdList) {};
+            virtual void onMsgStorageContact(const MsgIdList &msgIdList) {};
     };
 }
 

@@ -34,11 +34,11 @@ MsgStoragePrivate::MsgStoragePrivate(msg_handle_t serviceHandle)
     msg_reg_storage_change_callback(m_ServiceHandle, msg_storage_change_cb, this);
 }
 
-void MsgStoragePrivate::onStorageChange()
+void MsgStoragePrivate::notifyListeners(const MsgIdList &idList, ListenerMethod method)
 {
     for(auto listener: m_Listeners)
     {
-        listener->onMsgStorageChange();
+        (listener->*method)(idList);
     }
 }
 
@@ -46,12 +46,32 @@ void MsgStoragePrivate::msg_storage_change_cb(msg_handle_t handle, msg_storage_c
 {
     TRACE;
     MsgStoragePrivate *self = static_cast<MsgStoragePrivate *>(user_param);
+    MsgIdList msgIdList;
+
+    int count = pMsgIdList->nCount;
+    msgIdList.reserve(count);
+
+    for(int i = 0; i < count; ++i)
+    {
+        msgIdList.push_back(pMsgIdList->msgIdList[i]);
+    }
+
+    self->notifyListeners(msgIdList, &IMsgStorageListener::onMsgStorageChange);
+
     switch(storageChangeType)
     {
-        //TODO : Implement appropriate functionality
-        default:
-            self->onStorageChange();
-        break;
+        case MSG_STORAGE_CHANGE_UPDATE:
+            self->notifyListeners(msgIdList, &IMsgStorageListener::onMsgStorageUpdate);
+            break;
+        case MSG_STORAGE_CHANGE_INSERT:
+            self->notifyListeners(msgIdList, &IMsgStorageListener::onMsgStorageInsert);
+            break;
+        case MSG_STORAGE_CHANGE_DELETE:
+            self->notifyListeners(msgIdList, &IMsgStorageListener::onMsgStorageDelete);
+            break;
+        case MSG_STORAGE_CHANGE_CONTACT:
+            self->notifyListeners(msgIdList, &IMsgStorageListener::onMsgStorageContact);
+            break;
     }
 }
 

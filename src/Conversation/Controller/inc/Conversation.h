@@ -67,7 +67,7 @@ namespace Msg
             virtual void onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId);
 
             // IMsgStorageListener:
-            virtual void onMsgStorageChange();
+            virtual void onMsgStorageChange(const MsgIdList &idList);
 
             // IHwButtonListener:
             virtual void onHwBackButtonClicked();

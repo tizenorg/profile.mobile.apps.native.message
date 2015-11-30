@@ -25,11 +25,21 @@ namespace Msg
     class MsgTransport
     {
         public:
+            enum ReturnType
+            {
+                ReturnSuccess           = 0,
+                ReturnFail              = -1,
+                ReturnNullPointer       = -2,
+                ReturnNoSIM             = -3,
+                ReturnMemoryFull        = -4,
+            };
+
+        public:
             MsgTransport();
             virtual ~MsgTransport();
 
-            virtual void sendMessage(const Message &msg, ThreadId *threadId = nullptr) = 0;
-            void sendMessage(const MessageRef &msg, ThreadId *threadId = nullptr);
+            virtual ReturnType sendMessage(const Message &msg, ThreadId *threadId = nullptr) = 0;
+            ReturnType sendMessage(const MessageRef &msg, ThreadId *threadId = nullptr);
     };
 }
 
