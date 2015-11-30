@@ -47,7 +47,10 @@ namespace Msg
 
         private:
             static void msg_storage_change_cb(msg_handle_t handle, msg_storage_change_type_t storageChangeType, msg_id_list_s *pMsgIdList, void *user_param);
-            void onStorageChange();
+            void onStorageUpdate(MsgIdList msgId);
+            void onStorageInsert(MsgIdList msgId);
+            void onStorageDelete(MsgIdList msgId);
+            void onStorageContact(MsgIdList msgId);
 
             MessageSMS *createSms();
 

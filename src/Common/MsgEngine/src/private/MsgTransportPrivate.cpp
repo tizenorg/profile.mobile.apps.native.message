@@ -16,6 +16,7 @@
 
 #include "MsgTransportPrivate.h"
 #include "MessagePrivate.h"
+#include "Logger.h"
 
 using namespace Msg;
 
@@ -31,9 +32,11 @@ MsgTransportPrivate::~MsgTransportPrivate()
 
 }
 
-void MsgTransportPrivate::sendMessage(const Message &msg, ThreadId *threadId)
+MsgTransport::ComposerReturnType MsgTransportPrivate::sendMessage(const Message &msg, ThreadId *threadId)
 {
     msg_struct_t req = msg_create_struct(MSG_STRUCT_REQUEST_INFO);
+    int msgType = MSG_TYPE_INVALID;
+    int err = MSG_SUCCESS;
 
     msg_struct_t sendOpt = nullptr;
     msg_get_struct_handle(req, MSG_REQUEST_SENDOPT_HND, &sendOpt);
@@ -42,7 +45,17 @@ void MsgTransportPrivate::sendMessage(const Message &msg, ThreadId *threadId)
     const MessagePrivate &privMsg = dynamic_cast<const MessagePrivate&>(msg);
 
     msg_set_struct_handle(req, MSG_REQUEST_MESSAGE_HND, privMsg);
-    msg_sms_send_message(m_ServiceHandle, req);
+
+    if (privMsg.getType() == Message::MT_SMS) {
+        MSG_LOG("Sending SMS");
+        err = msg_sms_send_message(m_ServiceHandle, req);
+    } else if (privMsg.getType() == Message::MT_MMS) {
+        MSG_LOG("Sending MMS");
+        err = msg_mms_send_message(m_ServiceHandle, req);
+    } else {
+        msg_release_struct(&req);
+        return ComposerReturnFail;
+    }
 
     if(threadId)
     {
@@ -50,4 +63,22 @@ void MsgTransportPrivate::sendMessage(const Message &msg, ThreadId *threadId)
     }
 
     msg_release_struct(&req);
+
+    if (err == MSG_SUCCESS) {
+        MSG_LOG("sending success");
+        return ComposerReturnSuccess;
+    } else if (err == MSG_ERR_INVALID_PARAMETER) {
+        MSG_LOG_ERROR("sending failed error code [%d] : INVALID_PARAM ", err);
+        return ComposerReturnNullPointer;
+    } else if (err == MSG_ERR_NO_SIM) {
+        MSG_LOG_ERROR("sending failed error code [%d] : NO SIM", err);
+        return ComposerReturnNoSIM;
+    } else if (err == MSG_ERR_PLUGIN_STORAGE) {
+        MSG_LOG_ERROR("sending failed error code [%d] : MSG_ERR_PLUGIN_STORAGE", err);
+        return ComposerReturnMemoryFull;
+    } else {
+        MSG_LOG_ERROR("[DEBUG] sending failed error code [%d]", err);
+        return ComposerReturnFail;
+    }
 }
+
