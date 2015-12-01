@@ -31,5 +31,5 @@ MsgTransport::~MsgTransport()
 
 MsgTransport::ReturnType MsgTransport::sendMessage(const MessageRef &msg, ThreadId *threadId)
 {
-    return sendMessage(*msg, threadId);
+    return msg ? sendMessage(*msg, threadId) : MsgTransport::ReturnNullPointer;
 }
