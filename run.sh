@@ -145,24 +145,56 @@ hasPrefix()
 
 SdbShell()
 {
-  ShowMessage "$1" yellow
+  ShowMessage "$1" -c yellow
   $SDB shell su -c "$1"
 }
 
 ##--------------- color echo --------------##
 
 # arguments:
-# $1 - message text
-# $2 - text color (red, green, blue, yellow). Default value - blue
+# $1 : message text
+# -c|--color : text color (red, green, blue, yellow). Default value - blue
+# -n|--noti : show GUI notification
+# -s|--secondary : secondary message text
+# example: ShowMessage "Message to show" -c red --noti -s "Some additional text"
 
 ShowMessage()
 {
-    case "$2" in
+    show_noti=false
+    color_val=""
+    message_sec=""
+    message=""
+
+    while [[ $# > 0 ]]; do
+      key="$1"
+
+      case $key in
+        -c|--color)
+        color_val="$2"
+        shift # past argument
+        ;;
+        -s|--secondary)
+        message_sec="$2"
+        shift # past argument
+        ;;
+        -n|--noti)
+        show_noti=true
+        ;;
+        *)
+        message="$1"
+        ;;
+      esac
+      shift # past argument or value
+    done
+
+    case "$color_val" in
     "green")
       color="32m"
+      noti_icon="-i $PWD/edje/images/icon_emotion_sunglasses.png"
       ;;
     "red")
       color="31m"
+      noti_icon="-i $PWD/edje/images/icon_emotion_angry.png"
       ;;
     "blue")
       color="34m"
@@ -175,7 +207,10 @@ ShowMessage()
       ;;
     esac
 
-  echo "\033[1;"$color$1"\033[0m"
+    echo -e "\033[1;"$color$message $message_sec"\033[0m"
+    if [ $show_noti = "true" ]; then
+      notify-send -u critical $noti_icon "$message" "$message_sec"
+    fi
 }
 
 ##----------- check connection ------------##
@@ -185,7 +220,7 @@ checkConnection()
     sdbstate=$($SDB get-state)
     if [ $sdbstate = "unknown" ]
       then
-        ShowMessage "Connection error. Make sure that only one device or emulator is connected." red
+        ShowMessage "Connection error." -c red --noti -s "Make sure that only one device or emulator is connected."
         exit 0
     fi
 }
@@ -212,10 +247,11 @@ build()
     gbs -v -d build -B $GBSROOT -A $PLATFORM --include-all --keep-packs $BUILDKEYS 2>&1 | tee $gbsoutput
 
     if cat "$gbsoutput" | grep -q "gbs:info: Done"; then
-      ShowMessage "Build successfull!" green
+      ShowMessage "Build successfull!" -s "In glory of Tizen!" -c green --noti
       rm -f $gbsoutput;
     else
-      ShowMessage "Build failed!" red
+      comp_error=$(cat "$gbsoutput" | grep "error:"| sed '/Bad exit status/,//d; s/\[.*\/\(.*\) error:/\\nerror in \1/;')
+      ShowMessage "Build failed!" -s "$comp_error" -c red --noti
       rm -f $gbsoutput
       exit 0;
     fi

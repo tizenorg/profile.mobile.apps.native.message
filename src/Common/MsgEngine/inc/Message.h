@@ -46,6 +46,35 @@ namespace Msg
                 MT_MMS
             };
 
+            enum Status
+            {
+                MS_Not_Send = 0,
+                MS_Sending,
+                MS_Send_Success,
+                MS_Send_Fail,
+                MS_Deliver_Success,
+                MS_Deliver_Fail,
+                MS_Received,
+                MS_Req_Cancelled,
+                MS_Retrieving,
+                MS_Retrieve_Success,
+                MS_Retrieve_Fail,
+                MS_Send_Timeout,
+                MS_Send_Fail_Mandatory_Info_Missing,
+                MS_Send_Fail_Temporary,
+                MS_Send_Fail_By_Mo_Control_With_Mod,
+                MS_Send_Fail_By_Mo_Control_Not_Allowed,
+                MS_Deliver_Pending,
+                MS_Deliver_Expired,
+                MS_Send_Pending,
+            #ifdef FEATURE_SMS_CDMA
+                MS_Send_Fail_Unknown_Subscriber,
+                MS_Send_Fail_Ms_Disabled,
+                MS_Send_Fail_Network_Not_Ready,
+                MS_Retrieve_Pending,
+            #endif
+            };
+
         public:
             virtual ~Message();
 

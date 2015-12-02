@@ -19,7 +19,7 @@
 
 #include "MsgTypes.h"
 #include "Message.h"
-#include "MsgList.h"
+#include "MsgConvMedia.h"
 
 #include <string>
 #include <time.h>
@@ -37,10 +37,23 @@ namespace Msg
             virtual ~MsgConversationItem();
 
             virtual ThreadId getThreadId() const = 0;
-            virtual ConvItemId getId() const = 0;
+            virtual MsgId getMsgId() const = 0;
             virtual std::string getText() const = 0;
+            virtual std::string getSubject() const = 0;
             virtual time_t getTime() const = 0;
             virtual Message::Direction getDirection() const = 0;
+            virtual Message::Type getType() const = 0;
+            virtual Message::Status getStatus() const = 0;
+            virtual bool isDraft() const = 0;
+            virtual bool isRead() const = 0;
+            virtual int getPagesCount() const = 0;
+            virtual int getAttachCount() const = 0;
+            virtual std::string getAttachName() const = 0;
+            virtual std::string getAudioName() const = 0;
+            virtual std::string getImageThumbPath() const = 0;
+            virtual std::string getVideoThumbPath() const = 0;
+            virtual std::string getFirstMediaPath() const = 0;
+            virtual const MsgConvMediaList &getMultipartList() const = 0;
     };
 }
 
