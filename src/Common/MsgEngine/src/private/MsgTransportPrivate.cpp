@@ -32,7 +32,7 @@ MsgTransportPrivate::~MsgTransportPrivate()
 
 }
 
-MsgTransport::ReturnType MsgTransportPrivate::sendMessage(const Message &msg, ThreadId *threadId)
+MsgTransport::ReturnType MsgTransportPrivate::sendMessage(Message &msg, ThreadId *threadId)
 {
     msg_struct_t req = msg_create_struct(MSG_STRUCT_REQUEST_INFO);
     int err = MSG_SUCCESS;
@@ -41,7 +41,8 @@ MsgTransport::ReturnType MsgTransportPrivate::sendMessage(const Message &msg, Th
     msg_get_struct_handle(req, MSG_REQUEST_SENDOPT_HND, &sendOpt);
     msg_set_bool_value(sendOpt, MSG_SEND_OPT_SETTING_BOOL, false);
 
-    const MessagePrivate &privMsg = dynamic_cast<const MessagePrivate&>(msg);
+    MessagePrivate &privMsg = dynamic_cast<MessagePrivate&>(msg);
+    privMsg.commit();
 
     msg_set_struct_handle(req, MSG_REQUEST_MESSAGE_HND, privMsg);
 
@@ -68,7 +69,7 @@ MsgTransport::ReturnType MsgTransportPrivate::sendMessage(const Message &msg, Th
 
     msg_release_struct(&req);
 
-    if (err == MSG_SUCCESS)
+    if(err == MSG_SUCCESS)
     {
         MSG_LOG("sending success");
         return ReturnSuccess;

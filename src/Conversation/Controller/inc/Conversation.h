@@ -26,9 +26,7 @@
 #include "MsgThreadItem.h"
 #include "RecipientPanel.h"
 #include "ListView.h"
-
-#include "MsgStorage.h"
-#include "MsgTransport.h"
+#include "MsgEngine.h"
 
 #include <Ecore.h>
 
@@ -101,6 +99,7 @@ namespace Msg
             void fillMessage(Message &msg);
             void fillMsgAddress(Message &msg);
             void fillMsgBody(MessageSMS &msg);
+            void fillMsgBody(MessageMms &msg);
 
             // Message input:
             void createMsgInput(Evas_Object *parent);

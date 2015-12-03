@@ -37,6 +37,11 @@ MessagePrivate::~MessagePrivate()
 {
 }
 
+void MessagePrivate::set(msg_struct_t msgStruct)
+{
+    MsgStructPrivate::set(msgStruct);
+}
+
 const MsgAddressListHandlePrivate &MessagePrivate::getAddressList() const
 {
     msg_list_handle_t addrList = nullptr;
@@ -84,3 +89,18 @@ time_t MessagePrivate::getTime() const
     return time;
 }
 
+// FIXME: internal compiler error(arm only)
+/*std::string MessagePrivate::getSubject() const
+{
+    return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_MESSAGE_SUBJECT_STR, MAX_SUBJECT_LEN);
+}
+
+void MessagePrivate::setSubject(const std::string &text)
+{
+    MsgUtilsPrivate::setStr(m_MsgStruct, MSG_MESSAGE_SUBJECT_STR, text);
+}*/
+
+void MessagePrivate::commit()
+{
+
+}

@@ -12,31 +12,35 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
  */
 
-#ifndef _MSG_TRANSPORT_PRIVATE_H__
-#define _MSG_TRANSPORT_PRIVATE_H__
+#ifndef __MSG_COMPOSER_PRIVATE_H__
+#define __MSG_COMPOSER_PRIVATE_H__
 
-#include "MsgTransport.h"
-
-#include <msg.h>
-#include <msg_storage.h>
-#include <msg_transport.h>
+#include "MsgComposer.h"
+#include <msg_types.h>
 
 namespace Msg
 {
-    class MsgTransportPrivate
-        : public MsgTransport
+    class MsgComposerPrivate
+        : public MsgComposer
     {
         public:
-            MsgTransportPrivate(msg_handle_t serviceHandle);
-            virtual ~MsgTransportPrivate();
+            MsgComposerPrivate(msg_handle_t serviceHandle);
+            MsgComposerPrivate(MsgComposerPrivate&) = delete;
+            MsgComposerPrivate &operator=(MsgComposerPrivate&) = delete;
+            virtual ~MsgComposerPrivate();
 
-            virtual ReturnType sendMessage(Message &msg, ThreadId *threadId);
+            virtual MessageSMSRef createSms();
+            virtual MessageMmsRef createMms();
+
+        private:
+            void setSmilHeader(msg_struct_t mms, bool isTextTop);
 
         private:
             msg_handle_t m_ServiceHandle;
     };
 }
 
-#endif /* _MSG_TRANSPORT_PRIVATE_H__ */
+#endif /* __MSG_COMPOSER_PRIVATE_H__ */

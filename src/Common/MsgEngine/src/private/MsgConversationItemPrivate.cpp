@@ -50,13 +50,7 @@ ThreadId MsgConversationItemPrivate::getThreadId() const
 
 std::string MsgConversationItemPrivate::getText() const
 {
-    std::string text;
-    char buf[MAX_MSG_TEXT_LEN + 1];
-    if(msg_get_str_value(m_MsgStruct, MSG_CONV_MSG_TEXT_STR, buf, MAX_MSG_TEXT_LEN) == 0)
-    {
-        text.assign(buf);
-    }
-    return text;
+    return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_CONV_MSG_TEXT_STR, MAX_MSG_TEXT_LEN);
 }
 
 time_t MsgConversationItemPrivate::getTime() const

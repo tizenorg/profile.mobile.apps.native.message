@@ -19,6 +19,8 @@
 #define _BASE_MSG_TRANSPORT_H__
 
 #include "Message.h"
+#include "MessageMms.h"
+#include "MessageSMS.h"
 
 namespace Msg
 {
@@ -38,8 +40,10 @@ namespace Msg
             MsgTransport();
             virtual ~MsgTransport();
 
-            virtual ReturnType sendMessage(const Message &msg, ThreadId *threadId = nullptr) = 0;
-            ReturnType sendMessage(const MessageRef &msg, ThreadId *threadId = nullptr);
+            virtual ReturnType sendMessage(Message &msg, ThreadId *threadId = nullptr) = 0;
+            ReturnType sendMessage(MessageRef &msg, ThreadId *threadId = nullptr);
+            ReturnType sendMessage(MessageMmsRef &msg, ThreadId *threadId = nullptr);
+            ReturnType sendMessage(MessageSMSRef &msg, ThreadId *threadId = nullptr);
     };
 }
 

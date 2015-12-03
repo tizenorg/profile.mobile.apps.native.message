@@ -56,6 +56,12 @@ namespace Msg
             virtual const MsgAddressList &getAddressList() const = 0;
             virtual MsgAddress &addAddress() = 0;
             virtual void addAddresses(const MsgAddressList &list) = 0;
+            virtual std::string getText() const = 0;
+            virtual void setText(const std::string &text) = 0;
+
+            // FIXME: internal compiler error(arm only)
+            // virtual std::string getSubject() const = 0;
+            // virtual void setSubject(const std::string &text) = 0;
     };
 }
 

@@ -23,6 +23,7 @@
 
 using namespace Msg;
 
+
 std::string ResourceUtils::getResourcePath(const std::string &filePath)
 {
     std::string res;
@@ -39,6 +40,18 @@ std::string ResourceUtils::getDataPath(const std::string &filePath)
 {
     std::string res;
     char *absolutePath = app_get_data_path();
+
+    res += absolutePath;
+    res += filePath;
+    free(absolutePath);
+
+    return res;
+}
+
+std::string ResourceUtils::getSharedTrustedPath(const std::string &filePath)
+{
+    std::string res;
+    char *absolutePath = app_get_shared_trusted_path();
 
     res += absolutePath;
     res += filePath;

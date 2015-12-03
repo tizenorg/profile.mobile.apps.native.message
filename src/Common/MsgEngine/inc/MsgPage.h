@@ -12,24 +12,31 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
  */
 
-#ifndef ResourceUtils_h_
-#define ResourceUtils_h_
+#ifndef _MSG_PAGE_H__
+#define _MSG_PAGE_H__
 
-#include <string>
-#include "Resource.h"
+#include "MsgMedia.h"
 
 namespace Msg
 {
-    class ResourceUtils
+    class MsgPage;
+    typedef std::shared_ptr<MsgPage> MsgPageRef;
+    typedef MsgList<MsgPage> MsgPageList;
+    typedef std::shared_ptr<MsgList<MsgPage>> MsgPageListRef;
+
+    class MsgPage
     {
         public:
-            static std::string getResourcePath(const std::string &filePath);
-            static std::string getDataPath(const std::string &filePath);
-            static std::string getSharedTrustedPath(const std::string &filePath);
+            virtual ~MsgPage();
+
+            virtual MsgMediaList &getMediaList() = 0;
+            const MsgMediaList &getMediaList() const;
+            virtual MsgMedia &addMedia() = 0;
+            virtual void setPageDuration(int duration) = 0;
+            virtual int getPageDuration() const = 0;
     };
 }
 
-#endif /* ResourceUtils_h_ */
+#endif /* _MSG_PAGE_H__ */

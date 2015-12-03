@@ -79,36 +79,6 @@ MsgStoragePrivate::~MsgStoragePrivate()
 {
 }
 
-MessageSMS *MsgStoragePrivate::createSms()
-{
-    MessageSMSPrivate *sms = nullptr;
-    msg_struct_t msgInfo = msg_create_struct(MSG_STRUCT_MESSAGE_INFO);
-    if(msgInfo)
-    {
-        sms = new MessageSMSPrivate(true, msgInfo);
-    }
-    return sms;
-}
-
-MessageRef MsgStoragePrivate::createMessage(Message::Type type)
-{
-    MessageRef msg;
-    switch(type)
-    {
-        case Message::MT_SMS:
-            msg.reset(createSms());
-            break;
-
-        case Message::MT_MMS:
-            // TODO: impl
-            break;
-
-        default:
-        case Message::MT_Unknown:
-            break;
-    }
-    return msg;
-}
 
 MsgThreadListRef MsgStoragePrivate::getThreadList()
 {

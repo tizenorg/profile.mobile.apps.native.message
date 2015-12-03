@@ -27,6 +27,8 @@ namespace Msg
     {
         public:
             MsgSettingsPrivate(msg_handle_t serviceHandle);
+            MsgSettingsPrivate(MsgSettingsPrivate&) = delete;
+            MsgSettingsPrivate &operator=(MsgSettingsPrivate&) = delete;
             virtual ~MsgSettingsPrivate();
 
             virtual int getAddressMaxLen() const;

@@ -13,29 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef _MESSAGE_SMS_H__
-#define _MESSAGE_SMS_H__
+
+#ifndef _MESSAGE_MMS_H__
+#define _MESSAGE_MMS_H__
 
 #include "Message.h"
+#include "MsgPage.h"
+#include "MsgAttachment.h"
 #include "MsgList.h"
 
 #include <memory>
 
 namespace Msg
 {
-    // TODO: rename to MessageSms
-    class MessageSMS;
-    typedef std::shared_ptr<MessageSMS> MessageSMSRef;
-    typedef MsgList<MessageSMS> MessageSMSList;
-    typedef std::shared_ptr<MsgList<MessageSMS>> MessageSMSListRef;
+    class MessageMms;
+    typedef std::shared_ptr<MessageMms> MessageMmsRef;
+    typedef MsgList<MessageMms> MessageMmsList;
+    typedef std::shared_ptr<MsgList<MessageMms>> MessageMmsListRef;
 
-    class MessageSMS:
+    class MessageMms:
         public virtual Message
     {
         public:
-            MessageSMS();
-            virtual ~MessageSMS();
+            virtual ~MessageMms();
+
+            virtual MsgPageList &getPageList() = 0;
+            const MsgPageList &getPageList() const;
+            virtual MsgPage &addPage() = 0;
+
+            virtual MsgAttachmentList &getAttachmentList() = 0;
+            const MsgAttachmentList &getAttachmentList() const;
+            virtual MsgAttachment &addAttachment() = 0;
     };
 }
 
-#endif /* _MESSAGE_SMS_H__ */
+#endif /* _MESSAGE_MMS_H__ */

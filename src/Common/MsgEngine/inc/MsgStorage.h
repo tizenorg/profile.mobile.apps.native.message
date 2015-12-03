@@ -49,9 +49,7 @@ namespace Msg
             virtual MsgAddressListRef getAddressList(ThreadId id) = 0;
 
             // Message:
-            virtual MessageRef createMessage(Message::Type type) = 0;
             virtual MessageSMSListRef getSimMsgList() = 0;
-            MessageSMSRef createSms();
 
             // Conversation:
             virtual MsgConversationListRef getConversationList(ThreadId id) = 0;

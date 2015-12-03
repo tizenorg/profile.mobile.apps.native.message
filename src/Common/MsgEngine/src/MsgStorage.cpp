@@ -46,8 +46,3 @@ void MsgStorage::removeListener(IMsgStorageListener &listener)
         m_Listeners.erase(itr);
     }
 }
-
-MessageSMSRef MsgStorage::createSms()
-{
-    return std::dynamic_pointer_cast<MessageSMS>(createMessage(Message::MT_SMS));
-}

@@ -30,6 +30,7 @@
 #include "MsgStorage.h"
 #include "MsgTransport.h"
 #include "MsgSettings.h"
+#include "MsgComposer.h"
 #include "Logger.h"
 
 namespace Msg
@@ -54,15 +55,19 @@ namespace Msg
             MsgSettings &getSettings();
             const MsgSettings &getSettings() const;
 
+            MsgComposer &getComposer();
+            const MsgComposer &getComposer() const;
+
             static std::string whatError(int error);
             int calculateTextLen(const std::string &text) const;
 
         private:
 
         private:
-            std::unique_ptr<MsgStorage>  m_MsgStorage;
-            std::unique_ptr<MsgTransport> m_MsgTransport;
-            std::unique_ptr<MsgSettings> m_MsgSettings;
+            std::unique_ptr<MsgStorage>  m_Storage;
+            std::unique_ptr<MsgTransport> m_Transport;
+            std::unique_ptr<MsgSettings> m_Settings;
+            std::unique_ptr<MsgComposer> m_Composer;
         #ifdef TIZEN_PRIVATE_API
             msg_handle_t m_MsgHandle;
         #else
