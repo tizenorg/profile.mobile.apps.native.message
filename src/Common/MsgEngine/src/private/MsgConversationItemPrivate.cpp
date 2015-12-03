@@ -51,13 +51,7 @@ ThreadId MsgConversationItemPrivate::getThreadId() const
 
 std::string MsgConversationItemPrivate::getText() const
 {
-    std::string text;
-    char buf[MAX_MSG_TEXT_LEN + 1];
-    if(msg_get_str_value(m_MsgStruct, MSG_CONV_MSG_TEXT_STR, buf, MAX_MSG_TEXT_LEN) == 0)
-    {
-        text.assign(buf);
-    }
-    return text;
+    return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_CONV_MSG_TEXT_STR, MAX_MSG_TEXT_LEN);
 }
 
 std::string MsgConversationItemPrivate::getSubject() const
@@ -182,7 +176,7 @@ std::string MsgConversationItemPrivate::getFirstMediaPath() const
     return mediaPath;
 }
 
-const MsgConvMediaListHandlePrivate &MsgConversationItemPrivate::getMultipartList() const
+const MsgConvMediaListHandlePrivate &MsgConversationItemPrivate::getMediaList() const
 {
     msg_list_handle_t multipartList = nullptr;
     msg_get_list_handle(m_MsgStruct, MSG_CONV_MSG_MULTIPART_HND, (void **)&multipartList);

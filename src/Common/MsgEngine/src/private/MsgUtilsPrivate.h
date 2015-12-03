@@ -18,9 +18,12 @@
 #define _MESSAGE_UTILS_PRIVATE_H__
 
 #include "Message.h"
+#include "MsgMedia.h"
 
 #include <msg_types.h>
+#include <msg.h>
 #include <assert.h>
+#include <type_traits>
 
 namespace Msg
 {
@@ -31,12 +34,18 @@ namespace Msg
             inline static int addressTypeToNative(MsgAddress::AddressType type);
             inline static int recipientTypeToNative(MsgAddress::RecipientType type);
             inline static int messageTypeToNative(Message::Type type);
-
             inline static Message::Direction nativeToDirection(int direction);
             inline static MsgAddress::AddressType nativeToAddressType(int type);
             inline static MsgAddress::RecipientType nativeToRecipientType(int type);
             inline static Message::Type nativeToMessageType(int type);
+            inline static MsgMedia::SmilType nativeToSmilType(int type);
+            inline static int smilTypeToNative(MsgMedia::SmilType type);
 
+            inline static std::string getStr(msg_struct_t msgStruct, int field, int maxStrLen);
+            inline static int setStr(msg_struct_t msgStruct, int field, const std::string &text);
+
+        private:
+            inline static void checkSmilType();
     };
 
     inline int MsgUtilsPrivate::directionToNative(Message::Direction direction)
@@ -165,6 +174,46 @@ namespace Msg
               default:
                   return Message::MT_Unknown;
           }
+      }
+
+      inline void MsgUtilsPrivate::checkSmilType()
+      {
+          static_assert((int)MMS_SMIL_MEDIA_INVALID == (int)MsgMedia::SmilInvalid &&
+             (int)MMS_SMIL_MEDIA_IMG == (int)MsgMedia::SmilImage &&
+             (int)MMS_SMIL_MEDIA_AUDIO == (int)MsgMedia::SmilAudio &&
+             (int)MMS_SMIL_MEDIA_VIDEO == (int)MsgMedia::SmilVideo &&
+             (int)MMS_SMIL_MEDIA_TEXT == (int)MsgMedia::SmilText &&
+             (int)MMS_SMIL_MEDIA_ANIMATE == (int)MsgMedia::SmilAnimate &&
+             (int)MMS_SMIL_MEDIA_IMG_OR_VIDEO == (int)MsgMedia::SmilImageOrVideo &&
+             (int)MMS_SMIL_MEDIA_MAX ==(int)MsgMedia::SmilMAX, "");
+      }
+
+      inline MsgMedia::SmilType MsgUtilsPrivate::nativeToSmilType(int type)
+      {
+          checkSmilType();
+          return (MsgMedia::SmilType)type;
+      }
+
+      inline int MsgUtilsPrivate::smilTypeToNative(MsgMedia::SmilType type)
+      {
+          checkSmilType();
+          return (int)type;
+      }
+
+      inline std::string MsgUtilsPrivate::getStr(msg_struct_t msgStruct, int field, int maxStrLen)
+      {
+          std::string res;
+          char buf[maxStrLen + 1];
+          if(msg_get_str_value(msgStruct, field, buf, maxStrLen) == 0)
+          {
+              res.assign(buf);
+          }
+          return res;
+      }
+
+      inline int MsgUtilsPrivate::setStr(msg_struct_t msgStruct, int field, const std::string &text)
+      {
+          return msg_set_str_value(msgStruct, field, (char*)text.c_str(), text.length());
       }
 }
 

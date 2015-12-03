@@ -31,8 +31,6 @@ namespace Msg
     {
         public:
             MessagePrivate(bool release, msg_struct_t msgStruct = nullptr);
-            MessagePrivate(MessagePrivate&) = delete;
-            MessagePrivate &operator=(MessagePrivate&) = delete;
             virtual ~MessagePrivate();
 
             virtual MsgId getId() const;
@@ -41,6 +39,13 @@ namespace Msg
             virtual const MsgAddressListHandlePrivate &getAddressList() const;
             virtual MsgAddressPrivate &addAddress();
             virtual void addAddresses(const MsgAddressList &list);
+
+            // FIXME: internal compiler error(arm only)
+            // virtual std::string getSubject() const;
+            // virtual void setSubject(const std::string &text);
+
+            void set(msg_struct_t msgStruct);
+            virtual void commit();
 
         protected:
             mutable MsgAddressPrivate m_Address;

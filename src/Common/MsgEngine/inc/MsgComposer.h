@@ -15,21 +15,22 @@
  *
  */
 
-#ifndef ResourceUtils_h_
-#define ResourceUtils_h_
+#ifndef __MSG_COMPOSER_H__
+#define __MSG_COMPOSER_H__
 
-#include <string>
-#include "Resource.h"
+#include "MessageSMS.h"
+#include "MessageMms.h"
 
 namespace Msg
 {
-    class ResourceUtils
+    class MsgComposer
     {
         public:
-            static std::string getResourcePath(const std::string &filePath);
-            static std::string getDataPath(const std::string &filePath);
-            static std::string getSharedTrustedPath(const std::string &filePath);
+            virtual ~MsgComposer() {};
+
+            virtual MessageSMSRef createSms() = 0;
+            virtual MessageMmsRef createMms() = 0;
     };
 }
 
-#endif /* ResourceUtils_h_ */
+#endif /* __MSG_COMPOSER_H__ */

@@ -35,13 +35,7 @@ MsgAddressPrivate::~MsgAddressPrivate()
 
 std::string MsgAddressPrivate::getAddress() const
 {
-    std::string res;
-    char buf[MAX_ADDRESS_VAL_LEN + 1];
-    if(msg_get_str_value(m_MsgStruct, MSG_ADDRESS_INFO_ADDRESS_VALUE_STR, buf, MAX_ADDRESS_VAL_LEN) == 0)
-    {
-        res.assign(buf);
-    }
-    return res;
+    return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_ADDRESS_INFO_ADDRESS_VALUE_STR, MAX_ADDRESS_VAL_LEN);
 }
 
 MsgAddressPrivate::AddressType MsgAddressPrivate::getAddressType() const

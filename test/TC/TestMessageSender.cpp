@@ -48,7 +48,7 @@ TEST_F( TestMessageSender, SendSms )
 {
     std::string number = "0941234567";
 
-    MessageSMSRef sms = m_Engine.getStorage().createSms();
+    MessageSMSRef sms = m_Engine.getComposer().createSms();
 
     ASSERT_NE(sms.get(), nullptr);
 
@@ -72,9 +72,7 @@ TEST_F( TestMessageSender, SendSms )
 TEST_F( TestMessageSender, TestInvalidSmsHandle )
 {
     MessageSMSRef sms;
-    ThreadId id = 0;
-
-    MsgTransport::ReturnType result = m_Engine.getTransport().sendMessage(sms, &id);
+    MsgTransport::ReturnType result = m_Engine.getTransport().sendMessage(sms);
 
     testing::Test::RecordProperty("result", result);
     ASSERT_EQ(result, MsgTransport::ReturnNullPointer);

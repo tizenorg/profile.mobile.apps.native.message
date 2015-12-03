@@ -49,10 +49,10 @@ namespace Msg
             virtual std::string getImageThumbPath() const;
             virtual std::string getVideoThumbPath() const;
             virtual std::string getFirstMediaPath() const;
-            virtual const MsgConvMediaListHandlePrivate &getMultipartList() const;
+            virtual const MsgConvMediaListHandlePrivate &getMediaList() const;
 
         protected:
-            MsgConvMediaListHandlePrivate m_MultipartList;
+            mutable MsgConvMediaListHandlePrivate m_MultipartList;
     };
 
     typedef class MsgListHandlePrivate<MsgConversationItemPrivate, MsgConversationItem> MsgConversationListHandlePrivate;

@@ -16,6 +16,7 @@
 
 #include "MsgThreadItemPrivate.h"
 #include "MsgConversationItemPrivate.h"
+#include "MsgUtilsPrivate.h"
 #include "MsgEngine.h"
 #include "Logger.h"
 
@@ -44,24 +45,12 @@ ThreadId MsgThreadItemPrivate::getId() const
 
 std::string MsgThreadItemPrivate::getName() const
 {
-    std::string res;
-    char buf[MAX_DISPLAY_NAME_LEN + 1];
-    if(msg_get_str_value(m_MsgStruct, MSG_THREAD_NAME_STR, buf, MAX_DISPLAY_NAME_LEN) == 0)
-    {
-        res.assign(buf);
-    }
-    return res;
+    return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_THREAD_NAME_STR, MAX_DISPLAY_NAME_LEN);
 }
 
 std::string MsgThreadItemPrivate::getLastMessage() const
 {
-    std::string res;
-    char buf[MAX_MSG_TEXT_LEN + 1];
-    if(msg_get_str_value(m_MsgStruct, MSG_THREAD_MSG_DATA_STR, buf, MAX_MSG_TEXT_LEN) == 0)
-    {
-        res.assign(buf);
-    }
-    return res;
+    return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_THREAD_MSG_DATA_STR, MAX_MSG_TEXT_LEN);
 }
 
 time_t MsgThreadItemPrivate::getTime() const

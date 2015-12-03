@@ -21,6 +21,7 @@
 #include "private/MsgStoragePrivate.h"
 #include "private/MsgTransportPrivate.h"
 #include "private/MsgSettingsPrivate.h"
+#include "private/MsgComposerPrivate.h"
 #else
  // TODO: msg public headers
 #endif
@@ -56,9 +57,10 @@ int MsgEngine::openService()
     int res = msg_open_msg_handle(&m_MsgHandle);
     MSG_LOG_ERROR("handle open error = ", res);
 
-    m_MsgStorage.reset(new MsgStoragePrivate(m_MsgHandle));
-    m_MsgTransport.reset(new MsgTransportPrivate(m_MsgHandle));
-    m_MsgSettings.reset(new MsgSettingsPrivate(m_MsgHandle));
+    m_Storage.reset(new MsgStoragePrivate(m_MsgHandle));
+    m_Transport.reset(new MsgTransportPrivate(m_MsgHandle));
+    m_Settings.reset(new MsgSettingsPrivate(m_MsgHandle));
+    m_Composer.reset(new MsgComposerPrivate(m_MsgHandle));
 #else
     // TODO: impl for public API
 
@@ -66,7 +68,7 @@ int MsgEngine::openService()
 
 	/*	if(result == MESSAGES_ERROR_NONE)
 	{
-		m_MsgStorage.reset(new MsgStorage(m_ServiceHandle));
+		m_Storage.reset(new MsgStorage(m_ServiceHandle));
 	}*/
 #endif
 
@@ -106,38 +108,50 @@ bool MsgEngine::isReady(std::string &errorMsg) const
 
 MsgStorage &MsgEngine::getStorage()
 {
-    assert(m_MsgStorage.get());
-    return *m_MsgStorage;
+    assert(m_Storage.get());
+    return *m_Storage;
 }
 
 const MsgStorage &MsgEngine::getStorage() const
 {
-    assert(m_MsgStorage.get());
-    return *m_MsgStorage;
+    assert(m_Storage.get());
+    return *m_Storage;
 }
 
 MsgTransport &MsgEngine::getTransport()
 {
-    assert(m_MsgTransport.get());
-    return *m_MsgTransport;
+    assert(m_Transport.get());
+    return *m_Transport;
 }
 
 const MsgTransport &MsgEngine::getTransport() const
 {
-    assert(m_MsgTransport.get());
-    return *m_MsgTransport;
+    assert(m_Transport.get());
+    return *m_Transport;
 }
 
 MsgSettings &MsgEngine::getSettings()
 {
-    assert(m_MsgSettings.get());
-    return *m_MsgSettings;
+    assert(m_Settings.get());
+    return *m_Settings;
 }
 
 const MsgSettings &MsgEngine::getSettings() const
 {
-    assert(m_MsgSettings.get());
-    return *m_MsgSettings;
+    assert(m_Settings.get());
+    return *m_Settings;
+}
+
+MsgComposer &MsgEngine::getComposer()
+{
+    assert(m_Composer.get());
+    return *m_Composer;
+}
+
+const MsgComposer &MsgEngine::getComposer() const
+{
+    assert(m_Composer.get());
+    return *m_Composer;
 }
 
 std::string MsgEngine::whatError(int error)

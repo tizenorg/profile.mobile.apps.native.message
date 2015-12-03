@@ -12,24 +12,18 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
  */
 
-#ifndef ResourceUtils_h_
-#define ResourceUtils_h_
+#include "MsgPage.h"
 
-#include <string>
-#include "Resource.h"
+using namespace Msg;
 
-namespace Msg
+
+MsgPage::~MsgPage()
 {
-    class ResourceUtils
-    {
-        public:
-            static std::string getResourcePath(const std::string &filePath);
-            static std::string getDataPath(const std::string &filePath);
-            static std::string getSharedTrustedPath(const std::string &filePath);
-    };
 }
 
-#endif /* ResourceUtils_h_ */
+const MsgMediaList &MsgPage::getMediaList() const
+{
+    return const_cast<MsgPage&>(*this).getMediaList();
+}

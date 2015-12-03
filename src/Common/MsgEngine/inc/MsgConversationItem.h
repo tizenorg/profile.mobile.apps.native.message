@@ -49,11 +49,13 @@ namespace Msg
             virtual int getPagesCount() const = 0;
             virtual int getAttachCount() const = 0;
             virtual std::string getAttachName() const = 0;
+            virtual const MsgConvMediaList &getMediaList() const = 0;
+
+            // TODO: check this methods
             virtual std::string getAudioName() const = 0;
             virtual std::string getImageThumbPath() const = 0;
             virtual std::string getVideoThumbPath() const = 0;
             virtual std::string getFirstMediaPath() const = 0;
-            virtual const MsgConvMediaList &getMultipartList() const = 0;
     };
 }
 

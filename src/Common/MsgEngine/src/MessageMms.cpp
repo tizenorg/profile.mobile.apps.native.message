@@ -12,24 +12,23 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
  */
 
-#ifndef ResourceUtils_h_
-#define ResourceUtils_h_
+#include "MessageMms.h"
 
-#include <string>
-#include "Resource.h"
+using namespace Msg;
 
-namespace Msg
+MessageMms::~MessageMms()
 {
-    class ResourceUtils
-    {
-        public:
-            static std::string getResourcePath(const std::string &filePath);
-            static std::string getDataPath(const std::string &filePath);
-            static std::string getSharedTrustedPath(const std::string &filePath);
-    };
+
 }
 
-#endif /* ResourceUtils_h_ */
+const MsgPageList &MessageMms::getPageList() const
+{
+    return const_cast<MessageMms&>(*this).getPageList();
+}
+
+const MsgAttachmentList &MessageMms::getAttachmentList() const
+{
+    return const_cast<MessageMms&>(*this).getAttachmentList();
+}

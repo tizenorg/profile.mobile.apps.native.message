@@ -32,6 +32,9 @@ namespace Msg
             inline void set(msg_struct_t msgStruct);
             inline operator msg_struct_t() const;
 
+            MsgStructPrivate(MsgStructPrivate&) = delete;
+            MsgStructPrivate &operator=(MsgStructPrivate&) = delete;
+
         protected:
             msg_struct_t m_MsgStruct;
             bool m_Release;

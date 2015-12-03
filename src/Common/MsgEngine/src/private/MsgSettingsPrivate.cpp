@@ -16,6 +16,7 @@
 
 
 #include "MsgSettingsPrivate.h"
+#include "MsgUtilsPrivate.h"
 
 #include <msg_types.h>
 #include <msg.h>
@@ -144,9 +145,7 @@ std::string MsgSettingsPrivate::getNotiSound() const
     }
     else
     {
-        char ringtone[FILENAME_MAX] = {0};
-        msg_get_str_value(m_GeneralOpt, MSG_GENERAL_RINGTONE_PATH_STR, ringtone, FILENAME_MAX);
-        soundPath = ringtone;
+        soundPath = MsgUtilsPrivate::getStr(m_GeneralOpt, MSG_GENERAL_RINGTONE_PATH_STR, FILENAME_MAX);
     }
     return soundPath;
 }

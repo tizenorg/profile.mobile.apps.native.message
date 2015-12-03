@@ -28,6 +28,7 @@
 
 #include <Elementary.h>
 #include <sstream>
+#include <fstream>
 
 using namespace Msg;
 
@@ -165,6 +166,10 @@ void Conversation::fillMessage(Message &msg)
     {
         fillMsgBody(*sms);
     }
+    else if(MessageMms *mms = dynamic_cast<MessageMms*>(&msg))
+    {
+        fillMsgBody(*mms);
+    }
 
     fillMsgAddress(msg);
 }
@@ -196,16 +201,36 @@ void Conversation::fillMsgAddress(Message &msg)
 
 void Conversation::fillMsgBody(MessageSMS &msg)
 {
-    // TODO: mms + attachments
     msg.setText(m_pBody->getText());
+}
+
+void Conversation::fillMsgBody(MessageMms &msg)
+{
+    // TODO: only for demo, will be removed
+    std::string textFile = ResourceUtils::getSharedTrustedPath("temp_msg.txt");
+    std::fstream f(textFile, std::fstream::out | std::fstream::trunc);
+    if(f.is_open())
+    {
+        f << m_pBody->getText();
+        f.close();
+
+        MsgPage &page = msg.addPage();
+        MsgMedia &media = page.addMedia();
+        media.setType(MsgMedia::SmilText);
+        media.setFilePath(textFile);
+    }
 }
 
 void Conversation::sendMessage()
 {
-    MessageSMSRef msg = getMsgEngine().getStorage().createSms();
+    auto msg = getMsgEngine().getComposer().createSms();
     fillMessage(*msg);
     MSG_LOG("m_ThreadId = ", m_ThreadId);
-    getMsgEngine().getTransport().sendMessage(msg, &m_ThreadId);
+    MsgTransport::ReturnType sendRes = getMsgEngine().getTransport().sendMessage(*msg, &m_ThreadId);
+
+    // TODO: handle send result
+
+    MSG_LOG("Send result = ", sendRes);
     MSG_LOG("m_ThreadId = ", m_ThreadId);
 
     if(m_Mode == NewMessageMode)

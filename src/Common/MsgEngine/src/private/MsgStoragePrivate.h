@@ -29,6 +29,8 @@ namespace Msg
     {
         public:
             MsgStoragePrivate(msg_handle_t serviceHandle);
+            MsgStoragePrivate(MsgStoragePrivate&) = delete;
+            MsgStoragePrivate &operator=(MsgStoragePrivate&) = delete;
             virtual ~MsgStoragePrivate();
 
             // Thread:
@@ -39,7 +41,6 @@ namespace Msg
             virtual MsgAddressListRef getAddressList(ThreadId id);
 
             // Message:
-            virtual MessageRef createMessage(Message::Type type);
             virtual MessageSMSListRef getSimMsgList();
 
             // Conversation:

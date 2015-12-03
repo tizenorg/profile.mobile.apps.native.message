@@ -15,11 +15,14 @@
  */
 
 #include "MessageSMSPrivate.h"
+#include "Logger.h"
+#include "MsgUtilsPrivate.h"
+
 #include <string>
 #include <msg.h>
 #include <msg_storage.h>
 #include <msg_transport.h>
-#include "Logger.h"
+
 
 using namespace Msg;
 
@@ -27,6 +30,7 @@ MessageSMSPrivate::MessageSMSPrivate(bool release, msg_struct_t msgStruct)
     : MessagePrivate(release, msgStruct)
     , MessageSMS()
 {
+
 }
 
 MessageSMSPrivate::~MessageSMSPrivate()
@@ -52,12 +56,7 @@ std::string MessageSMSPrivate::getText() const
 
     if(size)
     {
-        char buf[size + 1];
-        if(msg_get_str_value(m_MsgStruct, MSG_MESSAGE_SMS_DATA_STR, buf, size) == 0)
-        {
-            text.reserve(size);
-            text.assign(buf);
-        }
+        text = MsgUtilsPrivate::getStr(m_MsgStruct, MSG_MESSAGE_SMS_DATA_STR, size);
     }
 
     return text;
