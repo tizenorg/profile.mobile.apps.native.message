@@ -30,10 +30,13 @@ namespace Msg
             inline static int directionToNative(Message::Direction direction);
             inline static int addressTypeToNative(MsgAddress::AddressType type);
             inline static int recipientTypeToNative(MsgAddress::RecipientType type);
+            inline static int messageTypeToNative(Message::Type type);
 
             inline static Message::Direction nativeToDirection(int direction);
             inline static MsgAddress::AddressType nativeToAddressType(int type);
             inline static MsgAddress::RecipientType nativeToRecipientType(int type);
+            inline static Message::Type nativeToMessageType(int type);
+
     };
 
     inline int MsgUtilsPrivate::directionToNative(Message::Direction direction)
@@ -131,6 +134,36 @@ namespace Msg
               default:
               case MSG_RECIPIENTS_TYPE_UNKNOWN:
                   return MsgAddress::UnknownRecipientType;
+          }
+      }
+
+      inline int MsgUtilsPrivate::messageTypeToNative(Message::Type type)
+      {
+          switch(type)
+          {
+              case Message::MT_SMS:
+                  return MSG_TYPE_SMS;
+
+              case Message::MT_MMS:
+                  return MSG_TYPE_MMS;
+
+              default:
+                  return MSG_TYPE_INVALID;
+          }
+      }
+
+      inline Message::Type MsgUtilsPrivate::nativeToMessageType(int type)
+      {
+          switch(type)
+          {
+              case MSG_TYPE_SMS:
+                  return Message::MT_SMS;
+
+              case MSG_TYPE_MMS:
+                  return Message::MT_MMS;
+
+              default:
+                  return Message::MT_Unknown;
           }
       }
 }

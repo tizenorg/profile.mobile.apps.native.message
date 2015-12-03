@@ -20,6 +20,7 @@
 #include "MsgStructPrivate.h"
 #include "MsgListHandlePrivate.h"
 #include "MsgStructListPrivate.h"
+#include "MsgConvMediaPrivate.h"
 
 namespace Msg
 {
@@ -31,11 +32,27 @@ namespace Msg
             MsgConversationItemPrivate(bool release, msg_struct_t msgStruct = nullptr);
             virtual ~MsgConversationItemPrivate();
 
-            virtual ConvItemId getId() const;
+            virtual MsgId getMsgId() const;
             virtual ThreadId getThreadId() const;
             virtual std::string getText() const;
+            virtual std::string getSubject() const;
             virtual time_t getTime() const;
             virtual Message::Direction getDirection() const;
+            virtual Message::Type getType() const;
+            virtual Message::Status getStatus() const;
+            virtual bool isDraft() const;
+            virtual bool isRead() const;
+            virtual int getPagesCount() const;
+            virtual int getAttachCount() const;
+            virtual std::string getAttachName() const;
+            virtual std::string getAudioName() const;
+            virtual std::string getImageThumbPath() const;
+            virtual std::string getVideoThumbPath() const;
+            virtual std::string getFirstMediaPath() const;
+            virtual const MsgConvMediaListHandlePrivate &getMultipartList() const;
+
+        protected:
+            MsgConvMediaListHandlePrivate m_MultipartList;
     };
 
     typedef class MsgListHandlePrivate<MsgConversationItemPrivate, MsgConversationItem> MsgConversationListHandlePrivate;
