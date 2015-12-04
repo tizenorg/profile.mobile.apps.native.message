@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 #ifndef MSGTYPES_H_
 #define MSGTYPES_H_
 
@@ -20,9 +21,49 @@
 
 namespace Msg
 {
-    // TODO: wrap to struct ?
-    typedef unsigned int ThreadId;
-    typedef unsigned int MsgId;
+    class BaseMsgId
+    {
+        public:
+            BaseMsgId()
+                : value(-1)
+            {
+            }
+
+            BaseMsgId(int id)
+                : value(id)
+            {
+            }
+
+            BaseMsgId(const BaseMsgId &obj)
+                : value(obj.value)
+            {
+            }
+
+            operator int() const
+            {
+                return value;
+            }
+
+            BaseMsgId &operator=(int id)
+            {
+                value = id;
+                return *this;
+            }
+
+            int value;
+    };
+
+    class ThreadId
+        : public BaseMsgId
+    {
+        using BaseMsgId::BaseMsgId;
+    };
+
+    class MsgId
+        : public BaseMsgId
+    {
+        using BaseMsgId::BaseMsgId;
+    };
 
     typedef std::vector<MsgId> MsgIdList;
 }
