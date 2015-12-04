@@ -42,6 +42,7 @@ namespace Msg
 
             // Message:
             virtual MessageSMSListRef getSimMsgList();
+            virtual MessageRef getMessage(MsgId id);
 
             // Conversation:
             virtual MsgConversationListRef getConversationList(ThreadId id);

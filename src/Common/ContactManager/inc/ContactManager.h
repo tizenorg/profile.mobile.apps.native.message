@@ -75,12 +75,6 @@ namespace Msg
             void removeListener(IContactDbChangeListener &listener);
 
         private:
-            /*
-             *@brief        A callback passed to contacts_db_add_changed_cb() to get notifications
-                            about contacts modifications from contact service
-             *@param[in]    view_uri - The view URI of records whose changes are monitored
-             *@param[in]    user_data - the user data passed from the callback registration function
-             */
             static void contactChangedCb(const char *view_uri, void *user_data);
 
         private:
