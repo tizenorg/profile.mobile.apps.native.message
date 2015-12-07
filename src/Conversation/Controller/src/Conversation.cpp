@@ -49,19 +49,9 @@ Conversation::Conversation(NaviFrameController &parent)
 }
 
 Conversation::Conversation(NaviFrameController &parent,ThreadId threadId)
-    : FrameController(parent)
-    , m_Mode(InitMode)
-    , m_pLayout(nullptr)
-    , m_pScroller(nullptr)
-    , m_pBubbleBox(nullptr)
-    , m_pContactsList(nullptr)
-    , m_pMsgInputPanel(nullptr)
-    , m_pBody(nullptr)
-    , m_pRecipientPanel(nullptr)
-    , m_ThreadId(threadId)
-    , m_pPredictSearchIdler(nullptr)
-
+    : Conversation(parent)
 {
+    m_ThreadId = threadId;
     create(ConversationMode);
 }
 
@@ -206,18 +196,18 @@ void Conversation::fillMsgBody(MessageSMS &msg)
 
 void Conversation::fillMsgBody(MessageMms &msg)
 {
-    // TODO: only for demo, will be removed
-    std::string textFile = ResourceUtils::getSharedTrustedPath("temp_msg.txt");
-    std::fstream f(textFile, std::fstream::out | std::fstream::trunc);
-    if(f.is_open())
+    auto pages = m_pBody->getPages();
+    for(PageView *pageView : pages)
     {
-        f << m_pBody->getText();
-        f.close();
+        Page* page = static_cast<Page*>(pageView);
 
-        MsgPage &page = msg.addPage();
-        MsgMedia &media = page.addMedia();
+        std::string textFile = m_WorkingDir.addTextFile(page->getPlainUtf8Text());
+        MsgPage &msgPage = msg.addPage();
+        MsgMedia &media = msgPage.addMedia();
         media.setType(MsgMedia::SmilText);
         media.setFilePath(textFile);
+
+        // TODO: add other SmilType and clear WorkingDir
     }
 }
 

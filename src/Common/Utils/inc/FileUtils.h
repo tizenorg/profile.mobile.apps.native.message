@@ -69,11 +69,22 @@ namespace Msg
             static std::string stripExtension(const std::string &path);
 
             /**
+             * @brief Split file path (base-path + file-name + file-extension).
+             * @param[in] file path name
+             * @param[out] base path(with '/' at end)
+             * @param[out] file name
+             * @param[out] extension(without dot)
+             */
+            static void splitPath(const std::string &path, std::string &basePath,
+                                 std::string &fileName, std::string &extension);
+
+            /**
              * @brief Remove recursive files and directorys.
              * @param[in] path File or directory
+             * @param[in] true - remove current dir, false - otherwise
              * @retval Returns true if all sucess, false otherwise
              */
-            static bool remove(const std::string &path);
+            static bool remove(const std::string &path, bool removeCurrentDir = true);
     };
 }
 

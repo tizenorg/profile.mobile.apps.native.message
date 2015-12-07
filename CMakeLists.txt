@@ -16,6 +16,7 @@ INCLUDE_DIRECTORIES(${INCLUDE_DIRECTORIES}
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/Common/View/inc/
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/Conversation/Controller/inc/
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/Conversation/View/inc/
+                     ${CMAKE_CURRENT_SOURCE_DIR}/src/Conversation/Utils/inc/
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/MsgThread/Controller/inc/
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/MsgThread/View/inc/
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/Settings/Controller/inc/

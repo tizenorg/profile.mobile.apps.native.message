@@ -129,7 +129,31 @@ std::string FileUtils::stripExtension(const std::string &path)
     return pos == std::string::npos ? path : path.substr(0, pos);
 }
 
-bool FileUtils::remove(const std::string &path)
+void FileUtils::splitPath(const std::string &path, std::string &basePath,
+                          std::string &fileName, std::string &extension)
+{
+    auto pos = path.find_last_of('/');
+
+    if(pos != std::string::npos)
+        basePath = path.substr(0, pos + 1);
+
+    std::string name;
+    name = path.substr(pos + 1);
+
+    pos = name.find_last_of('.');
+    if(pos != std::string::npos)
+    {
+        extension = name.substr(pos + 1);
+        if(pos != 0)
+            fileName = name.substr(0, pos);
+    }
+    else
+    {
+        fileName = name;
+    }
+}
+
+bool FileUtils::remove(const std::string &path, bool removeCurrentDir)
 {
     bool res = true;
     struct dirent *ep = nullptr;
@@ -142,12 +166,15 @@ bool FileUtils::remove(const std::string &path)
             if(strcmp(ep->d_name, ".") != 0 && strcmp(ep->d_name, "..") != 0)
             {
                 std::string child = path + "/" + ep->d_name;
-                res &= remove(child);
+                res &= remove(child, true);
             }
         }
 
         closedir(dp);
-        res &= rmdir(path.c_str()) == 0;
+        if(removeCurrentDir)
+        {
+            res &= rmdir(path.c_str()) == 0;
+        }
     }
     else
     {

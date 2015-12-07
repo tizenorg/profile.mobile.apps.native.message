@@ -27,6 +27,7 @@
 #include "RecipientPanel.h"
 #include "ListView.h"
 #include "MsgEngine.h"
+#include "WorkingDir.h"
 
 #include <Ecore.h>
 
@@ -133,6 +134,7 @@ namespace Msg
             RecipientPanel *m_pRecipientPanel;
             ThreadId m_ThreadId;
             Ecore_Idler *m_pPredictSearchIdler;
+            WorkingDir m_WorkingDir;
     };
 }
 
