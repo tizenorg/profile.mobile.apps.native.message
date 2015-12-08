@@ -15,6 +15,7 @@
  */
 
 #include "MsgConvMediaPrivate.h"
+#include "MsgUtilsPrivate.h"
 
 using namespace Msg;
 
@@ -32,66 +33,30 @@ MsgConvMediaPrivate::~MsgConvMediaPrivate()
 
 std::string MsgConvMediaPrivate::getMime() const
 {
-    std::string mime;
-    char buf[MSG_FILENAME_LEN_MAX + 1];
-    if(msg_get_str_value(m_MsgStruct, MSG_MMS_MULTIPART_CONTENT_TYPE_STR, buf, MSG_FILENAME_LEN_MAX) == 0)
-    {
-        mime.assign(buf);
-    }
-    return mime;
+    return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_MMS_MULTIPART_CONTENT_TYPE_STR, MAX_MIME_TYPE_LEN);
 }
 
 std::string MsgConvMediaPrivate::getName() const
 {
-    std::string name;
-    char buf[MSG_FILENAME_LEN_MAX + 1];
-    if(msg_get_str_value(m_MsgStruct, MSG_MMS_MULTIPART_NAME_STR, buf, MSG_FILENAME_LEN_MAX) == 0)
-    {
-        name.assign(buf);
-    }
-    return name;
+    return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_MMS_MULTIPART_NAME_STR, MSG_FILENAME_LEN_MAX);
 }
 
 std::string MsgConvMediaPrivate::getPath() const
 {
-    std::string filePath;
-    char buf[MSG_FILENAME_LEN_MAX + 1];
-    if(msg_get_str_value(m_MsgStruct, MSG_MMS_MULTIPART_FILEPATH_STR, buf, MSG_FILENAME_LEN_MAX) == 0)
-    {
-        filePath.assign(buf);
-    }
-    return filePath;
+    return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_MMS_MULTIPART_FILEPATH_STR, MSG_FILEPATH_LEN_MAX);
 }
 
 std::string MsgConvMediaPrivate::getThumbPath() const
 {
-    std::string thumbPath;
-    char buf[MSG_FILENAME_LEN_MAX + 1];
-    if(msg_get_str_value(m_MsgStruct, MSG_MMS_MULTIPART_THUMBNAIL_FILEPATH_STR, buf, MSG_FILENAME_LEN_MAX) == 0)
-    {
-        thumbPath.assign(buf);
-    }
-    return thumbPath;
+    return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_MMS_MULTIPART_THUMBNAIL_FILEPATH_STR, MSG_FILEPATH_LEN_MAX);
 }
 
 std::string MsgConvMediaPrivate::getContentId() const
 {
-    std::string contentId;
-    char buf[MSG_FILENAME_LEN_MAX + 1];
-    if(msg_get_str_value(m_MsgStruct, MSG_MMS_MULTIPART_CONTENT_ID_STR, buf, MSG_FILENAME_LEN_MAX) == 0)
-    {
-        contentId.assign(buf);
-    }
-    return contentId;
+    return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_MMS_MULTIPART_CONTENT_ID_STR, MMS_MSG_ID_LEN);
 }
 
 std::string MsgConvMediaPrivate::getContentLocation() const
 {
-    std::string contentLoc;
-    char buf[MSG_FILENAME_LEN_MAX + 1];
-    if(msg_get_str_value(m_MsgStruct, MSG_MMS_MULTIPART_CONTENT_LOCATION_STR, buf, MSG_FILENAME_LEN_MAX) == 0)
-    {
-        contentLoc.assign(buf);
-    }
-    return contentLoc;
+    return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_MMS_MULTIPART_CONTENT_LOCATION_STR, MMS_LOCATION_LEN);
 }

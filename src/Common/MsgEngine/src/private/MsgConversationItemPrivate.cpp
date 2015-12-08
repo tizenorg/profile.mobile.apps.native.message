@@ -56,13 +56,7 @@ std::string MsgConversationItemPrivate::getText() const
 
 std::string MsgConversationItemPrivate::getSubject() const
 {
-    std::string text;
-    char buf[MAX_MSG_TEXT_LEN + 1];
-    if(msg_get_str_value(m_MsgStruct, MSG_CONV_MSG_SUBJECT_STR, buf, MAX_MSG_TEXT_LEN) == 0)
-    {
-        text.assign(buf);
-    }
-    return text;
+    return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_CONV_MSG_SUBJECT_STR, MAX_SUBJECT_LEN);
 }
 
 time_t MsgConversationItemPrivate::getTime() const
@@ -123,57 +117,27 @@ int MsgConversationItemPrivate::getAttachCount() const
 
 std::string MsgConversationItemPrivate::getAttachName() const
 {
-    std::string attachName;
-    char buf[MSG_FILENAME_LEN_MAX + 1];
-    if(msg_get_str_value(m_MsgStruct, MSG_CONV_MSG_ATTACH_NAME_STR, buf, MSG_FILENAME_LEN_MAX) == 0)
-    {
-        attachName.assign(buf);
-    }
-    return attachName;
+    return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_CONV_MSG_ATTACH_NAME_STR, MSG_FILENAME_LEN_MAX);
 }
 
 std::string MsgConversationItemPrivate::getAudioName() const
 {
-    std::string audioName;
-    char buf[MSG_FILENAME_LEN_MAX + 1];
-    if(msg_get_str_value(m_MsgStruct, MSG_CONV_MSG_AUDIO_NAME_STR, buf, MSG_FILENAME_LEN_MAX) == 0)
-    {
-        audioName.assign(buf);
-    }
-    return audioName;
+    return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_CONV_MSG_AUDIO_NAME_STR, MSG_FILENAME_LEN_MAX);
 }
 
 std::string MsgConversationItemPrivate::getImageThumbPath() const
 {
-    std::string imageThumb;
-    char buf[MSG_FILENAME_LEN_MAX + 1];
-    if(msg_get_str_value(m_MsgStruct, MSG_CONV_MSG_IMAGE_THUMB_PATH_STR, buf, MSG_FILENAME_LEN_MAX) == 0)
-    {
-        imageThumb.assign(buf);
-    }
-    return imageThumb;
+    return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_CONV_MSG_IMAGE_THUMB_PATH_STR, MSG_FILEPATH_LEN_MAX);
 }
 
 std::string MsgConversationItemPrivate::getVideoThumbPath() const
 {
-    std::string videoThumb;
-    char buf[MSG_FILENAME_LEN_MAX + 1];
-    if(msg_get_str_value(m_MsgStruct, MSG_CONV_MSG_VIDEO_THUMB_PATH_STR, buf, MSG_FILENAME_LEN_MAX) == 0)
-    {
-        videoThumb.assign(buf);
-    }
-    return videoThumb;
+    return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_CONV_MSG_VIDEO_THUMB_PATH_STR, MSG_FILEPATH_LEN_MAX);
 }
 
 std::string MsgConversationItemPrivate::getFirstMediaPath() const
 {
-    std::string mediaPath;
-    char buf[MSG_FILENAME_LEN_MAX + 1];
-    if(msg_get_str_value(m_MsgStruct, MSG_CONV_MSG_1ST_MEDIA_PATH_STR, buf, MSG_FILENAME_LEN_MAX) == 0)
-    {
-        mediaPath.assign(buf);
-    }
-    return mediaPath;
+    return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_CONV_MSG_1ST_MEDIA_PATH_STR, MSG_FILEPATH_LEN_MAX);
 }
 
 const MsgConvMediaListHandlePrivate &MsgConversationItemPrivate::getMediaList() const
