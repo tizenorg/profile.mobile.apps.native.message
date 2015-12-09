@@ -57,6 +57,7 @@ Conversation::Conversation(NaviFrameController &parent,ThreadId threadId)
 
 Conversation::~Conversation()
 {
+    saveDraftMsg();
     getMsgEngine().getStorage().removeListener(*this);
     if(m_pPredictSearchIdler)
     {
@@ -166,14 +167,13 @@ void Conversation::fillMessage(Message &msg)
 
 void Conversation::fillMsgAddress(Message &msg)
 {
-    if(m_Mode == ConversationMode)
+    if(m_ThreadId.isValid())
     {
         MsgAddressListRef addressList = getMsgEngine().getStorage().getAddressList(m_ThreadId);
         msg.addAddresses(*addressList);
     }
-    else if(m_Mode == NewMessageMode)
+    else
     {
-        assert(m_pRecipientPanel);
         if(m_pRecipientPanel)
         {
             RecipientViewItemList list = m_pRecipientPanel->getItems();
@@ -226,6 +226,19 @@ void Conversation::sendMessage()
     if(m_Mode == NewMessageMode)
     {
         setMode(ConversationMode);
+    }
+}
+
+void Conversation::saveDraftMsg()
+{
+    if(m_pBody && !m_pBody->isEmpty())
+    {
+        // TODO: impl. for mms draft
+        auto msg = getMsgEngine().getComposer().createSms();
+
+        fillMessage(*msg);
+        MsgId msgId = getMsgEngine().getStorage().saveMessage(*msg);
+        MSG_LOG("Draft message id = ", msgId);
     }
 }
 

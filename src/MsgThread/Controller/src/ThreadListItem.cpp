@@ -23,6 +23,7 @@
 #include "MsgEngine.h"
 #include "App.h"
 #include "MsgThreadItem.h"
+#include "LangUtils.h"
 
 #include <Elementary.h>
 
@@ -30,22 +31,15 @@ using namespace Msg;
 
 ThreadListItem::ThreadListItem(const MsgThreadItem &threadItem, App &app)
     : ThreadListViewItem()
-    , m_ThreadId(threadItem.getId())
+    , m_ThreadId()
     , m_App(app)
     , m_ThumbType(ThumbnailMaker::MsgType)
 {
-    setState(IconState, false);
-    setCheckedState(false, false);
     updateModel(threadItem);
 }
 
 ThreadListItem::~ThreadListItem()
 {
-}
-
-ThreadListViewItem &ThreadListItem::getViewItem()
-{
-    return *this;
 }
 
 ThreadId ThreadListItem::getThreadId() const
@@ -105,8 +99,7 @@ std::string ThreadListItem::getTime()
 
 std::string ThreadListItem::getStatus()
 {
-    //m_MsgThreadItem.getStatus()
-    return "normal"; // TODO: remove hardcode
+    return m_Status;
 }
 
 Evas_Object *ThreadListItem::getIcon()
@@ -126,6 +119,16 @@ void ThreadListItem::updateModel(const MsgThreadItem &threadItem)
     m_ThreadId = threadItem.getId();
     m_Message = threadItem.getLastMessage();
     m_Name = threadItem.getName();
+
+    State state = IconState;
+    if(threadItem.isDraft())
+    {
+        state = StatusState;
+        m_Status = msg("IDS_MSG_BODY_DRAFT_M_STATUS_ABB");
+    }
+
+    setState(state, false);
+    setCheckedState(false, false);
 
     updateThumbnail(threadItem);
 }

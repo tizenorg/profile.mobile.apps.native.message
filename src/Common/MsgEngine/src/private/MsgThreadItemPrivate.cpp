@@ -60,10 +60,11 @@ time_t MsgThreadItemPrivate::getTime() const
     return time;
 }
 
-int MsgThreadItemPrivate::getStatus() const
+bool MsgThreadItemPrivate::isDraft() const
 {
-    // TODO: impl
-    return 0;
+    bool val = false;
+    msg_get_bool_value(m_MsgStruct, MSG_THREAD_DRAFT_BOOL, &val);
+    return val;
 }
 
 int MsgThreadItemPrivate::getUnreadCount() const

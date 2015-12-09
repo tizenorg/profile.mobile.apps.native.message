@@ -101,6 +101,7 @@ namespace Msg
             void fillMsgAddress(Message &msg);
             void fillMsgBody(MessageSMS &msg);
             void fillMsgBody(MessageMms &msg);
+            void saveDraftMsg();
 
             // Message input:
             void createMsgInput(Evas_Object *parent);

@@ -50,7 +50,12 @@ namespace Msg
                 return *this;
             }
 
-            int value;
+            bool isValid() const
+            {
+                return value > 0; // TODO: check
+            }
+
+            int value; // implementation
     };
 
     class ThreadId

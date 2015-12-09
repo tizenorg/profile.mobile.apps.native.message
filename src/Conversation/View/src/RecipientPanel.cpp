@@ -99,9 +99,9 @@ void RecipientPanel::showMbe(bool show)
     elm_object_signal_emit(m_pLayout, prog, "*");
 }
 
-bool RecipientPanel::hasItems()const
+bool RecipientPanel::isEmpty()const
 {
-    return elm_multibuttonentry_first_item_get(m_pMbe) != nullptr;
+    return elm_multibuttonentry_first_item_get(m_pMbe) == nullptr;
 }
 
 std::string RecipientPanel::getEntryText() const

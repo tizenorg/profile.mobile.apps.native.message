@@ -43,7 +43,7 @@ namespace Msg
             std::string getEntryText() const;
             void setEntryText(const std::string &utf8);
             RecipientViewItemList getItems() const;
-            bool hasItems()const ;
+            bool isEmpty()const ;
             bool getEntryFocus() const;
             void setEntryFocus(bool val);
             void clearEntry();

@@ -101,7 +101,7 @@ void MsgThread::fillThreadList()
     for(int i = 0; i < length; ++i)
     {
         ThreadListItem *item = new ThreadListItem(list->at(i), getApp());
-        m_pThreadListView->appendItem(item->getViewItem());
+        m_pThreadListView->appendItem(*item);
     }
 }
 
