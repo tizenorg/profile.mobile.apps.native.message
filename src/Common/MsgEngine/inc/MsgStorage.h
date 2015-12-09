@@ -45,12 +45,13 @@ namespace Msg
             virtual MsgThreadListRef getThreadList() = 0;
             virtual MsgThreadItemRef getThread(ThreadId id) = 0;
             virtual ThreadId getThreadId(const MsgAddressList &addressList) = 0;
-            virtual int deleteThread(ThreadId id) = 0;
+            virtual bool deleteThread(ThreadId id) = 0;
             virtual MsgAddressListRef getAddressList(ThreadId id) = 0;
 
             // Message:
             virtual MessageSMSListRef getSimMsgList() = 0;
             virtual MessageRef getMessage(MsgId id) = 0;
+            virtual MsgId saveMessage(Message &msg) = 0;
 
             // Conversation:
             virtual MsgConversationListRef getConversationList(ThreadId id) = 0;

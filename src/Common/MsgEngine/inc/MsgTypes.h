@@ -50,6 +50,11 @@ namespace Msg
                 return *this;
             }
 
+            bool isValid() const
+            {
+                return value > 0; // TODO: check
+            }
+
             int value;
     };
 

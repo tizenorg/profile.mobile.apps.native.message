@@ -75,6 +75,11 @@ MsgId MessagePrivate::getId() const
     return id;
 }
 
+void MessagePrivate::setId(MsgId id)
+{
+    msg_set_int_value(m_MsgStruct, MSG_MESSAGE_ID_INT, id);
+}
+
 ThreadId MessagePrivate::getThreadId() const
 {
     int threadId = -1;

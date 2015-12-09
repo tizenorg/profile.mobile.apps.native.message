@@ -44,6 +44,7 @@ namespace Msg
             // virtual std::string getSubject() const;
             // virtual void setSubject(const std::string &text);
 
+            void setId(MsgId id);
             void set(msg_struct_t msgStruct);
             virtual void commit();
 

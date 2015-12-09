@@ -77,12 +77,12 @@ namespace Msg
             return m_pMsg;
         }
 
-        operator const char*() const
+        const char* cStr() const
         {
             return m_pMsg;
         }
 
-        operator std::string () const
+        operator std::string() const
         {
             return m_pMsg;
         }
