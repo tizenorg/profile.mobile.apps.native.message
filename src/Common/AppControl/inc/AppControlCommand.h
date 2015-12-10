@@ -33,18 +33,23 @@ namespace Msg
             enum OperationType
             {
                 OpUnknown,
-                OpDefault
+                OpDefault,
+                OpCompose,
+                OpShare,
+                OpMultiShare,
+                OpShareText
             };
 
         public:
-            AppControlCommand(const std::string &opMsg);
+            AppControlCommand(const std::string &opMsg, OperationType type);
             virtual ~AppControlCommand();
 
             const std::string &getOperationMsg() const;
-            virtual OperationType getOperationType() const;
+            OperationType getOperationType() const;
 
         private:
             std::string m_OperationMsg;
+            OperationType m_Type;
     };
 
     typedef std::shared_ptr<AppControlCommand> AppControlCommandRef;

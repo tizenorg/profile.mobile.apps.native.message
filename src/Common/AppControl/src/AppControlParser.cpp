@@ -19,6 +19,7 @@
 #include "AppControlParser.h"
 #include "AppControlCommand.h"
 #include "AppControlCommandDefault.h"
+#include "AppControlCompose.h"
 
 #include <app_control.h>
 #include <string>
@@ -34,7 +35,11 @@ namespace
     const OperationMap operationMap =
     {
         {"http://tizen.org/appcontrol/operation/default", AppControlCommand::OpDefault},
-        {"http://tizen.org/appcontrol/operation/main", AppControlCommand::OpDefault}
+        {"http://tizen.org/appcontrol/operation/main", AppControlCommand::OpDefault},
+        {"http://tizen.org/appcontrol/operation/compose", AppControlCommand::OpCompose},
+        {"http://tizen.org/appcontrol/operation/share", AppControlCommand::OpShare},
+        {"http://tizen.org/appcontrol/operation/multi_share", AppControlCommand::OpMultiShare},
+        {"http://tizen.org/appcontrol/operation/share_text", AppControlCommand::OpShareText}
     };
 
     AppControlCommand::OperationType getOperation(const char *op)
@@ -42,12 +47,6 @@ namespace
         auto it = operationMap.find(op);
         return it != operationMap.end() ? it->second : AppControlCommand::OpUnknown;
     };
-
-    AppControlCommandRef makeDefaultCmd(app_control_h handle, const char *opStr)
-    {
-        AppControlCommandRef cmd = std::make_shared<AppControlCommandDefault>(opStr);
-        return cmd;
-    }
 }
 
 AppControlCommandRef AppControlParser::parse(app_control_h handle)
@@ -67,12 +66,20 @@ AppControlCommandRef AppControlParser::parse(app_control_h handle)
 
     switch(opType)
     {
+        //TODO: Create classes for all operations
         case AppControlCommand::OpDefault:
-            cmd = makeDefaultCmd(handle, opStr);
+            cmd = std::make_shared<AppControlCommandDefault>(opStr);
             break;
 
+        case AppControlCommand::OpCompose:
+            cmd = std::make_shared<AppControlCompose>(opStr);
+            break;
+
+        // TODO: impl for other command types
+
+        default:
         case AppControlCommand::OpUnknown:
-            cmd = std::make_shared<AppControlCommand>(opStr);
+            cmd = std::make_shared<AppControlCommand>(opStr, opType);
             break;
     }
 
