@@ -159,11 +159,9 @@ MsgThreadItemRef MsgStoragePrivate::getThread(ThreadId id)
     return res;
 }
 
-int MsgStoragePrivate::deleteThread(ThreadId id)
+bool MsgStoragePrivate::deleteThread(ThreadId id)
 {
-    int result = msg_delete_thread_message_list(m_ServiceHandle, id, true);
-    MSG_LOG_INFO("Msg storage delete thread error = ", result);
-    return result;
+    return msg_delete_thread_message_list(m_ServiceHandle, id, true) == 0;
 }
 
 MsgConversationListRef MsgStoragePrivate::getConversationList(ThreadId id)
@@ -207,4 +205,33 @@ MessageRef MsgStoragePrivate::getMessage(MsgId id)
     }
     msg_release_struct(&sendOpt);
     return msgRef;
+}
+
+MsgId MsgStoragePrivate::saveMessage(Message &msg)
+{
+    MsgId newMsgId;
+    MessagePrivate &msgPriv = dynamic_cast<MessagePrivate&>(msg);
+
+    msg_struct_t sendOpt = msg_create_struct(MSG_STRUCT_SENDOPT);
+    msg_set_bool_value(sendOpt, MSG_SEND_OPT_SETTING_BOOL, false);
+
+    msgPriv.commit();
+    if(msgPriv.getId().isValid())
+    {
+        if(msg_update_message(m_ServiceHandle, msgPriv, sendOpt) == 0)
+        {
+            newMsgId = msg.getId();
+        }
+    }
+    else
+    {
+        int tmpMsgId = msg_add_message(m_ServiceHandle, msgPriv, sendOpt);
+        if(tmpMsgId > 0)
+        {
+            newMsgId = tmpMsgId;
+        }
+    }
+    msg_release_struct(&sendOpt);
+
+    return newMsgId;
 }

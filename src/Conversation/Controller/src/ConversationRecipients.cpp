@@ -44,8 +44,7 @@ void Conversation::onEntryFocusChanged(RecipientPanel &obj)
 {
     if(obj.getEntryFocus())
     {
-        if(m_pRecipientPanel->hasItems())
-            m_pRecipientPanel->showMbe(true);
+        m_pRecipientPanel->showMbe(!m_pRecipientPanel->isEmpty());
     }
     else
     {
