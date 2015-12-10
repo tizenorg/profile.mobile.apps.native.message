@@ -60,6 +60,7 @@ pkg_check_modules(pkgs REQUIRED
             libpng
             efl-extension
             storage
+            libtzplatform-config
 )
 
 ADD_DEFINITIONS("-DAPP_DIR=\"${PKGDIR}\"")
@@ -78,11 +79,9 @@ TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${pkgs_LDFLAGS})
 ADD_SUBDIRECTORY(res)
 
 CONFIGURE_FILE(message.manifest.in ${PKGNAME}.manifest) # TODO: check
-CONFIGURE_FILE(message.efl.in ${PKGNAME}.efl)
 
 INSTALL(TARGETS ${PROJECT_NAME} DESTINATION ${BINDIR})
 INSTALL(FILES tizen-manifest-private.xml DESTINATION ${MANIFESTDIR} RENAME ${PKGNAME}.xml)
-INSTALL(FILES ${PKGNAME}.efl DESTINATION ${SMACKDIR})
 INSTALL(FILES shared/res/message.png DESTINATION ${ICONDIR})
 
 #test
