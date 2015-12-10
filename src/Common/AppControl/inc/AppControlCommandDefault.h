@@ -29,8 +29,6 @@ namespace Msg
             AppControlCommandDefault(const std::string &opMsg);
             virtual ~AppControlCommandDefault();
 
-            virtual OperationType getOperationType() const;
-
         private:
     };
 }
