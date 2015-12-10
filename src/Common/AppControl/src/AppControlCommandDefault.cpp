@@ -21,7 +21,7 @@ using namespace Msg;
 
 
 AppControlCommandDefault::AppControlCommandDefault(const std::string &opMsg)
-    : AppControlCommand(opMsg)
+    : AppControlCommand(opMsg, OpDefault)
 {
 }
 
@@ -29,7 +29,3 @@ AppControlCommandDefault::~AppControlCommandDefault()
 {
 }
 
-AppControlCommand::OperationType AppControlCommandDefault::getOperationType() const
-{
-    return OpDefault;
-}
