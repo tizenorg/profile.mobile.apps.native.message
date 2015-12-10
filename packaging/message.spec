@@ -41,7 +41,7 @@ BuildRequires:  pkgconfig(notification)
 BuildRequires:  pkgconfig(efl-extension)
 BuildRequires:  pkgconfig(capi-system-runtime-info)
 BuildRequires:  pkgconfig(storage)
-
+BuildRequires:  pkgconfig(libtzplatform-config)
 #private
 BuildRequires:  pkgconfig(msg-service)
 #public
@@ -54,17 +54,14 @@ BuildRequires:  gettext-tools
 %description
 message lite application.
 
-%define PREFIX           /usr/apps/%{name}
-%define OPTPREFIX        /opt/usr/apps/%{name}
+%define PREFIX           %{TZ_SYS_RO_APP}/%{name}
 %define RESDIR           %{PREFIX}/res
 %define EDJDIR           %{RESDIR}/edje
-%define DATADIR          %{OPTPREFIX}/data
 %define IMGDIR           %{RESDIR}/images
 %define BINDIR           %{PREFIX}/bin
 %define LIBDIR           %{PREFIX}/lib
-%define MANIFESTDIR      /usr/share/packages
-%define SMACKDIR         /etc/smack/accesses.d
-%define ICONDIR          /usr/share/icons/default/small
+%define MANIFESTDIR      %{TZ_SYS_RO_PACKAGES}
+%define ICONDIR          %{TZ_SYS_RO_ICONS}/default/small
 %define LOCALEDIR        %{RESDIR}/locale
 
 %prep
@@ -75,14 +72,12 @@ export CXXFLAGS="$CXXFLAGS -DTIZEN_PRIVATE_API"
 LDFLAGS+="-Wl,--rpath=%{PREFIX}/lib -Wl,--as-needed -Wl,--hash-style=both"; export LDFLAGS
 cmake . \
     -DPREFIX=%{PREFIX}   \
-    -DDATADIR=%{DATADIR} \
     -DPKGDIR=%{name}     \
     -DIMGDIR=%{IMGDIR}   \
     -DEDJDIR=%{EDJDIR}   \
     -DPKGNAME=%{name}    \
     -DBINDIR=%{BINDIR}   \
     -DMANIFESTDIR=%{MANIFESTDIR}   \
-    -DSMACKDIR=%{SMACKDIR}   \
     -DEDJIMGDIR=%{EDJIMGDIR}   \
     -DLIBDIR=%{LIBDIR}   \
     -DICONDIR=%{ICONDIR}   \
@@ -94,26 +89,19 @@ make %{?jobs:-j%jobs}
 %install
 rm -rf %{buildroot}
 %make_install
-mkdir -p %{buildroot}/%{OPTPREFIX}/shared/trusted
-mkdir -p %{buildroot}/%{DATADIR}
 mkdir -p %{buildroot}/%{LIBDIR}
 
+
 %post
-chown -R 5000:5000 %{DATADIR}
-chown -R 5000:5000 %{OPTPREFIX}/shared/trusted
-if [ -f /usr/lib/rpm-plugins/msm.so ]
-then
-    find %{DATADIR} -exec chsmack -a 'org.tizen.message' {} \;
-fi
+pkgdir_maker --create --pkgid=%{name}
+
 
 %files
 %manifest %{name}.manifest
 %defattr(-,root,root,-)
-%dir %{OPTPREFIX}/shared/trusted
-%{DATADIR}
+%dir
 %{LIBDIR}
 %{BINDIR}/*
 %{RESDIR}/*
 %{MANIFESTDIR}/*.xml
-%{SMACKDIR}/%{name}.efl
 %{ICONDIR}/*
