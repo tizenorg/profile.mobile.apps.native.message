@@ -20,10 +20,14 @@ action:
 build configuration options:
   -A ARCH, --arch ARCH   build target arch. Default - armv7l
   -b 'Keys', --build 'Keys'  build project with additional gbs build keys
+  !You must specify profiles profile.tizen_2.4 and profile.tizen_3.0 in .gbs.conf to use VERSION options.
+  !You may omit version and default profile will be picked. Notice, that target version is still tizen_3.0 in this case.
+  -v VERSION, --version VERSION build project for target version. Default build on tizen_3.0
 
   examples:
   'run.sh -b -t -i -A armv7l' will build application and try to install it to target-device, unit-tests will be also built
   'run.sh -i -A armv7l[i586|aarch64]' will install latest build for tizen-2.4 device [emulator|tizen-3.0 device]
+  'run.sh -b -A armv7l -v tizen_2.4[tizen_3.0]' will build for tizen-2.4[tizen-3.0] on armv7l arch
 "
 }
 
@@ -39,9 +43,10 @@ DEBUGOPTION=false
 TESTOPTION=false
 PLATFORM=armv7l
 LOCALBUILD=false
+TIZENVERSION="default"
 
-SHORTOPTS="hA:b::irdtl"
-LONGOPTS="arch:,build::,install,run,debug,test,help,local"
+SHORTOPTS="hA:b::irdtlv:"
+LONGOPTS="arch:,build::,install,run,debug,test,help,local,version:"
 SCRIPTNAME=`basename $0`
 
 ARGS=$(getopt -q --options "$SHORTOPTS" --longoptions "$LONGOPTS" --name $SCRIPTNAME -- "$@")
@@ -60,6 +65,16 @@ while true; do
            exit 0;
          fi
          PLATFORM=$2
+         shift
+         ;;
+      -v|--version)
+         val=`echo $2 | sed -e "s/-//g"`
+         if echo "$SHORTOPTS$LONGOPTS" | grep -q "$val"; then
+           echo "Wrong VERSION"
+           usage
+           exit 0;
+         fi
+         TIZENVERSION=$2
          shift
          ;;
       -b|--build)
@@ -103,6 +118,7 @@ echo "RUNOPTION=$RUNOPTION"
 echo "DEBUGOPTION=$DEBUGOPTION"
 echo "TESTOPTION=$TESTOPTION"
 echo "PLATFORM=$PLATFORM"
+echo "TIZENVERSION=$TIZENVERSION"
 
 ##------------- project config -------------##
 
@@ -243,6 +259,11 @@ build()
       BUILDKEYS+=" --define 'TEST%20ON'"
     fi
 
+    if [ $TIZENVERSION != "default" ];
+    then
+      BUILDKEYS+=" -P profile.$TIZENVERSION"
+    fi
+
     ShowMessage "gbs -v -d build -B $GBSROOT -A $PLATFORM --include-all --keep-packs $BUILDKEYS"
     gbs -v -d build -B $GBSROOT -A $PLATFORM --include-all --keep-packs $BUILDKEYS 2>&1 | tee $gbsoutput
 
@@ -332,14 +353,13 @@ install()
     do
       current_package=$current_package_name-$VERSION-$RELEASE.$PLATFORM.rpm
       ShowMessage "Installing the package $current_package ..."
-      $SDB install $RPMSPATH/$current_package
-      #if hasPrefix $current_package; then
-        # install with pkgcmd
-        #SdbShell "pkgcmd -q -i -t rpm -p $TEMPDIR/$current_package"
-      #else
+      if [ $TIZENVERSION = "tizen_2.4" ];
+      then
+        $SDB install $RPMSPATH/$current_package
+      else
         # uninstall with rpm
-        #SdbShell "rpm -ivh --force --nodeps $TEMPDIR/$current_package"
-      #fi
+        SdbShell "rpm -ivh --force --nodeps $TEMPDIR/$current_package"
+      fi
     done
 
     if [ $DEBUGOPTION = "true" ]
@@ -350,7 +370,11 @@ install()
         SdbShell "rpm -i $TEMPDIR/$DEBUGSOURCEPKGNAME.rpm"
     fi
 
-    #SdbShell "pkg_initdb"
+    if [ $TIZENVERSION != "tizen_2.4" ];
+    then
+      SdbShell "pkg_initdb"
+      ShowMessage "pkg_initdb finished" -c green --noti
+    fi
 }
 
 ##--------------- Running ----------------##
@@ -384,12 +408,19 @@ installApp()
   checkConnection
   initPackageList
 
-  #$SDB root on
-  #uninstall
-  #push
+  if [ $TIZENVERSION != "tizen_2.4" ];
+  then
+    $SDB root on
+    #uninstall
+    push
+  fi
+
   install
 
-  #$SDB root off
+  if [ $TIZENVERSION != "tizen_2.4" ];
+  then
+    $SDB root off
+  fi
 }
 
 runApp()

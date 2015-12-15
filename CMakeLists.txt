@@ -25,6 +25,12 @@ INCLUDE_DIRECTORIES(${INCLUDE_DIRECTORIES}
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/Viewer/View/inc/
 )
 
+if(NOT DEFINED TIZEN_2_4)
+SET(ADDITIONAL_PACKS libtzplatform-config)
+else(NOT DEFINED TIZEN_2_4)
+SET(ADDITIONAL_PACKS "")
+endif(NOT DEFINED TIZEN_2_4)
+
 INCLUDE(FindPkgConfig)
 pkg_check_modules(pkgs REQUIRED
             bundle
@@ -60,7 +66,7 @@ pkg_check_modules(pkgs REQUIRED
             libpng
             efl-extension
             storage
-            libtzplatform-config
+            ${ADDITIONAL_PACKS}
 )
 
 ADD_DEFINITIONS("-DAPP_DIR=\"${PKGDIR}\"")
@@ -77,11 +83,18 @@ ADD_EXECUTABLE(${PROJECT_NAME} ${SRCS})
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${pkgs_LDFLAGS})
 
 ADD_SUBDIRECTORY(res)
-
-CONFIGURE_FILE(message.manifest.in ${PKGNAME}.manifest) # TODO: check
+if(DEFINED TIZEN_2_4)
+CONFIGURE_FILE(message.manifest-2.4.in ${PKGNAME}.manifest)
+CONFIGURE_FILE(message.efl.in ${PKGNAME}.efl)
+else(DEFINED TIZEN_2_4)
+CONFIGURE_FILE(message.manifest-3.0.in ${PKGNAME}.manifest)
+endif(DEFINED TIZEN_2_4)
 
 INSTALL(TARGETS ${PROJECT_NAME} DESTINATION ${BINDIR})
 INSTALL(FILES tizen-manifest-private.xml DESTINATION ${MANIFESTDIR} RENAME ${PKGNAME}.xml)
+if(DEFINED TIZEN_2_4)
+INSTALL(FILES ${PKGNAME}.efl DESTINATION ${SMACKDIR})
+endif(DEFINED TIZEN_2_4)
 INSTALL(FILES shared/res/message.png DESTINATION ${ICONDIR})
 
 #test

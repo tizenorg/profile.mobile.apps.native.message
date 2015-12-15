@@ -1,0 +1,12 @@
+<manifest>
+    <define>
+        <domain name="${PKGNAME}" />
+    </define>
+    <assign>
+        <filesystem path="/usr/share/icons/default/small/message.png" label="_" />
+        <filesystem path="${DATADIR}/*" label="${PKGNAME}" />
+    </assign>
+    <request>
+        <domain name="${PKGNAME}"/>
+    </request>
+</manifest>
