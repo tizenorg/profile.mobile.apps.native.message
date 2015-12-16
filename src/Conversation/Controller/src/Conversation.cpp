@@ -153,15 +153,7 @@ void Conversation::setConversationMode()
 
 void Conversation::fillMessage(Message &msg)
 {
-    if(MessageSMS *sms = dynamic_cast<MessageSMS*>(&msg))
-    {
-        fillMsgBody(*sms);
-    }
-    else if(MessageMms *mms = dynamic_cast<MessageMms*>(&msg))
-    {
-        fillMsgBody(*mms);
-    }
-
+    m_pBody->read(msg);
     fillMsgAddress(msg);
 }
 
@@ -186,28 +178,6 @@ void Conversation::fillMsgAddress(Message &msg)
                 msgAddr.setAddressType(recipItem->getAddressType());
             }
         }
-    }
-}
-
-void Conversation::fillMsgBody(MessageSMS &msg)
-{
-    msg.setText(m_pBody->getText());
-}
-
-void Conversation::fillMsgBody(MessageMms &msg)
-{
-    auto pages = m_pBody->getPages();
-    for(PageView *pageView : pages)
-    {
-        Page* page = static_cast<Page*>(pageView);
-
-        std::string textFile = m_WorkingDir.addTextFile(page->getPlainUtf8Text());
-        MsgPage &msgPage = msg.addPage();
-        MsgMedia &media = msgPage.addMedia();
-        media.setType(MsgMedia::SmilText);
-        media.setFilePath(textFile);
-
-        // TODO: add other SmilType and clear WorkingDir
     }
 }
 

@@ -27,7 +27,6 @@
 #include "RecipientPanel.h"
 #include "ListView.h"
 #include "MsgEngine.h"
-#include "WorkingDir.h"
 
 #include <Ecore.h>
 
@@ -87,7 +86,7 @@ namespace Msg
             virtual void onListItemSelected(ListItem &listItem, void *funcData);
 
             // IBodyListener:
-            virtual void onChanged(Page &page);
+            virtual void onChanged(Body &body);
 
         private:
             // Common:
@@ -99,8 +98,6 @@ namespace Msg
             void sendMessage();
             void fillMessage(Message &msg);
             void fillMsgAddress(Message &msg);
-            void fillMsgBody(MessageSMS &msg);
-            void fillMsgBody(MessageMms &msg);
             void saveDraftMsg();
 
             // Message input:
@@ -135,7 +132,6 @@ namespace Msg
             RecipientPanel *m_pRecipientPanel;
             ThreadId m_ThreadId;
             Ecore_Idler *m_pPredictSearchIdler;
-            WorkingDir m_WorkingDir;
     };
 }
 

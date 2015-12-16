@@ -16,6 +16,10 @@
  */
 
 #include "BodyView.h"
+#include "PageView.h"
+#include "BodyAttachmentView.h"
+#include "PageSeparator.h"
+
 #include <assert.h>
 
 using namespace Msg;
@@ -33,6 +37,42 @@ BodyView::BodyView(Evas_Object *parent)
 BodyView::~BodyView()
 {
 
+}
+
+void BodyView::addPage(PageView &page)
+{
+    int pageCount = getItemCount(BodyViewItem::PageType);
+    if(pageCount > 0)
+    {
+        PageSeparator *sep = new PageSeparator(*this);
+        sep->setText(std::to_string(pageCount) + '/' + m_MaxPageLabel);
+        append(*sep);
+    }
+    append(page);
+}
+
+void BodyView::removePage(PageView &page)
+{
+    // TODO: impl
+}
+
+void BodyView::setMaxPageLabel(const std::string &max)
+{
+    m_MaxPageLabel = max;
+}
+
+int BodyView::getItemCount(BodyViewItem::Type type) const
+{
+    int count = 0;
+    auto list = getAllItems();
+    for(BodyViewItem *item : list)
+    {
+        if(item->getType() == type)
+        {
+            ++count;
+        }
+    }
+    return count;
 }
 
 void BodyView::create(Evas_Object *parent)
@@ -80,13 +120,24 @@ void BodyView::remove(BodyViewItem &item)
 
 PageViewCollection BodyView::getPages() const
 {
-    PageViewCollection res;
+    return getItems<PageView>();
+}
+
+BodyAttachmentCollection BodyView::getAttachments() const
+{
+    return getItems<BodyAttachmentView>();
+}
+
+template<typename T>
+std::vector<T*> BodyView::getItems() const
+{
+    std::vector<T*> res;
     BodyViewItemCollection all = getAllItems();
     for(BodyViewItem *item : all)
     {
-        if(item->getType() == BodyViewItem::PageType)
+        if(T *itemT = dynamic_cast<T*>(item))
         {
-            res.push_back(static_cast<PageView*>(item));
+            res.push_back(itemT);
         }
     }
 
@@ -135,4 +186,5 @@ bool BodyView::getFocus() const
 {
     return getFocusedPage() != nullptr;
 }
+
 

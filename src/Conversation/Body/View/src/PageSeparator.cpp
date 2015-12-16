@@ -15,27 +15,32 @@
  *
  */
 
-#ifndef Page_h_
-#define Page_h_
+#include "PageSeparator.h"
+#include "BodyView.h"
 
-#include "PageView.h"
+using namespace Msg;
 
-namespace Msg
+namespace
 {
-    class Body;
-
-    class Page
-        : public PageView
-    {
-        public:
-            Page(Body &parent);
-            virtual ~Page();
-
-            const Body &getBody() const;
-            Body &getBody();
-
-        private:
-    };
+    const char *pageSeparatorGroup = "conv/body/page_divider";
 }
 
-#endif /* Page_h_ */
+PageSeparator::PageSeparator(BodyView &parent)
+    : BodyViewItem(parent, SeparatorType)
+    , m_pLayout(nullptr)
+{
+    m_pLayout = elm_layout_add(getEo());
+    evas_object_show(m_pLayout);
+    elm_layout_file_set(m_pLayout, getEdjPath().c_str(), pageSeparatorGroup);
+    BodyViewItem::setChild(m_pLayout);
+}
+
+PageSeparator::~PageSeparator()
+{
+
+}
+
+void PageSeparator::setText(const std::string &text)
+{
+    elm_object_part_text_set(m_pLayout, "text.page_info", text.c_str());
+}
