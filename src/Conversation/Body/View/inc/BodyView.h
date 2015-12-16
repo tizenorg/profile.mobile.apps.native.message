@@ -18,13 +18,18 @@
 #ifndef BodyView_h_
 #define BodyView_h_
 
-#include "PageView.h"
+#include "View.h"
+#include "BodyViewItem.h"
 
 #include <vector>
 
 namespace Msg
 {
+    class PageView;
+    class BodyAttachmentView;
+
     typedef std::vector<PageView*> PageViewCollection;
+    typedef std::vector<BodyAttachmentView*> BodyAttachmentCollection;
     typedef std::vector<BodyViewItem*> BodyViewItemCollection;
 
     class BodyView
@@ -36,35 +41,30 @@ namespace Msg
             BodyView(Evas_Object *parent);
             virtual ~BodyView();
 
+            void setMaxPageLabel(const std::string &max);
+            void addPage(PageView &page);
+            void removePage(PageView &page);
+            PageViewCollection getPages() const;
+            BodyAttachmentCollection getAttachments() const;
+            template<typename T>
+            std::vector<T*> getItems() const;
+            BodyViewItemCollection getAllItems() const;
+            PageView *getFocusedPage() const;
+            bool getFocus() const;
+            int getItemCount(BodyViewItem::Type type) const;
+
+        private:
+            void create(Evas_Object *parent);
+            void prepare(BodyViewItem &item);
             void insertAfter(BodyViewItem &item, BodyViewItem &after);
             void insertBefore(BodyViewItem &item, BodyViewItem &before);
             void append(BodyViewItem &item);
             void prepend(BodyViewItem &item);
             void remove(BodyViewItem &item);
-            PageViewCollection getPages() const;
-            BodyViewItemCollection getAllItems() const;
-            PageView *getFocusedPage() const;
-            bool getFocus() const;
-
-        private:
-            // Page event:
-            virtual void onCursorChanged(PageView &page) {};
-            virtual void onFocused(PageView &page) {};
-            virtual void onUnfocused(PageView &page) {};
-            virtual void onChanged(PageView &page) {};
-            virtual void onPreeditChanged(PageView &page) {};
-            virtual void onPress(PageView &page) {};
-            virtual void onClicked(PageView &page) {};
-            virtual void onMaxLengthReached(PageView &page) {};
-            virtual void onKeyDown(PageView &page) {};
-            virtual void onKeyUp(PageView &page) {};
-
-        private:
-            void create(Evas_Object *parent);
-            void prepare(BodyViewItem &item);
 
         private:
             BodyViewItemCollection m_Items;
+            std::string m_MaxPageLabel;
     };
 }
 

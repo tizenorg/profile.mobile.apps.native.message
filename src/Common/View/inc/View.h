@@ -55,6 +55,10 @@ namespace Msg
             inline void emitSignal(const char *emission, const char *source);
             inline void setData(const char *key, const void *data);
             inline void *getData(const char *key) const;
+            inline void setSmartData(const void *data);
+            inline static void setSmartData(Evas_Object *obj, const void *data);
+            inline void *getSmartData() const;
+            inline static void *getSmartData(Evas_Object *obj);
 
             inline std::string getText(const char *part = nullptr) const;
             inline const char *getTextCStr(const char *part = nullptr) const;
@@ -202,6 +206,26 @@ namespace Msg
     inline void *View::getData(const char *key) const
     {
         return evas_object_data_get(m_pEo, key);
+    }
+
+    inline void View::setSmartData(const void *data)
+    {
+        setSmartData(m_pEo, data);
+    }
+
+    inline void *View::getSmartData() const
+    {
+        return getSmartData(m_pEo);
+    }
+
+    inline void View::setSmartData(Evas_Object *obj, const void *data)
+    {
+        evas_object_smart_data_set(obj, (void*)data);
+    }
+
+    inline void *View::getSmartData(Evas_Object *obj)
+    {
+        return evas_object_smart_data_get(obj);
     }
 }
 

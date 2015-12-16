@@ -64,7 +64,7 @@ void Conversation::onButtonClicked(MessageInputPanel &obj, MessageInputPanel::Bu
     }
 }
 
-void Conversation::onChanged(Page &page)
+void Conversation::onChanged(Body &body)
 {
     updateMsgInputPanel();
 }

@@ -15,15 +15,13 @@
  *
  */
 
-#ifndef PageView_h_
-#define PageView_h_
+#ifndef BodyViewItem_h_
+#define BodyViewItem_h_
 
 #include "View.h"
 
 namespace Msg
 {
-    class BodyView;
-
     class BodyViewItem
         : public View
     {
@@ -31,7 +29,8 @@ namespace Msg
             enum Type
             {
                 SeparatorType,
-                PageType
+                PageType,
+                AttachmentType
             };
 
         public:
@@ -47,44 +46,6 @@ namespace Msg
         private:
             Type m_Type;
     };
-
-    class PageSeparator
-        : public BodyViewItem
-    {
-        public:
-            PageSeparator(BodyView &parent);
-            virtual ~PageSeparator();
-
-            void setText(const std::string &text);
-
-        private:
-            Evas_Object *m_pLayout;
-    };
-
-    class PageView
-        : public BodyViewItem
-    {
-        public:
-            PageView(BodyView &parent);
-            virtual ~PageView();
-
-            void setGuideText(const TText &text);
-            void clearText();
-            std::string getText() const;
-            std::string getPlainUtf8Text() const;
-            BodyView &getBody();
-            const BodyView &getBody() const;
-            bool isEmpty() const;
-
-        private:
-            Evas_Object *createLayout(Evas_Object *parent);
-            Evas_Object *createBox(Evas_Object *parent);
-            Evas_Object *createEntry(Evas_Object *parent);
-
-        private:
-            Evas_Object *m_pEntry;
-            BodyView &m_Body;
-    };
 }
 
-#endif /* PageView_h_ */
+#endif /* BodyViewItem_h_ */
