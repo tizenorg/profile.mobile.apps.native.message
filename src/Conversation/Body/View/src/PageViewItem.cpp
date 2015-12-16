@@ -15,28 +15,35 @@
  *
  */
 
-#include "Page.h"
-#include "Body.h"
+#include "PageViewItem.h"
+#include "Resource.h"
 
 using namespace Msg;
 
-Page::Page(Body &parent)
-    : PageView(parent)
+PageViewItem::PageViewItem(PageView &parent)
+    : m_Parent(parent)
 {
 
 }
 
-Page::~Page()
+PageViewItem::~PageViewItem()
 {
 
 }
 
-const Body &Page::getBody() const
+const std::string &PageViewItem::getEdjPath() const
 {
-    return static_cast<const Body&>(PageView::getBody());
+    static std::string path = ResourceUtils::getResourcePath(MSG_BODY_EDJ_PATH);
+    return path;
 }
 
-Body &Page::getBody()
+const PageView &PageViewItem::getParentPage() const
 {
-    return static_cast<Body&>(PageView::getBody());
+    return m_Parent;
 }
+
+PageView &PageViewItem::getParentPage()
+{
+    return m_Parent;
+}
+
