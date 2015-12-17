@@ -41,7 +41,7 @@ Conversation::Conversation(NaviFrameController &parent)
     , m_pContactsList(nullptr)
     , m_pMsgInputPanel(nullptr)
     , m_pBody(nullptr)
-    , m_pRecipientPanel(nullptr)
+    , m_pRecipPanel(nullptr)
     , m_ThreadId()
     , m_pPredictSearchIdler(nullptr)
 {
@@ -119,16 +119,34 @@ void Conversation::setMode(Mode mode)
     }
 }
 
+void Conversation::createReicpPanel(Evas_Object *parent)
+{
+    if(!m_pRecipPanel)
+    {
+        m_pRecipPanel = new RecipientsPanel(parent, getApp());
+        m_pRecipPanel->setListener(this);
+        m_pRecipPanel->show();
+        m_pRecipPanel->setRecipientRect(m_pLayout->getRecipientRect());
+    }
+}
+
+void Conversation::destroyRecipPanel()
+{
+    if(m_pRecipPanel)
+    {
+        m_pRecipPanel->destroy();
+        m_pRecipPanel = nullptr;
+    }
+}
+
 void Conversation::setNewMessageMode()
 {
     m_Mode = NewMessageMode;
 
-    createRecipientPanel(*m_pLayout);
-    m_pRecipientPanel->setRecipientRect(m_pLayout->getRecipientRect());
-
+    createReicpPanel(*m_pLayout);
     createPredictSearch(*m_pLayout);
 
-    m_pLayout->setRecipientPanel(*m_pRecipientPanel);
+    m_pLayout->setRecipientPanel(*m_pRecipPanel);
     m_pLayout->setPredictSearch(*m_pContactsList);
 }
 
@@ -139,13 +157,9 @@ void Conversation::setConversationMode()
     m_pLayout->showPredictSearch(false);
     m_pLayout->showSelectAll(false);
 
-    if(m_pRecipientPanel)
-    {
-        m_pRecipientPanel->destroy();
-        m_pRecipientPanel = nullptr;
-    }
-
+    destroyRecipPanel();
     createBubbleList(*m_pScroller);
+
     m_pBubbleBox->setSizeHintAlign(EVAS_HINT_FILL, EVAS_HINT_FILL);
     m_pBubbleBox->setSizeHintWeight(EVAS_HINT_EXPAND, 0);
     m_pScroller->setContent(*m_pBubbleBox);
@@ -166,18 +180,8 @@ void Conversation::fillMsgAddress(Message &msg)
     }
     else
     {
-        if(m_pRecipientPanel)
-        {
-            RecipientViewItemList list = m_pRecipientPanel->getItems();
-            for(auto &it : list)
-            {
-                RecipientItem *recipItem = static_cast<RecipientItem*>(it);
-                MsgAddress &msgAddr = msg.addAddress();
-                msgAddr.setAddress(recipItem->getAddress());
-                msgAddr.setRecipientType(recipItem->getRecipientType());
-                msgAddr.setAddressType(recipItem->getAddressType());
-            }
-        }
+        if(m_pRecipPanel)
+            m_pRecipPanel->read(msg);
     }
 }
 
@@ -209,6 +213,29 @@ void Conversation::saveDraftMsg()
         fillMessage(*msg);
         MsgId msgId = getMsgEngine().getStorage().saveMessage(*msg);
         MSG_LOG("Draft message id = ", msgId);
+    }
+}
+
+void Conversation::onKeyDown(RecipientsPanel &panel, Evas_Event_Key_Down &ev)
+{
+    if(ev.keyname)
+    {
+        if((strcmp(ev.keyname, "Return") == 0))
+        {
+            m_pBody->setFocus(true);
+        }
+        else
+        {
+            updateContactsListRequest();
+        }
+    }
+}
+
+void Conversation::onEntryFocusChanged(RecipientsPanel &panel)
+{
+    if(!m_pRecipPanel->getEntryFocus())
+    {
+        clearContactList();
     }
 }
 
