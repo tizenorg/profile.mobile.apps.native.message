@@ -56,12 +56,11 @@ void Conversation::updateContactsList()
 {
     clearContactList();
 
-    if(!m_pContactsList || !m_pRecipientPanel)
+    if(!m_pContactsList || !m_pRecipPanel)
         return;
 
     ContactManager &cm = getApp().getContactManager();
-    std::string searchWord;
-    searchWord = m_pRecipientPanel->getEntryText();
+    std::string searchWord = m_pRecipPanel->getEntryText();
 
     if(!searchWord.empty())
     {
@@ -154,10 +153,9 @@ bool Conversation::onPredictSearchUpdateRequest()
 
 void Conversation::onListItemSelected(ListItem &listItem, void *funcData)
 {
-    MSG_LOG("");
     ContactListItem &contactItem = static_cast<ContactListItem&>(listItem);
     MSG_LOG("Selected recipient: ", contactItem.getRecipient());
-    addRecipient(contactItem.getRecipient(), contactItem.getRecipient());
+    m_pRecipPanel->appendItem(contactItem.getRecipient(), contactItem.getRecipient());
+    m_pRecipPanel->clearEntry();
     clearContactList();
-    clearRecipientEntry();
 }

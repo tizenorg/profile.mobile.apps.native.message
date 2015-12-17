@@ -24,7 +24,7 @@
 #include "MessageInputPanel.h"
 #include "Body.h"
 #include "MsgThreadItem.h"
-#include "RecipientPanel.h"
+#include "RecipientsPanel.h"
 #include "ListView.h"
 #include "MsgEngine.h"
 
@@ -42,9 +42,9 @@ namespace Msg
         , private IHwButtonListener
         , private IMsgStorageListener
         , private IMessageInputPanelListener
-        , private IRecipientPanelListener
         , private IListViewListener
         , private IBodyListener
+        , private IRecipientsPanelListener
     {
         public:
             Conversation(NaviFrameController &parent);
@@ -74,13 +74,9 @@ namespace Msg
             // IMessageInputPanelListener:
             virtual void onButtonClicked(MessageInputPanel &obj, MessageInputPanel::ButtonId id);
 
-            // IRecipientPanelListener:
-            virtual void onItemSelected(RecipientPanel &obj, RecipientViewItem &item);
-            virtual void onItemPressed(RecipientPanel &obj, RecipientViewItem &item);
-            virtual void onItemClicked(RecipientPanel &obj, RecipientViewItem &item);
-            virtual void onKeyDown(RecipientPanel &obj, Evas_Event_Key_Down *ev);
-            virtual void onContactButtonClicked(RecipientPanel &obj);
-            virtual void onEntryFocusChanged(RecipientPanel &obj);
+            // IRecipientsPanelListener:
+            virtual void onKeyDown(RecipientsPanel &panel, Evas_Event_Key_Down &ev);
+            virtual void onEntryFocusChanged(RecipientsPanel &panel);
 
             // IListViewListener:
             virtual void onListItemSelected(ListItem &listItem, void *funcData);
@@ -94,6 +90,8 @@ namespace Msg
             void setMode(Mode mode);
             void setNewMessageMode();
             void setConversationMode();
+            void createReicpPanel(Evas_Object *parent);
+            void destroyRecipPanel();
 
             void sendMessage();
             void fillMessage(Message &msg);
@@ -103,12 +101,6 @@ namespace Msg
             // Message input:
             void createMsgInput(Evas_Object *parent);
             void updateMsgInputPanel();
-
-            // Recipients:
-            void createRecipientPanel(Evas_Object *parent);
-            void addRecipientsFromEntry();
-            void addRecipient(const std::string &address, const std::string &dispName, MsgAddress::AddressType addressType = MsgAddress::UnknownAddressType);
-            void clearRecipientEntry();
 
             // Bubble:
             void createBubbleList(Evas_Object *parent);
@@ -129,7 +121,7 @@ namespace Msg
             ListView *m_pContactsList;
             MessageInputPanel *m_pMsgInputPanel;
             Body *m_pBody;
-            RecipientPanel *m_pRecipientPanel;
+            RecipientsPanel *m_pRecipPanel;
             ThreadId m_ThreadId;
             Ecore_Idler *m_pPredictSearchIdler;
     };

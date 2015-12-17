@@ -25,8 +25,6 @@
 
 namespace Msg
 {
-    class RecipientPanel;
-
     class RecipientItem
         : public RecipientViewItem
     {

@@ -24,12 +24,12 @@
 
 namespace Msg
 {
-    class RecipientPanel;
+    class RecipientsPanelView;
 
     class RecipientViewItem
         : public ViewItem
     {
-             friend class RecipientPanel;
+             friend class RecipientsPanelView;
 
         public:
             RecipientViewItem();
@@ -43,7 +43,7 @@ namespace Msg
 
         private:
             std::string m_DisplayName;
-            RecipientPanel *m_pOwner;
+            RecipientsPanelView *m_pOwner;
     };
 }
 

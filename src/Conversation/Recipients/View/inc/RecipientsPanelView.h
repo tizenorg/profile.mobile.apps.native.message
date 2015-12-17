@@ -15,8 +15,8 @@
  *
  */
 
-#ifndef RecipientPanel_h_
-#define RecipientPanel_h_
+#ifndef RecipientsPanelView_h_
+#define RecipientsPanelView_h_
 
 #include "View.h"
 #include "RecipientViewItem.h"
@@ -26,29 +26,35 @@
 
 namespace Msg
 {
-    class IRecipientPanelListener;
     class RecipientViewItem;
     typedef std::vector<RecipientViewItem*> RecipientViewItemList;
 
-    class RecipientPanel
+    class RecipientsPanelView
         : public View
     {
         public:
-            RecipientPanel(Evas_Object *parent, int entryMaxCharCount);
-            virtual ~RecipientPanel();
+            RecipientsPanelView(Evas_Object *parent, int entryMaxCharCount);
+            virtual ~RecipientsPanelView();
 
-            void setListener(IRecipientPanelListener *listener);
             void appendItem(RecipientViewItem &item);
             void showMbe(bool show);
             std::string getEntryText() const;
             void setEntryText(const std::string &utf8);
             RecipientViewItemList getItems() const;
-            bool isEmpty()const ;
+            bool isMbeEmpty()const ;
             bool getEntryFocus() const;
             void setEntryFocus(bool val);
             void clearEntry();
-            void setGuideText(const char *text);
             void setRecipientRect(Evas_Object *rect);
+
+        private:
+            // Signals:
+            virtual void onItemSelected(RecipientViewItem &item) {};
+            virtual void onItemPressed(RecipientViewItem &item) {};
+            virtual void onItemClicked(RecipientViewItem &item) {};
+            virtual void onKeyDown(Evas_Event_Key_Down *ev) {};
+            virtual void onEntryFocusChanged() {};
+            virtual void onContactButtonClicked() {}
 
         private:
             void create(Evas_Object *parent);
@@ -84,7 +90,6 @@ namespace Msg
             void onEntryGeometryChanged(Evas_Object *obj, void *event_info);
 
         private:
-            IRecipientPanelListener *m_pListener;
             Evas_Object *m_pLayout;
             Evas_Object *m_pMbe;
             Evas_Object *m_pEntry;
@@ -92,19 +97,6 @@ namespace Msg
             Evas_Object *m_pRecipRect;
             int m_EntryMaxCharCount;
     };
-
-    class IRecipientPanelListener
-    {
-        public:
-            virtual ~IRecipientPanelListener() {}
-
-            virtual void onItemSelected(RecipientPanel &obj, RecipientViewItem &item) {};
-            virtual void onItemPressed(RecipientPanel &obj, RecipientViewItem &item) {};
-            virtual void onItemClicked(RecipientPanel &obj, RecipientViewItem &item) {};
-            virtual void onKeyDown(RecipientPanel &obj, Evas_Event_Key_Down *ev) {};
-            virtual void onEntryFocusChanged(RecipientPanel &obj) {};
-            virtual void onContactButtonClicked(RecipientPanel &obj) {}
-    };
 }
 
-#endif /* RecipientPanel_h_ */
+#endif /* RecipientsPanelView_h_ */

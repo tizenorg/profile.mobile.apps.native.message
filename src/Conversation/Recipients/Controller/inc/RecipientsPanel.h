@@ -1,0 +1,70 @@
+/*
+ * Copyright (c) 2009-2015 Samsung Electronics Co., Ltd All Rights Reserved
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+#ifndef RecipientsPanel_h_
+#define RecipientsPanel_h_
+
+#include "RecipientViewItem.h"
+#include "RecipientsPanelView.h"
+#include "RecipientItem.h"
+#include "Message.h"
+#include "App.h"
+
+namespace Msg
+{
+    class IRecipientsPanelListener;
+
+    class RecipientsPanel
+        : public RecipientsPanelView
+    {
+        public:
+            RecipientsPanel(Evas_Object *parent, App &app);
+            virtual ~RecipientsPanel();
+
+            void read(Message &msg);
+            bool isMms() const;
+            void setListener(IRecipientsPanelListener *l);
+            bool appendItem(const std::string &address, const std::string &dispName,
+                              MsgAddress::AddressType addressType = MsgAddress::UnknownAddressType);
+
+        private:
+            // RecipientsPanelView:
+            virtual void onItemSelected(RecipientViewItem &item);
+            virtual void onItemPressed(RecipientViewItem &item);
+            virtual void onItemClicked(RecipientViewItem &item);
+            virtual void onKeyDown(Evas_Event_Key_Down *ev);
+            virtual void onEntryFocusChanged();
+            virtual void onContactButtonClicked();
+
+            void addRecipients();
+
+        private:
+            App &m_App;
+            IRecipientsPanelListener *m_pListener;
+    };
+
+    class IRecipientsPanelListener
+    {
+        public:
+            virtual ~IRecipientsPanelListener() {}
+
+            virtual void onKeyDown(RecipientsPanel &panel, Evas_Event_Key_Down &ev) {};
+            virtual void onEntryFocusChanged(RecipientsPanel &panel) {};
+    };
+}
+
+#endif /* RecipientsPanel_h_ */
