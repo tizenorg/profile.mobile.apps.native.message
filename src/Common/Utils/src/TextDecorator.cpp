@@ -18,6 +18,7 @@
 #include "TextDecorator.h"
 #include <sstream>
 #include <assert.h>
+#include <string.h>
 
 using namespace Msg;
 
@@ -121,4 +122,29 @@ std::string TextDecorator::make(const std::string &text,
     }
     ss << CLOSE_TAG("color") << CLOSE_TAG("font_size");
     return ss.str();
+}
+
+std::string TextDecorator::highlightKeyword(const std::string &str, const std::string &searchWord)
+{
+    if(str.empty() || searchWord.empty())
+        return str;
+
+    char *found = strcasestr((char*)str.c_str(), (char*)searchWord.c_str());
+    if(!found)
+        return str;
+
+    std::string res;
+    res.reserve(str.length() + 32); // Reserve string length + highlight tags length
+
+    int diff = found - str.c_str();
+    std::string firstPart = std::string(str.begin(), str.begin() + diff);
+    std::string lastPart = std::string(str.begin() + diff + searchWord.length(), str.end());
+
+    res += firstPart;
+    res += "<match>";
+    res += searchWord;
+    res += "</match>";
+    res += lastPart;
+
+    return res;
 }

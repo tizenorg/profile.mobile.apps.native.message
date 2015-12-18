@@ -28,7 +28,6 @@
 
 #include <Elementary.h>
 #include <sstream>
-#include <fstream>
 
 using namespace Msg;
 
@@ -38,12 +37,11 @@ Conversation::Conversation(NaviFrameController &parent)
     , m_pLayout(nullptr)
     , m_pScroller(nullptr)
     , m_pBubbleBox(nullptr)
-    , m_pContactsList(nullptr)
     , m_pMsgInputPanel(nullptr)
     , m_pBody(nullptr)
     , m_pRecipPanel(nullptr)
+    , m_pContactsList(nullptr)
     , m_ThreadId()
-    , m_pPredictSearchIdler(nullptr)
 {
     create(NewMessageMode);
 }
@@ -59,28 +57,24 @@ Conversation::~Conversation()
 {
     saveDraftMsg();
     getMsgEngine().getStorage().removeListener(*this);
-    if(m_pPredictSearchIdler)
-    {
-        ecore_idler_del(m_pPredictSearchIdler);
-        m_pPredictSearchIdler = nullptr;
-    }
 }
 
 void Conversation::create(Mode mode)
 {
-    m_pLayout = new ConversationLayout(getParent());
-    m_pLayout->show();
-    m_pLayout->expand();
+    createMainLayout(getParent());
 
     m_pScroller = new Scroller(*m_pLayout);
     m_pScroller->show();
     m_pScroller->expand();
     m_pScroller->setPpolicy(ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
 
-    createMsgInput(*m_pLayout);
+    createMsgInputPanel(*m_pLayout);
+    createBody(*m_pMsgInputPanel);
+    m_pMsgInputPanel->setEntry(*m_pBody);
+    updateMsgInputPanel();
 
-    m_pLayout->setBubble(*m_pScroller);
     m_pLayout->setMsgInputPanel(*m_pMsgInputPanel);
+    m_pLayout->setBubble(*m_pScroller);
 
     setMode(mode);
     fillConversationList();
@@ -119,7 +113,41 @@ void Conversation::setMode(Mode mode)
     }
 }
 
-void Conversation::createReicpPanel(Evas_Object *parent)
+void Conversation::setNewMessageMode()
+{
+    m_Mode = NewMessageMode;
+
+    createRecipPanel(*m_pLayout);
+    createContactList(*m_pLayout);
+
+    m_pLayout->setRecipientPanel(*m_pRecipPanel);
+    m_pLayout->setPredictSearch(*m_pContactsList);
+}
+
+void Conversation::setConversationMode()
+{
+    m_Mode = ConversationMode;
+
+    m_pLayout->showPredictSearch(false);
+    m_pLayout->showSelectAll(false);
+
+    destroyRecipPanel();
+    destroyContactList();
+    createBubbleList(*m_pScroller);
+
+    m_pBubbleBox->setSizeHintAlign(EVAS_HINT_FILL, EVAS_HINT_FILL);
+    m_pBubbleBox->setSizeHintWeight(EVAS_HINT_EXPAND, 0);
+    m_pScroller->setContent(*m_pBubbleBox);
+}
+
+void Conversation::createMainLayout(Evas_Object *parent)
+{
+    m_pLayout = new ConversationLayout(parent);
+    m_pLayout->show();
+    m_pLayout->expand();
+}
+
+void Conversation::createRecipPanel(Evas_Object *parent)
 {
     if(!m_pRecipPanel)
     {
@@ -139,30 +167,43 @@ void Conversation::destroyRecipPanel()
     }
 }
 
-void Conversation::setNewMessageMode()
+void Conversation::createContactList(Evas_Object *parent)
 {
-    m_Mode = NewMessageMode;
-
-    createReicpPanel(*m_pLayout);
-    createPredictSearch(*m_pLayout);
-
-    m_pLayout->setRecipientPanel(*m_pRecipPanel);
-    m_pLayout->setPredictSearch(*m_pContactsList);
+    if(!m_pContactsList)
+    {
+        m_pContactsList = new ConvContactList(parent, getApp().getContactManager());
+        m_pContactsList->setListener(this);
+        m_pContactsList->show();
+    }
 }
 
-void Conversation::setConversationMode()
+void Conversation::destroyContactList()
 {
-    m_Mode = ConversationMode;
+    if(m_pContactsList)
+    {
+        m_pContactsList->destroy();
+        m_pContactsList = nullptr;
+    }
+}
 
-    m_pLayout->showPredictSearch(false);
-    m_pLayout->showSelectAll(false);
+void Conversation::createMsgInputPanel(Evas_Object *parent)
+{
+    if(!m_pMsgInputPanel)
+    {
+        m_pMsgInputPanel = new MessageInputPanel(parent);
+        m_pMsgInputPanel->setListener(this);
+        m_pMsgInputPanel->show();
+    }
+}
 
-    destroyRecipPanel();
-    createBubbleList(*m_pScroller);
-
-    m_pBubbleBox->setSizeHintAlign(EVAS_HINT_FILL, EVAS_HINT_FILL);
-    m_pBubbleBox->setSizeHintWeight(EVAS_HINT_EXPAND, 0);
-    m_pScroller->setContent(*m_pBubbleBox);
+void Conversation::createBody(Evas_Object *parent)
+{
+    if(!m_pBody)
+    {
+        m_pBody = new Body(*m_pMsgInputPanel, getMsgEngine());
+        m_pBody->setListener(this);
+        m_pBody->show();
+    }
 }
 
 void Conversation::fillMessage(Message &msg)
@@ -226,17 +267,52 @@ void Conversation::onKeyDown(RecipientsPanel &panel, Evas_Event_Key_Down &ev)
         }
         else
         {
-            updateContactsListRequest();
+            m_pContactsList->setSearchWorld(m_pRecipPanel->getEntryText());
+            m_pContactsList->requestSearch();
         }
+    }
+}
+
+void Conversation::onChanged(Body &body)
+{
+    updateMsgInputPanel();
+}
+
+void Conversation::updateMsgInputPanel()
+{
+    // TODO:
+    BodySmsSize size = m_pBody->getSmsSize();
+
+    std::stringstream ss;
+    ss << size.charsLeft << "/" << size.smsCount;
+    m_pMsgInputPanel->setCounter(ss.str());
+
+    bool disabledButton = m_pBody->isEmpty();
+    m_pMsgInputPanel->disabledButton(MessageInputPanel::SendButtonId, disabledButton);
+}
+
+void Conversation::onButtonClicked(MessageInputPanel &obj, MessageInputPanel::ButtonId id)
+{
+    MSG_LOG("MessageInputPanel: button clicked: id = ", id);
+
+    switch(id)
+    {
+        case MessageInputPanel::AddButtonId:
+            break;
+        case MessageInputPanel::SendButtonId:
+            sendMessage();
+            m_pBody->clear();
+            m_pBody->setFocus(true);
+            break;
+        default:
+            break;
     }
 }
 
 void Conversation::onEntryFocusChanged(RecipientsPanel &panel)
 {
     if(!m_pRecipPanel->getEntryFocus())
-    {
-        clearContactList();
-    }
+        m_pContactsList->clear();
 }
 
 void Conversation::onMsgStorageChange(const MsgIdList &idList)
@@ -245,6 +321,13 @@ void Conversation::onMsgStorageChange(const MsgIdList &idList)
 
     fillConversationList();
     m_pScroller->navigateToBottom();
+}
+
+void Conversation::onContactSelected(ContactListItem &item)
+{
+    m_pRecipPanel->appendItem(item.getRecipient(), item.getRecipient());
+    m_pRecipPanel->clearEntry();
+    m_pContactsList->clear();
 }
 
 void Conversation::onAttached(ViewItem &item)
@@ -304,3 +387,4 @@ void Conversation::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
             break;
     }
 }
+

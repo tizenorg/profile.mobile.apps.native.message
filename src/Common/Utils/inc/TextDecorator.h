@@ -55,6 +55,9 @@ namespace Msg
             int m_Size;
     };
 
+    /**
+     * @brief Class with text decorator utils
+     */
     class TextDecorator
     {
         public:
@@ -63,6 +66,14 @@ namespace Msg
                                     int size = TextStyle::defaultFontSize,
                                     const std::string &color = TextStyle::defaultColor,
                                     TextAlign align = TextAlign::None);
+
+            /**
+             * @brief Search first keyword and highlight it
+             * @param[in] str text with keyword
+             * @param[in] searchWord word for highlight
+             * @retval text with highlighted keyword if keyword found, input text otherwise
+             */
+            static std::string highlightKeyword(const std::string &str, const std::string &searchWord);
     };
 }
 

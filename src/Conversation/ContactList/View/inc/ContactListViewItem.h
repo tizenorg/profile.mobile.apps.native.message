@@ -23,18 +23,17 @@
 
 namespace Msg
 {
-    class ContactListItemView
+    class ContactListViewItem
         : public ListItem
     {
         public:
+            ContactListViewItem();
+            virtual ~ContactListViewItem();
+
+        protected:
             static ListItemStyleRef logStyle;
             static ListItemStyleRef nameOrEmailStyle;
 
-        public:
-            ContactListItemView();
-            virtual ~ContactListItemView();
-
-        protected:
             virtual std::string getSubText() const = 0;
             virtual std::string getMainText() const = 0;
             virtual Evas_Object *getThumbnail() const = 0;
