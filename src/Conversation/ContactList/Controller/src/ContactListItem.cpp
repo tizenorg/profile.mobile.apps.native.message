@@ -21,59 +21,33 @@
 #include "ResourceUtils.h"
 #include "ListView.h"
 #include "Logger.h"
+#include "TextDecorator.h"
 
 #include <assert.h>
-#include <glib.h>
 
 using namespace Msg;
-
-// TODO: move to common part
-std::string searchMarkupKeyword(const std::string &str, const std::string &searchWord)
-{
-    if(str.empty() || searchWord.empty())
-        return str;
-
-    char *found = strcasestr((char*)str.c_str(), (char*)searchWord.c_str());
-    if(!found)
-        return str;
-
-    std::string res;
-    res.reserve(str.length() + 32);
-
-    int diff = found - str.c_str();
-    std::string firstPart = std::string(str.begin(), str.begin() + diff);
-    std::string lastPart = std::string(str.begin() + diff + searchWord.length(), str.end());
-
-    res += firstPart;
-    res += "<match>";
-    res += searchWord;
-    res += "</match>";
-    res += lastPart;
-
-    return res;
-}
 
 ContactListItem::ContactListItem(const ContactPersonPhoneLog &rec, const std::string &searchWord)
 {
     assert(rec.getAddress());
-    setStyle(ContactListItemView::logStyle);
+    setStyle(ContactListViewItem::logStyle);
 
     m_Recipient = rec.getAddress();
     MSG_LOG(m_Recipient);
-    m_MainText = searchMarkupKeyword(rec.getAddress(), searchWord);
+    m_MainText = TextDecorator::highlightKeyword(rec.getAddress(), searchWord);
 }
 
 ContactListItem::ContactListItem(const ContactPersonNumber &rec, const std::string &searchWord)
 {
     assert(rec.getNumber());
-    setStyle(ContactListItemView::nameOrEmailStyle);
+    setStyle(ContactListViewItem::nameOrEmailStyle);
 
     if(rec.getDispName())
-        m_MainText = searchMarkupKeyword(rec.getDispName(), searchWord);
+        m_MainText = TextDecorator::highlightKeyword(rec.getDispName(), searchWord);
 
     if(rec.getNumber())
     {
-        m_SubText = searchMarkupKeyword(rec.getNumber(), searchWord);
+        m_SubText = TextDecorator::highlightKeyword(rec.getNumber(), searchWord);
         m_Recipient = rec.getNumber();
     }
 
@@ -84,14 +58,14 @@ ContactListItem::ContactListItem(const ContactPersonNumber &rec, const std::stri
 ContactListItem::ContactListItem(const ContactPersonEmail &rec, const std::string &searchWord)
 {
     assert(rec.getEmail());
-    setStyle(ContactListItemView::nameOrEmailStyle);
+    setStyle(ContactListViewItem::nameOrEmailStyle);
 
     if(rec.getDispName())
-        m_MainText = searchMarkupKeyword(rec.getDispName(), searchWord);
+        m_MainText = TextDecorator::highlightKeyword(rec.getDispName(), searchWord);
 
     if(rec.getEmail())
     {
-        m_SubText = searchMarkupKeyword(rec.getEmail(), searchWord);
+        m_SubText = TextDecorator::highlightKeyword(rec.getEmail(), searchWord);
         m_Recipient = rec.getEmail();
     }
 
@@ -105,7 +79,6 @@ ContactListItem::~ContactListItem()
 
 const std::string &ContactListItem::getRecipient() const
 {
-    MSG_LOG(m_Recipient);
     return m_Recipient;
 }
 

@@ -15,24 +15,24 @@
  *
  */
 
-#include "ContactListItemView.h"
+#include "ContactListViewItem.h"
 #include <string.h>
 
 using namespace Msg;
 
-ListItemStyleRef ContactListItemView::logStyle = ListItemStyle::create("1line");
-ListItemStyleRef ContactListItemView::nameOrEmailStyle = ListItemStyle::create("2line.top");
+ListItemStyleRef ContactListViewItem::logStyle = ListItemStyle::create("1line");
+ListItemStyleRef ContactListViewItem::nameOrEmailStyle = ListItemStyle::create("2line.top");
 
-ContactListItemView::ContactListItemView()
+ContactListViewItem::ContactListViewItem()
     : ListItem(ELM_GENLIST_ITEM_NONE, 0)
 {
 }
 
-ContactListItemView::~ContactListItemView()
+ContactListViewItem::~ContactListViewItem()
 {
 }
 
-std::string ContactListItemView::getListItemText(ListItem &item, const char *part)
+std::string ContactListViewItem::getListItemText(ListItem &item, const char *part)
 {
     if(getStyle() == nameOrEmailStyle)
     {
@@ -61,7 +61,7 @@ std::string ContactListItemView::getListItemText(ListItem &item, const char *par
     return "";
 }
 
-Evas_Object *ContactListItemView::getListItemContent(ListItem &item, const char *part)
+Evas_Object *ContactListViewItem::getListItemContent(ListItem &item, const char *part)
 {
     if(strcmp(part, "elm.icon.1") == 0)
     {

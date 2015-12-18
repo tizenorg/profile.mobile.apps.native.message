@@ -27,8 +27,7 @@
 #include "RecipientsPanel.h"
 #include "ListView.h"
 #include "MsgEngine.h"
-
-#include <Ecore.h>
+#include "ConvContactList.h"
 
 namespace Msg
 {
@@ -42,9 +41,9 @@ namespace Msg
         , private IHwButtonListener
         , private IMsgStorageListener
         , private IMessageInputPanelListener
-        , private IListViewListener
         , private IBodyListener
         , private IRecipientsPanelListener
+        , private IConvContactListListener
     {
         public:
             Conversation(NaviFrameController &parent);
@@ -78,52 +77,45 @@ namespace Msg
             virtual void onKeyDown(RecipientsPanel &panel, Evas_Event_Key_Down &ev);
             virtual void onEntryFocusChanged(RecipientsPanel &panel);
 
-            // IListViewListener:
-            virtual void onListItemSelected(ListItem &listItem, void *funcData);
-
             // IBodyListener:
             virtual void onChanged(Body &body);
 
+            // IConvContactListListener:
+            virtual void onContactSelected(ContactListItem &item);
+
         private:
-            // Common:
             void create(Mode mode);
             void setMode(Mode mode);
             void setNewMessageMode();
             void setConversationMode();
+            void createBody(Evas_Object *parent);
             void createReicpPanel(Evas_Object *parent);
             void destroyRecipPanel();
+            void createContactList(Evas_Object *parent);
+            void destroyContactList();
+            void createMsgInputPanel(Evas_Object *parent);
+            void updateMsgInputPanel();
+            void createMainLayout(Evas_Object *parent);
 
             void sendMessage();
             void fillMessage(Message &msg);
             void fillMsgAddress(Message &msg);
             void saveDraftMsg();
 
-            // Message input:
-            void createMsgInput(Evas_Object *parent);
-            void updateMsgInputPanel();
-
             // Bubble:
             void createBubbleList(Evas_Object *parent);
             void fillConversationList();
-
-            // Predictive search:
-            void createPredictSearch(Evas_Object *parent);
-            void updateContactsList();
-            void clearContactList();
-            void updateContactsListRequest();
-            bool onPredictSearchUpdateRequest();
 
         private:
             Mode m_Mode;
             ConversationLayout *m_pLayout;
             Scroller *m_pScroller;
             Box *m_pBubbleBox;
-            ListView *m_pContactsList;
             MessageInputPanel *m_pMsgInputPanel;
             Body *m_pBody;
             RecipientsPanel *m_pRecipPanel;
+            ConvContactList *m_pContactsList;
             ThreadId m_ThreadId;
-            Ecore_Idler *m_pPredictSearchIdler;
     };
 }
 
