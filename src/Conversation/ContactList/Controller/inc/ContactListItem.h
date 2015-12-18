@@ -18,7 +18,7 @@
 #ifndef ContactListItem_h_
 #define ContactListItem_h_
 
-#include "ContactListItemView.h"
+#include "ContactListViewItem.h"
 #include "ContactPersonPhoneLog.h"
 #include "ContactPersonNumber.h"
 #include "ContactPersonEmail.h"
@@ -26,7 +26,7 @@
 namespace Msg
 {
     class ContactListItem
-        : public ContactListItemView
+        : public ContactListViewItem
     {
         public:
             ContactListItem(const ContactPersonPhoneLog &rec, const std::string &searchWord);

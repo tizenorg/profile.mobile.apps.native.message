@@ -63,6 +63,8 @@ namespace Msg
                                     int size = TextStyle::defaultFontSize,
                                     const std::string &color = TextStyle::defaultColor,
                                     TextAlign align = TextAlign::None);
+
+            static std::string highlightKeyword(const std::string &str, const std::string &searchWord);
     };
 }
 
