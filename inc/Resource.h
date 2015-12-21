@@ -47,6 +47,7 @@
 #define THUMB_PUSH_IMG_PATH              IMAGE_PATH"/list_ic_push_message.png"
 #define THUMB_OTA_IMG_PATH               IMAGE_PATH"/list_ic_OTA_message.png"
 #define THUMB_USER_MASK_74x74_IMG_PATH   IMAGE_PATH"/list_ic_user_thumb_masking.png"
+#define MSG_THREAD_FLOATING_BTN_ICON     IMAGE_PATH"/message_floating_button_icon.png"
 
 // Colors:
 #define BUTTON_COLOR                     2, 61, 132, 255
