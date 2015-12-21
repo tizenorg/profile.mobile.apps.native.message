@@ -26,6 +26,7 @@
 #include "ContextPopup.h"
 #include "MsgThreadLayout.h"
 #include "MsgThreadSearchPanel.h"
+#include "FloatingButton.h"
 
 #include <string>
 #include <memory>
@@ -44,6 +45,7 @@ namespace Msg
         , private IListViewListener
         , private IMsgStorageListener
         , private IMsgThreadSearchPanelListener
+        , private IFloatingButtonListener
     {
         public:
             MsgThread(NaviFrameController &parent);
@@ -74,6 +76,9 @@ namespace Msg
             // IMsgThreadSearchPanelListener:
             virtual void onSearchButtonClicked(MsgThreadSearchPanel &obj);
             virtual void onEntryChanged(MsgThreadSearchPanel &obj);
+
+            // IFloatingButtonListener
+            virtual void onFloatingButtonPressed();
 
         private:
             enum Mode
@@ -109,6 +114,8 @@ namespace Msg
             ThreadListView *m_pThreadListView;
             MsgThreadSearchPanel *m_pSearchPanel;
             Mode m_Mode;
+
+            FloatingButton *m_pFloatingBtn;
     };
 }
 
