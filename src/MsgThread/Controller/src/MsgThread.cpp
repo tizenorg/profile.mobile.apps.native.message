@@ -49,9 +49,14 @@ MsgThread::MsgThread(NaviFrameController &parent)
     , m_pThreadListView(nullptr)
     , m_pSearchPanel(nullptr)
     , m_Mode(InitMode)
+	, m_pFloatingBtn(nullptr)
 {
     m_pLayout = new MsgThreadLayout(getParent());
     m_pLayout->show();
+
+    m_pFloatingBtn = new FloatingButton(getParent());
+    m_pFloatingBtn->setListener(this);
+    m_pLayout->setFloatingButton(*m_pFloatingBtn);
 
     m_pThreadListView = new ThreadListView(*m_pLayout);
     m_pThreadListView->setListener(this);
@@ -85,12 +90,16 @@ void MsgThread::onAttached(ViewItem &item)
 void MsgThread::showMainCtxPopup()
 {
     resetCtxPopup();
-    getCtxPopup().appendItem(CtxPopupItemId::ComposeId, "Compose");
     getCtxPopup().appendItem(CtxPopupItemId::SearchId, "Search");
     getCtxPopup().appendItem(CtxPopupItemId::DeleteId, "Delete");
     getCtxPopup().appendItem(CtxPopupItemId::SettingsId, "Settings");
     getCtxPopup().align(getApp().getWindow());
     getCtxPopup().show();
+}
+
+void MsgThread::onFloatingButtonPressed()
+{
+	composeNewMessage();
 }
 
 void MsgThread::fillThreadList()
@@ -261,10 +270,6 @@ void MsgThread::onContextPopupItemPressed(ContextPopup &ctxPopup, ContextPopupIt
 
     switch(item.getId())
     {
-        case CtxPopupItemId::ComposeId:
-            composeNewMessage();
-            break;
-
         case CtxPopupItemId::SearchId:
             setMode(SearchMode);
             break;
