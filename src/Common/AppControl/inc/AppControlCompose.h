@@ -47,7 +47,7 @@ namespace Msg
             MessageType getMessageType() const;
             const std::string getMessageText() const;
             const std::string getMessageSubject() const;
-            const FileList &getFiliList() const;
+            const FileList &getFileList() const;
 
         private:
             RecipientList m_RecipientList;

@@ -79,6 +79,59 @@
 		<label xml:lang="zh-hk">訊息</label>
 		<label xml:lang="zh-sg">讯息</label>
 		<label xml:lang="zh-tw">訊息</label>
+        <application-service>
+            <operation name="http://tizen.org/appcontrol/operation/compose"/>
+        </application-service>
+        <application-service>
+            <operation name="http://tizen.org/appcontrol/operation/compose"/>
+            <uri name="sms"/>
+        </application-service>
+        <application-service>
+            <operation name="http://tizen.org/appcontrol/operation/compose"/>
+            <uri name="mmsto"/>
+        </application-service>
+        <application-service>
+            <operation name="http://tizen.org/appcontrol/operation/share"/>
+            <mime name="*/*"/>
+        </application-service>
+        <application-service>
+            <operation name="http://tizen.org/appcontrol/operation/share"/>
+            <mime name="*/*"/>
+            <uri name="sms"/>
+        </application-service>
+        <application-service>
+            <operation name="http://tizen.org/appcontrol/operation/share"/>
+            <mime name="*/*"/>
+            <uri name="mmsto"/>
+        </application-service>
+        <application-service>
+            <operation name="http://tizen.org/appcontrol/operation/multi_share"/>
+            <mime name="*/*"/>
+        </application-service>
+        <application-service>
+            <operation name="http://tizen.org/appcontrol/operation/multi_share"/>
+            <mime name="*/*"/>
+            <uri name="sms"/>
+        </application-service>
+        <application-service>
+            <operation name="http://tizen.org/appcontrol/operation/multi_share"/>
+            <mime name="*/*"/>
+            <uri name="mmsto"/>
+        </application-service>
+        <application-service>
+            <operation name="http://tizen.org/appcontrol/operation/share_text"/>
+        </application-service>
+        <application-service>
+            <operation name="http://tizen.org/appcontrol/operation/share_text"/>
+            <uri name="sms"/>
+        </application-service>
+        <application-service>
+            <operation name="http://tizen.org/appcontrol/operation/share_text"/>
+            <uri name="mmsto"/>
+        </application-service>
+        <application-service>
+            <operation name="http://tizen.org/appcontrol/operation/share_contact"/>
+        </application-service>
 	</ui-application>
         <privileges>
 		<privilege>http://tizen.org/privilege/location</privilege>

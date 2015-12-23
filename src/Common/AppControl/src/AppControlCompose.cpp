@@ -49,7 +49,7 @@ const std::string AppControlCompose::getMessageSubject() const
     //TODO: implementation
     return "";
 }
-const AppControlCompose::FileList &AppControlCompose::getFiliList() const
+const AppControlCompose::FileList &AppControlCompose::getFileList() const
 {
     //TODO: implementation
     return m_FileList;
