@@ -38,10 +38,11 @@ namespace Msg
                 MmsType,
                 SmsType
             };
-
         public:
             AppControlCompose(const std::string &opMsg);
             virtual ~AppControlCompose();
+
+            virtual bool initialize(app_control_h handle);
 
             const RecipientList &getRecipientList() const;
             MessageType getMessageType() const;
@@ -50,9 +51,14 @@ namespace Msg
             const FileList &getFileList() const;
 
         private:
+            bool parseUri(const char* uri);
+
+        private:
             RecipientList m_RecipientList;
             MessageType m_MessageType;
             FileList m_FileList;
+            std::string m_messageText;
+            std::string m_subject;
     };
 }
 

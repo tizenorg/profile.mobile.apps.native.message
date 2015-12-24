@@ -47,6 +47,11 @@ namespace Msg
             const std::string &getOperationMsg() const;
             OperationType getOperationType() const;
 
+            /**
+             * Reads all app-control params required for each specific operation
+             */
+            virtual bool initialize(app_control_h handle);
+
         private:
             std::string m_OperationMsg;
             OperationType m_Type;

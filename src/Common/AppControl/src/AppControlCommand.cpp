@@ -39,3 +39,8 @@ AppControlCommand::OperationType AppControlCommand::getOperationType() const
     return m_Type;
 }
 
+bool AppControlCommand::initialize(app_control_h handle)
+{
+    return false;
+}
+

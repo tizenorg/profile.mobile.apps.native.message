@@ -83,6 +83,11 @@ AppControlCommandRef AppControlParser::parse(app_control_h handle)
             break;
     }
 
+    if(cmd)
+    {
+        cmd->initialize(handle);
+    }
+
     free(opStr);
     return cmd;
 }
