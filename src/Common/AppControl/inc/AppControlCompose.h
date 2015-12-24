@@ -31,16 +31,14 @@ namespace Msg
         public:
             typedef std::list<std::string> RecipientList;
             typedef std::list<std::string> FileList;
-
             enum MessageType
             {
                 UnknownType,
                 MmsType,
                 SmsType
             };
-
         public:
-            AppControlCompose(const std::string &opMsg);
+            AppControlCompose(const std::string &opMsg, app_control_h handle);
             virtual ~AppControlCompose();
 
             const RecipientList &getRecipientList() const;
@@ -50,9 +48,14 @@ namespace Msg
             const FileList &getFileList() const;
 
         private:
+            bool parseUri(const char *uri);
+
+        private:
             RecipientList m_RecipientList;
             MessageType m_MessageType;
             FileList m_FileList;
+            std::string m_MessageText;
+            std::string m_Subject;
     };
 }
 

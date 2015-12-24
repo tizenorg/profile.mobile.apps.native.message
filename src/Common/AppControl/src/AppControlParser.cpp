@@ -72,7 +72,7 @@ AppControlCommandRef AppControlParser::parse(app_control_h handle)
             break;
 
         case AppControlCommand::OpCompose:
-            cmd = std::make_shared<AppControlCompose>(opStr);
+            cmd = std::make_shared<AppControlCompose>(opStr, handle);
             break;
 
         // TODO: impl for other command types

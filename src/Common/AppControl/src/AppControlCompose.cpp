@@ -15,23 +15,71 @@
  */
 
 #include "AppControlCompose.h"
+#include "Logger.h"
+#include <algorithm>
+
+#include "AppControlUtils.h"
 
 using namespace Msg;
 
-AppControlCompose::AppControlCompose(const std::string &opMsg)
+AppControlCompose::AppControlCompose(const std::string &opMsg, app_control_h handle)
     : AppControlCommand(opMsg, OpCompose)
     , m_MessageType(UnknownType)
 {
+    if(handle)
+    {
+        char *uri = NULL;
+        if(APP_CONTROL_ERROR_NONE == app_control_get_uri(handle, &uri))
+        {
+            parseUri(uri);
+            free(uri);
+        }
+
+        AppControlUtils::getExtraDataArray(handle, APP_CONTROL_DATA_TO, m_RecipientList);
+        m_MessageText = AppControlUtils::getExtraData(handle, APP_CONTROL_DATA_TEXT);
+        m_Subject = AppControlUtils::getExtraData(handle, APP_CONTROL_DATA_SUBJECT);
+        AppControlUtils::getExtraDataArray(handle, APP_CONTROL_DATA_PATH, m_FileList);
+    }
 }
 
 AppControlCompose::~AppControlCompose()
 {
+}
 
+bool AppControlCompose::parseUri(const char *uri)
+{
+    TRACE;
+    bool res = false;
+    if(uri)
+    {
+        MSG_LOG("uri = ", uri);
+        std::string uriToParse(uri);
+        std::istringstream is(uriToParse);
+
+        std::string cur;
+        std::getline(is, cur, '?');
+        MSG_LOG("cur = ", cur.c_str());
+        if(cur == "sms")
+        {
+             m_MessageType = SmsType;
+        }
+        else if(cur == "mmsto")
+        {
+            m_MessageType = MmsType;
+        }
+
+        if(m_MessageType != UnknownType)
+        {
+            //TODO: further uri parsing
+            res = true;
+        }
+
+    }
+    return res;
 }
 
 const AppControlCompose::RecipientList &AppControlCompose::getRecipientList() const
 {
-    //TODO: implementation
     return m_RecipientList;
 }
 
@@ -41,16 +89,13 @@ AppControlCompose::MessageType AppControlCompose::getMessageType() const
 }
 const std::string AppControlCompose::getMessageText() const
 {
-    //TODO: implementation
-    return "";
+    return m_MessageText;
 }
 const std::string AppControlCompose::getMessageSubject() const
 {
-    //TODO: implementation
-    return "";
+    return m_Subject;
 }
 const AppControlCompose::FileList &AppControlCompose::getFileList() const
 {
-    //TODO: implementation
     return m_FileList;
 }
