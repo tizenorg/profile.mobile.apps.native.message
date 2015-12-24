@@ -22,16 +22,14 @@
 #include "MessageSMS.h"
 #include "MessageMms.h"
 #include "WorkingDir.h"
-#include "MediaPageViewItem.h"
-#include "TextPageViewItem.h"
+
+#include <list>
+#include <Ecore.h>
 
 namespace Msg
 {
     class IBodyListener;
     class MsgEngine;
-    class TextPageViewItem;
-    class ImagePageViewItem;
-    class AudioPageViewItem;
 
     struct BodySmsSize
     {
@@ -41,17 +39,14 @@ namespace Msg
 
     class Body
         : public BodyView
-        , private ITextPageViewItemListener
-        , private IMediaPageViewItemListener
     {
         public:
             Body(Evas_Object *parent, MsgEngine &msgEngine);
             virtual ~Body();
 
-            void setFocus(bool focus);
             void setListener(IBodyListener *listener);
-            void clear();
-            bool isEmpty() const;
+
+            bool addMedia(const std::list<std::string> &fileList);
             bool addMedia(const std::string &filePath);
 
             bool isMms() const;
@@ -65,34 +60,16 @@ namespace Msg
             void read(MessageMms &msg);
             void write(const MessageSMS &msg);
             void write(const MessageMms &msg);
-
-            PageView *addPage();
             bool isMms(const PageView &page) const;
 
-            // ITextPageViewItemListener:
-            virtual void onChanged(TextPageViewItem &item);
-            virtual void onCursorChanged(TextPageViewItem &item) {};
-            virtual void onFocused(TextPageViewItem &item) {};
-            virtual void onUnfocused(TextPageViewItem &item) {};
-            virtual void onPreeditChanged(TextPageViewItem &item) {};
-            virtual void onPress(TextPageViewItem &item) {};
-            virtual void onClicked(TextPageViewItem &item) {};
-            virtual void onMaxLengthReached(TextPageViewItem &item) {};
-            virtual void onKeyDown(TextPageViewItem &item) {};
-            virtual void onKeyUp(TextPageViewItem &item) {};
-
-            // IMediaPageViewItemListener:
-            virtual void onClicked(MediaPageViewItem &item) {};
-            virtual void onPressed(MediaPageViewItem &item) {};
-            virtual void onUnpressed(MediaPageViewItem &item) {};
-            virtual void onFocused(MediaPageViewItem &item) {};
-            virtual void onUnfocused(MediaPageViewItem &item) {};
+            // BodyView:
+            virtual void onContentChanged();
 
         private:
             IBodyListener *m_pListener;
-            PageView *m_pDefaultPage;
             MsgEngine &m_MsgEngine;
             WorkingDir m_WorkingDir;
+            Ecore_Idler *m_pOnChangedIdler;
     };
 
     class IBodyListener
@@ -101,8 +78,6 @@ namespace Msg
             virtual ~IBodyListener() {}
 
             virtual void onChanged(Body &body) {};
-            virtual void onFoucused(Body &body) {};
-            virtual void onUnfoucused(Body &body) {};
     };
 }
 

@@ -33,7 +33,6 @@ namespace Msg
             ViewItem();
             ViewItem(ViewItem&) = delete;
             ViewItem& operator=(const ViewItem&) = delete;
-            virtual ~ViewItem();
 
             inline operator Elm_Object_Item *() const;
             virtual void destroy();
@@ -56,6 +55,7 @@ namespace Msg
             inline static void setText(Elm_Object_Item *it, const TText &text, const char *part = nullptr);
 
         protected:
+            virtual ~ViewItem();
             virtual void onAttached(ViewItem &item) {};
             void setElmObjItem(Elm_Object_Item *item);
 

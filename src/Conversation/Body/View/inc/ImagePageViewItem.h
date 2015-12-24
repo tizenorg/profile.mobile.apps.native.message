@@ -33,11 +33,15 @@ namespace Msg
 
             virtual Type getType() const;
             virtual bool isEmpty() const;
+            virtual void highlight(bool value);
 
         private:
             Evas_Object *createImageLayout(Evas_Object *parent);
             Evas_Object *createRect(Evas_Object *parent);
             Evas_Object *createImageIconAndSetOrient(Evas_Object *parent);
+
+        private:
+            Evas_Object *m_pImageLayout;
     };
 }
 

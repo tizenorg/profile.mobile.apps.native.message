@@ -29,6 +29,7 @@ namespace
     const char *mediaImageLandscapeSig = "media.image.landscape";
     const char *mediaImageEqualSig = "media.image.equal";
     const char *imageLayout = "conv/body/media_image";
+    const char *imageContentPart = "swl.thumbnail";
 
     const int thumbOriginHeight = 75;
     const int thumbLandscapeWidth = 128;
@@ -40,12 +41,15 @@ namespace
 
 ImagePageViewItem::ImagePageViewItem(PageView &parent, const std::string &reourcePath)
     : MediaPageViewItem(parent, reourcePath)
+    , m_pImageLayout(nullptr)
 {
+    Evas_Object *imageLayout = createImageLayout(getMediaLayout());
     Evas_Object *rect = createRect(getMediaLayout());
-    Evas_Object *icon = createImageIconAndSetOrient(getButtonLayout());
+    Evas_Object *icon = createImageIconAndSetOrient(m_pImageLayout);
 
+    elm_object_part_content_set(m_pImageLayout, imageContentPart, icon);
     setRect(rect);
-    setButtonContent(icon);
+    setButtonContent(imageLayout);
 }
 
 ImagePageViewItem::~ImagePageViewItem()
@@ -63,12 +67,18 @@ bool ImagePageViewItem::isEmpty() const
     return getResourcePath().empty();
 }
 
+void ImagePageViewItem::highlight(bool value)
+{
+    const char *sig = value ? "focused" : "unfocused";
+    elm_object_signal_emit(m_pImageLayout, sig, "*");
+}
+
 Evas_Object *ImagePageViewItem::createImageLayout(Evas_Object *parent)
 {
-    Evas_Object *layout = elm_layout_add(parent);
-    elm_layout_file_set(layout, getEdjPath().c_str(), imageLayout);
-    evas_object_show(layout);
-    return layout;
+    m_pImageLayout = elm_layout_add(parent);
+    elm_layout_file_set(m_pImageLayout, getEdjPath().c_str(), imageLayout);
+    evas_object_show(m_pImageLayout);
+    return m_pImageLayout;
 }
 
 Evas_Object *ImagePageViewItem::createRect(Evas_Object *parent)

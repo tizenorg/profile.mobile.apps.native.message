@@ -19,8 +19,10 @@
 #include "BodyView.h"
 #include "TextPageViewItem.h"
 #include "ImagePageViewItem.h"
+#include "Logger.h"
 
 #include <efl_extension.h>
+#include <assert.h>
 
 using namespace Msg;
 
@@ -68,29 +70,64 @@ void PageView::addItem(PageViewItem &item)
     if(it != m_PageItemMap.end())
     {
         if(it->second == &item)
-        {
             return;
-        }
         else
+            removeItem(*it->second);
+    }
+
+    /* Page items order:
+     * Image
+     * Text
+     * Audio
+     */
+    switch(item.getType())
+    {
+        case PageViewItem::TextType:
         {
-            removeItem(item.getType());
+            // Middle:
+            auto itEnd = m_PageItemMap.end();
+            auto it = m_PageItemMap.find(PageViewItem::ImageType);
+            if(it != itEnd)
+                elm_box_pack_after(m_pBox, item, *it->second);
+            else if((it = m_PageItemMap.find(PageViewItem::AudioType)) != itEnd)
+                elm_box_pack_before(m_pBox, item, *it->second);
+            else
+                elm_box_pack_start(m_pBox, item);
+            break;
         }
+
+        case PageViewItem::ImageType:
+        {
+            // Top:
+            elm_box_pack_start(m_pBox, item);
+            break;
+        }
+
+        case PageViewItem::AudioType:
+        {
+            // Bottom:
+            elm_box_pack_end(m_pBox, item);
+            break;
+        }
+
+        default:
+            assert(false);
+            return;
+            break;
     }
 
     item.expand();
     item.show();
-    elm_box_pack_end(m_pBox, item);
+
     m_PageItemMap[item.getType()] = &item;
 }
 
-void PageView::removeItem(PageViewItem::Type type)
+void PageView::removeItem(PageViewItem &item)
 {
-    auto it = m_PageItemMap.find(type);
+    auto it = m_PageItemMap.find(item.getType());
     if(it != m_PageItemMap.end())
-    {
-        it->second->destroy();
         m_PageItemMap.erase(it);
-    }
+    item.View::destroy();
 }
 
 PageViewItem *PageView::getItem(PageViewItem::Type type) const
@@ -102,20 +139,17 @@ PageViewItem *PageView::getItem(PageViewItem::Type type) const
 PageView::ItemList PageView::getItems() const
 {
     ItemList res;
-    Eina_List *list = elm_box_children_get(m_Body);
+    Eina_List *list = elm_box_children_get(m_pBox);
     Eina_List *l = nullptr;
     void *data = nullptr;
 
     EINA_LIST_FOREACH(list, l, data)
     {
-        PageViewItem *item = static_cast<PageViewItem*>(getSmartData((Evas_Object*)data));
-        if(item)
-        {
-            res.push_back(item);
-        }
+        PageViewItem *item = reinterpretCast<PageViewItem*>(data);
+        res.push_back(item);
     }
-
     eina_list_free(list);
+
     return res;
 }
 
@@ -131,6 +165,7 @@ Evas_Object *PageView::createLayout(Evas_Object *parent)
 Evas_Object *PageView::createBox(Evas_Object *parent)
 {
     m_pBox = elm_box_add(parent);
+    elm_box_homogeneous_set(m_pBox, false);
     evas_object_show(m_pBox);
     return m_pBox;
 }

@@ -45,11 +45,6 @@ Evas_Object_Event_Cb View::getCb(Evas_Callback_Type type)
     return it != cbMap.end() ? it->second : nullptr;
 }
 
-void View::destroy()
-{
-    evas_object_del(m_pEo);
-}
-
 void View::setEventCb(Evas_Callback_Type type)
 {
     Evas_Object_Event_Cb cb = getCb(type);
@@ -74,8 +69,12 @@ void View::setEo(Evas_Object *eo)
     }
 
     m_pEo = eo;
-    setEventCb(EVAS_CALLBACK_FREE);
-    setEventCb(EVAS_CALLBACK_DEL);
+    if(eo)
+    {
+        setSmartData(this);
+        setEventCb(EVAS_CALLBACK_FREE);
+        setEventCb(EVAS_CALLBACK_DEL);
+    }
 }
 
 void View::unsetEventCb(Evas_Callback_Type type)

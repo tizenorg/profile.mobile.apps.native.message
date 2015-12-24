@@ -20,6 +20,9 @@
 
 #include "View.h"
 #include "BodyViewItem.h"
+#include "MediaPageViewItem.h"
+#include "TextPageViewItem.h"
+#include "ImagePageViewItem.h"
 
 #include <vector>
 
@@ -27,6 +30,7 @@ namespace Msg
 {
     class PageView;
     class BodyAttachmentView;
+    class PageSeparator;
 
     typedef std::vector<PageView*> PageViewCollection;
     typedef std::vector<BodyAttachmentView*> BodyAttachmentCollection;
@@ -34,6 +38,8 @@ namespace Msg
 
     class BodyView
         : public View
+        , private ITextPageViewItemListener
+        , private IMediaPageViewItemListener
     {
         friend class PageView;
 
@@ -41,30 +47,82 @@ namespace Msg
             BodyView(Evas_Object *parent);
             virtual ~BodyView();
 
-            void setMaxPageLabel(const std::string &max);
-            void addPage(PageView &page);
-            void removePage(PageView &page);
+            bool isEmpty() const;
+            void clear();
+            void setFocus(bool focus);
+
+        protected:
+            bool addMedia(const std::string &filePath);
+            const PageView &getDefaultPage() const;
             PageViewCollection getPages() const;
+            int getPageCount() const;
+            PageView *getNextPage(PageView &page) const;
+            PageView *getPrevPage(PageView &page) const;
+            PageView *addPage();
+
+        private:
+            /*====Input signals====*/
+
+            // ITextPageViewItemListener:
+            virtual void onDelete(TextPageViewItem &item);
+            virtual void onCursorChanged(TextPageViewItem &item);
+            virtual void onFocused(TextPageViewItem &item);
+            virtual void onUnfocused(TextPageViewItem &item);
+            virtual void onPreeditChanged(TextPageViewItem &item);
+            virtual void onPress(TextPageViewItem &item);
+            virtual void onClicked(TextPageViewItem &item);
+            virtual void onMaxLengthReached(TextPageViewItem &item);
+            virtual void onKeyDown(TextPageViewItem &obj, Evas_Event_Key_Down &event);
+            virtual void onKeyUp(TextPageViewItem &obj, Evas_Event_Key_Up &event);
+            virtual void onChanged(TextPageViewItem &item);
+
+            // IMediaPageViewItemListener:
+            virtual void onDelete(MediaPageViewItem &item);
+            virtual void onClicked(MediaPageViewItem &item);
+            virtual void onPressed(MediaPageViewItem &item);
+            virtual void onUnpressed(MediaPageViewItem &item);
+            virtual void onFocused(MediaPageViewItem &item);
+            virtual void onUnfocused(MediaPageViewItem &item);
+            virtual void onKeyDown(MediaPageViewItem &item, Evas_Event_Key_Down &event);
+            virtual void onKeyUp(MediaPageViewItem &item, Evas_Event_Key_Up &event);
+
+            /*====Output signals====*/
+            virtual void onContentChanged() {};
+            virtual void onMediaRemoved(const std::string &resourcePath) {};
+
+        private:
+            void setMaxPageLabel(const std::string &max);
             BodyAttachmentCollection getAttachments() const;
             template<typename T>
             std::vector<T*> getItems() const;
             BodyViewItemCollection getAllItems() const;
-            PageView *getFocusedPage() const;
-            bool getFocus() const;
             int getItemCount(BodyViewItem::Type type) const;
+            void setFocus(PageView &page, bool focus);
+            void showInputPanel(PageView &page, bool show);
+            void showInputPanel(PageViewItem &pageItem, bool show);
+            void removePage(PageView &page, bool setNextFocus);
+            TextPageViewItem *addText(PageView &page);
+            ImagePageViewItem *addImage(PageView &page, const std::string &filePath);
+            void updateLastFocusedPage(PageViewItem &pageItem);
+            PageView *getPageForMedia(PageViewItem::Type type);
+            void backKeyHandler(MediaPageViewItem &item);
+            void backKeyHandler(TextPageViewItem &item);
 
-        private:
             void create(Evas_Object *parent);
             void prepare(BodyViewItem &item);
             void insertAfter(BodyViewItem &item, BodyViewItem &after);
             void insertBefore(BodyViewItem &item, BodyViewItem &before);
             void append(BodyViewItem &item);
-            void prepend(BodyViewItem &item);
             void remove(BodyViewItem &item);
+            void rebuildPageSeparators();
+            PageSeparator *createSep(int number);
 
         private:
             BodyViewItemCollection m_Items;
             std::string m_MaxPageLabel;
+            PageView *m_pDefaultPage;
+            int m_LastTextCursorPos;
+            PageView *m_pLastFocusedPage;
     };
 }
 

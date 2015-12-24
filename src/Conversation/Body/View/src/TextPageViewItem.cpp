@@ -36,6 +36,14 @@ TextPageViewItem::~TextPageViewItem()
 
 }
 
+template<class...Args>
+void TextPageViewItem::notifyListener(void *data, void (ITextPageViewItemListener::*method)(TextPageViewItem &, Args...args), Args&&...args)
+{
+    TextPageViewItem *self = static_cast<TextPageViewItem*>(data);
+    if(self && self->m_pListener)
+        (self->m_pListener->*method)(*self, args...);
+}
+
 TextPageViewItem::Type TextPageViewItem::getType() const
 {
     return TextType;
@@ -52,13 +60,33 @@ void TextPageViewItem::setListener(ITextPageViewItemListener *l)
     m_pListener = l;
 }
 
-void TextPageViewItem::notifyListener(void *data, ListenerMethod method)
+int TextPageViewItem::getCursorPos() const
 {
-    TextPageViewItem *self = static_cast<TextPageViewItem*>(data);
-    if(self && self->m_pListener)
-    {
-        (self->m_pListener->*method)(*self);
-    }
+    return elm_entry_cursor_pos_get(getEo());
+}
+
+void TextPageViewItem::showInputPanel(bool show)
+{
+    if(show)
+        elm_entry_input_panel_show(m_pEntry);
+    else
+        elm_entry_input_panel_hide(m_pEntry);
+}
+
+void TextPageViewItem::setCursorPos(int pos)
+{
+
+    elm_entry_cursor_pos_set(getEo(), pos);
+}
+
+void TextPageViewItem::setEndCursorPos()
+{
+    elm_entry_cursor_end_set(getEo());
+}
+
+void TextPageViewItem::setBeginCursorPos()
+{
+    elm_entry_cursor_begin_set(getEo());
 }
 
 void TextPageViewItem::setGuideText(const TText &text)
@@ -66,12 +94,10 @@ void TextPageViewItem::setGuideText(const TText &text)
     setText(m_pEntry, text, "elm.guide");
     int cur = elm_entry_cursor_pos_get(m_pEntry);
     if(!cur)
-    {
         elm_entry_cursor_line_end_set(m_pEntry);
-    }
 }
 
-void TextPageViewItem::clearText()
+void TextPageViewItem::clear()
 {
     elm_object_text_set(m_pEntry, "");
 }
@@ -105,9 +131,10 @@ Evas_Object *TextPageViewItem::createEntry(Evas_Object *parent)
     elm_entry_autocapital_type_set(m_pEntry, ELM_AUTOCAPITAL_TYPE_SENTENCE);
     elm_entry_input_panel_return_key_type_set(m_pEntry, ELM_INPUT_PANEL_RETURN_KEY_TYPE_DEFAULT);
     elm_object_focus_allow_set(m_pEntry, true);
-    evas_object_show(m_pEntry);
+    elm_entry_input_panel_enabled_set(m_pEntry, EINA_FALSE);  // Keypad is manually controlled
     eext_entry_selection_back_event_allow_set(m_pEntry, EINA_TRUE);
     expand(m_pEntry);
+    evas_object_show(m_pEntry);
 
     evas_object_smart_callback_add(m_pEntry, "changed", [](void *data, Evas_Object *obj, void *event_info)
     {
@@ -127,11 +154,6 @@ Evas_Object *TextPageViewItem::createEntry(Evas_Object *parent)
     evas_object_smart_callback_add(m_pEntry, "unfocused", [](void *data, Evas_Object *obj, void *event_info)
     {
         notifyListener(data, &ITextPageViewItemListener::onUnfocused);
-    }, this);
-
-    evas_object_smart_callback_add(m_pEntry, "changed", [](void *data, Evas_Object *obj, void *event_info)
-    {
-        notifyListener(data, &ITextPageViewItemListener::onChanged);
     }, this);
 
     evas_object_smart_callback_add(m_pEntry, "preedit,changed", [](void *data, Evas_Object *obj, void *event_info)
@@ -156,13 +178,19 @@ Evas_Object *TextPageViewItem::createEntry(Evas_Object *parent)
 
     evas_object_event_callback_add(m_pEntry, EVAS_CALLBACK_KEY_DOWN, [](void *data, Evas *e, Evas_Object *obj, void *event_info)
     {
-        notifyListener(data, &ITextPageViewItemListener::onKeyDown);
+        notifyListener(data, &ITextPageViewItemListener::onKeyDown, *(Evas_Event_Key_Down*)event_info);
     }, this);
 
     evas_object_event_callback_add(m_pEntry, EVAS_CALLBACK_KEY_UP, [](void *data, Evas *e, Evas_Object *obj, void *event_info)
     {
-        notifyListener(data, &ITextPageViewItemListener::onKeyUp);
+        notifyListener(data, &ITextPageViewItemListener::onKeyUp, *(Evas_Event_Key_Up*)event_info);
     }, this);
 
     return m_pEntry;
+}
+
+void TextPageViewItem::onBeforeDelete(View &view)
+{
+    if(m_pListener)
+        m_pListener->onDelete(*this);
 }
