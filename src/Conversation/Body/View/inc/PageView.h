@@ -27,7 +27,6 @@
 namespace Msg
 {
     class BodyView;
-
     class PageView
         : public BodyViewItem
     {
@@ -40,7 +39,7 @@ namespace Msg
 
             ItemList getItems() const;
             void addItem(PageViewItem &item);
-            void removeItem(PageViewItem::Type type);
+            void removeItem(PageViewItem &item);
             PageViewItem *getItem(PageViewItem::Type type) const;
             bool isEmpty() const;
             Evas_Object *getItemParent() const;

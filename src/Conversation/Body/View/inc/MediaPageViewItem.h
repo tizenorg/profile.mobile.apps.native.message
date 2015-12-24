@@ -36,6 +36,8 @@ namespace Msg
             void setListener(IMediaPageViewItemListener *l);
             const std::string &getResourcePath() const;
 
+            virtual void highlight(bool value) = 0;
+
         protected:
             Evas_Object *getMediaLayout() const;
             Evas_Object *getButtonLayout() const;
@@ -43,13 +45,15 @@ namespace Msg
             void setRect(Evas_Object *layout);
 
         private:
-            typedef void (IMediaPageViewItemListener::*ListenerMethod)(MediaPageViewItem &);
+            virtual void onBeforeDelete(View &view);
 
             Evas_Object *createMainLayout(Evas_Object *parent);
             Evas_Object *createButton(Evas_Object *parent);
             Evas_Object *createRect(Evas_Object *parent);
             Evas_Object *createGestureLayer(Evas_Object *parent);
-            static void notifyListener(void *data, ListenerMethod method);
+
+            template<class...Args>
+            static void notifyListener(void *data, void (IMediaPageViewItemListener::*method)(MediaPageViewItem &, Args...args), Args&&...args);
 
         private:
             IMediaPageViewItemListener *m_pListener;
@@ -62,11 +66,14 @@ namespace Msg
         public:
             virtual ~IMediaPageViewItemListener() {}
 
+            virtual void onDelete(MediaPageViewItem &item) {};
             virtual void onClicked(MediaPageViewItem &item) {};
             virtual void onPressed(MediaPageViewItem &item) {};
             virtual void onUnpressed(MediaPageViewItem &item) {};
             virtual void onFocused(MediaPageViewItem &item) {};
             virtual void onUnfocused(MediaPageViewItem &item) {};
+            virtual void onKeyDown(MediaPageViewItem &item, Evas_Event_Key_Down &event) {};
+            virtual void onKeyUp(MediaPageViewItem &item, Evas_Event_Key_Up &event) {};
     };
 }
 

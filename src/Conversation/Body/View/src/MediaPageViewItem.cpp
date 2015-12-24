@@ -48,13 +48,12 @@ MediaPageViewItem::~MediaPageViewItem()
 
 }
 
-void MediaPageViewItem::notifyListener(void *data, ListenerMethod method)
+template<class...Args>
+void MediaPageViewItem::notifyListener(void *data, void (IMediaPageViewItemListener::*method)(MediaPageViewItem &, Args...args), Args&&...args)
 {
     MediaPageViewItem *self = static_cast<MediaPageViewItem*>(data);
     if(self && self->m_pListener)
-    {
-        (self->m_pListener->*method)(*self);
-    }
+        (self->m_pListener->*method)(*self, args...);
 }
 
 Evas_Object *MediaPageViewItem::getMediaLayout() const
@@ -127,5 +126,22 @@ Evas_Object *MediaPageViewItem::createButton(Evas_Object *parent)
     {
         notifyListener(data, &IMediaPageViewItemListener::onUnpressed);
     }, this);
+
+    evas_object_event_callback_add(button, EVAS_CALLBACK_KEY_DOWN, [](void *data, Evas *e, Evas_Object *obj, void *event_info)
+    {
+        notifyListener(data, &IMediaPageViewItemListener::onKeyDown, *(Evas_Event_Key_Down*)event_info);
+    }, this);
+
+    evas_object_event_callback_add(button, EVAS_CALLBACK_KEY_UP, [](void *data, Evas *e, Evas_Object *obj, void *event_info)
+    {
+        notifyListener(data, &IMediaPageViewItemListener::onKeyUp, *(Evas_Event_Key_Up*)event_info);
+    }, this);
+
     return button;
+}
+
+void MediaPageViewItem::onBeforeDelete(View &view)
+{
+    if(m_pListener)
+        m_pListener->onDelete(*this);
 }

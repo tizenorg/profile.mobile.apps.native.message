@@ -46,6 +46,7 @@ namespace Msg
 
             const PageView &getParentPage() const;
             PageView &getParentPage();
+            void destroy();
 
         protected:
             const std::string &getEdjPath() const;

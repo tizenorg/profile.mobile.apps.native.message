@@ -25,6 +25,7 @@
 #include "Logger.h"
 #include "Box.h"
 #include "RecipientItem.h"
+#include "ResourceUtils.h"
 
 #include <Elementary.h>
 #include <sstream>
@@ -55,8 +56,6 @@ Conversation::Conversation(NaviFrameController &parent,ThreadId threadId)
 
 Conversation::~Conversation()
 {
-    saveDraftMsg();
-    getMsgEngine().getStorage().removeListener(*this);
 }
 
 void Conversation::create(Mode mode)
@@ -298,6 +297,8 @@ void Conversation::onButtonClicked(MessageInputPanel &obj, MessageInputPanel::Bu
     switch(id)
     {
         case MessageInputPanel::AddButtonId:
+            // TODO: Only for test, will be removed
+            m_pBody->addMedia(ResourceUtils::getResourcePath(TEST_IMG_PATH));
             break;
         case MessageInputPanel::SendButtonId:
             sendMessage();
@@ -354,6 +355,8 @@ void Conversation::onHwBackButtonClicked()
 {
     MSG_LOG("");
     getParent().pop();
+    getMsgEngine().getStorage().removeListener(*this);
+    saveDraftMsg();
 }
 
 void Conversation::onHwMoreButtonClicked()

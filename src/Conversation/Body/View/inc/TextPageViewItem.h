@@ -35,17 +35,24 @@ namespace Msg
             virtual Type getType() const;
             virtual bool isEmpty() const;
 
+            void showInputPanel(bool show);
+            int getCursorPos() const;
+            void setCursorPos(int pos);
+            void setEndCursorPos();
+            void setBeginCursorPos();
             void setListener(ITextPageViewItemListener *l);
             void setGuideText(const TText &text);
-            void clearText();
+            void clear();
             std::string getText() const;
             std::string getPlainUtf8Text() const;
 
         private:
-            typedef void (ITextPageViewItemListener::*ListenerMethod)(TextPageViewItem &);
+            virtual void onBeforeDelete(View &view);
 
             Evas_Object *createEntry(Evas_Object *parent);
-            static void notifyListener(void *data, ListenerMethod method);
+
+            template<class...Args>
+            static void notifyListener(void *data, void (ITextPageViewItemListener::*method)(TextPageViewItem &, Args...args), Args&&...args);
 
         private:
             Evas_Object *m_pEntry;
@@ -56,6 +63,7 @@ namespace Msg
     {
         public:
             virtual ~ITextPageViewItemListener() {}
+            virtual void onDelete(TextPageViewItem &item) {};
             virtual void onCursorChanged(TextPageViewItem &obj) {};
             virtual void onFocused(TextPageViewItem &obj) {};
             virtual void onUnfocused(TextPageViewItem &obj) {};
@@ -64,8 +72,8 @@ namespace Msg
             virtual void onPress(TextPageViewItem &obj) {};
             virtual void onClicked(TextPageViewItem &obj) {};
             virtual void onMaxLengthReached(TextPageViewItem &obj) {};
-            virtual void onKeyDown(TextPageViewItem &obj) {};
-            virtual void onKeyUp(TextPageViewItem &obj) {};
+            virtual void onKeyDown(TextPageViewItem &obj, Evas_Event_Key_Down &event) {};
+            virtual void onKeyUp(TextPageViewItem &obj, Evas_Event_Key_Up &event) {};
     };
 }
 

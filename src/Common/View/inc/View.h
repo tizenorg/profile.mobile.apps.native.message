@@ -32,8 +32,8 @@ namespace Msg
         public:
             View();
             virtual ~View();
-            virtual void destroy();
 
+            inline void destroy();
             inline operator Evas_Object *() const;
             inline Evas_Object *getEo() const;
             inline void show();
@@ -55,10 +55,13 @@ namespace Msg
             inline void emitSignal(const char *emission, const char *source);
             inline void setData(const char *key, const void *data);
             inline void *getData(const char *key) const;
-            inline void setSmartData(const void *data);
-            inline static void setSmartData(Evas_Object *obj, const void *data);
-            inline void *getSmartData() const;
-            inline static void *getSmartData(Evas_Object *obj);
+
+            template<typename T>
+            inline static T staticCast(Evas_Object *obj);
+            template<typename T>
+            inline static T reinterpretCast(void *obj);
+            template<typename T>
+            inline static T dynamicCast(Evas_Object *obj);
 
             inline std::string getText(const char *part = nullptr) const;
             inline const char *getTextCStr(const char *part = nullptr) const;
@@ -78,6 +81,10 @@ namespace Msg
             View(View&) = delete;
             View& operator=(View&) = delete;
             Evas_Object_Event_Cb getCb(Evas_Callback_Type);
+            inline void *getSmartData() const;
+            inline static void *getSmartData(Evas_Object *obj);
+            inline void setSmartData(const void *data);
+            inline static void setSmartData(Evas_Object *obj, const void *data);
 
         private:
             static void on_free_cb(void *data, Evas *e, Evas_Object *obj, void *event_info);
@@ -95,6 +102,11 @@ namespace Msg
     inline Evas_Object *View::getEo() const
     {
         return m_pEo;
+    }
+
+    inline void View::destroy()
+    {
+        evas_object_del(m_pEo);
     }
 
     inline void View::show()
@@ -226,6 +238,24 @@ namespace Msg
     inline void *View::getSmartData(Evas_Object *obj)
     {
         return evas_object_smart_data_get(obj);
+    }
+
+    template<typename T>
+    inline T View::staticCast(Evas_Object *obj)
+    {
+        return static_cast<T>(getSmartData(obj));
+    }
+
+    template<typename T>
+    inline T View::reinterpretCast(void *obj)
+    {
+        return reinterpret_cast<T>(getSmartData((Evas_Object*)obj));
+    }
+
+    template<typename T>
+    inline T View::dynamicCast(Evas_Object *obj)
+    {
+        return dynamic_cast<T>(staticCast<T>(obj));
     }
 }
 

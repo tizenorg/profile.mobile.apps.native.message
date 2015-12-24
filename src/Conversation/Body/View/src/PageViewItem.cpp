@@ -17,6 +17,7 @@
 
 #include "PageViewItem.h"
 #include "Resource.h"
+#include "PageView.h"
 
 using namespace Msg;
 
@@ -29,6 +30,11 @@ PageViewItem::PageViewItem(PageView &parent)
 PageViewItem::~PageViewItem()
 {
 
+}
+
+void PageViewItem::destroy()
+{
+    m_Parent.removeItem(*this);
 }
 
 const std::string &PageViewItem::getEdjPath() const
