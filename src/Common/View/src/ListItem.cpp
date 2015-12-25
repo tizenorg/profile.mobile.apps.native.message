@@ -162,7 +162,7 @@ Evas_Object *ListItem::elm_gen_item_content_get_cb(void * data, Evas_Object * ob
         }
     }
 
-    return self->getListItemContent(*self, part) ;
+    return self->getListItemContent(*self, part);
 }
 
 Evas_Object *ListItem::addCheck()

@@ -15,39 +15,28 @@
  *
  */
 
-#ifndef BubbleView_h_
-#define BubbleView_h_
+#ifndef ConvListLayout_h_
+#define ConvListLayout_h_
 
 #include "View.h"
 
-#include <string>
-
 namespace Msg
 {
-    class BubbleView
+    class ConvListLayout
         : public View
     {
         public:
-            enum Style
-            {
-                Sent,
-                Received
-            };
+            ConvListLayout(Evas_Object *parent);
+            virtual ~ConvListLayout();
 
-        public:
-            BubbleView(Evas_Object *parent, Style style);
-            virtual ~BubbleView();
-
-            void setText(const std::string &text);
-            void setTime(const std::string &time);
+        protected:
+            void showSelectAllMode(bool value);
+            void setBubbleList(Evas_Object *layout);
+            void setSelectAll(Evas_Object *layout);
 
         private:
             void create(Evas_Object *parent);
-            const char *getStyle() const;
-
-        private:
-            Style m_Style;
     };
 }
 
-#endif /* BubbleView_h_ */
+#endif /* ConvListLayout_h_ */
