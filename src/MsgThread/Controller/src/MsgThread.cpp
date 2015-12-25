@@ -29,7 +29,6 @@
 #include "SelectAllListItem.h"
 #include "Popup.h"
 #include "ContactManager.h"
-
 #include <Elementary.h>
 #include <sstream>
 
@@ -47,6 +46,7 @@ MsgThread::MsgThread(NaviFrameController &parent)
     : FrameController(parent)
     , m_pLayout(nullptr)
     , m_pThreadListView(nullptr)
+    , m_pNoContent(nullptr)
     , m_pSearchPanel(nullptr)
     , m_Mode(InitMode)
     , m_pFloatingBtn(nullptr)
@@ -58,15 +58,17 @@ MsgThread::MsgThread(NaviFrameController &parent)
     m_pFloatingBtn->setListener(this);
     m_pLayout->setFloatingButton(*m_pFloatingBtn);
 
+    m_pNoContent = new NoContentLayout(*m_pLayout);
+    m_pNoContent->setText(msgt("IDS_MSG_NPBODY_NO_MESSAGES"));
+
     m_pThreadListView = new ThreadListView(*m_pLayout);
     m_pThreadListView->setListener(this);
     m_pThreadListView->setMultiSelection(false);
     m_pThreadListView->show();
 
+    m_pLayout->setBg(*m_pNoContent);
     m_pLayout->setList(*m_pThreadListView);
-
-    fillThreadList();
-
+    updateThreadList();
     getMsgEngine().getStorage().addListener(*this);
 
     setMode(NormalMode);
@@ -102,7 +104,7 @@ void MsgThread::onFloatingButtonPressed()
     composeNewMessage();
 }
 
-void MsgThread::fillThreadList()
+void MsgThread::updateThreadList()
 {
     MsgThreadListRef list = getMsgEngine().getStorage().getThreadList();
 
@@ -111,6 +113,17 @@ void MsgThread::fillThreadList()
     {
         ThreadListItem *item = new ThreadListItem(list->at(i), getApp());
         m_pThreadListView->appendItem(*item);
+    }
+
+    if(length > 0)
+    {
+        m_pNoContent->hide();
+        m_pThreadListView->show();
+    }
+   else
+    {
+       m_pThreadListView->hide();
+       m_pNoContent->show();
     }
 }
 
@@ -260,7 +273,7 @@ void MsgThread::onPopupButtonClicked(Popup &popup, int buttonId)
 void MsgThread::onMsgStorageChange(const MsgIdList &idList)
 {
     m_pThreadListView->clear(); // FIXME: temporary solution for demo
-    fillThreadList();
+    updateThreadList();
 }
 
 void MsgThread::onContextPopupItemPressed(ContextPopup &ctxPopup, ContextPopupItem &item)
