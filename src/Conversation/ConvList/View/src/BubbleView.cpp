@@ -58,7 +58,6 @@ void BubbleView::create(Evas_Object *parent)
 {
     Evas_Object *label = elm_label_add(parent);
     setEo(label);
-
     evas_object_show(label);
     elm_label_line_wrap_set(label, ELM_WRAP_MIXED);
     elm_object_focus_allow_set(label, true);

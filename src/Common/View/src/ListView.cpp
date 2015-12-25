@@ -128,6 +128,11 @@ void ListView::setMode(Elm_List_Mode mode)
     elm_genlist_mode_set(getEo(), mode);
 }
 
+void ListView::setHomogeneous(bool isHomogeneous)
+{
+    elm_genlist_homogeneous_set(getEo(), isHomogeneous);
+}
+
 ListItem *ListView::getSelectedItem() const
 {
     Elm_Object_Item *elmItem = elm_genlist_selected_item_get(getEo());
@@ -170,7 +175,7 @@ void ListView::checkAllItems(bool check)
     }
 }
 
-void ListView::updateAllItems()
+void ListView::updateRealizedItems()
 {
     elm_genlist_realized_items_update(getEo());
 }

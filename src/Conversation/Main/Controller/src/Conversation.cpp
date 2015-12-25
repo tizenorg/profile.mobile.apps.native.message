@@ -36,8 +36,6 @@ Conversation::Conversation(NaviFrameController &parent)
     : FrameController(parent)
     , m_Mode(InitMode)
     , m_pLayout(nullptr)
-    , m_pScroller(nullptr)
-    , m_pBubbleBox(nullptr)
     , m_pMsgInputPanel(nullptr)
     , m_pBody(nullptr)
     , m_pRecipPanel(nullptr)
@@ -62,10 +60,8 @@ void Conversation::create(Mode mode)
 {
     createMainLayout(getParent());
 
-    m_pScroller = new Scroller(*m_pLayout);
-    m_pScroller->show();
-    m_pScroller->expand();
-    m_pScroller->setPpolicy(ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
+    m_pConvList = new ConvList(*m_pLayout, getMsgEngine(), m_ThreadId);
+
 
     createMsgInputPanel(*m_pLayout);
     createBody(*m_pMsgInputPanel);
@@ -73,10 +69,9 @@ void Conversation::create(Mode mode)
     updateMsgInputPanel();
 
     m_pLayout->setMsgInputPanel(*m_pMsgInputPanel);
-    m_pLayout->setBubble(*m_pScroller);
+    m_pLayout->setBubble(*m_pConvList);
 
     setMode(mode);
-    fillConversationList();
 
     getMsgEngine().getStorage().addListener(*this);
 }
@@ -132,11 +127,6 @@ void Conversation::setConversationMode()
 
     destroyRecipPanel();
     destroyContactList();
-    createBubbleList(*m_pScroller);
-
-    m_pBubbleBox->setSizeHintAlign(EVAS_HINT_FILL, EVAS_HINT_FILL);
-    m_pBubbleBox->setSizeHintWeight(EVAS_HINT_EXPAND, 0);
-    m_pScroller->setContent(*m_pBubbleBox);
 }
 
 void Conversation::createMainLayout(Evas_Object *parent)
@@ -319,9 +309,6 @@ void Conversation::onEntryFocusChanged(RecipientsPanel &panel)
 void Conversation::onMsgStorageChange(const MsgIdList &idList)
 {
     MSG_LOG("");
-
-    fillConversationList();
-    m_pScroller->navigateToBottom();
 }
 
 void Conversation::onContactSelected(ContactListItem &item)
@@ -361,7 +348,8 @@ void Conversation::onHwBackButtonClicked()
 
 void Conversation::onHwMoreButtonClicked()
 {
-    MSG_LOG("");
+    //TODO: make more menu popup.
+    m_pConvList->setMode(m_pConvList->getMode() == ConvList::NormalMode ? ConvList::SelectMode : ConvList::NormalMode);
 }
 
 void Conversation::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
