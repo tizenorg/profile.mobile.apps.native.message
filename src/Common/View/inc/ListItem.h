@@ -62,7 +62,7 @@ namespace Msg
         friend class ListView;
 
         public:
-            ListItem(Elm_Genlist_Item_Type type, int userType);
+            ListItem(Elm_Genlist_Item_Type type = ELM_GENLIST_ITEM_NONE, int userType = 0);
             ListItem(const ListItemStyleRef &itemStyle, Elm_Genlist_Item_Type type, int userType);
             virtual ~ListItem();
 
