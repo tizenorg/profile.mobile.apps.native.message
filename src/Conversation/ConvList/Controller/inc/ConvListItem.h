@@ -15,39 +15,34 @@
  *
  */
 
-#ifndef BubbleView_h_
-#define BubbleView_h_
+#ifndef ConvListItem_H_
+#define ConvListItem_H_
 
-#include "View.h"
-
-#include <string>
+#include "ConvListViewItem.h"
+#include "MsgTypes.h"
+#include "BubbleView.h"
 
 namespace Msg
 {
-    class BubbleView
-        : public View
+    class MsgConversationItem;
+
+    class ConvListItem
+        : public ConvListViewItem
     {
         public:
-            enum Style
-            {
-                Sent,
-                Received
-            };
+            ConvListItem(MsgConversationItem &item);
+            virtual ~ConvListItem();
 
-        public:
-            BubbleView(Evas_Object *parent, Style style);
-            virtual ~BubbleView();
-
-            void setText(const std::string &text);
-            void setTime(const std::string &time);
+        protected:
+            virtual Evas_Object *getBubble();
+            virtual std::string getText();
+            virtual std::string getTime();
 
         private:
-            void create(Evas_Object *parent);
-            const char *getStyle() const;
-
-        private:
-            Style m_Style;
+            MsgId m_MsgId;
+            std::string m_MessageText;
     };
 }
 
-#endif /* BubbleView_h_ */
+
+#endif /* ConvListItem_H_ */
