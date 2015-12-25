@@ -29,17 +29,20 @@ using namespace Msg;
 namespace
 {
     const char *pageGroup = "conv/body/page";
+    const char *itemLayoutGroup = "conv/body/item_lyaout";
 }
 
 PageView::PageView(BodyView &parent)
-    : BodyViewItem(parent, PageType)
+    : BodyViewItem(PageType)
     , m_Body(parent)
     , m_pBox(nullptr)
 {
-    Evas_Object *layout = createLayout(m_Body);
+    setEo(createMainLayout(parent));
+    Evas_Object *layout = createLayout(getEo());
     Evas_Object *box = createBox(layout);
+
     elm_object_part_content_set(layout, "swl.page", box);
-    BodyViewItem::setChild(layout);
+    setContent(layout, "swl.content");
 }
 
 PageView::~PageView()
@@ -89,7 +92,7 @@ void PageView::addItem(PageViewItem &item)
             auto it = m_PageItemMap.find(PageViewItem::ImageType);
             if(it != itEnd)
                 elm_box_pack_after(m_pBox, item, *it->second);
-            else if((it = m_PageItemMap.find(PageViewItem::AudioType)) != itEnd)
+            else if((it = m_PageItemMap.find(PageViewItem::SoundType)) != itEnd)
                 elm_box_pack_before(m_pBox, item, *it->second);
             else
                 elm_box_pack_start(m_pBox, item);
@@ -103,7 +106,7 @@ void PageView::addItem(PageViewItem &item)
             break;
         }
 
-        case PageViewItem::AudioType:
+        case PageViewItem::SoundType:
         {
             // Bottom:
             elm_box_pack_end(m_pBox, item);
@@ -159,6 +162,16 @@ Evas_Object *PageView::createLayout(Evas_Object *parent)
     evas_object_show(layout);
     elm_layout_file_set(layout, getEdjPath().c_str(), pageGroup);
     expand(layout);
+    return layout;
+}
+
+Evas_Object *PageView::createMainLayout(Evas_Object *parent)
+{
+    Evas_Object *layout = elm_layout_add(parent);
+    elm_layout_file_set(layout, getEdjPath().c_str(), itemLayoutGroup);
+    elm_object_signal_emit(layout, "show.normal.mode", "*");
+    expand(layout);
+    evas_object_show(layout);
     return layout;
 }
 

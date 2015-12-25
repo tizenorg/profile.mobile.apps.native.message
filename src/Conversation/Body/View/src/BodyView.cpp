@@ -150,6 +150,7 @@ void BodyView::rebuildPageSeparators()
 
 void BodyView::prepare(BodyViewItem &item)
 {
+    expand(item);
     item.show();
 }
 
@@ -263,25 +264,35 @@ void BodyView::setFocus(bool focus)
     setFocus(*m_pDefaultPage, focus);
 }
 
+void BodyView::clear(PageView &page)
+{
+    auto pageItems = page.getItems();
+    for(PageViewItem *pageItem : pageItems)
+    {
+        if(pageItem->getType() == PageViewItem::TextType)
+            static_cast<TextPageViewItem*>(pageItem)->clear();
+        else
+            page.removeItem(*pageItem);
+    }
+}
+
 void BodyView::clear()
 {
-    auto pages = getPages();
-    for(PageView *page : pages)
+    auto items = getAllItems();
+    for(BodyViewItem *item : items)
     {
-        if(page == m_pDefaultPage)
+        if(item->getType() == BodyViewItem::PageType)
         {
-            auto pageItems = page->getItems();
-            for(PageViewItem *pageItem : pageItems)
-            {
-                if(pageItem->getType() == PageViewItem::TextType)
-                    static_cast<TextPageViewItem*>(pageItem)->clear();
-                else
-                    page->removeItem(*pageItem);
-            }
+            PageView *page = static_cast<PageView*>(item);
+            if(page == m_pDefaultPage)
+                clear(*page);
+            else
+                removePage(*page, false);
         }
-        else
+        else if(item->getType() == BodyViewItem::AttachmentType)
         {
-            removePage(*page, false);
+            BodyAttachmentView *attachment = static_cast<BodyAttachmentView*>(item);
+            removeAttachment(*attachment);
         }
     }
 }
@@ -304,6 +315,15 @@ void BodyView::showInputPanel(PageViewItem &pageItem, bool show)
 ImagePageViewItem *BodyView::addImage(PageView &page, const std::string &filePath)
 {
     ImagePageViewItem *item = new ImagePageViewItem(page, filePath);
+    item->setListener(this);
+    item->show();
+    page.addItem(*item);
+    return item;
+}
+
+SoundPageViewItem *BodyView::addSound(PageView &page, const std::string &filePath)
+{
+    SoundPageViewItem *item = new SoundPageViewItem(page, filePath);
     item->setListener(this);
     item->show();
     page.addItem(*item);
@@ -368,6 +388,11 @@ void BodyView::removePage(PageView &page, bool setNextFocus)
     }
 }
 
+void BodyView::removeAttachment(BodyAttachmentView &attachment)
+{
+    remove(attachment);
+}
+
 bool BodyView::addMedia(const std::string &filePath)
 {
     bool res = false;
@@ -385,21 +410,15 @@ bool BodyView::addMedia(const std::string &filePath)
         switch(type)
         {
             case PageViewItem::ImageType:
-            {
-                MSG_LOG("");
                 addImage(*page, filePath);
                 break;
-            }
 
-            case PageViewItem::AudioType:
-            {
+            case PageViewItem::SoundType:
+                addSound(*page, filePath);
                 break;
-            }
 
             case PageViewItem::VideoType:
-            {
                 break;
-            }
 
             default:
                 assert(false);

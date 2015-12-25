@@ -33,7 +33,7 @@ namespace Msg
                 UnknownType,
                 TextType,
                 ImageType,
-                AudioType,
+                SoundType,
                 VideoType
             };
 

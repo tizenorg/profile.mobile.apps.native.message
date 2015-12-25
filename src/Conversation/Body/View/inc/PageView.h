@@ -47,6 +47,7 @@ namespace Msg
         private:
             typedef std::map<PageViewItem::Type, PageViewItem*> PageItemMap;
 
+            Evas_Object *createMainLayout(Evas_Object *parent);
             Evas_Object *createLayout(Evas_Object *parent);
             Evas_Object *createBox(Evas_Object *parent);
 

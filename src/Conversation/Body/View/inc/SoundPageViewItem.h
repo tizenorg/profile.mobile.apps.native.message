@@ -15,28 +15,27 @@
  *
  */
 
-#include "BodyViewItem.h"
+#ifndef SoundPageViewItem_h_
+#define SoundPageViewItem_h_
 
-#include <assert.h>
+#include "MediaPageViewItem.h"
 
-using namespace Msg;
-
-
-BodyViewItem::BodyViewItem(Type type)
-    : m_Type(type)
+namespace Msg
 {
+    class SoundPageViewItem
+        : public MediaPageViewItem
+    {
+        public:
+            SoundPageViewItem(PageView &parent, const std::string &reourcePath);
+            virtual ~SoundPageViewItem();
+
+            virtual Type getType() const;
+            virtual bool isEmpty() const;
+            virtual void highlight(bool value);
+
+        private:
+            Evas_Object *createLabel(Evas_Object *parent, const std::string &fileName);
+    };
 }
 
-BodyViewItem::~BodyViewItem()
-{
-}
-
-std::string BodyViewItem::getEdjPath() const
-{
-    return ResourceUtils::getResourcePath(MSG_BODY_EDJ_PATH);
-}
-
-BodyViewItem::Type BodyViewItem::getType() const
-{
-    return m_Type;
-}
+#endif /* SoundPageViewItem_h_ */

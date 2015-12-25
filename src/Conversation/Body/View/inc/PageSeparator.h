@@ -34,7 +34,7 @@ namespace Msg
             void setText(const std::string &text);
 
         private:
-            Evas_Object *m_pLayout;
+            Evas_Object *m_pTextLayout;
     };
 }
 

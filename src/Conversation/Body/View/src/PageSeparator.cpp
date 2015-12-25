@@ -23,16 +23,23 @@ using namespace Msg;
 namespace
 {
     const char *pageSeparatorGroup = "conv/body/page_divider";
+    const char *itemLayoutGroup = "conv/body/item_lyaout";
 }
 
 PageSeparator::PageSeparator(BodyView &parent)
-    : BodyViewItem(parent, SeparatorType)
-    , m_pLayout(nullptr)
+    : BodyViewItem(SeparatorType)
 {
-    m_pLayout = elm_layout_add(getEo());
-    evas_object_show(m_pLayout);
-    elm_layout_file_set(m_pLayout, getEdjPath().c_str(), pageSeparatorGroup);
-    BodyViewItem::setChild(m_pLayout);
+    setEo(elm_layout_add(parent));
+    elm_layout_file_set(getEo(), getEdjPath().c_str(), itemLayoutGroup);
+    emitSignal("show.normal.mode", "*");
+    expand();
+    show();
+
+    m_pTextLayout = elm_layout_add(getEo());
+    evas_object_show(m_pTextLayout);
+    elm_layout_file_set(m_pTextLayout, getEdjPath().c_str(), pageSeparatorGroup);
+
+    setContent(m_pTextLayout, "swl.content");
 }
 
 PageSeparator::~PageSeparator()
@@ -42,5 +49,5 @@ PageSeparator::~PageSeparator()
 
 void PageSeparator::setText(const std::string &text)
 {
-    elm_object_part_text_set(m_pLayout, "text.page_info", text.c_str());
+    elm_object_part_text_set(m_pTextLayout, "text.page_info", text.c_str());
 }
