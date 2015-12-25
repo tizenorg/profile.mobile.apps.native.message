@@ -241,6 +241,13 @@ PageView *BodyView::addPage()
     return page;
 }
 
+BodyAttachmentView *BodyView::addAttachment(const std::string &filePath)
+{
+    BodyAttachmentView *attachment = new BodyAttachmentView(*this, filePath);
+    insertBefore(*attachment, *m_pDefaultPage);
+    return attachment;
+}
+
 void BodyView::setFocus(PageView &page, bool focus)
 {
     TextPageViewItem *textItem = static_cast<TextPageViewItem*>(page.getItem(PageViewItem::TextType));
@@ -366,9 +373,12 @@ bool BodyView::addMedia(const std::string &filePath)
     bool res = false;
 
     PageViewItem::Type type = getMediaType(filePath).type;
+    MSG_LOG("Media type: ", type);
+
+    PageView *page = nullptr;
     if(type != PageViewItem::UnknownType)
     {
-        PageView *page = getPageForMedia(type);
+        page = getPageForMedia(type);
         if(!page)
             return false;
 
@@ -377,7 +387,7 @@ bool BodyView::addMedia(const std::string &filePath)
             case PageViewItem::ImageType:
             {
                 MSG_LOG("");
-                res = addImage(*page, filePath);
+                addImage(*page, filePath);
                 break;
             }
 
@@ -396,16 +406,16 @@ bool BodyView::addMedia(const std::string &filePath)
                 return false;
                 break;
         }
-
-
-        if(res)
-            onContentChanged();
-        setFocus(*page, true); // TODO: check for multi insertion
     }
     else
     {
-        // TODO:
+        addAttachment(filePath);
+        page = m_pDefaultPage;
     }
+
+    onContentChanged();
+    if(page)
+        setFocus(*page, true); // TODO: check for multi insertion
 
     return res;
 }
@@ -492,11 +502,6 @@ void BodyView::onChanged(TextPageViewItem &item)
     onContentChanged();
 }
 
-void BodyView::onClicked(MediaPageViewItem &item)
-{
-    MSG_LOG("");
-}
-
 void BodyView::onPressed(MediaPageViewItem &item)
 {
     MSG_LOG("");
@@ -536,6 +541,12 @@ void BodyView::onKeyUp(MediaPageViewItem &item, Evas_Event_Key_Up &event)
 
 void BodyView::onDelete(MediaPageViewItem &item)
 {
-    onMediaRemoved(item.getResourcePath());
+    onResourceRemoved(item.getResourcePath());
+    onContentChanged();
+}
+
+void BodyView::onDelete(BodyAttachmentView &item)
+{
+    onResourceRemoved(item.getResourcePath());
     onContentChanged();
 }

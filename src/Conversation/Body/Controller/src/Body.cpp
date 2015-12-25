@@ -78,7 +78,7 @@ bool Body::addMedia(const std::string &filePath)
 
     if(!FileUtils::isExists(filePath) || FileUtils::isDir(filePath))
     {
-        MSG_LOG_ERROR("File not exists:", filePath);
+        MSG_LOG_ERROR("File not exists: ", filePath);
         return false;
     }
 

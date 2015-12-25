@@ -292,7 +292,7 @@ collections {
     }
 
     group {
-        name: "conv/body/media_sound";
+        name: "conv/body/media_label";
         images {
             image: IMG_BODY_INPUT_FIELD COMP;
             image: "00_search_edit_field_selected.#.png" COMP;

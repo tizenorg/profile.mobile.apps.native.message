@@ -64,20 +64,14 @@ bool FileUtils::copy(const std::string &src, const std::string &dst)
     bool ret = true;
 
     if(!realpath(src.c_str(), realPath1))
-    {
         return false;
-    }
 
     if(realpath(dst.c_str(), realPath2) && !strcmp(realPath1, realPath2))
-    {
         return false;
-    }
 
     f1 = fopen(src.c_str(), "rb");
     if(!f1)
-    {
         return false;
-    }
 
     f2 = fopen(dst.c_str(), "wb");
     if(!f2)
@@ -151,6 +145,12 @@ void FileUtils::splitPath(const std::string &path, std::string &basePath,
     {
         fileName = name;
     }
+}
+
+std::string FileUtils::getFileName(const std::string &path)
+{
+    auto pos = path.find_last_of('/');
+    return pos != std::string::npos ? path.substr(pos + 1) : path;
 }
 
 bool FileUtils::remove(const std::string &path, bool removeCurrentDir)

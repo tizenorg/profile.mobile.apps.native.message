@@ -79,6 +79,13 @@ namespace Msg
                                  std::string &fileName, std::string &extension);
 
             /**
+             * @brief Get file name with extension
+             * @param[in] file path name
+             * @retval Returns file name with extension
+             */
+            static std::string getFileName(const std::string &path);
+
+            /**
              * @brief Remove recursive files and directorys.
              * @param[in] path File or directory
              * @param[in] true - remove current dir, false - otherwise
