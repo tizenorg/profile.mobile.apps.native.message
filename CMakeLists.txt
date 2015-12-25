@@ -23,6 +23,8 @@ INCLUDE_DIRECTORIES(${INCLUDE_DIRECTORIES}
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/Conversation/Recipients/Controller/inc/
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/Conversation/ContactList/View/inc/
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/Conversation/ContactList/Controller/inc/
+                    ${CMAKE_CURRENT_SOURCE_DIR}/src/Conversation/ConvList/View/inc/
+                    ${CMAKE_CURRENT_SOURCE_DIR}/src/Conversation/ConvList/Controller/inc/
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/MsgThread/Controller/inc/
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/MsgThread/View/inc/
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/Settings/Controller/inc/

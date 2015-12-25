@@ -28,6 +28,7 @@
 #include "ListView.h"
 #include "MsgEngine.h"
 #include "ConvContactList.h"
+#include "ConvList.h"
 
 namespace Msg
 {
@@ -102,20 +103,15 @@ namespace Msg
             void fillMsgAddress(Message &msg);
             void saveDraftMsg();
 
-            // Bubble:
-            void createBubbleList(Evas_Object *parent);
-            void fillConversationList();
-
         private:
             Mode m_Mode;
             ConversationLayout *m_pLayout;
-            Scroller *m_pScroller;
-            Box *m_pBubbleBox;
             MessageInputPanel *m_pMsgInputPanel;
             Body *m_pBody;
             RecipientsPanel *m_pRecipPanel;
             ConvContactList *m_pContactsList;
             ThreadId m_ThreadId;
+            ConvList *m_pConvList;
     };
 }
 

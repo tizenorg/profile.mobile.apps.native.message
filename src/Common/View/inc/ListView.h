@@ -46,6 +46,7 @@ namespace Msg
             bool getMultiSelection() const;
             void clear();
             void setMode(Elm_List_Mode mode);
+            void setHomogeneous(bool isHomogeneous);
             ListItem *getSelectedItem() const;
 
             void setCheckMode(bool check);
@@ -55,7 +56,7 @@ namespace Msg
             template<typename T>
             std::vector<T*> getItems() const;
 
-            void updateAllItems();
+            void updateRealizedItems();
 
             void registerItemRealizedCallback();
             void registerItemExpandedCallback();
