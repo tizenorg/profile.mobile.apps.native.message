@@ -27,6 +27,7 @@
 #include "MsgThreadLayout.h"
 #include "MsgThreadSearchPanel.h"
 #include "FloatingButton.h"
+#include "NoContentLayout.h"
 
 #include <string>
 #include <memory>
@@ -91,7 +92,7 @@ namespace Msg
 
         private:
             // MsgThread:
-            void fillThreadList();
+            void updateThreadList();
             void composeNewMessage();
             void navigateToSettings();
             void navigateToConversation(ThreadId threadId);
@@ -111,6 +112,7 @@ namespace Msg
 
         private:
             MsgThreadLayout *m_pLayout;
+            NoContentLayout *m_pNoContent;
             ThreadListView *m_pThreadListView;
             MsgThreadSearchPanel *m_pSearchPanel;
             Mode m_Mode;
