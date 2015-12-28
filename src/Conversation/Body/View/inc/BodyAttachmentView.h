@@ -23,15 +23,35 @@
 namespace Msg
 {
     class BodyView;
+    class IBodyAttachmentViewListener;
 
     class BodyAttachmentView
         : public BodyViewItem
     {
         public:
-            BodyAttachmentView(BodyView &parent);
+            BodyAttachmentView(BodyView &parent, const std::string &resourePath);
             virtual ~BodyAttachmentView();
 
-            // TODO: impl
+            void setListener(IBodyAttachmentViewListener *listener);
+            const std::string &getResourcePath() const;
+
+        private:
+            Evas_Object *createLayout(Evas_Object *parent);
+            Evas_Object *createButton(Evas_Object *parent);
+            Evas_Object *createLabel(Evas_Object *parent, const std::string &name);
+
+        private:
+            Evas_Object *m_pLayaout;
+            IBodyAttachmentViewListener *m_pListener;
+            const std::string m_ResourePath;
+    };
+
+    class IBodyAttachmentViewListener
+    {
+        public:
+            virtual ~IBodyAttachmentViewListener() {}
+            virtual void onClicked(BodyAttachmentView &item) {};
+            virtual void onDelete(BodyAttachmentView &item) {};
     };
 }
 

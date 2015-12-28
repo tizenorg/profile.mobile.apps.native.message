@@ -17,16 +17,79 @@
 
 #include "BodyAttachmentView.h"
 #include "BodyView.h"
+#include "FileUtils.h"
 
 using namespace Msg;
 
-BodyAttachmentView::BodyAttachmentView(BodyView &parent)
-    : BodyViewItem(parent, AttachmentType)
+namespace
 {
-    // TODO: impl
+    const char *mediaMainGroup = "conv/body/media_main";
+    const char *mediaMainSwlContent = "swl.content";
+    const char *buttonStyle = "focus";
+    const char *buttonSwlContent = "elm.swallow.content";
+    const char *labelLayout = "conv/body/media_label";
+    const char *fileNamePart = "text.filename";
+}
+
+BodyAttachmentView::BodyAttachmentView(BodyView &parent, const std::string &resourePath)
+    : BodyViewItem(parent, AttachmentType)
+    , m_pLayaout(nullptr)
+    , m_pListener(nullptr)
+    , m_ResourePath(resourePath)
+{
+    Evas_Object *layout = createLayout(parent);
+    Evas_Object *button = createButton(parent);
+    Evas_Object *label = createLabel(button, FileUtils::getFileName(resourePath));
+
+    elm_layout_content_set(button, buttonSwlContent, label);
+    elm_layout_content_set(layout, mediaMainSwlContent, button);
+    BodyViewItem::setChild(layout);
 }
 
 BodyAttachmentView::~BodyAttachmentView()
 {
 
+}
+
+void BodyAttachmentView::setListener(IBodyAttachmentViewListener *listener)
+{
+    m_pListener = listener;
+}
+
+const std::string &BodyAttachmentView::getResourcePath() const
+{
+   return m_ResourePath;
+}
+
+Evas_Object *BodyAttachmentView::createLayout(Evas_Object *parent)
+{
+    m_pLayaout = elm_layout_add(parent);
+    elm_layout_file_set(m_pLayaout, getEdjPath().c_str(), mediaMainGroup);
+    evas_object_show(m_pLayaout);
+    return m_pLayaout;
+}
+
+Evas_Object *BodyAttachmentView::createButton(Evas_Object *parent)
+{
+    Evas_Object *button = elm_button_add(parent);
+    elm_object_style_set(button, buttonStyle);
+    evas_object_show(button);
+
+    evas_object_smart_callback_add(button, "clicked", [](void *data, Evas_Object *obj, void *event_info)
+    {
+        BodyAttachmentView *self = (BodyAttachmentView*)data;
+        if(self && self->m_pListener)
+            self->m_pListener->onClicked(*self);
+    }, this);
+
+    return button;
+}
+
+Evas_Object *BodyAttachmentView::createLabel(Evas_Object *parent, const std::string &fileName)
+{
+    Evas_Object *layout = elm_layout_add(parent);
+    elm_layout_file_set(layout, getEdjPath().c_str(), labelLayout);
+    elm_object_part_text_set(layout, fileNamePart, fileName.c_str());
+    evas_object_show(layout);
+    return layout;
 }

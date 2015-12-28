@@ -23,13 +23,13 @@
 #include "MediaPageViewItem.h"
 #include "TextPageViewItem.h"
 #include "ImagePageViewItem.h"
+#include "BodyAttachmentView.h"
 
 #include <vector>
 
 namespace Msg
 {
     class PageView;
-    class BodyAttachmentView;
     class PageSeparator;
 
     typedef std::vector<PageView*> PageViewCollection;
@@ -40,6 +40,7 @@ namespace Msg
         : public View
         , private ITextPageViewItemListener
         , private IMediaPageViewItemListener
+        , private IBodyAttachmentViewListener
     {
         friend class PageView;
 
@@ -50,8 +51,6 @@ namespace Msg
             bool isEmpty() const;
             void clear();
             void setFocus(bool focus);
-
-        protected:
             bool addMedia(const std::string &filePath);
             const PageView &getDefaultPage() const;
             PageViewCollection getPages() const;
@@ -78,7 +77,6 @@ namespace Msg
 
             // IMediaPageViewItemListener:
             virtual void onDelete(MediaPageViewItem &item);
-            virtual void onClicked(MediaPageViewItem &item);
             virtual void onPressed(MediaPageViewItem &item);
             virtual void onUnpressed(MediaPageViewItem &item);
             virtual void onFocused(MediaPageViewItem &item);
@@ -86,9 +84,15 @@ namespace Msg
             virtual void onKeyDown(MediaPageViewItem &item, Evas_Event_Key_Down &event);
             virtual void onKeyUp(MediaPageViewItem &item, Evas_Event_Key_Up &event);
 
+            // IBodyAttachmentViewListener:
+
+            virtual void onDelete(BodyAttachmentView &item);
+
             /*====Output signals====*/
             virtual void onContentChanged() {};
-            virtual void onMediaRemoved(const std::string &resourcePath) {};
+            virtual void onResourceRemoved(const std::string &resourcePath) {};
+            virtual void onClicked(BodyAttachmentView &item) {};
+            virtual void onClicked(MediaPageViewItem &item) {};
 
         private:
             void setMaxPageLabel(const std::string &max);
@@ -103,6 +107,7 @@ namespace Msg
             void removePage(PageView &page, bool setNextFocus);
             TextPageViewItem *addText(PageView &page);
             ImagePageViewItem *addImage(PageView &page, const std::string &filePath);
+            BodyAttachmentView *addAttachment(const std::string &filePath);
             void updateLastFocusedPage(PageViewItem &pageItem);
             PageView *getPageForMedia(PageViewItem::Type type);
             void backKeyHandler(MediaPageViewItem &item);
