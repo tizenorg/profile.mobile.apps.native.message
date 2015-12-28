@@ -96,7 +96,9 @@ void ContextPopup::setListener(IContextPopupListener *listener)
 void ContextPopup::createContextPopup(Evas_Object *parent)
 {
     setEo(elm_ctxpopup_add(parent));
-    elm_object_style_set(getEo(), "more/default");
+
+    //TODO: Should be uncommented when "more/default" style will be supported.
+    //elm_object_style_set(getEo(), "more/default");
     elm_ctxpopup_horizontal_set(getEo(), EINA_FALSE);
     elm_ctxpopup_auto_hide_disabled_set(getEo(), EINA_TRUE);
     evas_object_smart_callback_add(getEo(), "dismissed", on_dismissed_cb, this);
