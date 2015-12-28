@@ -23,6 +23,7 @@
 #include "MediaPageViewItem.h"
 #include "TextPageViewItem.h"
 #include "ImagePageViewItem.h"
+#include "SoundPageViewItem.h"
 #include "BodyAttachmentView.h"
 
 #include <vector>
@@ -105,13 +106,16 @@ namespace Msg
             void showInputPanel(PageView &page, bool show);
             void showInputPanel(PageViewItem &pageItem, bool show);
             void removePage(PageView &page, bool setNextFocus);
+            void removeAttachment(BodyAttachmentView &attachment);
             TextPageViewItem *addText(PageView &page);
             ImagePageViewItem *addImage(PageView &page, const std::string &filePath);
+            SoundPageViewItem *addSound(PageView &page, const std::string &filePath);
             BodyAttachmentView *addAttachment(const std::string &filePath);
             void updateLastFocusedPage(PageViewItem &pageItem);
             PageView *getPageForMedia(PageViewItem::Type type);
             void backKeyHandler(MediaPageViewItem &item);
             void backKeyHandler(TextPageViewItem &item);
+            void clear(PageView &page);
 
             void create(Evas_Object *parent);
             void prepare(BodyViewItem &item);

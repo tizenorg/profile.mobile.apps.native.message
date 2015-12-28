@@ -34,14 +34,13 @@ namespace Msg
             };
 
         public:
-            BodyViewItem(Evas_Object *parent, Type type);
+            BodyViewItem(Type type);
             virtual ~BodyViewItem();
 
             Type getType() const;
 
         protected:
             std::string getEdjPath() const;
-            void setChild(Evas_Object *item);
 
         private:
             Type m_Type;

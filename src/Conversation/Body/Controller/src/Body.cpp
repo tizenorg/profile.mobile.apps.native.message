@@ -82,12 +82,7 @@ bool Body::addMedia(const std::string &filePath)
         return false;
     }
 
-    bool res = BodyView::addMedia(filePath);
-
-    if(m_pListener)
-        m_pListener->onChanged(*this);
-
-    return res;
+    return BodyView::addMedia(filePath);
 }
 
 bool Body::isMms() const

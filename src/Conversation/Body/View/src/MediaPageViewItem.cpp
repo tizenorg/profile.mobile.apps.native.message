@@ -25,6 +25,7 @@ using namespace Msg;
 namespace
 {
     const char *mediaMainGroup = "conv/body/media_main";
+    const char *buttonSwlContent = "elm.swallow.content";
 }
 
 MediaPageViewItem::MediaPageViewItem(PageView &parent, const std::string &resourcePath)
@@ -68,7 +69,7 @@ Evas_Object *MediaPageViewItem::getButtonLayout() const
 
 void MediaPageViewItem::setButtonContent(Evas_Object *layout)
 {
-    elm_object_part_content_set(m_pButton, "elm.swallow.content", layout);
+    elm_object_part_content_set(m_pButton, buttonSwlContent, layout);
 }
 
 void MediaPageViewItem::setRect(Evas_Object *layout)

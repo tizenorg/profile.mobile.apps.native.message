@@ -1,7 +1,8 @@
 #include "macros.inl"
 
 #define COLOR_BLUE_EDC  2 61 132 255
-#define BODY_MEDIA_SOUND_H 38
+#define BODY_MEDIA_LABEL_H 28
+#define PAGE_DIVIDER_H 30
 #define IMG_BODY_INPUT_FIELD "00_search_edit_field_bg.#.png"
 
 #define MSGC_IMAGE_THUMB_LANDSCAPE_W 132 /* landscape mode */
@@ -14,7 +15,6 @@ collections {
 
     base_scale: 1.8;
 
-    #define PAGE_DIVIDER_H 30
     group {
         images {
             image: dotted_line_divider.png COMP;
@@ -324,7 +324,7 @@ collections {
                 repeat_events: 0;
                 description {
                     state: "default" 0.0;
-                    min: 0 BODY_MEDIA_SOUND_H;
+                    min: 0 BODY_MEDIA_LABEL_H;
                     rel1{ to_x: "padding_left"; to_y: "padding_top"; relative: 1.0 1.0;}
                     rel2{ to_x: "padding_right"; to_y: "padding_bottom"; relative: 0.0 0.0;}
                     align: 0.0 0.0;
@@ -391,7 +391,7 @@ collections {
                     text {
                         font: FONT_STYLE_REGULAR;
                         text_class: FONT_TEXT_CLASS_REGULAR;
-                        size: 30;
+                        size: 25;
                         align: 0.0 0.5;
                         text: "";
                     }

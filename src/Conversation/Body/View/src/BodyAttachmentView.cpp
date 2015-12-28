@@ -18,6 +18,7 @@
 #include "BodyAttachmentView.h"
 #include "BodyView.h"
 #include "FileUtils.h"
+#include "Logger.h"
 
 using namespace Msg;
 
@@ -32,18 +33,17 @@ namespace
 }
 
 BodyAttachmentView::BodyAttachmentView(BodyView &parent, const std::string &resourePath)
-    : BodyViewItem(parent, AttachmentType)
+    : BodyViewItem(AttachmentType)
     , m_pLayaout(nullptr)
     , m_pListener(nullptr)
     , m_ResourePath(resourePath)
 {
-    Evas_Object *layout = createLayout(parent);
-    Evas_Object *button = createButton(parent);
+    setEo(createLayout(parent));
+    Evas_Object *button = createButton(getEo());
     Evas_Object *label = createLabel(button, FileUtils::getFileName(resourePath));
 
     elm_layout_content_set(button, buttonSwlContent, label);
-    elm_layout_content_set(layout, mediaMainSwlContent, button);
-    BodyViewItem::setChild(layout);
+    setContent(button, mediaMainSwlContent);
 }
 
 BodyAttachmentView::~BodyAttachmentView()
@@ -65,6 +65,7 @@ Evas_Object *BodyAttachmentView::createLayout(Evas_Object *parent)
 {
     m_pLayaout = elm_layout_add(parent);
     elm_layout_file_set(m_pLayaout, getEdjPath().c_str(), mediaMainGroup);
+    expand(m_pLayaout);
     evas_object_show(m_pLayaout);
     return m_pLayaout;
 }
