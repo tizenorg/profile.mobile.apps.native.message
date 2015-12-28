@@ -153,7 +153,7 @@ void RecipientsPanelView::create(Evas_Object *parent)
 
 Evas_Object *RecipientsPanelView::mbeCreate(Evas_Object *parent)
 {
-    m_pMbe= elm_multibuttonentry_add(parent);
+    m_pMbe = elm_multibuttonentry_add(parent);
     elm_multibuttonentry_editable_set(m_pMbe, EINA_FALSE);
     elm_multibuttonentry_expanded_set(m_pMbe, EINA_TRUE);
     evas_object_size_hint_weight_set(m_pMbe, EVAS_HINT_EXPAND, 0.0);
@@ -162,10 +162,9 @@ Evas_Object *RecipientsPanelView::mbeCreate(Evas_Object *parent)
     elm_object_tree_focus_allow_set(m_pMbe, EINA_TRUE);
     evas_object_show(m_pMbe);
 
-    // TODO: check this:
-  // evas_object_smart_callback_add(mbe, "item,added", SMART_CALLBACK(RecipientsPanelView, onItemAdded), this);
-    evas_object_smart_callback_add(m_pMbe, "item,selected", SMART_CALLBACK(RecipientsPanelView, onItemSelected), this);
+    evas_object_smart_callback_add(m_pMbe, "item,added", SMART_CALLBACK(RecipientsPanelView, onItemAdded), this);
     evas_object_smart_callback_add(m_pMbe, "item,deleted", SMART_CALLBACK(RecipientsPanelView, onItemDeleted), this);
+    evas_object_smart_callback_add(m_pMbe, "item,selected", SMART_CALLBACK(RecipientsPanelView, onItemSelected), this);
     evas_object_smart_callback_add(m_pMbe, "item,clicked", SMART_CALLBACK(RecipientsPanelView, onItemClicked), this);
 
     evas_object_smart_callback_add(m_pMbe, "focused", SMART_CALLBACK(RecipientsPanelView, onMbeFocused), this);
@@ -292,7 +291,13 @@ void RecipientsPanelView::onItemSelected(Evas_Object *obj, void *item)
 void RecipientsPanelView::onItemDeleted(Evas_Object *obj, void *item)
 {
     RecipientViewItem* it = getItem(item);
+    onItemDeleted(*it);
     delete it;
+}
+
+void RecipientsPanelView::onItemAdded(Evas_Object *obj, void *item)
+{
+    onItemAdded(*getItem(item));
 }
 
 void RecipientsPanelView::onItemClicked(Evas_Object *obj, void *item)

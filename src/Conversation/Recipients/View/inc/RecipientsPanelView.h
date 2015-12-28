@@ -49,6 +49,8 @@ namespace Msg
 
         private:
             // Signals:
+            virtual void onItemAdded(RecipientViewItem &item) {};
+            virtual void onItemDeleted(RecipientViewItem &item) {};
             virtual void onItemSelected(RecipientViewItem &item) {};
             virtual void onItemPressed(RecipientViewItem &item) {};
             virtual void onItemClicked(RecipientViewItem &item) {};
@@ -67,6 +69,7 @@ namespace Msg
         private:
             void onItemSelected(Evas_Object *obj, void *item);
             void onItemDeleted(Evas_Object *obj, void *item);
+            void onItemAdded(Evas_Object *obj, void *item);
             void onItemClicked(Evas_Object *obj, void *item);
             void onItemPressed(Evas_Object *obj, void *item);
 

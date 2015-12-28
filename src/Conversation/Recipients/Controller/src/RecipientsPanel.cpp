@@ -53,9 +53,7 @@ bool RecipientsPanel::isMms() const
     {
         RecipientItem *item = static_cast<RecipientItem*>(it);
         if(item->getAddressType() == MsgAddress::Email)
-        {
             return true;
-        }
     }
     return false;
 }
@@ -73,9 +71,8 @@ void RecipientsPanel::addRecipients()
     for(auto & it : result.validResults)
     {
         if(it.second == MsgAddress::Phone)
-        {
             it.first = MsgUtils::makeNormalizedNumber(it.first);
-        }
+
         appendItem(it.first, it.first, it.second);
     }
     setEntryText(result.invalidResult);
@@ -94,10 +91,9 @@ bool RecipientsPanel::appendItem(const std::string &address, const std::string &
         RecipientItem *item = new RecipientItem(address, addressType);
         item->setDisplayName(dispName);
         RecipientsPanelView::appendItem(*item);
+
         if(getEntryFocus())
-        {
             showMbe(true);
-        }
     }
     else
     {
@@ -139,6 +135,18 @@ void RecipientsPanel::onEntryFocusChanged()
 
     if(m_pListener)
         m_pListener->onEntryFocusChanged(*this);
+}
+
+void RecipientsPanel::onItemAdded(RecipientViewItem &item)
+{
+    if(m_pListener)
+        m_pListener->onItemAdded(*this, static_cast<RecipientItem&>(item));
+}
+
+void RecipientsPanel::onItemDeleted(RecipientViewItem &item)
+{
+    if(m_pListener)
+        m_pListener->onItemDeleted(*this, static_cast<RecipientItem&>(item));
 }
 
 void RecipientsPanel::onContactButtonClicked()

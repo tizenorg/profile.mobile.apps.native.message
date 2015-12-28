@@ -26,9 +26,11 @@
 #include "Box.h"
 #include "RecipientItem.h"
 #include "ResourceUtils.h"
+#include "LangUtils.h"
 
 #include <Elementary.h>
 #include <sstream>
+#include <notification.h>
 
 using namespace Msg;
 
@@ -43,6 +45,7 @@ Conversation::Conversation(NaviFrameController &parent)
     , m_pRecipPanel(nullptr)
     , m_pContactsList(nullptr)
     , m_ThreadId()
+    , m_IsMms(false)
 {
     create(NewMessageMode);
 }
@@ -238,9 +241,10 @@ void Conversation::sendMessage()
     MSG_LOG("m_ThreadId = ", m_ThreadId);
 
     if(m_Mode == NewMessageMode)
-    {
         setMode(ConversationMode);
-    }
+
+    m_IsMms = false;
+    m_pBody->clear();
 }
 
 void Conversation::saveDraftMsg()
@@ -253,6 +257,37 @@ void Conversation::saveDraftMsg()
         fillMessage(*msg);
         MsgId msgId = getMsgEngine().getStorage().saveMessage(*msg);
         MSG_LOG("Draft message id = ", msgId);
+    }
+}
+
+void Conversation::notifyConvertMsgType()
+{
+    std::string notifText = m_IsMms ?
+            msg("IDS_MSGF_POP_CONVERTING_TO_MULTIMEDIA_MESSAGE_ING") :
+            (std::string)msg("IDS_MSGF_POP_CONVERTING_TO_TEXT_MESSAGE_ING");
+
+    notification_status_message_post(notifText.c_str());
+}
+
+void Conversation::convertMsgTypeHandler()
+{
+    MSG_LOG("Is MMS: ", m_IsMms);
+    notifyConvertMsgType();
+}
+
+void Conversation::checkAndSetMsgType()
+{
+    // Body:
+    bool isMms = !m_pBody->isEmpty() && m_pBody->isMms();
+
+    // Recipients:
+    if(!isMms && m_pRecipPanel && !m_pRecipPanel->isMbeEmpty())
+        isMms = m_pRecipPanel->isMms();
+
+    if(isMms != m_IsMms)
+    {
+        m_IsMms = isMms;
+        convertMsgTypeHandler();
     }
 }
 
@@ -272,9 +307,26 @@ void Conversation::onKeyDown(RecipientsPanel &panel, Evas_Event_Key_Down &ev)
     }
 }
 
+void Conversation::onEntryFocusChanged(RecipientsPanel &panel)
+{
+    if(!m_pRecipPanel->getEntryFocus())
+        m_pContactsList->clear();
+}
+
+void Conversation::onItemAdded(RecipientsPanel &panel, RecipientItem &item)
+{
+    checkAndSetMsgType();
+}
+
+void Conversation::onItemDeleted(RecipientsPanel &panel, RecipientItem &item)
+{
+    checkAndSetMsgType();
+}
+
 void Conversation::onChanged(Body &body)
 {
     updateMsgInputPanel();
+    checkAndSetMsgType();
 }
 
 void Conversation::updateMsgInputPanel()
@@ -302,18 +354,11 @@ void Conversation::onButtonClicked(MessageInputPanel &obj, MessageInputPanel::Bu
             break;
         case MessageInputPanel::SendButtonId:
             sendMessage();
-            m_pBody->clear();
             m_pBody->setFocus(true);
             break;
         default:
             break;
     }
-}
-
-void Conversation::onEntryFocusChanged(RecipientsPanel &panel)
-{
-    if(!m_pRecipPanel->getEntryFocus())
-        m_pContactsList->clear();
 }
 
 void Conversation::onMsgStorageChange(const MsgIdList &idList)

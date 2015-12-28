@@ -43,6 +43,8 @@ namespace Msg
 
         private:
             // RecipientsPanelView:
+            virtual void onItemAdded(RecipientViewItem &item);
+            virtual void onItemDeleted(RecipientViewItem &item);
             virtual void onItemSelected(RecipientViewItem &item);
             virtual void onItemPressed(RecipientViewItem &item);
             virtual void onItemClicked(RecipientViewItem &item);
@@ -64,6 +66,8 @@ namespace Msg
 
             virtual void onKeyDown(RecipientsPanel &panel, Evas_Event_Key_Down &ev) {};
             virtual void onEntryFocusChanged(RecipientsPanel &panel) {};
+            virtual void onItemAdded(RecipientsPanel &panel, RecipientItem &item) {};
+            virtual void onItemDeleted(RecipientsPanel &panel, RecipientItem &item) {};
     };
 }
 

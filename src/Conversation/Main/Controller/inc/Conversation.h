@@ -74,6 +74,8 @@ namespace Msg
             virtual void onButtonClicked(MessageInputPanel &obj, MessageInputPanel::ButtonId id);
 
             // IRecipientsPanelListener:
+            virtual void onItemAdded(RecipientsPanel &panel, RecipientItem &item);
+            virtual void onItemDeleted(RecipientsPanel &panel, RecipientItem &item);
             virtual void onKeyDown(RecipientsPanel &panel, Evas_Event_Key_Down &ev);
             virtual void onEntryFocusChanged(RecipientsPanel &panel);
 
@@ -97,6 +99,10 @@ namespace Msg
             void updateMsgInputPanel();
             void createMainLayout(Evas_Object *parent);
 
+            void notifyConvertMsgType();
+            void convertMsgTypeHandler();
+            void checkAndSetMsgType();
+
             void sendMessage();
             void fillMessage(Message &msg);
             void fillMsgAddress(Message &msg);
@@ -116,6 +122,7 @@ namespace Msg
             RecipientsPanel *m_pRecipPanel;
             ConvContactList *m_pContactsList;
             ThreadId m_ThreadId;
+            bool m_IsMms; // Compose message type
     };
 }
 
