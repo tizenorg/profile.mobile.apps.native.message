@@ -71,7 +71,7 @@ namespace Msg
             void onItemDeleted(Evas_Object *obj, void *item);
             void onItemAdded(Evas_Object *obj, void *item);
             void onItemClicked(Evas_Object *obj, void *item);
-            void onItemPressed(Evas_Object *obj, void *item);
+            static void onItemPressed(void *data, Evas_Object *obj, void *eventInfo);
 
             Eina_Bool onMbeFilter(Evas_Object *obj, const char *item_label, const void *item_data);
             void onMbeFocused(Evas_Object *obj, void *event_info);
