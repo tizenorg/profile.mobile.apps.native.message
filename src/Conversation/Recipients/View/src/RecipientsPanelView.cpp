@@ -45,8 +45,8 @@ RecipientsPanelView::~RecipientsPanelView()
 void RecipientsPanelView::appendItem(RecipientViewItem &item)
 {
     item.m_pOwner = this;
-    Elm_Object_Item *elmItem = elm_multibuttonentry_item_append(m_pMbe, item.getDisplayName().c_str(),
-                                                                SMART_CALLBACK(RecipientsPanelView, onItemPressed), &item);
+    Elm_Object_Item *elmItem = elm_multibuttonentry_item_append(m_pMbe, item.getDisplayName().c_str(), &onItemPressed, &item);
+
     if(elmItem)
         item.setElmObjItem(elmItem);
     else
@@ -306,10 +306,10 @@ void RecipientsPanelView::onItemClicked(Evas_Object *obj, void *item)
     onItemClicked(*it);
 }
 
-void RecipientsPanelView::onItemPressed(Evas_Object *obj, void *item)
+void RecipientsPanelView::onItemPressed(void *data, Evas_Object *obj, void *eventInfo)
 {
-    RecipientViewItem* it = getItem(item);
-    onItemPressed(*it);
+    RecipientViewItem* it = static_cast<RecipientViewItem*>(data);
+    it->m_pOwner->onItemPressed(*it);
 }
 
 Eina_Bool RecipientsPanelView::onMbeFilter(Evas_Object *obj, const char *item_label, const void *item_data)
