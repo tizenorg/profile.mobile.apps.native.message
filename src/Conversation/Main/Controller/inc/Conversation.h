@@ -29,6 +29,7 @@
 #include "MsgEngine.h"
 #include "ConvContactList.h"
 #include "ConvList.h"
+#include "AppControlCompose.h"
 
 namespace Msg
 {
@@ -46,7 +47,7 @@ namespace Msg
         , private IConvContactListListener
     {
         public:
-            Conversation(NaviFrameController &parent);
+            Conversation(NaviFrameController &parent, const AppControlComposeRef &cmd = AppControlComposeRef());
             Conversation(NaviFrameController &parent, ThreadId threadId);
             virtual ~Conversation();
 
@@ -83,7 +84,7 @@ namespace Msg
             virtual void onContactSelected(ContactListItem &item);
 
         private:
-            void create(Mode mode);
+            void create();
             void setMode(Mode mode);
             void setNewMessageMode();
             void setConversationMode();
@@ -116,6 +117,7 @@ namespace Msg
             ThreadId m_ThreadId;
             bool m_IsMms; // Compose message type
             ConvList *m_pConvList;
+            const AppControlComposeRef m_ComposeCmd;
     };
 }
 

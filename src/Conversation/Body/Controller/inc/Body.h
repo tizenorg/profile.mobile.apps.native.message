@@ -22,6 +22,7 @@
 #include "MessageSMS.h"
 #include "MessageMms.h"
 #include "WorkingDir.h"
+#include "AppControlCompose.h"
 
 #include <list>
 #include <Ecore.h>
@@ -42,6 +43,7 @@ namespace Msg
     {
         public:
             Body(Evas_Object *parent, MsgEngine &msgEngine);
+            Body(Evas_Object *parent, MsgEngine &msgEngine, const AppControlComposeRef &cmd);
             virtual ~Body();
 
             void setListener(IBodyListener *listener);
@@ -66,6 +68,7 @@ namespace Msg
             void write(const MessageMms &msg);
             bool isMms(const PageView &page) const;
             void writeTextToFile(TextPageViewItem &item);
+            void execCmd(const AppControlComposeRef &cmd);
 
             // BodyView:
             virtual void onContentChanged();

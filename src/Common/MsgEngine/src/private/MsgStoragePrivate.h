@@ -37,6 +37,7 @@ namespace Msg
             virtual MsgThreadListRef getThreadList();
             virtual MsgThreadItemRef getThread(ThreadId id);
             virtual ThreadId getThreadId(const MsgAddressList &addressList);
+            virtual ThreadId getThreadId(const std::list<std::string> &addressList);
             virtual bool deleteThread(ThreadId id);
             virtual MsgAddressListRef getAddressList(ThreadId id);
 

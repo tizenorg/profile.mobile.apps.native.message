@@ -37,9 +37,9 @@ namespace
         {"http://tizen.org/appcontrol/operation/default", AppControlCommand::OpDefault},
         {"http://tizen.org/appcontrol/operation/main", AppControlCommand::OpDefault},
         {"http://tizen.org/appcontrol/operation/compose", AppControlCommand::OpCompose},
-        {"http://tizen.org/appcontrol/operation/share", AppControlCommand::OpShare},
-        {"http://tizen.org/appcontrol/operation/multi_share", AppControlCommand::OpMultiShare},
-        {"http://tizen.org/appcontrol/operation/share_text", AppControlCommand::OpShareText}
+        {"http://tizen.org/appcontrol/operation/share", AppControlCommand::OpCompose},
+        {"http://tizen.org/appcontrol/operation/multi_share", AppControlCommand::OpCompose},
+        {"http://tizen.org/appcontrol/operation/share_text", AppControlCommand::OpCompose}
     };
 
     AppControlCommand::OperationType getOperation(const char *op)
