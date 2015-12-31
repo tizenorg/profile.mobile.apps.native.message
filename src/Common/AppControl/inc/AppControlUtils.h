@@ -20,7 +20,7 @@
 
 #include <app_control.h>
 #include <string>
-#include <list>
+#include <set>
 
 namespace Msg
 {
@@ -34,7 +34,7 @@ namespace Msg
         /**
         * Gets a string-array from given app-control handle by a key specified
         */
-        static void getExtraDataArray(app_control_h handle, const std::string &key, std::list<std::string> &outArray);
+        static void getExtraDataArray(app_control_h handle, const std::string &key, std::set<std::string> &outArray);
     };
 }
 

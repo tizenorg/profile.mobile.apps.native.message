@@ -19,8 +19,10 @@
 #include "FrameController.h"
 #include "App.h"
 #include "MsgThread.h"
+#include "Conversation.h"
 #include "Logger.h"
 #include "AppControlCommandDefault.h"
+#include "AppControlCompose.h"
 
 #include <memory>
 #include <notification.h>
@@ -81,6 +83,13 @@ void NaviFrameController::executeCommand(AppControlCommandRef &cmd)
             execCmd(std::static_pointer_cast<AppControlCommandDefault>(cmd));
             break;
 
+        case AppControlCommand::OpCompose:
+        case AppControlCommand::OpShare:
+        case AppControlCommand::OpMultiShare:
+        case AppControlCommand::OpShareText:
+            execComposerCmd(cmd);
+            break;
+
         case AppControlCommand::OpUnknown:
             execCmd(cmd);
             break;
@@ -92,8 +101,25 @@ void NaviFrameController::executeCommand(AppControlCommandRef &cmd)
 
 void NaviFrameController::execCmd(AppControlCommandDefaultRef cmd)
 {
-    MsgThread *threadFrame = new MsgThread(*this);
-    push(*threadFrame);
+    if(getItemsCount() == 0)
+    {
+        MsgThread *threadFrame = new MsgThread(*this);
+        push(*threadFrame);
+    }
+}
+
+void NaviFrameController::execComposerCmd(AppControlCommandRef cmd)
+{
+    if(getItemsCount() == 0)
+    {
+        Conversation *convFrame = new Conversation(*this, cmd);
+        push(*convFrame);
+    }
+    else
+    {
+        //TODO: Handle this case (erase or save previous data)
+        MSG_LOG_WARN("App was already launched! You may lost previous data!");
+    }
 }
 
 void NaviFrameController::execCmd(AppControlCommandRef cmd)

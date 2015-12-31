@@ -59,7 +59,7 @@ void Body::setListener(IBodyListener *listener)
     m_pListener = listener;
 }
 
-bool Body::addMedia(const std::list<std::string> &fileList)
+bool Body::addMedia(const std::set<std::string> &fileList)
 {
     bool res = true;
     for(auto &file : fileList)
@@ -155,7 +155,12 @@ void Body::write(const Message &msg)
 
 void Body::write(const MessageSMS &msg)
 {
-    // TODO: impl
+    TextPageViewItem *textItem = getTextItem(getDefaultPage());
+    assert(textItem);
+    if(textItem)
+    {
+        textItem->setPlainUtf8UserText(msg.getText());
+    }
 }
 
 void Body::write(const MessageMms &msg)

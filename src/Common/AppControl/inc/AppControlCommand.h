@@ -20,6 +20,7 @@
 
 #include <app_control.h>
 #include <string>
+#include <set>
 #include <memory>
 
 namespace Msg
@@ -30,6 +31,14 @@ namespace Msg
     class AppControlCommand
     {
         public:
+            typedef std::set<std::string> RecipientList;
+            typedef std::set<std::string> FileList;
+            enum MessageType
+            {
+                UnknownType,
+                MmsType,
+                SmsType
+            };
             enum OperationType
             {
                 OpUnknown,
@@ -47,9 +56,21 @@ namespace Msg
             const std::string &getOperationMsg() const;
             OperationType getOperationType() const;
 
+            virtual const RecipientList &getRecipientList() const;
+            virtual MessageType getMessageType() const;
+            virtual const std::string getMessageText() const;
+            virtual const std::string getMessageSubject() const;
+            virtual const FileList &getFileList() const;
+
         private:
             std::string m_OperationMsg;
             OperationType m_Type;
+        protected:
+            RecipientList m_RecipientList;
+            MessageType m_MessageType;
+            FileList m_FileList;
+            std::string m_MessageText;
+            std::string m_Subject;
     };
 
     typedef std::shared_ptr<AppControlCommand> AppControlCommandRef;

@@ -23,7 +23,7 @@
 #include "MessageMms.h"
 #include "WorkingDir.h"
 
-#include <list>
+#include <set>
 #include <Ecore.h>
 
 namespace Msg
@@ -46,7 +46,7 @@ namespace Msg
 
             void setListener(IBodyListener *listener);
 
-            bool addMedia(const std::list<std::string> &fileList);
+            bool addMedia(const std::set<std::string> &fileList);
             bool addMedia(const std::string &filePath);
 
             bool isMms() const;

@@ -34,7 +34,7 @@ std::string AppControlUtils::getExtraData(app_control_h handle, const std::strin
     return res;
 }
 
-void AppControlUtils::getExtraDataArray(app_control_h handle, const std::string &key, std::list<std::string> &outArray)
+void AppControlUtils::getExtraDataArray(app_control_h handle, const std::string &key, std::set<std::string> &outArray)
 {
     int arrayLength = 0;
     char **pArrayVal = NULL;
@@ -42,7 +42,7 @@ void AppControlUtils::getExtraDataArray(app_control_h handle, const std::string 
     {
         if(arrayLength != 0)
         {
-            std::copy(pArrayVal, pArrayVal + arrayLength, std::back_inserter(outArray));
+            std::copy(pArrayVal, pArrayVal + arrayLength, std::insert_iterator<std::set<std::string>>(outArray, outArray.begin()));
             free(pArrayVal);
         }
     }

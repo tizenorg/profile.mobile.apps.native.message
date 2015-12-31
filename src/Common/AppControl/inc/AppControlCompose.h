@@ -21,7 +21,6 @@
 #include "AppControlCommand.h"
 #include <app_control.h>
 #include <string>
-#include <list>
 
 namespace Msg
 {
@@ -29,33 +28,11 @@ namespace Msg
         : public AppControlCommand
     {
         public:
-            typedef std::list<std::string> RecipientList;
-            typedef std::list<std::string> FileList;
-            enum MessageType
-            {
-                UnknownType,
-                MmsType,
-                SmsType
-            };
-        public:
             AppControlCompose(const std::string &opMsg, app_control_h handle);
             virtual ~AppControlCompose();
 
-            const RecipientList &getRecipientList() const;
-            MessageType getMessageType() const;
-            const std::string getMessageText() const;
-            const std::string getMessageSubject() const;
-            const FileList &getFileList() const;
-
         private:
             bool parseUri(const char *uri);
-
-        private:
-            RecipientList m_RecipientList;
-            MessageType m_MessageType;
-            FileList m_FileList;
-            std::string m_MessageText;
-            std::string m_Subject;
     };
 }
 
