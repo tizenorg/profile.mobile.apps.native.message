@@ -21,6 +21,7 @@
 #include <messages.h>
 #include <memory>
 #include <vector>
+#include <list>
 
 #include "MsgThreadItem.h"
 #include "Message.h"
@@ -45,6 +46,7 @@ namespace Msg
             virtual MsgThreadListRef getThreadList() = 0;
             virtual MsgThreadItemRef getThread(ThreadId id) = 0;
             virtual ThreadId getThreadId(const MsgAddressList &addressList) = 0;
+            virtual ThreadId getThreadId(const std::list<std::string> &addressList) = 0;
             virtual bool deleteThread(ThreadId id) = 0;
             virtual MsgAddressListRef getAddressList(ThreadId id) = 0;
 

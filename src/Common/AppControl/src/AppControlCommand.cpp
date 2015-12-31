@@ -21,7 +21,7 @@ using namespace Msg;
 
 AppControlCommand::AppControlCommand(const std::string &opMsg, OperationType type)
     : m_OperationMsg(opMsg)
-    , m_Type(type)
+    , m_OperationType(type)
 {
 }
 
@@ -36,6 +36,5 @@ const std::string &AppControlCommand::getOperationMsg() const
 
 AppControlCommand::OperationType AppControlCommand::getOperationType() const
 {
-    return m_Type;
+    return m_OperationType;
 }
-
