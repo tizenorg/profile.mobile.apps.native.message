@@ -20,12 +20,13 @@
 
 #include <app_control.h>
 #include <string>
+#include <list>
 #include <memory>
 
 namespace Msg
 {
     class AppControlCommand;
-    class AppControlCommandDefault;
+    typedef std::shared_ptr<AppControlCommand> AppControlCommandRef;
 
     class AppControlCommand
     {
@@ -34,26 +35,27 @@ namespace Msg
             {
                 OpUnknown,
                 OpDefault,
-                OpCompose,
-                OpShare,
-                OpMultiShare,
-                OpShareText
+                OpCompose /** For operations Compose, Share, MultiShare and ShareText */
             };
 
         public:
             AppControlCommand(const std::string &opMsg, OperationType type);
             virtual ~AppControlCommand();
 
+            /**
+             * Get raw operation string.
+             */
             const std::string &getOperationMsg() const;
+
+            /**
+             * Get operation type.
+             */
             OperationType getOperationType() const;
 
         private:
             std::string m_OperationMsg;
-            OperationType m_Type;
+            OperationType m_OperationType;
     };
-
-    typedef std::shared_ptr<AppControlCommand> AppControlCommandRef;
-    typedef std::shared_ptr<AppControlCommandDefault> AppControlCommandDefaultRef;
 }
 
 #endif /* AppControlCommand_h_ */

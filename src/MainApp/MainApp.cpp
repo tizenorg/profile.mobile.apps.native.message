@@ -21,6 +21,8 @@
 #include "CallbackAssist.h"
 #include "Logger.h"
 #include "AppControlParser.h"
+#include "AppControlCommandDefault.h"
+#include "AppControlCompose.h"
 #include "PathUtils.h"
 #include "Config.h"
 
@@ -153,9 +155,23 @@ void MainApp::onAppControl(app_control_h app_control)
     TRACE;
 
     AppControlCommandRef cmd = AppControlParser::parse(app_control);
+    if(!cmd)
+        return;
 
-    if(m_pRootController)
-        m_pRootController->executeCommand(cmd);
+    switch(cmd->getOperationType()) {
+        case AppControlCommand::OpDefault:
+            if(m_pRootController)
+                m_pRootController->execCmd(std::static_pointer_cast<AppControlCommandDefault>(cmd));
+            break;
+        case AppControlCommand::OpCompose:
+            if(m_pRootController)
+                m_pRootController->execCmd(std::static_pointer_cast<AppControlCompose>(cmd));
+            break;
+        case AppControlCommand::OpUnknown:
+        default:
+            MSG_LOG_WARN("Not supported command");
+            break;
+    }
 }
 
 void MainApp::onLanguageChanged(app_event_info_h appEvent)

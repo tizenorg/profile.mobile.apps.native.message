@@ -126,7 +126,12 @@ PREFIX="org.tizen"
 INSTALLDIR=/usr/apps
 SDB=~/tizen-sdk/tools/sdb
 TEMPDIR=/home/rpms # for keeping rpm packages on device
+if [ $TIZENVERSION = "tizen_2.4" ];
+then
+GBSROOT=~/GBS-ROOT-T_2_4
+else
 GBSROOT=~/GBS-ROOT
+fi
 
 ##------------------ spec ------------------##
 
