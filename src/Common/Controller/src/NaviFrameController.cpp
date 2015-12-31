@@ -19,8 +19,8 @@
 #include "FrameController.h"
 #include "App.h"
 #include "MsgThread.h"
+#include "Conversation.h"
 #include "Logger.h"
-#include "AppControlCommandDefault.h"
 
 #include <memory>
 #include <notification.h>
@@ -62,43 +62,46 @@ void NaviFrameController::destroy()
     NaviFrameView::destroy();
 }
 
-void NaviFrameController::executeCommand(AppControlCommandRef &cmd)
+bool NaviFrameController::execCmd(const AppControlCommand &cmd)
 {
-    MSG_LOG("Execute app. control command: ", cmd->getOperationMsg());
+    MSG_LOG("Execute app. control command: ", cmd.getOperationMsg());
 
     std::string errorMsg;
     if(!getMsgEngine().isReady(errorMsg))
     {
         notification_status_message_post(errorMsg.c_str());
-        return;
+        return false;
     }
+    return true;
+}
 
-    AppControlCommand::OperationType op = cmd->getOperationType();
-
-    switch(op)
+void NaviFrameController::execCmd(const AppControlCommandDefaultRef &cmd)
+{
+    if(execCmd(*cmd))
     {
-        case AppControlCommand::OpDefault:
-            execCmd(std::static_pointer_cast<AppControlCommandDefault>(cmd));
-            break;
-
-        case AppControlCommand::OpUnknown:
-            execCmd(cmd);
-            break;
-
-        default:
-            break;
+        if(isEmpty())
+        {
+            MsgThread *threadFrame = new MsgThread(*this);
+            push(*threadFrame);
+        }
     }
 }
 
-void NaviFrameController::execCmd(AppControlCommandDefaultRef cmd)
+void NaviFrameController::execCmd(const AppControlComposeRef &cmd)
 {
-    MsgThread *threadFrame = new MsgThread(*this);
-    push(*threadFrame);
-}
-
-void NaviFrameController::execCmd(AppControlCommandRef cmd)
-{
-    MSG_LOG_WARN("Unknown app control command");
+    if(execCmd(*cmd))
+    {
+        if(isEmpty())
+        {
+            Conversation *convFrame = new Conversation(*this, cmd);
+            push(*convFrame);
+        }
+        else
+        {
+            //TODO: Handle this case (erase or save previous data)
+            MSG_LOG_WARN("App was already launched! You may lost previous data!");
+        }
+    }
 }
 
 void NaviFrameController::onHwBackButtonClicked()

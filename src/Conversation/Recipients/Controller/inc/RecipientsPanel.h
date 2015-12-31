@@ -20,6 +20,7 @@
 
 #include "RecipientViewItem.h"
 #include "RecipientsPanelView.h"
+#include "AppControlCompose.h"
 #include "RecipientItem.h"
 #include "Message.h"
 #include "App.h"
@@ -33,6 +34,7 @@ namespace Msg
     {
         public:
             RecipientsPanel(Evas_Object *parent, App &app);
+            RecipientsPanel(Evas_Object *parent, App &app, const AppControlComposeRef &cmd);
             virtual ~RecipientsPanel();
 
             void read(Message &msg);
@@ -53,6 +55,7 @@ namespace Msg
             virtual void onContactButtonClicked();
 
             void addRecipients();
+            void execCmd(const AppControlComposeRef &cmd);
 
         private:
             App &m_App;
