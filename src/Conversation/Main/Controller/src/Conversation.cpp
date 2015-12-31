@@ -55,6 +55,12 @@ Conversation::Conversation(NaviFrameController &parent,ThreadId threadId)
     create(ConversationMode);
 }
 
+Conversation::Conversation(NaviFrameController &parent, AppControlCommandRef cmd)
+    : Conversation(parent)
+{
+
+}
+
 Conversation::~Conversation()
 {
 }

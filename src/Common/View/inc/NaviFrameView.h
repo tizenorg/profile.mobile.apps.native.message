@@ -32,6 +32,7 @@ namespace Msg
             virtual ~NaviFrameView();
 
             bool isLastFrame() const;
+            int getItemsCount() const;
             void push(NaviFrameItem &item, Evas_Object *content = nullptr);
             void push(NaviFrameItem &item, View &content);
             void pop();

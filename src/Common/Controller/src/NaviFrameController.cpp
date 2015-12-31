@@ -21,6 +21,7 @@
 #include "MsgThread.h"
 #include "Logger.h"
 #include "AppControlCommandDefault.h"
+#include "AppControlCompose.h"
 
 #include <memory>
 #include <notification.h>
@@ -81,6 +82,10 @@ void NaviFrameController::executeCommand(AppControlCommandRef &cmd)
             execCmd(std::static_pointer_cast<AppControlCommandDefault>(cmd));
             break;
 
+        case AppControlCommand::OpCompose:
+            execCmd(std::static_pointer_cast<AppControlCompose>(cmd));
+            break;
+
         case AppControlCommand::OpUnknown:
             execCmd(cmd);
             break;
@@ -92,8 +97,11 @@ void NaviFrameController::executeCommand(AppControlCommandRef &cmd)
 
 void NaviFrameController::execCmd(AppControlCommandDefaultRef cmd)
 {
-    MsgThread *threadFrame = new MsgThread(*this);
-    push(*threadFrame);
+    if(getItemsCount() == 0)
+    {
+        MsgThread *threadFrame = new MsgThread(*this);
+        push(*threadFrame);
+    }
 }
 
 void NaviFrameController::execCmd(AppControlCommandRef cmd)

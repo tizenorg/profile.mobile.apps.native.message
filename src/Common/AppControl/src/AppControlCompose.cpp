@@ -24,7 +24,6 @@ using namespace Msg;
 
 AppControlCompose::AppControlCompose(const std::string &opMsg, app_control_h handle)
     : AppControlCommand(opMsg, OpCompose)
-    , m_MessageType(UnknownType)
 {
     if(handle)
     {

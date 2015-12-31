@@ -22,6 +22,7 @@ using namespace Msg;
 AppControlCommand::AppControlCommand(const std::string &opMsg, OperationType type)
     : m_OperationMsg(opMsg)
     , m_Type(type)
+    , m_MessageType(UnknownType)
 {
 }
 
@@ -39,3 +40,24 @@ AppControlCommand::OperationType AppControlCommand::getOperationType() const
     return m_Type;
 }
 
+const AppControlCommand::RecipientList &AppControlCommand::getRecipientList() const
+{
+    return m_RecipientList;
+}
+
+AppControlCommand::MessageType AppControlCommand::getMessageType() const
+{
+    return m_MessageType;
+}
+const std::string AppControlCommand::getMessageText() const
+{
+    return m_MessageText;
+}
+const std::string AppControlCommand::getMessageSubject() const
+{
+    return m_Subject;
+}
+const AppControlCommand::FileList &AppControlCommand::getFileList() const
+{
+    return m_FileList;
+}
