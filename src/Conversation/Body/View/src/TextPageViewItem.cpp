@@ -124,6 +124,21 @@ std::string TextPageViewItem::getPlainUtf8Text() const
     return res;
 }
 
+void TextPageViewItem::setUserText(const std::string &text)
+{
+    elm_object_text_set(m_pEntry, text.c_str());
+}
+
+void TextPageViewItem::setPlainUtf8UserText(const std::string &text)
+{
+    char *plainText = elm_entry_utf8_to_markup(text.c_str());
+    if(plainText)
+    {
+        elm_entry_entry_set(m_pEntry, plainText);
+        free(plainText);
+    }
+}
+
 Evas_Object *TextPageViewItem::createEntry(Evas_Object *parent)
 {
     m_pEntry = elm_entry_add(parent);

@@ -28,6 +28,13 @@ RecipientsPanel::RecipientsPanel(Evas_Object *parent, App &app)
 {
 }
 
+RecipientsPanel::RecipientsPanel(Evas_Object *parent, App &app, const AppControlComposeRef &cmd)
+    : RecipientsPanel(parent, app)
+{
+    if(cmd)
+        execCmd(cmd);
+}
+
 RecipientsPanel::~RecipientsPanel()
 {
 
@@ -100,6 +107,14 @@ bool RecipientsPanel::appendItem(const std::string &address, const std::string &
         MSG_LOG("invalid recipient: ", address);
     }
     return result;
+}
+
+void RecipientsPanel::execCmd(const AppControlComposeRef &cmd)
+{
+    for(auto item: cmd->getRecipientList())
+    {
+        appendItem(item, item, MsgAddress::UnknownAddressType);
+    }
 }
 
 void RecipientsPanel::onKeyDown(Evas_Event_Key_Down *ev)

@@ -17,14 +17,35 @@
 #include "AppControlCompose.h"
 #include "Logger.h"
 #include <algorithm>
+#include <unordered_map>
 
 #include "AppControlUtils.h"
 
 using namespace Msg;
 
+namespace
+{
+    typedef std::unordered_map<std::string, AppControlCompose::OpComposeType> OperationMap;
+
+    const OperationMap operationMap =
+    {
+        {APP_CONTROL_OPERATION_COMPOSE, AppControlCompose::ComposeType},
+        {APP_CONTROL_OPERATION_SHARE, AppControlCompose::ShareType},
+        {APP_CONTROL_OPERATION_MULTI_SHARE, AppControlCompose::MultiShareType},
+        {APP_CONTROL_OPERATION_SHARE_TEXT, AppControlCompose::ShareTextType}
+    };
+
+    AppControlCompose::OpComposeType getOperation(const std::string &op)
+    {
+        auto it = operationMap.find(op);
+        return it != operationMap.end() ? it->second : AppControlCompose::ComposeUnknownType;
+    };
+}
+
 AppControlCompose::AppControlCompose(const std::string &opMsg, app_control_h handle)
     : AppControlCommand(opMsg, OpCompose)
-    , m_MessageType(UnknownType)
+    , m_ComposeType(getOperation(opMsg))
+    , m_isMms(false)
 {
     if(handle)
     {
@@ -46,6 +67,34 @@ AppControlCompose::~AppControlCompose()
 {
 }
 
+AppControlCompose::OpComposeType AppControlCompose::getComposeType() const
+{
+    return m_ComposeType;
+}
+
+const AppControlCompose::RecipientList &AppControlCompose::getRecipientList() const
+{
+    return m_RecipientList;
+}
+
+bool AppControlCompose::isMms() const
+{
+    return m_isMms;
+}
+const std::string &AppControlCompose::getMessageText() const
+{
+    return m_MessageText;
+}
+const std::string &AppControlCompose::getMessageSubject() const
+{
+    return m_Subject;
+}
+const AppControlCompose::FileList &AppControlCompose::getFileList() const
+{
+    return m_FileList;
+}
+
+
 bool AppControlCompose::parseUri(const char *uri)
 {
     TRACE;
@@ -57,20 +106,16 @@ bool AppControlCompose::parseUri(const char *uri)
         std::istringstream is(uriToParse);
 
         std::string cur;
-        std::getline(is, cur, '?');
+        std::getline(is, cur, ':');
         MSG_LOG("cur = ", cur.c_str());
-        if(cur == "sms")
-        {
-             m_MessageType = SmsType;
-        }
-        else if(cur == "mmsto")
-        {
-            m_MessageType = MmsType;
-        }
 
-        if(m_MessageType != UnknownType)
+        if(cur == "sms" || cur == "mmsto")
         {
-            //TODO: further uri parsing
+            m_isMms = (cur == "mmsto");
+            for( ;std::getline(is, cur, ','); )
+            {
+                m_RecipientList.push_back(cur);
+            }
             res = true;
         }
 
@@ -78,24 +123,3 @@ bool AppControlCompose::parseUri(const char *uri)
     return res;
 }
 
-const AppControlCompose::RecipientList &AppControlCompose::getRecipientList() const
-{
-    return m_RecipientList;
-}
-
-AppControlCompose::MessageType AppControlCompose::getMessageType() const
-{
-    return m_MessageType;
-}
-const std::string AppControlCompose::getMessageText() const
-{
-    return m_MessageText;
-}
-const std::string AppControlCompose::getMessageSubject() const
-{
-    return m_Subject;
-}
-const AppControlCompose::FileList &AppControlCompose::getFileList() const
-{
-    return m_FileList;
-}
