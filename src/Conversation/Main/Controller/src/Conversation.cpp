@@ -42,20 +42,26 @@ Conversation::Conversation(NaviFrameController &parent, bool dummy)
     , m_ThreadId()
     , m_IsMms(false)
     , m_pConvList(nullptr)
+    , m_ComposeCmd()
 {
 }
 
-Conversation::Conversation(NaviFrameController &parent)
+Conversation::Conversation(NaviFrameController &parent, const AppControlComposeRef &cmd)
     : Conversation(parent, false)
 {
-    create(NewMessageMode);
+    if(cmd)
+    {
+        m_ComposeCmd = cmd;
+        m_ThreadId = getMsgEngine().getStorage().getThreadId(m_ComposeCmd->getRecipientList());
+    }
+    create();
 }
 
 Conversation::Conversation(NaviFrameController &parent,ThreadId threadId)
     : Conversation(parent, false)
 {
     m_ThreadId = threadId;
-    create(ConversationMode);
+    create();
 }
 
 Conversation::~Conversation()
@@ -72,7 +78,7 @@ Conversation::~Conversation()
         m_pContactsList->setListener(nullptr);
 }
 
-void Conversation::create(Mode mode)
+void Conversation::create()
 {
     createMainLayout(getParent());
     createConvList(*m_pLayout);
@@ -83,7 +89,7 @@ void Conversation::create(Mode mode)
     updateMsgInputPanel();
     m_pLayout->setMsgInputPanel(*m_pMsgInputPanel);
 
-    setMode(mode);
+    setMode(m_ThreadId.isValid() ? ConversationMode : NewMessageMode);
 
     getMsgEngine().getStorage().addListener(*this);
     setHwButtonListener(*m_pLayout, this);
@@ -165,7 +171,7 @@ void Conversation::createRecipPanel(Evas_Object *parent)
 {
     if(!m_pRecipPanel)
     {
-        m_pRecipPanel = new RecipientsPanel(parent, getApp());
+        m_pRecipPanel = new RecipientsPanel(parent, getApp(), m_ComposeCmd);
         m_pRecipPanel->setListener(this);
         m_pRecipPanel->show();
         m_pRecipPanel->setRecipientRect(m_pLayout->getRecipientRect());
@@ -214,7 +220,7 @@ void Conversation::createBody(Evas_Object *parent)
 {
     if(!m_pBody)
     {
-        m_pBody = new Body(*m_pMsgInputPanel, getMsgEngine());
+        m_pBody = new Body(*m_pMsgInputPanel, getMsgEngine(), m_ComposeCmd);
         m_pBody->setListener(this);
         m_pBody->show();
     }

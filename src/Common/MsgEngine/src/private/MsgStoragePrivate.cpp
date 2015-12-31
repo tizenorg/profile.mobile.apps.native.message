@@ -22,6 +22,7 @@
 #include "MsgAddressPrivate.h"
 #include "MsgConversationItemPrivate.h"
 #include "Logger.h"
+#include "MsgUtilsPrivate.h"
 
 #include <msg_storage.h>
 
@@ -139,6 +140,37 @@ ThreadId MsgStoragePrivate::getThreadId(const MsgAddressList &addressList)
     }
 
     return (ThreadId)id;
+}
+
+ThreadId MsgStoragePrivate::getThreadId(const std::list<std::string> &addressList)
+{
+    msg_thread_id_t tid = -1;
+    msg_struct_t msgInfo = msg_create_struct(MSG_STRUCT_MESSAGE_INFO);
+
+    if(msgInfo)
+    {
+        for(auto &addr : addressList)
+        {
+            MsgAddress::AddressType type = MsgUtils::getAddressType(addr);
+            msg_struct_t tmpAddr = nullptr;
+
+            if (msg_list_add_item(msgInfo, MSG_MESSAGE_ADDR_LIST_HND, &tmpAddr) == MSG_SUCCESS)
+            {
+                msg_set_int_value(tmpAddr, MSG_ADDRESS_INFO_ADDRESS_TYPE_INT, MsgUtilsPrivate::addressTypeToNative(type));
+                msg_set_int_value(tmpAddr, MSG_ADDRESS_INFO_RECIPIENT_TYPE_INT, MSG_RECIPIENTS_TYPE_TO);
+                MsgUtilsPrivate::setStr(tmpAddr, MSG_ADDRESS_INFO_ADDRESS_VALUE_STR, addr);
+            }
+        }
+
+        msg_list_handle_t addrList = nullptr;
+        msg_get_list_handle(msgInfo, MSG_MESSAGE_ADDR_LIST_HND, (void **)&addrList);
+        if(addrList)
+            msg_get_thread_id_by_address2(m_ServiceHandle, addrList, &tid);
+
+        msg_release_struct(&msgInfo);
+    }
+
+    return (ThreadId)tid;
 }
 
 MsgAddressListRef MsgStoragePrivate::getAddressList(ThreadId id)

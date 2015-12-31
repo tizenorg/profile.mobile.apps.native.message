@@ -22,6 +22,9 @@
 
 namespace Msg
 {
+    class AppControlCommandDefault;
+    typedef std::shared_ptr<AppControlCommandDefault> AppControlCommandDefaultRef;
+
     class AppControlCommandDefault
         : public AppControlCommand
     {

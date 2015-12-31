@@ -34,12 +34,12 @@ namespace
 
     const OperationMap operationMap =
     {
-        {"http://tizen.org/appcontrol/operation/default", AppControlCommand::OpDefault},
-        {"http://tizen.org/appcontrol/operation/main", AppControlCommand::OpDefault},
-        {"http://tizen.org/appcontrol/operation/compose", AppControlCommand::OpCompose},
-        {"http://tizen.org/appcontrol/operation/share", AppControlCommand::OpShare},
-        {"http://tizen.org/appcontrol/operation/multi_share", AppControlCommand::OpMultiShare},
-        {"http://tizen.org/appcontrol/operation/share_text", AppControlCommand::OpShareText}
+        {APP_CONTROL_OPERATION_DEFAULT, AppControlCommand::OpDefault},
+        {APP_CONTROL_OPERATION_MAIN, AppControlCommand::OpDefault},
+        {APP_CONTROL_OPERATION_COMPOSE, AppControlCommand::OpComposeFamily},
+        {APP_CONTROL_OPERATION_SHARE, AppControlCommand::OpComposeFamily},
+        {APP_CONTROL_OPERATION_MULTI_SHARE, AppControlCommand::OpComposeFamily},
+        {APP_CONTROL_OPERATION_SHARE_TEXT, AppControlCommand::OpComposeFamily}
     };
 
     AppControlCommand::OperationType getOperation(const char *op)
@@ -71,7 +71,7 @@ AppControlCommandRef AppControlParser::parse(app_control_h handle)
             cmd = std::make_shared<AppControlCommandDefault>(opStr);
             break;
 
-        case AppControlCommand::OpCompose:
+        case AppControlCommand::OpComposeFamily:
             cmd = std::make_shared<AppControlCompose>(opStr, handle);
             break;
 
