@@ -24,7 +24,6 @@ using namespace Msg;
 
 AppControlCompose::AppControlCompose(const std::string &opMsg, app_control_h handle)
     : AppControlCommand(opMsg, OpCompose)
-    , m_MessageType(UnknownType)
 {
     if(handle)
     {
@@ -57,7 +56,7 @@ bool AppControlCompose::parseUri(const char *uri)
         std::istringstream is(uriToParse);
 
         std::string cur;
-        std::getline(is, cur, '?');
+        std::getline(is, cur, ':');
         MSG_LOG("cur = ", cur.c_str());
         if(cur == "sms")
         {
@@ -70,7 +69,10 @@ bool AppControlCompose::parseUri(const char *uri)
 
         if(m_MessageType != UnknownType)
         {
-            //TODO: further uri parsing
+            for( ;std::getline(is, cur, ','); )
+            {
+                m_RecipientList.emplace(cur);
+            }
             res = true;
         }
 
@@ -78,24 +80,3 @@ bool AppControlCompose::parseUri(const char *uri)
     return res;
 }
 
-const AppControlCompose::RecipientList &AppControlCompose::getRecipientList() const
-{
-    return m_RecipientList;
-}
-
-AppControlCompose::MessageType AppControlCompose::getMessageType() const
-{
-    return m_MessageType;
-}
-const std::string AppControlCompose::getMessageText() const
-{
-    return m_MessageText;
-}
-const std::string AppControlCompose::getMessageSubject() const
-{
-    return m_Subject;
-}
-const AppControlCompose::FileList &AppControlCompose::getFileList() const
-{
-    return m_FileList;
-}

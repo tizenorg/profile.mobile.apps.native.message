@@ -50,6 +50,18 @@ bool NaviFrameView::isLastFrame() const
     return elm_naviframe_bottom_item_get(getEo()) == elm_naviframe_top_item_get(getEo());
 }
 
+int NaviFrameView::getItemsCount() const
+{
+    int res = 0;
+    Eina_List *list= elm_naviframe_items_get(getEo());
+    if(list)
+    {
+        res = eina_list_count(list);
+        eina_list_free(list);
+    }
+    return res;
+}
+
 void NaviFrameView::push(NaviFrameItem &item, Evas_Object *content)
 {
     Elm_Object_Item *it = elm_naviframe_item_push(getEo(), NULL, NULL, NULL, content, NULL);

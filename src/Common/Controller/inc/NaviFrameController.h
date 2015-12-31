@@ -46,6 +46,7 @@ namespace Msg
 
             void execCmd(AppControlCommandDefaultRef cmd);
             void execCmd(AppControlCommandRef cmd);
+            void execComposerCmd(AppControlCommandRef cmd);
 
             virtual void onHwBackButtonClicked();
             virtual void onHwMoreButtonClicked();

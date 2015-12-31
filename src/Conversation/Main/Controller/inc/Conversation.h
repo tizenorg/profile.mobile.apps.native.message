@@ -29,6 +29,7 @@
 #include "MsgEngine.h"
 #include "ConvContactList.h"
 #include "ConvList.h"
+#include "AppControlCommand.h"
 
 namespace Msg
 {
@@ -49,6 +50,7 @@ namespace Msg
         public:
             Conversation(NaviFrameController &parent);
             Conversation(NaviFrameController &parent, ThreadId threadId);
+            Conversation(NaviFrameController &parent, AppControlCommandRef cmd);
             virtual ~Conversation();
 
         private:
@@ -108,6 +110,8 @@ namespace Msg
             void fillMessage(Message &msg);
             void fillMsgAddress(Message &msg);
             void saveDraftMsg();
+
+            void pullFromCommand(AppControlCommandRef cmd);
 
         private:
             Mode m_Mode;

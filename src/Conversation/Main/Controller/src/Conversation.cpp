@@ -55,6 +55,13 @@ Conversation::Conversation(NaviFrameController &parent,ThreadId threadId)
     create(ConversationMode);
 }
 
+Conversation::Conversation(NaviFrameController &parent, AppControlCommandRef cmd)
+    : Conversation(parent)
+{
+    //TODO: create in ConversationMode if conversation with recipients already exists
+    pullFromCommand(cmd);
+}
+
 Conversation::~Conversation()
 {
 }
@@ -424,3 +431,32 @@ void Conversation::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
     }
 }
 
+void Conversation::pullFromCommand(AppControlCommandRef cmd)
+{
+    std::shared_ptr<Msg::Message> msg = nullptr;
+    if(cmd->getMessageType() == AppControlCommand::SmsType)
+    {
+        msg = getMsgEngine().getComposer().createSms();
+        msg->setText(cmd->getMessageText());
+    }
+    else if(cmd->getMessageType() == AppControlCommand::MmsType)
+    {
+        //TODO: implement fill of MMS text and subject.
+        msg = getMsgEngine().getComposer().createMms();
+    }
+    else
+    {
+        MSG_LOG_WARN("Not recognised message type");
+        return;
+    }
+    m_pBody->write(*msg);
+    //TODO: implement erasing of temporary message
+
+    for(auto item: cmd->getRecipientList())
+    {
+        m_pRecipPanel->appendItem(item, item, MsgAddress::UnknownAddressType);
+    }
+
+    m_pBody->addMedia(cmd->getFileList());
+
+}
