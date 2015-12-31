@@ -95,6 +95,8 @@ Evas_Object *ConvList::createList(Evas_Object *parent)
 void ConvList::fill()
 {
     m_pList->clear();
+    if(!m_ThreadId.isValid())
+        return;
 
     MsgConversationListRef convList = m_MsgEngine.getStorage().getConversationList(m_ThreadId);
     int convListLen = convList->getLength();

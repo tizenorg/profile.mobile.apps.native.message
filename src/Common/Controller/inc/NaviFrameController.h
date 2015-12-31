@@ -22,6 +22,8 @@
 #include "NaviFrameView.h"
 #include "HwButtonListener.h"
 #include "AppControlCommand.h"
+#include "AppControlCommandDefault.h"
+#include "AppControlCompose.h"
 
 namespace Msg
 {
@@ -36,16 +38,35 @@ namespace Msg
             NaviFrameController(App &app);
             virtual ~NaviFrameController();
 
+            /**
+             * Pushes @frame to screen.
+             */
             void push(FrameController &frame);
+
+            /**
+             * Pops last frame. Exit from app if frame count reaches zero.
+             */
             void pop();
-            void executeCommand(AppControlCommandRef &cmd);
+
+            /**
+             * Executes app control command of default type.
+             */
+            void execCmd(const AppControlCommandDefaultRef &cmd);
+
+            /**
+             * Executes app control command of compose type. This is Compose, Share, MultiShare, ShareText.
+             */
+            void execCmd(const AppControlComposeRef &cmd);
+
+            /**
+             * Destroys naviframe. Note, than this doesn't close app.
+             */
             void destroy();
 
         private:
             void init();
 
-            void execCmd(AppControlCommandDefaultRef cmd);
-            void execCmd(AppControlCommandRef cmd);
+            bool execCmd(const AppControlCommand &cmd);
 
             virtual void onHwBackButtonClicked();
             virtual void onHwMoreButtonClicked();

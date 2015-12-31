@@ -47,6 +47,13 @@ Body::Body(Evas_Object *parent, MsgEngine &msgEngine)
 {
 }
 
+Body::Body(Evas_Object *parent, MsgEngine &msgEngine, const AppControlComposeRef &cmd)
+    : Body(parent, msgEngine)
+{
+    if(cmd)
+        execCmd(cmd);
+}
+
 Body::~Body()
 {
     if(m_pOnChangedIdler)
@@ -160,7 +167,12 @@ void Body::write(const Message &msg)
 
 void Body::write(const MessageSMS &msg)
 {
-    // TODO: impl
+    TextPageViewItem *textItem = getTextItem(getDefaultPage());
+    assert(textItem);
+    if(textItem)
+    {
+        textItem->setText(msg.getText());
+    }
 }
 
 void Body::write(const MessageMms &msg)
@@ -255,6 +267,18 @@ void Body::readAttachments(MessageMms &msg)
         msgAttach.setFileSize((int)fileSize);
         msgAttach.setMime(mime);
     }
+}
+
+void Body::execCmd(const AppControlComposeRef &cmd)
+{
+    TextPageViewItem *textItem = getTextItem(getDefaultPage());
+    if(textItem)
+    {
+        textItem->setText(cmd->getMessageText());
+    }
+    //TODO: implement fill of subject.
+
+    addMedia(cmd->getFileList());
 }
 
 void Body::onMediaRemoved(const std::string &resourcePath)
