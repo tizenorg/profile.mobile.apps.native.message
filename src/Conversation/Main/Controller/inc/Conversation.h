@@ -33,7 +33,6 @@
 namespace Msg
 {
     class NaviFrameController;
-    class Box;
     class Scroller;
     class ConversationInputPanel;
 
@@ -63,9 +62,6 @@ namespace Msg
             // NaviFrameItem:
             virtual void onAttached(ViewItem &item);
             virtual void onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId);
-
-            // IMsgStorageListener:
-            virtual void onMsgStorageChange(const MsgIdList &idList);
 
             // IHwButtonListener:
             virtual void onHwBackButtonClicked();
@@ -99,6 +95,7 @@ namespace Msg
             void createMsgInputPanel(Evas_Object *parent);
             void updateMsgInputPanel();
             void createMainLayout(Evas_Object *parent);
+            void createConvList(Evas_Object *parent);
 
             void notifyConvertMsgType();
             void convertMsgTypeHandler();

@@ -120,7 +120,7 @@ void MsgThread::updateThreadList()
         m_pNoContent->hide();
         m_pThreadListView->show();
     }
-   else
+    else
     {
        m_pThreadListView->hide();
        m_pNoContent->show();

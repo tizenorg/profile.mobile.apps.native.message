@@ -21,9 +21,7 @@
 #include "Scroller.h"
 #include "App.h"
 #include "Message.h"
-#include "MessageSMS.h"
 #include "Logger.h"
-#include "Box.h"
 #include "RecipientItem.h"
 #include "ResourceUtils.h"
 #include "LangUtils.h"
@@ -72,10 +70,7 @@ Conversation::~Conversation()
 void Conversation::create(Mode mode)
 {
     createMainLayout(getParent());
-
-    m_pConvList = new ConvList(*m_pLayout, getMsgEngine(), m_ThreadId);
-
-
+    createConvList(*m_pLayout);
     createMsgInputPanel(*m_pLayout);
     createBody(*m_pMsgInputPanel);
     m_pMsgInputPanel->setEntry(*m_pBody);
@@ -147,6 +142,12 @@ void Conversation::createMainLayout(Evas_Object *parent)
     m_pLayout = new ConversationLayout(parent);
     m_pLayout->show();
     m_pLayout->expand();
+}
+
+void Conversation::createConvList(Evas_Object *parent)
+{
+    m_pConvList = new ConvList(*m_pLayout, getMsgEngine(), m_ThreadId);
+    m_pConvList->show();
 }
 
 void Conversation::createRecipPanel(Evas_Object *parent)
@@ -363,11 +364,6 @@ void Conversation::onButtonClicked(MessageInputPanel &obj, MessageInputPanel::Bu
     }
 }
 
-void Conversation::onMsgStorageChange(const MsgIdList &idList)
-{
-    MSG_LOG("");
-}
-
 void Conversation::onContactSelected(ContactListItem &item)
 {
     m_pRecipPanel->appendItem(item.getRecipient(), item.getRecipient());
@@ -397,6 +393,12 @@ void Conversation::onAttached(ViewItem &item)
 
 void Conversation::onHwBackButtonClicked()
 {
+    if(m_pConvList && m_pConvList->getMode() == ConvList::SelectMode)
+    {
+        m_pConvList->setMode(ConvList::NormalMode);
+        return;
+    }
+
     saveDraftMsg();
     getParent().pop();
 }
@@ -433,4 +435,3 @@ void Conversation::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
             break;
     }
 }
-

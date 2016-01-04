@@ -34,7 +34,7 @@ ConvList::ConvList(Evas_Object *parent, MsgEngine &msgEngine, ThreadId threadId)
 
 ConvList::~ConvList()
 {
-
+    m_MsgEngine.getStorage().removeListener(*this);
 }
 
 void ConvList::setMode(ConvList::Mode mode)
@@ -51,9 +51,7 @@ void ConvList::setMode(ConvList::Mode mode)
         for(ListItem *it : items)
         {
             if(it->isCheckable())
-            {
                 it->setCheckedState(false, false);
-            }
         }
     }
     m_pList->updateRealizedItems();
@@ -66,6 +64,7 @@ ConvList::Mode ConvList::getMode() const
 
 void ConvList::create(Evas_Object *parent)
 {
+    m_MsgEngine.getStorage().addListener(*this);
     Evas_Object *list = createList(parent);
     Evas_Object *selectAll = createSelectAll(parent);
 
@@ -93,7 +92,6 @@ Evas_Object *ConvList::createList(Evas_Object *parent)
     return *m_pList;
 }
 
-
 void ConvList::fill()
 {
     m_pList->clear();
@@ -109,7 +107,6 @@ void ConvList::fill()
     }
 }
 
-
 void ConvList::onListItemSelected(ListItem &listItem, void *funcData)
 {
     ConvListItem &item = static_cast<ConvListItem&>(listItem);
@@ -119,5 +116,23 @@ void ConvList::onListItemSelected(ListItem &listItem, void *funcData)
 void ConvList::onListItemChecked(ListItem &listItem, void *funcData)
 {
     ConvListItem &item = static_cast<ConvListItem&>(listItem);
+}
+
+void ConvList::onMsgStorageUpdate(const MsgIdList &msgIdList)
+{
+    // FIXME: simple impl for demo
+    fill();
+}
+
+void ConvList::onMsgStorageInsert(const MsgIdList &msgIdList)
+{
+    // FIXME: simple impl for demo
+    fill();
+}
+
+void ConvList::onMsgStorageDelete(const MsgIdList &msgIdList)
+{
+    // FIXME: simple impl for demo
+    fill();
 }
 

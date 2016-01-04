@@ -53,6 +53,7 @@ namespace Msg
              * @param[in] mode enum Mode
              */
             void setMode(Mode mode);
+
             /**
              * @brief gets current Conversation list mode
              * @return Conversation list mode
@@ -68,6 +69,12 @@ namespace Msg
             // IListViewListener:
             virtual void onListItemSelected(ListItem &listItem, void *funcData);
             virtual void onListItemChecked(ListItem &listItem, void *funcData);
+
+            // IMsgStorageListener:
+            virtual void onMsgStorageUpdate(const MsgIdList &msgIdList);
+            virtual void onMsgStorageInsert(const MsgIdList &msgIdList);
+            virtual void onMsgStorageDelete(const MsgIdList &msgIdList);
+            virtual void onMsgStorageContact(const MsgIdList &msgIdList) {};
 
         private:
             Mode m_Mode;
