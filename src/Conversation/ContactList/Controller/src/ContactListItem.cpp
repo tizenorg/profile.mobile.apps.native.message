@@ -18,7 +18,7 @@
 
 #include "ContactListItem.h"
 #include "ThumbnailMaker.h"
-#include "ResourceUtils.h"
+#include "PathUtils.h"
 #include "ListView.h"
 #include "Logger.h"
 #include "TextDecorator.h"
@@ -94,7 +94,7 @@ std::string ContactListItem::getMainText() const
 
 Evas_Object *ContactListItem::getThumbnail() const
 {
-    std::string resPath = ResourceUtils::getResourcePath(THUMB_CONTACT_IMG_PATH);
+    std::string resPath = PathUtils::getResourcePath(THUMB_CONTACT_IMG_PATH);
     Evas_Object *img = ThumbnailMaker::make(*getOwner(), ThumbnailMaker::MsgType, resPath.c_str());
     return img;
 }

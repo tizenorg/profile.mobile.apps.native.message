@@ -34,7 +34,6 @@ namespace
 
 PageView::PageView(BodyView &parent)
     : BodyViewItem(PageType)
-    , m_Body(parent)
     , m_pBox(nullptr)
 {
     setEo(createMainLayout(parent));

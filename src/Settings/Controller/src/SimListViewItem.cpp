@@ -19,7 +19,7 @@
 #include "ThreadListView.h"
 #include "ThreadListItemType.h"
 #include "Logger.h"
-#include "ResourceUtils.h"
+#include "PathUtils.h"
 #include "ThumbnailMaker.h"
 #include "TextDecorator.h"
 

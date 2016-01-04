@@ -15,15 +15,15 @@
  *
  */
 
-#ifndef ResourceUtils_h_
-#define ResourceUtils_h_
+#ifndef PathUtils_h_
+#define PathUtils_h_
 
 #include <string>
 #include "Resource.h"
 
 namespace Msg
 {
-    class ResourceUtils
+    class PathUtils
     {
         public:
             static std::string getResourcePath(const std::string &filePath);
@@ -32,4 +32,4 @@ namespace Msg
     };
 }
 
-#endif /* ResourceUtils_h_ */
+#endif /* PathUtils_h_ */

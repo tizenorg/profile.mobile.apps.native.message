@@ -268,7 +268,7 @@ void NaviFrameItem::onAttached(ViewItem &item)
 void NaviFrameItem::NaviBar::initNaviBar()
 {
     setEo(elm_layout_add(m_Owner.getOwner()));
-    std::string edjPath = ResourceUtils::getResourcePath(MSG_TITLE_EDJ_PATH);
+    std::string edjPath = PathUtils::getResourcePath(MSG_TITLE_EDJ_PATH);
     elm_layout_file_set(getEo(), edjPath.c_str(), titleStyleName);
 }
 

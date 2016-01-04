@@ -17,7 +17,7 @@
 
 #include "MsgThreadSearchPanel.h"
 #include "CallbackAssist.h"
-#include "ResourceUtils.h"
+#include "PathUtils.h"
 
 #include <efl_extension.h>
 
@@ -60,7 +60,7 @@ Evas_Object *MsgThreadSearchPanel::createBackButton(Evas_Object *parent)
 
     Evas_Object *ic = elm_image_add(parent);
     evas_object_show(ic);
-    std::string resPath = ResourceUtils::getResourcePath(IMAGES_EDJ_PATH);
+    std::string resPath = PathUtils::getResourcePath(IMAGES_EDJ_PATH);
     elm_image_file_set(ic, resPath.c_str(), SOFT_SEARCH_BACK_IMG);
     elm_image_no_scale_set(ic, EINA_FALSE);
 

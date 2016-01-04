@@ -16,7 +16,7 @@
  */
 
 #include "MsgThreadLayout.h"
-#include "ResourceUtils.h"
+#include "PathUtils.h"
 #include "Logger.h"
 
 using namespace Msg;
@@ -36,7 +36,7 @@ void MsgThreadLayout::create(Evas_Object *parent)
 {
     m_pLayout = elm_layout_add(parent);
     evas_object_show(m_pLayout);
-    std::string path = ResourceUtils::getResourcePath(MSG_THREAD_EDJ_PATH);
+    std::string path = PathUtils::getResourcePath(MSG_THREAD_EDJ_PATH);
     elm_layout_file_set(m_pLayout, path.c_str(), "msg_thread");
     DefaultLayout::setContent(m_pLayout);
 }

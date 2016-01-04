@@ -19,7 +19,7 @@
 #define BaseView_h_
 
 #include <Evas.h>
-#include "ResourceUtils.h"
+#include "PathUtils.h"
 
 namespace Msg
 {

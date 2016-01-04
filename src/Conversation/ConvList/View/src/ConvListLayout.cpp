@@ -53,7 +53,7 @@ void ConvListLayout::setSelectAll(Evas_Object *layout)
 void ConvListLayout::create(Evas_Object *parent)
 {
     setEo(elm_layout_add(parent));
-    elm_layout_file_set(getEo(), ResourceUtils::getResourcePath(CONV_LIST_EDJ_PATH).c_str(), layoutStyle);
+    elm_layout_file_set(getEo(), PathUtils::getResourcePath(CONV_LIST_EDJ_PATH).c_str(), layoutStyle);
     expand();
     show();
 }

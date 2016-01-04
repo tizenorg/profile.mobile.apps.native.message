@@ -21,7 +21,7 @@
 #include "CallbackAssist.h"
 #include "Logger.h"
 #include "AppControlParser.h"
-#include "ResourceUtils.h"
+#include "PathUtils.h"
 #include "Config.h"
 
 #include <assert.h>
@@ -103,13 +103,13 @@ void MainApp::terminate()
 
 void MainApp::initThemes()
 {
-    std::string imagesPath = ResourceUtils::getResourcePath(IMAGES_EDJ_PATH);
+    std::string imagesPath = PathUtils::getResourcePath(IMAGES_EDJ_PATH);
     elm_theme_extension_add(nullptr, imagesPath.c_str());
 
-    std::string bubbleThemePath = ResourceUtils::getResourcePath(BUBBLE_THEME_EDJ_PATH);
+    std::string bubbleThemePath = PathUtils::getResourcePath(BUBBLE_THEME_EDJ_PATH);
     elm_theme_extension_add(nullptr, bubbleThemePath.c_str());
 
-    std::string buttonThemePath = ResourceUtils::getResourcePath(BUTTON_THEME_EDJ_PATH);
+    std::string buttonThemePath = PathUtils::getResourcePath(BUTTON_THEME_EDJ_PATH);
     elm_theme_extension_add(nullptr, buttonThemePath.c_str());
 }
 

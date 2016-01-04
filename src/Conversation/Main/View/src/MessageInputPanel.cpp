@@ -16,7 +16,7 @@
  */
 
 #include "MessageInputPanel.h"
-#include "ResourceUtils.h"
+#include "PathUtils.h"
 #include "CallbackAssist.h"
 #include "Logger.h"
 
@@ -47,7 +47,7 @@ void MessageInputPanel::create(Evas_Object *parent)
     setEo(m_pLayout);
     show();
 
-    std::string edjPath = ResourceUtils::getResourcePath(MSG_INPUT_PANEL_EDJ_PATH);
+    std::string edjPath = PathUtils::getResourcePath(MSG_INPUT_PANEL_EDJ_PATH);
     elm_layout_file_set(m_pLayout, edjPath.c_str(), "conversation/msg_input_panel");
 
     m_pSendButton = createButton(m_pLayout, CONV_SEND_IMG, "send_custom", SendButtonId);
@@ -112,7 +112,7 @@ Evas_Object *MessageInputPanel::createButton(Evas_Object *parent, const char *ic
     evas_object_show(button);
 
     Evas_Object *icon = elm_icon_add(button);
-    std::string resPath = ResourceUtils::getResourcePath(IMAGES_EDJ_PATH);
+    std::string resPath = PathUtils::getResourcePath(IMAGES_EDJ_PATH);
     evas_object_show(icon);
     elm_image_file_set(icon, resPath.c_str(), iconRes);
     evas_object_color_set(icon, BUTTON_COLOR);

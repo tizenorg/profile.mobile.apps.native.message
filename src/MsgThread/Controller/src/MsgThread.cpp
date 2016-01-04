@@ -21,7 +21,7 @@
 #include "Logger.h"
 #include "ThreadListView.h"
 #include "ThreadListItem.h"
-#include "ResourceUtils.h"
+#include "PathUtils.h"
 #include "MsgEngine.h"
 #include "App.h"
 #include "ThreadListItem.h"
