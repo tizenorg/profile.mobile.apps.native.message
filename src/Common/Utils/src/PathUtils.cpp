@@ -15,7 +15,7 @@
  *
  */
 
-#include "ResourceUtils.h"
+#include "PathUtils.h"
 #include "Logger.h"
 
 #include <stdlib.h>
@@ -28,7 +28,7 @@
 using namespace Msg;
 
 
-std::string ResourceUtils::getResourcePath(const std::string &filePath)
+std::string PathUtils::getResourcePath(const std::string &filePath)
 {
     std::string res;
     char *absolutePath = app_get_resource_path();
@@ -40,7 +40,7 @@ std::string ResourceUtils::getResourcePath(const std::string &filePath)
     return res;
 }
 
-std::string ResourceUtils::getDataPath(const std::string &filePath)
+std::string PathUtils::getDataPath(const std::string &filePath)
 {
     std::string res;
     char *absolutePath = app_get_data_path();
@@ -52,7 +52,7 @@ std::string ResourceUtils::getDataPath(const std::string &filePath)
     return res;
 }
 
-std::string ResourceUtils::getSharedTrustedPath(const std::string &filePath)
+std::string PathUtils::getSharedTrustedPath(const std::string &filePath)
 {
     std::string res;
 #ifdef _SAVE_IN_USER_SHARE_DIR_

@@ -19,7 +19,7 @@
 #include "ViewController.h"
 #include "ListView.h"
 #include "Logger.h"
-#include "ResourceUtils.h"
+#include "PathUtils.h"
 #include "MsgEngine.h"
 #include "App.h"
 #include "MsgThreadItem.h"
@@ -72,7 +72,7 @@ void ThreadListItem::updateThumbnail(const MsgThreadItem &threadItem)
         m_ThumbType = ThumbnailMaker::MsgType;
         if(countContact > 1)
         {
-            m_ThumbPath = ResourceUtils::getResourcePath(THUMB_GROUP_IMG_PATH);
+            m_ThumbPath = PathUtils::getResourcePath(THUMB_GROUP_IMG_PATH);
         }
         else if(countContact == 1)
         {
@@ -85,7 +85,7 @@ void ThreadListItem::updateThumbnail(const MsgThreadItem &threadItem)
             }
             else
             {
-                m_ThumbPath = ResourceUtils::getResourcePath(THUMB_CONTACT_IMG_PATH);
+                m_ThumbPath = PathUtils::getResourcePath(THUMB_CONTACT_IMG_PATH);
             }
         }
     }

@@ -16,7 +16,7 @@
  */
 
 #include "WorkingDir.h"
-#include "ResourceUtils.h"
+#include "PathUtils.h"
 #include "FileUtils.h"
 #include "Logger.h"
 
@@ -44,7 +44,7 @@ WorkingDir::~WorkingDir()
 void WorkingDir::createWorkingDir()
 {
     // Create common dir. if not exists:
-    std::string commonDir = ResourceUtils::getSharedTrustedPath(commonWorkingDirName);
+    std::string commonDir = PathUtils::getSharedTrustedPath(commonWorkingDirName);
     bool isCommonExists = FileUtils::isExists(commonDir);
     if(!isCommonExists)
     {

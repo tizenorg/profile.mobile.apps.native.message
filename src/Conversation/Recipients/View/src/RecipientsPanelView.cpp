@@ -17,7 +17,7 @@
 
 #include "RecipientsPanelView.h"
 #include "CallbackAssist.h"
-#include "ResourceUtils.h"
+#include "PathUtils.h"
 #include "Logger.h"
 #include "LangUtils.h"
 
@@ -139,7 +139,7 @@ void RecipientsPanelView::create(Evas_Object *parent)
 
     elm_box_pack_end(box, m_pLayout);
 
-    std::string path = ResourceUtils::getResourcePath(RECIPIENT_PANEL_EDJ_PATH);
+    std::string path = PathUtils::getResourcePath(RECIPIENT_PANEL_EDJ_PATH);
     elm_layout_file_set(m_pLayout, path.c_str(), "recipient_panel");
 
     Evas_Object *mbe = m_pMbe = mbeCreate(m_pLayout);
@@ -223,7 +223,7 @@ Evas_Object *RecipientsPanelView::createContactBtn(Evas_Object *parent)
     elm_object_style_set(m_pContactBtn, "contact_button");
 
     Evas_Object *icon = elm_image_add(parent);
-    std::string imgPath = ResourceUtils::getResourcePath(IMAGES_EDJ_PATH);
+    std::string imgPath = PathUtils::getResourcePath(IMAGES_EDJ_PATH);
     elm_image_file_set(icon, imgPath.c_str(), CONTACT_IMG);
 
     elm_object_part_content_set(m_pContactBtn, "button_center_part", icon);

@@ -16,10 +16,11 @@
  */
 
 #include "ThumbnailMaker.h"
+#include "PathUtils.h"
+#include "Logger.h"
+
 #include <Elementary.h>
 #include <stdlib.h>
-#include "ResourceUtils.h"
-#include "Logger.h"
 
 using namespace Msg;
 
@@ -36,7 +37,7 @@ Evas_Object *ThumbnailMaker::make(Evas_Object *parent, Type type, const std::str
     if (type == UserType)
     {
         ic = elm_layout_add(parent);
-        std::string edjePath = ResourceUtils::getResourcePath(THUMBNAIL_EDJ_PATH);
+        std::string edjePath = PathUtils::getResourcePath(THUMBNAIL_EDJ_PATH);
         elm_layout_file_set(ic, edjePath.c_str(), MSG_THUMB_STYLE_LIST);
 
         Evas_Object *img = elm_image_add(ic);

@@ -40,7 +40,7 @@ void PageViewItem::destroy()
 
 const std::string &PageViewItem::getEdjPath() const
 {
-    static std::string path = ResourceUtils::getResourcePath(MSG_BODY_EDJ_PATH);
+    static std::string path = PathUtils::getResourcePath(MSG_BODY_EDJ_PATH);
     return path;
 }
 

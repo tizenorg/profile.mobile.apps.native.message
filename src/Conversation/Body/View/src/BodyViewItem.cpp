@@ -33,7 +33,7 @@ BodyViewItem::~BodyViewItem()
 
 std::string BodyViewItem::getEdjPath() const
 {
-    return ResourceUtils::getResourcePath(MSG_BODY_EDJ_PATH);
+    return PathUtils::getResourcePath(MSG_BODY_EDJ_PATH);
 }
 
 BodyViewItem::Type BodyViewItem::getType() const

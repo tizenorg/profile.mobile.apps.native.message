@@ -17,13 +17,12 @@
 
 #include "Conversation.h"
 #include "Logger.h"
-#include "ResourceUtils.h"
+#include "PathUtils.h"
 #include "Scroller.h"
 #include "App.h"
 #include "Message.h"
 #include "Logger.h"
 #include "RecipientItem.h"
-#include "ResourceUtils.h"
 #include "LangUtils.h"
 
 #include <Elementary.h>
@@ -353,7 +352,7 @@ void Conversation::onButtonClicked(MessageInputPanel &obj, MessageInputPanel::Bu
     {
         case MessageInputPanel::AddButtonId:
             // TODO: Only for test, will be removed
-            m_pBody->addMedia(ResourceUtils::getResourcePath(TEST_IMG_PATH));
+            m_pBody->addMedia(PathUtils::getResourcePath(TEST_IMG_PATH));
             break;
         case MessageInputPanel::SendButtonId:
             sendMessage();

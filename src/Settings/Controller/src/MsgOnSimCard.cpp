@@ -19,7 +19,7 @@
 #include "Config.h"
 #include "MsgEngine.h"
 #include "Logger.h"
-#include "ResourceUtils.h"
+#include "PathUtils.h"
 #include "Logger.h"
 #include "App.h"
 #include "Popup.h"

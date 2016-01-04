@@ -17,7 +17,7 @@
 
 #include "Viewer.h"
 #include "Logger.h"
-#include "ResourceUtils.h"
+#include "PathUtils.h"
 
 #include <Elementary.h>
 #include <sstream>

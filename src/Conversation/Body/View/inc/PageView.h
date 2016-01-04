@@ -52,7 +52,6 @@ namespace Msg
             Evas_Object *createBox(Evas_Object *parent);
 
         private:
-            BodyView &m_Body;
             Evas_Object *m_pBox;
             PageItemMap m_PageItemMap;
     };
