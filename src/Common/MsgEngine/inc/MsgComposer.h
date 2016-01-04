@@ -30,7 +30,31 @@ namespace Msg
 
             virtual MessageSMSRef createSms() = 0;
             virtual MessageMmsRef createMms() = 0;
+
+            MessageRef createMessage(Message::Type type);
     };
+
+    inline MessageRef MsgComposer::createMessage(Message::Type type)
+    {
+        MessageRef msg;
+
+        switch(type)
+        {
+            case Message::MT_SMS:
+                msg = createSms();
+            break;
+
+            case Message::MT_MMS:
+                msg = createMms();
+            break;
+
+            case Message::MT_Unknown:
+            default:
+            break;
+        }
+
+        return msg;
+    }
 }
 
 #endif /* __MSG_COMPOSER_H__ */

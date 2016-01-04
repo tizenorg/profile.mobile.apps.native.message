@@ -38,12 +38,14 @@ namespace Msg
             };
 
         public:
-            PageViewItem(PageView &parent);
+            PageViewItem(PageView &parent, const std::string &resourcePath = "");
             virtual ~PageViewItem();
 
             virtual Type getType() const = 0;
             virtual bool isEmpty() const = 0;
 
+            void setResourcePath(const std::string &resourcePath);
+            const std::string &getResourcePath() const;
             const PageView &getParentPage() const;
             PageView &getParentPage();
             void destroy();
@@ -53,6 +55,7 @@ namespace Msg
 
         private:
             PageView &m_Parent;
+            std::string m_ResourcePath;
     };
 }
 

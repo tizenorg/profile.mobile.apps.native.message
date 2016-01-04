@@ -560,12 +560,12 @@ void BodyView::onKeyUp(MediaPageViewItem &item, Evas_Event_Key_Up &event)
 
 void BodyView::onDelete(MediaPageViewItem &item)
 {
-    onResourceRemoved(item.getResourcePath());
+    onMediaRemoved(item.getResourcePath());
     onContentChanged();
 }
 
 void BodyView::onDelete(BodyAttachmentView &item)
 {
-    onResourceRemoved(item.getResourcePath());
+    onMediaRemoved(item.getResourcePath());
     onContentChanged();
 }

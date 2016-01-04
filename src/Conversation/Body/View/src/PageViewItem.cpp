@@ -21,8 +21,9 @@
 
 using namespace Msg;
 
-PageViewItem::PageViewItem(PageView &parent)
+PageViewItem::PageViewItem(PageView &parent, const std::string &resourcePath)
     : m_Parent(parent)
+    , m_ResourcePath(resourcePath)
 {
 
 }
@@ -41,6 +42,16 @@ const std::string &PageViewItem::getEdjPath() const
 {
     static std::string path = ResourceUtils::getResourcePath(MSG_BODY_EDJ_PATH);
     return path;
+}
+
+const std::string &PageViewItem::getResourcePath() const
+{
+    return m_ResourcePath;
+}
+
+void PageViewItem::setResourcePath(const std::string &resourcePath)
+{
+    m_ResourcePath = resourcePath;
 }
 
 const PageView &PageViewItem::getParentPage() const

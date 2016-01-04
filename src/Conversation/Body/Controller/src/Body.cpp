@@ -31,6 +31,8 @@ using namespace Msg;
 
 namespace
 {
+    const int defaultPageDuration = 5; // sec
+
     inline TextPageViewItem *getTextItem(const PageView &page)
     {
         return page ? static_cast<TextPageViewItem*>(page.getItem(PageViewItem::TextType)) : nullptr;
@@ -73,8 +75,6 @@ bool Body::addMedia(const std::string &filePath)
 
     // TODO:
     // If path is web uri then set path as body text:
-    // Check file path:
-    // Use working dir:
 
     if(!FileUtils::isExists(filePath) || FileUtils::isDir(filePath))
     {
@@ -82,7 +82,11 @@ bool Body::addMedia(const std::string &filePath)
         return false;
     }
 
-    return BodyView::addMedia(filePath);
+    std::string newFilePath = m_WorkingDir.addFile(filePath);
+    if(newFilePath.empty())
+        return false;
+
+    return BodyView::addMedia(newFilePath);
 }
 
 bool Body::isMms() const
@@ -139,6 +143,7 @@ long long Body::getMmsSize() const
 
 void Body::read(Message &msg)
 {
+    MSG_LOG("");
     if(MessageSMS *sms = dynamic_cast<MessageSMS*>(&msg))
         read(*sms);
     else if(MessageMms *mms = dynamic_cast<MessageMms*>(&msg))
@@ -163,33 +168,98 @@ void Body::write(const MessageMms &msg)
     // TODO: impl
 }
 
+void Body::writeTextToFile(TextPageViewItem &item)
+{
+    if(item.getResourcePath().empty())
+        item.setResourcePath(m_WorkingDir.addTextFile(item.getPlainUtf8Text()));
+    else
+        m_WorkingDir.write(item.getResourcePath(), item.getPlainUtf8Text());
+}
+
 void Body::read(MessageSMS &msg)
 {
     TextPageViewItem *textItem = getTextItem(getDefaultPage());
     assert(textItem);
     if(textItem)
-    {
         msg.setText(textItem->getPlainUtf8Text());
-    }
 }
 
 void Body::read(MessageMms &msg)
 {
-    auto pages = getPages();
+    // Pages:
+    auto pages = BodyView::getPages();
     for(PageView *page : pages)
     {
-        TextPageViewItem *textItem = getTextItem(*page);
-        if(textItem)
-        {
-            std::string textFile = m_WorkingDir.addTextFile(textItem->getPlainUtf8Text());
-            MsgPage &msgPage = msg.addPage();
-            MsgMedia &media = msgPage.addMedia();
-            media.setType(MsgMedia::SmilText);
-            media.setFilePath(textFile);
-        }
+        MsgPage &msgPage = msg.addPage();
+        msgPage.setPageDuration(defaultPageDuration);
 
-        // TODO: add other SmilType and clear WorkingDir
+        readText(msgPage, *page);
+        readImage(msgPage, *page);
+        readSound(msgPage, *page);
     }
+
+    // Attachments:
+    readAttachments(msg);
+}
+
+void Body::readText(MsgPage &msgPage, const PageView &pageView)
+{
+    TextPageViewItem *textItem = static_cast<TextPageViewItem*>(pageView.getItem(PageViewItem::TextType));
+    if(textItem)
+    {
+        writeTextToFile(*textItem);
+        MsgMedia &media = msgPage.addMedia();
+        media.setType(MsgMedia::SmilText);
+        media.setFilePath(textItem->getResourcePath());
+    }
+    else
+    {
+        MSG_ASSERT(false, "TextPageViewItem is null");
+    }
+}
+
+void Body::readSound(MsgPage &msgPage, const PageView &pageView)
+{
+    SoundPageViewItem *soundItem = static_cast<SoundPageViewItem*>(pageView.getItem(PageViewItem::SoundType));
+    if(soundItem)
+    {
+        MsgMedia &media = msgPage.addMedia();
+        media.setType(MsgMedia::SmilAudio);
+        media.setFilePath(soundItem->getResourcePath());
+    }
+}
+
+void Body::readImage(MsgPage &msgPage, const PageView &pageView)
+{
+    ImagePageViewItem *imgItem = static_cast<ImagePageViewItem*>(pageView.getItem(PageViewItem::ImageType));
+    if(imgItem)
+    {
+        MsgMedia &media = msgPage.addMedia();
+        media.setType(MsgMedia::SmilImage);
+        media.setFilePath(imgItem->getResourcePath());
+    }
+}
+
+void Body::readAttachments(MessageMms &msg)
+{
+    auto attachments = getAttachments();
+    for(BodyAttachmentView *attachView : attachments)
+    {
+        std::string resPath= attachView->getResourcePath();
+        std::string mime = getMediaType(resPath).mime;
+        long long fileSize = FileUtils::getFileSize(resPath);
+
+        MsgAttachment &msgAttach = msg.addAttachment();
+        msgAttach.setFilePath(resPath);
+        msgAttach.setFileName(attachView->getFileName());
+        msgAttach.setFileSize((int)fileSize);
+        msgAttach.setMime(mime);
+    }
+}
+
+void Body::onMediaRemoved(const std::string &resourcePath)
+{
+    m_WorkingDir.removeFile(resourcePath);
 }
 
 void Body::onContentChanged()

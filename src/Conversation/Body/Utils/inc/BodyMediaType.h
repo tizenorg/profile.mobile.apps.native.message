@@ -35,7 +35,7 @@ namespace Msg
             , type(aType)
         {
         }
-        const char *mime;
+        std::string mime;
         PageViewItem::Type type;
     };
 
@@ -182,7 +182,7 @@ namespace Msg
         FileUtils::splitPath(filePath, base, name, ext);
         std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
         auto it = mediaTypeMap.find(ext);
-        return it != mediaTypeMap.end() ? it->second : MediaTypeData(nullptr, PageViewItem::UnknownType);
+        return it != mediaTypeMap.end() ? it->second : MediaTypeData("", PageViewItem::UnknownType);
     }
 }
 

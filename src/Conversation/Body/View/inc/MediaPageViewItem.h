@@ -34,7 +34,6 @@ namespace Msg
             virtual ~MediaPageViewItem();
 
             void setListener(IMediaPageViewItemListener *l);
-            const std::string &getResourcePath() const;
 
             virtual void highlight(bool value) = 0;
 
@@ -58,7 +57,6 @@ namespace Msg
         private:
             IMediaPageViewItemListener *m_pListener;
             Evas_Object *m_pButton;
-            const std::string m_ResourcePath;
     };
 
     class IMediaPageViewItemListener

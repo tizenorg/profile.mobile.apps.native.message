@@ -60,7 +60,7 @@ MessageMmsRef MsgComposerPrivate::createMms()
         msg_set_int_value(msgInfo, MSG_MESSAGE_TYPE_INT, MSG_TYPE_MMS);
         msg_struct_t mmsStruct = msg_create_struct(MSG_STRUCT_MMS);
 
-        setSmilHeader(mmsStruct, true); // TODO: check isTextTop
+        setSmilHeader(mmsStruct, false); // BodyView support only Image after Text layout order isTextTop = false
 
         MessageMmsPrivate *mms = new MessageMmsPrivate(true, msgInfo, mmsStruct);
         mmsRef.reset(mms);

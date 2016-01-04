@@ -220,13 +220,9 @@ void NaviFrameItem::NaviBar::showCancelButtonPart(bool value)
 void NaviFrameItem::NaviBar::showOkButtonPart(bool value)
 {
     if(value)
-    {
         emitSignal("done,show,btn", "*");
-    }
     else if(getContent(okButtonPart) == nullptr)
-    {
         emitSignal("right,clear", "*");
-    }
 }
 
 void NaviFrameItem::NaviBar::showCenterButtonPart(bool value)
@@ -238,30 +234,20 @@ void NaviFrameItem::NaviBar::showCenterButtonPart(bool value)
 void NaviFrameItem::NaviBar::showPrevButtonPart(bool value)
 {
     if(value)
-    {
         emitSignal("back,show,btn", "*");
-    }
     else if(getContent(prevButtonPart) == nullptr)
-    {
         emitSignal("left,clear", "*");
-    }
 
     if(getContent(downButtonPart) == nullptr)
-    {
         emitSignal("empty,right,show", "*");
-    }
 }
 
 void NaviFrameItem::NaviBar::showDownButtonPart(bool value)
 {
     if(value)
-    {
         emitSignal("down,show,btn", "*");
-    }
     else if(getContent(downButtonPart) == nullptr)
-    {
         emitSignal("right,clear", "*");
-    }
 }
 
 void NaviFrameItem::NaviBar::on_button_clicked(void *data, Evas_Object *obj, void *event_info)

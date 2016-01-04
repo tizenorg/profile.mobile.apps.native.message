@@ -36,6 +36,7 @@ namespace Msg
 
             std::string addFile(const std::string &path);
             std::string addTextFile(const std::string &text);
+            bool write(const std::string &path, const std::string &text);
             void removeFile(const std::string &path);
             void clear();
 

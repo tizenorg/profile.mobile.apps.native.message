@@ -118,6 +118,14 @@ std::string WorkingDir::addTextFile(const std::string &text)
     return path;
 }
 
+bool WorkingDir::write(const std::string &path, const std::string &text)
+{
+    std::ofstream file(path, std::ofstream::trunc | std::ofstream::binary | std::ofstream::out);
+    if(file.is_open())
+       file << text;
+    return file.is_open();
+}
+
 void WorkingDir::removeFile(const std::string &path)
 {
     FileUtils::remove(path);

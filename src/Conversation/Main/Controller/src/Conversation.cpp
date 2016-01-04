@@ -57,6 +57,16 @@ Conversation::Conversation(NaviFrameController &parent,ThreadId threadId)
 
 Conversation::~Conversation()
 {
+    // Call before delete all children:
+    MSG_LOG("");
+
+    getMsgEngine().getStorage().removeListener(*this);
+    if(m_pBody)
+        m_pBody->setListener(nullptr);
+    if(m_pRecipPanel)
+        m_pRecipPanel->setListener(nullptr);
+    if(m_pContactsList)
+        m_pContactsList->setListener(nullptr);
 }
 
 void Conversation::create(Mode mode)
@@ -241,12 +251,14 @@ void Conversation::saveDraftMsg()
 {
     if(m_pBody && !m_pBody->isEmpty())
     {
-        // TODO: impl. for mms draft
-        auto msg = getMsgEngine().getComposer().createSms();
+        MessageRef msg = getMsgEngine().getComposer().createMessage(m_IsMms ? Message::MT_MMS : Message::MT_SMS);
 
-        fillMessage(*msg);
-        MsgId msgId = getMsgEngine().getStorage().saveMessage(*msg);
-        MSG_LOG("Draft message id = ", msgId);
+        if(msg)
+        {
+            fillMessage(*msg);
+            MsgId msgId = getMsgEngine().getStorage().saveMessage(*msg);
+            MSG_LOG("Draft message id = ", msgId);
+        }
     }
 }
 
@@ -385,10 +397,8 @@ void Conversation::onAttached(ViewItem &item)
 
 void Conversation::onHwBackButtonClicked()
 {
-    MSG_LOG("");
-    getParent().pop();
-    getMsgEngine().getStorage().removeListener(*this);
     saveDraftMsg();
+    getParent().pop();
 }
 
 void Conversation::onHwMoreButtonClicked()

@@ -37,10 +37,11 @@ BodyAttachmentView::BodyAttachmentView(BodyView &parent, const std::string &reso
     , m_pLayaout(nullptr)
     , m_pListener(nullptr)
     , m_ResourePath(resourePath)
+    , m_FileName(FileUtils::getFileName(resourePath))
 {
     setEo(createLayout(parent));
     Evas_Object *button = createButton(getEo());
-    Evas_Object *label = createLabel(button, FileUtils::getFileName(resourePath));
+    Evas_Object *label = createLabel(button, m_FileName);
 
     elm_layout_content_set(button, buttonSwlContent, label);
     setContent(button, mediaMainSwlContent);
@@ -59,6 +60,11 @@ void BodyAttachmentView::setListener(IBodyAttachmentViewListener *listener)
 const std::string &BodyAttachmentView::getResourcePath() const
 {
    return m_ResourePath;
+}
+
+const std::string &BodyAttachmentView::getFileName() const
+{
+    return m_FileName;
 }
 
 Evas_Object *BodyAttachmentView::createLayout(Evas_Object *parent)

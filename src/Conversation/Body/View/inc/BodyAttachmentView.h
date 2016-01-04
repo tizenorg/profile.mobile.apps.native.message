@@ -34,6 +34,7 @@ namespace Msg
 
             void setListener(IBodyAttachmentViewListener *listener);
             const std::string &getResourcePath() const;
+            const std::string &getFileName() const;
 
         private:
             Evas_Object *createLayout(Evas_Object *parent);
@@ -44,6 +45,7 @@ namespace Msg
             Evas_Object *m_pLayaout;
             IBodyAttachmentViewListener *m_pListener;
             const std::string m_ResourePath;
+            const std::string m_FileName;
     };
 
     class IBodyAttachmentViewListener

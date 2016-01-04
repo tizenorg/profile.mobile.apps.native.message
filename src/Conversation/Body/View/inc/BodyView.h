@@ -59,6 +59,7 @@ namespace Msg
             PageView *getNextPage(PageView &page) const;
             PageView *getPrevPage(PageView &page) const;
             PageView *addPage();
+            BodyAttachmentCollection getAttachments() const;
 
         private:
             /*====Input signals====*/
@@ -91,13 +92,12 @@ namespace Msg
 
             /*====Output signals====*/
             virtual void onContentChanged() {};
-            virtual void onResourceRemoved(const std::string &resourcePath) {};
+            virtual void onMediaRemoved(const std::string &resourcePath) {};
             virtual void onClicked(BodyAttachmentView &item) {};
             virtual void onClicked(MediaPageViewItem &item) {};
 
         private:
             void setMaxPageLabel(const std::string &max);
-            BodyAttachmentCollection getAttachments() const;
             template<typename T>
             std::vector<T*> getItems() const;
             BodyViewItemCollection getAllItems() const;

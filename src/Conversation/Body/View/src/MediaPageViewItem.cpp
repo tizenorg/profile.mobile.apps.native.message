@@ -29,19 +29,13 @@ namespace
 }
 
 MediaPageViewItem::MediaPageViewItem(PageView &parent, const std::string &resourcePath)
-    : PageViewItem(parent)
+    : PageViewItem(parent, resourcePath)
     , m_pListener(nullptr)
     , m_pButton(nullptr)
-    , m_ResourcePath(resourcePath)
 {
     View::setEo(createMainLayout(parent.getItemParent()));
     Evas_Object *button = createButton(getEo());
     setContent(button, "swl.content");
-}
-
-const std::string &MediaPageViewItem::getResourcePath() const
-{
-    return m_ResourcePath;
 }
 
 MediaPageViewItem::~MediaPageViewItem()

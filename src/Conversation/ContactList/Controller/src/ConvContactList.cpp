@@ -105,7 +105,7 @@ void ConvContactList::search()
             }
             else
             {
-                MSG_LOG_ERROR("Invalid contact");
+                MSG_LOG("Skip invalid contact");
             }
         } while(list.next());
          list.release();
