@@ -93,6 +93,7 @@ cmake . \
     %if %TIZEN_2_4_BUILD == 1
     -DDATADIR=%{DATADIR} \
     -DSMACKDIR=%{SMACKDIR}   \
+    -DLOCALEDIR=%{LOCALEDIR}   \
     -DTIZEN_2_4=%{TIZEN_2_4_BUILD} \
     %endif
     -DPKGDIR=%{name}     \

@@ -116,8 +116,7 @@ void MainApp::initThemes()
 bool MainApp::onAppCreate()
 {
     TRACE;
-
-    // bindtextdomain(PROJECT_NAME, LOCALEDIR);  TODO
+    bindtextdomain(PROJECT_NAME, LOCALEDIR);
     elm_app_base_scale_set(1.8); // If the application is made based on HD(720x1280), set 2.4.
     elm_config_preferred_engine_set("opengl_x11");
 
