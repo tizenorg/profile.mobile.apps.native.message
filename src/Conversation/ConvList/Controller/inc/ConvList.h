@@ -55,10 +55,16 @@ namespace Msg
             void setMode(Mode mode);
 
             /**
-             * @brief gets current Conversation list mode
+             * @brief Gets current Conversation list mode
              * @return Conversation list mode
              */
             Mode getMode() const;
+
+            /**
+             * @brief Sets valid thread id
+             * @param[in] thread id
+             */
+            void setThreaId(ThreadId id);
 
         private:
             void create(Evas_Object *parent);

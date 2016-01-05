@@ -61,10 +61,10 @@ TEST_F( TestMessageSender, SendSms )
 
     ThreadId id = 0;
 
-    MsgTransport::ReturnType result = m_Engine.getTransport().sendMessage(sms, &id);
+    MsgTransport::SendResult result = m_Engine.getTransport().sendMessage(sms, &id);
 
     testing::Test::RecordProperty("result", result);
-    ASSERT_EQ(result, MsgTransport::ReturnSuccess);
+    ASSERT_EQ(result, MsgTransport::SendSuccess);
 }
 
 //____________________________________________________________________________//
@@ -72,10 +72,10 @@ TEST_F( TestMessageSender, SendSms )
 TEST_F( TestMessageSender, TestInvalidSmsHandle )
 {
     MessageSMSRef sms;
-    MsgTransport::ReturnType result = m_Engine.getTransport().sendMessage(sms);
+    MsgTransport::SendResult result = m_Engine.getTransport().sendMessage(sms);
 
     testing::Test::RecordProperty("result", result);
-    ASSERT_EQ(result, MsgTransport::ReturnNullPointer);
+    ASSERT_EQ(result, MsgTransport::SendNullPointer);
 }
 
 //____________________________________________________________________________//

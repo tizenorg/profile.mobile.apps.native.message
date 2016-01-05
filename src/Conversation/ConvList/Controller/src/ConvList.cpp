@@ -107,6 +107,12 @@ void ConvList::fill()
     }
 }
 
+void ConvList::setThreaId(ThreadId id)
+{
+    m_ThreadId = id;
+    fill();
+}
+
 void ConvList::onListItemSelected(ListItem &listItem, void *funcData)
 {
     ConvListItem &item = static_cast<ConvListItem&>(listItem);

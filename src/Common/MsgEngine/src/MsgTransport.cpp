@@ -29,17 +29,17 @@ MsgTransport::~MsgTransport()
 
 }
 
-MsgTransport::ReturnType MsgTransport::sendMessage(MessageRef &msg, ThreadId *threadId)
+MsgTransport::SendResult MsgTransport::sendMessage(MessageRef &msg, ThreadId *threadId)
 {
-    return msg ? sendMessage(*msg, threadId) : MsgTransport::ReturnNullPointer;
+    return msg ? sendMessage(*msg, threadId) : MsgTransport::SendNullPointer;
 }
 
-MsgTransport::ReturnType MsgTransport::sendMessage(MessageMmsRef &msg, ThreadId *threadId)
+MsgTransport::SendResult MsgTransport::sendMessage(MessageMmsRef &msg, ThreadId *threadId)
 {
-    return msg ? sendMessage(*msg, threadId) : MsgTransport::ReturnNullPointer;
+    return msg ? sendMessage(*msg, threadId) : MsgTransport::SendNullPointer;
 }
 
-MsgTransport::ReturnType MsgTransport::sendMessage(MessageSMSRef &msg, ThreadId *threadId)
+MsgTransport::SendResult MsgTransport::sendMessage(MessageSMSRef &msg, ThreadId *threadId)
 {
-    return msg ? sendMessage(*msg, threadId) : MsgTransport::ReturnNullPointer;
+    return msg ? sendMessage(*msg, threadId) : MsgTransport::SendNullPointer;
 }

@@ -94,6 +94,7 @@ namespace Msg
             void destroyContactList();
             void createMsgInputPanel(Evas_Object *parent);
             void updateMsgInputPanel();
+            void updateNavibar();
             void createMainLayout(Evas_Object *parent);
             void createConvList(Evas_Object *parent);
 

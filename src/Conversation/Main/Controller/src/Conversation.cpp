@@ -72,15 +72,15 @@ void Conversation::create(Mode mode)
     createConvList(*m_pLayout);
     createMsgInputPanel(*m_pLayout);
     createBody(*m_pMsgInputPanel);
+
     m_pMsgInputPanel->setEntry(*m_pBody);
     updateMsgInputPanel();
-
     m_pLayout->setMsgInputPanel(*m_pMsgInputPanel);
-    m_pLayout->setBubble(*m_pConvList);
 
     setMode(mode);
 
     getMsgEngine().getStorage().addListener(*this);
+    setHwButtonListener(*m_pLayout, this);
 }
 
 void Conversation::setMode(Mode mode)
@@ -121,16 +121,22 @@ void Conversation::setNewMessageMode()
     createRecipPanel(*m_pLayout);
     createContactList(*m_pLayout);
 
+    m_pLayout->showPredictSearch(true);
     m_pLayout->setRecipientPanel(*m_pRecipPanel);
     m_pLayout->setPredictSearch(*m_pContactsList);
+    updateNavibar();
 }
 
 void Conversation::setConversationMode()
 {
+    MSG_LOG("");
     m_Mode = ConversationMode;
 
     m_pLayout->showPredictSearch(false);
     m_pLayout->showSelectAll(false);
+    m_pLayout->setBubble(*m_pConvList);
+    m_pConvList->show();
+    updateNavibar();
 
     destroyRecipPanel();
     destroyContactList();
@@ -146,7 +152,7 @@ void Conversation::createMainLayout(Evas_Object *parent)
 void Conversation::createConvList(Evas_Object *parent)
 {
     m_pConvList = new ConvList(*m_pLayout, getMsgEngine(), m_ThreadId);
-    m_pConvList->show();
+    m_pConvList->hide();
 }
 
 void Conversation::createRecipPanel(Evas_Object *parent)
@@ -233,18 +239,24 @@ void Conversation::sendMessage()
     auto msg = getMsgEngine().getComposer().createSms();
     fillMessage(*msg);
     MSG_LOG("m_ThreadId = ", m_ThreadId);
-    MsgTransport::ReturnType sendRes = getMsgEngine().getTransport().sendMessage(*msg, &m_ThreadId);
-
-    // TODO: handle send result
+    MsgTransport::SendResult sendRes = getMsgEngine().getTransport().sendMessage(*msg, &m_ThreadId);
 
     MSG_LOG("Send result = ", sendRes);
     MSG_LOG("m_ThreadId = ", m_ThreadId);
 
-    if(m_Mode == NewMessageMode)
-        setMode(ConversationMode);
+    if(sendRes == MsgTransport::SendSuccess && m_ThreadId.isValid())
+    {
+        if(m_Mode == NewMessageMode)
+            setMode(ConversationMode);
 
-    m_IsMms = false;
-    m_pBody->clear();
+        m_pConvList->setThreaId(m_ThreadId);
+        m_IsMms = false;
+        m_pBody->clear();
+    }
+    else
+    {
+        // TODO: notify user
+    }
 }
 
 void Conversation::saveDraftMsg()
@@ -344,6 +356,23 @@ void Conversation::updateMsgInputPanel()
     m_pMsgInputPanel->disabledButton(MessageInputPanel::SendButtonId, disabledButton);
 }
 
+void Conversation::updateNavibar()
+{
+    getNaviBar().setColor(NaviBar::NaviWhiteColorId);
+    std::string conversationName = getMsgEngine().getStorage().getThread(m_ThreadId)->getName();
+    if(conversationName.empty())
+    {
+        getNaviBar().setTitle(msgt("IDS_MSGF_POP_NEW_MESSAGE"));
+    }
+    else
+    {
+        //TODO: enable down button when needed
+        getNaviBar().showButton(NaviCenterButtonId, true);
+        getNaviBar().setButtonText(NaviCenterButtonId, conversationName);
+    }
+    getNaviBar().showButton(NaviPrevButtonId, true);
+}
+
 void Conversation::onButtonClicked(MessageInputPanel &obj, MessageInputPanel::ButtonId id)
 {
     MSG_LOG("MessageInputPanel: button clicked: id = ", id);
@@ -373,20 +402,7 @@ void Conversation::onContactSelected(ContactListItem &item)
 void Conversation::onAttached(ViewItem &item)
 {
     FrameController::onAttached(item);
-    getNaviBar().setColor(NaviBar::NaviWhiteColorId);
-    std::string conversationName = getMsgEngine().getStorage().getThread(m_ThreadId)->getName();
-    if(conversationName.empty())
-    {
-        getNaviBar().setTitle(msgt("IDS_MSGF_POP_NEW_MESSAGE"));
-    }
-    else
-    {
-        //TODO: enable down button when needed
-        getNaviBar().showButton(NaviCenterButtonId, true);
-        getNaviBar().setButtonText(NaviCenterButtonId, conversationName);
-    }
-    getNaviBar().showButton(NaviPrevButtonId, true);
-    setHwButtonListener(*m_pLayout, this);
+    updateNavibar();
     setContent(*m_pLayout);
 }
 

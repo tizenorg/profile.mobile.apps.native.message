@@ -32,7 +32,7 @@ namespace Msg
             MsgTransportPrivate(msg_handle_t serviceHandle);
             virtual ~MsgTransportPrivate();
 
-            virtual ReturnType sendMessage(Message &msg, ThreadId *threadId);
+            virtual SendResult sendMessage(Message &msg, ThreadId *threadId);
 
         private:
             msg_handle_t m_ServiceHandle;
