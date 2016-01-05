@@ -32,7 +32,7 @@ MsgTransportPrivate::~MsgTransportPrivate()
 
 }
 
-MsgTransport::ReturnType MsgTransportPrivate::sendMessage(Message &msg, ThreadId *threadId)
+MsgTransport::SendResult MsgTransportPrivate::sendMessage(Message &msg, ThreadId *threadId)
 {
     msg_struct_t req = msg_create_struct(MSG_STRUCT_REQUEST_INFO);
     int err = MSG_SUCCESS;
@@ -59,40 +59,37 @@ MsgTransport::ReturnType MsgTransportPrivate::sendMessage(Message &msg, ThreadId
     else
     {
         msg_release_struct(&req);
-        return ReturnFail;
+        return SendFail;
     }
 
     if(threadId)
-    {
         msg_get_thread_id_by_address2(m_ServiceHandle, privMsg.getAddressList(), (msg_thread_id_t*)threadId);
-    }
-
     msg_release_struct(&req);
 
     if(err == MSG_SUCCESS)
     {
         MSG_LOG("sending success");
-        return ReturnSuccess;
+        return SendSuccess;
     }
     else if (err == MSG_ERR_INVALID_PARAMETER)
     {
-        MSG_LOG_ERROR("sending failed error code [%d] : INVALID_PARAM ", err);
-        return ReturnNullPointer;
+        MSG_LOG_ERROR("sending failed error code INVALID_PARAM: ", err);
+        return SendNullPointer;
     }
     else if (err == MSG_ERR_NO_SIM)
     {
-        MSG_LOG_ERROR("sending failed error code [%d] : NO SIM", err);
-        return ReturnNoSIM;
+        MSG_LOG_ERROR("sending failed error code NO SIM: ", err);
+        return SendNoSIM;
     }
     else if (err == MSG_ERR_PLUGIN_STORAGE)
     {
-        MSG_LOG_ERROR("sending failed error code [%d] : MSG_ERR_PLUGIN_STORAGE", err);
-        return ReturnMemoryFull;
+        MSG_LOG_ERROR("sending failed error code MSG_ERR_PLUGIN_STORAGE: ", err);
+        return SendMemoryFull;
     }
     else
     {
-        MSG_LOG_ERROR("[DEBUG] sending failed error code [%d]", err);
-        return ReturnFail;
+        MSG_LOG_ERROR("[DEBUG] sending failed error code: ", err);
+        return SendFail;
     }
 }
 

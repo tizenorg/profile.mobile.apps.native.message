@@ -27,23 +27,23 @@ namespace Msg
     class MsgTransport
     {
         public:
-            enum ReturnType
+            enum SendResult
             {
-                ReturnSuccess           = 0,
-                ReturnFail              = -1,
-                ReturnNullPointer       = -2,
-                ReturnNoSIM             = -3,
-                ReturnMemoryFull        = -4,
+                SendSuccess           = 0,
+                SendFail              = -1,
+                SendNullPointer       = -2,
+                SendNoSIM             = -3,
+                SendMemoryFull        = -4,
             };
 
         public:
             MsgTransport();
             virtual ~MsgTransport();
 
-            virtual ReturnType sendMessage(Message &msg, ThreadId *threadId = nullptr) = 0;
-            ReturnType sendMessage(MessageRef &msg, ThreadId *threadId = nullptr);
-            ReturnType sendMessage(MessageMmsRef &msg, ThreadId *threadId = nullptr);
-            ReturnType sendMessage(MessageSMSRef &msg, ThreadId *threadId = nullptr);
+            virtual SendResult sendMessage(Message &msg, ThreadId *threadId = nullptr) = 0;
+            SendResult sendMessage(MessageRef &msg, ThreadId *threadId = nullptr);
+            SendResult sendMessage(MessageMmsRef &msg, ThreadId *threadId = nullptr);
+            SendResult sendMessage(MessageSMSRef &msg, ThreadId *threadId = nullptr);
     };
 }
 

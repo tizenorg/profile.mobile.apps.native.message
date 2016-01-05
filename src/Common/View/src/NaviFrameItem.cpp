@@ -403,12 +403,6 @@ void NaviFrameItem::NaviBar::hideSearch()
 
 void NaviFrameItem::NaviBar::expandDownButton(bool value)
 {
-    if (!value)
-    {
-        elm_object_signal_emit(m_ButtonList[NaviDownButtonId].button, "button,expand", "*");
-    }
-    else
-    {
-        elm_object_signal_emit(m_ButtonList[NaviDownButtonId].button, "button,collapse", "*");
-    }
+    const char *sig = value ? "button,collapse" : "button,expand";
+    elm_object_signal_emit(m_ButtonList[NaviDownButtonId].button, sig, "*");
 }
