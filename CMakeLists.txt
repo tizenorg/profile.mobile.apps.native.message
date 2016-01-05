@@ -79,6 +79,7 @@ pkg_check_modules(pkgs REQUIRED
 )
 
 ADD_DEFINITIONS("-DAPP_DIR=\"${PKGDIR}\"")
+ADD_DEFINITIONS("-DLOCALEDIR=\"${LOCALEDIR}\"")
 
 FOREACH(flag ${pkgs_CFLAGS})
     SET(EXTRA_CXXFLAGS "${EXTRA_CXXFLAGS} ${flag}")
