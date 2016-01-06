@@ -22,6 +22,8 @@
 #include <msg.h>
 #include <assert.h>
 
+#define KEY_MSG_APP_MMS_RECIPIENT_COUNT_LIMIT 20
+
 namespace
 {
     const char *ringtoneDefault = "default";
@@ -92,6 +94,11 @@ int MsgSettingsPrivate::getSubjectMaxLen() const
 int MsgSettingsPrivate::getDisplayNameMaxLen() const
 {
     return MAX_DISPLAY_NAME_LEN;
+}
+
+int MsgSettingsPrivate::getMaxRecipientCount() const
+{
+    return KEY_MSG_APP_MMS_RECIPIENT_COUNT_LIMIT;
 }
 
 void MsgSettingsPrivate::setAlerts(bool value)

@@ -24,6 +24,8 @@
 #include "RecipientItem.h"
 #include "Message.h"
 #include "App.h"
+#include "AppControlUtils.h"
+#include <map>
 
 namespace Msg
 {
@@ -54,12 +56,17 @@ namespace Msg
             virtual void onEntryFocusChanged();
             virtual void onContactButtonClicked();
 
+            void onAppControlRes(app_control_h request, app_control_h reply, app_control_result_e result);
+            void onPopupBtnClicked(Popup &popup, int buttonId);
+            void onPopupDel(Evas_Object *popup, void *eventInfo);
+
             void addRecipients();
             void execCmd(const AppControlComposeRef &cmd);
 
         private:
             App &m_App;
             IRecipientsPanelListener *m_pListener;
+            std::map<std::string, RecipientItem*> m_Recipients;
     };
 
     class IRecipientsPanelListener

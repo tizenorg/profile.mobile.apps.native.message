@@ -16,13 +16,14 @@
  */
 
 #include "AppControlUtils.h"
+#include <string>
 
 using namespace Msg;
 
 std::string AppControlUtils::getExtraData(app_control_h handle, const std::string &key)
 {
     std::string res;
-    char *val = NULL;
+    char *val = nullptr;
     if(APP_CONTROL_ERROR_NONE == app_control_get_extra_data(handle, key.c_str(), &val))
     {
         if(val)
@@ -37,7 +38,7 @@ std::string AppControlUtils::getExtraData(app_control_h handle, const std::strin
 void AppControlUtils::getExtraDataArray(app_control_h handle, const std::string &key, std::list<std::string> &outArray)
 {
     int arrayLength = 0;
-    char **pArrayVal = NULL;
+    char **pArrayVal = nullptr;
     if(APP_CONTROL_ERROR_NONE == app_control_get_extra_data_array(handle, key.c_str(), &pArrayVal, &arrayLength))
     {
         if(arrayLength != 0)
@@ -45,5 +46,29 @@ void AppControlUtils::getExtraDataArray(app_control_h handle, const std::string 
             std::copy(pArrayVal, pArrayVal + arrayLength, std::back_inserter(outArray));
             free(pArrayVal);
         }
+    }
+}
+
+void AppControlUtils::getExtraDataIntArray(app_control_h handle, const std::string &key, std::list<int> &outArray)
+{
+    int arrayLength = 0;
+    char **pArrayVal = nullptr;
+    if(APP_CONTROL_ERROR_NONE == app_control_get_extra_data_array(handle, key.c_str(), &pArrayVal, &arrayLength)
+            && pArrayVal)
+    {
+        std::string::size_type sz;
+        for(int i=0; i<arrayLength; ++i)
+        {
+            if(pArrayVal[i])
+            {
+                std::string s(pArrayVal[i]);
+                int parsed = std::stoi(s, &sz);
+                if(sz == s.length())
+                {
+                    outArray.push_back(parsed);
+                }
+            }
+        }
+        free(pArrayVal);
     }
 }
