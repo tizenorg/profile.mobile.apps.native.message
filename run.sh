@@ -251,7 +251,7 @@ build()
 
     if [ $LOCALBUILD = "true" ];
     then
-      BUILDKEYS="$BUILDKEYS --noinit --incremental"
+      BUILDKEYS="$BUILDKEYS --noinit"
     fi
 
     if [ $TESTOPTION = "true" ];

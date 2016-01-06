@@ -49,22 +49,58 @@ AppControlCompose::AppControlCompose(const std::string &opMsg, app_control_h han
 {
     if(handle)
     {
-        char *uri = NULL;
-        if(APP_CONTROL_ERROR_NONE == app_control_get_uri(handle, &uri))
+        switch(m_ComposeType)
         {
-            parseUri(uri);
-            free(uri);
+            case OpCompose:
+                createComposeOp(handle);
+                break;
+            case OpShare:
+                createShareOp(handle);
+                break;
+            case OpMultiShare:
+                createMultiShareOp(handle);
+                break;
+            case OpShareText:
+                createShareTextOp(handle);
+                break;
         }
-
-        AppControlUtils::getExtraDataArray(handle, APP_CONTROL_DATA_TO, m_RecipientList);
-        m_MessageText = AppControlUtils::getExtraData(handle, APP_CONTROL_DATA_TEXT);
-        m_Subject = AppControlUtils::getExtraData(handle, APP_CONTROL_DATA_SUBJECT);
-        AppControlUtils::getExtraDataArray(handle, APP_CONTROL_DATA_PATH, m_FileList);
     }
 }
 
 AppControlCompose::~AppControlCompose()
 {
+}
+
+void AppControlCompose::createComposeOp(app_control_h handle)
+{
+    parseUriCompose(handle);
+    if (m_RecipientList.empty())
+    {
+        AppControlUtils::getExtraDataArray(handle, APP_CONTROL_DATA_TO, m_RecipientList);
+    }
+    m_MessageText = AppControlUtils::getExtraData(handle, APP_CONTROL_DATA_TEXT);
+    m_Subject = AppControlUtils::getExtraData(handle, APP_CONTROL_DATA_SUBJECT);
+    AppControlUtils::getExtraDataArray(handle, APP_CONTROL_DATA_PATH, m_FileList);
+}
+void AppControlCompose::createShareOp(app_control_h handle)
+{
+    parseUriShare(handle);
+    if (m_FileList.empty())
+    {
+        m_FileList.push_back(AppControlUtils::getExtraData(handle, APP_CONTROL_DATA_PATH));
+    }
+}
+void AppControlCompose::createMultiShareOp(app_control_h handle)
+{
+    AppControlUtils::getExtraDataArray(handle, APP_CONTROL_DATA_PATH, m_FileList);
+    parseUriShare(handle);
+}
+void AppControlCompose::createShareTextOp(app_control_h handle)
+{
+    parseUriShare(handle);
+    m_MessageText = AppControlUtils::getExtraData(handle, APP_CONTROL_DATA_TEXT);
+    m_Subject = AppControlUtils::getExtraData(handle, APP_CONTROL_DATA_SUBJECT);
+    AppControlUtils::getExtraDataArray(handle, APP_CONTROL_DATA_PATH, m_FileList);
 }
 
 AppControlCompose::OpComposeType AppControlCompose::getComposeType() const
@@ -94,32 +130,72 @@ const AppControlCompose::FileList &AppControlCompose::getFileList() const
     return m_FileList;
 }
 
-
-bool AppControlCompose::parseUri(const char *uri)
+bool AppControlCompose::parseUriCompose(app_control_h handle)
 {
     TRACE;
     bool res = false;
-    if(uri)
+    char *uri = NULL;
+
+    if (APP_CONTROL_ERROR_NONE == app_control_get_uri(handle, &uri))
     {
-        MSG_LOG("uri = ", uri);
-        std::string uriToParse(uri);
-        std::istringstream is(uriToParse);
-
-        std::string cur;
-        std::getline(is, cur, ':');
-        MSG_LOG("cur = ", cur.c_str());
-
-        if(cur == "sms" || cur == "mmsto")
+        if (uri)
         {
-            m_isMms = (cur == "mmsto");
-            for( ;std::getline(is, cur, ','); )
-            {
-                m_RecipientList.push_back(cur);
-            }
-            res = true;
-        }
+            MSG_LOG("uri = ", uri);
+            std::string uriToParse(uri);
+            std::istringstream is(uriToParse);
 
+            std::string cur;
+            std::getline(is, cur, ':');
+            MSG_LOG("cur = ", cur.c_str());
+
+            if (cur == "sms" || cur == "mmsto")
+            {
+                m_isMms = (cur == "mmsto");
+                for (; std::getline(is, cur, ',');)
+                {
+                    m_RecipientList.push_back(cur);
+                }
+                res = true;
+            }
+        }
+        free(uri);
     }
+
+    return res;
+}
+
+bool AppControlCompose::parseUriShare(app_control_h handle)
+{
+    TRACE;
+    bool res = false;
+    char *uri = NULL;
+
+    if (APP_CONTROL_ERROR_NONE == app_control_get_uri(handle, &uri))
+    {
+        if (uri)
+        {
+            MSG_LOG("uri = ", uri);
+            std::string uriToParse(uri);
+            std::istringstream is(uriToParse);
+
+            std::string cur;
+            std::getline(is, cur, ':');
+            MSG_LOG("cur = ", cur.c_str());
+
+            if (cur == "sms" || cur == "mmsto" || cur == "file")
+            {
+                m_isMms = (cur == "mmsto" || cur == "file");
+                if (cur == "file" && m_FileList.empty())
+                {
+                    std::string prefix("file://");
+                    m_FileList.push_back(uriToParse.erase(0, prefix.length()));
+                }
+                res = true;
+            }
+        }
+        free(uri);
+    }
+
     return res;
 }
 
