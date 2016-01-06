@@ -18,6 +18,8 @@
 #include "RecipientsPanel.h"
 #include "MsgEngine.h"
 #include "MsgUtils.h"
+#include "ContactManager.h"
+#include "CallbackAssist.h"
 
 using namespace Msg;
 
@@ -31,13 +33,14 @@ RecipientsPanel::RecipientsPanel(Evas_Object *parent, App &app)
 RecipientsPanel::RecipientsPanel(Evas_Object *parent, App &app, const AppControlComposeRef &cmd)
     : RecipientsPanel(parent, app)
 {
+    m_Picker.setListener(this);
     if(cmd)
         execCmd(cmd);
 }
 
 RecipientsPanel::~RecipientsPanel()
 {
-
+    m_Picker.setListener(nullptr);
 }
 
 void RecipientsPanel::read(Message &msg)
@@ -166,7 +169,16 @@ void RecipientsPanel::onItemDeleted(RecipientViewItem &item)
 
 void RecipientsPanel::onContactButtonClicked()
 {
-    MSG_LOG("");
+    const int maxRecipientCount = m_App.getMsgEngine().getSettings().getMaxRecipientCount();
+    int currentRecipientsCount = getMbeItemsCount();
+    if(currentRecipientsCount < maxRecipientCount)
+    {
+        m_Picker.launch(maxRecipientCount - currentRecipientsCount);
+    }
+    else
+    {
+        showTooManyRecipientsPopup();
+    }
 }
 
 void RecipientsPanel::onItemSelected(RecipientViewItem &item)
@@ -184,3 +196,80 @@ void RecipientsPanel::onItemClicked(RecipientViewItem &item)
     MSG_LOG("");
 }
 
+bool RecipientsPanel::recipientExists(const std::string& address) const
+{
+    RecipientViewItemList recipientList = getItems();
+    for(auto pViewItem : recipientList)
+    {
+        RecipientItem *pItem = dynamic_cast<RecipientItem*>(pViewItem);
+        if(pItem && pItem->getAddress() == address)
+            return true;
+    }
+
+    return false;
+}
+
+void RecipientsPanel::onContactsPicked(const std::list<int> &numberIdList)
+{
+    unsigned int appended = 0;
+    std::string addr;
+
+    for(auto phoneNumId : numberIdList)
+    {
+        ContactPersonNumber num = m_App.getContactManager().getContactPersonNumber(phoneNumId);
+        addr = num.getNumber();
+        if(!recipientExists(addr))
+        {
+            appendItem(addr, num.getDispName(), MsgAddress::Phone);
+            ++appended;
+        }
+
+        num.release(true);
+    }
+
+    if(numberIdList.size() > appended)
+    {
+        showDuplicatedRecipientPopup();
+    }
+    else
+    {
+        setEntryFocus(true);
+    }
+}
+
+void RecipientsPanel::onPopupBtnClicked(Popup &popup, int buttonId)
+{
+    setEntryFocus(true);
+    popup.destroy();
+}
+
+void RecipientsPanel::onPopupDel(Evas_Object *popup, void *eventInfo)
+{
+    setEntryFocus(true);
+}
+
+void RecipientsPanel::showDuplicatedRecipientPopup()
+{
+    auto &popupMngr = m_App.getPopupManager();
+    Popup &popup = popupMngr.getPopup();
+    popup.addEventCb(EVAS_CALLBACK_DEL, EVAS_EVENT_CALLBACK(RecipientsPanel, onPopupDel), this);
+
+    popup.addButton(msgt("IDS_MSG_BUTTON_OK_ABB"), Popup::OkButtonId,
+            POPUP_BUTTON_CB(RecipientsPanel, onPopupBtnClicked), this);
+
+    popup.setContent(msgt("IDS_MSGC_BODY_DUPLICATED_RECIPIENT"));
+    popup.show();
+}
+
+void RecipientsPanel::showTooManyRecipientsPopup()
+{
+    auto &popupMngr = m_App.getPopupManager();
+    Popup &popup = popupMngr.getPopup();
+    popup.addEventCb(EVAS_CALLBACK_DEL, EVAS_EVENT_CALLBACK(RecipientsPanel, onPopupDel), this);
+    popup.addButton(msgt("IDS_MSG_BUTTON_OK_ABB"), Popup::OkButtonId,
+            POPUP_BUTTON_CB(RecipientsPanel, onPopupBtnClicked), this);
+
+    int maxRecipientCount = m_App.getMsgEngine().getSettings().getMaxRecipientCount();
+    popup.setContent(msgArgs("IDS_MSGC_BODY_MAXIMUM_NUMBER_OF_RECIPIENTS_HPD_REACHED", maxRecipientCount));
+    popup.show();
+}
