@@ -139,29 +139,69 @@
         return resultList;
     }
 
-    ContactPersonNumber ContactManager::getContactPersonNumber(const std::string &number) const
+    ContactPersonNumber ContactManager::getContactPerson(int phoneNumId) const
+    {
+        contacts_filter_h filter = nullptr;
+        contacts_filter_create(_contacts_contact_number._uri, &filter);
+        contacts_filter_add_int(filter, _contacts_person_number.number_id, CONTACTS_MATCH_EQUAL, phoneNumId);
+        return getContactPerson(filter);
+    }
+
+    ContactPersonNumber ContactManager::getContactPerson(const std::string &number) const
+    {
+        contacts_filter_h filter = nullptr;
+        contacts_filter_create(_contacts_contact_number._uri, &filter);
+        contacts_filter_add_str(filter, _contacts_person_number.number_filter, CONTACTS_MATCH_EXACTLY, number.c_str());
+        return getContactPerson(filter);
+    }
+
+    void ContactManager::contactChangedCb(const char *view_uri, void *user_data)
+    {
+        ContactManager *self = static_cast<ContactManager *>(user_data);
+        for(auto listener : self->m_Listeners)
+        {
+            listener->onContactChanged();
+        }
+    }
+
+    void ContactManager::addListener(IContactDbChangeListener &listener)
+    {
+        auto found = std::find(m_Listeners.begin(), m_Listeners.end(), &listener);
+        if(found == m_Listeners.end())
+        {
+            m_Listeners.push_back(&listener);
+        }
+    }
+
+    void ContactManager::removeListener(IContactDbChangeListener &listener)
+    {
+        auto found = std::find(m_Listeners.begin(), m_Listeners.end(), &listener);
+        if(found != m_Listeners.end())
+        {
+            m_Listeners.erase(found);
+        }
+    }
+
+    ContactPersonNumber ContactManager::getContactPerson(contacts_filter_h filter) const
     {
         contacts_query_h query = nullptr;
-        contacts_filter_h filter = nullptr;
         contacts_list_h list = nullptr;
-        int ctRrr = CONTACTS_ERROR_NONE;
         contacts_record_h crValue = nullptr;
         contacts_record_h cResValue = nullptr;
+
+        contacts_query_create(_contacts_person_number._uri, &query);
+        contacts_query_set_filter(query, filter);
 
         unsigned int numberProjection[] =
         {
             _contacts_person_number.person_id,
+            _contacts_person_number.number,
             _contacts_person_number.display_name,
             _contacts_person_number.image_thumbnail_path
         };
 
-        contacts_query_create(_contacts_person_number._uri, &query);
-        contacts_filter_create(_contacts_contact_number._uri, &filter);
-        contacts_filter_add_str(filter, _contacts_person_number.number_filter, CONTACTS_MATCH_EXACTLY, number.c_str());
-        contacts_query_set_filter(query, filter);
-
-        ctRrr = contacts_query_set_projection(query, numberProjection, sizeof(numberProjection)/sizeof(unsigned int));
-        if (ctRrr == CONTACTS_ERROR_NONE) {
+        int ctRrr = contacts_query_set_projection(query, numberProjection, sizeof(numberProjection)/sizeof(unsigned int));
+        if(ctRrr == CONTACTS_ERROR_NONE) {
             ctRrr = contacts_db_get_records_with_query(query, 0, 0, &list);
         }
 
@@ -187,36 +227,9 @@
             }
             ctRrr = contacts_list_next(list);
         }
+
         contacts_list_destroy(list, false);
-
-        return ContactPersonNumber (cResValue);
-    }
-
-    void ContactManager::contactChangedCb(const char *view_uri, void *user_data)
-    {
-        ContactManager *self = static_cast<ContactManager *>(user_data);
-        for (auto listener : self->m_Listeners)
-        {
-            listener->onContactChanged();
-        }
-    }
-
-    void ContactManager::addListener(IContactDbChangeListener &listener)
-    {
-        auto found = std::find(m_Listeners.begin(), m_Listeners.end(), &listener);
-        if (found == m_Listeners.end())
-        {
-            m_Listeners.push_back(&listener);
-        }
-    }
-
-    void ContactManager::removeListener(IContactDbChangeListener &listener)
-    {
-        auto found = std::find(m_Listeners.begin(), m_Listeners.end(), &listener);
-        if (found != m_Listeners.end())
-        {
-            m_Listeners.erase(found);
-        }
+        return ContactPersonNumber(cResValue);
     }
 }
 

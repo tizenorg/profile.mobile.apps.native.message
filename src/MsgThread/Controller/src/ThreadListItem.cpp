@@ -77,7 +77,7 @@ void ThreadListItem::updateThumbnail(const MsgThreadItem &threadItem)
         else if(countContact == 1)
         {
             const MsgAddress &addr = addressList->at(0);
-            const char *thumbPath = m_App.getContactManager().getContactPersonNumber(addr.getAddress()).getThumbnailPath();
+            const char *thumbPath = m_App.getContactManager().getContactPerson(addr.getAddress()).getThumbnailPath();
             if(thumbPath)
             {
                 m_ThumbPath.assign(thumbPath);
