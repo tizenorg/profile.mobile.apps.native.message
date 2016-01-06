@@ -31,7 +31,7 @@
 
 using namespace Msg;
 
-Conversation::Conversation(NaviFrameController &parent)
+Conversation::Conversation(NaviFrameController &parent, bool dummy)
     : FrameController(parent)
     , m_Mode(InitMode)
     , m_pLayout(nullptr)
@@ -41,12 +41,18 @@ Conversation::Conversation(NaviFrameController &parent)
     , m_pContactsList(nullptr)
     , m_ThreadId()
     , m_IsMms(false)
+    , m_pConvList(nullptr)
+{
+}
+
+Conversation::Conversation(NaviFrameController &parent)
+    : Conversation(parent, false)
 {
     create(NewMessageMode);
 }
 
 Conversation::Conversation(NaviFrameController &parent,ThreadId threadId)
-    : Conversation(parent)
+    : Conversation(parent, false)
 {
     m_ThreadId = threadId;
     create(ConversationMode);
@@ -408,6 +414,7 @@ void Conversation::onAttached(ViewItem &item)
 
 void Conversation::onHwBackButtonClicked()
 {
+    MSG_LOG("");
     if(m_pConvList && m_pConvList->getMode() == ConvList::SelectMode)
     {
         m_pConvList->setMode(ConvList::NormalMode);
@@ -420,6 +427,7 @@ void Conversation::onHwBackButtonClicked()
 
 void Conversation::onHwMoreButtonClicked()
 {
+    MSG_LOG("");
     //TODO: make more menu popup.
     m_pConvList->setMode(m_pConvList->getMode() == ConvList::NormalMode ? ConvList::SelectMode : ConvList::NormalMode);
 }

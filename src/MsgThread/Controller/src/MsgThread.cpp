@@ -55,6 +55,7 @@ MsgThread::MsgThread(NaviFrameController &parent)
     m_pLayout->show();
 
     m_pFloatingBtn = new FloatingButton(*m_pLayout);
+    m_pFloatingBtn->show();
     m_pFloatingBtn->setListener(this);
     m_pLayout->setFloatingButton(*m_pFloatingBtn);
 
@@ -226,18 +227,16 @@ void MsgThread::selectHandler(ThreadListItem &item)
 
 void MsgThread::onHwBackButtonClicked()
 {
+    MSG_LOG("");
     if(m_Mode == SearchMode || m_Mode == DeleteMode)
-    {
         setMode(NormalMode);
-    }
     else
-    {
         getParent().pop();
-    }
 }
 
 void MsgThread::onHwMoreButtonClicked()
 {
+    MSG_LOG("");
     if(m_Mode == NormalMode)
         showMainCtxPopup();
 }
@@ -245,23 +244,16 @@ void MsgThread::onHwMoreButtonClicked()
 void MsgThread::onListItemSelected(ListItem &listItem, void *funcData)
 {
     listItem.setSelected(false);
-
     if(ThreadListItem *it = dynamic_cast<ThreadListItem*>(&listItem))
-    {
         selectHandler(*it);
-    }
 }
 
 void MsgThread::onListItemChecked(ListItem &listItem, void *funcData)
 {
     if(ThreadListItem *it = dynamic_cast<ThreadListItem*>(&listItem))
-    {
         checkHandler(*it);
-    }
     else if(SelectAllListItem *it = dynamic_cast<SelectAllListItem*>(&listItem))
-    {
         checkHandler(*it);
-    }
 }
 
 void MsgThread::onPopupButtonClicked(Popup &popup, int buttonId)
@@ -307,9 +299,7 @@ void MsgThread::deleteSelectedItems()
     for(ThreadListItem *it : collection)
     {
         if(it->getCheckedState())
-        {
             getMsgEngine().getStorage().deleteThread(it->getThreadId());
-        }
     }
 }
 
@@ -317,8 +307,6 @@ void MsgThread::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
 {
     MSG_LOG("NaviButton id:", buttonId);
     if(buttonId == NaviOkButtonId)
-    {
         deleteSelectedItems();
-    }
     setMode(NormalMode);
 }

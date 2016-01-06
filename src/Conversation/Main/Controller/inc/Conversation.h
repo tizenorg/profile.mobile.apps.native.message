@@ -83,6 +83,8 @@ namespace Msg
             virtual void onContactSelected(ContactListItem &item);
 
         private:
+            // Empty initializer constructor:
+            Conversation(NaviFrameController &parent, bool dummy);
             void create(Mode mode);
             void setMode(Mode mode);
             void setNewMessageMode();

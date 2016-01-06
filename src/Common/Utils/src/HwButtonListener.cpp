@@ -36,6 +36,7 @@ void IHwButtonListener::setHwButtonListener(Evas_Object * obj, IHwButtonListener
 {
     if(listener)
     {
+        setHwButtonListener(obj, nullptr);
         eext_object_event_callback_add(obj, EEXT_CALLBACK_MORE, more_event_cb, listener);
         eext_object_event_callback_add(obj, EEXT_CALLBACK_BACK, back_event_cb, listener);
     }
