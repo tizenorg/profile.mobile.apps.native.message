@@ -86,7 +86,6 @@ Evas_Object *ThreadListViewItem::getListItemContent(ListItem &item, const char *
 {
     Evas_Object *content = nullptr;
 
-    MSG_LOG_INFO("part = ", part);
     if(!strcmp(part, thumbnailPart))
     {
         content = getThumbnail();
