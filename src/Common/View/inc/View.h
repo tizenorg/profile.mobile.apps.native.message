@@ -69,6 +69,8 @@ namespace Msg
             inline void setText(const TText &text, const char *part = nullptr);
             inline static void setText(Evas_Object *obj, const TText &text, const char *part = nullptr);
 
+            static Evas_Object *addLayout(Evas_Object *parent, const std::string &edjePath, const std::string &group);
+
         protected:
             virtual ~View();
             virtual void onBeforeDelete(View &view) {};

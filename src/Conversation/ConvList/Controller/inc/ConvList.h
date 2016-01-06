@@ -19,9 +19,9 @@
 #define ConvList_h_
 
 #include "ConvListLayout.h"
-#include "ConvListSelectAllView.h"
 #include "ListView.h"
 #include "MsgEngine.h"
+#include "ConvSelectAll.h"
 
 namespace Msg
 {
@@ -71,6 +71,8 @@ namespace Msg
             Evas_Object *createSelectAll(Evas_Object *parent);
             Evas_Object *createList(Evas_Object *parent);
             void fill();
+            void selectListItems(bool state);
+            bool isAllListItemSelected() const;
 
             // IListViewListener:
             virtual void onListItemSelected(ListItem &listItem, void *funcData);
@@ -82,11 +84,14 @@ namespace Msg
             virtual void onMsgStorageDelete(const MsgIdList &msgIdList);
             virtual void onMsgStorageContact(const MsgIdList &msgIdList) {};
 
+            // SelectAll callback:
+            void onSelectAllChanged(Evas_Object *obj, void *eventInfo);
+
         private:
             Mode m_Mode;
             MsgEngine &m_MsgEngine;
             ThreadId m_ThreadId;
-            ConvListSelectAllView *m_pSelectAll;
+            ConvSelectAll *m_pSelectAll;
             ListView *m_pList;
     };
 }
