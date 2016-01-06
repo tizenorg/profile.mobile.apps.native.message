@@ -24,13 +24,16 @@
 #include "RecipientItem.h"
 #include "Message.h"
 #include "App.h"
+#include "AppControlUtils.h"
+#include "ContactPicker.h"
 
 namespace Msg
 {
     class IRecipientsPanelListener;
 
     class RecipientsPanel
-        : public RecipientsPanelView
+        : public RecipientsPanelView,
+          public IContactPickerListener
     {
         public:
             RecipientsPanel(Evas_Object *parent, App &app);
@@ -54,12 +57,23 @@ namespace Msg
             virtual void onEntryFocusChanged();
             virtual void onContactButtonClicked();
 
+            void onAppControlRes(app_control_h request, app_control_h reply, app_control_result_e result);
+            void onPopupBtnClicked(Popup &popup, int buttonId);
+            void onPopupDel(Evas_Object *popup, void *eventInfo);
+
             void addRecipients();
             void execCmd(const AppControlComposeRef &cmd);
+            void showDuplicatedRecipientPopup();
+            void showTooManyRecipientsPopup();
+            bool recipientExists(const std::string& address) const;
+
+            // IContactPickerListener
+            virtual void onContactsPicked(const std::list<int> &numberIdList);
 
         private:
             App &m_App;
             IRecipientsPanelListener *m_pListener;
+            ContactPicker m_Picker;
     };
 
     class IRecipientsPanelListener

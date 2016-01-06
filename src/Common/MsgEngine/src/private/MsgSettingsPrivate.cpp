@@ -94,6 +94,11 @@ int MsgSettingsPrivate::getDisplayNameMaxLen() const
     return MAX_DISPLAY_NAME_LEN;
 }
 
+int MsgSettingsPrivate::getMaxRecipientCount() const
+{
+    return MAX_TO_ADDRESS_CNT;
+}
+
 void MsgSettingsPrivate::setAlerts(bool value)
 {
     msg_set_bool_value(m_GeneralOpt, MSG_GENERAL_MSG_NOTIFICATION_BOOL, value);

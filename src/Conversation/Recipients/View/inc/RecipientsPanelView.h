@@ -47,6 +47,11 @@ namespace Msg
             void clearEntry();
             void setRecipientRect(Evas_Object *rect);
 
+            /**
+             * Gets a count of mbe items
+             */
+            unsigned int getMbeItemsCount() const;
+
         private:
             // Signals:
             virtual void onItemAdded(RecipientViewItem &item) {};

@@ -282,6 +282,18 @@ RecipientViewItem *RecipientsPanelView::getItem(void *data)
     return it;
 }
 
+unsigned int RecipientsPanelView::getMbeItemsCount() const
+{
+    unsigned int res = 0;
+    const Eina_List* items = elm_multibuttonentry_items_get(m_pMbe);
+    if(items)
+    {
+        res = eina_list_count(items);
+    }
+
+    return res;
+}
+
 void RecipientsPanelView::onItemSelected(Evas_Object *obj, void *item)
 {
     RecipientViewItem* it = getItem(item);
