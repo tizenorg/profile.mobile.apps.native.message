@@ -1,0 +1,150 @@
+#define BACKGROUND_COLOR 250 250 250 255
+#define LEFT_PADDING 32
+#define RIGHT_PADDING 45
+#define CHECKBOX_SIZE 50
+#define BUBBLE_NAVI_TITLE_SELECT_ALL_COLOR 61 185 204 255
+
+collections {
+
+	base_scale: 2.6;
+	plugins {
+		plugin {
+			name: "touch_sound";
+			source: "feedback";
+			param: "FEEDBACK_TYPE_SOUND FEEDBACK_PATTERN_TAP";
+		}
+	}
+	group {
+		name: "elm/layout/select_all_layout";
+		parts {
+			part {
+				name: "rect";
+				type: RECT;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					min: 0 120;
+					color: BACKGROUND_COLOR;
+				}
+			}
+			part {
+				name: "elm.sel_layout.left.pad";
+				type: SPACER;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; }
+					rel2 { relative: 0.0 1.0; }
+					align: 0.0 0.0;
+					min: LEFT_PADDING 0;
+					fixed: 1 1;
+				}
+			}
+			part {
+				name: "elm.select_all_text.bg";
+				type: RECT;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					rel1 { to: "elm.sel_layout.left.pad"; relative: 1.0 0.0; }
+					rel2 { to: "elm.select_icon.pad"; relative: 0.0 1.0; }
+					fixed: 1 1;
+					color: 0 0 0 0;
+				}
+			}
+			part {
+				name: "elm.select_all_text";
+				type: TEXT;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					align: 0.0 0.5;
+					color: BUBBLE_NAVI_TITLE_SELECT_ALL_COLOR;
+					text {
+						align: 0.0 0.5;
+						min: 1 1;
+						size: 40;
+						text_class: "title_bar";
+						ellipsis: -1;
+					}
+					rel1 { to: "elm.select_all_text.bg"; relative: 0.0 0.0; }
+					rel2 { to: "elm.select_all_text.bg"; relative: 1.0 1.0; }
+				}
+			}
+			part {
+				name: "over";
+				type: RECT;
+				scale: 1;
+				repeat_events: 1;
+				description {
+					state: "default" 0.0;
+					align: 0.0 0.5;
+					rel1 { to: "elm.select_all_text.bg"; relative: 0.0 0.0; }
+					rel2 { to: "elm.select_all_text.bg"; relative: 1.0 1.0; }
+					fixed : 1 1;
+					color : 0 0 0 0;
+				}
+			}
+			part {
+				name: "elm.select_icon.pad";
+				type: SPACER;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					rel1 { to_x: "elm.swallow.select_icon"; relative: 0.0 0.0; }
+					rel2 { to_x: "elm.swallow.select_icon"; relative: 0.0 1.0; }
+					align: 1.0 0.0;
+					min: 15 0;
+					fixed: 1 1;
+				}
+			}
+			part {
+				name: "elm.swallow.select_icon";
+				type: SWALLOW;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					rel1 { to: "elm.sel_layout.right.pad"; relative: 0.0 0.0; }
+					rel2 { to: "elm.sel_layout.right.pad"; relative: 0.0 1.0; }
+					fixed: 1 1;
+					align: 1.0 0.5;
+					min: CHECKBOX_SIZE CHECKBOX_SIZE;
+					max: CHECKBOX_SIZE CHECKBOX_SIZE;
+				}
+			}
+			part {
+				name: "elm.sel_layout.right.pad";
+				type: SPACER;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 1.0 0.0; }
+					rel2 { relative: 1.0 1.0; }
+					align: 1.0 0.0;
+					min: RIGHT_PADDING 0;
+					fixed: 1 1;
+				}
+			}
+		}
+		programs {
+			program {
+				name: "select_all_text_bg_clicked";
+				source: "elm.select_all_text.bg";
+				signal: "mouse,clicked,1";
+				action: SIGNAL_EMIT "sel_all_layout,clicked" "";
+			}
+			program {
+				name: "select_all_text_clicked";
+				source: "elm.select_all_text";
+				signal: "mouse,clicked,1";
+				action: SIGNAL_EMIT "sel_all_layout,clicked" "";
+			}
+			program {
+				name: "over_clicked";
+				source: "over";
+				signal: "mouse,down,1";
+				action: RUN_PLUGIN "touch_sound";
+			}
+		}
+	}
+}
