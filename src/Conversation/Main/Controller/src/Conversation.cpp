@@ -249,7 +249,7 @@ void Conversation::sendMessage()
         if(m_Mode == NewMessageMode)
             setMode(ConversationMode);
 
-        m_pConvList->setThreaId(m_ThreadId);
+        m_pConvList->setThreadId(m_ThreadId);
         m_IsMms = false;
         m_pBody->clear();
     }

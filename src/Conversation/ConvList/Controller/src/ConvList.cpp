@@ -18,6 +18,7 @@
 #include "ConvList.h"
 #include "ConvListItem.h"
 #include "Logger.h"
+#include "CallbackAssist.h"
 
 using namespace Msg;
 
@@ -47,12 +48,8 @@ void ConvList::setMode(ConvList::Mode mode)
     m_pList->setCheckMode(isSelectMode);
     if(isSelectMode)
     {
-        auto items = m_pList->getItems();
-        for(ListItem *it : items)
-        {
-            if(it->isCheckable())
-                it->setCheckedState(false, false);
-        }
+        selectListItems(false);
+        m_pSelectAll->setCheckState(false);
     }
     m_pList->updateRealizedItems();
 }
@@ -76,7 +73,8 @@ void ConvList::create(Evas_Object *parent)
 
 Evas_Object *ConvList::createSelectAll(Evas_Object *parent)
 {
-    m_pSelectAll = new ConvListSelectAllView(parent);
+    m_pSelectAll = new ConvSelectAll(parent);
+    m_pSelectAll->addCheckCallback(SMART_CALLBACK(ConvList, onSelectAllChanged), this);
     m_pSelectAll->show();
     return *m_pSelectAll;
 }
@@ -113,15 +111,43 @@ void ConvList::setThreadId(ThreadId id)
     fill();
 }
 
+bool ConvList::isAllListItemSelected() const
+{
+    // Simple but not fast impl:
+    auto items = m_pList->getItems<ConvListItem>();
+    for(ConvListItem *item : items)
+    {
+        if(!item->getCheckedState())
+            return false;
+    }
+    return true;
+}
+
+void ConvList::selectListItems(bool state)
+{
+    auto items = m_pList->getItems<ConvListItem>();
+    for(ConvListItem *item : items)
+    {
+        item->setCheckedState(state, false);
+    }
+    m_pList->updateRealizedItems();
+}
+
 void ConvList::onListItemSelected(ListItem &listItem, void *funcData)
 {
     ConvListItem &item = static_cast<ConvListItem&>(listItem);
     item.setSelected(false);
 }
 
+void ConvList::onSelectAllChanged(Evas_Object *obj, void *eventInfo)
+{
+    selectListItems(m_pSelectAll->getCheckState());
+}
+
 void ConvList::onListItemChecked(ListItem &listItem, void *funcData)
 {
-    ConvListItem &item = static_cast<ConvListItem&>(listItem);
+    bool allSelected = isAllListItemSelected();
+    m_pSelectAll->setCheckState(allSelected);
 }
 
 void ConvList::onMsgStorageUpdate(const MsgIdList &msgIdList)

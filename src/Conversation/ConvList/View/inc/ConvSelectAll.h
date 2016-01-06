@@ -15,22 +15,34 @@
  *
  */
 
-#ifndef ConvListSelectAllView_h_
-#define ConvListSelectAllView_h_
+#ifndef ConvSelectAll_h_
+#define ConvSelectAll_h_
 
 #include "View.h"
+#include "LangUtils.h"
 
 namespace Msg
 {
-    class ConvListSelectAllView
+    class ConvSelectAll
         : public View
     {
         public:
-            ConvListSelectAllView(Evas_Object *parent);
-            virtual ~ConvListSelectAllView();
+            ConvSelectAll(Evas_Object *parent);
+            virtual ~ConvSelectAll();
+
+            void setText(const std::string &text);
+            void setText(const TText &text);
+            void addCheckCallback(Evas_Smart_Cb cb, void *userData);
+            bool getCheckState() const;
+            void setCheckState(bool check);
+
+        private:
+            Evas_Object *createCheck(Evas_Object *parent);
+            static void onLayoutClicked(void *data, Evas_Object *obj, const char *emission, const char *source);
+
+        private:
+            Evas_Object *m_pCheck;
     };
 }
 
-
-
-#endif /* ConvListSelectAllView_h_ */
+#endif // ConvSelectAll_h_

@@ -17,6 +17,7 @@
 
 #include "View.h"
 #include "Logger.h"
+#include "PathUtils.h"
 
 #include <cstddef>
 #include <cassert>
@@ -121,4 +122,12 @@ void View::expand(Evas_Object *obj)
 {
     evas_object_size_hint_weight_set(obj, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
     evas_object_size_hint_align_set(obj, EVAS_HINT_FILL, EVAS_HINT_FILL);
+}
+
+Evas_Object *View::addLayout(Evas_Object *parent, const std::string &edjePath, const std::string &group)
+{
+    Evas_Object *layout = elm_layout_add(parent);
+    std::string edjAbsPath = PathUtils::getResourcePath(edjePath);
+    elm_layout_file_set(layout, edjAbsPath.c_str(), group.c_str());
+    return layout;
 }
