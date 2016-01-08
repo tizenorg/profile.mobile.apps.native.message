@@ -32,7 +32,7 @@
 
 using namespace Msg;
 
-Conversation::Conversation(NaviFrameController &parent, bool dummy)
+Conversation::Conversation(NaviFrameController &parent, const AppControlComposeRef &cmd, bool dummy)
     : FrameController(parent)
     , m_Mode(InitMode)
     , m_pLayout(nullptr)
@@ -43,23 +43,21 @@ Conversation::Conversation(NaviFrameController &parent, bool dummy)
     , m_ThreadId()
     , m_IsMms(false)
     , m_pConvList(nullptr)
-    , m_ComposeCmd()
+    , m_ComposeCmd(cmd)
 {
 }
 
 Conversation::Conversation(NaviFrameController &parent, const AppControlComposeRef &cmd)
-    : Conversation(parent, false)
+    : Conversation(parent, cmd, false)
 {
     if(cmd)
-    {
-        m_ComposeCmd = cmd;
         m_ThreadId = getMsgEngine().getStorage().getThreadId(m_ComposeCmd->getRecipientList());
-    }
+
     create();
 }
 
 Conversation::Conversation(NaviFrameController &parent,ThreadId threadId)
-    : Conversation(parent, false)
+    : Conversation(parent, nullptr, false)
 {
     m_ThreadId = threadId;
     create();
@@ -82,7 +80,6 @@ Conversation::~Conversation()
 void Conversation::create()
 {
     createMainLayout(getParent());
-    createConvList(*m_pLayout);
     createMsgInputPanel(*m_pLayout);
     createBody(*m_pMsgInputPanel);
 
@@ -137,13 +134,26 @@ void Conversation::setNewMessageMode()
     m_pLayout->showPredictSearch(true);
     m_pLayout->setRecipientPanel(*m_pRecipPanel);
     m_pLayout->setPredictSearch(*m_pContactsList);
+    destroyConvList();
     updateNavibar();
+    if(m_ThreadId.isValid())
+    {
+        MsgAddressListRef addrList = getMsgEngine().getStorage().getAddressList(m_ThreadId);
+        int addrListLen = addrList->getLength();
+        for(int i = 0; i < addrListLen; i++)
+        {
+            m_pRecipPanel->appendItem(addrList->at(i).getAddress(), addrList->at(i).getAddress(), addrList->at(i).getAddressType());
+        }
+        m_pRecipPanel->showMbe(true);
+    }
 }
 
 void Conversation::setConversationMode()
 {
     MSG_LOG("");
     m_Mode = ConversationMode;
+
+    createConvList(*m_pLayout);
 
     m_pLayout->showPredictSearch(false);
     m_pLayout->showSelectAll(false);
@@ -164,8 +174,20 @@ void Conversation::createMainLayout(Evas_Object *parent)
 
 void Conversation::createConvList(Evas_Object *parent)
 {
-    m_pConvList = new ConvList(*m_pLayout, getMsgEngine(), m_ThreadId);
-    m_pConvList->hide();
+    if(!m_pConvList)
+    {
+        m_pConvList = new ConvList(*m_pLayout, getMsgEngine(), m_ThreadId);
+        m_pConvList->show();
+    }
+}
+
+void Conversation::destroyConvList()
+{
+    if(m_pConvList)
+    {
+        m_pConvList->destroy();
+        m_pConvList = nullptr;
+    }
 }
 
 void Conversation::createRecipPanel(Evas_Object *parent)
@@ -235,7 +257,7 @@ void Conversation::fillMessage(Message &msg)
 
 void Conversation::fillMsgAddress(Message &msg)
 {
-    if(m_ThreadId.isValid())
+    if(m_ThreadId.isValid() && m_Mode != NewMessageMode)
     {
         MsgAddressListRef addressList = getMsgEngine().getStorage().getAddressList(m_ThreadId);
         msg.addAddresses(*addressList);
@@ -362,6 +384,16 @@ void Conversation::showSendResultPopup(MsgTransport::SendResult result)
     popup.show();
 }
 
+void Conversation::showMainCtxPopup()
+{
+    auto &popupMngr = getApp().getPopupManager();
+
+    popupMngr.getCtxPopup().appendItem(msg("IDS_MSG_OPT_DELETE"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(Conversation, onDeleteItemPressed), this);
+    popupMngr.getCtxPopup().appendItem(msg("IDS_MSG_OPT_ADD_RECIPIENTS_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(Conversation, onAddRecipientsItemPressed), this);
+    popupMngr.getCtxPopup().align(getApp().getWindow());
+    popupMngr.getCtxPopup().show();
+}
+
 void Conversation::onKeyDown(RecipientsPanel &panel, Evas_Event_Key_Down &ev)
 {
     if(ev.keyname)
@@ -415,19 +447,31 @@ void Conversation::updateMsgInputPanel()
 
 void Conversation::updateNavibar()
 {
+    getNaviBar().clearBar();
     getNaviBar().setColor(NaviBar::NaviWhiteColorId);
-    std::string conversationName = getMsgEngine().getStorage().getThread(m_ThreadId)->getName();
-    if(conversationName.empty())
+
+    if(m_Mode == NewMessageMode)
     {
         getNaviBar().setTitle(msgt("IDS_MSGF_POP_NEW_MESSAGE"));
+        getNaviBar().showButton(NaviPrevButtonId, true);
     }
     else
     {
-        //TODO: enable down button when needed
-        getNaviBar().showButton(NaviCenterButtonId, true);
-        getNaviBar().setButtonText(NaviCenterButtonId, conversationName);
+        if(m_pConvList->getMode() == ConvList::NormalMode)
+        {
+            std::string conversationName = getMsgEngine().getStorage().getThread(m_ThreadId)->getName();
+            //TODO: enable down button when needed
+            getNaviBar().showButton(NaviCenterButtonId, true);
+            getNaviBar().setButtonText(NaviCenterButtonId, conversationName);
+            getNaviBar().showButton(NaviPrevButtonId, true);
+        }
+        else
+        {
+            getNaviBar().setTitle(msgt("IDS_MSG_OPT_DELETE"));
+            getNaviBar().showButton(NaviCancelButtonId, true);
+            getNaviBar().showButton(NaviOkButtonId, true);
+        }
     }
-    getNaviBar().showButton(NaviPrevButtonId, true);
 }
 
 void Conversation::onButtonClicked(MessageInputPanel &obj, MessageInputPanel::ButtonId id)
@@ -468,6 +512,7 @@ void Conversation::onHwBackButtonClicked()
     if(m_pConvList && m_pConvList->getMode() == ConvList::SelectMode)
     {
         m_pConvList->setMode(ConvList::NormalMode);
+        updateNavibar();
         return;
     }
 
@@ -477,9 +522,8 @@ void Conversation::onHwBackButtonClicked()
 
 void Conversation::onHwMoreButtonClicked()
 {
-    MSG_LOG("");
-    //TODO: make more menu popup.
-    m_pConvList->setMode(m_pConvList->getMode() == ConvList::NormalMode ? ConvList::SelectMode : ConvList::NormalMode);
+    if(m_Mode == ConversationMode && m_pConvList->getMode() == ConvList::NormalMode)
+        showMainCtxPopup();
 }
 
 void Conversation::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
@@ -498,6 +542,7 @@ void Conversation::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
             break;
 
         case NaviCancelButtonId:
+            onHwBackButtonClicked();
             break;
 
         case NaviOkButtonId:
@@ -520,3 +565,17 @@ void Conversation::onMsgSendErrorButtonClicked(Popup &popup, int buttonId)
     popup.destroy();
 }
 
+void Conversation::onDeleteItemPressed(ContextPopupItem &item)
+{
+    item.getParent().destroy();
+
+    m_pConvList->setMode(ConvList::SelectMode);
+    setConversationMode();
+}
+
+void Conversation::onAddRecipientsItemPressed(ContextPopupItem &item)
+{
+    item.getParent().destroy();
+
+    setNewMessageMode();
+}

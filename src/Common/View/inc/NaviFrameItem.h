@@ -123,7 +123,7 @@ namespace Msg
         private:
             struct ButtonStruct
             {
-                ButtonStruct(Evas_Object *b = nullptr, const char *p = nullptr, const char *s = nullptr, const char *d = "IDS_MSG_OPT_DEFAULT")
+                ButtonStruct(Evas_Object *b = nullptr, const char *p = nullptr, const char *s = nullptr, const char *d = nullptr)
                     : button(b)
                     , part(p)
                     , style(s)
