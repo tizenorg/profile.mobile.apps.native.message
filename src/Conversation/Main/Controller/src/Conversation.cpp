@@ -24,6 +24,7 @@
 #include "Logger.h"
 #include "RecipientItem.h"
 #include "LangUtils.h"
+#include "CallbackAssist.h"
 
 #include <Elementary.h>
 #include <sstream>
@@ -248,6 +249,12 @@ void Conversation::fillMsgAddress(Message &msg)
 
 void Conversation::sendMessage()
 {
+    if(!m_ThreadId.isValid() && m_pRecipPanel->isMbeEmpty())
+    {
+        showNoRecipPopup();
+        return;
+    }
+
     auto msg = getMsgEngine().getComposer().createSms();
     fillMessage(*msg);
     MSG_LOG("m_ThreadId = ", m_ThreadId);
@@ -264,10 +271,11 @@ void Conversation::sendMessage()
         m_pConvList->setThreadId(m_ThreadId);
         m_IsMms = false;
         m_pBody->clear();
+        m_pBody->setFocus(true);
     }
     else
     {
-        // TODO: notify user
+        showSendResultPopup(sendRes);
     }
 }
 
@@ -315,6 +323,43 @@ void Conversation::checkAndSetMsgType()
         m_IsMms = isMms;
         convertMsgTypeHandler();
     }
+}
+
+void Conversation::hideKeyboard()
+{
+}
+
+void Conversation::showNoRecipPopup()
+{
+    auto &popupMngr = getApp().getPopupManager();
+    Popup &popup = popupMngr.getPopup();
+    popup.addEventCb(EVAS_CALLBACK_DEL, EVAS_EVENT_CALLBACK(Conversation, onPopupDel), this);
+    popup.addButton(msgt("IDS_MSG_BUTTON_OK_ABB"), Popup::OkButtonId, POPUP_BUTTON_CB(Conversation, onMsgSendErrorButtonClicked), this);
+    popup.setContent(msgt("IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"));
+    popup.show();
+}
+
+void Conversation::showSendResultPopup(MsgTransport::SendResult result)
+{
+    if(result == MsgTransport::SendSuccess)
+        return;
+
+    const char *strId = nullptr;
+    switch(result)
+    {
+        case MsgTransport::SendNoSIM:
+            strId = "IDS_MSG_BODY_UNABLE_TO_SEND_THIS_MESSAGE_INSERT_YOUR_SIM_CARD_AND_TRY_AGAIN";
+            break;
+        default:
+            strId = "IDS_MSGC_BODY_UNABLE_TO_SEND_MESSAGE";
+    };
+
+    auto &popupMngr = getApp().getPopupManager();
+    Popup &popup = popupMngr.getPopup();
+    popup.addEventCb(EVAS_CALLBACK_DEL, EVAS_EVENT_CALLBACK(Conversation, onPopupDel), this);
+    popup.addButton(msgt("IDS_MSG_BUTTON_OK_ABB"), Popup::OkButtonId, POPUP_BUTTON_CB(Conversation, onMsgSendErrorButtonClicked), this);
+    popup.setContent(msgt(strId));
+    popup.show();
 }
 
 void Conversation::onKeyDown(RecipientsPanel &panel, Evas_Event_Key_Down &ev)
@@ -397,7 +442,6 @@ void Conversation::onButtonClicked(MessageInputPanel &obj, MessageInputPanel::Bu
             break;
         case MessageInputPanel::SendButtonId:
             sendMessage();
-            m_pBody->setFocus(true);
             break;
         default:
             break;
@@ -464,3 +508,15 @@ void Conversation::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
             break;
     }
 }
+
+void Conversation::onPopupDel(Evas_Object *popup, void *eventInfo)
+{
+    m_pBody->setFocus(true);
+}
+
+void Conversation::onMsgSendErrorButtonClicked(Popup &popup, int buttonId)
+{
+    m_pBody->setFocus(true);
+    popup.destroy();
+}
+

@@ -35,6 +35,7 @@ namespace Msg
             inline void destroy();
             inline operator Evas_Object *() const;
             inline Evas_Object *getEo() const;
+            inline bool isVisible() const;
             inline void show();
             inline void hide();
             inline void move(Evas_Coord x, Evas_Coord y);
@@ -54,6 +55,7 @@ namespace Msg
             inline void emitSignal(const char *emission, const char *source);
             inline void setData(const char *key, const void *data);
             inline void *getData(const char *key) const;
+            inline void addEventCb(Evas_Callback_Type type, Evas_Object_Event_Cb func, const void *data);
 
             template<typename T>
             inline static T staticCast(Evas_Object *obj);
@@ -109,6 +111,11 @@ namespace Msg
     inline void View::destroy()
     {
         evas_object_del(m_pEo);
+    }
+
+    inline bool View::isVisible() const
+    {
+        return evas_object_visible_get(m_pEo);
     }
 
     inline void View::show()
@@ -258,6 +265,11 @@ namespace Msg
     inline T View::dynamicCast(Evas_Object *obj)
     {
         return dynamic_cast<T>(staticCast<T>(obj));
+    }
+
+    inline void View::addEventCb(Evas_Callback_Type type, Evas_Object_Event_Cb func, const void *data)
+    {
+        evas_object_event_callback_add(m_pEo, type, func, data);
     }
 }
 

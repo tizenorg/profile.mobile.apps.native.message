@@ -34,14 +34,6 @@
 
 using namespace Msg;
 
-enum CtxPopupItemId
-{
-    ComposeId,
-    SearchId,
-    DeleteId,
-    SettingsId
-};
-
 MsgThread::MsgThread(NaviFrameController &parent)
     : FrameController(parent)
     , m_pLayout(nullptr)
@@ -92,12 +84,13 @@ void MsgThread::onAttached(ViewItem &item)
 
 void MsgThread::showMainCtxPopup()
 {
-    resetCtxPopup();
-    getCtxPopup().appendItem(CtxPopupItemId::SearchId, "Search");
-    getCtxPopup().appendItem(CtxPopupItemId::DeleteId, "Delete");
-    getCtxPopup().appendItem(CtxPopupItemId::SettingsId, "Settings");
-    getCtxPopup().align(getApp().getWindow());
-    getCtxPopup().show();
+    auto &popupMngr = getApp().getPopupManager();
+    // TODO: localization:
+    popupMngr.getCtxPopup().appendItem("Search", nullptr, CTXPOPUP_ITEM_PRESSED_CB(MsgThread, onSearchItemPressed), this);
+    popupMngr.getCtxPopup().appendItem("Delete", nullptr, CTXPOPUP_ITEM_PRESSED_CB(MsgThread, onDeleteItemPressed), this);
+    popupMngr.getCtxPopup().appendItem("Settings", nullptr, CTXPOPUP_ITEM_PRESSED_CB(MsgThread, onSettingsItemPressed), this);
+    popupMngr.getCtxPopup().align(getApp().getWindow());
+    popupMngr.getCtxPopup().show();
 }
 
 void MsgThread::onFloatingButtonPressed()
@@ -259,7 +252,7 @@ void MsgThread::onListItemChecked(ListItem &listItem, void *funcData)
 void MsgThread::onPopupButtonClicked(Popup &popup, int buttonId)
 {
     MSG_LOG("Popup button id: ", buttonId);
-    resetPopup();
+    popup.destroy();
 }
 
 void MsgThread::onMsgStorageChange(const MsgIdList &idList)
@@ -268,29 +261,22 @@ void MsgThread::onMsgStorageChange(const MsgIdList &idList)
     updateThreadList();
 }
 
-void MsgThread::onContextPopupItemPressed(ContextPopup &ctxPopup, ContextPopupItem &item)
+void MsgThread::onSettingsItemPressed(ContextPopupItem &item)
 {
-    MSG_LOG("ContextPopup item id: ", item.getId());
-    ctxPopup.dismiss();
+    item.getParent().destroy();
+    navigateToSettings();
+}
 
-    switch(item.getId())
-    {
-        case CtxPopupItemId::SearchId:
-            setMode(SearchMode);
-            break;
+void MsgThread::onDeleteItemPressed(ContextPopupItem &item)
+{
+    item.getParent().destroy();
+    setMode(DeleteMode);
+}
 
-        case CtxPopupItemId::DeleteId:
-            setMode(DeleteMode);
-            break;
-
-        case CtxPopupItemId::SettingsId:
-            navigateToSettings();
-            break;
-
-        default:
-            MSG_ASSERT(false, "Unknown item id");
-            break;
-    }
+void MsgThread::onSearchItemPressed(ContextPopupItem &item)
+{
+    item.getParent().destroy();
+    setMode(SearchMode);
 }
 
 void MsgThread::deleteSelectedItems()

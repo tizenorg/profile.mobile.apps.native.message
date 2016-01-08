@@ -17,6 +17,8 @@
 
 #include "Popup.h"
 #include "Logger.h"
+#include "PopupManager.h"
+#include "Window.h"
 
 #include <sstream>
 #include <Elementary.h>
@@ -29,17 +31,25 @@ namespace
     const char *buttonIdKey = "id";
     const char *buttonCbKey = "cb";
     const char *buttonCbDataKey = "cb-data";
+    const char *titlePart = "title,text";
 }
 
 Popup::Popup(Evas_Object *parent)
-    : View()
-    , m_pBox(nullptr)
+    : m_pBox(nullptr)
     , m_pContent(nullptr)
     , m_CurrentButtonIndex(1)
-    , m_pListener(nullptr)
-    , m_Type(0)
+    , m_pManager(nullptr)
 {
     create(parent);
+}
+
+Popup::Popup(PopupManager &parent)
+    : m_pBox(nullptr)
+    , m_pContent(nullptr)
+    , m_CurrentButtonIndex(1)
+    , m_pManager(&parent)
+{
+    create(parent.getWindow());
 }
 
 Popup::~Popup()
@@ -56,22 +66,19 @@ void Popup::create(Evas_Object *parent)
 
     m_pBox = elm_box_add(getEo());
     elm_box_homogeneous_set(m_pBox, EINA_FALSE);
-    evas_object_size_hint_weight_set(m_pBox, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-    evas_object_size_hint_align_set(m_pBox, EVAS_HINT_FILL, EVAS_HINT_FILL);
+    expand(m_pBox);
     evas_object_size_hint_min_set(m_pBox, 0, defaultHeight);
     evas_object_show(m_pBox);
 
     elm_object_content_set(getEo(), m_pBox);
 }
 
-void Popup::setUserType(int type)
+void Popup::destroy()
 {
-    m_Type = type;
-}
-
-int Popup::getUserType() const
-{
-    return m_Type;
+    if(m_pManager)
+        m_pManager->resetPopup();
+    else
+        View::destroy();
 }
 
 Evas_Object *Popup::setContent(Evas_Object *content)
@@ -86,7 +93,12 @@ Evas_Object *Popup::setContent(Evas_Object *content)
 
 void Popup::setContent(const std::string &text)
 {
-    elm_object_text_set(getEo(), text.c_str());
+    setText(text);
+}
+
+void Popup::setContent(const TText &text)
+{
+    setText(text);
 }
 
 void Popup::setHeight(int height)
@@ -94,23 +106,23 @@ void Popup::setHeight(int height)
     evas_object_size_hint_min_set(m_pBox, 0, height);
 }
 
-Evas_Object *Popup::addButton(const std::string &text, int buttonId, PopupCb popupCb, void *userData)
+Evas_Object *Popup::addButton(const TText &text, int buttonId, PopupButtonCb buttonCb, void *userData)
 {
     std::stringstream ss;
     ss << "button" << m_CurrentButtonIndex;
 
     Evas_Object *btn = elm_button_add(getEo());
-    elm_object_part_content_set(getEo(), ss.str().c_str(), btn);
+    View::setContent(btn, ss.str().c_str());
 
     if(elm_object_part_content_get(getEo(), ss.str().c_str()))
     {
         ++m_CurrentButtonIndex;
         evas_object_show(btn);
         evas_object_data_set(btn, buttonIdKey, (void*)buttonId);
-        evas_object_data_set(btn, buttonCbKey, (void*)popupCb);
+        evas_object_data_set(btn, buttonCbKey, (void*)buttonCb);
         evas_object_data_set(btn, buttonCbDataKey, userData);
         evas_object_smart_callback_add(btn, "clicked", on_button_clicked, this);
-        elm_object_text_set(btn, text.c_str());
+        setText(btn, text);
     }
     else
     {
@@ -132,45 +144,30 @@ Evas_Object *Popup::getContent() const
     return m_pContent;
 }
 
-void Popup::onHwBackButtonClicked()
-{
-
-}
-
-void Popup::setListener(IPopupListener *listener)
-{
-    m_pListener = listener;
-}
-
 void Popup::setTitle(const std::string &title)
 {
-    elm_object_part_text_set(getEo(), "title,text", title.c_str());
+    setText(title, titlePart);
 }
 
-void Popup::onHwMoreButtonClicked()
+void Popup::setTitle(const TText &title)
 {
-
+    setText(title, titlePart);
 }
 
 void Popup::on_button_clicked(void *data, Evas_Object *obj, void *event_info)
 {
-    Popup *popup = static_cast<Popup*>(data);
-
-    if(popup && popup->m_pListener)
+    PopupButtonCb cb = (PopupButtonCb)evas_object_data_get(obj, buttonCbKey);
+    if(cb)
     {
+        void *userData = evas_object_data_get(obj, buttonCbDataKey);
+        Popup *popup = static_cast<Popup*>(data);
         int buttonId = (int)evas_object_data_get(obj, buttonIdKey);
-        PopupCb cb = (PopupCb)evas_object_data_get(obj, buttonCbKey);
-
-        if(cb)
-        {
-            void *userData = evas_object_data_get(obj, buttonCbDataKey);
-            cb(*popup, buttonId, userData);
-        }
-        else if(popup->m_pListener)
-        {
-            popup->m_pListener->onPopupButtonClicked(*popup, buttonId);
-        }
-
+        cb(*popup, buttonId, userData);
     }
 }
 
+void Popup::defaultButtonCb(Popup &popup, int buttonId, void *userData)
+{
+    if(popup.m_pManager)
+        popup.m_pManager->resetPopup();
+}

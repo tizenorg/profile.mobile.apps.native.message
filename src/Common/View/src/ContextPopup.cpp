@@ -18,6 +18,7 @@
 #include "ContextPopup.h"
 #include "Window.h"
 #include "Logger.h"
+#include "PopupManager.h"
 
 using namespace Msg;
 
@@ -36,7 +37,7 @@ ContextPopupItem::~ContextPopupItem()
     MSG_LOG("Destructor");
 }
 
-ContextPopup &ContextPopupItem::getParentContextPopup()
+ContextPopup &ContextPopupItem::getParent()
 {
     return m_ParentContextPopup;
 }
@@ -48,11 +49,15 @@ int ContextPopupItem::getId() const
 
 // ContextPopup:
 ContextPopup::ContextPopup(Evas_Object *parent)
-    : View()
-    , m_pListener(nullptr)
-    , m_Type(0)
+    : m_pManager(nullptr)
 {
     createContextPopup(parent);
+}
+
+ContextPopup::ContextPopup(PopupManager &parent)
+    : m_pManager(&parent)
+{
+    createContextPopup(parent.getWindow());
 }
 
 ContextPopup::~ContextPopup()
@@ -60,17 +65,7 @@ ContextPopup::~ContextPopup()
     MSG_LOG("Destructor");
 }
 
-void ContextPopup::setUserType(int type)
-{
-    m_Type = type;
-}
-
-int ContextPopup::getUserType() const
-{
-    return m_Type;
-}
-
-ContextPopupItem *ContextPopup::appendItem(int id, const std::string &text, Evas_Object *icon, ContextPopupItemPressedCb cb, void *userData)
+ContextPopupItem *ContextPopup::appendItem(const std::string &text, Evas_Object *icon, ContextPopupItemPressedCb cb, void *userData, int id)
 {
     ContextPopupItem *newItem = new ContextPopupItem(*this, id, cb, userData);
     Elm_Object_Item *elmItem = elm_ctxpopup_item_append(getEo(), text.c_str(), icon, on_item_pressed_cb, newItem);
@@ -88,11 +83,6 @@ ContextPopupItem *ContextPopup::appendItem(int id, const std::string &text, Evas
     return newItem;
 }
 
-void ContextPopup::setListener(IContextPopupListener *listener)
-{
-    m_pListener = listener;
-}
-
 void ContextPopup::createContextPopup(Evas_Object *parent)
 {
     setEo(elm_ctxpopup_add(parent));
@@ -107,13 +97,14 @@ void ContextPopup::createContextPopup(Evas_Object *parent)
                          ELM_CTXPOPUP_DIRECTION_UNKNOWN,
                          ELM_CTXPOPUP_DIRECTION_UNKNOWN,
                          ELM_CTXPOPUP_DIRECTION_UNKNOWN);
-
-    setHwButtonListener(getEo(), this);
 }
 
-void ContextPopup::dismiss()
+void ContextPopup::destroy()
 {
-    elm_ctxpopup_dismiss(getEo());
+    if(m_pManager)
+        m_pManager->resetCtxPopup();
+    else
+        View::destroy();
 }
 
 void ContextPopup::setDirectionPriority(Elm_Ctxpopup_Direction first, Elm_Ctxpopup_Direction second,
@@ -127,39 +118,18 @@ Elm_Ctxpopup_Direction ContextPopup::getDirection() const
     return elm_ctxpopup_direction_get(getEo());
 }
 
-void ContextPopup::onHwBackButtonClicked()
-{
-    dismiss();
-}
-
-void ContextPopup::onHwMoreButtonClicked()
-{
-    dismiss();
-}
-
 void ContextPopup::on_dismissed_cb(void *data, Evas_Object *obj, void *event_info)
 {
-    ContextPopup * self = static_cast<ContextPopup*>(data);
-
-    if(self && self->m_pListener)
-        self->m_pListener->onContextPopupDismissed(*self);
+    ContextPopup *self = static_cast<ContextPopup*>(data);
+    if(self->m_pManager)
+        self->m_pManager->resetCtxPopup();
 }
 
 void ContextPopup::on_item_pressed_cb(void *data, Evas_Object *obj, void *event_info)
 {
     ContextPopupItem *item = static_cast<ContextPopupItem*>(data);
-
-    if(item)
-    {
-        if(item->m_pUserCb)
-        {
-            item->m_pUserCb(item->getParentContextPopup(), *item, item->m_pUserData);
-        }
-        else if(item->getParentContextPopup().m_pListener)
-        {
-            item->getParentContextPopup().m_pListener->onContextPopupItemPressed(item->getParentContextPopup(), *item);
-        }
-    }
+    if(item && item->m_pUserCb)
+        item->m_pUserCb(*item, item->m_pUserData);
 }
 
 void ContextPopup::align(Window &win)
@@ -184,5 +154,4 @@ void ContextPopup::align(Window &win)
           break;
     }
 }
-
 

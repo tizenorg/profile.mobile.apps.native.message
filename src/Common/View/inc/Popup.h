@@ -19,7 +19,7 @@
 #define Popup_h_
 
 #include "View.h"
-#include "HwButtonListener.h"
+#include "LangUtils.h"
 
 #include <Evas.h>
 #include <string>
@@ -28,14 +28,20 @@ namespace Msg
 {
     class IPopupListener;
     class Popup;
+    class PopupManager;
 
-    typedef void (*PopupCb)(Popup &popup, int buttonId, void *userData);
+    typedef void (*PopupButtonCb)(Popup &popup, int buttonId, void *userData);
+    #define POPUP_BUTTON_CB(ClassName, method) [](Popup &popup, int buttonId, void *userData) \
+    {                                                                                         \
+        static_cast<ClassName*>(userData)->method(popup, buttonId);                           \
+    }
 
     class Popup
         : public View
-        , private IHwButtonListener
     {
         public:
+
+            static void defaultButtonCb(Popup &popup, int buttonId, void *userData);
             enum ButtonID
             {
                 OkButtonId,
@@ -44,41 +50,30 @@ namespace Msg
 
         public:
             Popup(Evas_Object *parent);
+            Popup(PopupManager &parent);
             virtual ~Popup();
 
-            void setUserType(int type);
-            int getUserType() const;
             Evas_Object *getHostEvasObject() const;
             Evas_Object *setContent(Evas_Object *content);
             void setContent(const std::string &text);
+            void setContent(const TText &text);
             Evas_Object *getContent() const;
             void setHeight(int height);
-            Evas_Object *addButton(const std::string &text, int buttonId, PopupCb popupCb = nullptr, void *userData = nullptr);
-            void setListener(IPopupListener *listener);
+            Evas_Object *addButton(const TText &text, int buttonId, PopupButtonCb buttonCb = defaultButtonCb, void *userData = nullptr);
             void setTitle(const std::string &title);
+            void setTitle(const TText &title);
+            void destroy();
 
         private:
-            // IHwButtonListener:
-            virtual void onHwBackButtonClicked();
-            virtual void onHwMoreButtonClicked();
 
             void create(Evas_Object *parent);
-
             static void on_button_clicked(void *data, Evas_Object *obj, void *event_info);
 
         private:
             Evas_Object *m_pBox;
             Evas_Object *m_pContent;
             int m_CurrentButtonIndex;
-            IPopupListener *m_pListener;
-            int m_Type;
-    };
-
-    class IPopupListener
-    {
-        public:
-            virtual ~IPopupListener() {};
-            virtual void onPopupButtonClicked(Popup &popup, int buttonId) {};
+            PopupManager *m_pManager;
     };
 }
 

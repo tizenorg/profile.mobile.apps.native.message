@@ -83,6 +83,10 @@ namespace Msg
             // IConvContactListListener:
             virtual void onContactSelected(ContactListItem &item);
 
+             // Popup callbacks:
+            void onPopupDel(Evas_Object *popup, void *eventInfo);
+            void onMsgSendErrorButtonClicked(Popup &popup, int buttonId);
+
         private:
             // Empty initializer constructor:
             Conversation(NaviFrameController &parent, bool dummy);
@@ -100,6 +104,10 @@ namespace Msg
             void updateNavibar();
             void createMainLayout(Evas_Object *parent);
             void createConvList(Evas_Object *parent);
+            void hideKeyboard();
+
+            void showNoRecipPopup();
+            void showSendResultPopup(MsgTransport::SendResult result);
 
             void notifyConvertMsgType();
             void convertMsgTypeHandler();
@@ -120,7 +128,7 @@ namespace Msg
             ThreadId m_ThreadId;
             bool m_IsMms; // Compose message type
             ConvList *m_pConvList;
-            const AppControlComposeRef m_ComposeCmd;
+            AppControlComposeRef m_ComposeCmd;
     };
 }
 

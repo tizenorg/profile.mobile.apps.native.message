@@ -29,13 +29,6 @@
 
 using namespace Msg;
 
-enum popupItemId
-{
-    CopyToDeviceId,
-    DeleteId
-};
-
-
 MsgOnSimCard::MsgOnSimCard(NaviFrameController &parent)
     : FrameController(parent)
     , m_pList(nullptr)
@@ -93,9 +86,7 @@ void MsgOnSimCard::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
         }
     }
     else if(buttonId == NaviPrevButtonId)
-    {
         getParent().pop();
-    }
     setMode(NormalMode);
 }
 
@@ -134,50 +125,36 @@ void MsgOnSimCard::onHwMoreButtonClicked()
 void MsgOnSimCard::onHwBackButtonClicked()
 {
     if(m_SimMode == CopyToDeviceMode || m_SimMode == DeleteMode)
-    {
         setNormalMode();
-    }
     else
-    {
         getParent().pop();
-    }
 }
 
 void MsgOnSimCard::showCopyDeletePopup()
 {
-    resetCtxPopup();
-    getCtxPopup().appendItem(popupItemId::CopyToDeviceId, msg("IDS_MSG_OPT_COPY_TO_DEVICE_ABB"));
-    getCtxPopup().appendItem(popupItemId::DeleteId, msg("IDS_MSG_OPT_DELETE"));
-    getCtxPopup().align(getApp().getWindow());
-    getCtxPopup().show();
+    ContextPopup &popup = getApp().getPopupManager().getCtxPopup();
+    popup.appendItem(msg("IDS_MSG_OPT_COPY_TO_DEVICE_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(MsgOnSimCard, onCopyToDeviceItemPressed), this);
+    popup.appendItem(msg("IDS_MSG_OPT_DELETE"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(MsgOnSimCard, onDeleteItemPressed), this);
+    popup.align(getApp().getWindow());
+    popup.show();
 }
 
-void MsgOnSimCard::onContextPopupItemPressed(ContextPopup &ctxPopup, ContextPopupItem &item)
+void MsgOnSimCard::onCopyToDeviceItemPressed(ContextPopupItem &item)
 {
-    ctxPopup.dismiss();
+    item.getParent().destroy();
+    setMode(CopyToDeviceMode);
+}
 
-    switch(item.getId())
-    {
-        case popupItemId::CopyToDeviceId:
-            setMode(CopyToDeviceMode);
-            break;
-
-        case popupItemId::DeleteId:
-            setMode(DeleteMode);
-            break;
-
-        default:
-            MSG_ASSERT(false, "Unknown item id");
-            break;
-    }
+void MsgOnSimCard::onDeleteItemPressed(ContextPopupItem &item)
+{
+    item.getParent().destroy();
+    setMode(DeleteMode);
 }
 
 void MsgOnSimCard::setMode(SimMode mode)
 {
     if(m_SimMode == mode)
-    {
         return;
-    }
 
     switch(mode)
     {
@@ -224,9 +201,7 @@ void MsgOnSimCard::setNormalMode()
 void MsgOnSimCard::setCopyToDeviceMode(bool value)
 {
     if(value)
-    {
         m_SimMode = DeleteMode;
-    }
 
     setTitleWithButtons(value);
 }
@@ -234,9 +209,7 @@ void MsgOnSimCard::setCopyToDeviceMode(bool value)
 void MsgOnSimCard::setDeleteMode(bool value)
 {
     if(value)
-    {
         m_SimMode = DeleteMode;
-    }
 
     setTitleWithButtons(value);
 }
@@ -244,13 +217,9 @@ void MsgOnSimCard::setDeleteMode(bool value)
 void MsgOnSimCard::setTitleTranslatable()
 {
     if(m_SimMode == NormalMode)
-    {
         getNaviBar().setTitle(msg("IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"));
-    }
     else if(m_SimMode == DeleteMode || m_SimMode == CopyToDeviceMode)
-    {
         getNaviBar().setTitle(msgArgs("IDS_MSG_HEADER_PD_SELECTED_ABB3", m_CheckCount));
-    }
 }
 
 void MsgOnSimCard::setTitleWithButtons(bool value)
@@ -280,16 +249,12 @@ void MsgOnSimCard::showSelectAllItem(bool show, bool resetCheck)
         }
 
         if(item && resetCheck)
-        {
             item->setCheckedState(false, true);
-        }
     }
     else
     {
         if(item)
-        {
             item->destroy();
-        }
     }
 }
 
@@ -301,9 +266,7 @@ void MsgOnSimCard::calcChecked(int &check, int &total) const
     for(ListItem *item: items)
     {
         if (item->getCheckedState())
-        {
             ++check;
-        }
         ++total;
     }
 }

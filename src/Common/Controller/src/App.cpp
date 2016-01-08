@@ -24,6 +24,7 @@ using namespace Msg;
 
 App::App()
     : m_pContactManager(nullptr)
+    , m_pPopupManager(nullptr)
 {
     int serviceResult = m_Engine.openService();
     if(serviceResult != MESSAGES_ERROR_NONE)
@@ -36,6 +37,7 @@ App::App()
 App::~App()
 {
     delete m_pContactManager;
+    delete m_pPopupManager;
 }
 
 MsgEngine &App::getMsgEngine()
@@ -58,6 +60,18 @@ ContactManager &App::getContactManager()
 const ContactManager &App::getContactManager() const
 {
     return const_cast<App*>(this)->getContactManager();
+}
+
+PopupManager &App::getPopupManager()
+{
+    if(!m_pPopupManager)
+        m_pPopupManager =new PopupManager(getWindow());
+    return *m_pPopupManager;
+}
+
+const PopupManager &App::getPopupManager() const
+{
+    return const_cast<App*>(this)->getPopupManager();
 }
 
 void App::exit()

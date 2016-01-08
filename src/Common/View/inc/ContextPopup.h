@@ -27,12 +27,17 @@
 
 namespace Msg
 {
-    class IContextPopupListener;
     class ContextPopup;
     class ContextPopupItem;
     class Window;
+    class PopupManager;
 
-    typedef void (*ContextPopupItemPressedCb)(ContextPopup &v, ContextPopupItem &item, void *userData);
+    #define CTXPOPUP_ITEM_PRESSED_CB(ClassName, method) [](ContextPopupItem &item, void *userData) \
+    {                                                                                              \
+        static_cast<ClassName*>(userData)->method(item);                                           \
+    }
+
+    typedef void (*ContextPopupItemPressedCb)(ContextPopupItem &item, void *userData);
 
     class ContextPopupItem
         : public ViewItem
@@ -40,7 +45,7 @@ namespace Msg
         friend class ContextPopup;
 
     public:
-        ContextPopup &getParentContextPopup();
+        ContextPopup &getParent();
         int getId() const;
 
     private:
@@ -56,46 +61,29 @@ namespace Msg
 
     class ContextPopup
         : public View
-        , private IHwButtonListener
     {
-    public:
-        ContextPopup(Evas_Object *parent);
-        virtual ~ContextPopup();
+        public:
+            ContextPopup(Evas_Object *parent);
+            ContextPopup(PopupManager &parent);
+            virtual ~ContextPopup();
 
-        void setUserType(int type);
-        int getUserType() const;
-        ContextPopupItem *appendItem(int id, const std::string &text, Evas_Object *icon = nullptr,
-                                     ContextPopupItemPressedCb cb = nullptr, void *userData = nullptr);
-        void setListener(IContextPopupListener *listener);
-        void dismiss();
-        void setDirectionPriority(Elm_Ctxpopup_Direction first, Elm_Ctxpopup_Direction second,
-                                  Elm_Ctxpopup_Direction third, Elm_Ctxpopup_Direction fourth);
-        void align(Window &win);
+            ContextPopupItem *appendItem(const std::string &text, Evas_Object *icon = nullptr,
+                                         ContextPopupItemPressedCb cb = nullptr, void *userData = nullptr, int id = 0);
+            void destroy();
+            void setDirectionPriority(Elm_Ctxpopup_Direction first, Elm_Ctxpopup_Direction second,
+                                      Elm_Ctxpopup_Direction third, Elm_Ctxpopup_Direction fourth);
+            void align(Window &win);
 
-        Elm_Ctxpopup_Direction getDirection() const;
+            Elm_Ctxpopup_Direction getDirection() const;
 
-    private:
-        // IHwButtonListener:
-        virtual void onHwBackButtonClicked();
-        virtual void onHwMoreButtonClicked();
+        private:
+            void createContextPopup(Evas_Object *parent);
 
-    private:
-        void createContextPopup(Evas_Object *parent);
+            static void on_dismissed_cb(void *data, Evas_Object *obj, void *event_info);
+            static void on_item_pressed_cb(void *data, Evas_Object * obj, void *event_info);
 
-        static void on_dismissed_cb(void *data, Evas_Object *obj, void *event_info);
-        static void on_item_pressed_cb(void *data, Evas_Object * obj, void *event_info);
-
-    private:
-        IContextPopupListener *m_pListener;
-        int m_Type;
-    };
-
-    class IContextPopupListener
-    {
-    public:
-        virtual ~IContextPopupListener() {};
-        virtual void onContextPopupItemPressed(ContextPopup &v, ContextPopupItem &item) {};
-        virtual void onContextPopupDismissed(ContextPopup &v) {};
+        private:
+            PopupManager *m_pManager;
     };
 }
 

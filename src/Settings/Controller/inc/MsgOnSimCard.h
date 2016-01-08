@@ -58,8 +58,9 @@ namespace Msg
             virtual void onHwMoreButtonClicked();
             virtual void onHwBackButtonClicked();
 
-            // IContextPopupListener:
-            virtual void onContextPopupItemPressed(ContextPopup &ctxPopup, ContextPopupItem &item);
+            // ContextPopup callbacks:
+            void onCopyToDeviceItemPressed(ContextPopupItem &item);
+            void onDeleteItemPressed(ContextPopupItem &item);
 
         private:
             enum SimMode

@@ -71,8 +71,10 @@ namespace Msg
             // IPopupListener:
             virtual void onPopupButtonClicked(Popup &popup, int buttonId);
 
-            // IContextPopupListener:
-            virtual void onContextPopupItemPressed(ContextPopup &ctxPopup, ContextPopupItem &item);
+            // ContextPopup callbacks:
+            void onSettingsItemPressed(ContextPopupItem &item);
+            void onDeleteItemPressed(ContextPopupItem &item);
+            void onSearchItemPressed(ContextPopupItem &item);
 
             // IMsgThreadSearchPanelListener:
             virtual void onSearchButtonClicked(MsgThreadSearchPanel &obj);

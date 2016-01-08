@@ -21,8 +21,6 @@
 #include "ViewItemController.h"
 #include "NaviFrameItem.h"
 #include "NaviFrameController.h"
-#include "Popup.h"
-#include "ContextPopup.h"
 
 namespace Msg
 {
@@ -31,8 +29,6 @@ namespace Msg
     class FrameController
         : public ViewItemController
         , public NaviFrameItem
-        , private IPopupListener
-        , private IContextPopupListener
     {
         public:
             FrameController(NaviFrameController &parent);
@@ -41,18 +37,8 @@ namespace Msg
             virtual NaviFrameController &getParent();
 
         protected:
-            Popup &getPopup();
-            void resetPopup();
-
-            ContextPopup &getCtxPopup();
-            void resetCtxPopup();
-
             // NaviFrameItem
             virtual void onAttached(ViewItem &item);
-
-        private:
-            Popup *m_pPopup;
-            ContextPopup *m_pCtxPopup;
     };
 }
 

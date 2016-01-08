@@ -26,8 +26,6 @@ using namespace Msg;
 FrameController::FrameController(NaviFrameController &parent)
     : ViewItemController(&parent)
     , NaviFrameItem(parent)
-    , m_pPopup(nullptr)
-    , m_pCtxPopup(nullptr)
 {
     MSG_LOG("Constructor: ", this);
 }
@@ -35,54 +33,11 @@ FrameController::FrameController(NaviFrameController &parent)
 FrameController::~FrameController()
 {
     MSG_LOG("Destructor: ", this);
-
-    resetPopup();
-    resetCtxPopup();
 }
 
 NaviFrameController &FrameController::getParent()
 {
     return static_cast<NaviFrameController &>(ViewItemController::getParent());
-}
-
-Popup &FrameController::getPopup()
-{
-    if(!m_pPopup)
-    {
-        m_pPopup = new Popup(getApp().getWindow().getWinEvasObject());
-        m_pPopup->setListener(this);
-    }
-
-    return *m_pPopup;
-}
-
-void FrameController::resetPopup()
-{
-    if(m_pPopup)
-    {
-        m_pPopup->destroy();
-        m_pPopup = nullptr;
-    }
-}
-
-ContextPopup &FrameController::getCtxPopup()
-{
-    if(!m_pCtxPopup)
-    {
-        m_pCtxPopup = new ContextPopup(getApp().getWindow().getWinEvasObject());
-        m_pCtxPopup->setListener(this);
-    }
-
-    return *m_pCtxPopup;
-}
-
-void FrameController::resetCtxPopup()
-{
-    if(m_pCtxPopup)
-    {
-        m_pCtxPopup->destroy();
-        m_pCtxPopup = nullptr;
-    }
 }
 
 void FrameController::onAttached(ViewItem &item)

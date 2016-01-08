@@ -20,6 +20,7 @@
 
 #include "Window.h"
 #include "MsgEngine.h"
+#include "PopupManager.h"
 #include <memory>
 
 namespace Msg
@@ -36,6 +37,9 @@ namespace Msg
             virtual Window &getWindow() = 0;
             virtual const Window &getWindow() const = 0;
 
+            PopupManager &getPopupManager();
+            const PopupManager &getPopupManager() const;
+
             MsgEngine &getMsgEngine();
             const MsgEngine &getMsgEngine() const;
 
@@ -50,6 +54,7 @@ namespace Msg
         private:
             MsgEngine m_Engine;
             ContactManager *m_pContactManager;
+            PopupManager *m_pPopupManager;
     };
 }
 
