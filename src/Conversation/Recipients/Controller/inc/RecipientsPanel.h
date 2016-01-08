@@ -40,6 +40,7 @@ namespace Msg
             void read(Message &msg);
             bool isMms() const;
             void setListener(IRecipientsPanelListener *l);
+            void update(ThreadId threadId);
             bool appendItem(const std::string &address, const std::string &dispName,
                               MsgAddress::AddressType addressType = MsgAddress::UnknownAddressType);
 

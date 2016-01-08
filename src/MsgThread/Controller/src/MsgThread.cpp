@@ -168,6 +168,7 @@ void MsgThread::setMode(Mode mode)
 
 void MsgThread::setNormalMode()
 {
+    getNaviBar().clear();
     // Reset previus mode:
     switch(m_Mode)
     {

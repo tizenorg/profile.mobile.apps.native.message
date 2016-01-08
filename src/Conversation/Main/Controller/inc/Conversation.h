@@ -87,9 +87,13 @@ namespace Msg
             void onPopupDel(Evas_Object *popup, void *eventInfo);
             void onMsgSendErrorButtonClicked(Popup &popup, int buttonId);
 
+            // ContextPopup callbacks:
+            void onDeleteItemPressed(ContextPopupItem &item);
+            void onAddRecipientsItemPressed(ContextPopupItem &item);
+
         private:
             // Empty initializer constructor:
-            Conversation(NaviFrameController &parent, bool dummy);
+            Conversation(NaviFrameController &parent, const AppControlComposeRef &cmd, bool dummy);
             void create();
             void setMode(Mode mode);
             void setNewMessageMode();
@@ -104,10 +108,13 @@ namespace Msg
             void updateNavibar();
             void createMainLayout(Evas_Object *parent);
             void createConvList(Evas_Object *parent);
-            void hideKeyboard();
+            void destroyConvList();
 
+            void showMainCtxPopup();
             void showNoRecipPopup();
             void showSendResultPopup(MsgTransport::SendResult result);
+
+            void hideKeyboard();
 
             void notifyConvertMsgType();
             void convertMsgTypeHandler();
@@ -128,7 +135,7 @@ namespace Msg
             ThreadId m_ThreadId;
             bool m_IsMms; // Compose message type
             ConvList *m_pConvList;
-            AppControlComposeRef m_ComposeCmd;
+            const AppControlComposeRef m_ComposeCmd;
     };
 }
 
