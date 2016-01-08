@@ -168,8 +168,8 @@ void NaviFrameItem::NaviBar::showButton(NaviButtonId id, bool value)
     {
         if(getContent(m_ButtonList[id].part) == m_ButtonList[id].button)
         {
-            elm_object_part_content_unset(getEo(),m_ButtonList[id].part);
-            evas_object_hide(m_ButtonList[id].button);
+            evas_object_del(m_ButtonList[id].button);
+            m_ButtonList[id].button = nullptr;
         }
     }
 
@@ -365,13 +365,14 @@ void NaviFrameItem::NaviBar::setButtonColor(NaviButtonId id, NaviColorId titleCo
     }
 }
 
-void NaviFrameItem::NaviBar::clearBar()
+void NaviFrameItem::NaviBar::clear()
 {
     emitSignal("sides,clear", "*");
     for (int iter = NaviCancelButtonId; iter < NaviButtonMax; iter++)
     {
         evas_object_hide(elm_object_part_content_unset(getEo(), m_ButtonList[iter].part));
     }
+    showCenterButtonPart(false);
 }
 
 void NaviFrameItem::NaviBar::setSearch(Evas_Object *searchPanel)

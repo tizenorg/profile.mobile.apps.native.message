@@ -226,7 +226,7 @@ void MsgOnSimCard::setTitleWithButtons(bool value)
 {
     setTitleTranslatable();
 
-    getNaviBar().clearBar();
+    getNaviBar().clear();
     getNaviBar().showButton(NaviOkButtonId, value);
     getNaviBar().showButton(NaviCancelButtonId, value);
     getNaviBar().showButton(NaviPrevButtonId, !value);

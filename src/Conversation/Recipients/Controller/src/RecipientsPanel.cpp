@@ -85,6 +85,19 @@ void RecipientsPanel::addRecipients()
     setEntryText(result.invalidResult);
 }
 
+void RecipientsPanel::update(ThreadId threadId)
+{
+    if(threadId.isValid())
+    {
+        MsgAddressListRef addrList = m_App.getMsgEngine().getStorage().getAddressList(threadId);
+        int addrListLen = addrList->getLength();
+        for(int i = 0; i < addrListLen; i++)
+        {
+            appendItem(addrList->at(i).getAddress(), addrList->at(i).getAddress(), addrList->at(i).getAddressType());
+        }
+    }
+}
+
 bool RecipientsPanel::appendItem(const std::string &address, const std::string &dispName, MsgAddress::AddressType addressType)
 {
     bool result = false;
