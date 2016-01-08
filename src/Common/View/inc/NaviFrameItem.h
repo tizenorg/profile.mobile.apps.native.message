@@ -95,7 +95,7 @@ namespace Msg
             void disabledButton(NaviButtonId id, bool value);
             void setButtonText(NaviButtonId id, const std::string &text);
             void setButtonText(NaviButtonId id, const TText &text);
-            void clearBar();
+            void clear();
             void setSearch(Evas_Object *searchPanel);
             Evas_Object *getSearch();
             const Evas_Object *getSearch() const;
@@ -123,7 +123,7 @@ namespace Msg
         private:
             struct ButtonStruct
             {
-                ButtonStruct(Evas_Object *b = nullptr, const char *p = nullptr, const char *s = nullptr, const char *d = "IDS_MSG_OPT_DEFAULT")
+                ButtonStruct(Evas_Object *b = nullptr, const char *p = nullptr, const char *s = nullptr, const char *d = nullptr)
                     : button(b)
                     , part(p)
                     , style(s)
