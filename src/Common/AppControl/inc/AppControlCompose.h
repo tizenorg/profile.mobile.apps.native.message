@@ -79,7 +79,13 @@ namespace Msg
             const FileList &getFileList() const;
 
         private:
-            bool parseUri(const char *uri);
+            bool parseUriCompose(app_control_h handle);
+            bool parseUriShare(app_control_h handle);
+
+            void createComposeOp(app_control_h handle);
+            void createShareOp(app_control_h handle);
+            void createMultiShareOp(app_control_h handle);
+            void createShareTextOp(app_control_h handle);
 
         private:
             OpComposeType m_ComposeType;
