@@ -82,21 +82,19 @@ void ListItemStyle::unregisterCallback()
 }
 
 // ListItemClass:
-ListItem::ListItem(const ListItemStyleRef &itemStyle, Elm_Genlist_Item_Type type, int userType)
+ListItem::ListItem(const ListItemStyleRef &itemStyle, Elm_Genlist_Item_Type type)
     : ViewItem()
     , m_pOwner(nullptr)
     , m_ItemStyle(itemStyle)
     , m_Type(type)
-    , m_UserType(userType)
 {
 }
 
-ListItem::ListItem(Elm_Genlist_Item_Type type, int userType)
+ListItem::ListItem(Elm_Genlist_Item_Type type)
     : ViewItem()
     , m_pOwner(nullptr)
     , m_ItemStyle()
     , m_Type(type)
-    , m_UserType(userType)
     , m_Checked(false)
 {
 
@@ -114,11 +112,6 @@ ListView *ListItem::getOwner() const
 Elm_Genlist_Item_Type ListItem::getType() const
 {
     return m_Type;
-}
-
-int ListItem::getUserType() const
-{
-    return m_UserType;
 }
 
 void ListItem::setStyle(ListItemStyleRef &style)

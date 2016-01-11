@@ -29,7 +29,7 @@ ListItemStyleRef SettingsListViewItem::oneLineIconStyle = ListItemStyle::create(
 ListItemStyleRef SettingsListViewItem::multiLineStyle = ListItemStyle::create("multiline_sub.main");
 
 SettingsListViewItem::SettingsListViewItem(const ListItemStyleRef &style)
-    : ListItem(style, ELM_GENLIST_ITEM_NONE, 0)
+    : ListItem(style, ELM_GENLIST_ITEM_NONE)
     , m_ShowCheckButton(false)
     , m_CheckButtonState(false)
     , m_DisabledCheckButton(false)
