@@ -39,19 +39,27 @@ namespace Msg
             virtual const MsgAddressListHandlePrivate &getAddressList() const;
             virtual MsgAddressPrivate &addAddress();
             virtual void addAddresses(const MsgAddressList &list);
+            virtual void setText(const std::string &text);
+            virtual std::string getText() const;
+            virtual Type getType() const;
 
-            // FIXME: internal compiler error(arm only)
-            // virtual std::string getSubject() const;
-            // virtual void setSubject(const std::string &text);
+            virtual std::string getSubject() const;
+            virtual void setSubject(const std::string &text);
 
             void setId(MsgId id);
             void set(msg_struct_t msgStruct);
             virtual void commit();
 
+        private:
+            bool isMms() const;
+
         protected:
             mutable MsgAddressPrivate m_Address;
             mutable MsgAddressListHandlePrivate m_AddressList;
     };
+
+    typedef class MsgListHandlePrivate<MessagePrivate, Message> MessageListHandlePrivate;
+    typedef class MsgStructListPrivate<MessagePrivate, Message> MessageStructListPrivate;
 }
 
 #endif /* _MESSAGE_PRIVATE_H__ */

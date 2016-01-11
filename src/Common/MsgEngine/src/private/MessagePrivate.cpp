@@ -94,8 +94,26 @@ time_t MessagePrivate::getTime() const
     return time;
 }
 
-// FIXME: internal compiler error(arm only)
-/*std::string MessagePrivate::getSubject() const
+void MessagePrivate::setText(const std::string &text)
+{
+    int field = isMms() ? MSG_MESSAGE_MMS_TEXT_STR : MSG_MESSAGE_SMS_DATA_STR;
+    MsgUtilsPrivate::setStr(m_MsgStruct, field, text);
+}
+
+std::string MessagePrivate::getText() const
+{
+    if(isMms())
+        return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_MESSAGE_MMS_TEXT_STR, MAX_MSG_TEXT_LEN);
+    else
+        return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_MESSAGE_SMS_DATA_STR, MAX_MSG_DATA_LEN);
+}
+
+Message::Type MessagePrivate::getType() const
+{
+    return MT_Unknown;
+}
+
+std::string MessagePrivate::getSubject() const
 {
     return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_MESSAGE_SUBJECT_STR, MAX_SUBJECT_LEN);
 }
@@ -103,9 +121,22 @@ time_t MessagePrivate::getTime() const
 void MessagePrivate::setSubject(const std::string &text)
 {
     MsgUtilsPrivate::setStr(m_MsgStruct, MSG_MESSAGE_SUBJECT_STR, text);
-}*/
+}
 
 void MessagePrivate::commit()
 {
 
+}
+
+bool MessagePrivate::isMms() const
+{
+    int type = MSG_TYPE_SMS;
+    msg_get_int_value(m_MsgStruct, MSG_MESSAGE_TYPE_INT, &type);
+
+    if(type == MSG_TYPE_MMS)
+        return true;
+    else if(type != MSG_TYPE_SMS)
+        MSG_LOG("invalid msg type!", type);
+
+    return false;
 }
