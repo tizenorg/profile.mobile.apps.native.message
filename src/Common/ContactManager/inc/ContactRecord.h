@@ -25,7 +25,7 @@ namespace Msg
     class ContactRecord
     {
         public:
-            inline void release(bool releaseChildren);
+            inline void release(bool releaseChildren = true);
             inline bool isValid() const;
 
         protected:

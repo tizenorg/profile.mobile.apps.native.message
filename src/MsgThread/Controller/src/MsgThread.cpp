@@ -49,7 +49,8 @@ MsgThread::MsgThread(NaviFrameController &parent)
     m_pThreadList->setListener(this);
     m_pThreadList->show();
 
-    m_pSearchList = new ThreadSearchList(*m_pLayout);
+    m_pSearchList = new ThreadSearchList(*m_pLayout, getApp());
+    m_pSearchList->setListener(this);
     m_pSearchList->show();
 
     m_pLayout->setNoContent(*m_pNoContent);
@@ -182,11 +183,13 @@ void MsgThread::setSearchMode(bool value)
     {
         m_Mode = SearchMode;
         m_pSearchPanel->clearEntry();
+        m_pSearchList->clear();
         getNaviBar().showSearch();
         m_pNoContent->setText(msgt("IDS_MSG_NPBODY_NO_RESULTS_FOUND_ABB"));
     }
     else
     {
+        m_pSearchList->cancelSearch();
         getNaviBar().hideSearch();
     }
 
@@ -212,6 +215,12 @@ void MsgThread::update()
         m_pLayout->showThreadList(showThread);
         m_pLayout->showNoContent(!showThread);
     }
+}
+
+void MsgThread::search(const std::string &searchWord)
+{
+    if(m_Mode == SearchMode)
+        m_pSearchList->requestSearch(searchWord);
 }
 
 void MsgThread::onHwBackButtonClicked()
@@ -266,11 +275,19 @@ void MsgThread::onListItemSelected(ThreadId id)
 
 void MsgThread::onThreadListChanged()
 {
+    MSG_LOG("");
+    update();
+}
+
+void MsgThread::onSearchListChanged()
+{
+    MSG_LOG("");
     update();
 }
 
 void MsgThread::onFloatingButtonPressed()
 {
+    MSG_LOG("");
     composeNewMessage();
 }
 
@@ -282,4 +299,5 @@ void MsgThread::onSearchButtonClicked(MsgThreadSearchPanel &obj)
 void MsgThread::onEntryChanged(MsgThreadSearchPanel &obj)
 {
     MSG_LOG("");
+    search(obj.getEntryText());
 }

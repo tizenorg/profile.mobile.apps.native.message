@@ -19,15 +19,40 @@
 #define ThreadSearchList_h_
 
 #include "ListView.h"
+#include "App.h"
+
+#include <Ecore.h>
 
 namespace Msg
 {
+    class IThreadSearchListListener;
+
     class ThreadSearchList
         : public ListView
     {
         public:
-            ThreadSearchList(Evas_Object *parent);
+            ThreadSearchList(Evas_Object *parent, App &app);
             virtual ~ThreadSearchList();
+
+            void setListener(IThreadSearchListListener *l);
+            void requestSearch(const std::string &searchWord);
+            void cancelSearch();
+
+        private:
+            void search();
+
+        private:
+            App &m_App;
+            Ecore_Idler *m_pIdler;
+            std::string m_SearchWord;
+            IThreadSearchListListener *m_pListener;
+    };
+
+    class IThreadSearchListListener
+    {
+        public:
+            virtual ~IThreadSearchListListener() {}
+            virtual void onSearchListChanged() {};
     };
 }
 

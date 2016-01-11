@@ -47,9 +47,9 @@ namespace Msg
             virtual std::string getName() = 0;
             virtual std::string getMessage() = 0;
             virtual std::string getTime() = 0;
-            virtual std::string getStatus() = 0;
             virtual Evas_Object *getThumbnail() = 0;
-            virtual Evas_Object *getIcon() = 0;
+            virtual std::string getStatus();
+            virtual Evas_Object *getIcon();
 
         private:
             virtual std::string getListItemText(ListItem &item, const char *part);
