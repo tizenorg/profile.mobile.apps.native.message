@@ -24,7 +24,7 @@ ListItemStyleRef ContactListViewItem::logStyle = ListItemStyle::create("1line");
 ListItemStyleRef ContactListViewItem::nameOrEmailStyle = ListItemStyle::create("2line.top");
 
 ContactListViewItem::ContactListViewItem()
-    : ListItem(ELM_GENLIST_ITEM_NONE, 0)
+    : ListItem(ELM_GENLIST_ITEM_NONE)
 {
 }
 

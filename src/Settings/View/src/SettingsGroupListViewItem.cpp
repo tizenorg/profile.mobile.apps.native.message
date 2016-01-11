@@ -25,7 +25,7 @@ namespace
 }
 
 SettingsGroupListViewItem::SettingsGroupListViewItem(const std::string &title)
-    : ListItem(itemStyle, ELM_GENLIST_ITEM_NONE, 0)
+    : ListItem(itemStyle, ELM_GENLIST_ITEM_NONE)
     , m_Title(title)
 {
 }
