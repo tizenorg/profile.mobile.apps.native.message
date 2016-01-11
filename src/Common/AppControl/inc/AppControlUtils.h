@@ -22,6 +22,11 @@
 #include <string>
 #include <list>
 
+#define APP_CONTROL_RES_CALLBACK(ClassName, method) [](app_control_h request, app_control_h reply, app_control_result_e result, void *data)\
+{                                                                        \
+    return static_cast<ClassName*>(data)->method(request, reply, result);\
+}
+
 namespace Msg
 {
     struct AppControlUtils
@@ -35,6 +40,11 @@ namespace Msg
         * Gets a string-array from given app-control handle by a key specified
         */
         static void getExtraDataArray(app_control_h handle, const std::string &key, std::list<std::string> &outArray);
+
+        /**
+         * Gets an int-array from given app-control handle by a key specified.
+         */
+        static void getExtraDataIntArray(app_control_h handle, const std::string &key, std::list<int> &outArray);
     };
 }
 

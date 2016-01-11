@@ -36,6 +36,7 @@ namespace Msg
             virtual int getAddressMaxCount() const;
             virtual int getSubjectMaxLen() const;
             virtual int getDisplayNameMaxLen() const;
+            virtual int getMaxRecipientCount() const;
 
             virtual void setAlerts(bool value);
             virtual bool getAlerts() const;
