@@ -30,7 +30,7 @@ namespace
 }
 
 SelectAllListItem::SelectAllListItem()
-    : ListItem(style, ELM_GENLIST_ITEM_NONE, 0)
+    : ListItem(style, ELM_GENLIST_ITEM_NONE)
 {
 }
 

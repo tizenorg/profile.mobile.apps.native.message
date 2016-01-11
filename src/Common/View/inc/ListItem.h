@@ -62,8 +62,8 @@ namespace Msg
         friend class ListView;
 
         public:
-            ListItem(Elm_Genlist_Item_Type type = ELM_GENLIST_ITEM_NONE, int userType = 0);
-            ListItem(const ListItemStyleRef &itemStyle, Elm_Genlist_Item_Type type, int userType = 0);
+            ListItem(Elm_Genlist_Item_Type type = ELM_GENLIST_ITEM_NONE);
+            ListItem(const ListItemStyleRef &itemStyle, Elm_Genlist_Item_Type type);
             virtual ~ListItem();
 
             // Base elm methods:
@@ -108,7 +108,6 @@ namespace Msg
         ListView *m_pOwner;
         ListItemStyleRef m_ItemStyle;
         Elm_Genlist_Item_Type m_Type;
-        int m_UserType;
         bool m_Checked;
     };
 }
