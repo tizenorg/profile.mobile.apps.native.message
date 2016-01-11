@@ -46,6 +46,7 @@ namespace Msg
         , private IMsgThreadSearchPanelListener
         , private IFloatingButtonListener
         , private IThreadListListener
+        , private IThreadSearchListListener
     {
         public:
             MsgThread(NaviFrameController &parent);
@@ -76,6 +77,9 @@ namespace Msg
             virtual void onListItemSelected(ThreadId id);
             virtual void onThreadListChanged();
 
+            // ThreadSearchList:
+            virtual void onSearchListChanged();
+
         private:
             enum Mode
             {
@@ -95,6 +99,7 @@ namespace Msg
             void setDeleteMode(bool value);
             void setNormalMode();
             void update();
+            void search(const std::string &searchWord);
 
             // Search:
             Evas_Object *createSearchPanel(Evas_Object *parent);

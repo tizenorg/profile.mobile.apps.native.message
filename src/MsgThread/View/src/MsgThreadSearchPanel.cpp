@@ -126,7 +126,10 @@ std::string MsgThreadSearchPanel::getEntryText() const
     {
         char *text = elm_entry_markup_to_utf8(elm_entry_entry_get(m_pEntry));
         if(text)
+        {
             res.assign(text);
+            free(text);
+        }
     }
     return res;
 }

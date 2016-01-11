@@ -128,3 +128,13 @@ Evas_Object *ThreadListViewItem::makeUnreadIcon(Evas_Object *parent, const std::
     return label;
 }
 
+std::string ThreadListViewItem::getStatus()
+{
+    return std::string();
+}
+
+Evas_Object *ThreadListViewItem::getIcon()
+{
+    return nullptr;
+}
+
