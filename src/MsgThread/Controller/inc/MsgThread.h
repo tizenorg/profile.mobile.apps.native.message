@@ -20,14 +20,15 @@
 
 #include "FrameController.h"
 #include "HwButtonListener.h"
-#include "MsgStorage.h"
-#include "ListView.h"
 #include "Popup.h"
 #include "ContextPopup.h"
 #include "MsgThreadLayout.h"
 #include "MsgThreadSearchPanel.h"
 #include "FloatingButton.h"
 #include "NoContentLayout.h"
+#include "MsgTypes.h"
+#include "ThreadList.h"
+#include "ThreadSearchList.h"
 
 #include <string>
 #include <memory>
@@ -37,16 +38,14 @@ namespace Msg
     class SelectAllListItem;
     class NaviFrameController;
     class ThreadListItem;
-    class ThreadListView;
     class App;
 
     class MsgThread
         : public FrameController
         , private IHwButtonListener
-        , private IListViewListener
-        , private IMsgStorageListener
         , private IMsgThreadSearchPanelListener
         , private IFloatingButtonListener
+        , private IThreadListListener
     {
         public:
             MsgThread(NaviFrameController &parent);
@@ -61,17 +60,7 @@ namespace Msg
             virtual void onHwBackButtonClicked();
             virtual void onHwMoreButtonClicked();
 
-            // IMsgStorageListener:
-            virtual void onMsgStorageChange(const MsgIdList &idList);
-
-            // IListViewListener:
-            virtual void onListItemSelected(ListItem &listItem, void *funcData);
-            virtual void onListItemChecked(ListItem &listItem, void *funcData);
-
-            // IPopupListener:
-            virtual void onPopupButtonClicked(Popup &popup, int buttonId);
-
-            // ContextPopup callbacks:
+            // Popup callbacks:
             void onSettingsItemPressed(ContextPopupItem &item);
             void onDeleteItemPressed(ContextPopupItem &item);
             void onSearchItemPressed(ContextPopupItem &item);
@@ -83,18 +72,21 @@ namespace Msg
             // IFloatingButtonListener
             virtual void onFloatingButtonPressed();
 
+            // IThreadListListener:
+            virtual void onListItemSelected(ThreadId id);
+            virtual void onThreadListChanged();
+
         private:
             enum Mode
             {
                 InitMode,
-                NormalMode,
                 DeleteMode,
+                NormalMode,
                 SearchMode
             };
 
         private:
             // MsgThread:
-            void updateThreadList();
             void composeNewMessage();
             void navigateToSettings();
             void navigateToConversation(ThreadId threadId);
@@ -102,11 +94,7 @@ namespace Msg
             void setMode(Mode mode);
             void setDeleteMode(bool value);
             void setNormalMode();
-            void deleteSelectedItems();
-
-            void checkHandler(SelectAllListItem &item);
-            void checkHandler(ThreadListItem &item);
-            void selectHandler(ThreadListItem &item);
+            void update();
 
             // Search:
             Evas_Object *createSearchPanel(Evas_Object *parent);
@@ -115,7 +103,8 @@ namespace Msg
         private:
             MsgThreadLayout *m_pLayout;
             NoContentLayout *m_pNoContent;
-            ThreadListView *m_pThreadListView;
+            ThreadList *m_pThreadList;
+            ThreadSearchList *m_pSearchList;
             MsgThreadSearchPanel *m_pSearchPanel;
             Mode m_Mode;
 
