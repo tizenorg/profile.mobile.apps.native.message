@@ -180,6 +180,23 @@ MsgAddressListRef MsgStoragePrivate::getAddressList(ThreadId id)
     return MsgAddressListRef(result);
 }
 
+MsgThreadListRef MsgStoragePrivate::searchThread(const std::string &word)
+{
+    MsgThreadListRef res;
+    msg_struct_list_s searchList = {};
+
+    msg_error_t error = msg_search_message_for_thread_view(m_ServiceHandle, word.c_str(), &searchList);
+    if(error != 0)
+    {
+        MSG_LOG_ERROR("msg_search_message_for_thread_view error ", error);
+    }
+
+    if(error == 0)
+        res.reset(new MsgThreadStructListPrivate(true, searchList));
+
+    return res;
+}
+
 MsgThreadItemRef MsgStoragePrivate::getThread(ThreadId id)
 {
     MsgThreadItemRef res;
@@ -266,4 +283,22 @@ MsgId MsgStoragePrivate::saveMessage(Message &msg)
     msg_release_struct(&sendOpt);
 
     return newMsgId;
+}
+
+MessageListRef MsgStoragePrivate::searchMessage(const std::string &word)
+{
+    MessageListRef res;
+    msg_struct_list_s searchList = {};
+
+    msg_struct_t listCond = msg_create_struct(MSG_STRUCT_MSG_LIST_CONDITION);
+    msg_set_int_value(listCond, MSG_LIST_CONDITION_FOLDER_ID_INT, MSG_ALLBOX_ID);
+    msg_set_int_value(listCond, MSG_LIST_CONDITION_STORAGE_ID_INT, MSG_STORAGE_PHONE);
+    msg_set_str_value(listCond, MSG_LIST_CONDITION_TEXT_VALUE_STR, word.c_str(), word.length());
+
+    msg_error_t error = msg_get_message_list2(m_ServiceHandle, listCond, &searchList);
+
+    if(error == 0)
+        res.reset(new MessageStructListPrivate(true, searchList));
+
+    return res;
 }

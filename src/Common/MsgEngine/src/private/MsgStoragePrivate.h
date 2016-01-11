@@ -18,6 +18,7 @@
 #define __MSG_STORAGE_PRIVATE_H__
 
 #include "MsgStorage.h"
+#include "MessagePrivate.h"
 
 #include <msg.h>
 #include <msg_storage_types.h>
@@ -40,11 +41,13 @@ namespace Msg
             virtual ThreadId getThreadId(const std::list<std::string> &addressList);
             virtual bool deleteThread(ThreadId id);
             virtual MsgAddressListRef getAddressList(ThreadId id);
+            virtual MsgThreadListRef searchThread(const std::string &word);
 
             // Message:
             virtual MessageSMSListRef getSimMsgList();
             virtual MessageRef getMessage(MsgId id);
             virtual MsgId saveMessage(Message &msg);
+            virtual MessageListRef searchMessage(const std::string &word);
 
             // Conversation:
             virtual MsgConversationListRef getConversationList(ThreadId id);

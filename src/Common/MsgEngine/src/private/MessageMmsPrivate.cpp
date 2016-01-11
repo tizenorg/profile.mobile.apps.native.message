@@ -76,9 +76,7 @@ void MessageMmsPrivate::setText(const std::string &text)
 
 std::string MessageMmsPrivate::getText() const
 {
-    int size = 0;
-    msg_get_int_value(m_MsgStruct, MSG_MESSAGE_DATA_SIZE_INT, &size); // TODO: check MSG_MESSAGE_DATA_SIZE_INT == textLen ?
-    return size > 0 ? MsgUtilsPrivate::getStr(m_MsgStruct, MSG_MESSAGE_MMS_TEXT_STR, size) : "";
+    return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_MESSAGE_MMS_TEXT_STR, MAX_MSG_TEXT_LEN);
 }
 
 MsgPageListHandlePrivate &MessageMmsPrivate::getPageList()

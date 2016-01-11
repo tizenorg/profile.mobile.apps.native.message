@@ -125,7 +125,7 @@ void MsgSettingsPrivate::setNotiSound(const std::string &soundPath)
     else
     {
         msg_set_int_value(m_GeneralOpt, MSG_GENERAL_RINGTONE_TYPE_INT, MSG_RINGTONE_TYPE_USER);
-        msg_set_str_value(m_GeneralOpt, MSG_GENERAL_RINGTONE_PATH_STR, (char*)soundPath.c_str(), soundPath.size());
+        msg_set_str_value(m_GeneralOpt, MSG_GENERAL_RINGTONE_PATH_STR, soundPath.c_str(), soundPath.size());
     }
     msg_set_general_opt(m_ServiceHandle, m_GeneralOpt);
 

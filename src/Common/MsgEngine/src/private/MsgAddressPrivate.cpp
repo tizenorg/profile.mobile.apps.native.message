@@ -54,7 +54,7 @@ MsgAddressPrivate::RecipientType MsgAddressPrivate::getRecipientType() const
 
 void MsgAddressPrivate::setAddress(const std::string &address)
 {
-    msg_set_str_value(m_MsgStruct, MSG_ADDRESS_INFO_ADDRESS_VALUE_STR, const_cast<char *>(address.c_str()), address.length());
+    msg_set_str_value(m_MsgStruct, MSG_ADDRESS_INFO_ADDRESS_VALUE_STR, address.c_str(), address.length());
 }
 
 void MsgAddressPrivate::setAddressType(AddressType type)
