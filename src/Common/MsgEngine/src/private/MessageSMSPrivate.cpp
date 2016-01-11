@@ -22,6 +22,7 @@
 #include <msg.h>
 #include <msg_storage.h>
 #include <msg_transport.h>
+#include <msg_types.h>
 
 
 using namespace Msg;
@@ -49,16 +50,9 @@ void MessageSMSPrivate::setText(const std::string &text)
 
 std::string MessageSMSPrivate::getText() const
 {
-    std::string text;
-
+    // FIXME: internal compiler error(arm only)
     int size = 0;
-    msg_get_int_value(m_MsgStruct, MSG_MESSAGE_DATA_SIZE_INT, &size);
-
-    if(size)
-    {
-        text = MsgUtilsPrivate::getStr(m_MsgStruct, MSG_MESSAGE_SMS_DATA_STR, size);
-    }
-
-    return text;
+    msg_get_int_value(m_MsgStruct, MSG_MESSAGE_DATA_SIZE_INT, &size); // TODO: check MSG_MESSAGE_DATA_SIZE_INT == textLen ?
+    return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_MESSAGE_SMS_DATA_STR, MAX_MSG_DATA_LEN);
 }
 
