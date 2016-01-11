@@ -45,6 +45,7 @@ namespace Msg
             void setMultiSelection(bool value);
             bool getMultiSelection() const;
             void clear();
+            bool isEmpty() const;
             void setMode(Elm_List_Mode mode);
             void setHomogeneous(bool isHomogeneous);
             ListItem *getSelectedItem() const;
@@ -108,9 +109,7 @@ namespace Msg
             {
                 T *listItem = dynamic_cast<T*>(static_cast<ListItem*>(data));
                 if(listItem)
-                {
                     list.push_back(listItem);
-                }
             }
             elmItem = elm_genlist_item_next_get(elmItem);
         }

@@ -42,6 +42,11 @@ namespace Msg
             {
                 return at(i);
             }
+
+            inline bool isEmpty() const
+            {
+                return getLength() <= 0;
+            }
     };
 }
 

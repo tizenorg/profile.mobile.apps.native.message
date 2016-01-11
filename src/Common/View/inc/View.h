@@ -38,6 +38,7 @@ namespace Msg
             inline bool isVisible() const;
             inline void show();
             inline void hide();
+            inline void setVisibility(bool show);
             inline void move(Evas_Coord x, Evas_Coord y);
             inline void setSizeHintWeight(double x = EVAS_HINT_EXPAND, double y = EVAS_HINT_EXPAND);
             inline void setSizeHintAlign(double x = EVAS_HINT_FILL, double y = EVAS_HINT_FILL);
@@ -126,6 +127,14 @@ namespace Msg
     inline void View::hide()
     {
         evas_object_hide(m_pEo);
+    }
+
+    inline void View::setVisibility(bool show)
+    {
+        if(show)
+            View::show();
+        else
+            hide();
     }
 
     inline void View::setSizeHintWeight(double x, double y)

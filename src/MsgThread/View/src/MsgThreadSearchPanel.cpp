@@ -49,6 +49,12 @@ void MsgThreadSearchPanel::create(Evas_Object *parent)
     // setContent(backButton, "swl.back_button"); TODO:
 }
 
+bool MsgThreadSearchPanel::isEmpty() const
+{
+    const char *text = elm_entry_entry_get(m_pEntry);
+    return text ? *text == 0 : true;
+}
+
 void MsgThreadSearchPanel::setListener(IMsgThreadSearchPanelListener *listener)
 {
     m_pListener = listener;

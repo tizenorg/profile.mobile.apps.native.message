@@ -123,6 +123,11 @@ void ListView::clear()
     elm_genlist_clear(getEo());
 }
 
+bool ListView::isEmpty() const
+{
+    return elm_genlist_first_item_get(getEo()) == nullptr;
+}
+
 void ListView::setMode(Elm_List_Mode mode)
 {
     elm_genlist_mode_set(getEo(), mode);

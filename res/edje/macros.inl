@@ -1,3 +1,4 @@
+#define BASE_SCALE 1.8
 
 #define PADDING_LEFT(param_padding_name, param_padding_size) \
 	part \
@@ -84,4 +85,10 @@
 			color: 255 255 255 64; \
 		} \
 	}
-
+#define SIG(name_, state_, target_)		\
+	program { name: name_;				\
+		signal: name_;					\
+		source: "";						\
+		action: STATE_SET state_ 0.0;	\
+		target: target_;				\
+	}
