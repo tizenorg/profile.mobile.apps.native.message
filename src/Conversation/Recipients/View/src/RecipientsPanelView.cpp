@@ -68,6 +68,11 @@ void RecipientsPanelView::clearEntry()
     elm_object_text_set(m_pEntry, "");
 }
 
+void RecipientsPanelView::clearMbe()
+{
+    elm_multibuttonentry_clear(m_pMbe);
+}
+
 RecipientViewItemList RecipientsPanelView::getItems() const
 {
     RecipientViewItemList res;

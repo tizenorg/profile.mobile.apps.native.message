@@ -45,6 +45,7 @@ namespace Msg
             bool getEntryFocus() const;
             void setEntryFocus(bool val);
             void clearEntry();
+            void clearMbe();
             void setRecipientRect(Evas_Object *rect);
 
             /**
