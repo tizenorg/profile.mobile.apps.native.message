@@ -16,8 +16,6 @@
  */
 
 #include "SimListViewItem.h"
-#include "ThreadListView.h"
-#include "ThreadListItemType.h"
 #include "Logger.h"
 #include "PathUtils.h"
 #include "ThumbnailMaker.h"
@@ -40,7 +38,7 @@ namespace
 }
 
 SimListViewItem::SimListViewItem(Elm_Genlist_Item_Type type)
-    : ListItem(SimItemStyle, type, IT_TREAD)
+    : ListItem(SimItemStyle, type)
 {
 }
 

@@ -19,18 +19,8 @@
 #include "Settings.h"
 #include "Conversation.h"
 #include "Logger.h"
-#include "ThreadListView.h"
-#include "ThreadListItem.h"
-#include "PathUtils.h"
-#include "MsgEngine.h"
 #include "App.h"
-#include "ThreadListItem.h"
-#include "ThreadListItemType.h"
-#include "SelectAllListItem.h"
 #include "Popup.h"
-#include "ContactManager.h"
-#include <Elementary.h>
-#include <sstream>
 
 using namespace Msg;
 
@@ -38,7 +28,8 @@ MsgThread::MsgThread(NaviFrameController &parent)
     : FrameController(parent)
     , m_pLayout(nullptr)
     , m_pNoContent(nullptr)
-    , m_pThreadListView(nullptr)
+    , m_pThreadList(nullptr)
+    , m_pSearchList(nullptr)
     , m_pSearchPanel(nullptr)
     , m_Mode(InitMode)
     , m_pFloatingBtn(nullptr)
@@ -52,24 +43,33 @@ MsgThread::MsgThread(NaviFrameController &parent)
     m_pLayout->setFloatingButton(*m_pFloatingBtn);
 
     m_pNoContent = new NoContentLayout(*m_pLayout);
-    m_pNoContent->setText(msgt("IDS_MSG_NPBODY_NO_MESSAGES"));
+    m_pNoContent->show();
 
-    m_pThreadListView = new ThreadListView(*m_pLayout);
-    m_pThreadListView->setListener(this);
-    m_pThreadListView->setMultiSelection(false);
-    m_pThreadListView->show();
+    m_pThreadList = new ThreadList(*m_pLayout, getApp());
+    m_pThreadList->setListener(this);
+    m_pThreadList->show();
 
-    m_pLayout->setBg(*m_pNoContent);
-    m_pLayout->setList(*m_pThreadListView);
-    updateThreadList();
-    getMsgEngine().getStorage().addListener(*this);
+    m_pSearchList = new ThreadSearchList(*m_pLayout);
+    m_pSearchList->show();
+
+    m_pLayout->setNoContent(*m_pNoContent);
+    m_pLayout->setList(*m_pThreadList);
+    m_pLayout->setSearchList(*m_pSearchList);
 
     setMode(NormalMode);
 }
 
 MsgThread::~MsgThread()
 {
-    getMsgEngine().getStorage().removeListener(*this);
+}
+
+Evas_Object *MsgThread::createSearchPanel(Evas_Object *parent)
+{
+    m_pSearchPanel = new MsgThreadSearchPanel(*m_pLayout);
+    m_pSearchPanel->setListener(this);
+    m_pSearchPanel->setGuideText("Search");
+    m_pSearchPanel->show();
+    return *m_pSearchPanel;
 }
 
 void MsgThread::onAttached(ViewItem &item)
@@ -91,34 +91,6 @@ void MsgThread::showMainCtxPopup()
     popupMngr.getCtxPopup().appendItem("Settings", nullptr, CTXPOPUP_ITEM_PRESSED_CB(MsgThread, onSettingsItemPressed), this);
     popupMngr.getCtxPopup().align(getApp().getWindow());
     popupMngr.getCtxPopup().show();
-}
-
-void MsgThread::onFloatingButtonPressed()
-{
-    composeNewMessage();
-}
-
-void MsgThread::updateThreadList()
-{
-    MsgThreadListRef list = getMsgEngine().getStorage().getThreadList();
-
-    int length = list->getLength();
-    for(int i = 0; i < length; ++i)
-    {
-        ThreadListItem *item = new ThreadListItem(list->at(i), getApp());
-        m_pThreadListView->appendItem(*item);
-    }
-
-    if(length > 0)
-    {
-        m_pNoContent->hide();
-        m_pThreadListView->show();
-    }
-    else
-    {
-       m_pThreadListView->hide();
-       m_pNoContent->show();
-    }
 }
 
 void MsgThread::composeNewMessage()
@@ -145,18 +117,17 @@ void MsgThread::setMode(Mode mode)
         return;
 
     setNormalMode();
-
     switch(mode)
     {
         case NormalMode:
             break;
 
-        case DeleteMode:
-            setDeleteMode(true);
-            break;
-
         case SearchMode:
             setSearchMode(true);
+            break;
+
+        case DeleteMode:
+            setDeleteMode(true);
             break;
 
         case InitMode:
@@ -168,6 +139,8 @@ void MsgThread::setMode(Mode mode)
 
 void MsgThread::setNormalMode()
 {
+    MSG_LOG("");
+
     // Reset previus mode:
     switch(m_Mode)
     {
@@ -183,39 +156,62 @@ void MsgThread::setNormalMode()
             break;
     }
 
+    m_pNoContent->setText(msgt("IDS_MSG_NPBODY_NO_MESSAGES"));
     m_Mode = NormalMode;
+    update();
 }
 
 void MsgThread::setDeleteMode(bool value)
 {
+    MSG_LOG("");
+
     if(value)
         m_Mode = DeleteMode;
 
     getNaviBar().showButton(NaviOkButtonId, value);
     getNaviBar().showButton(NaviCancelButtonId, value);
-
-    m_pThreadListView->setCheckMode(value);
-    m_pThreadListView->checkAllItems(false);
-    m_pThreadListView->showSelectAllItem(value);
+    m_pThreadList->setDeleteMode(value);
 }
 
-void MsgThread::checkHandler(SelectAllListItem &item)
+void MsgThread::setSearchMode(bool value)
 {
-    bool checked = item.getCheckedState();
-    m_pThreadListView->checkAllItems(checked);
+    MSG_LOG("");
+
+    getNaviBar().showButton(NaviPrevButtonId, value);
+    if(value)
+    {
+        m_Mode = SearchMode;
+        m_pSearchPanel->clearEntry();
+        getNaviBar().showSearch();
+        m_pNoContent->setText(msgt("IDS_MSG_NPBODY_NO_RESULTS_FOUND_ABB"));
+    }
+    else
+    {
+        getNaviBar().hideSearch();
+    }
+
+    update();
+    m_pSearchPanel->setEntryFocus(value);
 }
 
-void MsgThread::checkHandler(ThreadListItem &item)
+void MsgThread::update()
 {
-    ThreadId threadId = item.getThreadId();
-    MSG_LOG("Checked (id : state) = ", threadId, ":", item.getCheckedState());
-}
+    if(m_Mode == SearchMode)
+    {
+        bool showSearch = !m_pSearchList->isEmpty();
+        bool showThread = !showSearch && !m_pThreadList->isEmpty();
+        bool showNoContent = !showThread;
 
-void MsgThread::selectHandler(ThreadListItem &item)
-{
-    ThreadId threadId = item.getThreadId();
-    MSG_LOG("Selected MsgThreadItem id = ", threadId);
-    navigateToConversation(threadId);
+        m_pLayout->showSearchList(showSearch);
+        m_pLayout->showThreadList(showThread);
+        m_pLayout->showNoContent(showNoContent);
+    }
+    else
+    {
+        bool showThread = !m_pThreadList->isEmpty();
+        m_pLayout->showThreadList(showThread);
+        m_pLayout->showNoContent(!showThread);
+    }
 }
 
 void MsgThread::onHwBackButtonClicked()
@@ -234,33 +230,6 @@ void MsgThread::onHwMoreButtonClicked()
         showMainCtxPopup();
 }
 
-void MsgThread::onListItemSelected(ListItem &listItem, void *funcData)
-{
-    listItem.setSelected(false);
-    if(ThreadListItem *it = dynamic_cast<ThreadListItem*>(&listItem))
-        selectHandler(*it);
-}
-
-void MsgThread::onListItemChecked(ListItem &listItem, void *funcData)
-{
-    if(ThreadListItem *it = dynamic_cast<ThreadListItem*>(&listItem))
-        checkHandler(*it);
-    else if(SelectAllListItem *it = dynamic_cast<SelectAllListItem*>(&listItem))
-        checkHandler(*it);
-}
-
-void MsgThread::onPopupButtonClicked(Popup &popup, int buttonId)
-{
-    MSG_LOG("Popup button id: ", buttonId);
-    popup.destroy();
-}
-
-void MsgThread::onMsgStorageChange(const MsgIdList &idList)
-{
-    m_pThreadListView->clear(); // FIXME: temporary solution for demo
-    updateThreadList();
-}
-
 void MsgThread::onSettingsItemPressed(ContextPopupItem &item)
 {
     item.getParent().destroy();
@@ -270,7 +239,7 @@ void MsgThread::onSettingsItemPressed(ContextPopupItem &item)
 void MsgThread::onDeleteItemPressed(ContextPopupItem &item)
 {
     item.getParent().destroy();
-    setMode(DeleteMode);
+    setDeleteMode(true);
 }
 
 void MsgThread::onSearchItemPressed(ContextPopupItem &item)
@@ -279,20 +248,35 @@ void MsgThread::onSearchItemPressed(ContextPopupItem &item)
     setMode(SearchMode);
 }
 
-void MsgThread::deleteSelectedItems()
-{
-    auto collection = m_pThreadListView->getItems<ThreadListItem>();
-    for(ThreadListItem *it : collection)
-    {
-        if(it->getCheckedState())
-            getMsgEngine().getStorage().deleteThread(it->getThreadId());
-    }
-}
-
 void MsgThread::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
 {
     MSG_LOG("NaviButton id:", buttonId);
     if(buttonId == NaviOkButtonId)
-        deleteSelectedItems();
+        m_pThreadList->deleteSelectedItems();
     setMode(NormalMode);
+}
+
+void MsgThread::onListItemSelected(ThreadId id)
+{
+    navigateToConversation(id);
+}
+
+void MsgThread::onThreadListChanged()
+{
+    update();
+}
+
+void MsgThread::onFloatingButtonPressed()
+{
+    composeNewMessage();
+}
+
+void MsgThread::onSearchButtonClicked(MsgThreadSearchPanel &obj)
+{
+    MSG_LOG("");
+}
+
+void MsgThread::onEntryChanged(MsgThreadSearchPanel &obj)
+{
+    MSG_LOG("");
 }

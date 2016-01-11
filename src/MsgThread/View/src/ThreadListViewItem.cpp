@@ -16,8 +16,6 @@
  */
 
 #include "ThreadListViewItem.h"
-#include "ThreadListView.h"
-#include "ThreadListItemType.h"
 #include "Logger.h"
 #include "PathUtils.h"
 #include "ThumbnailMaker.h"
@@ -48,7 +46,7 @@ namespace
 }
 
 ThreadListViewItem::ThreadListViewItem(Elm_Genlist_Item_Type type)
-    : ListItem(threadItemStyle, type, IT_TREAD)
+    : ListItem(threadItemStyle, type)
     , m_State(NormalState)
 {
 }

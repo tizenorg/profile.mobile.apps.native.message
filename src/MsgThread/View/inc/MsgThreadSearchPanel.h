@@ -38,6 +38,7 @@ namespace Msg
             void showClearButton(bool visible);
             void setGuideText(const std::string &text);
             void setEntryFocus(bool focus);
+            bool isEmpty() const;
 
         private:
             void create(Evas_Object *parent);

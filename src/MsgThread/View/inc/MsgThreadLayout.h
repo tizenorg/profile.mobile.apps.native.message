@@ -31,8 +31,11 @@ namespace Msg
             virtual ~MsgThreadLayout();
 
             void setList(Evas_Object *list);
-            void setBg(Evas_Object *bg);
-
+            void setSearchList(Evas_Object *searchList);
+            void setNoContent(Evas_Object *bg);
+            void showNoContent(bool show);
+            void showSearchList(bool show);
+            void showThreadList(bool show);
         private:
             void create(Evas_Object *parent);
             void setContent(Evas_Object *obj);

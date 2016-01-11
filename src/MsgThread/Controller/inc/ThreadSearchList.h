@@ -15,23 +15,20 @@
  *
  */
 
-#ifndef ThreadListView_h_
-#define ThreadListView_h_
+#ifndef ThreadSearchList_h_
+#define ThreadSearchList_h_
 
 #include "ListView.h"
 
 namespace Msg
 {
-    class ThreadListView
+    class ThreadSearchList
         : public ListView
     {
         public:
-            ThreadListView(Evas_Object *parent);
-            virtual ~ThreadListView();
-
-            void showSelectAllItem(bool show, bool resetCheck = true);
-            void checkAllItems(bool check);
+            ThreadSearchList(Evas_Object *parent);
+            virtual ~ThreadSearchList();
     };
 }
 
-#endif // ThreadListView_h_
+#endif // ThreadSearchList_h_

@@ -12,21 +12,21 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
  */
 
-#ifndef __THREAD_LIST_ITEM_TYPE_H__
-#define __THREAD_LIST_ITEM_TYPE_H__
 
-namespace Msg
+#include "ThreadSearchList.h"
+
+using namespace Msg;
+
+ThreadSearchList::ThreadSearchList(Evas_Object *parent)
+    : ListView(parent)
 {
-    enum ItemType
-    {
-        IT_TREAD = 0,
-        IT_SEPARATOR,
-        IT_MAX
-    };
+    setMultiSelection(false);
+    setMode(ELM_LIST_COMPRESS);
 }
 
-
-
-#endif /* __THREAD_LIST_ITEM_TYPE_H__ */
+ThreadSearchList::~ThreadSearchList()
+{
+}
