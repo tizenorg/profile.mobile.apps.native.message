@@ -97,7 +97,8 @@ namespace Msg
 
         private:
             // Empty initializer constructor:
-            Conversation(NaviFrameController &parent, const AppControlComposeRef &cmd, bool dummy);
+            Conversation(NaviFrameController &parent, bool dummy);
+            void execCmd(const AppControlComposeRef &cmd);
             void create();
             void setMode(Mode mode);
             void setNewMessageMode();
@@ -141,7 +142,6 @@ namespace Msg
             ThreadId m_ThreadId;
             bool m_IsMms; // Compose message type
             ConvList *m_pConvList;
-            const AppControlComposeRef m_ComposeCmd;
     };
 }
 
