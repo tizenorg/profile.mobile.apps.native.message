@@ -83,7 +83,10 @@ void RecipientsPanel::addRecipients()
         if(it.second == MsgAddress::Phone)
             it.first = MsgUtils::makeNormalizedNumber(it.first);
 
-        appendItem(it.first, it.first, it.second);
+        if(!recipientExists(it.first))
+            appendItem(it.first, it.first, it.second);
+        else
+            showDuplicatedRecipientPopup();
     }
     setEntryText(result.invalidResult);
 }
