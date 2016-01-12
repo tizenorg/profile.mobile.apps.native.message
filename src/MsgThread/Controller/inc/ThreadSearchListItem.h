@@ -18,43 +18,26 @@
 #ifndef ThreadSearchListItem_h_
 #define ThreadSearchListItem_h_
 
-#include "ThreadListViewItem.h"
-#include "ThumbnailMaker.h"
-#include "App.h"
-#include "Message.h"
+#include "BaseThreadListItem.h"
+#include "MsgThreadItem.h"
 #include "MsgTypes.h"
 
 namespace Msg
 {
     class ThreadSearchListItem
-        : public ThreadListViewItem
+        : public BaseThreadListItem
     {
         public:
-            ThreadSearchListItem(const Message &msg, App &app, const std::string &searchWord);
+            ThreadSearchListItem(App &app, const MsgThreadItem &item, const std::string &searchWord);
             virtual ~ThreadSearchListItem();
 
-            MsgId getMsgId() const;
+            ThreadId getThreadId() const;
 
         private:
-            void updateModel(const Message &msg, const std::string &searchWord);
-            void updateThumbnail(const Message &msg);
-
-            // ThreadListViewItem:
-            virtual std::string getName();
-            virtual std::string getMessage();
-            virtual std::string getTime();
-            virtual Evas_Object *getThumbnail();
-
-            Evas_Object *makeUnreadBadge(int unreadCount);
+            void update(const MsgThreadItem &item, const std::string &searchWord);
 
         private:
-            MsgId m_MsgId;
-            App &m_App;
-            ThumbnailMaker::Type m_ThumbType;
-            std::string m_ThumbPath;
-            std::string m_Name;
-            std::string m_Message;
-            std::string m_Time;
+            ThreadId m_ThreadId;
     };
 }
 

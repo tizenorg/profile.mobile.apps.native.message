@@ -229,10 +229,10 @@ MsgConversationListRef MsgStoragePrivate::getConversationList(ThreadId id)
 MessageRef MsgStoragePrivate::getMessage(MsgId id)
 {
     MessageRef msgRef;
-    msg_struct_t msg = nullptr;
-
+    msg_struct_t msg = msg_create_struct(MSG_STRUCT_MESSAGE_INFO);
     msg_struct_t sendOpt = msg_create_struct(MSG_STRUCT_SENDOPT);
-    if(msg_get_message(m_ServiceHandle, (msg_message_id_t)id, msg, sendOpt) == 0)
+
+    if(msg_get_message(m_ServiceHandle, id, msg, sendOpt) == 0)
     {
         int msgType = MSG_TYPE_INVALID;
         msg_get_int_value(msg, MSG_MESSAGE_TYPE_INT, &msgType);
@@ -251,6 +251,10 @@ MessageRef MsgStoragePrivate::getMessage(MsgId id)
                 msg_release_struct(&msg);
                 MSG_ASSERT(false, "Unsupported message type");
         }
+    }
+    else
+    {
+        msg_release_struct(&msg);
     }
     msg_release_struct(&sendOpt);
     return msgRef;

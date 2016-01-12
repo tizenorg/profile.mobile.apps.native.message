@@ -30,10 +30,8 @@
 using namespace Msg;
 
 ThreadListItem::ThreadListItem(const MsgThreadItem &threadItem, App &app)
-    : ThreadListViewItem()
+    : BaseThreadListItem(app)
     , m_ThreadId()
-    , m_App(app)
-    , m_ThumbType(ThumbnailMaker::MsgType)
 {
     updateModel(threadItem);
 }
@@ -45,58 +43,6 @@ ThreadListItem::~ThreadListItem()
 ThreadId ThreadListItem::getThreadId() const
 {
     return m_ThreadId;
-}
-
-std::string ThreadListItem::getName()
-{
-    return m_Name;
-}
-
-std::string ThreadListItem::getMessage()
-{
-    return m_Message;
-}
-
-Evas_Object *ThreadListItem::getThumbnail()
-{
-    return ThumbnailMaker::make(*getOwner(), m_ThumbType, m_ThumbPath);
-}
-
-void ThreadListItem::updateThumbnail(const MsgThreadItem &threadItem)
-{
-    const MsgAddressListRef addressList = m_App.getMsgEngine().getStorage().getAddressList(threadItem.getId());
-
-    if(addressList)
-    {
-        int countContact = addressList->getLength();
-        m_ThumbType = ThumbnailMaker::MsgType;
-        if(countContact > 1)
-        {
-            m_ThumbPath = PathUtils::getResourcePath(THUMB_GROUP_IMG_PATH);
-        }
-        else if(countContact == 1)
-        {
-            const MsgAddress &addr = addressList->at(0);
-            ContactPersonNumber contactNumber = m_App.getContactManager().getContactPersonNumber(addr.getAddress());
-            const char *thumbPath = contactNumber.isValid() ? contactNumber.getThumbnailPath() : nullptr;
-            if(thumbPath)
-            {
-                m_ThumbPath.assign(thumbPath);
-                m_ThumbType = ThumbnailMaker::UserType;
-            }
-            else
-            {
-                m_ThumbPath = PathUtils::getResourcePath(THUMB_CONTACT_IMG_PATH);
-            }
-            contactNumber.release();
-        }
-    }
-}
-
-std::string ThreadListItem::getTime()
-{
-    //m_MsgThreadItem.getTime();
-    return std::string("7:40"); // TODO: remove hardcode
 }
 
 std::string ThreadListItem::getStatus()

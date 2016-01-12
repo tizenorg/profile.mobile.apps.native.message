@@ -20,6 +20,7 @@
 
 #include "ListView.h"
 #include "App.h"
+#include "MsgTypes.h"
 
 #include <Ecore.h>
 
@@ -29,6 +30,7 @@ namespace Msg
 
     class ThreadSearchList
         : public ListView
+        , private IListViewListener
     {
         public:
             ThreadSearchList(Evas_Object *parent, App &app);
@@ -37,8 +39,12 @@ namespace Msg
             void setListener(IThreadSearchListListener *l);
             void requestSearch(const std::string &searchWord);
             void cancelSearch();
+            const std::string &getSearchWord() const;
 
         private:
+            // IListViewListener:
+            virtual void onListItemSelected(ListItem &listItem, void *funcData);
+
             void search();
 
         private:
@@ -53,6 +59,8 @@ namespace Msg
         public:
             virtual ~IThreadSearchListListener() {}
             virtual void onSearchListChanged() {};
+            virtual void onSearchListItemSelected(ThreadId id) {};
+            virtual void onSearchListItemSelected(MsgId id) {};
     };
 }
 

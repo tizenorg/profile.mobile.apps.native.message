@@ -93,6 +93,11 @@ void Conversation::create()
     setHwButtonListener(*m_pLayout, this);
 }
 
+void Conversation::navigateTo(MsgId msgId)
+{
+    m_pConvList->navigateTo(msgId);
+}
+
 void Conversation::setMode(Mode mode)
 {
     if(m_Mode == mode)

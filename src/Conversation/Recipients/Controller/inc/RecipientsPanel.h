@@ -33,7 +33,7 @@ namespace Msg
 
     class RecipientsPanel
         : public RecipientsPanelView,
-          public IContactPickerListener
+          private IContactPickerListener
     {
         public:
             RecipientsPanel(Evas_Object *parent, App &app);

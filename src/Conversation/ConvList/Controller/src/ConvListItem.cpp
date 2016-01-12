@@ -51,3 +51,8 @@ std::string ConvListItem::getTime()
     //TODO: convert time_t to string
     return "10:23 PM";
 }
+
+MsgId ConvListItem::getMsgId() const
+{
+    return m_MsgId;
+}

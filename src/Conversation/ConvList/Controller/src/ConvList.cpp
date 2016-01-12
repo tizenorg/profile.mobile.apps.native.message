@@ -113,6 +113,24 @@ void ConvList::setThreadId(ThreadId id)
     fill();
 }
 
+void ConvList::navigateTo(MsgId msgId)
+{
+    ConvListItem *item = getItem(msgId);
+    if(item)
+        m_pList->showItem(*item, ELM_GENLIST_ITEM_SCROLLTO_MIDDLE);
+}
+
+ConvListItem *ConvList::getItem(MsgId msgId) const
+{
+    auto items = m_pList->getItems<ConvListItem>();
+    for(ConvListItem *item : items)
+    {
+        if(item->getMsgId() == msgId)
+            return item;
+    }
+    return nullptr;
+}
+
 bool ConvList::isAllListItemSelected() const
 {
     // Simple but not fast impl:

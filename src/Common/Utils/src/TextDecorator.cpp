@@ -142,7 +142,7 @@ std::string TextDecorator::highlightKeyword(const std::string &str, const std::s
 
     res += firstPart;
     res += "<match>";
-    res += searchWord;
+    res += std::string(found, searchWord.length());
     res += "</match>";
     res += lastPart;
 

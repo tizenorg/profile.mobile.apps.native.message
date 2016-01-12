@@ -18,8 +18,7 @@
 #ifndef ThreadListItem_h_
 #define ThreadListItem_h_
 
-#include "ThreadListViewItem.h"
-#include "ViewItemController.h"
+#include "BaseThreadListItem.h"
 #include "MsgThreadItem.h"
 #include "ThumbnailMaker.h"
 #include "ContactPersonNumber.h"
@@ -29,7 +28,7 @@
 namespace Msg
 {
     class ThreadListItem
-        : public ThreadListViewItem
+        : public BaseThreadListItem
     {
         public:
             ThreadListItem(const MsgThreadItem &threadItem, App &app);
@@ -37,27 +36,16 @@ namespace Msg
 
             ThreadId getThreadId() const;
             void updateModel(const MsgThreadItem &threadItem);
-            void updateThumbnail(const MsgThreadItem &threadItem);
 
         private:
             // ThreadListViewItem:
-            virtual std::string getName();
-            virtual std::string getMessage();
-            virtual std::string getTime();
             virtual std::string getStatus();
-            virtual Evas_Object *getThumbnail();
             virtual Evas_Object *getIcon();
 
             Evas_Object *makeUnreadBadge(int unreadCount);
 
         private:
             ThreadId m_ThreadId;
-            App &m_App;
-            ThumbnailMaker::Type m_ThumbType;
-            std::string m_ThumbPath;
-            std::string m_Name;
-            std::string m_Message;
-            std::string m_Time;
             std::string m_Status;
     };
 }

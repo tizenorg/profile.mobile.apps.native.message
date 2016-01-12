@@ -25,6 +25,8 @@
 
 namespace Msg
 {
+    class ConvListItem;
+
     class ConvList
         : public ConvListLayout
         , private IMsgStorageListener
@@ -66,6 +68,12 @@ namespace Msg
              */
             void setThreadId(ThreadId id);
 
+            /**
+             * @brief Navigate to mesage
+             * @param[in] msgId message id to navigate
+             */
+            void navigateTo(MsgId msgId);
+
         private:
             void create(Evas_Object *parent);
             Evas_Object *createSelectAll(Evas_Object *parent);
@@ -73,6 +81,7 @@ namespace Msg
             void fill();
             void selectListItems(bool state);
             bool isAllListItemSelected() const;
+            ConvListItem *getItem(MsgId msgId) const;
 
             // IListViewListener:
             virtual void onListItemSelected(ListItem &listItem, void *funcData);

@@ -79,6 +79,8 @@ namespace Msg
 
             // ThreadSearchList:
             virtual void onSearchListChanged();
+            virtual void onSearchListItemSelected(ThreadId id);
+            virtual void onSearchListItemSelected(MsgId id);
 
         private:
             enum Mode
@@ -93,7 +95,7 @@ namespace Msg
             // MsgThread:
             void composeNewMessage();
             void navigateToSettings();
-            void navigateToConversation(ThreadId threadId);
+            void navigateToConversation(ThreadId threadId, MsgId msgId = MsgId());
             void showMainCtxPopup();
             void setMode(Mode mode);
             void setDeleteMode(bool value);

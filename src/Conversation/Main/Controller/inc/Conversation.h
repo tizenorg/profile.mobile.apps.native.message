@@ -51,6 +51,8 @@ namespace Msg
             Conversation(NaviFrameController &parent, ThreadId threadId);
             virtual ~Conversation();
 
+            void navigateTo(MsgId msgId);
+
         private:
             enum Mode
             {

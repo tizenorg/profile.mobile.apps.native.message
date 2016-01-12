@@ -16,9 +16,10 @@
  */
 
 #include "ThreadSearchList.h"
+#include "MsgSearchListItem.h"
 #include "ThreadSearchListItem.h"
-#include "MessageSMS.h"
 #include "MsgEngine.h"
+#include "Logger.h"
 
 using namespace Msg;
 
@@ -30,6 +31,7 @@ ThreadSearchList::ThreadSearchList(Evas_Object *parent, App &app)
 {
     setMultiSelection(false);
     setMode(ELM_LIST_COMPRESS);
+    ListView::setListener(this);
 }
 
 ThreadSearchList::~ThreadSearchList()
@@ -70,20 +72,56 @@ void ThreadSearchList::cancelSearch()
     }
 }
 
+const std::string &ThreadSearchList::getSearchWord() const
+{
+    return m_SearchWord;
+}
+
 void ThreadSearchList::search()
 {
+    MSG_LOG("Search word: ", m_SearchWord);
     ListView::clear();
-    // TODO: pull from model:
 
-    // TODO: only for demo will be removed
-    MessageSMSRef sms = m_App.getMsgEngine().getComposer().createSms();
-    sms->setText("Hello world!!!");
-    auto &addr = sms->addAddress();
-    addr.setAddress("5555512335555");
-    ThreadSearchListItem *item = new ThreadSearchListItem(*sms, m_App, m_SearchWord);
-    ListView::appendItem(*item);
+    if(!m_SearchWord.empty())
+    {
+        MsgStorage &msgSotrage = m_App.getMsgEngine().getStorage();
+
+        // Thread:
+        MsgThreadListRef threadList = msgSotrage.searchThread(m_SearchWord);
+        if(threadList)
+        {
+            int length = threadList->getLength();
+            for(int i = 0; i < length; ++i)
+            {
+                const MsgThreadItem &threadItem = threadList->at(i);
+                ListView::appendItem(*new ThreadSearchListItem(m_App, threadItem, m_SearchWord));
+            }
+        }
+
+        // Message:
+        MessageListRef msgList = msgSotrage.searchMessage(m_SearchWord);
+        if(msgList)
+        {
+            int length = msgList->getLength();
+            for(int i = 0; i < length; ++i)
+            {
+                const Message &msg = msgList->at(i);
+                ListView::appendItem(*new MsgSearchListItem(m_App, msg, m_SearchWord));
+            }
+        }
+    }
 
     if(m_pListener)
         m_pListener->onSearchListChanged();
 }
 
+void ThreadSearchList::onListItemSelected(ListItem &listItem, void *funcData)
+{
+    if(m_pListener)
+    {
+        if(auto it = dynamic_cast<MsgSearchListItem*>(&listItem))
+            m_pListener->onSearchListItemSelected(it->getMsgId());
+        else if(auto it = dynamic_cast<ThreadSearchListItem*>(&listItem))
+            m_pListener->onSearchListItemSelected(it->getThreadId());
+    }
+}

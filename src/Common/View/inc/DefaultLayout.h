@@ -32,6 +32,9 @@ namespace Msg
             void setContent(Evas_Object *obj);
             void setBg(Evas_Object *obj);
             void setFloatingButton(Evas_Object *obj);
+            void showFloatingButton(bool show);
+        private:
+            Evas_Object *m_pFloatingBtn;
     };
 
 }

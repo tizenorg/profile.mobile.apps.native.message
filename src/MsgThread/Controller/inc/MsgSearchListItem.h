@@ -15,40 +15,31 @@
  *
  */
 
-#ifndef ConvListItem_H_
-#define ConvListItem_H_
+#ifndef MsgSearchListItem_h_
+#define MsgSearchListItem_h_
 
-#include "ConvListViewItem.h"
-#include "MsgTypes.h"
-#include "BubbleView.h"
+#include "BaseThreadListItem.h"
+#include "Message.h"
 
 namespace Msg
 {
-    class MsgConversationItem;
-
-    class ConvListItem
-        : public ConvListViewItem
+    class MsgSearchListItem
+        : public BaseThreadListItem
     {
         public:
-            /**
-             * @brief Creates item for Conversation list
-             * @param[in] item MsgConversationItem model
-             */
-            ConvListItem(MsgConversationItem &item);
-            virtual ~ConvListItem();
+            MsgSearchListItem(App &app, const Message &msg, const std::string &searchWord);
+            virtual ~MsgSearchListItem();
 
             MsgId getMsgId() const;
 
-        protected:
-            virtual Evas_Object *getBubble();
-            virtual std::string getText();
-            virtual std::string getTime();
+        private:
+            void update(const Message &msg, const std::string &searchWord);
+            void updateThumbnail(const Message &msg);
+
 
         private:
             MsgId m_MsgId;
-            std::string m_MessageText;
     };
 }
 
-
-#endif /* ConvListItem_H_ */
+#endif // MsgSearchListItem_h_

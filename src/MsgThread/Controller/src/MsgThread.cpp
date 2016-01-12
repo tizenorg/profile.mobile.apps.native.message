@@ -106,10 +106,12 @@ void MsgThread::navigateToSettings()
     getParent().push(*frame);
 }
 
-void MsgThread::navigateToConversation(ThreadId threadId)
+void MsgThread::navigateToConversation(ThreadId threadId, MsgId msgId)
 {
     Conversation *frame = new Conversation(getParent(), threadId);
     getParent().push(*frame);
+    if(msgId.isValid())
+        frame->navigateTo(msgId);
 }
 
 void MsgThread::setMode(Mode mode)
@@ -199,15 +201,19 @@ void MsgThread::setSearchMode(bool value)
 
 void MsgThread::update()
 {
-    if(m_Mode == SearchMode)
+    bool searchEnabled = m_Mode == SearchMode;
+
+    m_pLayout->showFloatingButton(!searchEnabled);
+    if(searchEnabled)
     {
         bool showSearch = !m_pSearchList->isEmpty();
-        bool showThread = !showSearch && !m_pThreadList->isEmpty();
-        bool showNoContent = !showThread;
+        bool showThread = !showSearch && !m_pThreadList->isEmpty() && m_pSearchList->getSearchWord().empty();
+        bool showNoContent = !showThread && !showSearch;
 
         m_pLayout->showSearchList(showSearch);
         m_pLayout->showThreadList(showThread);
         m_pLayout->showNoContent(showNoContent);
+
     }
     else
     {
@@ -283,6 +289,20 @@ void MsgThread::onSearchListChanged()
 {
     MSG_LOG("");
     update();
+}
+
+void MsgThread::onSearchListItemSelected(ThreadId id)
+{
+    MSG_LOG("");
+    navigateToConversation(id);
+}
+
+void MsgThread::onSearchListItemSelected(MsgId id)
+{
+    MSG_LOG("");
+    MessageRef msg = getMsgEngine().getStorage().getMessage(id);
+    if(msg)
+        navigateToConversation(msg->getThreadId(), id);
 }
 
 void MsgThread::onFloatingButtonPressed()
