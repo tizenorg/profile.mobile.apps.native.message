@@ -28,14 +28,7 @@ RecipientsPanel::RecipientsPanel(Evas_Object *parent, App &app)
     , m_App(app)
     , m_pListener(nullptr)
 {
-}
-
-RecipientsPanel::RecipientsPanel(Evas_Object *parent, App &app, const AppControlComposeRef &cmd)
-    : RecipientsPanel(parent, app)
-{
     m_Picker.setListener(this);
-    if(cmd)
-        execCmd(cmd);
 }
 
 RecipientsPanel::~RecipientsPanel()
@@ -129,10 +122,12 @@ bool RecipientsPanel::appendItem(const std::string &address, const std::string &
 
 void RecipientsPanel::execCmd(const AppControlComposeRef &cmd)
 {
+    clearMbe();
     for(auto item: cmd->getRecipientList())
     {
         appendItem(item, item, MsgAddress::UnknownAddressType);
     }
+    showMbe(!isMbeEmpty());
 }
 
 void RecipientsPanel::onKeyDown(Evas_Event_Key_Down *ev)
