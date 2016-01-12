@@ -126,6 +126,7 @@ void Conversation::setMode(Mode mode)
 
 void Conversation::setNewMessageMode()
 {
+    bool needUpdate = m_Mode != InitMode;
     m_Mode = NewMessageMode;
 
     createRecipPanel(*m_pLayout);
@@ -136,7 +137,10 @@ void Conversation::setNewMessageMode()
     m_pLayout->setPredictSearch(*m_pContactsList);
     destroyConvList();
     updateNavibar();
-    m_pRecipPanel->update(m_ThreadId);
+
+    if(needUpdate)
+        m_pRecipPanel->update(m_ThreadId);
+
     m_pRecipPanel->showMbe(!m_pRecipPanel->isMbeEmpty());
 }
 
