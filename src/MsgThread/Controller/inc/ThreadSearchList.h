@@ -37,6 +37,7 @@ namespace Msg
             void setListener(IThreadSearchListListener *l);
             void requestSearch(const std::string &searchWord);
             void cancelSearch();
+            const std::string &getSearchWord() const;
 
         private:
             void search();

@@ -72,7 +72,7 @@ namespace Msg
             void setSelected(bool selected);
             bool getSelected() const;
             void setExpanded(bool expand);
-            virtual void update();
+            void update();
             void updateFields(const char *parts, Elm_Genlist_Item_Field_Type type);;
             ListView *getOwner() const;
             Elm_Genlist_Item_Type getType() const;

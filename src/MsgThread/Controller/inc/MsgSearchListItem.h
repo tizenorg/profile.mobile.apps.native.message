@@ -15,31 +15,31 @@
  *
  */
 
-#include "ThreadSearchListItem.h"
-#include "TextDecorator.h"
+#ifndef MsgSearchListItem_h_
+#define MsgSearchListItem_h_
 
-using namespace Msg;
+#include "BaseThreadListItem.h"
+#include "Message.h"
 
-ThreadSearchListItem::ThreadSearchListItem(App &app, const MsgThreadItem &item, const std::string &searchWord)
-    : BaseThreadListItem(app)
+namespace Msg
 {
-    update(item, searchWord);
+    class MsgSearchListItem
+        : public BaseThreadListItem
+    {
+        public:
+            MsgSearchListItem(App &app, const Message &msg, const std::string &searchWord);
+            virtual ~MsgSearchListItem();
+
+            MsgId getMsgId() const;
+
+        private:
+            void update(const Message &msg, const std::string &searchWord);
+            void updateThumbnail(const Message &msg);
+
+
+        private:
+            MsgId m_MsgId;
+    };
 }
 
-ThreadSearchListItem::~ThreadSearchListItem()
-{
-
-}
-
-ThreadId ThreadSearchListItem::getThreadId() const
-{
-    return m_ThreadId;
-}
-
-void ThreadSearchListItem::update(const MsgThreadItem &item, const std::string &searchWord)
-{
-    m_ThreadId = item.getId();
-    m_Name = TextDecorator::highlightKeyword(item.getName(), searchWord);
-    m_Message = item.getLastMessage();
-    updateThumbnail(item);
-}
+#endif // MsgSearchListItem_h_

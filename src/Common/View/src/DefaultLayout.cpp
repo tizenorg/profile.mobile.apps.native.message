@@ -19,7 +19,13 @@
 
 using namespace Msg;
 
+namespace
+{
+    const char *floatingPart = "elm.swallow.floatingbutton";
+}
+
 DefaultLayout::DefaultLayout(Evas_Object *parent)
+    : m_pFloatingBtn(nullptr)
 {
     setEo(elm_layout_add(parent));
     elm_layout_theme_set(getEo(), "layout", "application", "default");
@@ -42,6 +48,21 @@ void DefaultLayout::setBg(Evas_Object *obj)
 
 void DefaultLayout::setFloatingButton(Evas_Object *obj)
 {
-    elm_object_part_content_set(getEo(), "elm.swallow.floatingbutton", obj);
+    m_pFloatingBtn = obj;
+    elm_object_part_content_set(getEo(), floatingPart, obj);
+}
+
+void DefaultLayout::showFloatingButton(bool show)
+{
+    if(show)
+    {
+        View::setContent(m_pFloatingBtn, floatingPart, true);
+        evas_object_show(m_pFloatingBtn);
+    }
+    else
+    {
+        View::unsetContent(floatingPart);
+        evas_object_hide(m_pFloatingBtn);
+    }
 }
 

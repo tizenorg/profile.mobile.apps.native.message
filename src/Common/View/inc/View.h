@@ -47,6 +47,7 @@ namespace Msg
             inline void setSizeHintMin(Evas_Coord w, Evas_Coord h);
             inline void setSizeHintMax(Evas_Coord w, Evas_Coord h);
             Evas_Object *setContent(Evas_Object *content, const char *part = nullptr, bool saveOldContent = false);
+            inline Evas_Object *unsetContent(const char *part = nullptr);
             inline Evas_Object* getContent(const char *part = nullptr) const;
             inline void setFocusAllow(bool enable);
             inline bool getFocusAllow() const;
@@ -279,6 +280,11 @@ namespace Msg
     inline void View::addEventCb(Evas_Callback_Type type, Evas_Object_Event_Cb func, const void *data)
     {
         evas_object_event_callback_add(m_pEo, type, func, data);
+    }
+
+    inline Evas_Object *View::unsetContent(const char *part)
+    {
+        return elm_object_part_content_unset(m_pEo, part);
     }
 }
 
