@@ -174,6 +174,7 @@ void Conversation::createConvList(Evas_Object *parent)
     if(!m_pConvList)
     {
         m_pConvList = new ConvList(*m_pLayout, getMsgEngine(), m_ThreadId);
+        m_pConvList->setListener(this);
         m_pConvList->show();
     }
 }
@@ -523,6 +524,16 @@ void Conversation::onHwMoreButtonClicked()
         showMainCtxPopup();
 }
 
+void Conversation::onNaviOkButtonClicked()
+{
+    if(m_Mode == ConversationMode && m_pConvList->getMode() == ConvList::SelectMode)
+    {
+        m_pConvList->deleteSelectedItems();
+        m_pConvList->setMode(ConvList::NormalMode);
+        updateNavibar();
+    }
+}
+
 void Conversation::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
 {
     //TODO: Handle other buttons
@@ -543,6 +554,7 @@ void Conversation::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
             break;
 
         case NaviOkButtonId:
+            onNaviOkButtonClicked();
             break;
 
         default:
@@ -575,4 +587,9 @@ void Conversation::onAddRecipientsItemPressed(ContextPopupItem &item)
     item.getParent().destroy();
 
     setNewMessageMode();
+}
+
+void Conversation::onAllItemsDeleted(ConvList &list)
+{
+    onHwBackButtonClicked();
 }

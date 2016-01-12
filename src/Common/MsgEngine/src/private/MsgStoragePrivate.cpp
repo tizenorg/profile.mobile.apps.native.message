@@ -25,6 +25,7 @@
 #include "MsgUtilsPrivate.h"
 
 #include <msg_storage.h>
+#include <algorithm>
 
 using namespace Msg;
 
@@ -287,6 +288,26 @@ MsgId MsgStoragePrivate::saveMessage(Message &msg)
     msg_release_struct(&sendOpt);
 
     return newMsgId;
+}
+
+bool MsgStoragePrivate::deleteMessage(MsgId id)
+{
+    return msg_delete_message(m_ServiceHandle, id) == 0;
+}
+
+bool MsgStoragePrivate::deleteMessages(const MsgIdList &idList)
+{
+    msg_id_list_s internalIdList;
+
+    internalIdList.nCount = idList.size();
+    if(internalIdList.nCount <= 0)
+        return false;
+
+    msg_message_id_t ids[internalIdList.nCount];
+    std::copy(idList.begin(), idList.end(), ids);
+    internalIdList.msgIdList = ids;
+
+    return msg_delete_msgs_by_list(m_ServiceHandle, &internalIdList) == 0;
 }
 
 MessageListRef MsgStoragePrivate::searchMessage(const std::string &word)

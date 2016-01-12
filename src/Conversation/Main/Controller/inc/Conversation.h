@@ -45,6 +45,7 @@ namespace Msg
         , private IBodyListener
         , private IRecipientsPanelListener
         , private IConvContactListListener
+        , private IConvListListener
     {
         public:
             Conversation(NaviFrameController &parent, const AppControlComposeRef &cmd = AppControlComposeRef());
@@ -93,6 +94,9 @@ namespace Msg
             void onDeleteItemPressed(ContextPopupItem &item);
             void onAddRecipientsItemPressed(ContextPopupItem &item);
 
+            // ConvList callbacks:
+            virtual void onAllItemsDeleted(ConvList &list);
+
         private:
             // Empty initializer constructor:
             Conversation(NaviFrameController &parent, const AppControlComposeRef &cmd, bool dummy);
@@ -126,6 +130,8 @@ namespace Msg
             void fillMessage(Message &msg);
             void fillMsgAddress(Message &msg);
             void saveDraftMsg();
+
+            void onNaviOkButtonClicked();
 
         private:
             Mode m_Mode;
