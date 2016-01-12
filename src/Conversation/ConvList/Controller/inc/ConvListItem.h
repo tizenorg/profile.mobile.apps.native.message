@@ -37,6 +37,11 @@ namespace Msg
             ConvListItem(MsgConversationItem &item);
             virtual ~ConvListItem();
 
+            /**
+             * @brief Returns MsgId related to this ConvListItem
+             */
+            MsgId getMsgId();
+
         protected:
             virtual Evas_Object *getBubble();
             virtual std::string getText();

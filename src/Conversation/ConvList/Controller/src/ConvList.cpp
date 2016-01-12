@@ -29,6 +29,7 @@ ConvList::ConvList(Evas_Object *parent, MsgEngine &msgEngine, ThreadId threadId)
     , m_ThreadId(threadId)
     , m_pSelectAll(nullptr)
     , m_pList(nullptr)
+    , m_pListner(nullptr)
 {
     create(parent);
 }
@@ -36,6 +37,11 @@ ConvList::ConvList(Evas_Object *parent, MsgEngine &msgEngine, ThreadId threadId)
 ConvList::~ConvList()
 {
     m_MsgEngine.getStorage().removeListener(*this);
+}
+
+void ConvList::setListener(IConvListListener *l)
+{
+    m_pListner = l;
 }
 
 void ConvList::setMode(ConvList::Mode mode)
@@ -113,6 +119,25 @@ void ConvList::setThreadId(ThreadId id)
     fill();
 }
 
+void ConvList::deleteSelectedItems()
+{
+    if(m_pSelectAll->getCheckState())
+    {
+        m_MsgEngine.getStorage().deleteThread(m_ThreadId);
+    }
+    else
+    {
+        auto items = m_pList->getItems<ConvListItem>();
+        MsgIdList messages;
+        for(ConvListItem *item : items)
+        {
+            if(item->getCheckedState())
+                messages.push_back(item->getMsgId());
+        }
+        m_MsgEngine.getStorage().deleteMessages(messages);
+    }
+}
+
 bool ConvList::isAllListItemSelected() const
 {
     // Simple but not fast impl:
@@ -168,5 +193,8 @@ void ConvList::onMsgStorageDelete(const MsgIdList &msgIdList)
 {
     // FIXME: simple impl for demo
     fill();
+
+    if(m_pListner && m_pList->isEmpty())
+        m_pListner->onAllItemsDeleted(*this);
 }
 
