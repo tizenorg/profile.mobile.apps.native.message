@@ -25,6 +25,8 @@
 
 namespace Msg
 {
+    class IConvListListener;
+
     class ConvList
         : public ConvListLayout
         , private IMsgStorageListener
@@ -48,6 +50,12 @@ namespace Msg
             virtual ~ConvList();
 
             /**
+             * @brief Sets listener
+             * @param[in] l IConvListListener pointer
+             */
+            void setListener(IConvListListener *l);
+
+            /**
              * @brief Sets Conversation list mode
              * @details Set SelectMode to show checkboxes. NormalMode to hide them.
              * @param[in] mode enum Mode
@@ -65,6 +73,11 @@ namespace Msg
              * @param[in] thread id
              */
             void setThreadId(ThreadId id);
+
+            /**
+             * @brief Deletes selected items in SelectMode
+             */
+            void deleteSelectedItems();
 
         private:
             void create(Evas_Object *parent);
@@ -93,6 +106,18 @@ namespace Msg
             ThreadId m_ThreadId;
             ConvSelectAll *m_pSelectAll;
             ListView *m_pList;
+            IConvListListener *m_pListner;
+    };
+
+    class IConvListListener
+    {
+        public:
+            virtual ~IConvListListener() {};
+
+            /**
+             * @brief called when all messages has been deleted from current thread
+             */
+            virtual void onAllItemsDeleted(ConvList &list) {};
     };
 }
 

@@ -21,6 +21,7 @@
 #include "ConvListViewItem.h"
 #include "MsgTypes.h"
 #include "BubbleView.h"
+#include "MsgEngine.h"
 
 namespace Msg
 {
@@ -33,9 +34,15 @@ namespace Msg
             /**
              * @brief Creates item for Conversation list
              * @param[in] item MsgConversationItem model
+             * @param[in] msgEngine MsgEngine model
              */
             ConvListItem(MsgConversationItem &item);
             virtual ~ConvListItem();
+
+            /**
+             * @brief Returns MsgId related to this ConvListItem
+             */
+            MsgId getMsgId();
 
         protected:
             virtual Evas_Object *getBubble();

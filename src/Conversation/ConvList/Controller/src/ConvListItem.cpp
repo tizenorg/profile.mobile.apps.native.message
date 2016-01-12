@@ -35,6 +35,11 @@ ConvListItem::~ConvListItem()
 
 }
 
+MsgId ConvListItem::getMsgId()
+{
+    return m_MsgId;
+}
+
 Evas_Object *ConvListItem::getBubble()
 {
     //TODO: implement getting of multimedia
