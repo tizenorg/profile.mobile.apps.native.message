@@ -215,9 +215,9 @@ void ListView::on_item_selected_cb(void *data, Evas_Object *obj, void *event_inf
     Elm_Object_Item *elmItem = static_cast<Elm_Object_Item*>(event_info);
     ListItem *self = static_cast<ListItem*>(elm_object_item_data_get(elmItem));
 
+    self->setSelected(false);
     if(self->getOwner()->getCheckMode() && self->isCheckable())
     {
-        self->setSelected(false);
         self->changeCheckedState(true);
         notifyListener(data, obj, event_info, &IListViewListener::onListItemChecked);
     }
