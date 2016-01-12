@@ -32,7 +32,7 @@
 
 using namespace Msg;
 
-Conversation::Conversation(NaviFrameController &parent, const AppControlComposeRef &cmd, bool dummy)
+Conversation::Conversation(NaviFrameController &parent, bool dummy)
     : FrameController(parent)
     , m_Mode(InitMode)
     , m_pLayout(nullptr)
@@ -43,21 +43,21 @@ Conversation::Conversation(NaviFrameController &parent, const AppControlComposeR
     , m_ThreadId()
     , m_IsMms(false)
     , m_pConvList(nullptr)
-    , m_ComposeCmd(cmd)
 {
 }
 
 Conversation::Conversation(NaviFrameController &parent, const AppControlComposeRef &cmd)
-    : Conversation(parent, cmd, false)
+    : Conversation(parent, false)
 {
     if(cmd)
-        m_ThreadId = getMsgEngine().getStorage().getThreadId(m_ComposeCmd->getRecipientList());
+        m_ThreadId = getMsgEngine().getStorage().getThreadId(cmd->getRecipientList());
 
     create();
+    execCmd(cmd);
 }
 
 Conversation::Conversation(NaviFrameController &parent,ThreadId threadId)
-    : Conversation(parent, nullptr, false)
+    : Conversation(parent, false)
 {
     m_ThreadId = threadId;
     create();
@@ -75,6 +75,14 @@ Conversation::~Conversation()
         m_pRecipPanel->setListener(nullptr);
     if(m_pContactsList)
         m_pContactsList->setListener(nullptr);
+}
+
+void Conversation::execCmd(const AppControlComposeRef &cmd)
+{
+    if(m_pRecipPanel && cmd)
+        m_pRecipPanel->execCmd(cmd);
+    if(m_pBody && cmd)
+        m_pBody->execCmd(cmd);
 }
 
 void Conversation::create()
@@ -192,7 +200,7 @@ void Conversation::createRecipPanel(Evas_Object *parent)
 {
     if(!m_pRecipPanel)
     {
-        m_pRecipPanel = new RecipientsPanel(parent, getApp(), m_ComposeCmd);
+        m_pRecipPanel = new RecipientsPanel(parent, getApp());
         m_pRecipPanel->setListener(this);
         m_pRecipPanel->show();
         m_pRecipPanel->setRecipientRect(m_pLayout->getRecipientRect());
@@ -241,7 +249,7 @@ void Conversation::createBody(Evas_Object *parent)
 {
     if(!m_pBody)
     {
-        m_pBody = new Body(*m_pMsgInputPanel, getMsgEngine(), m_ComposeCmd);
+        m_pBody = new Body(*m_pMsgInputPanel, getMsgEngine());
         m_pBody->setListener(this);
         m_pBody->show();
     }
