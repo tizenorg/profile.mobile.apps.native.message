@@ -220,6 +220,7 @@ void MsgThread::update()
         bool showThread = !m_pThreadList->isEmpty();
         m_pLayout->showThreadList(showThread);
         m_pLayout->showNoContent(!showThread);
+        m_pLayout->showSearchList(false);
     }
 }
 
