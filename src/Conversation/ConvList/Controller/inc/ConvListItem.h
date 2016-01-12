@@ -37,6 +37,9 @@ namespace Msg
             ConvListItem(MsgConversationItem &item);
             virtual ~ConvListItem();
 
+            /**
+             * @brief Returns MsgId related to this ConvListItem
+             */
             MsgId getMsgId() const;
 
         protected:

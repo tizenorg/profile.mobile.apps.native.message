@@ -26,6 +26,7 @@
 namespace Msg
 {
     class ConvListItem;
+    class IConvListListener;
 
     class ConvList
         : public ConvListLayout
@@ -48,6 +49,12 @@ namespace Msg
              */
             ConvList(Evas_Object *parent, MsgEngine &msgEngine, ThreadId threadId);
             virtual ~ConvList();
+
+            /**
+             * @brief Sets listener
+             * @param[in] l IConvListListener pointer
+             */
+            void setListener(IConvListListener *l);
 
             /**
              * @brief Sets Conversation list mode
@@ -73,6 +80,11 @@ namespace Msg
              * @param[in] msgId message id to navigate
              */
             void navigateTo(MsgId msgId);
+
+            /**
+             * @brief Deletes selected items in SelectMode
+             */
+            void deleteSelectedItems();
 
         private:
             void create(Evas_Object *parent);
@@ -102,6 +114,18 @@ namespace Msg
             ThreadId m_ThreadId;
             ConvSelectAll *m_pSelectAll;
             ListView *m_pList;
+            IConvListListener *m_pListner;
+    };
+
+    class IConvListListener
+    {
+        public:
+            virtual ~IConvListListener() {};
+
+            /**
+             * @brief called when all messages has been deleted from current thread
+             */
+            virtual void onAllItemsDeleted(ConvList &list) {};
     };
 }
 
