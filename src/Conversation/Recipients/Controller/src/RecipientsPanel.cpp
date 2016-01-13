@@ -201,11 +201,6 @@ void RecipientsPanel::onItemSelected(RecipientViewItem &item)
     MSG_LOG("");
 }
 
-void RecipientsPanel::onItemPressed(RecipientViewItem &item)
-{
-    MSG_LOG("");
-}
-
 void RecipientsPanel::onItemClicked(RecipientViewItem &item)
 {
     MSG_LOG("");
