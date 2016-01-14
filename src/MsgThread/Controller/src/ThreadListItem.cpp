@@ -79,5 +79,6 @@ void ThreadListItem::updateModel(const MsgThreadItem &threadItem)
     setCheckedState(false, false);
 
     updateThumbnail(threadItem);
+    updateTime(threadItem.getTime());
 }
 

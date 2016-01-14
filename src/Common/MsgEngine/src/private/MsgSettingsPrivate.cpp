@@ -99,6 +99,24 @@ int MsgSettingsPrivate::getMaxRecipientCount() const
     return MAX_TO_ADDRESS_CNT;
 }
 
+int MsgSettingsPrivate::getMaxMmsSize() const
+{
+    int res = 0;
+    msg_struct_t setting = msg_create_struct(MSG_STRUCT_SETTING_MSGSIZE_OPT);
+    if(msg_get_msgsize_opt(m_ServiceHandle, setting) == 0)
+        msg_get_int_value(setting, MSG_MESSAGE_SIZE_INT, &res);
+    msg_release_struct(&setting);
+
+
+    if(res > 0)
+    {
+        res *= 1024;
+        res -= 5 * 1024; // header size
+    }
+
+    return res;
+}
+
 void MsgSettingsPrivate::setAlerts(bool value)
 {
     msg_set_bool_value(m_GeneralOpt, MSG_GENERAL_MSG_NOTIFICATION_BOOL, value);

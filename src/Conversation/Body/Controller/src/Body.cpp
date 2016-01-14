@@ -101,11 +101,13 @@ bool Body::isMms() const
         if(isMms(*page))
             return true;
     }
-    return false;
+
+    return getAttachments().size() > 0;
 }
 
 bool Body::isMms(const PageView &page) const
 {
+
     auto pageItems = page.getItems();
     for(PageViewItem *pageItem : pageItems)
     {
@@ -113,6 +115,7 @@ bool Body::isMms(const PageView &page) const
         if(itemType != PageViewItem::TextType)
             return true;
     }
+
     return false;
 }
 
@@ -163,9 +166,7 @@ void Body::write(const MessageSMS &msg)
     TextPageViewItem *textItem = getTextItem(getDefaultPage());
     assert(textItem);
     if(textItem)
-    {
         textItem->setText(msg.getText());
-    }
 }
 
 void Body::write(const MessageMms &msg)
@@ -266,9 +267,8 @@ void Body::execCmd(const AppControlComposeRef &cmd)
 {
     TextPageViewItem *textItem = getTextItem(getDefaultPage());
     if(textItem)
-    {
         textItem->setText(cmd->getMessageText());
-    }
+
     //TODO: implement fill of subject.
 
     addMedia(cmd->getFileList());
