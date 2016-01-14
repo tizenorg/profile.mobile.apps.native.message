@@ -43,6 +43,7 @@ Conversation::Conversation(NaviFrameController &parent, bool dummy)
     , m_ThreadId()
     , m_IsMms(false)
     , m_pConvList(nullptr)
+    , m_AttachPanel(getApp())
 {
 }
 
@@ -75,6 +76,7 @@ Conversation::~Conversation()
         m_pRecipPanel->setListener(nullptr);
     if(m_pContactsList)
         m_pContactsList->setListener(nullptr);
+    m_AttachPanel.setListener(nullptr);
 }
 
 void Conversation::execCmd(const AppControlComposeRef &cmd)
@@ -102,6 +104,7 @@ void Conversation::create()
 
     getMsgEngine().getStorage().addListener(*this);
     setHwButtonListener(*m_pLayout, this);
+    m_AttachPanel.setListener(this);
 }
 
 void Conversation::navigateTo(MsgId msgId)
@@ -490,8 +493,7 @@ void Conversation::onButtonClicked(MessageInputPanel &obj, MessageInputPanel::Bu
     switch(id)
     {
         case MessageInputPanel::AddButtonId:
-            // TODO: Only for test, will be removed
-            m_pBody->addMedia(PathUtils::getResourcePath(TEST_IMG_PATH));
+            m_AttachPanel.show(true);
             break;
         case MessageInputPanel::SendButtonId:
             sendMessage();
@@ -596,11 +598,15 @@ void Conversation::onDeleteItemPressed(ContextPopupItem &item)
 void Conversation::onAddRecipientsItemPressed(ContextPopupItem &item)
 {
     item.getParent().destroy();
-
     setNewMessageMode();
 }
 
 void Conversation::onAllItemsDeleted(ConvList &list)
 {
     onHwBackButtonClicked();
+}
+
+void Conversation::onFileSelected(AttachPanel &panel, const AttachPanel::FileList &files)
+{
+    m_pBody->addMedia(files);
 }

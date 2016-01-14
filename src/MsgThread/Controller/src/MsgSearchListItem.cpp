@@ -59,4 +59,5 @@ void MsgSearchListItem::update(const Message &msg, const std::string &searchWord
     }
 
     updateThumbnail(msg);
+    updateTime(msg.getTime());
 }

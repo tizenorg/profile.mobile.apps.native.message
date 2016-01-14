@@ -47,6 +47,7 @@ BuildRequires:  pkgconfig(notification)
 BuildRequires:  pkgconfig(efl-extension)
 BuildRequires:  pkgconfig(capi-system-runtime-info)
 BuildRequires:  pkgconfig(storage)
+BuildRequires:  pkgconfig(attach-panel)
 
 %if %TIZEN_2_4_BUILD == 0
 BuildRequires:  pkgconfig(libtzplatform-config)

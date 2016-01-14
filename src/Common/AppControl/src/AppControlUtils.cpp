@@ -40,11 +40,12 @@ void AppControlUtils::getExtraDataArray(app_control_h handle, const std::string 
     char **pArrayVal = nullptr;
     if(APP_CONTROL_ERROR_NONE == app_control_get_extra_data_array(handle, key.c_str(), &pArrayVal, &arrayLength))
     {
-        if(arrayLength != 0)
+        for(int i = 0; i < arrayLength; ++i)
         {
-            std::copy(pArrayVal, pArrayVal + arrayLength, std::back_inserter(outArray));
-            free(pArrayVal);
+            outArray.push_back(pArrayVal[i]);
+            free(pArrayVal[i]);
         }
+        free(pArrayVal);
     }
 }
 
@@ -56,11 +57,12 @@ void AppControlUtils::getExtraDataIntArray(app_control_h handle, const std::stri
             && pArrayVal)
     {
         std::string::size_type sz;
-        for(int i=0; i<arrayLength; ++i)
+        for(int i = 0; i < arrayLength; ++i)
         {
             if(pArrayVal[i])
             {
-                std::string s(pArrayVal[i]);
+                std::string s(pArrayVal[i] ? pArrayVal[i] : "");
+                free(pArrayVal[i]);
                 int parsed = std::stoi(s, &sz);
                 if(sz == s.length())
                 {

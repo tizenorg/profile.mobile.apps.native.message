@@ -30,6 +30,7 @@
 #include "ConvContactList.h"
 #include "ConvList.h"
 #include "AppControlCompose.h"
+#include "AttachPanel.h"
 
 namespace Msg
 {
@@ -46,6 +47,7 @@ namespace Msg
         , private IRecipientsPanelListener
         , private IConvContactListListener
         , private IConvListListener
+        , private IAttachPanelListener
     {
         public:
             Conversation(NaviFrameController &parent, const AppControlComposeRef &cmd = AppControlComposeRef());
@@ -97,6 +99,9 @@ namespace Msg
             // ConvList callbacks:
             virtual void onAllItemsDeleted(ConvList &list);
 
+            // IAttachPanelListener:
+            virtual void onFileSelected(AttachPanel &panel, const AttachPanel::FileList &files);
+
         private:
             // Empty initializer constructor:
             Conversation(NaviFrameController &parent, bool dummy);
@@ -144,6 +149,7 @@ namespace Msg
             ThreadId m_ThreadId;
             bool m_IsMms; // Compose message type
             ConvList *m_pConvList;
+            AttachPanel m_AttachPanel;
     };
 }
 
