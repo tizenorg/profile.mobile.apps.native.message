@@ -15,17 +15,25 @@
  *
  */
 
-#include "AppControlCommandDefault.h"
+#ifndef AppControlCommandMain_h_
+#define AppControlCommandMain_h_
 
-using namespace Msg;
+#include "AppControlCommand.h"
 
-
-AppControlCommandDefault::AppControlCommandDefault(const std::string &opMsg)
-    : AppControlCommand(opMsg, OpDefault)
+namespace Msg
 {
+    class AppControlCommandMain;
+    typedef std::shared_ptr<AppControlCommandMain> AppControlCommandMainRef;
+
+    class AppControlCommandMain
+        : public AppControlCommand
+    {
+        public:
+            AppControlCommandMain(const std::string &opMsg);
+            virtual ~AppControlCommandMain();
+
+        private:
+    };
 }
 
-AppControlCommandDefault::~AppControlCommandDefault()
-{
-}
-
+#endif /* AppControlCommandMain_h_ */

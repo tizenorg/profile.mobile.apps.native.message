@@ -18,7 +18,8 @@
 #include "Logger.h"
 #include "AppControlParser.h"
 #include "AppControlCommand.h"
-#include "AppControlCommandDefault.h"
+#include "AppControlCommandMain.h"
+#include "AppControlNewMessage.h"
 #include "AppControlCompose.h"
 
 #include <app_control.h>
@@ -34,8 +35,8 @@ namespace
 
     const OperationMap operationMap =
     {
-        {APP_CONTROL_OPERATION_DEFAULT, AppControlCommand::OpDefault},
-        {APP_CONTROL_OPERATION_MAIN, AppControlCommand::OpDefault},
+        {APP_CONTROL_OPERATION_DEFAULT, AppControlCommand::OpNewMessage},
+        {APP_CONTROL_OPERATION_MAIN, AppControlCommand::OpMain},
         {APP_CONTROL_OPERATION_COMPOSE, AppControlCommand::OpComposeFamily},
         {APP_CONTROL_OPERATION_SHARE, AppControlCommand::OpComposeFamily},
         {APP_CONTROL_OPERATION_MULTI_SHARE, AppControlCommand::OpComposeFamily},
@@ -67,8 +68,8 @@ AppControlCommandRef AppControlParser::parse(app_control_h handle)
     switch(opType)
     {
         //TODO: Create classes for all operations
-        case AppControlCommand::OpDefault:
-            cmd = std::make_shared<AppControlCommandDefault>(opStr);
+        case AppControlCommand::OpMain:
+            cmd = std::make_shared<AppControlCommandMain>(opStr);
             break;
 
         case AppControlCommand::OpComposeFamily:
