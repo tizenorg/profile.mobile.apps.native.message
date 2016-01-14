@@ -55,6 +55,8 @@ namespace Msg
             virtual MessageSMSListRef getSimMsgList() = 0;
             virtual MessageRef getMessage(MsgId id) = 0;
             virtual MsgId saveMessage(Message &msg) = 0;
+            virtual bool deleteMessage(MsgId id) = 0;
+            virtual bool deleteMessages(const MsgIdList &idList) = 0;
             virtual MessageListRef searchMessage(const std::string &word) = 0;
 
             // Conversation:

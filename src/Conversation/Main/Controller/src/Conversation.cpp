@@ -32,7 +32,7 @@
 
 using namespace Msg;
 
-Conversation::Conversation(NaviFrameController &parent, const AppControlComposeRef &cmd, bool dummy)
+Conversation::Conversation(NaviFrameController &parent, bool dummy)
     : FrameController(parent)
     , m_Mode(InitMode)
     , m_pLayout(nullptr)
@@ -43,21 +43,21 @@ Conversation::Conversation(NaviFrameController &parent, const AppControlComposeR
     , m_ThreadId()
     , m_IsMms(false)
     , m_pConvList(nullptr)
-    , m_ComposeCmd(cmd)
 {
 }
 
 Conversation::Conversation(NaviFrameController &parent, const AppControlComposeRef &cmd)
-    : Conversation(parent, cmd, false)
+    : Conversation(parent, false)
 {
     if(cmd)
-        m_ThreadId = getMsgEngine().getStorage().getThreadId(m_ComposeCmd->getRecipientList());
+        m_ThreadId = getMsgEngine().getStorage().getThreadId(cmd->getRecipientList());
 
     create();
+    execCmd(cmd);
 }
 
 Conversation::Conversation(NaviFrameController &parent,ThreadId threadId)
-    : Conversation(parent, nullptr, false)
+    : Conversation(parent, false)
 {
     m_ThreadId = threadId;
     create();
@@ -75,6 +75,17 @@ Conversation::~Conversation()
         m_pRecipPanel->setListener(nullptr);
     if(m_pContactsList)
         m_pContactsList->setListener(nullptr);
+}
+
+void Conversation::execCmd(const AppControlComposeRef &cmd)
+{
+    if(cmd)
+    {
+        if(m_pRecipPanel)
+            m_pRecipPanel->execCmd(cmd);
+        if(m_pBody)
+            m_pBody->execCmd(cmd);
+    }
 }
 
 void Conversation::create()
@@ -174,6 +185,7 @@ void Conversation::createConvList(Evas_Object *parent)
     if(!m_pConvList)
     {
         m_pConvList = new ConvList(*m_pLayout, getMsgEngine(), m_ThreadId);
+        m_pConvList->setListener(this);
         m_pConvList->show();
     }
 }
@@ -191,7 +203,7 @@ void Conversation::createRecipPanel(Evas_Object *parent)
 {
     if(!m_pRecipPanel)
     {
-        m_pRecipPanel = new RecipientsPanel(parent, getApp(), m_ComposeCmd);
+        m_pRecipPanel = new RecipientsPanel(parent, getApp());
         m_pRecipPanel->setListener(this);
         m_pRecipPanel->show();
         m_pRecipPanel->setRecipientRect(m_pLayout->getRecipientRect());
@@ -240,7 +252,7 @@ void Conversation::createBody(Evas_Object *parent)
 {
     if(!m_pBody)
     {
-        m_pBody = new Body(*m_pMsgInputPanel, getMsgEngine(), m_ComposeCmd);
+        m_pBody = new Body(*m_pMsgInputPanel, getMsgEngine());
         m_pBody->setListener(this);
         m_pBody->show();
     }
@@ -523,6 +535,16 @@ void Conversation::onHwMoreButtonClicked()
         showMainCtxPopup();
 }
 
+void Conversation::onNaviOkButtonClicked()
+{
+    if(m_Mode == ConversationMode && m_pConvList->getMode() == ConvList::SelectMode)
+    {
+        m_pConvList->deleteSelectedItems();
+        m_pConvList->setMode(ConvList::NormalMode);
+        updateNavibar();
+    }
+}
+
 void Conversation::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
 {
     //TODO: Handle other buttons
@@ -543,6 +565,7 @@ void Conversation::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
             break;
 
         case NaviOkButtonId:
+            onNaviOkButtonClicked();
             break;
 
         default:
@@ -575,4 +598,9 @@ void Conversation::onAddRecipientsItemPressed(ContextPopupItem &item)
     item.getParent().destroy();
 
     setNewMessageMode();
+}
+
+void Conversation::onAllItemsDeleted(ConvList &list)
+{
+    onHwBackButtonClicked();
 }

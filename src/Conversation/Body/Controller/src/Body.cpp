@@ -47,13 +47,6 @@ Body::Body(Evas_Object *parent, MsgEngine &msgEngine)
 {
 }
 
-Body::Body(Evas_Object *parent, MsgEngine &msgEngine, const AppControlComposeRef &cmd)
-    : Body(parent, msgEngine)
-{
-    if(cmd)
-        execCmd(cmd);
-}
-
 Body::~Body()
 {
     if(m_pOnChangedIdler)

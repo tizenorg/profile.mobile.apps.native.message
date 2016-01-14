@@ -37,7 +37,6 @@ namespace Msg
     {
         public:
             RecipientsPanel(Evas_Object *parent, App &app);
-            RecipientsPanel(Evas_Object *parent, App &app, const AppControlComposeRef &cmd);
             virtual ~RecipientsPanel();
 
             void read(Message &msg);
@@ -46,6 +45,7 @@ namespace Msg
             void update(const ThreadId &threadId);
             bool appendItem(const std::string &address, const std::string &dispName,
                               MsgAddress::AddressType addressType = MsgAddress::UnknownAddressType);
+            void execCmd(const AppControlComposeRef &cmd);
 
         private:
             // RecipientsPanelView:
@@ -62,7 +62,6 @@ namespace Msg
             void onPopupDel(Evas_Object *popup, void *eventInfo);
 
             void addRecipients();
-            void execCmd(const AppControlComposeRef &cmd);
             void showDuplicatedRecipientPopup();
             void showTooManyRecipientsPopup();
             bool recipientExists(const std::string& address) const;

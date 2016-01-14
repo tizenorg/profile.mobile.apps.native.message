@@ -43,7 +43,6 @@ namespace Msg
     {
         public:
             Body(Evas_Object *parent, MsgEngine &msgEngine);
-            Body(Evas_Object *parent, MsgEngine &msgEngine, const AppControlComposeRef &cmd);
             virtual ~Body();
 
             void setListener(IBodyListener *listener);
@@ -56,6 +55,7 @@ namespace Msg
             long long getMmsSize() const;
             void read(Message &msg);
             void write(const Message &msg);
+            void execCmd(const AppControlComposeRef &cmd);
 
         private:
             void read(MessageSMS &msg);
@@ -68,7 +68,6 @@ namespace Msg
             void write(const MessageMms &msg);
             bool isMms(const PageView &page) const;
             void writeTextToFile(TextPageViewItem &item);
-            void execCmd(const AppControlComposeRef &cmd);
 
             // BodyView:
             virtual void onContentChanged();
