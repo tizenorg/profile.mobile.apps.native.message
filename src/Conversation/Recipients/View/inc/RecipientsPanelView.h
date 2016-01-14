@@ -41,7 +41,7 @@ namespace Msg
             std::string getEntryText() const;
             void setEntryText(const std::string &utf8);
             RecipientViewItemList getItems() const;
-            bool isMbeEmpty()const ;
+            bool isMbeEmpty() const;
             bool getEntryFocus() const;
             void setEntryFocus(bool val);
             void clearEntry();
@@ -58,7 +58,6 @@ namespace Msg
             virtual void onItemAdded(RecipientViewItem &item) {};
             virtual void onItemDeleted(RecipientViewItem &item) {};
             virtual void onItemSelected(RecipientViewItem &item) {};
-            virtual void onItemPressed(RecipientViewItem &item) {};
             virtual void onItemClicked(RecipientViewItem &item) {};
             virtual void onKeyDown(Evas_Event_Key_Down *ev) {};
             virtual void onEntryFocusChanged() {};
@@ -71,13 +70,16 @@ namespace Msg
             Evas_Object *createContactBtn(Evas_Object *parent);
             void setContactBtnColor(int r, int g, int b, int a);
             RecipientViewItem *getItem(void *data);
+            void deleteNextRecipient();
+            void selectLastItem();
+            bool isEntryEmpty() const;
+            void unselectMbeItem();
 
         private:
             void onItemSelected(Evas_Object *obj, void *item);
             void onItemDeleted(Evas_Object *obj, void *item);
             void onItemAdded(Evas_Object *obj, void *item);
             void onItemClicked(Evas_Object *obj, void *item);
-            static void onItemPressed(void *data, Evas_Object *obj, void *eventInfo);
 
             Eina_Bool onMbeFilter(Evas_Object *obj, const char *item_label, const void *item_data);
             void onMbeFocused(Evas_Object *obj, void *event_info);

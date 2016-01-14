@@ -45,7 +45,7 @@ RecipientsPanelView::~RecipientsPanelView()
 void RecipientsPanelView::appendItem(RecipientViewItem &item)
 {
     item.m_pOwner = this;
-    Elm_Object_Item *elmItem = elm_multibuttonentry_item_append(m_pMbe, item.getDisplayName().c_str(), &onItemPressed, &item);
+    Elm_Object_Item *elmItem = elm_multibuttonentry_item_append(m_pMbe, item.getDisplayName().c_str(), nullptr, &item);
 
     if(elmItem)
         item.setElmObjItem(elmItem);
@@ -94,7 +94,7 @@ void RecipientsPanelView::showMbe(bool show)
     elm_object_signal_emit(m_pLayout, prog, "*");
 }
 
-bool RecipientsPanelView::isMbeEmpty()const
+bool RecipientsPanelView::isMbeEmpty() const
 {
     return elm_multibuttonentry_first_item_get(m_pMbe) == nullptr;
 }
@@ -287,6 +287,45 @@ RecipientViewItem *RecipientsPanelView::getItem(void *data)
     return it;
 }
 
+void RecipientsPanelView::deleteNextRecipient()
+{
+    if(!isMbeEmpty())
+    {
+        Elm_Object_Item *selectedItem = elm_multibuttonentry_selected_item_get(m_pMbe);
+        if(selectedItem)
+            elm_object_item_del(selectedItem);
+
+        selectLastItem();
+    }
+}
+
+void RecipientsPanelView::selectLastItem()
+{
+    Elm_Object_Item *lastItem = elm_multibuttonentry_last_item_get(m_pMbe);
+
+    if(lastItem)
+    {
+        elm_object_focus_allow_set(m_pMbe, true);
+        elm_multibuttonentry_item_selected_set(lastItem, true);
+    }
+    else
+    {
+        showMbe(false);
+    }
+}
+
+bool RecipientsPanelView::isEntryEmpty() const
+{
+    return elm_entry_is_empty(m_pEntry);
+}
+
+void RecipientsPanelView::unselectMbeItem()
+{
+    Elm_Object_Item *selectedItem = elm_multibuttonentry_selected_item_get(m_pMbe);
+    if (selectedItem)
+        elm_multibuttonentry_item_selected_set(selectedItem, EINA_FALSE);
+}
+
 unsigned int RecipientsPanelView::getMbeItemsCount() const
 {
     unsigned int res = 0;
@@ -323,12 +362,6 @@ void RecipientsPanelView::onItemClicked(Evas_Object *obj, void *item)
     onItemClicked(*it);
 }
 
-void RecipientsPanelView::onItemPressed(void *data, Evas_Object *obj, void *eventInfo)
-{
-    RecipientViewItem* it = static_cast<RecipientViewItem*>(data);
-    it->m_pOwner->onItemPressed(*it);
-}
-
 Eina_Bool RecipientsPanelView::onMbeFilter(Evas_Object *obj, const char *item_label, const void *item_data)
 {
     return EINA_TRUE;
@@ -351,7 +384,7 @@ void RecipientsPanelView::onMbeClicked(Evas_Object *obj, void *event_info)
 
 void RecipientsPanelView::onEntryChanged(Evas_Object *obj, void *event_info)
 {
-
+    unselectMbeItem();
 }
 
 void RecipientsPanelView::onEntryPreeditChanged(Evas_Object *obj, void *event_info)
@@ -364,15 +397,15 @@ void RecipientsPanelView::onEntryActivated(Evas_Object *obj, void *event_info)
 
 }
 
-
 void RecipientsPanelView::onEntryFocusChanged(Evas_Object *obj, void *event_info)
 {
+    unselectMbeItem();
     onEntryFocusChanged();
 }
 
 void RecipientsPanelView::onEntryClicked(Evas_Object *obj, void *event_info)
 {
-
+    unselectMbeItem();
 }
 
 void RecipientsPanelView::onEntryMaxlengthReached(Evas_Object *obj, void *event_info)
@@ -383,6 +416,9 @@ void RecipientsPanelView::onEntryMaxlengthReached(Evas_Object *obj, void *event_
 void RecipientsPanelView::onKeyDown(Evas_Object *obj, void *event_info)
 {
     Evas_Event_Key_Down *ev = (Evas_Event_Key_Down *)event_info;
+    if((strcmp(ev->keyname, "BackSpace") == 0) && isEntryEmpty())
+        deleteNextRecipient();
+
     onKeyDown(ev);
 }
 

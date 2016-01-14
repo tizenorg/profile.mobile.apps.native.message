@@ -52,7 +52,6 @@ namespace Msg
             virtual void onItemAdded(RecipientViewItem &item);
             virtual void onItemDeleted(RecipientViewItem &item);
             virtual void onItemSelected(RecipientViewItem &item);
-            virtual void onItemPressed(RecipientViewItem &item);
             virtual void onItemClicked(RecipientViewItem &item);
             virtual void onKeyDown(Evas_Event_Key_Down *ev);
             virtual void onEntryFocusChanged();
