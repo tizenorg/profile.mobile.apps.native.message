@@ -68,12 +68,17 @@ const PageView &BodyView::getDefaultPage() const
 bool BodyView::isEmpty() const
 {
     const auto pages = getPages();
+
+    if(pages.size() > 1)
+        return false;
+
     for(PageView *page : pages)
     {
         if(!page->isEmpty())
             return false;
     }
-    return true;
+
+    return getAttachments().empty();
 }
 
 PageView *BodyView::getNextPage(PageView &page) const

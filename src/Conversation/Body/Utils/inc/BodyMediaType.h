@@ -142,12 +142,12 @@ namespace Msg
         {"wmv", {"video/x-ms-wmv", PageViewItem::VideoType}},
 
         // Text:
-        {"txt", {"text/plain", PageViewItem::TextType}},
-        {"text", {"text/plain", PageViewItem::TextType}},
-        {"html", {"text/html", PageViewItem::TextType}},
-        {"htm", {"text/html", PageViewItem::TextType}},
-        {"wml", {"text/vnd.wap.wml", PageViewItem::TextType}},
-        {"xml", {"text/xml", PageViewItem::TextType}},
+        {"txt", {"text/plain", PageViewItem::UnknownType}},
+        {"text", {"text/plain", PageViewItem::UnknownType}},
+        {"html", {"text/html", PageViewItem::UnknownType}},
+        {"htm", {"text/html", PageViewItem::UnknownType}},
+        {"wml", {"text/vnd.wap.wml", PageViewItem::UnknownType}},
+        {"xml", {"text/xml", PageViewItem::UnknownType}},
 
         // vObject:
         {"vbm", {"text/x-vbookmark", PageViewItem::UnknownType}},

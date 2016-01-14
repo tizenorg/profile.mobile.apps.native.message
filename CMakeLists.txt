@@ -75,6 +75,7 @@ pkg_check_modules(pkgs REQUIRED
             libpng
             efl-extension
             storage
+            attach-panel
             ${ADDITIONAL_PACKS}
 )
 
