@@ -77,14 +77,22 @@ void RecipientsPanel::addRecipients()
 {
     std::string text = getEntryText();
     TokenizedRecipients result = MsgUtils::tokenizeRecipients(text);
+    bool duplicateFound = false;
 
     for(auto & it : result.validResults)
     {
         if(it.second == MsgAddress::Phone)
             it.first = MsgUtils::makeNormalizedNumber(it.first);
 
-        appendItem(it.first, it.first, it.second);
+        if(recipientExists(it.first))
+            duplicateFound = true;
+        else
+            appendItem(it.first, it.first, it.second);
     }
+
+    if(duplicateFound)
+        showDuplicatedRecipientPopup();
+
     setEntryText(result.invalidResult);
 }
 
