@@ -22,7 +22,7 @@
 #include "NaviFrameView.h"
 #include "HwButtonListener.h"
 #include "AppControlCommand.h"
-#include "AppControlCommandDefault.h"
+#include "AppControlCommandMain.h"
 #include "AppControlCompose.h"
 
 namespace Msg
@@ -51,7 +51,7 @@ namespace Msg
             /**
              * Executes app control command of default type.
              */
-            void execCmd(const AppControlCommandDefaultRef &cmd);
+            void execCmd(const AppControlCommandMainRef &cmd);
 
             /**
              * Executes app control command of compose type. This is Compose, Share, MultiShare, ShareText.

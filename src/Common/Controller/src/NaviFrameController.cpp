@@ -75,7 +75,7 @@ bool NaviFrameController::execCmd(const AppControlCommand &cmd)
     return true;
 }
 
-void NaviFrameController::execCmd(const AppControlCommandDefaultRef &cmd)
+void NaviFrameController::execCmd(const AppControlCommandMainRef &cmd)
 {
     if(execCmd(*cmd))
     {
