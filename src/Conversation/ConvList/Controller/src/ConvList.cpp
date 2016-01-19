@@ -22,14 +22,15 @@
 
 using namespace Msg;
 
-ConvList::ConvList(Evas_Object *parent, MsgEngine &msgEngine, ThreadId threadId)
+ConvList::ConvList(Evas_Object *parent, ThreadId threadId, App &app)
     : ConvListLayout(parent)
     , m_Mode(NormalMode)
-    , m_MsgEngine(msgEngine)
+    , m_MsgEngine(app.getMsgEngine())
     , m_ThreadId(threadId)
     , m_pSelectAll(nullptr)
     , m_pList(nullptr)
     , m_pListner(nullptr)
+    , m_App(app)
 {
     create(parent);
 }
@@ -108,7 +109,7 @@ void ConvList::fill()
     for(int i = 0; i < convListLen; ++i)
     {
         MsgConversationItem &item = convList->at(i);
-        ConvListItem *listItem = new ConvListItem(item);
+        ConvListItem *listItem = new ConvListItem(item, m_App);
         m_pList->appendItem(*listItem);
     }
 }
@@ -175,6 +176,8 @@ void ConvList::onListItemSelected(ListItem &listItem, void *funcData)
 {
     ConvListItem &item = static_cast<ConvListItem&>(listItem);
     item.setSelected(false);
+    //TODO: replace to long touch, when it will be implement
+    item.showPopup();
 }
 
 void ConvList::onSelectAllChanged(Evas_Object *obj, void *eventInfo)
