@@ -187,7 +187,7 @@ void Conversation::createConvList(Evas_Object *parent)
 {
     if(!m_pConvList)
     {
-        m_pConvList = new ConvList(*m_pLayout, getMsgEngine(), m_ThreadId);
+        m_pConvList = new ConvList(*m_pLayout, getMsgEngine(), m_ThreadId, getApp());
         m_pConvList->setListener(this);
         m_pConvList->show();
     }

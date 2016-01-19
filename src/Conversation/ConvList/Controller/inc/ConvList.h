@@ -22,6 +22,9 @@
 #include "ListView.h"
 #include "MsgEngine.h"
 #include "ConvSelectAll.h"
+#include "BaseController.h"
+#include "App.h"
+#include "Message.h"
 
 namespace Msg
 {
@@ -47,7 +50,7 @@ namespace Msg
              * @param[in] msgEngine Message Engine
              * @param[in] threadId Thread id
              */
-            ConvList(Evas_Object *parent, MsgEngine &msgEngine, ThreadId threadId);
+            ConvList(Evas_Object *parent, MsgEngine &msgEngine, ThreadId threadId, App &app);
             virtual ~ConvList();
 
             /**
@@ -115,6 +118,7 @@ namespace Msg
             ConvSelectAll *m_pSelectAll;
             ListView *m_pList;
             IConvListListener *m_pListner;
+            App &m_App;
     };
 
     class IConvListListener

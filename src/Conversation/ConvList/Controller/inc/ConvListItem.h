@@ -21,6 +21,9 @@
 #include "ConvListViewItem.h"
 #include "MsgTypes.h"
 #include "BubbleView.h"
+#include "Message.h"
+#include "ContextPopup.h"
+#include "App.h"
 
 namespace Msg
 {
@@ -34,13 +37,14 @@ namespace Msg
              * @brief Creates item for Conversation list
              * @param[in] item MsgConversationItem model
              */
-            ConvListItem(MsgConversationItem &item);
+            ConvListItem(MsgConversationItem &item, App &app);
             virtual ~ConvListItem();
 
             /**
              * @brief Returns MsgId related to this ConvListItem
              */
             MsgId getMsgId() const;
+            void showPopup() const;
 
         protected:
             virtual Evas_Object *getBubble();
@@ -48,8 +52,26 @@ namespace Msg
             virtual std::string getTime();
 
         private:
+            // Create Popup when message is clicked
+            void showMainCtxPopup();
+            void showDraftCtxPopup();
+            void onDeleteItemPressed(ContextPopupItem &item);
+            void onCopyTextItemPressed(ContextPopupItem &item);
+            void onForwardItemPressed(ContextPopupItem &item);
+            void onResendItemPressed(ContextPopupItem &item);
+            void onSlideShowItemPressed(ContextPopupItem &item);
+            void onEditItemPressed(ContextPopupItem &item);
+            void onSaveAttachmentsItemPressed(ContextPopupItem &item);
+            void onCopyToSimCardItemPressed(ContextPopupItem &item);
+            void onViewDetailsItemPressed(ContextPopupItem &item);
+
+        private:
+            App &m_App;
             MsgId m_MsgId;
             std::string m_MessageText;
+            bool m_IsDraft;
+            Message::Status m_Status;
+            Message::Type m_Type;
     };
 }
 
