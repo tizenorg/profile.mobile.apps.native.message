@@ -33,8 +33,7 @@ namespace Msg
             enum OperationType
             {
                 OpUnknown,
-                OpMain,
-                OpNewMessage,
+                OpDefault,
                 OpComposeFamily /** For operations Compose, Share, MultiShare and ShareText */
             };
 

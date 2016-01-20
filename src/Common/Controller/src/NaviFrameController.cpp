@@ -75,14 +75,28 @@ bool NaviFrameController::execCmd(const AppControlCommand &cmd)
     return true;
 }
 
-void NaviFrameController::execCmd(const AppControlCommandMainRef &cmd)
+void NaviFrameController::execCmd(const AppControlDefaultRef &cmd)
 {
     if(execCmd(*cmd))
     {
-        if(isEmpty())
+        AppControlDefault::DefaultType type = cmd->getDefaultType();
+
+        Conversation *conv = getFrame<Conversation>();
+        if(conv)
+            pop();
+
+        MsgThread *thread = getFrame<MsgThread>();
+        if(!thread && type != AppControlDefault::ReplyType)
+            push(*new MsgThread(*this));
+
+        if(type == AppControlDefault::ReplyType || type == AppControlDefault::ViewType)
         {
-            MsgThread *threadFrame = new MsgThread(*this);
-            push(*threadFrame);
+            push(*new Conversation(*this, cmd));
+        }
+        else if(type == AppControlDefault::NotificationType)
+        {
+            if(getMsgEngine().getStorage().getUnreadThreadCount() == 1)
+                push(*new Conversation(*this, cmd));
         }
     }
 }
@@ -102,6 +116,19 @@ void NaviFrameController::execCmd(const AppControlComposeRef &cmd)
             MSG_LOG_WARN("App was already launched! You may lost previous data!");
         }
     }
+}
+
+template<typename T>
+T *NaviFrameController::getFrame() const
+{
+    auto items = getItems();
+    for(NaviFrameItem *item : items)
+    {
+        T *frame = dynamic_cast<T*>(item);
+        if(frame)
+            return frame;
+    }
+    return nullptr;
 }
 
 void NaviFrameController::onHwBackButtonClicked()

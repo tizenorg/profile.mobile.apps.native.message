@@ -41,6 +41,8 @@ namespace Msg
              */
             int getItemsCount() const;
 
+            NaviFrameItemList getItems() const;
+
             /**
              * Checks if any frame was pushed.
              */

@@ -22,8 +22,8 @@
 #include "NaviFrameView.h"
 #include "HwButtonListener.h"
 #include "AppControlCommand.h"
-#include "AppControlCommandMain.h"
 #include "AppControlCompose.h"
+#include "AppControlDefault.h"
 
 namespace Msg
 {
@@ -47,11 +47,12 @@ namespace Msg
              * Pops last frame. Exit from app if frame count reaches zero.
              */
             void pop();
+            void pop(FrameController &frame);
 
             /**
              * Executes app control command of default type.
              */
-            void execCmd(const AppControlCommandMainRef &cmd);
+            void execCmd(const AppControlDefaultRef &cmd);
 
             /**
              * Executes app control command of compose type. This is Compose, Share, MultiShare, ShareText.
@@ -65,7 +66,8 @@ namespace Msg
 
         private:
             void init();
-
+            template<typename T>
+            T *getFrame() const;
             bool execCmd(const AppControlCommand &cmd);
 
             virtual void onHwBackButtonClicked();

@@ -96,7 +96,7 @@ void MsgThread::showMainCtxPopup()
 
 void MsgThread::composeNewMessage()
 {
-    Conversation *frame = new Conversation(getParent());
+    Conversation *frame = new Conversation(getParent(), AppControlComposeRef());
     getParent().push(*frame);
 }
 

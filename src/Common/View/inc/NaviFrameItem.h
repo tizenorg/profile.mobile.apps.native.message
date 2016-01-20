@@ -23,11 +23,14 @@
 
 #include <string>
 #include <memory>
+#include <vector>
 #include <Elementary.h>
 
 namespace Msg
 {
     class NaviFrameView;
+    class NaviFrameItem;
+    typedef std::vector<NaviFrameItem*> NaviFrameItemList;
 
     class NaviFrameItem
         : public ViewItem
