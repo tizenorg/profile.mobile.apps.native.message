@@ -40,6 +40,10 @@ namespace Msg
              * Get count of pushed frames.
              */
             int getItemsCount() const;
+            /**
+             * Get list of pushed frames.
+             */
+            NaviFrameItemList getItems() const;
 
             /**
              * Checks if any frame was pushed.

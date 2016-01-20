@@ -57,6 +57,19 @@ Conversation::Conversation(NaviFrameController &parent, const AppControlComposeR
     execCmd(cmd);
 }
 
+Conversation::Conversation(NaviFrameController &parent, const AppControlDefaultRef &cmd)
+    : Conversation(parent, false)
+{
+    if(cmd)
+        m_ThreadId = getMsgEngine().getStorage().getMessage(cmd->getMessageId())->getThreadId();
+
+    create();
+
+    if(cmd->getDefaultType() == AppControlDefault::ReplyType)
+        m_pBody->setFocus(true);
+
+}
+
 Conversation::Conversation(NaviFrameController &parent,ThreadId threadId)
     : Conversation(parent, false)
 {
@@ -68,7 +81,7 @@ Conversation::~Conversation()
 {
     // Call before delete all children:
     MSG_LOG("");
-
+    saveDraftMsg();
     getMsgEngine().getStorage().removeListener(*this);
     if(m_pBody)
         m_pBody->setListener(nullptr);
@@ -535,7 +548,6 @@ void Conversation::onHwBackButtonClicked()
         return;
     }
 
-    saveDraftMsg();
     getParent().pop();
 }
 

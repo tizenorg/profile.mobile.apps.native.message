@@ -15,7 +15,7 @@
  *
  */
 
-#include "AppControlNewMessage.h"
+#include "AppControlDefault.h"
 
 using namespace Msg;
 
@@ -28,41 +28,44 @@ namespace
     const char *keyMsgId = "msgId";
 }
 
-AppControlNewMessage::AppControlNewMessage(const std::string &opMsg, app_control_h handle)
-    : AppControlCommand(opMsg, OpNewMessage)
+AppControlDefault::AppControlDefault(const std::string &opMsg, app_control_h handle)
+    : AppControlCommand(opMsg, OpDefault)
     , m_MsgId()
-    , m_NewMsgType(UnknownType)
+    , m_DefaultType(UnknownType)
 {
     parse(handle);
 }
 
-AppControlNewMessage::~AppControlNewMessage()
+AppControlDefault::~AppControlDefault()
 {
 
 }
 
-MsgId AppControlNewMessage::getMessageId() const
+MsgId AppControlDefault::getMessageId() const
 {
     return m_MsgId;
 }
 
-AppControlNewMessage::NewMessageType AppControlNewMessage::getNewMessageType() const
+AppControlDefault::DefaultType AppControlDefault::getDefaultType() const
 {
-    return m_NewMsgType;
+    return m_DefaultType;
 }
 
-void AppControlNewMessage::parse(app_control_h handle)
+void AppControlDefault::parse(app_control_h handle)
 {
     char *key = nullptr;
     app_control_get_extra_data(handle, keyType, &key);
     if(!key)
+    {
+        m_DefaultType = MainType;
         return;
+    }
 
-    std::string keyType = key;
+    std::string type = key;
     free(key);
-    if(keyType == valueReply)
-        m_NewMsgType = ReplyType;
-    else if(keyType == valueNewMsg)
+    if(type == valueReply)
+        m_DefaultType = ReplyType;
+    else if(type == valueNewMsg)
         viewMessage(handle);
     else
         MSG_LOG("Unknown type!");
@@ -76,17 +79,23 @@ void AppControlNewMessage::parse(app_control_h handle)
     free(msgIdStr);
 }
 
-bool AppControlNewMessage::isNotificationPanel(app_control_h handle) const
+bool AppControlDefault::isNotificationPanel(app_control_h handle) const
 {
     char *keyVal = nullptr;
     app_control_get_extra_data(handle, notificationPanel, &keyVal);
-    return keyVal != nullptr;
+    if(keyVal)
+    {
+        free(keyVal);
+        return true;
+    }
+    else
+        return false;
 }
 
-void AppControlNewMessage::viewMessage(app_control_h handle)
+void AppControlDefault::viewMessage(app_control_h handle)
 {
     if(isNotificationPanel(handle))
-        m_NewMsgType = NotificationType;
+        m_DefaultType = NotificationType;
     else
-        m_NewMsgType = NewMsgType;
+        m_DefaultType = ViewType;
 }

@@ -21,7 +21,7 @@
 #include "CallbackAssist.h"
 #include "Logger.h"
 #include "AppControlParser.h"
-#include "AppControlCommandMain.h"
+#include "AppControlDefault.h"
 #include "AppControlCompose.h"
 #include "PathUtils.h"
 #include "Config.h"
@@ -162,9 +162,9 @@ void MainApp::onAppControl(app_control_h app_control)
 
     switch(cmd->getOperationType())
     {
-        case AppControlCommand::OpMain:
+        case AppControlCommand::OpDefault:
             if(m_pRootController)
-                m_pRootController->execCmd(std::static_pointer_cast<AppControlCommandMain>(cmd));
+                m_pRootController->execCmd(std::static_pointer_cast<AppControlDefault>(cmd));
             break;
         case AppControlCommand::OpComposeFamily:
             if(m_pRootController)

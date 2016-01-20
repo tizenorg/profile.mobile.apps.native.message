@@ -30,6 +30,7 @@
 #include "ConvContactList.h"
 #include "ConvList.h"
 #include "AppControlCompose.h"
+#include "AppControlDefault.h"
 #include "AttachPanel.h"
 
 namespace Msg
@@ -50,7 +51,8 @@ namespace Msg
         , private IAttachPanelListener
     {
         public:
-            Conversation(NaviFrameController &parent, const AppControlComposeRef &cmd = AppControlComposeRef());
+            Conversation(NaviFrameController &parent, const AppControlComposeRef &cmd);
+            Conversation(NaviFrameController &parent, const AppControlDefaultRef &cmd);
             Conversation(NaviFrameController &parent, ThreadId threadId);
             virtual ~Conversation();
 

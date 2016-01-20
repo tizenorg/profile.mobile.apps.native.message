@@ -62,6 +62,27 @@ int NaviFrameView::getItemsCount() const
     return res;
 }
 
+NaviFrameItemList NaviFrameView::getItems() const
+{
+    NaviFrameItemList result;
+    Eina_List *list= elm_naviframe_items_get(getEo());
+
+    if(list)
+    {
+        Eina_List *l = nullptr;
+        void *obj = nullptr;
+
+        EINA_LIST_FOREACH(list, l, obj)
+        {
+            NaviFrameItem *item = static_cast<NaviFrameItem*>(elm_object_item_data_get(obj));
+            result.push_back(item);
+        }
+
+        eina_list_free(list);
+    }
+    return result;
+}
+
 bool NaviFrameView::isEmpty() const
 {
     return getItemsCount() <= 0;
@@ -75,11 +96,10 @@ void NaviFrameView::push(NaviFrameItem &item, Evas_Object *content)
 
 void NaviFrameView::push(NaviFrameItem &item, View &content)
 {
-    push(item, content.getEo());
+    push(item, content);
 }
 
 void NaviFrameView::pop()
 {
     elm_naviframe_item_pop(getEo());
 }
-
