@@ -55,7 +55,7 @@ ThreadListViewItem::~ThreadListViewItem()
 {
 }
 
-std::string ThreadListViewItem::getListItemText(ListItem &item, const char *part)
+std::string ThreadListViewItem::getText(ListItem &item, const char *part)
 {
     if(!strcmp(part, messagePart))
     {
@@ -80,7 +80,7 @@ std::string ThreadListViewItem::getListItemText(ListItem &item, const char *part
     return "";
 }
 
-Evas_Object *ThreadListViewItem::getListItemContent(ListItem &item, const char *part)
+Evas_Object *ThreadListViewItem::getContent(ListItem &item, const char *part)
 {
     Evas_Object *content = nullptr;
 

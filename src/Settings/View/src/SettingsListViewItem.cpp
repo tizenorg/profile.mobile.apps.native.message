@@ -78,7 +78,7 @@ void SettingsListViewItem::setSubText(const std::string &text)
     m_SubText = text;
 }
 
-std::string SettingsListViewItem::getListItemText(ListItem &item, const char *part)
+std::string SettingsListViewItem::getText(ListItem &item, const char *part)
 {
     if(getStyle().get() == oneLineIconStyle.get())
     {
@@ -107,7 +107,7 @@ std::string SettingsListViewItem::getListItemText(ListItem &item, const char *pa
     return "";
 }
 
-Evas_Object *SettingsListViewItem::getListItemContent(ListItem &item, const char *part)
+Evas_Object *SettingsListViewItem::getContent(ListItem &item, const char *part)
 {
     if(getStyle().get() == oneLineIconStyle.get())
     {

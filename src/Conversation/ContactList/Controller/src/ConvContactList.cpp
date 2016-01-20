@@ -119,7 +119,7 @@ bool ConvContactList::onPredictSearchUpdateRequest()
     return false; // Delete idler
 }
 
-void ConvContactList::onListItemSelected(ListItem &listItem, void *funcData)
+void ConvContactList::onListItemSelected(ListItem &listItem)
 {
     ContactListItem &contactItem = static_cast<ContactListItem&>(listItem);
     MSG_LOG("Selected recipient: ", contactItem.getRecipient());

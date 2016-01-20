@@ -53,8 +53,8 @@ void ListView::setListener(IListViewListener *listener)
 void ListView::createListView(Evas_Object *parent)
 {
     setEo(elm_genlist_add(parent));
-    evas_object_smart_callback_add(getEo(), "drag,start,right", on_drag_right_cb, this);
-    evas_object_smart_callback_add(getEo(), "drag,start,left", on_drag_left_cb, this);
+    evas_object_smart_callback_add(getEo(), "realized", ListView::on_realized_cb, this);
+    evas_object_smart_callback_add(getEo(), "unrealized", ListView::on_unrealized_cb, this);
 }
 
 bool ListView::appendItem(ListItem &listItem, ListItem *parent)
@@ -141,22 +141,21 @@ void ListView::setHomogeneous(bool isHomogeneous)
 ListItem *ListView::getSelectedItem() const
 {
     Elm_Object_Item *elmItem = elm_genlist_selected_item_get(getEo());
-    return static_cast<ListItem*>(elm_object_item_data_get(elmItem));
+    return ListItem::staticCast<ListItem*>(elmItem);
 }
 
 void ListView::notifyListener(void *data, Evas_Object *obj, void *event_info, ListenerMethod method)
 {
-    Elm_Object_Item *elmItem = static_cast<Elm_Object_Item*>(event_info);
-    ListItem *item = static_cast<ListItem*>(elm_object_item_data_get(elmItem));
-
+    ListItem *item = ListItem::staticCast<ListItem*>(event_info);
     MSG_ASSERT(item, "Item is null");
+
     if(item)
     {
         ListView *owner = item->getOwner();
         MSG_ASSERT(owner, "ListItem::owner is null");
 
         if(owner && owner->m_pListener)
-            (owner->m_pListener->*method)(*item, data);
+            (owner->m_pListener->*method)(*item);
     }
 }
 
@@ -195,30 +194,14 @@ bool ListView::getMultiSelection() const
     return elm_genlist_multi_select_get(getEo());
 }
 
-void ListView::registerItemRealizedCallback()
-{
-    evas_object_smart_callback_add(getEo(), "realized", ListView::on_realized_cb, this);
-}
-
-void ListView::registerItemExpandedCallback()
-{
-    evas_object_smart_callback_add(getEo(), "expanded", ListView::on_expanded_cb, this);
-}
-
-void ListView::registerItemContractedCallback()
-{
-    evas_object_smart_callback_add(getEo(), "contracted", ListView::on_contracted_cb, this);
-}
-
 void ListView::on_item_selected_cb(void *data, Evas_Object *obj, void *event_info)
 {
-    Elm_Object_Item *elmItem = static_cast<Elm_Object_Item*>(event_info);
-    ListItem *self = static_cast<ListItem*>(elm_object_item_data_get(elmItem));
+    ListItem *item = ListItem::staticCast<ListItem*>(event_info);
 
-    self->setSelected(false);
-    if(self->getOwner()->getCheckMode() && self->isCheckable())
+    item->setSelected(false);
+    if(item->getOwner()->getCheckMode() && item->isCheckable())
     {
-        self->changeCheckedState(true);
+        item->changeCheckedState(true);
         notifyListener(data, obj, event_info, &IListViewListener::onListItemChecked);
     }
     else
@@ -227,27 +210,14 @@ void ListView::on_item_selected_cb(void *data, Evas_Object *obj, void *event_inf
     }
 }
 
-void ListView::on_drag_left_cb(void *data, Evas_Object *obj, void *event_info)
-{
-    notifyListener(data, obj, event_info, &IListViewListener::onListItemDragLeft);
-}
-
-void ListView::on_drag_right_cb(void *data, Evas_Object *obj, void *event_info)
-{
-    notifyListener(data, obj, event_info, &IListViewListener::onListItemDragRight);
-}
-
 void ListView::on_realized_cb(void *data, Evas_Object *obj, void *event_info)
 {
-    notifyListener(data, obj, event_info, &IListViewListener::onListItemRealized);
+    ListItem *item = ListItem::staticCast<ListItem*>(event_info);
+    item->onRealized(*item);
 }
 
-void ListView::on_expanded_cb(void *data, Evas_Object *obj, void *event_info)
+void ListView::on_unrealized_cb(void *data, Evas_Object *obj, void *event_info)
 {
-    notifyListener(data, obj, event_info, &IListViewListener::onListItemExpanded);
-}
-
-void ListView::on_contracted_cb(void *data, Evas_Object *obj, void *event_info)
-{
-    notifyListener(data, obj, event_info, &IListViewListener::onListItemContracted);
+    ListItem *item = ListItem::staticCast<ListItem*>(event_info);
+    item->onUnrealized(*item);
 }

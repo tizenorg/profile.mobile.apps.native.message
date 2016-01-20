@@ -42,7 +42,7 @@ namespace Msg
 
         private:
             // IListViewListener:
-            virtual void onListItemSelected(ListItem &listItem, void *funcData);
+            virtual void onListItemSelected(ListItem &listItem);
 
             template<typename ContactRecord>
             void search();

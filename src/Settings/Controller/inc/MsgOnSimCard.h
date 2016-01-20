@@ -51,7 +51,7 @@ namespace Msg
             int getItemsCount() const;
 
             // IListViewListener:
-            virtual void onListItemChecked(ListItem &listItem, void *funcData);
+            virtual void onListItemChecked(ListItem &listItem);
             void checkHandler(SelectAllListItem &item);
 
             // IHwButtonListener:

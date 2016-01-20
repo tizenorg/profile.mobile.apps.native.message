@@ -85,18 +85,18 @@ namespace Msg
             bool isCheckable() const;
 
         protected:
-            // TODO: remove ListItem prefix
-            virtual std::string getListItemText(ListItem &item, const char *part);
-            virtual Evas_Object *getListItemContent(ListItem &item, const char *part);
-            virtual bool getListItemState(ListItem &item, const char *part);
-            virtual void onListItemDelete(ListItem &item);
+            virtual std::string getText(ListItem &item, const char *part);
+            virtual Evas_Object *getContent(ListItem &item, const char *part);
+            virtual bool getState(ListItem &item, const char *part);
+            virtual void onDelete(ListItem &item);
             virtual const char *getCheckPart(ListItem &item);
+
+            virtual void onRealized(ListItem &item) {};
+            virtual void onUnrealized(ListItem &item) {};
 
         private:
             virtual void onViewDestroyed();
-
             Evas_Object *addCheck();
-
             void onCheckChanged(Evas_Object *obj, void *eventInfo);
 
             static char * elm_gen_item_text_get_cb(void * data, Evas_Object * obj, const char * part);

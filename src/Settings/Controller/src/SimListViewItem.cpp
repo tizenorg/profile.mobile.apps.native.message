@@ -46,7 +46,7 @@ SimListViewItem::~SimListViewItem()
 {
 }
 
-std::string SimListViewItem::getListItemText(ListItem &item, const char *part)
+std::string SimListViewItem::getText(ListItem &item, const char *part)
 {
     if(!strcmp(part, messagePart))
     {

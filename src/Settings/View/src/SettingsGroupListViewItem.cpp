@@ -34,7 +34,7 @@ SettingsGroupListViewItem::~SettingsGroupListViewItem()
 {
 }
 
-std::string SettingsGroupListViewItem::getListItemText(ListItem &item, const char *part)
+std::string SettingsGroupListViewItem::getText(ListItem &item, const char *part)
 {
 
     return m_Title;

@@ -32,46 +32,46 @@ namespace Msg
         public:
             View();
 
-            inline void destroy();
-            inline operator Evas_Object *() const;
-            inline Evas_Object *getEo() const;
-            inline bool isVisible() const;
-            inline void show();
-            inline void hide();
-            inline void setVisibility(bool show);
-            inline void move(Evas_Coord x, Evas_Coord y);
-            inline void setSizeHintWeight(double x = EVAS_HINT_EXPAND, double y = EVAS_HINT_EXPAND);
-            inline void setSizeHintAlign(double x = EVAS_HINT_FILL, double y = EVAS_HINT_FILL);
+            void destroy();
+            operator Evas_Object *() const;
+            Evas_Object *getEo() const;
+            bool isVisible() const;
+            void show();
+            void hide();
+            void setVisibility(bool show);
+            void move(Evas_Coord x, Evas_Coord y);
+            void setSizeHintWeight(double x = EVAS_HINT_EXPAND, double y = EVAS_HINT_EXPAND);
+            void setSizeHintAlign(double x = EVAS_HINT_FILL, double y = EVAS_HINT_FILL);
             void expand();
-            static void expand(Evas_Object *obj);
-            inline void setSizeHintMin(Evas_Coord w, Evas_Coord h);
-            inline void setSizeHintMax(Evas_Coord w, Evas_Coord h);
+            void expand(Evas_Object *obj);
+            void setSizeHintMin(Evas_Coord w, Evas_Coord h);
+            void setSizeHintMax(Evas_Coord w, Evas_Coord h);
             Evas_Object *setContent(Evas_Object *content, const char *part = nullptr, bool saveOldContent = false);
-            inline Evas_Object *unsetContent(const char *part = nullptr);
-            inline Evas_Object* getContent(const char *part = nullptr) const;
-            inline void setFocusAllow(bool enable);
-            inline bool getFocusAllow() const;
-            inline void setFocus(bool focus);
-            inline bool getFocus() const;
-            inline void setTranslateble(bool translateble, const char *domain, const char *part = nullptr);
-            inline void emitSignal(const char *emission, const char *source);
-            inline void setData(const char *key, const void *data);
-            inline void *getData(const char *key) const;
-            inline void addEventCb(Evas_Callback_Type type, Evas_Object_Event_Cb func, const void *data);
+            Evas_Object *unsetContent(const char *part = nullptr);
+            Evas_Object* getContent(const char *part = nullptr) const;
+            void setFocusAllow(bool enable);
+            bool getFocusAllow() const;
+            void setFocus(bool focus);
+            bool getFocus() const;
+            void setTranslateble(bool translateble, const char *domain, const char *part = nullptr);
+            void emitSignal(const char *emission, const char *source);
+            void setData(const char *key, const void *data);
+            void *getData(const char *key) const;
+            void addEventCb(Evas_Callback_Type type, Evas_Object_Event_Cb func, const void *data);
 
             template<typename T>
-            inline static T staticCast(Evas_Object *obj);
+            static T staticCast(void *evasObj);
             template<typename T>
-            inline static T reinterpretCast(void *obj);
+            static T reinterpretCast(void *evasObj);
             template<typename T>
-            inline static T dynamicCast(Evas_Object *obj);
+            static T dynamicCast(void *evasObj);
 
-            inline std::string getText(const char *part = nullptr) const;
-            inline const char *getTextCStr(const char *part = nullptr) const;
-            inline void setText(const char *text, const char *part = nullptr);
-            inline void setText(const std::string &text, const char *part = nullptr);
-            inline void setText(const TText &text, const char *part = nullptr);
-            inline static void setText(Evas_Object *obj, const TText &text, const char *part = nullptr);
+            std::string getText(const char *part = nullptr) const;
+            const char *getTextCStr(const char *part = nullptr) const;
+            void setText(const char *text, const char *part = nullptr);
+            void setText(const std::string &text, const char *part = nullptr);
+            void setText(const TText &text, const char *part = nullptr);
+            static void setText(Evas_Object *obj, const TText &text, const char *part = nullptr);
 
             static Evas_Object *addLayout(Evas_Object *parent, const std::string &edjePath, const std::string &group);
 
@@ -87,10 +87,10 @@ namespace Msg
             View(View&) = delete;
             View& operator=(View&) = delete;
             Evas_Object_Event_Cb getCb(Evas_Callback_Type);
-            inline void *getSmartData() const;
-            inline static void *getSmartData(Evas_Object *obj);
-            inline void setSmartData(const void *data);
-            inline static void setSmartData(Evas_Object *obj, const void *data);
+            void *getSmartData() const;
+            static void *getSmartData(Evas_Object *obj);
+            void setSmartData(const void *data);
+            static void setSmartData(Evas_Object *obj, const void *data);
 
         private:
             static void on_free_cb(void *data, Evas *e, Evas_Object *obj, void *event_info);
@@ -260,21 +260,21 @@ namespace Msg
     }
 
     template<typename T>
-    inline T View::staticCast(Evas_Object *obj)
+    inline T View::staticCast(void *evasObj)
     {
-        return static_cast<T>(getSmartData(obj));
+        return static_cast<T>(getSmartData((Evas_Object*)evasObj));
     }
 
     template<typename T>
-    inline T View::reinterpretCast(void *obj)
+    inline T View::reinterpretCast(void *evasObj)
     {
-        return reinterpret_cast<T>(getSmartData((Evas_Object*)obj));
+        return reinterpret_cast<T>(getSmartData((Evas_Object*)evasObj));
     }
 
     template<typename T>
-    inline T View::dynamicCast(Evas_Object *obj)
+    inline T View::dynamicCast(void *evasObj)
     {
-        return dynamic_cast<T>(staticCast<T>(obj));
+        return dynamic_cast<T>(staticCast<T>(evasObj));
     }
 
     inline void View::addEventCb(Evas_Callback_Type type, Evas_Object_Event_Cb func, const void *data)

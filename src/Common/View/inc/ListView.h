@@ -59,12 +59,8 @@ namespace Msg
 
             void updateRealizedItems();
 
-            void registerItemRealizedCallback();
-            void registerItemExpandedCallback();
-            void registerItemContractedCallback();
-
         private:
-            typedef void (IListViewListener::*ListenerMethod)(ListItem &item, void *funcData);
+            typedef void (IListViewListener::*ListenerMethod)(ListItem &item);
 
         public:
             static void notifyListener(void *data, Evas_Object *obj, void *event_info, ListenerMethod method);
@@ -73,11 +69,8 @@ namespace Msg
             void createListView(Evas_Object *parent);
 
             static void on_item_selected_cb(void *data, Evas_Object *obj, void *event_info);
-            static void on_drag_left_cb(void *data, Evas_Object *obj, void *event_info);
-            static void on_drag_right_cb(void *data, Evas_Object *obj, void *event_info);
             static void on_realized_cb(void *data, Evas_Object *obj, void *event_info);
-            static void on_expanded_cb(void *data, Evas_Object *obj, void *event_info);
-            static void on_contracted_cb(void *data, Evas_Object *obj, void *event_info);
+            static void on_unrealized_cb(void *data, Evas_Object *obj, void *event_info);
 
         private:
             IListViewListener *m_pListener;
@@ -88,13 +81,8 @@ namespace Msg
     {
     public:
         virtual ~IListViewListener() {};
-        virtual void onListItemSelected(ListItem &listItem, void *funcData) {};
-        virtual void onListItemDragLeft(ListItem &listItem, void *funcData) {};
-        virtual void onListItemDragRight(ListItem &listItem, void *funcData) {};
-        virtual void onListItemExpanded(ListItem &listItem, void *funcData) {};
-        virtual void onListItemContracted(ListItem &listItem, void *funcData) {};
-        virtual void onListItemRealized(ListItem &listItem, void *funcData) {};
-        virtual void onListItemChecked(ListItem &listItem, void *funcData) {};
+        virtual void onListItemSelected(ListItem &listItem) {};
+        virtual void onListItemChecked(ListItem &listItem) {};
     };
 
     template<typename T>

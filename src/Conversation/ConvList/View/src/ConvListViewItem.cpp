@@ -49,7 +49,7 @@ ConvListViewItem::~ConvListViewItem()
 
 }
 
-std::string ConvListViewItem::getListItemText(ListItem &item, const char *part)
+std::string ConvListViewItem::getText(ListItem &item, const char *part)
 {
     if(!strcmp(part, "elm.text"))
         return getText();
@@ -59,7 +59,7 @@ std::string ConvListViewItem::getListItemText(ListItem &item, const char *part)
         return "";
 }
 
-Evas_Object *ConvListViewItem::getListItemContent(ListItem &item, const char *part)
+Evas_Object *ConvListViewItem::getContent(ListItem &item, const char *part)
 {
     if(!strcmp(part, "elm.swallow.end"))
         return getBubble();

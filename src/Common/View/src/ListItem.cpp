@@ -130,7 +130,7 @@ char *ListItem::elm_gen_item_text_get_cb(void *data, Evas_Object *obj, const cha
 
     if(self)
     {
-        std::string text = self->getListItemText(*self, part);
+        std::string text = self->getText(*self, part);
         return text.empty() ? nullptr : strdup(text.c_str());
     }
 
@@ -155,7 +155,7 @@ Evas_Object *ListItem::elm_gen_item_content_get_cb(void * data, Evas_Object * ob
         }
     }
 
-    return self->getListItemContent(*self, part);
+    return self->getContent(*self, part);
 }
 
 Evas_Object *ListItem::addCheck()
@@ -206,7 +206,7 @@ void ListItem::onCheckChanged(Evas_Object *obj, void *eventInfo)
 Eina_Bool ListItem::elm_gen_item_state_get_cb(void *data, Evas_Object *obj, const char *part)
 {
     ListItem *self = static_cast<ListItem*>(data);
-    return self ? self->getListItemState(*self, part) : false;
+    return self ? self->getState(*self, part) : false;
 }
 
 void ListItem::setSelected(bool selected)
@@ -234,22 +234,22 @@ void ListItem::updateFields(const char *parts, Elm_Genlist_Item_Field_Type type)
     elm_genlist_item_fields_update(getElmObjItem(), parts, type);
 }
 
-std::string ListItem::getListItemText(ListItem &item, const char* part)
+std::string ListItem::getText(ListItem &item, const char* part)
 {
     return std::string();
 }
 
-Evas_Object* ListItem::getListItemContent(ListItem &item, const char* part)
+Evas_Object* ListItem::getContent(ListItem &item, const char* part)
 {
     return nullptr;
 }
 
-bool ListItem::getListItemState(ListItem &item, const char* part)
+bool ListItem::getState(ListItem &item, const char* part)
 {
     return false;
 }
 
-void ListItem::onListItemDelete(ListItem &item)
+void ListItem::onDelete(ListItem &item)
 {
     delete this;
 }
@@ -268,6 +268,6 @@ void ListItem::elm_gen_item_del_cb(void *data, Evas_Object *obj)
     ListItem *self = static_cast<ListItem*>(data);
 
     if(self)
-        self->onListItemDelete(*self);
+        self->onDelete(*self);
 }
 

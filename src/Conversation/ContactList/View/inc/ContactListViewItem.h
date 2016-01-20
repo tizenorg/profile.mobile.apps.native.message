@@ -39,8 +39,8 @@ namespace Msg
             virtual Evas_Object *getThumbnail() const = 0;
 
         private:
-            virtual std::string getListItemText(ListItem &item, const char *part);
-            virtual Evas_Object *getListItemContent(ListItem &item, const char *part);
+            virtual std::string getText(ListItem &item, const char *part);
+            virtual Evas_Object *getContent(ListItem &item, const char *part);
     };
 }
 

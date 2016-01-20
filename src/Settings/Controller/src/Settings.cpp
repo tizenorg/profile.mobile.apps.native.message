@@ -378,7 +378,7 @@ void Settings::callItemHandler(SettingsListItem &item)
         (this->*m)(item);
 }
 
-void Settings::onListItemSelected(ListItem &listItem, void *funcData)
+void Settings::onListItemSelected(ListItem &listItem)
 {
     MSG_LOG("Item: ", &listItem);
     listItem.setSelected(false);

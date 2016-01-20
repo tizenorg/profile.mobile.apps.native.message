@@ -47,8 +47,8 @@ namespace Msg
 
         private:
             // ListItem:
-            virtual std::string getListItemText(ListItem &item, const char *part);
-            virtual Evas_Object *getListItemContent(ListItem &item, const char *part);
+            virtual std::string getText(ListItem &item, const char *part);
+            virtual Evas_Object *getContent(ListItem &item, const char *part);
 
             void onCheckButtonChanged(Evas_Object *obj, void *eventInfo);
 

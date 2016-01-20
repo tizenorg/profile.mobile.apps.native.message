@@ -97,8 +97,8 @@ namespace Msg
             ConvListItem *getItem(MsgId msgId) const;
 
             // IListViewListener:
-            virtual void onListItemSelected(ListItem &listItem, void *funcData);
-            virtual void onListItemChecked(ListItem &listItem, void *funcData);
+            virtual void onListItemSelected(ListItem &listItem);
+            virtual void onListItemChecked(ListItem &listItem);
 
             // IMsgStorageListener:
             virtual void onMsgStorageUpdate(const MsgIdList &msgIdList);

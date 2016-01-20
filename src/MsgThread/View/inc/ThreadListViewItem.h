@@ -51,9 +51,11 @@ namespace Msg
             virtual std::string getStatus();
             virtual Evas_Object *getIcon();
 
+            using ListItem::getState;
+
         private:
-            virtual std::string getListItemText(ListItem &item, const char *part);
-            virtual Evas_Object *getListItemContent(ListItem &item, const char *part);
+            virtual std::string getText(ListItem &item, const char *part);
+            virtual Evas_Object *getContent(ListItem &item, const char *part);
             virtual const char *getCheckPart(ListItem &item);
 
         private:

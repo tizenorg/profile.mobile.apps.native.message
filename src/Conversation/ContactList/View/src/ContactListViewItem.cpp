@@ -32,7 +32,7 @@ ContactListViewItem::~ContactListViewItem()
 {
 }
 
-std::string ContactListViewItem::getListItemText(ListItem &item, const char *part)
+std::string ContactListViewItem::getText(ListItem &item, const char *part)
 {
     if(getStyle() == nameOrEmailStyle)
     {
@@ -61,7 +61,7 @@ std::string ContactListViewItem::getListItemText(ListItem &item, const char *par
     return "";
 }
 
-Evas_Object *ContactListViewItem::getListItemContent(ListItem &item, const char *part)
+Evas_Object *ContactListViewItem::getContent(ListItem &item, const char *part)
 {
     if(strcmp(part, "elm.icon.1") == 0)
     {

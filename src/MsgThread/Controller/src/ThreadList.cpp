@@ -145,14 +145,14 @@ void ThreadList::onMsgStorageChange(const MsgIdList &idList)
         m_pListener->onThreadListChanged();
 }
 
-void ThreadList::onListItemSelected(ListItem &listItem, void *funcData)
+void ThreadList::onListItemSelected(ListItem &listItem)
 {
     ThreadListItem *it = dynamic_cast<ThreadListItem*>(&listItem);
     if(it && m_pListener)
         m_pListener->onListItemSelected(it->getThreadId());
 }
 
-void ThreadList::onListItemChecked(ListItem &listItem, void *funcData)
+void ThreadList::onListItemChecked(ListItem &listItem)
 {
     if(ThreadListItem *it = dynamic_cast<ThreadListItem*>(&listItem))
         checkHandler(*it);

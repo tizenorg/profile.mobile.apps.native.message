@@ -37,7 +37,7 @@ namespace Msg
         private:
             virtual const char *getCheckPart(ListItem &item);
             // ListItem:
-            virtual std::string getListItemText(ListItem &item, const char *part);
+            virtual std::string getText(ListItem &item, const char *part);
     };
 }
 

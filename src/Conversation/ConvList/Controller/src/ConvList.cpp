@@ -172,7 +172,7 @@ void ConvList::selectListItems(bool state)
     m_pList->updateRealizedItems();
 }
 
-void ConvList::onListItemSelected(ListItem &listItem, void *funcData)
+void ConvList::onListItemSelected(ListItem &listItem)
 {
     ConvListItem &item = static_cast<ConvListItem&>(listItem);
     item.setSelected(false);
@@ -185,7 +185,7 @@ void ConvList::onSelectAllChanged(Evas_Object *obj, void *eventInfo)
     selectListItems(m_pSelectAll->getCheckState());
 }
 
-void ConvList::onListItemChecked(ListItem &listItem, void *funcData)
+void ConvList::onListItemChecked(ListItem &listItem)
 {
     bool allSelected = isAllListItemSelected();
     m_pSelectAll->setCheckState(allSelected);

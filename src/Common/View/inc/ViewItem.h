@@ -34,25 +34,32 @@ namespace Msg
             ViewItem(ViewItem&) = delete;
             ViewItem& operator=(const ViewItem&) = delete;
 
-            inline operator Elm_Object_Item *() const;
+            operator Elm_Object_Item *() const;
             virtual void destroy();
             Evas_Object *setContent(Evas_Object *content, const char *part = nullptr, bool saveOldContent = false);
             Evas_Object *getContent(const char *part = nullptr) const;
             void emitSignal(const char *signal, const char *source = "elm");
-            inline void *getData() const;
-            inline void setData(void *data);
-            inline Elm_Object_Item *getElmObjItem() const;
-            inline Evas_Object *getWidget() const;
-            inline void disabled(bool val);
-            inline bool isDisabled() const;
-            inline void setTranslateble(bool translateble, const char *domain, const char *part = nullptr);
+            void *getData() const;
+            void setData(void *data);
+            Elm_Object_Item *getElmObjItem() const;
+            Evas_Object *getWidget() const;
+            void disabled(bool val);
+            bool isDisabled() const;
+            void setTranslateble(bool translateble, const char *domain, const char *part = nullptr);
 
-            inline std::string getText(const char *part = nullptr) const;
-            inline const char *getTextCStr(const char *part = nullptr) const;
-            inline void setText(const char *text, const char *part = nullptr);
-            inline void setText(const std::string &text, const char *part = nullptr);
-            inline void setText(const TText &text, const char *part = nullptr);
-            inline static void setText(Elm_Object_Item *it, const TText &text, const char *part = nullptr);
+            std::string getText(const char *part = nullptr) const;
+            const char *getTextCStr(const char *part = nullptr) const;
+            void setText(const char *text, const char *part = nullptr);
+            void setText(const std::string &text, const char *part = nullptr);
+            void setText(const TText &text, const char *part = nullptr);
+            static void setText(Elm_Object_Item *it, const TText &text, const char *part = nullptr);
+
+            template<typename T>
+            static T staticCast(void *elmObjectItem);
+            template<typename T>
+            static T reinterpretCast(void *elmObjectItem);
+            template<typename T>
+            static T dynamicCast(void *elmObjectItem);
 
         protected:
             virtual ~ViewItem();
@@ -137,6 +144,23 @@ namespace Msg
         return elm_object_item_part_text_get(m_pItem, part);
     }
 
+    template<typename T>
+    inline T ViewItem::staticCast(void *elmObjectItem)
+    {
+        return static_cast<T>(elm_object_item_data_get((Elm_Object_Item*)elmObjectItem));
+    }
+
+    template<typename T>
+    inline T ViewItem::reinterpretCast(void *elmObjectItem)
+    {
+        return reinterpret_cast<T>(elm_object_item_data_get((Elm_Object_Item*)elmObjectItem));
+    }
+
+    template<typename T>
+    inline T ViewItem::dynamicCast(void *elmObjectItem)
+    {
+        return dynamic_cast<T>(staticCast<T>(elmObjectItem));
+    }
 }
 
 #endif /* ViewItem_h_ */

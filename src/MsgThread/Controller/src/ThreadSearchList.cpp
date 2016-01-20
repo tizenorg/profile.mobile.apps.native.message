@@ -115,7 +115,7 @@ void ThreadSearchList::search()
         m_pListener->onSearchListChanged();
 }
 
-void ThreadSearchList::onListItemSelected(ListItem &listItem, void *funcData)
+void ThreadSearchList::onListItemSelected(ListItem &listItem)
 {
     if(m_pListener)
     {

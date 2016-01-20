@@ -47,8 +47,8 @@ namespace Msg
             virtual void onMsgStorageChange(const MsgIdList &idList);
 
             // IListViewListener:
-            virtual void onListItemSelected(ListItem &listItem, void *funcData);
-            virtual void onListItemChecked(ListItem &listItem, void *funcData);
+            virtual void onListItemSelected(ListItem &listItem);
+            virtual void onListItemChecked(ListItem &listItem);
 
         private:
             void showSelectAllItem(bool show, bool resetCheck = true);

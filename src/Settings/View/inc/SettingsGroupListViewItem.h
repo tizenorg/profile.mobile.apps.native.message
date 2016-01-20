@@ -32,7 +32,7 @@ namespace Msg
 
         private:
             // ListItem:
-            virtual std::string getListItemText(ListItem &item, const char *part);
+            virtual std::string getText(ListItem &item, const char *part);
 
         private:
             const std::string m_Title;

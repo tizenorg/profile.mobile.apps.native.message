@@ -43,7 +43,7 @@ const char *SelectAllListItem::getCheckPart(ListItem &item)
     return checkPart;
 }
 
-std::string SelectAllListItem::getListItemText(ListItem &item, const char *part)
+std::string SelectAllListItem::getText(ListItem &item, const char *part)
 {
     if(strcmp(part, textPart) == 0)
     {

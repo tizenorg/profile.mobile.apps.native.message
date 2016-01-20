@@ -90,7 +90,7 @@ void MsgOnSimCard::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
     setMode(NormalMode);
 }
 
-void MsgOnSimCard::onListItemChecked(ListItem &listItem, void *funcData)
+void MsgOnSimCard::onListItemChecked(ListItem &listItem)
 {
     if(SelectAllListItem *it = dynamic_cast<SelectAllListItem*>(&listItem))
     {
