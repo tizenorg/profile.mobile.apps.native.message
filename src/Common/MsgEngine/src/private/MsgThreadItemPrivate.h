@@ -36,7 +36,8 @@ namespace Msg
             virtual std::string getName() const;
             virtual std::string getLastMessage() const;
             virtual time_t getTime() const;
-            virtual bool isDraft() const;
+            virtual bool hasDraftMessage() const;
+            virtual bool hasFailedMessage() const;
             virtual int getUnreadCount() const;
     };
 

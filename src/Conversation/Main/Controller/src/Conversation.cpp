@@ -92,6 +92,8 @@ void Conversation::execCmd(const AppControlComposeRef &cmd)
 
 void Conversation::create()
 {
+    markAsRead();
+
     createMainLayout(getParent());
     createMsgInputPanel(*m_pLayout);
     createBody(*m_pMsgInputPanel);
@@ -105,6 +107,12 @@ void Conversation::create()
     getMsgEngine().getStorage().addListener(*this);
     setHwButtonListener(*m_pLayout, this);
     m_AttachPanel.setListener(this);
+}
+
+void Conversation::markAsRead()
+{
+    if(m_ThreadId.isValid())
+        getMsgEngine().getStorage().setReadStatus(m_ThreadId);
 }
 
 void Conversation::navigateTo(MsgId msgId)

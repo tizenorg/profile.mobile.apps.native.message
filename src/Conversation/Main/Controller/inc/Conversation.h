@@ -121,6 +121,7 @@ namespace Msg
             void createMainLayout(Evas_Object *parent);
             void createConvList(Evas_Object *parent);
             void destroyConvList();
+            void markAsRead();
 
             void showMainCtxPopup();
             void showNoRecipPopup();

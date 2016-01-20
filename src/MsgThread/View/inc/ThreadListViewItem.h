@@ -41,7 +41,7 @@ namespace Msg
             void setState(State state, bool updateUi);
             State getState() const;
 
-            static Evas_Object *makeUnreadIcon(Evas_Object *parent, const std::string &text);
+            Evas_Object *makeUnreadIcon(const std::string &text);
 
         protected:
             virtual std::string getName() = 0;

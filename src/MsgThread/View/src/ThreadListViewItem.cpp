@@ -20,6 +20,7 @@
 #include "PathUtils.h"
 #include "ThumbnailMaker.h"
 #include "TextDecorator.h"
+#include "ListView.h"
 
 #include <Elementary.h>
 #include <stdlib.h>
@@ -119,9 +120,9 @@ ThreadListViewItem::State ThreadListViewItem::getState() const
     return m_State;
 }
 
-Evas_Object *ThreadListViewItem::makeUnreadIcon(Evas_Object *parent, const std::string &text)
+Evas_Object *ThreadListViewItem::makeUnreadIcon(const std::string &text)
 {
-    Evas_Object *label = elm_label_add(parent);
+    Evas_Object *label = elm_label_add(*getOwner());
     evas_object_show(label);
     std::string decorText = TextDecorator::make(text, unreadTextStyle);
     elm_object_text_set(label, decorText.c_str());

@@ -42,11 +42,10 @@ namespace Msg
             virtual std::string getStatus();
             virtual Evas_Object *getIcon();
 
-            Evas_Object *makeUnreadBadge(int unreadCount);
-
         private:
             ThreadId m_ThreadId;
             std::string m_Status;
+            std::string m_UnreadCount;
     };
 }
 

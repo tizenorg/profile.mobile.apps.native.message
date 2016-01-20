@@ -60,10 +60,17 @@ time_t MsgThreadItemPrivate::getTime() const
     return time;
 }
 
-bool MsgThreadItemPrivate::isDraft() const
+bool MsgThreadItemPrivate::hasDraftMessage() const
 {
     bool val = false;
     msg_get_bool_value(m_MsgStruct, MSG_THREAD_DRAFT_BOOL, &val);
+    return val;
+}
+
+bool MsgThreadItemPrivate::hasFailedMessage() const
+{
+    bool val = false;
+    msg_get_bool_value(m_MsgStruct, MSG_THREAD_SEND_FAILED_BOOL, &val);
     return val;
 }
 

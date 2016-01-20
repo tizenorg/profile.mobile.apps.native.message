@@ -52,14 +52,7 @@ std::string ThreadListItem::getStatus()
 
 Evas_Object *ThreadListItem::getIcon()
 {
-    Evas_Object *img = makeUnreadBadge(4); // TODO: remove hardcode
-    return img;
-}
-
-Evas_Object *ThreadListItem::makeUnreadBadge(int unreadCount)
-{
-    Evas_Object *label = makeUnreadIcon(*getOwner() ,std::to_string(unreadCount));
-    return label;
+    return makeUnreadIcon(m_UnreadCount);
 }
 
 void ThreadListItem::updateModel(const MsgThreadItem &threadItem)
@@ -68,11 +61,21 @@ void ThreadListItem::updateModel(const MsgThreadItem &threadItem)
     m_Message = threadItem.getLastMessage();
     m_Name = threadItem.getName();
 
-    State state = IconState;
-    if(threadItem.isDraft())
+    State state = NormalState;
+    if(threadItem.hasFailedMessage())
+    {
+        state = StatusState;
+        m_Status = msg("IDS_MSG_BODY_FAILED_M_STATUS_ABB2");
+    }
+    else if(threadItem.hasDraftMessage())
     {
         state = StatusState;
         m_Status = msg("IDS_MSG_BODY_DRAFT_M_STATUS_ABB");
+    }
+    else if(int unreadCount = threadItem.getUnreadCount() > 0)
+    {
+        state = IconState;
+        m_UnreadCount = std::to_string(unreadCount);
     }
 
     setState(state, false);

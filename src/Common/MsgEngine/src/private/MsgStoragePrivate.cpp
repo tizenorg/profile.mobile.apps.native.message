@@ -327,3 +327,13 @@ MessageListRef MsgStoragePrivate::searchMessage(const std::string &word)
 
     return res;
 }
+
+void MsgStoragePrivate::setReadStatus(ThreadId id)
+{
+    msg_set_conversation_to_read(m_ServiceHandle, id);
+}
+
+void MsgStoragePrivate::setReadStatus(MsgId id, bool status)
+{
+    msg_update_read_status(m_ServiceHandle, id, status);
+}

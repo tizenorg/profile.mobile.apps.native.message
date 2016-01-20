@@ -42,6 +42,7 @@ namespace Msg
             virtual bool deleteThread(ThreadId id);
             virtual MsgAddressListRef getAddressList(ThreadId id);
             virtual MsgThreadListRef searchThread(const std::string &word);
+            virtual void setReadStatus(ThreadId id);
 
             // Message:
             virtual MessageSMSListRef getSimMsgList();
@@ -50,6 +51,7 @@ namespace Msg
             virtual bool deleteMessage(MsgId id);
             virtual bool deleteMessages(const MsgIdList &idList);
             virtual MessageListRef searchMessage(const std::string &word);
+            virtual void setReadStatus(MsgId id, bool status);
 
             // Conversation:
             virtual MsgConversationListRef getConversationList(ThreadId id);
