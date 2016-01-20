@@ -15,8 +15,8 @@
  *
  */
 
-#ifndef AppControlNewMessage_h_
-#define AppControlNewMessage_h_
+#ifndef AppControlDefault_h_
+#define AppControlDefault_h_
 
 #include "AppControlCommand.h"
 #include "MsgTypes.h"
@@ -25,27 +25,28 @@
 
 namespace Msg
 {
-    class AppControlNewMessage;
-    typedef std::shared_ptr<AppControlNewMessage> AppControlNewMessageRef;
+    class AppControlDefault;
+    typedef std::shared_ptr<AppControlDefault> AppControlDefaultRef;
 
-    class AppControlNewMessage
+    class AppControlDefault
         : public AppControlCommand
     {
         public:
-            enum NewMessageType
+            enum DefaultType
             {
                 UnknownType,
+                MainType, //Type from home screen
                 ReplyType, //Type for reply message button clicked
-                NewMsgType, //Type for view message button clicked
+                ViewType, //Type for view message button clicked
                 NotificationType //Type from notification panel
             };
 
         public:
-            AppControlNewMessage(const std::string &opMsg, app_control_h handle);
-            virtual ~AppControlNewMessage();
+            AppControlDefault(const std::string &opMsg, app_control_h handle);
+            virtual ~AppControlDefault();
 
             MsgId getMessageId() const;
-            NewMessageType getNewMessageType() const;
+            DefaultType getDefaultType() const;
 
         private:
             bool isNotificationPanel(app_control_h handle) const;
@@ -55,8 +56,8 @@ namespace Msg
 
         private:
             MsgId m_MsgId;
-            NewMessageType m_NewMsgType;
+            DefaultType m_DefaultType;
     };
 }
 
-#endif /* AppControlNewMessage_h_ */
+#endif /* AppControlDefault_h_ */

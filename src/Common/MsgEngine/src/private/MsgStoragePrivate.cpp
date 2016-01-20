@@ -198,6 +198,32 @@ MsgThreadListRef MsgStoragePrivate::searchThread(const std::string &word)
     return res;
 }
 
+int MsgStoragePrivate::getUnreadThreadCount() const
+{
+    msg_struct_t sortRule = msg_create_struct(MSG_STRUCT_SORT_RULE);
+    msg_struct_list_s peerList;
+
+    int unreadThreadCount = 0;
+    bool oneThread = true;
+
+    msg_set_int_value(sortRule, MSG_SORT_RULE_SORT_TYPE_INT, MSG_SORT_BY_READ_STATUS);
+    msg_set_bool_value(sortRule, MSG_SORT_RULE_ACSCEND_BOOL, false);
+
+    msg_get_thread_view_list(m_ServiceHandle, sortRule, &peerList);
+    msg_release_struct(&sortRule);
+
+    for(int i = 0; i < peerList.nCount; i++)
+    {
+        int unreadCnt = 0;
+        msg_get_int_value(peerList.msg_struct_info[i], MSG_THREAD_UNREAD_COUNT_INT, &unreadCnt);
+
+        if(unreadCnt > 0)
+            unreadThreadCount++;
+    }
+
+    return unreadThreadCount;
+}
+
 MsgThreadItemRef MsgStoragePrivate::getThread(ThreadId id)
 {
     MsgThreadItemRef res;
