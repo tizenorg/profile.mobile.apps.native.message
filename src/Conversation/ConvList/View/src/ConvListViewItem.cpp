@@ -24,8 +24,12 @@ namespace
     //TODO: Implement different styles
     ListItemStyleRef sentStyle = ListItemStyle::create("sentbubble");
     ListItemStyleRef receivedStyle = ListItemStyle::create("receivebubble");
+    ListItemStyleRef draftStyle = ListItemStyle::create("draft");
 
-    const char *checkBoxPart = "elm.swallow.icon.2";
+    const char *checkBoxPart = "bubble.check";
+    const char *bubbleContentPart = "bubble.content";
+    const char *thumbContentPart = "info.thumbnail";
+    const char *timeTextPart = "info.time";
 }
 
 ConvListViewItem::ConvListViewItem(ConvItemType type)
@@ -38,6 +42,9 @@ ConvListViewItem::ConvListViewItem(ConvItemType type)
             break;
         case Received:
             setStyle(receivedStyle);
+            break;
+        case Draft:
+            setStyle(draftStyle);
             break;
         default:
             break;
@@ -53,7 +60,7 @@ std::string ConvListViewItem::getText(ListItem &item, const char *part)
 {
     if(!strcmp(part, "elm.text"))
         return getText();
-    else if(!strcmp(part, "elm.text.multiline"))
+    else if(!strcmp(part, timeTextPart))
         return getTime();
     else
         return "";
@@ -61,8 +68,10 @@ std::string ConvListViewItem::getText(ListItem &item, const char *part)
 
 Evas_Object *ConvListViewItem::getContent(ListItem &item, const char *part)
 {
-    if(!strcmp(part, "elm.swallow.end"))
+    if(!strcmp(part, bubbleContentPart))
         return getBubble();
+    else if(!strcmp(part, thumbContentPart))
+        return getThumbnail();
     else
         return nullptr;
 }

@@ -30,6 +30,7 @@ namespace Msg
             {
                 Sent,
                 Received,
+                Draft
             };
 
             ConvListViewItem(ConvItemType type);
@@ -37,6 +38,7 @@ namespace Msg
 
         protected:
             virtual Evas_Object *getBubble() = 0;
+            virtual Evas_Object *getThumbnail() = 0;
             virtual std::string getText() = 0;
             virtual std::string getTime() = 0;
 

@@ -48,10 +48,13 @@ namespace Msg
 
         protected:
             virtual Evas_Object *getBubble();
+            virtual Evas_Object *getThumbnail();
             virtual std::string getText();
             virtual std::string getTime();
 
         private:
+            ConvListViewItem::ConvItemType getConvItemType(MsgConversationItem &item);
+
             // Create Popup when message is clicked
             void showMainCtxPopup();
             void showDraftCtxPopup();
@@ -65,6 +68,8 @@ namespace Msg
             void onCopyToSimCardItemPressed(ContextPopupItem &item);
             void onViewDetailsItemPressed(ContextPopupItem &item);
 
+            void onBubbleResized(Evas_Object *obj, void *data);
+
         private:
             App &m_App;
             MsgId m_MsgId;
@@ -72,6 +77,10 @@ namespace Msg
             bool m_IsDraft;
             Message::Status m_Status;
             Message::Type m_Type;
+
+            //Fixme: temporary fix caused by genlist resize issue
+            Evas_Coord m_Width;
+            Evas_Coord m_Height;
     };
 }
 

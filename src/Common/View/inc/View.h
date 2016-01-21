@@ -43,7 +43,7 @@ namespace Msg
             void setSizeHintWeight(double x = EVAS_HINT_EXPAND, double y = EVAS_HINT_EXPAND);
             void setSizeHintAlign(double x = EVAS_HINT_FILL, double y = EVAS_HINT_FILL);
             void expand();
-            void expand(Evas_Object *obj);
+            static void expand(Evas_Object *obj);
             void setSizeHintMin(Evas_Coord w, Evas_Coord h);
             void setSizeHintMax(Evas_Coord w, Evas_Coord h);
             Evas_Object *setContent(Evas_Object *content, const char *part = nullptr, bool saveOldContent = false);
