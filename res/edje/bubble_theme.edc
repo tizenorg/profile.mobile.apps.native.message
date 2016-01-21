@@ -71,7 +71,7 @@
 
 collections {
 
-    base_scale: 1.8;
+    base_scale: 2.6;
 
 images {
 	image: "messagebubble_bg_receive_bg.#.png" COMP;
@@ -81,6 +81,8 @@ images {
 	image: "messagebubble_bg_send_bg_ef.#.png" COMP;
 	image: "bubble_with_search_result_send.#.png" COMP;
 	image: "badge_bg_draft.png" COMP;
+	image: "messages_bubble_bg.#.png" COMP;
+	image: "messages_bubble_bg_ef.#.png" COMP;
 }
 
 group {
@@ -115,7 +117,7 @@ group {
 styles {
 	style {
 		name: "entry_bubble_sent_textblock_style";
-		base: "font=Tizen:style=Roman font_size="ENTRY_BUBBLE_TEXT_SIZE" color=#000000 left_margin=1 right_margin=2 wrap=mixed";
+		base: "font=Tizen:style=Roman font_size="ENTRY_BUBBLE_TEXT_SIZE" color=#000000 left_margin=1 right_margin=2 wrap=mixed align=right";
 		tag:  "tab" "\t";
 		tag:  "em" "+ font=Tizen:style=Oblique";
 		tag:  "b" "+ font=Tizen:style=Bold";
@@ -1847,369 +1849,301 @@ BUBBLE_SENT_MESSAGE_STYLE("sent_style_01_failed", "messagebubble_bg_send_bg.#.pn
 
 BUBBLE_SENT_MESSAGE_STYLE("sent_style_01_failed_focus", "messagebubble_bg_send_bg.#.png", "bubble_with_search_result_send.#.png", "messagebubble_bg_send_bg_ef.#.png", 255, 255, 255, 204, B042, 15, 32, 15)
 
+//TODO: clean odl defines and move new defines to their places
+#define BUBBLE_INFO_HEIGHT 88
+#define BUBBLE_CONTENT_WIDTH_MAX 340
+#define BUBBLE_BG_IMAGE_MIN_WIDTH 120
+#define BUBBLE_BG_IMAGE_MIN_HEIGHT 122
+#define BUBBLE_CONTENT_PAD_TOP_HEIGHT 10
+#define BUBBLE_CONTENT_PAD_BOTTOM_HEIGHT 16
+#define BUBBLE_CONTENT_PAD_LEFT_WIDTH 34
+#define BUBBLE_CONTENT_PAD_RIGHT_WIDTH 34
+#define BUBBLE_PAD_BOTTOM_HEIGHT 17
+#define BUBBLE_PAD_LEFT_WIDTH 32
+#define BUBBLE_PAD_RIGHT_WIDTH 32
+#define BUBBLE_PAD_CHECK_WIDTH 32
+#define BUBBLE_CHECK_WIDTH 50
+#define BUBBLE_CHECK_HEIGHT 50
+#define BUBBLE_INFO_THUMB_HEIGHT 80
+#define BUBBLE_INFO_THUMB_WIDTH 80
+#define BUBBLE_INFO_THUMB_PAD_WIDTH 13
+#define BUBBLE_INFO_PAD_TOP_HEIGHT 9
+#define BUBBLE_INFO_STATUS_HEIGHT 38
+#define BUBBLE_INFO_STATUS_WIDTH 30
+#define BUBBLE_INFO_STATUS_PAD_WIDTH 4
+#define BUBBLE_INFO_TEXT_HEIGHT 38
+
+#define BUBBLE_BG_COLOR 90 111 199 230
+#define BUBBLE_BG_COLOR_PRESSED 78 97 173 230
+
 group { name: "elm/genlist/item/sentbubble/default";
-   alias: "elm/genlist/item_compress/sentbubble/default";
+    alias: "elm/genlist/item_compress/sentbubble/default";
 
-   data.item: "banded_bg_area" "elm.swallow.bg";
+    data.item: "banded_bg_area" "elm.swallow.bg";
+    data.item: "texts" "info.time";
+    data.item: "contents" "bubble.content info.thumbnail info.status info.status1 bubble.check";
+    parts{
+        rect { "base"; scale;
+            desc { "default";
+                rel1.to_y: "info.pad";
+                rel2.to_y: "pad.bottom";
+                align: 0.0 0.0;
+                color: 0 0 0 0;
+            }
+        }
+        swallow { "elm.swallow.bg"; scale;
+            desc { "default";
+            }
+        }
+        spacer { "info.pad"; scale;
+            desc { "default";
+                min: 0 BUBBLE_INFO_HEIGHT;
+                max: -1 BUBBLE_INFO_HEIGHT;
+                rel1.to_x: "pad.left";
+                rel1.relative: 1.0 0.0;
+                rel2.to_x: "pad.right";
+                rel2.relative: 0.0 1.0;
+                align: 0.0 0.0;
+                fixed: 0 1;
+            }
+        }
+        swallow { "info.thumbnail"; scale;
+            desc { "default";
+                min: BUBBLE_INFO_THUMB_WIDTH BUBBLE_INFO_THUMB_HEIGHT;
+                max: BUBBLE_INFO_THUMB_WIDTH BUBBLE_INFO_THUMB_HEIGHT;
+                align: 1.0 0.0;
+                rel1.to_y: "info.pad";
+                rel2.to_x: "info.pad";
+                fixed: 1 1;
+            }
+        }
+        spacer { "info.thumb.pad"; scale;
+            desc { "default"
+                min: BUBBLE_INFO_THUMB_PAD_WIDTH 0;
+                max: BUBBLE_INFO_THUMB_PAD_WIDTH -1;
+                align: 1.0 0.0;
+                rel2.to_x: "info.thumbnail";
+                rel2.relative: 0.0 1.0;
+                fixed: 1 0;
+            }
+        }
+        spacer { "info.pad.top"; scale;
+            desc { "default"
+                min: 0 BUBBLE_INFO_PAD_TOP_HEIGHT;
+                max: -1 BUBBLE_INFO_PAD_TOP_HEIGHT;
+                align: 0.0 0.0;
+                rel1.to: "info.pad";
+                fixed: 0 1;
+            }
+        }
+        swallow { "info.status"; scale;
+            desc { "default";
+                min: BUBBLE_INFO_STATUS_WIDTH BUBBLE_INFO_STATUS_HEIGHT;
+                max: BUBBLE_INFO_STATUS_WIDTH BUBBLE_INFO_STATUS_HEIGHT;
+                align: 1.0 0.0;
+                rel1.to_y: "info.pad.top";
+                rel2.to_x: "info.thumb.pad";
+                rel2.relative: 0.0 1.0;
+                fixed: 1 1;
+            }
+        }
+        spacer { "info.status.pad"; scale;
+            desc { "default"
+                min: BUBBLE_INFO_STATUS_PAD_WIDTH 0;
+                max: BUBBLE_INFO_STATUS_PAD_WIDTH -1;
+                align: 1.0 0.0;
+                rel2.to_x: "info.status";
+                rel2.relative: 0.0 1.0;
+                fixed: 1 0;
+            }
+        }
+        swallow { "info.status1"; scale;
+            desc { "default";
+                min: BUBBLE_INFO_STATUS_WIDTH BUBBLE_INFO_STATUS_HEIGHT;
+                max: BUBBLE_INFO_STATUS_WIDTH BUBBLE_INFO_STATUS_HEIGHT;
+                align: 1.0 0.0;
+                rel1.to_y: "info.pad.top";
+                rel2.to_x: "info.status.pad";
+                rel2.relative: 0.0 1.0;
+                fixed: 1 1;
+            }
+        }
+        textblock { "info.time"; scale;
+            desc { "default";
+                align: 1.0 0.0;
+                min: 0 BUBBLE_INFO_TEXT_HEIGHT;
+                max: -1 BUBBLE_INFO_TEXT_HEIGHT;
+                rel1.to_y: "info.status";
+                rel1.relative: 0.0 1.0;
+                rel2.to_x: "info.thumb.pad";
+                rel2.relative: 0.0 1.0;
+                text.style: "entry_bubble_sent_textblock_style";
+            }
+        }
+        spacer { "pad.left"; scale;
+            desc { "default";
+                min: BUBBLE_PAD_LEFT_WIDTH 0;
+                rel2.to_x: "bubble.pad.left";
+                rel2.relative: 0.0 0.0;
+                align: 0.0 0.0;
+            }
+        }
+        spacer { "pad.right"; scale;
+            desc { "default";
+                min: BUBBLE_PAD_RIGHT_WIDTH 0;
+                max: BUBBLE_PAD_RIGHT_WIDTH -1;
+                align: 1.0 0.0;
+                rel2.to_x: "bubble.check";
+                rel2.relative: 0.0 1.0;
+                fixed: 1 0;
+            }
+        }
+        spacer { "pad.check"; scale;
+            desc { "default";
+                min: 0 0;
+                max: 0 -1;
+                align: 1.0 0.0;
+                fixed: 1 0;
+            }
+            desc { "selection";
+                inherit: "default";
+                min: BUBBLE_PAD_CHECK_WIDTH 0;
+                max: BUBBLE_PAD_CHECK_WIDTH -1;
+            }
+        }
+        swallow { "bubble.check"; scale;
+            desc { "default";
+                min: 0 BUBBLE_CHECK_HEIGHT;
+                max: 0 BUBBLE_CHECK_HEIGHT;
+                align: 1.0 0.5;
+                rel1.to_y: "bubble.bg.image";
+                rel2.to_x: "pad.check";
+                rel2.to_y: "bubble.bg.image";
+                rel2.relative: 0.0 1.0;
+            }
+            desc { "selection";
+                inherit: "default";
+                min: BUBBLE_CHECK_WIDTH BUBBLE_CHECK_HEIGHT;
+                max: BUBBLE_CHECK_WIDTH BUBBLE_CHECK_HEIGHT;
+            }
+        }
+        image { "bubble.bg.image"; scale;
+            desc { "default";
+                image.normal: "messages_bubble_bg.#.png";
+                rel1.to_x: "bubble.pad.left";
+                rel1.to_y: "bubble.pad.top";
+                rel2.to_x: "bubble.pad.right";
+                rel2.to_y: "bubble.pad.bottom";
+                min: BUBBLE_BG_IMAGE_MIN_WIDTH BUBBLE_BG_IMAGE_MIN_HEIGHT;
+                color: BUBBLE_BG_COLOR;
+            }
+            desc { "pressed";
+                inherit: "default";
+                color: BUBBLE_BG_COLOR_PRESSED;
+            }
+        }
+        image { "bubble.bg.effect"; scale;
+            desc { "default";
+                image.normal: "messages_bubble_bg_ef.#.png";
+                rel1.to: "bubble.bg.image";
+                rel2.to: "bubble.bg.image";
+            }
+        }
+        spacer { "bubble.pad.top"; scale;
+            desc { "default";
+                min: 0 BUBBLE_CONTENT_PAD_TOP_HEIGHT;
+                max: -1 BUBBLE_CONTENT_PAD_TOP_HEIGHT;
+                rel1.to_y: "info.pad";
+                rel1.relative: 0.0 1.0;
+                align: 0.0 0.0;
+                fixed: 0 1;
+            }
+        }
+        spacer { "bubble.pad.left"; scale;
+            desc { "default";
+                min: BUBBLE_CONTENT_PAD_LEFT_WIDTH 0;
+                max: BUBBLE_CONTENT_PAD_LEFT_WIDTH -1;
+                rel2.to_x: "bubble.content";
+                rel2.relative: 0.0 1.0;
+                align: 1.0 0.0;
+                fixed: 1 0;
+            }
+        }
+        swallow { "bubble.content"; scale;
+            desc { "default";
+                max: BUBBLE_CONTENT_WIDTH_MAX -1;
+                rel1.to_y: "bubble.pad.top";
+                rel1.relative: 0.0 1.0;
+                rel2.to_x: "bubble.pad.right";
+                rel2.to_y: "bubble.pad.bottom";
+                rel2.relative: 0.0 0.0;
+                align: 1.0 0.0;
+            }
+        }
+        spacer { "bubble.pad.right"; scale;
+            desc { "default";
+                min: BUBBLE_CONTENT_PAD_RIGHT_WIDTH 0;
+                max: BUBBLE_CONTENT_PAD_RIGHT_WIDTH -1;
+                rel2.to_x: "pad.right";
+                rel2.relative: 0.0 0.0;
+                align: 1.0 0.0;
+                fixed: 1 0;
+            }
+        }
+        spacer { "bubble.pad.bottom"; scale;
+            desc { "default";
+                min: 0 BUBBLE_CONTENT_PAD_BOTTOM_HEIGHT;
+                max: -1 BUBBLE_CONTENT_PAD_BOTTOM_HEIGHT;
+                rel2.to_y: "pad.bottom";
+                rel2.relative: 1.0 0.0;
+                align: 0.0 1.0;
+                fixed: 0 1;
+            }
+        }
+        spacer { "pad.bottom"; scale;
+            desc { "default";
+                min: 0 BUBBLE_PAD_BOTTOM_HEIGHT;
+                max: -1 BUBBLE_PAD_BOTTOM_HEIGHT;
+                rel1.relative: 0.0 1.0;
+                align: 0.0 1.0;
+                fixed: 0 1;
+            }
+        }
+    }
+    programs{
+        program { name: "pressed";
+            signal: "elm,state,selected";
+            source: "elm";
+            action: STATE_SET "pressed" 0.0;
+            target: "bubble.bg.image";
+        }
+        program { name: "unpressed";
+            signal: "elm,state,unselected";
+            source: "elm";
+            action: STATE_SET "default" 0.0;
+            target: "bubble.bg.image";
+        }
+        program { name: "selection_mode";
+            signal: "elm,state,bubble.check,visible";
+            source: "elm";
+            action: STATE_SET "selection" 0.0;
+            target: "bubble.check";
+            target: "pad.check";
+        }
+        program { name: "default_mode";
+            signal: "elm,state,default";
+            source: "elm";
+            action: STATE_SET "default" 0.0;
+            target: "bubble.check";
+            target: "pad.check";
+        }
+    }
+}
 
-   data.item: "texts" "elm.text elm.text.multiline";
-   data.item: "contents" "elm.swallow.icon elm.swallow.icon.0 elm.swallow.icon.1 elm.swallow.icon.2 elm.swallow.end";
-
-   script {
-      public main_text_visible = 0;
-      public multiline_text_visible = 0;
-   }
-
-   parts {
-      swallow { "elm.swallow.bg"; scale;
-         desc { "default";
-         }
-      }
-      part { name: "bg";
-         type: RECT;
-         description { state: "default" 0.0;
-            color: 0 0 0 0;
-         }
-         description { state: "pressed" 0.0;
-            inherit: "default" 0.0;
-            color: 0 0 0 10;
-         }
-         description { state: "disabled" 0.0;
-            color: 0 0 0 0;
-         }
-      }
-      spacer { "base"; scale;
-         desc { "default";
-            min: 0 GENLIST_ITEM_MULTILINE_1LINE_HEIGHT_INC;
-            align: 0.5 0.5;
-         }
-      }
-      image { "image.bg"; scale;
-         desc{ "default";
-            image.normal: "messagebubble_bg_send_bg.#.png";
-            color: 169 182 148 255;
-            rel1.relative: 0.0 0.0;
-            rel2.relative: 1.0 1.0;
-            rel2.offset: 0 -5;
-         }
-         desc{ "pressed";
-            inherit: "default";
-            color: 140 150 122 255;
-         }
-      }
-      spacer { "elm.padding.left"; scale;
-         desc { "default";
-            min: GENLIST_ITEM_LR_PADDING_INC 0;
-            align: 0.0 0.5;
-            rel1.relative: 0.0 0.0;
-            rel2.relative: 0.0 1.0;
-         }
-      }
-      spacer { "elm.padding.right"; scale;
-         desc { "default";
-            min: GENLIST_ITEM_LR_PADDING_INC 0;
-            align: 1.0 0.5;
-            rel1.relative: 1.0 0.0;
-            rel2.relative: 1.0 1.0;
-         }
-      }
-      spacer { "elm.padding.top"; scale;
-         desc { "default";
-            min: 0 GENLIST_ITEM_TOP_PADDING_INC;
-            max: -1 GENLIST_ITEM_TOP_PADDING_INC;
-            align: 0.5 0.0;
-            rel1.relative: 0.0 0.0;
-            rel2.relative: 1.0 0.0;
-         }
-      }
-      spacer { "elm.padding.bottom"; scale;
-         desc { "default";
-            min: 0 GENLIST_ITEM_BOTTOM_PADDING_INC;
-            max: -1 GENLIST_ITEM_BOTTOM_PADDING_INC;
-            align: 0.5 1.0;
-            rel1.relative: 0.0 1.0;
-            rel2.relative: 1.0 1.0;
-         }
-      }
-      swallow { "elm.swallow.icon"; scale;
-         desc { state: "default";
-            align: 0.0 0.5;
-            rel1 { to: "elm.padding.left"; relative: 1.0 0.5; }
-            rel2 { to: "elm.padding.left"; relative: 1.0 0.5; }
-         }
-      }
-      spacer { "elm.padding.B.A"; scale;
-         desc { "default";
-            min: 0 0;
-            align: 0.0 0.5;
-            rel1 { to: "elm.swallow.icon"; relative: 1.0 0.5; }
-            rel2 { to: "elm.swallow.icon"; relative: 1.0 0.5; }
-         }
-         desc { "icon_visible"; inherit: "default";
-            min: GENLIST_ITEM_TYPE_BA_PADDING_INC 0;
-         }
-      }
-      swallow { "elm.swallow.end"; scale;
-         desc { state: "default";
-            align: 1.0 0.5;
-            rel1 { to: "elm.padding.right"; relative: 0.0 0.5; }
-            rel2 { to: "elm.padding.right"; relative: 0.0 0.5; }
-         }
-      }
-      spacer { "elm.padding.D.C"; scale;
-         desc { "default";
-            min: 0 0;
-            align: 1.0 0.5;
-            rel1 { to: "elm.swallow.end"; relative: 0.0 0.5; }
-            rel2 { to: "elm.swallow.end"; relative: 0.0 0.5; }
-         }
-         desc { "icon_visible"; inherit: "default";
-            min: GENLIST_ITEM_TYPE_DC_PADDING_INC 0;
-         }
-      }
-      swallow { "elm.swallow.icon.2"; scale;
-         desc { state: "default";
-            align: 1.0 0.5;
-            rel1 { to: "elm.padding.D.C"; relative: 0.0 0.5; }
-            rel2 { to: "elm.padding.D.C"; relative: 0.0 0.5; }
-         }
-      }
-      spacer { "elm.padding.A.D"; scale;
-         desc { "default";
-            min: 0 0;
-            align: 1.0 0.5;
-            rel1 { to: "elm.swallow.icon.2"; relative: 0.0 0.5; }
-            rel2 { to: "elm.swallow.icon.2"; relative: 0.0 0.5; }
-         }
-         desc { "icon_visible"; inherit: "default";
-            min: GENLIST_ITEM_TYPE_AD_PADDING_INC 0;
-         }
-      }
-      swallow { "elm.swallow.icon.0"; scale;
-         desc { "default";
-            align: 0.0 0.5;
-            rel1 { to_x: "elm.padding.B.A"; to_y: "elm.padding.main.icon.text"; relative: 1.0 0.5; }
-            rel2 { to_x: "elm.padding.B.A"; to_y: "elm.padding.main.icon.text"; relative: 1.0 0.5; }
-         }
-      }
-      spacer { "elm.padding.main.icon.text"; scale;
-         desc { "default";
-            min: 0 0;
-            align: 0.0 0.5;
-            rel1 { to_x: "elm.swallow.icon.0"; relative: 1.0 0.5; }
-            rel2 { to_x: "elm.swallow.icon.0"; relative: 1.0 0.5; }
-         }
-         desc { "icon_visible"; inherit: "default";
-            min: GENLIST_ITEM_MAIN_LINE_TEXT_END_PADDING_INC 0;
-         }
-      }
-      textblock { "elm.text"; scale;
-         desc { "default";
-            align: 0.5 0.0;
-            rel1 { to_x: "elm.padding.main.icon.text"; to_y: "elm.padding.top"; relative: 1.0 1.0; }
-            rel2 { to_x: "elm.padding.main.text.end"; to_y: "base_line"; relative: 0.0 0.0; }
-            text.style: "entry_bubble_sent_textblock_style";
-            text.min: 0 1;
-         }
-         desc { "pressed"; inherit: "default";
-            text.style: "entry_bubble_sent_textblock_style";
-         }
-         desc { "disabled"; inherit: "default";
-            text.style: "list_text_main_dim";
-         }
-      }
-      spacer { "base_line";
-         desc { "default";
-            rel1 { to: "elm.padding.top"; relative: 0.0 0.0; }
-            rel2 { to: "elm.padding.top"; relative: 1.0 0.0; }
-         }
-         desc { "main_text_visible";
-            rel1 { to: "elm.padding.bottom"; relative: 0.0 0.0; }
-            rel2 { to: "elm.padding.bottom"; relative: 1.0 0.0; }
-         }
-         desc { "multiline_text_visible";
-            rel1 { to: "elm.text.multiline"; relative: 0.0 0.0; }
-            rel2 { to: "elm.text.multiline"; relative: 1.0 0.0; }
-         }
-      }
-      spacer { "elm.padding.main.text.end"; scale;
-         desc { "default";
-            min: 0 0;
-            align: 1.0 0.5;
-            rel1 { to_x: "elm.swallow.icon.1"; relative: 0.0 0.5; }
-            rel2 { to_x: "elm.swallow.icon.1"; relative: 0.0 0.5; }
-         }
-         desc { "icon_visible"; inherit: "default";
-            min: GENLIST_ITEM_MAIN_LINE_TEXT_END_PADDING_INC 0;
-         }
-      }
-      swallow { "elm.swallow.icon.1"; scale;
-         desc { "default";
-            align: 1.0 0.5;
-            rel1 { to_x: "elm.padding.A.D"; to_y: "elm.padding.main.text.end"; relative: 0.0 0.5; }
-            rel2 { to_x: "elm.padding.A.D"; to_y: "elm.padding.main.text.end"; relative: 0.0 0.5; }
-         }
-      }
-      spacer { "multiline_base_line";
-         desc { "default";
-            rel1 { to: "elm.padding.top"; relative: 0.0 1.0; }
-            rel2 { to: "elm.padding.top"; relative: 1.0 1.0; }
-         }
-         desc { "main_text_visible";
-            rel1 { to: "elm.padding.bottom"; relative: 0.0 0.0; }
-            rel2 { to: "elm.padding.bottom"; relative: 1.0 0.0; }
-         }
-      }
-      textblock { "elm.text.multiline"; scale;
-         desc { "default";
-            align: 0.5 1.0;
-            rel1 { to_x: "elm.padding.main.icon.text"; to_y: "multiline_base_line"; relative: 1.0 1.0; }
-            rel2 { to_x: "elm.padding.main.text.end"; to_y: "elm.padding.bottom"; relative: 0.0 0.0; }
-            text.style: "entry_bubble_sent_textblock_style";
-            text.min: 0 1;
-         }
-         desc { "pressed"; inherit: "default";
-            text.style: "entry_bubble_sent_textblock_style";
-         }
-         desc { "disabled"; inherit: "default";
-            text.style: "list_text_multiline_dim";
-         }
-      }
-      rect { "elm.bottomline"; scale;
-         desc { "default";
-            min: 0 LIST_BOTTOMLINE_HEIGHT;
-            max: -1  LIST_BOTTOMLINE_HEIGHT;
-            align: 0.5 0.0;
-            rel1.relative: 0.0 0.0;
-            rel2.relative: 1.0 0.0;
-            color: 204 204 204 255;
-         }
-         desc { "hidden"; inherit: "default";
-            visible: 0;
-         }
-      }
-   }
-   programs {
-      program {
-         signal: "elm,state,elm.swallow.bg,visible";
-         source: "elm";
-         action: STATE_SET "hidden" 0.0;
-         target: "elm.bottomline";
-      }
-      program {
-         signal: "elm,state,elm.swallow.icon,visible";
-         source: "elm";
-         action: STATE_SET "icon_visible" 0.0;
-         target: "elm.padding.B.A";
-      }
-      program {
-         signal: "elm,state,elm.swallow.icon.2,visible";
-         source: "elm";
-         action: STATE_SET "icon_visible" 0.0;
-         target: "elm.padding.A.D";
-      }
-      program {
-         signal: "elm,state,elm.swallow.end,visible";
-         source: "elm";
-         action: STATE_SET "icon_visible" 0.0;
-         target: "elm.padding.D.C";
-      }
-      program {
-         signal: "elm,state,elm.swallow.icon.0,visible";
-         source: "elm";
-         action: STATE_SET "icon_visible" 0.0;
-         target: "elm.padding.main.icon.text";
-      }
-      program {
-         signal: "elm,state,elm.swallow.icon.1,visible";
-         source: "elm";
-         action: STATE_SET "icon_visible" 0.0;
-         target: "elm.padding.main.text.end";
-      }
-      program { name: "main_text_visible";
-         signal: "elm,state,elm.text,visible";
-         source: "elm";
-         script {
-            if (get_int(multiline_text_visible) == 1) {
-               set_state(PART:"base_line", "multiline_text_visible", 0.0);
-               set_state(PART:"multiline_base_line", "main_text_visible", 0.0);
-            }
-            else {
-               set_state(PART:"base_line", "main_text_visible", 0.0);
-               set_state(PART:"multiline_base_line", "default", 0.0);
-            }
-            set_int(main_text_visible, 1);
-         }
-      }
-      program { name: "multiline_text_visible";
-         signal: "elm,state,elm.text.multiline,visible";
-         source: "elm";
-          script {
-            if (get_int(main_text_visible) == 1) {
-               set_state(PART:"base_line", "multiline_text_visible", 0.0);
-               set_state(PART:"multiline_base_line", "main_text_visible", 0.0);
-            }
-            else {
-               set_state(PART:"base_line", "main_text_visible", 0.0);
-               set_state(PART:"multiline_base_line", "default", 0.0);
-            }
-            set_int(multiline_text_visible, 1);
-         }
-      }
-      program { name: "default";
-         signal: "elm,state,default";
-         source: "elm";
-         script {
-            set_state(PART:"base_line", "default", 0.0);
-            set_state(PART:"multiline_base_line", "default", 0.0);
-            set_state(PART:"elm.padding.B.A", "default", 0.0);
-            set_state(PART:"elm.padding.A.D", "default", 0.0);
-            set_state(PART:"elm.padding.D.C", "default", 0.0);
-            set_state(PART:"elm.padding.main.icon.text", "default", 0.0);
-            set_state(PART:"elm.padding.main.text.end", "default", 0.0);
-            set_state(PART:"elm.bottomline", "default", 0.0);
-            set_state(PART:"bg", "default", 0.0);
-            set_state(PART:"elm.text", "default", 0.0);
-            set_state(PART:"elm.text.multiline", "default", 0.0);
-            set_int(main_text_visible, 0);
-            set_int(multiline_text_visible, 0);
-         }
-      }
-      program { name: "pressed";
-         signal: "elm,state,selected";
-         source: "elm";
-         action: STATE_SET "pressed" 0.0;
-         target: "bg";
-         target: "elm.text";
-         target: "elm.text.multiline";
-         target: "image.bg";
-      }
-      program { name: "unpressed";
-         signal: "elm,state,unselected";
-         source: "elm";
-         action: STATE_SET "default" 0.0;
-         target: "bg";
-         target: "elm.text";
-         target: "elm.text.multiline";
-         target: "image.bg";
-      }
-      program { name: "enabled";
-         signal: "elm,state,enabled";
-         source: "elm";
-         action: STATE_SET "default" 0.0;
-         target: "bg";
-         target: "elm.text";
-         target: "elm.text.multiline";
-      }
-      program { name: "disabled";
-         signal: "elm,state,disabled";
-         source: "elm";
-         action: STATE_SET "disabled" 0.0;
-         target: "bg";
-         target: "elm.text";
-         target: "elm.text.multiline";
-      }
-   }
+group { name: "elm/genlist/item/draft/default";
+    alias: "elm/genlist/item_compress/draft/default";
+    inherit: "elm/genlist/item/sentbubble/default";
+    //TODO: implement in next commit
 }
 
 group { name: "elm/genlist/item/receivebubble/default";
