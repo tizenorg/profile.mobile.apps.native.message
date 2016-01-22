@@ -27,13 +27,13 @@ namespace Msg
         : public ContactRecord
     {
         public:
-            inline ContactPersonNumber(contacts_record_h record);
-            inline static const char *getUri();
-            inline int getId() const;
-            inline int getPersonId() const;
-            inline const char *getDispName() const;
-            inline const char *getNumber() const;
-            inline const char *getThumbnailPath() const;
+            ContactPersonNumber(contacts_record_h record);
+            static const char *getUri();
+            int getId() const;
+            int getPersonId() const;
+            std::string getDispName() const;
+            std::string getNumber() const;
+            std::string getThumbnailPath() const;
     };
 
     inline ContactPersonNumber::ContactPersonNumber(contacts_record_h record)
@@ -43,37 +43,27 @@ namespace Msg
 
     inline int ContactPersonNumber::getId() const
     {
-        int id = 0;
-        contacts_record_get_int(m_Record, _contacts_person_number.number_id, &id);
-        return id;
+        return getInt(_contacts_person_number.number_id);
     }
 
     inline int ContactPersonNumber::getPersonId() const
     {
-        int id = 0;
-        contacts_record_get_int(m_Record, _contacts_person_number.person_id, &id);
-        return id;
+        return getInt(_contacts_person_number.person_id);
     }
 
-    inline const char *ContactPersonNumber::getDispName() const
+    inline std::string ContactPersonNumber::getDispName() const
     {
-        char *str = nullptr;
-        contacts_record_get_str_p(m_Record, _contacts_person_number.display_name, &str);
-        return str;
+        return getStr(_contacts_person_number.display_name);
     }
 
-    inline const char *ContactPersonNumber::getNumber() const
+    inline std::string ContactPersonNumber::getNumber() const
     {
-        char *str = nullptr;
-        contacts_record_get_str_p(m_Record, _contacts_person_number.number, &str);
-        return str;
+        return getStr(_contacts_person_number.number);
     }
 
-    inline const char *ContactPersonNumber::getThumbnailPath() const
+    inline std::string ContactPersonNumber::getThumbnailPath() const
     {
-        char *str = nullptr;
-        contacts_record_get_str_p(m_Record, _contacts_person_number.image_thumbnail_path, &str);
-        return str;
+        return getStr(_contacts_person_number.image_thumbnail_path);
     }
 
     inline const char *ContactPersonNumber::getUri()

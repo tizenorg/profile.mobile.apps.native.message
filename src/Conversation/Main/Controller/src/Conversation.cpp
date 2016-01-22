@@ -517,9 +517,7 @@ void Conversation::updateNavibar()
                 ContactPersonNumber contactPersonNumber = getApp().getContactManager().getContactPersonNumber(firstNumber);
                 if(contactPersonNumber.isValid())
                 {
-                    const char *dispName = contactPersonNumber.getDispName();
-                    if(dispName)
-                        conversationName = dispName;
+                    conversationName = contactPersonNumber.getDispName();
                     contactPersonNumber.release();
                 }
 

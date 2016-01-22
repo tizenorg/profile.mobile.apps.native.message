@@ -115,7 +115,7 @@ RecipientsPanel::AppendItemStatus RecipientsPanel::appendItem(const std::string 
     ContactPersonNumber num = m_App.getContactManager().getContactPersonNumber(address);
 
     std::string dispName;
-    if(num.isValid() && num.getDispName())
+    if(num.isValid())
         dispName = num.getDispName();
 
     num.release();
@@ -253,11 +253,7 @@ void RecipientsPanel::onContactsPicked(const std::list<int> &numberIdList)
     {
         ContactPersonNumber num = m_App.getContactManager().getContactPersonNumber(phoneNumId);
         if(num.isValid())
-        {
-            std::string addr = num.getNumber() ? num.getNumber() : "";
-            std::string dsipName = num.getDispName() ? num.getDispName() : "";
-            duplicateFound |= appendItem(addr, dsipName, MsgAddress::Phone) == DuplicatedStatus;
-        }
+            duplicateFound |= appendItem(num.getNumber(), num.getDispName(), MsgAddress::Phone) == DuplicatedStatus;
     }
 
     if(duplicateFound)
