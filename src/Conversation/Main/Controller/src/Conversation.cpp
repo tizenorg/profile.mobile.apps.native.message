@@ -183,17 +183,28 @@ void Conversation::setNewMessageMode()
 void Conversation::setConversationMode()
 {
     MSG_LOG("");
-    m_Mode = ConversationMode;
 
+    m_Mode = ConversationMode;
     createConvList(*m_pLayout);
 
     m_pLayout->showPredictSearch(false);
     m_pLayout->showSelectAll(false);
     m_pLayout->setBubble(*m_pConvList);
-    m_pConvList->show();
+
     updateNavibar();
 
-    destroyRecipPanel();
+    MsgAddressListRef addressList = getMsgEngine().getStorage().getAddressList(m_ThreadId);
+    if(addressList && addressList->getLength() > 1)
+    {
+        createRecipPanel(*m_pLayout);
+        m_pLayout->setRecipientPanel(*m_pRecipPanel);
+        m_pRecipPanel->showEntry(false);
+        m_pRecipPanel->update(addressList);
+    }
+    else
+    {
+        destroyRecipPanel();
+    }
     destroyContactList();
 }
 
@@ -230,7 +241,7 @@ void Conversation::createRecipPanel(Evas_Object *parent)
         m_pRecipPanel = new RecipientsPanel(parent, getApp());
         m_pRecipPanel->setListener(this);
         m_pRecipPanel->show();
-        m_pRecipPanel->setRecipientRect(m_pLayout->getRecipientRect());
+        m_pLayout->setRecipientPanel(m_pRecipPanel->getAreaRect());
     }
 }
 
@@ -490,19 +501,42 @@ void Conversation::updateNavibar()
     }
     else
     {
-        if(m_pConvList->getMode() == ConvList::NormalMode)
-        {
-            std::string conversationName = getMsgEngine().getStorage().getThread(m_ThreadId)->getName();
-            //TODO: enable down button when needed
-            getNaviBar().showButton(NaviCenterButtonId, true);
-            getNaviBar().setButtonText(NaviCenterButtonId, conversationName);
-            getNaviBar().showButton(NaviPrevButtonId, true);
-        }
-        else
+        if(m_pConvList->getMode() == ConvList::SelectMode)
         {
             getNaviBar().setTitle(msgt("IDS_MSG_OPT_DELETE"));
             getNaviBar().showButton(NaviCancelButtonId, true);
             getNaviBar().showButton(NaviOkButtonId, true);
+        }
+        else
+        {
+            MsgAddressListRef addressList = getMsgEngine().getStorage().getAddressList(m_ThreadId);
+            if(addressList && !addressList->isEmpty())
+            {
+                std::string conversationName;
+                std::string firstNumber = addressList->at(0).getAddress();
+                ContactPersonNumber contactPersonNumber = getApp().getContactManager().getContactPersonNumber(firstNumber);
+                if(contactPersonNumber.isValid())
+                {
+                    const char *dispName = contactPersonNumber.getDispName();
+                    if(dispName)
+                        conversationName = dispName;
+                    contactPersonNumber.release();
+                }
+
+                if(conversationName.empty())
+                    conversationName = firstNumber;
+
+                int hidenAddresses= addressList->getLength() - 1;
+                if(hidenAddresses > 0)
+                {
+                    conversationName += " + " + std::to_string(hidenAddresses);
+                    getNaviBar().showButton(NaviDownButtonId, true);
+                }
+
+                getNaviBar().showButton(NaviCenterButtonId, true);
+                getNaviBar().showButton(NaviPrevButtonId, true);
+                getNaviBar().setButtonText(NaviCenterButtonId, conversationName);
+            }
         }
     }
 }
@@ -526,7 +560,7 @@ void Conversation::onButtonClicked(MessageInputPanel &obj, MessageInputPanel::Bu
 
 void Conversation::onContactSelected(ContactListItem &item)
 {
-    m_pRecipPanel->appendItem(item.getRecipient(), item.getRecipient());
+    m_pRecipPanel->appendItem(item.getRecipient());
     m_pRecipPanel->clearEntry();
     m_pContactsList->clear();
 }
@@ -553,17 +587,35 @@ void Conversation::onHwBackButtonClicked()
 
 void Conversation::onHwMoreButtonClicked()
 {
+    MSG_LOG("");
     if(m_Mode == ConversationMode && m_pConvList->getMode() == ConvList::NormalMode)
         showMainCtxPopup();
 }
 
 void Conversation::onNaviOkButtonClicked()
 {
+    MSG_LOG("");
     if(m_Mode == ConversationMode && m_pConvList->getMode() == ConvList::SelectMode)
     {
         m_pConvList->deleteSelectedItems();
         m_pConvList->setMode(ConvList::NormalMode);
         updateNavibar();
+    }
+}
+
+void Conversation::onNaviCenterButtonClicked()
+{
+    MSG_LOG("");
+}
+
+void Conversation::onNaviDownButtonClicked()
+{
+    MSG_LOG("");
+    if(m_pRecipPanel)
+    {
+        bool isMbeInvisible= !m_pRecipPanel->isMbeVisible();
+        m_pRecipPanel->showMbe(isMbeInvisible);
+        getNaviBar().setDownButtonState(isMbeInvisible);
     }
 }
 
@@ -577,9 +629,11 @@ void Conversation::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
             break;
 
         case NaviDownButtonId:
+            onNaviDownButtonClicked();
             break;
 
         case NaviCenterButtonId:
+            onNaviCenterButtonClicked();
             break;
 
         case NaviCancelButtonId:

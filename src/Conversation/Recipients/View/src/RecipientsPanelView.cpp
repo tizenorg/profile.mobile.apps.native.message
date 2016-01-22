@@ -25,6 +25,7 @@
 
 using namespace Msg;
 
+
 RecipientsPanelView::RecipientsPanelView(Evas_Object *parent, int entryMaxCharCount)
     : View()
     , m_pLayout(nullptr)
@@ -33,6 +34,7 @@ RecipientsPanelView::RecipientsPanelView(Evas_Object *parent, int entryMaxCharCo
     , m_pContactBtn(nullptr)
     , m_pRecipRect(nullptr)
     , m_EntryMaxCharCount(entryMaxCharCount)
+    , m_IsMbeVisible(false)
 {
     create(parent);
 }
@@ -40,6 +42,11 @@ RecipientsPanelView::RecipientsPanelView(Evas_Object *parent, int entryMaxCharCo
 RecipientsPanelView::~RecipientsPanelView()
 {
 
+}
+
+Evas_Object *RecipientsPanelView::getAreaRect() const
+{
+    return m_pRecipRect;
 }
 
 void RecipientsPanelView::appendItem(RecipientViewItem &item)
@@ -90,13 +97,25 @@ RecipientViewItemList RecipientsPanelView::getItems() const
 
 void RecipientsPanelView::showMbe(bool show)
 {
-    const char *prog = show ? "show_to_mbe" : "hide_to_mbe";
-    elm_object_signal_emit(m_pLayout, prog, "*");
+    m_IsMbeVisible = show;
+    const char *sig = show ? "show_to_mbe" : "hide_to_mbe";
+    elm_object_signal_emit(m_pLayout, sig, "*");
+}
+
+void RecipientsPanelView::showEntry(bool show)
+{
+    const char *sig = show ? "show_entry" : "hide_entry";
+    elm_object_signal_emit(m_pLayout, sig, "*");
 }
 
 bool RecipientsPanelView::isMbeEmpty() const
 {
     return elm_multibuttonentry_first_item_get(m_pMbe) == nullptr;
+}
+
+bool RecipientsPanelView::isMbeVisible() const
+{
+    return m_IsMbeVisible;
 }
 
 std::string RecipientsPanelView::getEntryText() const
@@ -151,7 +170,7 @@ void RecipientsPanelView::create(Evas_Object *parent)
     Evas_Object *entry =  entryCreate(m_pLayout);
     Evas_Object *button = createContactBtn(m_pLayout);
 
-    elm_object_part_content_set(m_pLayout, "swl.mbe_scroll", mbe);
+    elm_object_part_content_set(m_pLayout, "swl.mbe", mbe);
     elm_object_part_content_set(m_pLayout, "swl.entry", entry);
     elm_object_part_content_set(m_pLayout, "swl.contact_btn", button);
 }
@@ -267,7 +286,8 @@ void RecipientsPanelView::onEntryGeometryChanged(Evas_Object *obj, void *event_i
     lyayoutTop = y;
 
     evas_object_size_hint_min_get(m_pRecipRect, &w, nullptr);
-    evas_object_size_hint_min_set(m_pRecipRect, w, entryBottom - lyayoutTop);
+    int height = entryBottom - lyayoutTop;
+    evas_object_size_hint_min_set(m_pRecipRect, w, height);
 }
 
 void RecipientsPanelView::setContactBtnColor(int r, int g, int b, int a)
@@ -418,7 +438,6 @@ void RecipientsPanelView::onKeyDown(Evas_Object *obj, void *event_info)
     Evas_Event_Key_Down *ev = (Evas_Event_Key_Down *)event_info;
     if((strcmp(ev->keyname, "BackSpace") == 0) && isEntryEmpty())
         deleteNextRecipient();
-
     onKeyDown(ev);
 }
 
