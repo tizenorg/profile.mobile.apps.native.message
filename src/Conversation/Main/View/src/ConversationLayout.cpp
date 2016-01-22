@@ -93,7 +93,7 @@ void ConversationLayout::create(Evas_Object *parent)
 Evas_Object *ConversationLayout::createMainLayout(Evas_Object *parent)
 {
     Evas_Object *layout = elm_layout_add(parent);
-    std::string edjePath = PathUtils::getResourcePath(CONV_EDJ_PATH);
+    std::string edjePath = PathUtils::getResourcePath(CONV_LAYOUT_EDJ_PATH);
     elm_layout_file_set(layout, edjePath.c_str(), "conversation");
     evas_object_show(layout);
     return layout;

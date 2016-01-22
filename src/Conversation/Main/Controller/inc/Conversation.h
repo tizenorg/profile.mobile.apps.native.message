@@ -141,6 +141,8 @@ namespace Msg
             void saveDraftMsg();
 
             void onNaviOkButtonClicked();
+            void onNaviCenterButtonClicked();
+            void onNaviDownButtonClicked();
 
         private:
             Mode m_Mode;

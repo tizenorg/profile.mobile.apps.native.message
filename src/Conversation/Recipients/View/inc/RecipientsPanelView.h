@@ -36,12 +36,15 @@ namespace Msg
             RecipientsPanelView(Evas_Object *parent, int entryMaxCharCount);
             virtual ~RecipientsPanelView();
 
+            Evas_Object *getAreaRect() const;
             void appendItem(RecipientViewItem &item);
             void showMbe(bool show);
+            void showEntry(bool show);
             std::string getEntryText() const;
             void setEntryText(const std::string &utf8);
             RecipientViewItemList getItems() const;
             bool isMbeEmpty() const;
+            bool isMbeVisible() const;
             bool getEntryFocus() const;
             void setEntryFocus(bool val);
             void clearEntry();
@@ -107,6 +110,7 @@ namespace Msg
             Evas_Object *m_pContactBtn;
             Evas_Object *m_pRecipRect;
             int m_EntryMaxCharCount;
+            bool m_IsMbeVisible;
     };
 }
 

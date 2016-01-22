@@ -36,6 +36,14 @@ namespace Msg
           private IContactPickerListener
     {
         public:
+            enum AppendItemStatus
+            {
+                SuccessStatus,
+                DuplicatedStatus,
+                InvalidRecipStatus
+            };
+
+        public:
             RecipientsPanel(Evas_Object *parent, App &app);
             virtual ~RecipientsPanel();
 
@@ -43,7 +51,9 @@ namespace Msg
             bool isMms() const;
             void setListener(IRecipientsPanelListener *l);
             void update(const ThreadId &threadId);
-            bool appendItem(const std::string &address, const std::string &dispName,
+            void update(const MsgAddressListRef &addressList);
+            AppendItemStatus appendItem(const std::string &address, MsgAddress::AddressType addressType = MsgAddress::UnknownAddressType);
+            AppendItemStatus appendItem(const std::string &address, const std::string &dispName,
                               MsgAddress::AddressType addressType = MsgAddress::UnknownAddressType);
             void execCmd(const AppControlComposeRef &cmd);
 
@@ -61,10 +71,10 @@ namespace Msg
             void onPopupBtnClicked(Popup &popup, int buttonId);
             void onPopupDel(Evas_Object *popup, void *eventInfo);
 
-            void addRecipients();
+            void addRecipientsFromEntry();
             void showDuplicatedRecipientPopup();
             void showTooManyRecipientsPopup();
-            bool recipientExists(const std::string& address) const;
+            bool isRecipientExists(const std::string& address) const;
 
             // IContactPickerListener
             virtual void onContactsPicked(const std::list<int> &numberIdList);
