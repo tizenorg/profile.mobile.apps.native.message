@@ -74,7 +74,7 @@ NaviFrameItemList NaviFrameView::getItems() const
 
         EINA_LIST_FOREACH(list, l, obj)
         {
-            NaviFrameItem *item = static_cast<NaviFrameItem*>(elm_object_item_data_get(obj));
+            NaviFrameItem *item = static_cast<NaviFrameItem*>(elm_object_item_data_get((Elm_Object_Item*)obj));
             result.push_back(item);
         }
 
