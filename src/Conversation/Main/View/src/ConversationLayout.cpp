@@ -31,7 +31,7 @@ ConversationLayout::~ConversationLayout()
 {
 }
 
-void ConversationLayout::showPredictSearch(bool value)
+void ConversationLayout::showContactList(bool value)
 {
     const char *sig = value ? "show.predictsearch" : "hide.predictsearch";
     elm_object_signal_emit(m_pLayout, sig, "*");
@@ -48,7 +48,7 @@ void ConversationLayout::setRecipientRect(Evas_Object *layout)
     elm_object_part_content_set(m_pLayout, "swl.recipient.rect", layout);
 }
 
-void ConversationLayout::setBubble(Evas_Object *layout)
+void ConversationLayout::setConvList(Evas_Object *layout)
 {
     elm_object_part_content_set(m_pLayout, "swl.bubble", layout);
 }
@@ -58,7 +58,7 @@ void ConversationLayout::setSelectAll(Evas_Object *layout)
     elm_object_part_content_set(m_pLayout, "swl.sel_al", layout);
 }
 
-void ConversationLayout::setPredictSearch(Evas_Object *layout)
+void ConversationLayout::setContactList(Evas_Object *layout)
 {
     elm_object_part_content_set(m_pLayout, "swl.predictsearch", layout);
 }
@@ -83,7 +83,7 @@ Evas_Object *ConversationLayout::createMainLayout(Evas_Object *parent)
 {
     Evas_Object *layout = elm_layout_add(parent);
     std::string edjePath = PathUtils::getResourcePath(CONV_LAYOUT_EDJ_PATH);
-    elm_layout_file_set(layout, edjePath.c_str(), "conversation");
+    elm_layout_file_set(layout, edjePath.c_str(), "conv_layout");
     evas_object_show(layout);
     return layout;
 }

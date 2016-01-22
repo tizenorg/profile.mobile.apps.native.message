@@ -6,7 +6,7 @@ collections {
 
 	group
 	{
-		name: "conversation";
+		name: "conv_layout";
 		parts {
 			part {
 				name: "rect";
