@@ -24,9 +24,9 @@
 
 using namespace Msg;
 
-ListItemStyleRef SettingsListViewItem::multiLineIconStyle = ListItemStyle::create("multiline_sub.main.1icon");
-ListItemStyleRef SettingsListViewItem::oneLineIconStyle = ListItemStyle::create("1line");
-ListItemStyleRef SettingsListViewItem::multiLineStyle = ListItemStyle::create("multiline_sub.main");
+ListItemStyleRef SettingsListViewItem::multiLineIconStyle = ListItemStyle::create("multiline");
+ListItemStyleRef SettingsListViewItem::oneLineIconStyle = ListItemStyle::create("type1");
+ListItemStyleRef SettingsListViewItem::multiLineStyle = ListItemStyle::create("multiline");
 
 SettingsListViewItem::SettingsListViewItem(const ListItemStyleRef &style)
     : ListItem(style, ELM_GENLIST_ITEM_NONE)
@@ -82,19 +82,12 @@ std::string SettingsListViewItem::getText(ListItem &item, const char *part)
 {
     if(getStyle().get() == oneLineIconStyle.get())
     {
-        if(strcmp(part, "elm.text.main.left") == 0)
+        if(strcmp(part, "elm.text") == 0)
             return m_MainText;
     }
-    else if(getStyle().get() == multiLineIconStyle.get())
+    else if(getStyle().get() == multiLineStyle.get() || getStyle().get() == multiLineIconStyle.get())
     {
-        if(strcmp(part, "elm.text.main") == 0)
-            return m_MainText;
-        else if(strcmp(part, "elm.text.multiline") == 0)
-            return m_SubText;
-    }
-    else if(getStyle().get() == multiLineStyle.get())
-    {
-        if(strcmp(part, "elm.text.main") == 0)
+        if(strcmp(part, "elm.text") == 0)
             return m_MainText;
         else if(strcmp(part, "elm.text.multiline") == 0)
             return m_SubText;
@@ -109,14 +102,10 @@ std::string SettingsListViewItem::getText(ListItem &item, const char *part)
 
 Evas_Object *SettingsListViewItem::getContent(ListItem &item, const char *part)
 {
-    if(getStyle().get() == oneLineIconStyle.get())
+    if(getStyle().get() == oneLineIconStyle.get() || getStyle().get() == multiLineIconStyle.get())
     {
-        if(strcmp(part, "elm.icon.right") == 0)
+        if(strcmp(part, "elm.swallow.end") == 0)
             return createCheckButton(*getOwner());
-    }
-    else if(getStyle().get() == multiLineIconStyle.get())
-    {
-        return createCheckButton(*getOwner());
     }
     else if(getStyle().get() == multiLineStyle.get())
     {

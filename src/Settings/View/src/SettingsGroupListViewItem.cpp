@@ -36,7 +36,9 @@ SettingsGroupListViewItem::~SettingsGroupListViewItem()
 
 std::string SettingsGroupListViewItem::getText(ListItem &item, const char *part)
 {
-
-    return m_Title;
+    if(!strcmp(part, "elm.text"))
+        return m_Title;
+    else
+        return "";
 }
 
