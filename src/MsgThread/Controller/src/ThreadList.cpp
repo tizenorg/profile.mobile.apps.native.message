@@ -111,6 +111,29 @@ void ThreadList::checkAllItems(bool check)
     }
 }
 
+bool ThreadList::isAllThreadListItemChecked() const
+{
+    // Simple impl. but not fast:
+    auto items = getItems<ThreadListItem>();
+    for(ThreadListItem *item : items)
+    {
+        if(item->isCheckable() && !item->getCheckedState())
+            return false;
+    }
+    return true;
+}
+
+void ThreadList::updateSelectAllItem()
+{
+    if(!m_DeleteMode)
+        return;
+
+    bool allChecked = isAllThreadListItemChecked();
+    SelectAllListItem *selectAllItem = dynamic_cast<SelectAllListItem*>(getFirstItem());
+    if(selectAllItem)
+        selectAllItem->setCheckedState(allChecked, true);
+}
+
 void ThreadList::checkHandler(SelectAllListItem &item)
 {
     bool checked = item.getCheckedState();
@@ -121,6 +144,7 @@ void ThreadList::checkHandler(ThreadListItem &item)
 {
     ThreadId threadId = item.getThreadId();
     MSG_LOG("Checked (id : state) = ", threadId, ":", item.getCheckedState());
+    updateSelectAllItem();
 }
 
 void ThreadList::updateList()
