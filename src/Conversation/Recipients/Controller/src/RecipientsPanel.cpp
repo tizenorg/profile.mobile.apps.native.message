@@ -66,7 +66,7 @@ void RecipientsPanel::setListener(IRecipientsPanelListener *l)
     m_pListener = l;
 }
 
-void RecipientsPanel::addRecipients()
+void RecipientsPanel::addRecipientsFromEntry()
 {
     std::string text = getEntryText();
     TokenizedRecipients result = MsgUtils::tokenizeRecipients(text);
@@ -77,10 +77,7 @@ void RecipientsPanel::addRecipients()
         if(it.second == MsgAddress::Phone)
             it.first = MsgUtils::makeNormalizedNumber(it.first);
 
-        if(recipientExists(it.first))
-            duplicateFound = true;
-        else
-            appendItem(it.first, it.first, it.second);
+        duplicateFound |= appendItem(it.first, it.second) == DuplicatedStatus;
     }
 
     if(duplicateFound)
@@ -89,41 +86,72 @@ void RecipientsPanel::addRecipients()
     setEntryText(result.invalidResult);
 }
 
+void RecipientsPanel::update(const MsgAddressListRef &addressList)
+{
+    clearMbe();
+    if(addressList)
+    {
+        int addrListLen = addressList->getLength();
+        for(int i = 0; i < addrListLen; i++)
+        {
+            auto &addr = addressList->at(i);
+            appendItem(addr.getAddress(), addr.getAddressType());
+        }
+    }
+}
+
 void RecipientsPanel::update(const ThreadId &threadId)
 {
     clearMbe();
     if(threadId.isValid())
     {
         MsgAddressListRef addrList = m_App.getMsgEngine().getStorage().getAddressList(threadId);
-        int addrListLen = addrList->getLength();
-        for(int i = 0; i < addrListLen; i++)
-        {
-            auto &addr = addrList->at(i);
-            appendItem(addr.getAddress(), addr.getAddress(), addr.getAddressType());
-        }
+        update(addrList);
     }
 }
 
-bool RecipientsPanel::appendItem(const std::string &address, const std::string &dispName, MsgAddress::AddressType addressType)
+RecipientsPanel::AppendItemStatus RecipientsPanel::appendItem(const std::string &address, MsgAddress::AddressType addressType)
 {
-    bool result = false;
-    if(addressType == MsgAddress::UnknownAddressType)
-    {
-        addressType = MsgUtils::getAddressType(address);
-    }
-    if(addressType == MsgAddress::Phone || addressType == MsgAddress::Email)
-    {
-        result = true;
-        RecipientItem *item = new RecipientItem(address, addressType);
-        item->setDisplayName(dispName);
-        RecipientsPanelView::appendItem(*item);
+    ContactPersonNumber num = m_App.getContactManager().getContactPersonNumber(address);
 
-        if(getEntryFocus())
-            showMbe(true);
+    std::string dispName;
+    if(num.isValid() && num.getDispName())
+        dispName = num.getDispName();
+
+    num.release();
+    if(dispName.empty())
+        dispName = address;
+
+    return appendItem(address, dispName, addressType);
+}
+
+RecipientsPanel::AppendItemStatus RecipientsPanel::appendItem(const std::string &address, const std::string &dispName, MsgAddress::AddressType addressType)
+{
+    AppendItemStatus result = SuccessStatus;
+    if(!isRecipientExists(address))
+    {
+        if(addressType == MsgAddress::UnknownAddressType)
+        {
+            addressType = MsgUtils::getAddressType(address);
+        }
+        if(addressType == MsgAddress::Phone || addressType == MsgAddress::Email)
+        {
+            result = SuccessStatus;
+            RecipientItem *item = new RecipientItem(address, addressType);
+            item->setDisplayName(dispName);
+            RecipientsPanelView::appendItem(*item);
+            if(getEntryFocus())
+                showMbe(true);
+        }
+        else
+        {
+            result = InvalidRecipStatus;
+            MSG_LOG("invalid recipient: ", address);
+        }
     }
     else
     {
-        MSG_LOG("invalid recipient: ", address);
+        result = DuplicatedStatus;
     }
     return result;
 }
@@ -133,7 +161,7 @@ void RecipientsPanel::execCmd(const AppControlComposeRef &cmd)
     clearMbe();
     for(auto item: cmd->getRecipientList())
     {
-        appendItem(item, item, MsgAddress::UnknownAddressType);
+        appendItem(item);
     }
     showMbe(!isMbeEmpty());
 }
@@ -146,7 +174,7 @@ void RecipientsPanel::onKeyDown(Evas_Event_Key_Down *ev)
 
         if((strcmp(ev->keyname, "semicolon") == 0) || (strcmp(ev->keyname, "comma") == 0))
         {
-            addRecipients();
+            addRecipientsFromEntry();
         }
         else
         {
@@ -165,7 +193,7 @@ void RecipientsPanel::onEntryFocusChanged()
     }
     else
     {
-        addRecipients();
+        addRecipientsFromEntry();
         showMbe(false);
     }
 
@@ -190,13 +218,9 @@ void RecipientsPanel::onContactButtonClicked()
     const int maxRecipientCount = m_App.getMsgEngine().getSettings().getMaxRecipientCount();
     int currentRecipientsCount = getMbeItemsCount();
     if(currentRecipientsCount < maxRecipientCount)
-    {
         m_Picker.launch(maxRecipientCount - currentRecipientsCount);
-    }
     else
-    {
         showTooManyRecipientsPopup();
-    }
 }
 
 void RecipientsPanel::onItemSelected(RecipientViewItem &item)
@@ -209,7 +233,7 @@ void RecipientsPanel::onItemClicked(RecipientViewItem &item)
     MSG_LOG("");
 }
 
-bool RecipientsPanel::recipientExists(const std::string& address) const
+bool RecipientsPanel::isRecipientExists(const std::string& address) const
 {
     RecipientViewItemList recipientList = getItems();
     for(auto pViewItem : recipientList)
@@ -224,30 +248,22 @@ bool RecipientsPanel::recipientExists(const std::string& address) const
 
 void RecipientsPanel::onContactsPicked(const std::list<int> &numberIdList)
 {
-    unsigned int appended = 0;
-    std::string addr;
-
+    bool duplicateFound = false;
     for(auto phoneNumId : numberIdList)
     {
         ContactPersonNumber num = m_App.getContactManager().getContactPersonNumber(phoneNumId);
-        addr = num.getNumber();
-        if(!recipientExists(addr))
+        if(num.isValid())
         {
-            appendItem(addr, num.getDispName(), MsgAddress::Phone);
-            ++appended;
+            std::string addr = num.getNumber() ? num.getNumber() : "";
+            std::string dsipName = num.getDispName() ? num.getDispName() : "";
+            duplicateFound |= appendItem(addr, dsipName, MsgAddress::Phone) == DuplicatedStatus;
         }
-
-        num.release(true);
     }
 
-    if(numberIdList.size() > appended)
-    {
+    if(duplicateFound)
         showDuplicatedRecipientPopup();
-    }
     else
-    {
         setEntryFocus(true);
-    }
 }
 
 void RecipientsPanel::onPopupBtnClicked(Popup &popup, int buttonId)
