@@ -165,6 +165,7 @@ Evas_Object *ListItem::addCheck()
     evas_object_propagate_events_set(check, EINA_FALSE);
     evas_object_smart_callback_add(check, "changed", SMART_CALLBACK(ListItem, onCheckChanged), this);
     elm_object_focus_allow_set(check, false);
+    evas_object_show(check);
     return check;
 }
 
@@ -175,13 +176,14 @@ void ListItem::changeCheckedState(bool updateUi)
 
 void ListItem::setCheckedState(bool state, bool updateUi)
 {
+    m_Checked = state;
     const char *checkPart = getCheckPart(*this);
     if(checkPart)
     {
-        m_Checked = state;
         if(updateUi)
         {
-            updateFields(checkPart, ELM_GENLIST_ITEM_FIELD_CONTENT);
+            // updateFields(checkPart, ELM_GENLIST_ITEM_FIELD_CONTENT); // FIXME: Blink during update part tizen_2.4
+            update();
         }
     }
 }

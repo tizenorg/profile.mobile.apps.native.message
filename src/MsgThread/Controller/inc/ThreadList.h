@@ -56,6 +56,8 @@ namespace Msg
             void checkHandler(SelectAllListItem &item);
             void checkHandler(ThreadListItem &item);
             void updateList();
+            bool isAllThreadListItemChecked() const;
+            void updateSelectAllItem();
 
         private:
             IThreadListListener *m_pListener;
