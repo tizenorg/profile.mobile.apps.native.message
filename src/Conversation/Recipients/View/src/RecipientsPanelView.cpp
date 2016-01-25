@@ -32,7 +32,7 @@ RecipientsPanelView::RecipientsPanelView(Evas_Object *parent, int entryMaxCharCo
     , m_pMbe(nullptr)
     , m_pEntry(nullptr)
     , m_pContactBtn(nullptr)
-    , m_pRecipRect(nullptr)
+    , m_pRect(nullptr)
     , m_EntryMaxCharCount(entryMaxCharCount)
     , m_IsMbeVisible(false)
 {
@@ -42,11 +42,6 @@ RecipientsPanelView::RecipientsPanelView(Evas_Object *parent, int entryMaxCharCo
 RecipientsPanelView::~RecipientsPanelView()
 {
 
-}
-
-Evas_Object *RecipientsPanelView::getAreaRect() const
-{
-    return m_pRecipRect;
 }
 
 void RecipientsPanelView::appendItem(RecipientViewItem &item)
@@ -166,8 +161,9 @@ void RecipientsPanelView::create(Evas_Object *parent)
     std::string path = PathUtils::getResourcePath(RECIPIENT_PANEL_EDJ_PATH);
     elm_layout_file_set(m_pLayout, path.c_str(), "recipient_panel");
 
-    Evas_Object *mbe = m_pMbe = mbeCreate(m_pLayout);
-    Evas_Object *entry =  entryCreate(m_pLayout);
+    createAreaRect(m_pLayout);
+    Evas_Object *mbe = m_pMbe = createMbe(m_pLayout);
+    Evas_Object *entry =  createEntry(m_pLayout);
     Evas_Object *button = createContactBtn(m_pLayout);
 
     elm_object_part_content_set(m_pLayout, "swl.mbe", mbe);
@@ -175,7 +171,7 @@ void RecipientsPanelView::create(Evas_Object *parent)
     elm_object_part_content_set(m_pLayout, "swl.contact_btn", button);
 }
 
-Evas_Object *RecipientsPanelView::mbeCreate(Evas_Object *parent)
+Evas_Object *RecipientsPanelView::createMbe(Evas_Object *parent)
 {
     m_pMbe = elm_multibuttonentry_add(parent);
     elm_multibuttonentry_editable_set(m_pMbe, EINA_FALSE);
@@ -195,10 +191,16 @@ Evas_Object *RecipientsPanelView::mbeCreate(Evas_Object *parent)
     evas_object_smart_callback_add(m_pMbe, "clicked", SMART_CALLBACK(RecipientsPanelView, onMbeClicked), this);
     evas_object_smart_callback_add(m_pMbe, "unfocused", SMART_CALLBACK(RecipientsPanelView, onMbeUnfocused), this);
 
+    evas_object_event_callback_add(m_pMbe, EVAS_CALLBACK_RESIZE, EVAS_EVENT_CALLBACK(RecipientsPanelView, onEntryGeometryChanged), this);
+    evas_object_event_callback_add(m_pMbe, EVAS_CALLBACK_MOVE, EVAS_EVENT_CALLBACK(RecipientsPanelView, onEntryGeometryChanged), this);
+    evas_object_event_callback_add(m_pMbe, EVAS_CALLBACK_SHOW, EVAS_EVENT_CALLBACK(RecipientsPanelView, onEntryGeometryChanged), this);
+    evas_object_event_callback_add(m_pMbe, EVAS_CALLBACK_HIDE, EVAS_EVENT_CALLBACK(RecipientsPanelView, onEntryGeometryChanged), this);
+    evas_object_event_callback_add(m_pMbe, EVAS_CALLBACK_CHANGED_SIZE_HINTS, EVAS_EVENT_CALLBACK(RecipientsPanelView, onEntryGeometryChanged), this);
+
     return m_pMbe;
 }
 
-Evas_Object *RecipientsPanelView::entryCreate(Evas_Object *parent)
+Evas_Object *RecipientsPanelView::createEntry(Evas_Object *parent)
 {
     m_pEntry = elm_entry_add(parent);
     evas_object_size_hint_weight_set(m_pEntry, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
@@ -219,14 +221,6 @@ Evas_Object *RecipientsPanelView::entryCreate(Evas_Object *parent)
 
     evas_object_show(m_pEntry);
 
-    // TODO: check this:
-    /* keypad is manually controlled, so disabling the auto control of keypad */
-    //elm_entry_input_panel_enabled_set(entry, EINA_FALSE);
-
-    // Ecore_IMF_Context *context = elm_entry_imf_context_get(entry);
-    // ecore_imf_context_input_panel_event_callback_add((Ecore_IMF_Context *)context, ECORE_IMF_INPUT_PANEL_STATE_EVENT, msg_ui_composer_entry_imf_state_cb, rd->cd);
-    // ecore_imf_context_input_panel_event_callback_add((Ecore_IMF_Context *)context, ECORE_IMF_INPUT_PANEL_GEOMETRY_EVENT, msg_ui_composer_entry_imf_resize_cb, rd->cd);
-
     evas_object_smart_callback_add(m_pEntry, "changed", SMART_CALLBACK(RecipientsPanelView, onEntryChanged), this);
     evas_object_smart_callback_add(m_pEntry, "preedit,changed", SMART_CALLBACK(RecipientsPanelView, onEntryPreeditChanged), this);
     evas_object_smart_callback_add(m_pEntry, "activated", SMART_CALLBACK(RecipientsPanelView, onEntryActivated), this);
@@ -237,8 +231,19 @@ Evas_Object *RecipientsPanelView::entryCreate(Evas_Object *parent)
     evas_object_event_callback_add(m_pEntry, EVAS_CALLBACK_KEY_DOWN, EVAS_EVENT_CALLBACK(RecipientsPanelView, onKeyDown), this);
     evas_object_event_callback_add(m_pEntry, EVAS_CALLBACK_RESIZE, EVAS_EVENT_CALLBACK(RecipientsPanelView, onEntryGeometryChanged), this);
     evas_object_event_callback_add(m_pEntry, EVAS_CALLBACK_MOVE, EVAS_EVENT_CALLBACK(RecipientsPanelView, onEntryGeometryChanged), this);
+    evas_object_event_callback_add(m_pEntry, EVAS_CALLBACK_SHOW, EVAS_EVENT_CALLBACK(RecipientsPanelView, onEntryGeometryChanged), this);
+    evas_object_event_callback_add(m_pEntry, EVAS_CALLBACK_HIDE, EVAS_EVENT_CALLBACK(RecipientsPanelView, onEntryGeometryChanged), this);
+    evas_object_event_callback_add(m_pEntry, EVAS_CALLBACK_CHANGED_SIZE_HINTS, EVAS_EVENT_CALLBACK(RecipientsPanelView, onEntryGeometryChanged), this);
 
     return m_pEntry;
+}
+
+Evas_Object *RecipientsPanelView::createAreaRect(Evas_Object *parent)
+{
+    m_pRect = evas_object_rectangle_add(evas_object_evas_get(parent));
+    evas_object_show(m_pRect);
+    evas_object_color_set(m_pRect, 0, 0, 0, 0);
+    return m_pRect;
 }
 
 Evas_Object *RecipientsPanelView::createContactBtn(Evas_Object *parent)
@@ -263,31 +268,27 @@ Evas_Object *RecipientsPanelView::createContactBtn(Evas_Object *parent)
     return m_pContactBtn;
 }
 
-void RecipientsPanelView::setRecipientRect(Evas_Object *rect)
+Evas_Object *RecipientsPanelView::getAreaRect() const
 {
-    m_pRecipRect = rect;
+    return m_pRect;
 }
 
 void RecipientsPanelView::onEntryGeometryChanged(Evas_Object *obj, void *event_info)
 {
-    if(!m_pRecipRect)
-        return;
-
     int y = 0;
     int w = 0;
     int h = 0;
     int lyayoutTop = 0;
-    int entryBottom = 0;
+    Evas_Object * targetObj =  evas_object_visible_get(m_pEntry) ? m_pEntry : m_pMbe;
 
-    evas_object_geometry_get(m_pEntry, nullptr, &y, nullptr, &h);
-    entryBottom = y + h;
+    evas_object_geometry_get(targetObj, nullptr, &y, nullptr, &h);
+    int bottom = y + h;
 
     evas_object_geometry_get(m_pLayout, nullptr, &y, nullptr, nullptr);
     lyayoutTop = y;
 
-    evas_object_size_hint_min_get(m_pRecipRect, &w, nullptr);
-    int height = entryBottom - lyayoutTop;
-    evas_object_size_hint_min_set(m_pRecipRect, w, height);
+    evas_object_size_hint_min_get(m_pRect, &w, nullptr);
+    evas_object_size_hint_min_set(m_pRect, w, bottom - lyayoutTop);
 }
 
 void RecipientsPanelView::setContactBtnColor(int r, int g, int b, int a)

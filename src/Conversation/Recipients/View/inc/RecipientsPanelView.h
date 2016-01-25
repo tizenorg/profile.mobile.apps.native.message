@@ -49,7 +49,6 @@ namespace Msg
             void setEntryFocus(bool val);
             void clearEntry();
             void clearMbe();
-            void setRecipientRect(Evas_Object *rect);
 
             /**
              * Gets a count of mbe items
@@ -57,7 +56,7 @@ namespace Msg
             unsigned int getMbeItemsCount() const;
 
         private:
-            // Signals:
+            // Out signals:
             virtual void onItemAdded(RecipientViewItem &item) {};
             virtual void onItemDeleted(RecipientViewItem &item) {};
             virtual void onItemSelected(RecipientViewItem &item) {};
@@ -67,18 +66,7 @@ namespace Msg
             virtual void onContactButtonClicked() {}
 
         private:
-            void create(Evas_Object *parent);
-            Evas_Object *mbeCreate(Evas_Object *parent);
-            Evas_Object *entryCreate(Evas_Object *parent);
-            Evas_Object *createContactBtn(Evas_Object *parent);
-            void setContactBtnColor(int r, int g, int b, int a);
-            RecipientViewItem *getItem(void *data);
-            void deleteNextRecipient();
-            void selectLastItem();
-            bool isEntryEmpty() const;
-            void unselectMbeItem();
-
-        private:
+            // In signals:
             void onItemSelected(Evas_Object *obj, void *item);
             void onItemDeleted(Evas_Object *obj, void *item);
             void onItemAdded(Evas_Object *obj, void *item);
@@ -104,11 +92,24 @@ namespace Msg
             void onEntryGeometryChanged(Evas_Object *obj, void *event_info);
 
         private:
+            void create(Evas_Object *parent);
+            Evas_Object *createMbe(Evas_Object *parent);
+            Evas_Object *createEntry(Evas_Object *parent);
+            Evas_Object *createAreaRect(Evas_Object *parent);
+            Evas_Object *createContactBtn(Evas_Object *parent);
+            void setContactBtnColor(int r, int g, int b, int a);
+            RecipientViewItem *getItem(void *data);
+            void deleteNextRecipient();
+            void selectLastItem();
+            bool isEntryEmpty() const;
+            void unselectMbeItem();
+
+        private:
             Evas_Object *m_pLayout;
             Evas_Object *m_pMbe;
             Evas_Object *m_pEntry;
             Evas_Object *m_pContactBtn;
-            Evas_Object *m_pRecipRect;
+            Evas_Object *m_pRect;
             int m_EntryMaxCharCount;
             bool m_IsMbeVisible;
     };

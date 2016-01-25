@@ -174,7 +174,6 @@ void Conversation::setNewMessageMode()
     updateNavibar();
 
     m_pLayout->showPredictSearch(true);
-    m_pLayout->setRecipientPanel(*m_pRecipPanel);
     m_pLayout->setPredictSearch(*m_pContactsList);
 
     m_pRecipPanel->update(m_ThreadId);
@@ -200,7 +199,6 @@ void Conversation::setConversationMode()
     if(addressList && addressList->getLength() > 1)
     {
         createRecipPanel(*m_pLayout);
-        m_pLayout->setRecipientPanel(*m_pRecipPanel);
         m_pRecipPanel->showEntry(false);
         m_pRecipPanel->update(addressList);
     }
@@ -244,7 +242,8 @@ void Conversation::createRecipPanel(Evas_Object *parent)
         m_pRecipPanel = new RecipientsPanel(parent, getApp());
         m_pRecipPanel->setListener(this);
         m_pRecipPanel->show();
-        m_pLayout->setRecipientPanel(m_pRecipPanel->getAreaRect());
+        m_pLayout->setRecipientPanel(*m_pRecipPanel);
+        m_pLayout->setRecipientRect(m_pRecipPanel->getAreaRect());
     }
 }
 

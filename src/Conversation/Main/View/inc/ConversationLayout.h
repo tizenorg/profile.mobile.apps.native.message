@@ -47,17 +47,15 @@ namespace Msg
             void setPredictSearch(Evas_Object *layout);
             void setMsgInputPanel(Evas_Object *layout);
             void setRecipientPanel(Evas_Object *layout);
-            Evas_Object *getRecipientRect() const;
+            void setRecipientRect(Evas_Object *layout);
 
         private:
             void create(Evas_Object *parent);
             Evas_Object *createMainLayout(Evas_Object *parent);
             Evas_Object *createRecipientAreaRect(Evas_Object *parent);
-            void setRecipientRect(Evas_Object *layout);
 
         private:
             Evas_Object *m_pLayout;
-            Evas_Object *m_pRecipientAreaRect;
     };
 }
 

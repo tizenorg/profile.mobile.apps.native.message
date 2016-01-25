@@ -20,12 +20,9 @@
 
 using namespace Msg;
 
-const int recipientDefaultHeight = 87;
-
 ConversationLayout::ConversationLayout(Evas_Object *parent)
     : View()
     , m_pLayout(nullptr)
-    , m_pRecipientAreaRect(nullptr)
 {
     create(parent);
 }
@@ -76,18 +73,10 @@ void ConversationLayout::setRecipientPanel(Evas_Object *layout)
     elm_object_part_content_set(m_pLayout, "swl.recipient", layout);
 }
 
-Evas_Object *ConversationLayout::getRecipientRect() const
-{
-    return m_pRecipientAreaRect;
-}
-
 void ConversationLayout::create(Evas_Object *parent)
 {
     m_pLayout = createMainLayout(parent);
     setEo(m_pLayout);
-
-    m_pRecipientAreaRect = createRecipientAreaRect(m_pLayout);
-    setRecipientRect(m_pRecipientAreaRect);
 }
 
 Evas_Object *ConversationLayout::createMainLayout(Evas_Object *parent)
@@ -97,15 +86,5 @@ Evas_Object *ConversationLayout::createMainLayout(Evas_Object *parent)
     elm_layout_file_set(layout, edjePath.c_str(), "conversation");
     evas_object_show(layout);
     return layout;
-}
-
-Evas_Object *ConversationLayout::createRecipientAreaRect(Evas_Object *parent)
-{
-    Evas_Object *rect = evas_object_rectangle_add(evas_object_evas_get(parent));
-    evas_object_size_hint_align_set(rect, EVAS_HINT_FILL, EVAS_HINT_FILL);
-    evas_object_size_hint_weight_set(rect, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-    evas_object_color_set(rect, 0, 0, 0, 0);
-    evas_object_size_hint_min_set(rect, 0, ELM_SCALE_SIZE(recipientDefaultHeight));
-    return rect;
 }
 
