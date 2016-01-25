@@ -105,7 +105,7 @@ namespace Msg
             void showSearch();
             void hideSearch();
             void setColor(NaviColorId id);
-            void expandDownButton(bool value);
+            void setDownButtonState(bool expand);
 
         private:
 

@@ -402,8 +402,8 @@ void NaviFrameItem::NaviBar::hideSearch()
     showDownButtonPart(false);
 }
 
-void NaviFrameItem::NaviBar::expandDownButton(bool value)
+void NaviFrameItem::NaviBar::setDownButtonState(bool expand)
 {
-    const char *sig = value ? "button,collapse" : "button,expand";
+    const char *sig = expand ? "button,expand" : "button,collapse";
     elm_object_signal_emit(m_ButtonList[NaviDownButtonId].button, sig, "*");
 }

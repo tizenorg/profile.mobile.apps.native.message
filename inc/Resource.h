@@ -33,7 +33,7 @@
 #define BUBBLE_THEME_EDJ_PATH            EDJ_PATH"/bubble_theme.edj"
 #define MSG_INPUT_PANEL_EDJ_PATH         EDJ_PATH"/msg_input_panel.edj"
 #define RECIPIENT_PANEL_EDJ_PATH         EDJ_PATH"/recipient_panel.edj"
-#define CONV_EDJ_PATH                    EDJ_PATH"/conversation.edj"
+#define CONV_LAYOUT_EDJ_PATH             EDJ_PATH"/conv_layout.edj"
 #define MSG_THREAD_EDJ_PATH              EDJ_PATH"/msg_thread.edj"
 #define CONTACTS_SEARCH_EDJ_PATH         EDJ_PATH"/contact_search.edj"
 #define MSG_BODY_EDJ_PATH                EDJ_PATH"/msg_body.edj"
