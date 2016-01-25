@@ -28,23 +28,15 @@ namespace Msg
         : public View
     {
         public:
-            enum Mode
-            {
-                PredictSearch,
-                NewMessage,
-                Conversation
-            };
-
-        public:
             ConversationLayout(Evas_Object *parent);
             virtual ~ConversationLayout();
 
-            void showPredictSearch(bool value);
+            void showContactList(bool value);
             void showSelectAll(bool value);
 
-            void setBubble(Evas_Object *layout);
+            void setConvList(Evas_Object *layout);
             void setSelectAll(Evas_Object *layout);
-            void setPredictSearch(Evas_Object *layout);
+            void setContactList(Evas_Object *layout);
             void setMsgInputPanel(Evas_Object *layout);
             void setRecipientPanel(Evas_Object *layout);
             void setRecipientRect(Evas_Object *layout);

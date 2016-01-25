@@ -111,9 +111,7 @@ void Conversation::create()
     createMsgInputPanel(*m_pLayout);
     createBody(*m_pMsgInputPanel);
 
-    m_pMsgInputPanel->setEntry(*m_pBody);
     updateMsgInputPanel();
-    m_pLayout->setMsgInputPanel(*m_pMsgInputPanel);
 
     setMode(m_ThreadId.isValid() ? ConversationMode : NewMessageMode);
 
@@ -173,9 +171,6 @@ void Conversation::setNewMessageMode()
     destroyConvList();
     updateNavibar();
 
-    m_pLayout->showPredictSearch(true);
-    m_pLayout->setPredictSearch(*m_pContactsList);
-
     m_pRecipPanel->update(m_ThreadId);
     m_pRecipPanel->showMbe(!m_pRecipPanel->isMbeEmpty());
     m_pRecipPanel->showEntry(true);
@@ -189,9 +184,7 @@ void Conversation::setConversationMode()
     m_Mode = ConversationMode;
     createConvList(*m_pLayout);
 
-    m_pLayout->showPredictSearch(false);
     m_pLayout->showSelectAll(false);
-    m_pLayout->setBubble(*m_pConvList);
 
     updateNavibar();
 
@@ -223,6 +216,7 @@ void Conversation::createConvList(Evas_Object *parent)
         m_pConvList = new ConvList(*m_pLayout, m_ThreadId, getApp());
         m_pConvList->setListener(this);
         m_pConvList->show();
+        m_pLayout->setConvList(*m_pConvList);
     }
 }
 
@@ -263,11 +257,14 @@ void Conversation::createContactList(Evas_Object *parent)
         m_pContactsList = new ConvContactList(parent, getApp().getContactManager());
         m_pContactsList->setListener(this);
         m_pContactsList->show();
+        m_pLayout->setContactList(*m_pContactsList);
+        m_pLayout->showContactList(true);
     }
 }
 
 void Conversation::destroyContactList()
 {
+    m_pLayout->showContactList(false);
     if(m_pContactsList)
     {
         m_pContactsList->destroy();
@@ -282,6 +279,7 @@ void Conversation::createMsgInputPanel(Evas_Object *parent)
         m_pMsgInputPanel = new MessageInputPanel(parent);
         m_pMsgInputPanel->setListener(this);
         m_pMsgInputPanel->show();
+        m_pLayout->setMsgInputPanel(*m_pMsgInputPanel);
     }
 }
 
@@ -292,6 +290,9 @@ void Conversation::createBody(Evas_Object *parent)
         m_pBody = new Body(*m_pMsgInputPanel, getMsgEngine());
         m_pBody->setListener(this);
         m_pBody->show();
+        assert(m_pMsgInputPanel);
+        if(m_pMsgInputPanel)
+            m_pMsgInputPanel->setEntry(*m_pBody);
     }
 }
 
@@ -306,7 +307,8 @@ void Conversation::fillMsgAddress(Message &msg)
     if(m_ThreadId.isValid() && m_Mode != NewMessageMode)
     {
         MsgAddressListRef addressList = getMsgEngine().getStorage().getAddressList(m_ThreadId);
-        msg.addAddresses(*addressList);
+        if(addressList)
+            msg.addAddresses(*addressList);
     }
     else
     {
@@ -391,10 +393,6 @@ void Conversation::checkAndSetMsgType()
         m_IsMms = isMms;
         convertMsgTypeHandler();
     }
-}
-
-void Conversation::hideKeyboard()
-{
 }
 
 void Conversation::showNoRecipPopup()

@@ -129,8 +129,6 @@ namespace Msg
             void showNoRecipPopup();
             void showSendResultPopup(MsgTransport::SendResult result);
 
-            void hideKeyboard();
-
             void notifyConvertMsgType();
             void convertMsgTypeHandler();
             void checkAndSetMsgType();
