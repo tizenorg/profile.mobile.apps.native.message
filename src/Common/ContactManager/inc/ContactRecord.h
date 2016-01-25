@@ -19,6 +19,7 @@
 
 #include <contacts.h>
 #include <vector>
+#include <string>
 
 namespace Msg
 {
@@ -31,6 +32,8 @@ namespace Msg
         protected:
             ContactRecord(contacts_record_h record);
             virtual ~ContactRecord();
+            std::string getStr(unsigned propertyId) const;
+            int getInt(unsigned propertyId) const;
 
         protected:
             contacts_record_h m_Record;
@@ -48,6 +51,20 @@ namespace Msg
             contacts_record_destroy(m_Record, releaseChildren);
             m_Record = nullptr;
         }
+    }
+
+    inline std::string ContactRecord::getStr(unsigned propertyId) const
+    {
+        char *str = nullptr;
+        contacts_record_get_str_p(m_Record, propertyId, &str);
+        return str ? str : std::string();
+    }
+
+    inline int ContactRecord::getInt(unsigned propertyId) const
+    {
+        int val = 0;
+        contacts_record_get_int(m_Record, propertyId, &val);
+        return val;
     }
 }
 

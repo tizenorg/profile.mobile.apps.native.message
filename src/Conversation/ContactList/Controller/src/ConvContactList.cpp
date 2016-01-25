@@ -27,17 +27,17 @@ namespace
 {
     inline bool isValid(const ContactPersonNumber &rec)
     {
-        return rec.isValid() && rec.getNumber();
+        return !rec.getNumber().empty();
     }
 
     inline bool isValid(const ContactPersonEmail &rec)
     {
-        return rec.isValid() && rec.getEmail();
+        return !rec.getEmail().empty();
     }
 
     inline bool isValid(const ContactPersonPhoneLog &rec)
     {
-        return rec.isValid() && rec.getAddress();
+        return !rec.getAddress().empty();
     }
 }
 

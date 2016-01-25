@@ -29,7 +29,6 @@ using namespace Msg;
 
 ContactListItem::ContactListItem(const ContactPersonPhoneLog &rec, const std::string &searchWord)
 {
-    assert(rec.getAddress());
     setStyle(ContactListViewItem::logStyle);
 
     m_Recipient = rec.getAddress();
@@ -39,38 +38,22 @@ ContactListItem::ContactListItem(const ContactPersonPhoneLog &rec, const std::st
 
 ContactListItem::ContactListItem(const ContactPersonNumber &rec, const std::string &searchWord)
 {
-    assert(rec.getNumber());
     setStyle(ContactListViewItem::nameOrEmailStyle);
 
-    if(rec.getDispName())
-        m_MainText = TextDecorator::highlightKeyword(rec.getDispName(), searchWord);
-
-    if(rec.getNumber())
-    {
-        m_SubText = TextDecorator::highlightKeyword(rec.getNumber(), searchWord);
-        m_Recipient = rec.getNumber();
-    }
-
-    if(rec.getThumbnailPath())
-        m_ImagePath = rec.getThumbnailPath();
+    m_MainText = TextDecorator::highlightKeyword(rec.getDispName(), searchWord);
+    m_SubText = TextDecorator::highlightKeyword(rec.getNumber(), searchWord);
+    m_Recipient = rec.getNumber();
+    m_ImagePath = rec.getThumbnailPath();
 }
 
 ContactListItem::ContactListItem(const ContactPersonEmail &rec, const std::string &searchWord)
 {
-    assert(rec.getEmail());
     setStyle(ContactListViewItem::nameOrEmailStyle);
 
-    if(rec.getDispName())
-        m_MainText = TextDecorator::highlightKeyword(rec.getDispName(), searchWord);
-
-    if(rec.getEmail())
-    {
-        m_SubText = TextDecorator::highlightKeyword(rec.getEmail(), searchWord);
-        m_Recipient = rec.getEmail();
-    }
-
-    if(rec.getThumbnailPath())
-        m_ImagePath = rec.getThumbnailPath();
+    m_MainText = TextDecorator::highlightKeyword(rec.getDispName(), searchWord);
+    m_SubText = TextDecorator::highlightKeyword(rec.getEmail(), searchWord);
+    m_Recipient = rec.getEmail();
+    m_ImagePath = rec.getThumbnailPath();
 }
 
 ContactListItem::~ContactListItem()

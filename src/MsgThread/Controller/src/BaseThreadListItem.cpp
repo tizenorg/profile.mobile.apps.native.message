@@ -58,16 +58,12 @@ void BaseThreadListItem::updateThumbnail(const MsgAddressList &addressList)
 void BaseThreadListItem::updateThumbnail(const MsgAddress &addr)
 {
     ContactPersonNumber contactNumber = m_App.getContactManager().getContactPersonNumber(addr.getAddress());
-    const char *thumbPath = contactNumber.isValid() ? contactNumber.getThumbnailPath() : nullptr;
-    if(thumbPath)
-    {
-        m_ThumbPath.assign(thumbPath);
-        m_ThumbType = ThumbnailMaker::UserType;
-    }
-    else
-    {
+    m_ThumbPath = contactNumber.getThumbnailPath();
+    if(m_ThumbPath.empty())
         m_ThumbPath = PathUtils::getResourcePath(THUMB_CONTACT_IMG_PATH);
-    }
+    else
+        m_ThumbType = ThumbnailMaker::UserType;
+
     contactNumber.release();
 }
 

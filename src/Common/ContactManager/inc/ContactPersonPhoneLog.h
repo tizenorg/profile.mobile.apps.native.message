@@ -27,12 +27,12 @@ namespace Msg
         : public ContactRecord
     {
         public:
-            inline ContactPersonPhoneLog(contacts_record_h record);
-            inline static const char *getUri();
-            inline int getId() const;
-            inline int getPersonId() const;
-            inline const char *getDispName() const;
-            inline const char *getAddress() const;
+            ContactPersonPhoneLog(contacts_record_h record);
+            static const char *getUri();
+            int getId() const;
+            int getPersonId() const;
+            std::string getDispName() const;
+            std::string getAddress() const;
     };
 
     inline ContactPersonPhoneLog::ContactPersonPhoneLog(contacts_record_h record)
@@ -42,30 +42,22 @@ namespace Msg
 
     inline int ContactPersonPhoneLog::getId() const
     {
-        int id = 0;
-        contacts_record_get_int(m_Record, _contacts_person_phone_log.log_id, &id);
-        return id;
+        return getInt(_contacts_person_phone_log.log_id);
     }
 
     inline int ContactPersonPhoneLog::getPersonId() const
     {
-        int id = 0;
-        contacts_record_get_int(m_Record, _contacts_person_phone_log.person_id, &id);
-        return id;
+        return getInt(_contacts_person_phone_log.person_id);
     }
 
-    inline const char *ContactPersonPhoneLog::getDispName() const
+    inline std::string ContactPersonPhoneLog::getDispName() const
     {
-        char *str = nullptr;
-        contacts_record_get_str_p(m_Record, _contacts_person_phone_log.display_name, &str);
-        return str;
+        return getStr(_contacts_person_phone_log.display_name);
     }
 
-    inline const char *ContactPersonPhoneLog::getAddress() const
+    inline std::string ContactPersonPhoneLog::getAddress() const
     {
-        char *str = nullptr;
-        contacts_record_get_str_p(m_Record, _contacts_person_phone_log.address, &str);
-        return str;
+        return getStr(_contacts_person_phone_log.address);
     }
 
     inline const char *ContactPersonPhoneLog::getUri()
