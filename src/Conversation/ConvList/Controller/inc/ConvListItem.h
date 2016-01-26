@@ -52,6 +52,8 @@ namespace Msg
             virtual std::string getText();
             virtual std::string getTime();
 
+            virtual void onEditButtonClicked(Evas_Object *obj, void *event_info);
+
         private:
             ConvListViewItem::ConvItemType getConvItemType(MsgConversationItem &item);
 

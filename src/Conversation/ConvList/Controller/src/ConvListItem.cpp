@@ -216,3 +216,8 @@ void ConvListItem::onViewDetailsItemPressed(ContextPopupItem &item)
     MSG_LOG("");
 }
 
+void ConvListItem::onEditButtonClicked(Evas_Object *obj, void *event_info)
+{
+    MSG_LOG("");
+}
+

@@ -12,6 +12,8 @@
 #define BUTTON_TEXT_STYLE1_VISIBLE_ICON_MIN_MAX_INC 28 28
 #define BUTTON_TEXT_STYLE1_ICONONLY_ICON_MIN_MAX_INC 28 28
 #define BUTTON_BG_BORDER_INC 8 8 8 8
+#define BUTTON_BG_WIDTH 56
+#define BUTTON_BG_HEIGHT 56
 
 //text
 #define BUTTON_TEXT_STYLE1_NORMAL_COLOR_INC 249 249 249 255
@@ -953,8 +955,8 @@ group { \
 			scale: 1; \
 			description { \
 				state: "default" 0.0; \
-				min: 40 40; \
-				max: 40 40; \
+				min: BUTTON_BG_WIDTH BUTTON_BG_HEIGHT; \
+				max: BUTTON_BG_WIDTH BUTTON_BG_HEIGHT; \
 				image.normal: bg_image; \
 			} \
 			description { \
@@ -1186,7 +1188,7 @@ group { \
 
 MSG_BUBBLE_BUTTON_STYLE("resend_button", "M01_circle_button_delete.png", "M01_circle_button_delete_press.png", "M01_circle_button_delete_dim.png", "M01_btn_warning.png")
 MSG_BUBBLE_BUTTON_STYLE("scheduled_button", "M01_circle_button.png", "M01_circle_button_press.png", "M01_circle_button_dim.png", "M01_btn_schedule.png")
-MSG_BUBBLE_BUTTON_STYLE("edit_button", "M01_circle_button_press.png", "M01_circle_button_press.png", "M01_circle_button_press.png", "badge_icon_draft_pencil.png")
+MSG_BUBBLE_BUTTON_STYLE("edit_button", "M01_circle_button_press.png", "M01_circle_button.png", "M01_circle_button_dim.png", "badge_icon_draft_pencil.png")
 
 #define MSG_BUTTON_CIRCLE_STYLE(style_name, image_normal, image_effect, image_dim_effect, min_width, min_height) \
    group { name: "elm/button/base/"style_name; \

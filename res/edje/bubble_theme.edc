@@ -83,6 +83,7 @@ images {
 	image: "badge_bg_draft.png" COMP;
 	image: "messages_bubble_bg.#.png" COMP;
 	image: "messages_bubble_bg_ef.#.png" COMP;
+	image: "messages_bubble_line_draft.#.png" COMP;
 }
 
 group {
@@ -1872,9 +1873,16 @@ BUBBLE_SENT_MESSAGE_STYLE("sent_style_01_failed_focus", "messagebubble_bg_send_b
 #define BUBBLE_INFO_STATUS_WIDTH 30
 #define BUBBLE_INFO_STATUS_PAD_WIDTH 4
 #define BUBBLE_INFO_TEXT_HEIGHT 38
+#define BUBBLE_DRAFT_PAD_WIDTH 94
+#define BUBBLE_DRAFT_BUTTON_PAD_WIDTH 26
+#define BUBBLE_DRAFT_BUTTON_PAD_HEIGHT 7
+#define BUBBLE_DRAFT_BUTTON_WIDTH 56
+#define BUBBLE_DRAFT_BUTTON_HEIGHT 56
 
 #define BUBBLE_BG_COLOR 90 111 199 230
 #define BUBBLE_BG_COLOR_PRESSED 78 97 173 230
+#define BUBBLE_BG_DRAFT_COLOR 106 126 204 255
+#define BUBBLE_BG_DRAFT_COLOR_PRESSED 80 94 153 255
 
 group { name: "elm/genlist/item/sentbubble/default";
     alias: "elm/genlist/item_compress/sentbubble/default";
@@ -1883,12 +1891,11 @@ group { name: "elm/genlist/item/sentbubble/default";
     data.item: "texts" "info.time";
     data.item: "contents" "bubble.content info.thumbnail info.status info.status1 bubble.check";
     parts{
-        rect { "base"; scale;
+        spacer { "base"; scale; mouse;
             desc { "default";
                 rel1.to_y: "info.pad";
                 rel2.to_y: "pad.bottom";
                 align: 0.0 0.0;
-                color: 0 0 0 0;
             }
         }
         swallow { "elm.swallow.bg"; scale;
@@ -2143,7 +2150,54 @@ group { name: "elm/genlist/item/sentbubble/default";
 group { name: "elm/genlist/item/draft/default";
     alias: "elm/genlist/item_compress/draft/default";
     inherit: "elm/genlist/item/sentbubble/default";
-    //TODO: implement in next commit
+
+    data.item: "contents" "bubble.content info.thumbnail info.status info.status1 bubble.check draft.button";
+
+    parts {
+        image { "bubble.bg.image"; scale;
+            desc { "default";
+                image.normal: "messages_bubble_line_draft.#.png";
+                color: BUBBLE_BG_DRAFT_COLOR;
+            }
+            desc { "pressed";
+                color: BUBBLE_BG_DRAFT_COLOR_PRESSED;
+            }
+        }
+        spacer { "bubble.pad.right"; scale;
+            desc { "default";
+                rel2.to_x: "draft.pad";
+            }
+        }
+        spacer { "draft.pad"; scale;
+            desc { "default";
+                min: BUBBLE_DRAFT_PAD_WIDTH 0;
+                max: BUBBLE_DRAFT_PAD_WIDTH -1;
+                rel2.to_x: "pad.right";
+                rel2.relative: 0.0 0.0;
+                align: 1.0 0.0;
+                fixed: 1 0;
+            }
+        }
+        spacer { "draft.pad.button"; scale;
+            desc { "default";
+                min: BUBBLE_DRAFT_BUTTON_PAD_WIDTH BUBBLE_DRAFT_BUTTON_PAD_HEIGHT;
+                max: BUBBLE_DRAFT_BUTTON_PAD_WIDTH BUBBLE_DRAFT_BUTTON_PAD_HEIGHT;
+                rel1.to_x: "draft.pad";
+                rel1.to_y: "bubble.pad.top";
+                fixed: 1 1;
+                align: 0.0 0.0;
+            }
+        }
+        swallow { "draft.button"; scale;
+            desc { "default";
+                min: BUBBLE_DRAFT_BUTTON_WIDTH BUBBLE_DRAFT_BUTTON_HEIGHT;
+                max: BUBBLE_DRAFT_BUTTON_WIDTH BUBBLE_DRAFT_BUTTON_HEIGHT;
+                rel1.to: "draft.pad.button";
+                rel1.relative: 1.0 1.0;
+                align: 0.0 0.0;
+            }
+        }
+    }
 }
 
 group { name: "elm/genlist/item/receivebubble/default";
