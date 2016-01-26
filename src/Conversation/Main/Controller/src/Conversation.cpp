@@ -32,7 +32,7 @@
 
 using namespace Msg;
 
-Conversation::Conversation(NaviFrameController &parent, bool dummy)
+Conversation::Conversation(NaviFrameController &parent)
     : FrameController(parent)
     , m_Mode(InitMode)
     , m_pLayout(nullptr)
@@ -45,35 +45,6 @@ Conversation::Conversation(NaviFrameController &parent, bool dummy)
     , m_pConvList(nullptr)
     , m_AttachPanel(getApp())
 {
-}
-
-Conversation::Conversation(NaviFrameController &parent, const AppControlComposeRef &cmd)
-    : Conversation(parent, false)
-{
-    if(cmd)
-        m_ThreadId = getMsgEngine().getStorage().getThreadId(cmd->getRecipientList());
-
-    create();
-    execCmd(cmd);
-}
-
-Conversation::Conversation(NaviFrameController &parent, const AppControlDefaultRef &cmd)
-    : Conversation(parent, false)
-{
-    if(cmd)
-        m_ThreadId = getMsgEngine().getStorage().getMessage(cmd->getMessageId())->getThreadId();
-
-    create();
-
-    if(cmd->getDefaultType() == AppControlDefault::ReplyType)
-        m_pBody->setFocus(true);
-
-}
-
-Conversation::Conversation(NaviFrameController &parent,ThreadId threadId)
-    : Conversation(parent, false)
-{
-    m_ThreadId = threadId;
     create();
 }
 
@@ -94,26 +65,26 @@ Conversation::~Conversation()
 
 void Conversation::execCmd(const AppControlComposeRef &cmd)
 {
-    if(cmd)
-    {
-        if(m_pRecipPanel)
-            m_pRecipPanel->execCmd(cmd);
-        if(m_pBody)
-            m_pBody->execCmd(cmd);
-    }
+    setThreadId(ThreadId());
+    if(m_pRecipPanel)
+        m_pRecipPanel->execCmd(cmd);
+    if(m_pBody)
+        m_pBody->execCmd(cmd);
+}
+
+void Conversation::execCmd(const AppControlDefaultRef &cmd)
+{
+    setThreadId(getMsgEngine().getStorage().getMessage(cmd->getMessageId())->getThreadId());
+    if(cmd->getDefaultType() == AppControlDefault::ReplyType)
+        m_pBody->setFocus(true);
 }
 
 void Conversation::create()
 {
-    markAsRead();
-
     createMainLayout(getParent());
     createMsgInputPanel(*m_pLayout);
     createBody(*m_pMsgInputPanel);
-
     updateMsgInputPanel();
-
-    setMode(m_ThreadId.isValid() ? ConversationMode : NewMessageMode);
 
     getMsgEngine().getStorage().addListener(*this);
     setHwButtonListener(*m_pLayout, this);
@@ -129,6 +100,18 @@ void Conversation::markAsRead()
 void Conversation::navigateTo(MsgId msgId)
 {
     m_pConvList->navigateTo(msgId);
+}
+
+void Conversation::setThreadId(ThreadId id)
+{
+    m_ThreadId = id;
+    setMode(m_ThreadId.isValid() ? ConversationMode : NewMessageMode);
+    m_pBody->clear();
+    if(m_pRecipPanel)
+        m_pRecipPanel->clear();
+    if(m_pConvList)
+        m_pConvList->setThreadId(m_ThreadId);
+    markAsRead();
 }
 
 void Conversation::setMode(Mode mode)
@@ -213,7 +196,7 @@ void Conversation::createConvList(Evas_Object *parent)
 {
     if(!m_pConvList)
     {
-        m_pConvList = new ConvList(*m_pLayout, m_ThreadId, getApp());
+        m_pConvList = new ConvList(*m_pLayout, getApp());
         m_pConvList->setListener(this);
         m_pConvList->show();
         m_pLayout->setConvList(*m_pConvList);
@@ -499,7 +482,7 @@ void Conversation::updateNavibar()
         getNaviBar().setTitle(msgt("IDS_MSGF_POP_NEW_MESSAGE"));
         getNaviBar().showButton(NaviPrevButtonId, true);
     }
-    else
+    else if(m_Mode == ConversationMode)
     {
         if(m_pConvList->getMode() == ConvList::SelectMode)
         {

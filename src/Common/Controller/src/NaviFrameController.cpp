@@ -91,12 +91,18 @@ void NaviFrameController::execCmd(const AppControlDefaultRef &cmd)
 
         if(type == AppControlDefault::ReplyType || type == AppControlDefault::ViewType)
         {
-            push(*new Conversation(*this, cmd));
+            Conversation *conv = new Conversation(*this);
+            conv->execCmd(cmd);
+            push(*conv);
         }
         else if(type == AppControlDefault::NotificationType)
         {
             if(getMsgEngine().getStorage().getUnreadThreadCount() == 1)
-                push(*new Conversation(*this, cmd));
+            {
+                Conversation *conv = new Conversation(*this);
+                conv->execCmd(cmd);
+                push(*conv);
+            }
         }
     }
 }
@@ -107,8 +113,9 @@ void NaviFrameController::execCmd(const AppControlComposeRef &cmd)
     {
         if(isEmpty())
         {
-            Conversation *convFrame = new Conversation(*this, cmd);
-            push(*convFrame);
+            Conversation *conv = new Conversation(*this);
+            conv->execCmd(cmd);
+            push(*conv);
         }
         else
         {

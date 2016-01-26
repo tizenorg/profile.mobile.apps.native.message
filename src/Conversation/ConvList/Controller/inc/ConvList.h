@@ -45,10 +45,9 @@ namespace Msg
             /**
              * @brief Creates list with messages in thread
              * @param[in] parent parent Evas_Object
-             * @param[in] msgEngine Message Engine
-             * @param[in] threadId Thread id
+             * @param[in] App ref. to main application
              */
-            ConvList(Evas_Object *parent, ThreadId threadId, App &app);
+            ConvList(Evas_Object *parent, App &app);
             virtual ~ConvList();
 
             /**

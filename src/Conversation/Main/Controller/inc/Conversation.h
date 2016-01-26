@@ -51,12 +51,13 @@ namespace Msg
         , private IAttachPanelListener
     {
         public:
-            Conversation(NaviFrameController &parent, const AppControlComposeRef &cmd);
-            Conversation(NaviFrameController &parent, const AppControlDefaultRef &cmd);
-            Conversation(NaviFrameController &parent, ThreadId threadId);
+            Conversation(NaviFrameController &parent);
             virtual ~Conversation();
 
             void navigateTo(MsgId msgId);
+            void execCmd(const AppControlComposeRef &cmd);
+            void execCmd(const AppControlDefaultRef &cmd);
+            void setThreadId(ThreadId id);
 
         private:
             enum Mode
@@ -105,9 +106,6 @@ namespace Msg
             virtual void onFileSelected(AttachPanel &panel, const AttachPanel::FileList &files);
 
         private:
-            // Empty initializer constructor:
-            Conversation(NaviFrameController &parent, bool dummy);
-            void execCmd(const AppControlComposeRef &cmd);
             void create();
             void setMode(Mode mode);
             void setNewMessageMode();
