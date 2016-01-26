@@ -353,7 +353,7 @@ void RecipientsPanelView::unselectMbeItem()
         elm_multibuttonentry_item_selected_set(selectedItem, EINA_FALSE);
 }
 
-unsigned int RecipientsPanelView::getMbeItemsCount() const
+unsigned int RecipientsPanelView::getItemsCount() const
 {
     unsigned int res = 0;
     const Eina_List* items = elm_multibuttonentry_items_get(m_pMbe);

@@ -143,8 +143,7 @@ void NaviFrameItem::NaviBar::getButton(NaviButtonId id)
 {
     if(!m_ButtonList[id].button)
     {
-        Evas_Object *parent = getEo();
-        Evas_Object *btn = elm_button_add(parent);
+        Evas_Object *btn = elm_button_add(getEo());
         m_ButtonList[id].button = btn;
         elm_object_style_set(btn, m_ButtonList[id].style);
         setButtonText(id, msgt(m_ButtonList[id].default_text_id));

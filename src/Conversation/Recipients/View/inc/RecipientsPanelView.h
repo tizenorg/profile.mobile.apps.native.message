@@ -54,7 +54,7 @@ namespace Msg
             /**
              * Gets a count of mbe items
              */
-            unsigned int getMbeItemsCount() const;
+            unsigned int getItemsCount() const;
 
         private:
             // Out signals:

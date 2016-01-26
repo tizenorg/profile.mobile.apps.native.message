@@ -32,10 +32,7 @@ namespace Msg
             virtual ~ConversationLayout();
 
             void showContactList(bool value);
-            void showSelectAll(bool value);
-
             void setConvList(Evas_Object *layout);
-            void setSelectAll(Evas_Object *layout);
             void setContactList(Evas_Object *layout);
             void setMsgInputPanel(Evas_Object *layout);
             void setRecipientPanel(Evas_Object *layout);

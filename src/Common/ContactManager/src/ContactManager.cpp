@@ -200,10 +200,9 @@
             _contacts_person_number.image_thumbnail_path
         };
 
-        int ctRrr = contacts_query_set_projection(query, numberProjection, sizeof(numberProjection)/sizeof(unsigned int));
-        if(ctRrr == CONTACTS_ERROR_NONE) {
+        int ctRrr = contacts_query_set_projection(query, numberProjection, sizeof(numberProjection) / sizeof(unsigned int));
+        if(ctRrr == CONTACTS_ERROR_NONE)
             ctRrr = contacts_db_get_records_with_query(query, 0, 0, &list);
-        }
 
         contacts_filter_destroy(filter);
         contacts_query_destroy(query);

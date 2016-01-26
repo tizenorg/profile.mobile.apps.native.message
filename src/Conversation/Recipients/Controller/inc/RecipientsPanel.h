@@ -94,6 +94,7 @@ namespace Msg
             virtual void onEntryFocusChanged(RecipientsPanel &panel) {};
             virtual void onItemAdded(RecipientsPanel &panel, RecipientItem &item) {};
             virtual void onItemDeleted(RecipientsPanel &panel, RecipientItem &item) {};
+            virtual void onItemClicked(RecipientsPanel &panel, RecipientItem &item) {};
     };
 }
 

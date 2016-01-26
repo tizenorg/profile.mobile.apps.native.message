@@ -216,7 +216,7 @@ void RecipientsPanel::onItemDeleted(RecipientViewItem &item)
 void RecipientsPanel::onContactButtonClicked()
 {
     const int maxRecipientCount = m_App.getMsgEngine().getSettings().getMaxRecipientCount();
-    int currentRecipientsCount = getMbeItemsCount();
+    int currentRecipientsCount = getItemsCount();
     if(currentRecipientsCount < maxRecipientCount)
         m_Picker.launch(maxRecipientCount - currentRecipientsCount);
     else
@@ -230,7 +230,8 @@ void RecipientsPanel::onItemSelected(RecipientViewItem &item)
 
 void RecipientsPanel::onItemClicked(RecipientViewItem &item)
 {
-    MSG_LOG("");
+    if(m_pListener)
+        m_pListener->onItemClicked(*this, static_cast<RecipientItem&>(item));
 }
 
 bool RecipientsPanel::isRecipientExists(const std::string& address) const
@@ -253,7 +254,10 @@ void RecipientsPanel::onContactsPicked(const std::list<int> &numberIdList)
     {
         ContactPersonNumber num = m_App.getContactManager().getContactPersonNumber(phoneNumId);
         if(num.isValid())
+        {
             duplicateFound |= appendItem(num.getNumber(), num.getDispName(), MsgAddress::Phone) == DuplicatedStatus;
+            num.release();
+        }
     }
 
     if(duplicateFound)

@@ -84,6 +84,7 @@ namespace Msg
             virtual void onItemDeleted(RecipientsPanel &panel, RecipientItem &item);
             virtual void onKeyDown(RecipientsPanel &panel, Evas_Event_Key_Down &ev);
             virtual void onEntryFocusChanged(RecipientsPanel &panel);
+            virtual void onItemClicked(RecipientsPanel &panel, RecipientItem &item);
 
             // IBodyListener:
             virtual void onChanged(Body &body);
@@ -98,6 +99,10 @@ namespace Msg
             // ContextPopup callbacks:
             void onDeleteItemPressed(ContextPopupItem &item);
             void onAddRecipientsItemPressed(ContextPopupItem &item);
+
+            void onMakeVoiceItemPressed(ContextPopupItem &item);
+            void onCreateContactItemPressed(ContextPopupItem &item);
+            void onUpdateContactItemPressed(ContextPopupItem &item);
 
             // ConvList callbacks:
             virtual void onAllItemsDeleted(ConvList &list);
@@ -122,9 +127,12 @@ namespace Msg
             void createConvList(Evas_Object *parent);
             void destroyConvList();
             void markAsRead();
+            void recipientClickHandler(const std::string &address);
+            MsgAddressListRef getAddressList();
 
             void showMainCtxPopup();
             void showNoRecipPopup();
+            void showRecipPopup();
             void showSendResultPopup(MsgTransport::SendResult result);
 
             void notifyConvertMsgType();

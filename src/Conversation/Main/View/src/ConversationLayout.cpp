@@ -37,12 +37,6 @@ void ConversationLayout::showContactList(bool value)
     elm_object_signal_emit(m_pLayout, sig, "*");
 }
 
-void ConversationLayout::showSelectAll(bool value)
-{
-    const char *sig = value ? "show_select_all" : "hide_select_all";
-    elm_object_signal_emit(m_pLayout, sig, "*");
-}
-
 void ConversationLayout::setRecipientRect(Evas_Object *layout)
 {
     elm_object_part_content_set(m_pLayout, "swl.recipient.rect", layout);
@@ -51,11 +45,6 @@ void ConversationLayout::setRecipientRect(Evas_Object *layout)
 void ConversationLayout::setConvList(Evas_Object *layout)
 {
     elm_object_part_content_set(m_pLayout, "swl.bubble", layout);
-}
-
-void ConversationLayout::setSelectAll(Evas_Object *layout)
-{
-    elm_object_part_content_set(m_pLayout, "swl.sel_al", layout);
 }
 
 void ConversationLayout::setContactList(Evas_Object *layout)

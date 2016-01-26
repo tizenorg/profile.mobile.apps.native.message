@@ -97,6 +97,20 @@ void Conversation::markAsRead()
         getMsgEngine().getStorage().setReadStatus(m_ThreadId);
 }
 
+void Conversation::recipientClickHandler(const std::string &address)
+{
+    // TODO: impl for email
+    ContactPersonNumber contactPersonNumber = getApp().getContactManager().getContactPersonNumber(address);
+    if(contactPersonNumber.isValid())
+    {
+        // TODO: show Phone-Contacts
+    }
+    else
+    {
+        showRecipPopup();
+    }
+}
+
 void Conversation::navigateTo(MsgId msgId)
 {
     m_pConvList->navigateTo(msgId);
@@ -108,10 +122,18 @@ void Conversation::setThreadId(ThreadId id)
     setMode(m_ThreadId.isValid() ? ConversationMode : NewMessageMode);
     m_pBody->clear();
     if(m_pRecipPanel)
+    {
         m_pRecipPanel->clear();
+        m_pRecipPanel->update(m_ThreadId);
+    }
     if(m_pConvList)
         m_pConvList->setThreadId(m_ThreadId);
     markAsRead();
+}
+
+MsgAddressListRef Conversation::getAddressList()
+{
+    return getMsgEngine().getStorage().getAddressList(m_ThreadId);
 }
 
 void Conversation::setMode(Mode mode)
@@ -122,14 +144,7 @@ void Conversation::setMode(Mode mode)
     switch(mode)
     {
         case NewMessageMode:
-            if(m_Mode == InitMode)
-            {
-                setNewMessageMode();
-            }
-            else
-            {
-                MSG_LOG_ERROR("Wrong mode");
-            }
+            setNewMessageMode();
             break;
 
         case ConversationMode:
@@ -167,11 +182,9 @@ void Conversation::setConversationMode()
     m_Mode = ConversationMode;
     createConvList(*m_pLayout);
 
-    m_pLayout->showSelectAll(false);
-
     updateNavibar();
 
-    MsgAddressListRef addressList = getMsgEngine().getStorage().getAddressList(m_ThreadId);
+    MsgAddressListRef addressList = getAddressList();
     if(addressList && addressList->getLength() > 1)
     {
         createRecipPanel(*m_pLayout);
@@ -289,7 +302,7 @@ void Conversation::fillMsgAddress(Message &msg)
 {
     if(m_ThreadId.isValid() && m_Mode != NewMessageMode)
     {
-        MsgAddressListRef addressList = getMsgEngine().getStorage().getAddressList(m_ThreadId);
+        MsgAddressListRef addressList = getAddressList();
         if(addressList)
             msg.addAddresses(*addressList);
     }
@@ -380,11 +393,20 @@ void Conversation::checkAndSetMsgType()
 
 void Conversation::showNoRecipPopup()
 {
-    auto &popupMngr = getApp().getPopupManager();
-    Popup &popup = popupMngr.getPopup();
+    Popup &popup = getApp().getPopupManager().getPopup();
     popup.addEventCb(EVAS_CALLBACK_DEL, EVAS_EVENT_CALLBACK(Conversation, onPopupDel), this);
     popup.addButton(msgt("IDS_MSG_BUTTON_OK_ABB"), Popup::OkButtonId, POPUP_BUTTON_CB(Conversation, onMsgSendErrorButtonClicked), this);
     popup.setContent(msgt("IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"));
+    popup.show();
+}
+
+void Conversation::showRecipPopup()
+{
+    ContextPopup &popup = getApp().getPopupManager().getCtxPopup();
+    popup.appendItem(msg("IDS_MSG_OPT_MAKE_VOICE_CALL"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(Conversation, onMakeVoiceItemPressed), this);
+    popup.appendItem(msg("IDS_MSG_OPT_CREATE_CONTACT_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(Conversation, onCreateContactItemPressed), this);
+    popup.appendItem(msg("IDS_MSG_OPT_UPDATE_CONTACT"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(Conversation, onUpdateContactItemPressed), this);
+    popup.align(getApp().getWindow());
     popup.show();
 }
 
@@ -453,6 +475,12 @@ void Conversation::onItemDeleted(RecipientsPanel &panel, RecipientItem &item)
     checkAndSetMsgType();
 }
 
+void Conversation::onItemClicked(RecipientsPanel &panel, RecipientItem &item)
+{
+    MSG_LOG("");
+    recipientClickHandler(item.getAddress());
+}
+
 void Conversation::onChanged(Body &body)
 {
     updateMsgInputPanel();
@@ -492,7 +520,7 @@ void Conversation::updateNavibar()
         }
         else
         {
-            MsgAddressListRef addressList = getMsgEngine().getStorage().getAddressList(m_ThreadId);
+            MsgAddressListRef addressList = getAddressList();
             if(addressList && !addressList->isEmpty())
             {
                 std::string conversationName;
@@ -587,6 +615,16 @@ void Conversation::onNaviOkButtonClicked()
 void Conversation::onNaviCenterButtonClicked()
 {
     MSG_LOG("");
+    if(m_pRecipPanel)
+    {
+        onNaviDownButtonClicked();
+    }
+    else
+    {
+        MsgAddressListRef addressList = getAddressList();
+        if(addressList && !addressList->isEmpty())
+            recipientClickHandler(addressList->at(0).getAddress());
+    }
 }
 
 void Conversation::onNaviDownButtonClicked()
@@ -594,7 +632,7 @@ void Conversation::onNaviDownButtonClicked()
     MSG_LOG("");
     if(m_pRecipPanel)
     {
-        bool isMbeInvisible= !m_pRecipPanel->isMbeVisible();
+        bool isMbeInvisible = !m_pRecipPanel->isMbeVisible();
         m_pRecipPanel->showMbe(isMbeInvisible);
         getNaviBar().setDownButtonState(isMbeInvisible);
     }
@@ -633,35 +671,58 @@ void Conversation::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
 
 void Conversation::onPopupDel(Evas_Object *popup, void *eventInfo)
 {
+    MSG_LOG("");
     m_pBody->setFocus(true);
 }
 
 void Conversation::onMsgSendErrorButtonClicked(Popup &popup, int buttonId)
 {
+    MSG_LOG("");
     m_pBody->setFocus(true);
     popup.destroy();
 }
 
 void Conversation::onDeleteItemPressed(ContextPopupItem &item)
 {
+    MSG_LOG("");
     item.getParent().destroy();
-
     m_pConvList->setMode(ConvList::SelectMode);
-    setConversationMode();
+    updateNavibar();
 }
 
 void Conversation::onAddRecipientsItemPressed(ContextPopupItem &item)
 {
+    MSG_LOG("");
     item.getParent().destroy();
-    setNewMessageMode();
+    setMode(NewMessageMode);
+}
+
+void Conversation::onMakeVoiceItemPressed(ContextPopupItem &item)
+{
+    MSG_LOG("");
+    item.getParent().destroy();
+}
+
+void Conversation::onCreateContactItemPressed(ContextPopupItem &item)
+{
+    MSG_LOG("");
+    item.getParent().destroy();
+}
+
+void Conversation::onUpdateContactItemPressed(ContextPopupItem &item)
+{
+    MSG_LOG("");
+    item.getParent().destroy();
 }
 
 void Conversation::onAllItemsDeleted(ConvList &list)
 {
+    MSG_LOG("");
     onHwBackButtonClicked();
 }
 
 void Conversation::onFileSelected(AttachPanel &panel, const AttachPanel::FileList &files)
 {
+    MSG_LOG("");
     m_pBody->addMedia(files);
 }
