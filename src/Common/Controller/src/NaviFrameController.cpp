@@ -44,11 +44,6 @@ void NaviFrameController::init()
     setHwButtonListener(getEo(), this);
 }
 
-void NaviFrameController::push(FrameController &frame)
-{
-    NaviFrameView::push(frame);
-}
-
 void NaviFrameController::pop()
 {
     if(isLastFrame())
@@ -81,27 +76,27 @@ void NaviFrameController::execCmd(const AppControlDefaultRef &cmd)
     {
         AppControlDefault::DefaultType type = cmd->getDefaultType();
 
-        Conversation *conv = getFrame<Conversation>();
-        if(conv)
-            pop();
+        MsgThread *thread = getFrame<MsgThread>(); // Check if thread is open
+        if(!thread)
+            insertToBottom(*new MsgThread(*this)); // Push thread list to the bottom
 
-        MsgThread *thread = getFrame<MsgThread>();
-        if(!thread && type != AppControlDefault::ReplyType)
-            push(*new MsgThread(*this));
-
-        if(type == AppControlDefault::ReplyType || type == AppControlDefault::ViewType)
+        Conversation *conv = getFrame<Conversation>(); // Check if conversation is open
+        if(type != AppControlDefault::MainType)
         {
-            Conversation *conv = new Conversation(*this);
-            conv->execCmd(cmd);
-            push(*conv);
-        }
-        else if(type == AppControlDefault::NotificationType)
-        {
-            if(getMsgEngine().getStorage().getUnreadThreadCount() == 1)
+            if(conv)
             {
-                Conversation *conv = new Conversation(*this);
+                promote(*conv);
                 conv->execCmd(cmd);
-                push(*conv);
+            }
+            else if(!conv)
+            {
+                if(type == AppControlDefault::ViewType || type == AppControlDefault::ReplyType ||
+                        (type == AppControlDefault::NotificationType && getMsgEngine().getStorage().getUnreadThreadCount() == 1))
+                {
+                        Conversation *conversation = new Conversation(*this);
+                        conversation->execCmd(cmd);
+                        push(*conversation);
+                }
             }
         }
     }
@@ -111,16 +106,16 @@ void NaviFrameController::execCmd(const AppControlComposeRef &cmd)
 {
     if(execCmd(*cmd))
     {
-        if(isEmpty())
+        Conversation *conv = getFrame<Conversation>();
+        if(conv)
+        {
+            conv->execCmd(cmd);
+        }
+        else
         {
             Conversation *conv = new Conversation(*this);
             conv->execCmd(cmd);
             push(*conv);
-        }
-        else
-        {
-            //TODO: Handle this case (erase or save previous data)
-            MSG_LOG_WARN("App was already launched! You may lost previous data!");
         }
     }
 }

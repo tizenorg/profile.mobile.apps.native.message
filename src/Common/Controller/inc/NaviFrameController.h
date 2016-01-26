@@ -39,11 +39,6 @@ namespace Msg
             virtual ~NaviFrameController();
 
             /**
-             * Pushes @frame to screen.
-             */
-            void push(FrameController &frame);
-
-            /**
              * Pops last frame. Exit from app if frame count reaches zero.
              */
             void pop();
