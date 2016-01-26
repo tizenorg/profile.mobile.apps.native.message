@@ -39,11 +39,6 @@ namespace Msg
             virtual ~NaviFrameController();
 
             /**
-             * Pushes @frame to screen.
-             */
-            void push(FrameController &frame);
-
-            /**
              * Pops last frame. Exit from app if frame count reaches zero.
              */
             void pop();
@@ -68,6 +63,8 @@ namespace Msg
             template<typename T>
             T *getFrame() const;
             bool execCmd(const AppControlCommand &cmd);
+
+            bool isUnreadNotificationSingle(AppControlDefault::DefaultType type) const;
 
             virtual void onHwBackButtonClicked();
             virtual void onHwMoreButtonClicked();

@@ -56,6 +56,8 @@ namespace Msg
             void push(NaviFrameItem &item, Evas_Object *content = nullptr);
             void push(NaviFrameItem &item, View &content);
             void pop();
+            void insertToBottom(NaviFrameItem &item);
+            void promote(NaviFrameItem &item);
 
         private:
             void create(Evas_Object *parent);
