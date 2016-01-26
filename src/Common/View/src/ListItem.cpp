@@ -182,8 +182,7 @@ void ListItem::setCheckedState(bool state, bool updateUi)
     {
         if(updateUi)
         {
-            // updateFields(checkPart, ELM_GENLIST_ITEM_FIELD_CONTENT); // FIXME: Blink during update part tizen_2.4
-            update();
+            updateFields(checkPart, ELM_GENLIST_ITEM_FIELD_CONTENT); // FIXME: Blink during update part tizen_2.4
         }
     }
 }

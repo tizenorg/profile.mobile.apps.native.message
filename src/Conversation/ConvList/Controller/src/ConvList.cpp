@@ -174,7 +174,6 @@ void ConvList::selectListItems(bool state)
 void ConvList::onListItemSelected(ListItem &listItem)
 {
     ConvListItem &item = static_cast<ConvListItem&>(listItem);
-    item.setSelected(false);
     //TODO: replace to long touch, when it will be implement
     item.showPopup();
 }

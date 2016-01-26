@@ -1878,11 +1878,15 @@ BUBBLE_SENT_MESSAGE_STYLE("sent_style_01_failed_focus", "messagebubble_bg_send_b
 #define BUBBLE_DRAFT_BUTTON_PAD_HEIGHT 7
 #define BUBBLE_DRAFT_BUTTON_WIDTH 56
 #define BUBBLE_DRAFT_BUTTON_HEIGHT 56
+#define BUBBLE_FAILED_BUTTON_WIDTH 56
+#define BUBBLE_FAILED_BUTTON_HEIGHT 56
 
 #define BUBBLE_BG_COLOR 90 111 199 230
 #define BUBBLE_BG_COLOR_PRESSED 78 97 173 230
 #define BUBBLE_BG_DRAFT_COLOR 106 126 204 255
 #define BUBBLE_BG_DRAFT_COLOR_PRESSED 80 94 153 255
+#define BUBBLE_BG_FAILED_COLOR 0 0 0 102
+#define BUBBLE_BG_FAILED_COLOR_PRESSED 0 0 0 133
 
 group { name: "elm/genlist/item/sentbubble/default";
     alias: "elm/genlist/item_compress/sentbubble/default";
@@ -2160,6 +2164,7 @@ group { name: "elm/genlist/item/draft/default";
                 color: BUBBLE_BG_DRAFT_COLOR;
             }
             desc { "pressed";
+                inherit: "default";
                 color: BUBBLE_BG_DRAFT_COLOR_PRESSED;
             }
         }
@@ -2192,6 +2197,34 @@ group { name: "elm/genlist/item/draft/default";
             desc { "default";
                 min: BUBBLE_DRAFT_BUTTON_WIDTH BUBBLE_DRAFT_BUTTON_HEIGHT;
                 max: BUBBLE_DRAFT_BUTTON_WIDTH BUBBLE_DRAFT_BUTTON_HEIGHT;
+                rel1.to: "draft.pad.button";
+                rel1.relative: 1.0 1.0;
+                align: 0.0 0.0;
+            }
+        }
+    }
+}
+
+group { name: "elm/genlist/item/failed/default";
+    alias: "elm/genlist/item_compress/failed/default";
+    inherit: "elm/genlist/item/draft/default";
+    part_remove: "draft.button";
+    data.item: "contents" "bubble.content info.thumbnail info.status info.status1 bubble.check failed.button";
+
+    parts {
+        image { "bubble.bg.image"; scale;
+            desc { "default";
+                color: BUBBLE_BG_FAILED_COLOR;
+            }
+            desc { "pressed";
+                inherit: "default";
+                color: BUBBLE_BG_FAILED_COLOR_PRESSED;
+            }
+        }
+        swallow { "failed.button"; scale;
+            desc { "default";
+                min: BUBBLE_FAILED_BUTTON_WIDTH BUBBLE_FAILED_BUTTON_HEIGHT;
+                max: BUBBLE_FAILED_BUTTON_WIDTH BUBBLE_FAILED_BUTTON_HEIGHT;
                 rel1.to: "draft.pad.button";
                 rel1.relative: 1.0 1.0;
                 align: 0.0 0.0;
