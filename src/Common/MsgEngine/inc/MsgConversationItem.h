@@ -45,6 +45,7 @@ namespace Msg
             virtual Message::Type getType() const = 0;
             virtual Message::Status getStatus() const = 0;
             virtual bool isDraft() const = 0;
+            virtual bool isFailed() const = 0;
             virtual bool isRead() const = 0;
             virtual int getPagesCount() const = 0;
             virtual int getAttachCount() const = 0;
