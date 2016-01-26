@@ -45,7 +45,8 @@ namespace Msg
             enum ButtonID
             {
                 OkButtonId,
-                CancelButtonId
+                CancelButtonId,
+                DiscardButtonId
             };
 
         public:

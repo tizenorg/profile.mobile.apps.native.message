@@ -67,6 +67,12 @@ namespace Msg
                 ConversationMode
             };
 
+            struct DefferedCmd
+            {
+                AppControlComposeRef composeCmd;
+                AppControlDefaultRef defaultCmd;
+            };
+
         private:
             // NaviFrameItem:
             virtual void onAttached(ViewItem &item);
@@ -94,6 +100,8 @@ namespace Msg
              // Popup callbacks:
             void onPopupDel(Evas_Object *popup, void *eventInfo);
             void onMsgSendErrorButtonClicked(Popup &popup, int buttonId);
+            void onCancelButtonClicked(Popup &popup, int buttonId);
+            void onDiscardButtonClicked(Popup &popup, int buttonId);
 
             // ContextPopup callbacks:
             void onDeleteItemPressed(ContextPopupItem &item);
@@ -122,6 +130,8 @@ namespace Msg
             void createConvList(Evas_Object *parent);
             void destroyConvList();
             void markAsRead();
+            void resetDefferedCmd();
+            bool isDefferedCmd() const;
 
             void showMainCtxPopup();
             void showNoRecipPopup();
@@ -140,6 +150,9 @@ namespace Msg
             void onNaviCenterButtonClicked();
             void onNaviDownButtonClicked();
 
+            bool isRecipExists();
+            bool isBodyEmpty();
+
         private:
             Mode m_Mode;
             ConversationLayout *m_pLayout;
@@ -151,6 +164,7 @@ namespace Msg
             bool m_IsMms; // Compose message type
             ConvList *m_pConvList;
             AttachPanel m_AttachPanel;
+            DefferedCmd m_DefferedCmd;
     };
 }
 

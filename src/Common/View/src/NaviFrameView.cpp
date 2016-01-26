@@ -90,7 +90,7 @@ bool NaviFrameView::isEmpty() const
 
 void NaviFrameView::push(NaviFrameItem &item, Evas_Object *content)
 {
-    Elm_Object_Item *it = elm_naviframe_item_push(getEo(), NULL, NULL, NULL, content, NULL);
+    Elm_Object_Item *it = elm_naviframe_item_push(getEo(), nullptr, nullptr, nullptr, content, nullptr);
     item.setElmObjItem(it);
 }
 
@@ -102,4 +102,10 @@ void NaviFrameView::push(NaviFrameItem &item, View &content)
 void NaviFrameView::pop()
 {
     elm_naviframe_item_pop(getEo());
+}
+
+void NaviFrameView::insertBefore(NaviFrameItem &insert, NaviFrameItem &before)
+{
+    Elm_Object_Item *it = elm_naviframe_item_insert_before(getEo(), before, nullptr, nullptr, nullptr, nullptr, nullptr);
+    insert.setElmObjItem(it);
 }

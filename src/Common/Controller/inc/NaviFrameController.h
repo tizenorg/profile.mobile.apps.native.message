@@ -44,6 +44,11 @@ namespace Msg
             void push(FrameController &frame);
 
             /**
+             * Insert @insert before @before frame to screen.
+             */
+            void insertBefore(FrameController &insert, FrameController &before);
+
+            /**
              * Pops last frame. Exit from app if frame count reaches zero.
              */
             void pop();
