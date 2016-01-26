@@ -96,7 +96,8 @@ void MsgThread::showMainCtxPopup()
 
 void MsgThread::composeNewMessage()
 {
-    Conversation *frame = new Conversation(getParent(), AppControlComposeRef());
+    Conversation *frame = new Conversation(getParent());
+    frame->setThreadId(ThreadId());
     getParent().push(*frame);
 }
 
@@ -108,10 +109,11 @@ void MsgThread::navigateToSettings()
 
 void MsgThread::navigateToConversation(ThreadId threadId, MsgId msgId)
 {
-    Conversation *frame = new Conversation(getParent(), threadId);
-    getParent().push(*frame);
+    Conversation *frame = new Conversation(getParent());
+    frame->setThreadId(threadId);
     if(msgId.isValid())
         frame->navigateTo(msgId);
+    getParent().push(*frame);
 }
 
 void MsgThread::setMode(Mode mode)

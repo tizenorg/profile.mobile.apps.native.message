@@ -49,6 +49,7 @@ namespace Msg
             void setEntryFocus(bool val);
             void clearEntry();
             void clearMbe();
+            void clear();
 
             /**
              * Gets a count of mbe items

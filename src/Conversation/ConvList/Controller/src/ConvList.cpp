@@ -22,11 +22,10 @@
 
 using namespace Msg;
 
-ConvList::ConvList(Evas_Object *parent, ThreadId threadId, App &app)
+ConvList::ConvList(Evas_Object *parent, App &app)
     : ConvListLayout(parent)
     , m_Mode(NormalMode)
     , m_MsgEngine(app.getMsgEngine())
-    , m_ThreadId(threadId)
     , m_pSelectAll(nullptr)
     , m_pList(nullptr)
     , m_pListner(nullptr)
