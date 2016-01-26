@@ -43,7 +43,19 @@ ConvListItem::~ConvListItem()
 
 ConvListViewItem::ConvItemType ConvListItem::getConvItemType(MsgConversationItem &item)
 {
-    return item.getDirection() == Message::Direction::MD_Sent ? (!item.isDraft() ? ConvItemType::Sent : ConvItemType::Draft) : ConvItemType::Received;
+    ConvItemType type = ConvItemType::Sent;
+    if(item.getDirection() == Message::Direction::MD_Sent)
+    {
+        if(item.isDraft())
+            type = ConvItemType::Draft;
+        else if(item.isFailed())
+            type = ConvItemType::Failed;
+    }
+    else
+    {
+        type = ConvItemType::Received;
+    }
+    return type;
 }
 
 void ConvListItem::onBubbleResized(Evas_Object *obj, void *data)
@@ -221,3 +233,7 @@ void ConvListItem::onEditButtonClicked(Evas_Object *obj, void *event_info)
     MSG_LOG("");
 }
 
+void ConvListItem::onFailedButtonClicked(Evas_Object *obj, void *event_info)
+{
+    MSG_LOG("");
+}

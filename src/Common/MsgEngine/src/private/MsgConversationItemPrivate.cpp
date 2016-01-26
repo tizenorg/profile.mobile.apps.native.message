@@ -94,6 +94,26 @@ bool MsgConversationItemPrivate::isDraft() const
     return (folder == MSG_DRAFT_ID);
 }
 
+bool MsgConversationItemPrivate::isFailed() const
+{
+    bool failed = false;
+    switch(getStatus())
+    {
+        case Message::MS_Send_Fail:
+        case Message::MS_Send_Pending:
+        case Message::MS_Send_Timeout:
+        case Message::MS_Send_Fail_Mandatory_Info_Missing:
+        case Message::MS_Send_Fail_Temporary:
+        case Message::MS_Send_Fail_By_Mo_Control_With_Mod:
+        case Message::MS_Send_Fail_By_Mo_Control_Not_Allowed:
+            failed = true;
+            break;
+        default:
+            break;
+    }
+    return failed;
+}
+
 bool MsgConversationItemPrivate::isRead() const
 {
     bool read = 0;
