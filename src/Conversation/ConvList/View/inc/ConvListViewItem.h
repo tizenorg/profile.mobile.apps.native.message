@@ -42,7 +42,10 @@ namespace Msg
             virtual std::string getText() = 0;
             virtual std::string getTime() = 0;
 
+            virtual void onEditButtonClicked(Evas_Object *obj, void *event_info) = 0;
+
         private:
+            Evas_Object *getDraftButton(bool isEnabled);
             virtual std::string getText(ListItem &item, const char *part);
             virtual Evas_Object *getContent(ListItem &item, const char *part);
             virtual const char *getCheckPart(ListItem &item);

@@ -16,6 +16,8 @@
  */
 
 #include "ConvListViewItem.h"
+#include "CallbackAssist.h"
+#include "ListView.h"
 
 using namespace Msg;
 
@@ -30,6 +32,9 @@ namespace
     const char *bubbleContentPart = "bubble.content";
     const char *thumbContentPart = "info.thumbnail";
     const char *timeTextPart = "info.time";
+    const char *draftButtonPart = "draft.button";
+
+    const char *draftButtonStyle = "edit_button";
 }
 
 ConvListViewItem::ConvListViewItem(ConvItemType type)
@@ -72,6 +77,8 @@ Evas_Object *ConvListViewItem::getContent(ListItem &item, const char *part)
         return getBubble();
     else if(!strcmp(part, thumbContentPart))
         return getThumbnail();
+    else if(!strcmp(part, draftButtonPart))
+        return getDraftButton(!getOwner()->getCheckMode());
     else
         return nullptr;
 }
@@ -79,4 +86,25 @@ Evas_Object *ConvListViewItem::getContent(ListItem &item, const char *part)
 const char *ConvListViewItem::getCheckPart(ListItem &item)
 {
     return checkBoxPart;
+}
+
+Evas_Object *ConvListViewItem::getDraftButton(bool isEnabled)
+{
+    Evas_Object *button = elm_button_add(*getOwner());
+    elm_object_style_set(button, draftButtonStyle);
+    evas_object_size_hint_weight_set(button, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+    evas_object_size_hint_align_set(button, EVAS_HINT_FILL, EVAS_HINT_FILL);
+    evas_object_show(button);
+
+    if(isEnabled)
+    {
+        evas_object_propagate_events_set(button, EINA_FALSE);
+        evas_object_smart_callback_add(button, "clicked", SMART_CALLBACK(ConvListViewItem, onEditButtonClicked), this);
+    }
+    else
+    {
+        elm_object_disabled_set(button, EINA_TRUE);
+    }
+
+    return button;
 }
