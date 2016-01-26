@@ -49,6 +49,11 @@ void NaviFrameController::push(FrameController &frame)
     NaviFrameView::push(frame);
 }
 
+void NaviFrameController::insertBefore(FrameController &insert, FrameController &before)
+{
+    NaviFrameView::insertBefore(insert, before);
+}
+
 void NaviFrameController::pop()
 {
     if(isLastFrame())
@@ -80,28 +85,78 @@ void NaviFrameController::execCmd(const AppControlDefaultRef &cmd)
     if(execCmd(*cmd))
     {
         AppControlDefault::DefaultType type = cmd->getDefaultType();
-
-        Conversation *conv = getFrame<Conversation>();
-        if(conv)
-            pop();
-
-        MsgThread *thread = getFrame<MsgThread>();
-        if(!thread && type != AppControlDefault::ReplyType)
-            push(*new MsgThread(*this));
-
-        if(type == AppControlDefault::ReplyType || type == AppControlDefault::ViewType)
+        if(isEmpty())
         {
-            Conversation *conv = new Conversation(*this);
-            conv->execCmd(cmd);
-            push(*conv);
-        }
-        else if(type == AppControlDefault::NotificationType)
-        {
-            if(getMsgEngine().getStorage().getUnreadThreadCount() == 1)
+            // If we open app with app control operation in a first time
+            if(type != AppControlDefault::ReplyType) // If we came not after reply button was clicked, we need to open message thread list menu
+                push(*new MsgThread(*this));
+
+            // In case when we clicked Reply or View buttons, we should move to needed conversation
+            if(type == AppControlDefault::ReplyType || type == AppControlDefault::ViewType)
             {
                 Conversation *conv = new Conversation(*this);
                 conv->execCmd(cmd);
                 push(*conv);
+            }
+            else if(type == AppControlDefault::NotificationType)
+            {
+                // When we get from notification panel and unread thread is only one, we should move to it.
+                // In another way, to stay on thread list menu
+                if(getMsgEngine().getStorage().getUnreadThreadCount() == 1)
+                {
+                    Conversation *conv = new Conversation(*this);
+                    conv->execCmd(cmd);
+                    push(*conv);
+                }
+            }
+        }
+        else
+        {
+            // If we open app with app control operation when it is working
+            MsgThread *thread = getFrame<MsgThread>(); // Check if thread list is open
+            Conversation *conv = getFrame<Conversation>(); // Check if conversation is open
+            if(type != AppControlDefault::MainType)
+            {
+                if(conv && !thread) // Case if we have opened conversation but thread list is closed
+                {
+                    // If app was opened from notification panel
+                    if(type == AppControlDefault::NotificationType)
+                    {
+                        // If unread threads are more than one and thread list was not opened, but conversation
+                        // is opened we should to insert thread list frame before opened conversation, for case
+                        // when you press the back button and then we went back to the thread list but did not close the application
+                        if(getMsgEngine().getStorage().getUnreadThreadCount() > 1)
+                            insertBefore(*new MsgThread(*this), *conv);
+                    }
+                    else if(type == AppControlDefault::ViewType)
+                    {
+                        // The same as in the case with unread threads.
+                        insertBefore(*new MsgThread(*this), *conv);
+                    }
+                    conv->execCmd(cmd);
+                }
+                else if(!conv && thread) // Case if just thread list is opened
+                {
+                    if(type == AppControlDefault::NotificationType)
+                    {
+                        if(getMsgEngine().getStorage().getUnreadThreadCount() == 1)
+                        {
+                            Conversation *conversation = new Conversation(*this);
+                            conversation->execCmd(cmd);
+                            push(*conversation);
+                        }
+                    }
+                    else if(type == AppControlDefault::ViewType || type == AppControlDefault::ReplyType)
+                    {
+                        Conversation *conversation = new Conversation(*this);
+                        conversation->execCmd(cmd);
+                        push(*conversation);
+                    }
+                }
+                else if(conv && thread) // Case if canversation and thread list are opened
+                {
+                    conv->execCmd(cmd);
+                }
             }
         }
     }
@@ -119,8 +174,9 @@ void NaviFrameController::execCmd(const AppControlComposeRef &cmd)
         }
         else
         {
-            //TODO: Handle this case (erase or save previous data)
-            MSG_LOG_WARN("App was already launched! You may lost previous data!");
+            Conversation *conv = getFrame<Conversation>();
+            if(conv)
+                conv->execCmd(cmd);
         }
     }
 }
