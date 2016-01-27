@@ -60,6 +60,7 @@ bool ContactPicker::launch(size_t howManyToPick)
 
         //TODO: We have to request a possibility to acquire phone numbers and emails at the same time
         app_control_add_extra_data(svc_handle, APP_CONTROL_DATA_TYPE, resultTypePhone);
+        app_control_set_launch_mode(svc_handle, APP_CONTROL_LAUNCH_MODE_GROUP);
         int ret = app_control_send_launch_request(svc_handle, APP_CONTROL_RES_CALLBACK(ContactPicker, onAppControlRes), this);
         MSG_LOG("launching contacts, result-code: ", ret);
         res = (ret == APP_CONTROL_ERROR_NONE);

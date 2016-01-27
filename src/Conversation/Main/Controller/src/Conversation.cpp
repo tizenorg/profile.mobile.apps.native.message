@@ -25,6 +25,7 @@
 #include "RecipientItem.h"
 #include "LangUtils.h"
 #include "CallbackAssist.h"
+#include "ContactViewer.h"
 
 #include <Elementary.h>
 #include <sstream>
@@ -102,13 +103,9 @@ void Conversation::recipientClickHandler(const std::string &address)
     // TODO: impl for email
     ContactPersonNumber contactPersonNumber = getApp().getContactManager().getContactPersonNumber(address);
     if(contactPersonNumber.isValid())
-    {
-        // TODO: show Phone-Contacts
-    }
+        ContactViewer::launch(contactPersonNumber.getPersonId());
     else
-    {
         showRecipPopup(address);
-    }
 }
 
 void Conversation::navigateTo(MsgId msgId)
