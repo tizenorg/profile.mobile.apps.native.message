@@ -59,6 +59,7 @@ namespace Msg
             void setContent(const TText &text);
             Evas_Object *getContent() const;
             void setHeight(int height);
+            void setAutoDismissBlockClickedFlag(bool value);
             Evas_Object *addButton(const TText &text, int buttonId, PopupButtonCb buttonCb = defaultButtonCb, void *userData = nullptr);
             void setTitle(const std::string &title);
             void setTitle(const TText &title);
@@ -68,11 +69,13 @@ namespace Msg
 
             void create(Evas_Object *parent);
             static void on_button_clicked(void *data, Evas_Object *obj, void *event_info);
+            static void on_popup_block_clicked_cb(void *data, Evas_Object *obj, void *event_info);
 
         private:
             Evas_Object *m_pBox;
             Evas_Object *m_pContent;
             int m_CurrentButtonIndex;
+            bool m_BlockClickedDismiss;
             PopupManager *m_pManager;
     };
 }

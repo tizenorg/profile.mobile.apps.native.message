@@ -53,13 +53,18 @@ void PopupManager::reset()
 
 Popup &PopupManager::getPopup()
 {
-    if(!m_pPopup)
-    {
-        m_pPopup = new Popup(*this);
-        eext_object_event_callback_add(*m_pPopup, EEXT_CALLBACK_BACK, SMART_CALLBACK(PopupManager, onHwBackButtonPopupClicked), this);
-    }
-
+    reset();
+    m_pPopup = new Popup(*this);
+    eext_object_event_callback_add(*m_pPopup, EEXT_CALLBACK_BACK, SMART_CALLBACK(PopupManager, onHwBackButtonPopupClicked), this);
     return *m_pPopup;
+}
+
+PopupList &PopupManager::getPopupList()
+{
+    reset();
+    m_pPopup = new PopupList(*this);
+    eext_object_event_callback_add(*m_pPopup, EEXT_CALLBACK_BACK, SMART_CALLBACK(PopupManager, onHwBackButtonPopupClicked), this);
+    return *static_cast<PopupList*>(m_pPopup);
 }
 
 bool PopupManager::isPopupVisible() const

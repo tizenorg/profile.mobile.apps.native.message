@@ -19,6 +19,7 @@
 #define PopupManager_h_
 
 #include "Popup.h"
+#include "PopupList.h"
 #include "ContextPopup.h"
 
 namespace Msg
@@ -38,6 +39,7 @@ namespace Msg
             bool isVisible() const;
             void reset();
 
+            PopupList &getPopupList();
             Popup &getPopup();
             bool isPopupVisible() const;
             void resetPopup();

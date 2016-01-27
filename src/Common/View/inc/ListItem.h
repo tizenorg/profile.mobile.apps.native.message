@@ -63,7 +63,7 @@ namespace Msg
 
         public:
             ListItem(Elm_Genlist_Item_Type type = ELM_GENLIST_ITEM_NONE);
-            ListItem(const ListItemStyleRef &itemStyle, Elm_Genlist_Item_Type type);
+            ListItem(const ListItemStyleRef &itemStyle, Elm_Genlist_Item_Type type = ELM_GENLIST_ITEM_NONE);
             virtual ~ListItem();
 
             // Base elm methods:
