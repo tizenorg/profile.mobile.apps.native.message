@@ -26,6 +26,7 @@
 #include "LangUtils.h"
 #include "CallbackAssist.h"
 #include "ContactViewer.h"
+#include "VoiceCall.h"
 
 #include <Elementary.h>
 #include <sstream>
@@ -128,6 +129,7 @@ void Conversation::markAsRead()
 void Conversation::recipientClickHandler(const std::string &address)
 {
     // TODO: impl for email
+    m_SelectedAddress = address;
     ContactPersonNumber contactPersonNumber = getApp().getContactManager().getContactPersonNumber(address);
     if(contactPersonNumber.isValid())
         ContactViewer::launch(contactPersonNumber.getPersonId());
@@ -801,6 +803,7 @@ void Conversation::onMakeVoiceItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
     item.getParent().destroy();
+    VoiceCall::launch(m_SelectedAddress);
 }
 
 void Conversation::onCreateContactItemPressed(PopupListItem &item)
