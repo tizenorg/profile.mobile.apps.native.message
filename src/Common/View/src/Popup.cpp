@@ -27,7 +27,6 @@ using namespace Msg;
 
 namespace
 {
-    const int defaultHeight = 300;
     const char *buttonIdKey = "id";
     const char *buttonCbKey = "cb";
     const char *buttonCbDataKey = "cb-data";
@@ -38,6 +37,7 @@ Popup::Popup(Evas_Object *parent)
     : m_pBox(nullptr)
     , m_pContent(nullptr)
     , m_CurrentButtonIndex(1)
+    , m_BlockClickedDismiss(false)
     , m_pManager(nullptr)
 {
     create(parent);
@@ -47,6 +47,7 @@ Popup::Popup(PopupManager &parent)
     : m_pBox(nullptr)
     , m_pContent(nullptr)
     , m_CurrentButtonIndex(1)
+    , m_BlockClickedDismiss(false)
     , m_pManager(&parent)
 {
     create(parent.getWindow());
@@ -60,6 +61,7 @@ Popup::~Popup()
 void Popup::create(Evas_Object *parent)
 {
     setEo(elm_popup_add(parent));
+    evas_object_smart_callback_add(getEo(), "block,clicked", on_popup_block_clicked_cb, this);
     elm_popup_orient_set(getEo(), ELM_POPUP_ORIENT_BOTTOM);
     elm_popup_align_set(getEo(), ELM_NOTIFY_ALIGN_FILL, 1.0);
     expand();
@@ -67,7 +69,6 @@ void Popup::create(Evas_Object *parent)
     m_pBox = elm_box_add(getEo());
     elm_box_homogeneous_set(m_pBox, EINA_FALSE);
     expand(m_pBox);
-    evas_object_size_hint_min_set(m_pBox, 0, defaultHeight);
     evas_object_show(m_pBox);
 
     elm_object_content_set(getEo(), m_pBox);
@@ -83,6 +84,7 @@ void Popup::destroy()
 
 Evas_Object *Popup::setContent(Evas_Object *content)
 {
+    expand(content);
     Evas_Object *oldContent = m_pContent;
     elm_box_unpack_all(m_pBox);
     elm_box_pack_start(m_pBox, content);
@@ -104,6 +106,11 @@ void Popup::setContent(const TText &text)
 void Popup::setHeight(int height)
 {
     evas_object_size_hint_min_set(m_pBox, 0, height);
+}
+
+void Popup::setAutoDismissBlockClickedFlag(bool value)
+{
+    m_BlockClickedDismiss = value;
 }
 
 Evas_Object *Popup::addButton(const TText &text, int buttonId, PopupButtonCb buttonCb, void *userData)
@@ -166,8 +173,14 @@ void Popup::on_button_clicked(void *data, Evas_Object *obj, void *event_info)
     }
 }
 
+void Popup::on_popup_block_clicked_cb(void *data, Evas_Object *obj, void *event_info)
+{
+    Popup *popup = static_cast<Popup*>(data);
+    if(popup->m_BlockClickedDismiss)
+        popup->destroy();
+}
+
 void Popup::defaultButtonCb(Popup &popup, int buttonId, void *userData)
 {
-    if(popup.m_pManager)
-        popup.m_pManager->resetPopup();
+    popup.destroy();
 }

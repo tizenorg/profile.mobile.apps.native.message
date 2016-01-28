@@ -107,7 +107,7 @@ void Conversation::recipientClickHandler(const std::string &address)
     }
     else
     {
-        showRecipPopup();
+        showRecipPopup(address);
     }
 }
 
@@ -400,13 +400,14 @@ void Conversation::showNoRecipPopup()
     popup.show();
 }
 
-void Conversation::showRecipPopup()
+void Conversation::showRecipPopup(const std::string &title)
 {
-    ContextPopup &popup = getApp().getPopupManager().getCtxPopup();
-    popup.appendItem(msg("IDS_MSG_OPT_MAKE_VOICE_CALL"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(Conversation, onMakeVoiceItemPressed), this);
-    popup.appendItem(msg("IDS_MSG_OPT_CREATE_CONTACT_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(Conversation, onCreateContactItemPressed), this);
-    popup.appendItem(msg("IDS_MSG_OPT_UPDATE_CONTACT"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(Conversation, onUpdateContactItemPressed), this);
-    popup.align(getApp().getWindow());
+    PopupList &popup = getApp().getPopupManager().getPopupList();
+    popup.setTitle(title);
+    popup.setAutoDismissBlockClickedFlag(true);
+    popup.appendItem(msg("IDS_MSG_OPT_MAKE_VOICE_CALL"),  POPUPLIST_ITEM_PRESSED_CB(Conversation, onMakeVoiceItemPressed), this);
+    popup.appendItem(msg("IDS_MSG_OPT_CREATE_CONTACT_ABB"),  POPUPLIST_ITEM_PRESSED_CB(Conversation, onCreateContactItemPressed), this);
+    popup.appendItem(msg("IDS_MSG_OPT_UPDATE_CONTACT"),  POPUPLIST_ITEM_PRESSED_CB(Conversation, onUpdateContactItemPressed), this);
     popup.show();
 }
 
@@ -697,19 +698,19 @@ void Conversation::onAddRecipientsItemPressed(ContextPopupItem &item)
     setMode(NewMessageMode);
 }
 
-void Conversation::onMakeVoiceItemPressed(ContextPopupItem &item)
+void Conversation::onMakeVoiceItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
     item.getParent().destroy();
 }
 
-void Conversation::onCreateContactItemPressed(ContextPopupItem &item)
+void Conversation::onCreateContactItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
     item.getParent().destroy();
 }
 
-void Conversation::onUpdateContactItemPressed(ContextPopupItem &item)
+void Conversation::onUpdateContactItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
     item.getParent().destroy();

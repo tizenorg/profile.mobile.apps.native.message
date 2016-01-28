@@ -100,9 +100,9 @@ namespace Msg
             void onDeleteItemPressed(ContextPopupItem &item);
             void onAddRecipientsItemPressed(ContextPopupItem &item);
 
-            void onMakeVoiceItemPressed(ContextPopupItem &item);
-            void onCreateContactItemPressed(ContextPopupItem &item);
-            void onUpdateContactItemPressed(ContextPopupItem &item);
+            void onMakeVoiceItemPressed(PopupListItem &item);
+            void onCreateContactItemPressed(PopupListItem &item);
+            void onUpdateContactItemPressed(PopupListItem &item);
 
             // ConvList callbacks:
             virtual void onAllItemsDeleted(ConvList &list);
@@ -132,7 +132,7 @@ namespace Msg
 
             void showMainCtxPopup();
             void showNoRecipPopup();
-            void showRecipPopup();
+            void showRecipPopup(const std::string &title);
             void showSendResultPopup(MsgTransport::SendResult result);
 
             void notifyConvertMsgType();
