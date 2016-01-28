@@ -32,6 +32,7 @@
 #include "AppControlCompose.h"
 #include "AppControlDefault.h"
 #include "AttachPanel.h"
+#include "ContactEditor.h"
 
 namespace Msg
 {
@@ -49,6 +50,7 @@ namespace Msg
         , private IConvContactListListener
         , private IConvListListener
         , private IAttachPanelListener
+        , private IContactEditorListener
     {
         public:
             Conversation(NaviFrameController &parent);
@@ -118,6 +120,11 @@ namespace Msg
             // IAttachPanelListener:
             virtual void onFileSelected(AttachPanel &panel, const AttachPanel::FileList &files);
 
+            // IContactEditorListener:
+            virtual void onContactCreated(ContactEditor &obj);
+            virtual void onContactChanged(ContactEditor &obj);
+
+
         private:
             void create();
             void setMode(Mode mode);
@@ -136,6 +143,7 @@ namespace Msg
             void destroyConvList();
             void markAsRead();
             void recipientClickHandler(const std::string &address);
+            void contactChangedHandler();
             MsgAddressListRef getAddressList();
             void resetDefferedCmd();
             bool isDefferedCmd() const;
@@ -171,6 +179,8 @@ namespace Msg
             ConvList *m_pConvList;
             AttachPanel m_AttachPanel;
             DefferedCmd m_DefferedCmd;
+            std::string m_SelectedAddress;
+            ContactEditor m_ContactEditor;
     };
 }
 

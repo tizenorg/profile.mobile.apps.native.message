@@ -61,6 +61,7 @@ Conversation::~Conversation()
     if(m_pContactsList)
         m_pContactsList->setListener(nullptr);
     m_AttachPanel.setListener(nullptr);
+    m_ContactEditor.setListener(nullptr);
 }
 
 void Conversation::execCmd(const AppControlComposeRef &cmd)
@@ -117,6 +118,7 @@ void Conversation::create()
     getMsgEngine().getStorage().addListener(*this);
     setHwButtonListener(*m_pLayout, this);
     m_AttachPanel.setListener(this);
+    m_ContactEditor.setListener(this);
 }
 
 void Conversation::markAsRead()
@@ -127,12 +129,21 @@ void Conversation::markAsRead()
 
 void Conversation::recipientClickHandler(const std::string &address)
 {
+    MSG_LOG("");
     // TODO: impl for email
+    m_SelectedAddress = address;
     ContactPersonNumber contactPersonNumber = getApp().getContactManager().getContactPersonNumber(address);
     if(contactPersonNumber.isValid())
         ContactViewer::launch(contactPersonNumber.getPersonId());
     else
         showRecipPopup(address);
+}
+
+void Conversation::contactChangedHandler()
+{
+    updateNavibar();
+    if(m_pRecipPanel)
+        m_pRecipPanel->update(m_ThreadId);
 }
 
 void Conversation::navigateTo(MsgId msgId)
@@ -553,6 +564,8 @@ void Conversation::updateNavibar()
     getNaviBar().clear();
     getNaviBar().setColor(NaviBar::NaviWhiteColorId);
 
+    // TODO: Update Navibar title(center) button in separated method ?
+
     if(m_Mode == NewMessageMode)
     {
         getNaviBar().setTitle(msgt("IDS_MSGF_POP_NEW_MESSAGE"));
@@ -807,12 +820,14 @@ void Conversation::onCreateContactItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
     item.getParent().destroy();
+    m_ContactEditor.launch(m_SelectedAddress, ContactEditor::CreateOp);
 }
 
 void Conversation::onUpdateContactItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
     item.getParent().destroy();
+    m_ContactEditor.launch(m_SelectedAddress, ContactEditor::EditOp);
 }
 
 void Conversation::onAllItemsDeleted(ConvList &list)
@@ -825,4 +840,16 @@ void Conversation::onFileSelected(AttachPanel &panel, const AttachPanel::FileLis
 {
     MSG_LOG("");
     m_pBody->addMedia(files);
+}
+
+void Conversation::onContactCreated(ContactEditor &obj)
+{
+    MSG_LOG("");
+    contactChangedHandler();
+}
+
+void Conversation::onContactChanged(ContactEditor &obj)
+{
+    MSG_LOG("");
+    contactChangedHandler();
 }
