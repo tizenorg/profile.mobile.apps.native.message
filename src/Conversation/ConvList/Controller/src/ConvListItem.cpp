@@ -185,7 +185,8 @@ void ConvListItem::showDraftCtxPopup()
 
 void ConvListItem::onDeleteItemPressed(ContextPopupItem &item)
 {
-    MSG_LOG("");
+    item.getParent().destroy();
+    m_App.getMsgEngine().getStorage().deleteMessage(getMsgId());
 }
 
 void ConvListItem::onCopyTextItemPressed(ContextPopupItem &item)
