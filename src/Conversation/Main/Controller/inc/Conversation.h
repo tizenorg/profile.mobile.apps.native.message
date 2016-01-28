@@ -171,6 +171,7 @@ namespace Msg
             ConvList *m_pConvList;
             AttachPanel m_AttachPanel;
             DefferedCmd m_DefferedCmd;
+            std::string m_SelectedAdress;
     };
 }
 
