@@ -67,6 +67,12 @@ namespace Msg
                 ConversationMode
             };
 
+            struct DefferedCmd
+            {
+                AppControlComposeRef composeCmd;
+                AppControlDefaultRef defaultCmd;
+            };
+
         private:
             // NaviFrameItem:
             virtual void onAttached(ViewItem &item);
@@ -95,6 +101,8 @@ namespace Msg
              // Popup callbacks:
             void onPopupDel(Evas_Object *popup, void *eventInfo);
             void onMsgSendErrorButtonClicked(Popup &popup, int buttonId);
+            void onNoRecipCancelButtonClicked(Popup &popup, int buttonId);
+            void onNoRecipDiscardButtonClicked(Popup &popup, int buttonId);
 
             // ContextPopup callbacks:
             void onDeleteItemPressed(ContextPopupItem &item);
@@ -129,15 +137,18 @@ namespace Msg
             void markAsRead();
             void recipientClickHandler(const std::string &address);
             MsgAddressListRef getAddressList();
+            void resetDefferedCmd();
+            bool isDefferedCmd() const;
+            bool isRecipExists() const;
+            bool isBodyEmpty() const;
+            void notifyConvertMsgType();
+            void convertMsgTypeHandler();
+            void checkAndSetMsgType();
 
             void showMainCtxPopup();
             void showNoRecipPopup();
             void showRecipPopup(const std::string &title);
             void showSendResultPopup(MsgTransport::SendResult result);
-
-            void notifyConvertMsgType();
-            void convertMsgTypeHandler();
-            void checkAndSetMsgType();
 
             void sendMessage();
             void fillMessage(Message &msg);
@@ -159,6 +170,7 @@ namespace Msg
             bool m_IsMms; // Compose message type
             ConvList *m_pConvList;
             AttachPanel m_AttachPanel;
+            DefferedCmd m_DefferedCmd;
     };
 }
 

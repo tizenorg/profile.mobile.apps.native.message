@@ -52,7 +52,6 @@ Conversation::~Conversation()
 {
     // Call before delete all children:
     MSG_LOG("");
-    saveDraftMsg();
     getMsgEngine().getStorage().removeListener(*this);
     if(m_pBody)
         m_pBody->setListener(nullptr);
@@ -65,6 +64,17 @@ Conversation::~Conversation()
 
 void Conversation::execCmd(const AppControlComposeRef &cmd)
 {
+    if(!isRecipExists() && !isBodyEmpty() && m_Mode == NewMessageMode) // Check if we can save draft to avoid losing data
+    {
+        m_DefferedCmd.composeCmd = cmd;
+        showNoRecipPopup();
+        return;
+    }
+    else
+    {
+        saveDraftMsg();
+    }
+
     setThreadId(ThreadId());
     if(m_pRecipPanel)
         m_pRecipPanel->execCmd(cmd);
@@ -74,6 +84,23 @@ void Conversation::execCmd(const AppControlComposeRef &cmd)
 
 void Conversation::execCmd(const AppControlDefaultRef &cmd)
 {
+    if(!isRecipExists() && !isBodyEmpty() && m_Mode == NewMessageMode) // Check if we can save draft to avoid losing data
+    {
+        m_DefferedCmd.defaultCmd = cmd;
+        showNoRecipPopup();
+        return;
+    }
+    else
+    {
+        saveDraftMsg();
+    }
+
+    if(cmd->getDefaultType() == AppControlDefault::NotificationType && getMsgEngine().getStorage().getUnreadThreadCount() > 1)
+    {
+        getParent().pop();
+        return;
+    }
+
     setThreadId(getMsgEngine().getStorage().getMessage(cmd->getMessageId())->getThreadId());
     if(cmd->getDefaultType() == AppControlDefault::ReplyType)
         m_pBody->setFocus(true);
@@ -317,7 +344,8 @@ void Conversation::sendMessage()
 {
     if(!m_ThreadId.isValid() && m_pRecipPanel->isMbeEmpty())
     {
-        showNoRecipPopup();
+        notification_status_message_post(msg("IDS_MSG_TPOP_ADD_RECIPIENTS").cStr());
+        m_pRecipPanel->setEntryFocus(true);
         return;
     }
 
@@ -347,7 +375,7 @@ void Conversation::sendMessage()
 
 void Conversation::saveDraftMsg()
 {
-    if(m_pBody && !m_pBody->isEmpty())
+    if(!isBodyEmpty())
     {
         MessageRef msg = getMsgEngine().getComposer().createMessage(m_IsMms ? Message::MT_MMS : Message::MT_SMS);
 
@@ -391,11 +419,33 @@ void Conversation::checkAndSetMsgType()
     }
 }
 
+void Conversation::resetDefferedCmd()
+{
+    m_DefferedCmd.composeCmd.reset();
+    m_DefferedCmd.defaultCmd.reset();
+}
+
+bool Conversation::isDefferedCmd() const
+{
+    return m_DefferedCmd.composeCmd || m_DefferedCmd.defaultCmd;
+}
+
+bool Conversation::isRecipExists() const
+{
+    return m_pRecipPanel && !m_pRecipPanel->isMbeEmpty();
+}
+
+bool Conversation::isBodyEmpty() const
+{
+    return m_pBody && m_pBody->isEmpty();
+}
+
 void Conversation::showNoRecipPopup()
 {
     Popup &popup = getApp().getPopupManager().getPopup();
     popup.addEventCb(EVAS_CALLBACK_DEL, EVAS_EVENT_CALLBACK(Conversation, onPopupDel), this);
-    popup.addButton(msgt("IDS_MSG_BUTTON_OK_ABB"), Popup::OkButtonId, POPUP_BUTTON_CB(Conversation, onMsgSendErrorButtonClicked), this);
+    popup.addButton(msgt("IDS_MSG_BUTTON_CANCEL_ABB"), Popup::CancelButtonId, POPUP_BUTTON_CB(Conversation, onNoRecipCancelButtonClicked), this);
+    popup.addButton(msgt("IDS_MSG_BUTTON_DISCARD_ABB"), Popup::OkButtonId, POPUP_BUTTON_CB(Conversation, onNoRecipDiscardButtonClicked), this);
     popup.setContent(msgt("IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"));
     popup.show();
 }
@@ -592,7 +642,16 @@ void Conversation::onHwBackButtonClicked()
         return;
     }
 
-    getParent().pop();
+    if(!isRecipExists() && !isBodyEmpty() && m_Mode == NewMessageMode)
+    {
+        showNoRecipPopup();
+        return;
+    }
+    else
+    {
+        saveDraftMsg();
+        getParent().pop();
+    }
 }
 
 void Conversation::onHwMoreButtonClicked()
@@ -680,6 +739,49 @@ void Conversation::onMsgSendErrorButtonClicked(Popup &popup, int buttonId)
 {
     MSG_LOG("");
     m_pBody->setFocus(true);
+    popup.destroy();
+}
+
+void Conversation::onNoRecipCancelButtonClicked(Popup &popup, int buttonId)
+{
+    m_pBody->setFocus(true);
+    popup.destroy();
+}
+
+void Conversation::onNoRecipDiscardButtonClicked(Popup &popup, int buttonId)
+{
+    if(isDefferedCmd())
+    {
+        if(m_DefferedCmd.defaultCmd)
+        {   // If we came from notification menu and unread threads will be more than one, we should to go back on thread list view
+            if(m_DefferedCmd.defaultCmd->getDefaultType() == AppControlDefault::NotificationType && getMsgEngine().getStorage().getUnreadThreadCount() > 1)
+            {
+                getParent().pop();
+            }
+            else
+            {   // Go to needed conversation
+                MessageRef msg = getMsgEngine().getStorage().getMessage(m_DefferedCmd.defaultCmd->getMessageId());
+                if(msg)
+                    setThreadId(msg->getThreadId());
+                if(m_DefferedCmd.defaultCmd->getDefaultType() == AppControlDefault::ReplyType)
+                    m_pBody->setFocus(true);
+            }
+        }
+        else if(m_DefferedCmd.composeCmd)
+        {   // Go to needed conversation
+            setThreadId(ThreadId());
+            if(m_pRecipPanel)
+                m_pRecipPanel->execCmd(m_DefferedCmd.composeCmd);
+            if(m_pBody)
+                m_pBody->execCmd(m_DefferedCmd.composeCmd);
+        }
+        resetDefferedCmd();
+    }
+    else
+    {   // We will get here from conversation after tap on Back Button
+        getParent().pop();
+    }
+
     popup.destroy();
 }
 
