@@ -26,6 +26,7 @@
 #include "ContactList.h"
 #include "ContactPersonPhoneLog.h"
 #include "ContactPersonNumber.h"
+#include "ContactPersonEmail.h"
 
 namespace Msg
 {
@@ -58,17 +59,32 @@ namespace Msg
              */
             template<typename T>
             std::shared_ptr<ContactList<T>> search(const std::string &keyword);
+
             /**
-             *@brief        search for contacts-id, name, phone-number and thumbnail path based on phone-number
-             *@param[in]    number - contact person number
-             *@return       ContactPersonNumber
+             *@brief        Search by phone number ContactPersonNumber record
+             *@param[in]    number - phone number
+             *@return       Reference to ContactPersonNumber
              */
             ContactPersonNumberRef getContactPersonNumber(const std::string &number) const;
 
             /**
+             *@brief        Search by email address ContactPersonEmail record
+             *@param[in]    email - email address
+             *@return       Reference to ContactPersonEmail
+             */
+            ContactPersonEmailRef getContactPersonEmail(const std::string &email) const;
+
+            /**
+             *@brief        Search by email and phone and return ContactPersonAddress record
+             *@param[in]    address - email or number
+             *@return       Reference to ContactPersonAddress
+             */
+            ContactPersonAddressRef getContactPersonAddress(const std::string &address) const;
+
+            /**
              *@brief        Search for contacts-id, name, phone-number and thumbnail path based on phone-number id
              *@param[in]    phoneId - identifier of phone-number in contacts-database
-             *@return       ContactPersonNumber
+             *@return       Reference to ContactPersonNumber
              */
             ContactPersonNumberRef getContactPersonNumber(int phoneId) const;
 
@@ -97,6 +113,7 @@ namespace Msg
              * @param[in] filter to be used for db-request. DO NOT destroy filter manually, it will be destroyed insithe this method.
              */
             ContactPersonNumberRef getContactPersonNumber(contacts_filter_h filter) const;
+            ContactPersonEmailRef getContactPersonEmail(contacts_filter_h filter) const;
 
         private:
             std::list<IContactDbChangeListener *> m_Listeners;

@@ -19,6 +19,7 @@
 #include "ContactPersonPhoneLog.h"
 #include "ContactPersonNumber.h"
 #include "ContactPersonEmail.h"
+#include "MsgUtils.h"
 
 #include <algorithm>
 
@@ -154,6 +155,22 @@
         return filter ? getContactPersonNumber(filter) : nullptr;
     }
 
+    ContactPersonEmailRef ContactManager::getContactPersonEmail(const std::string &email) const
+    {
+        contacts_filter_h filter = nullptr;
+        contacts_filter_create(_contacts_contact_email._uri, &filter);
+        contacts_filter_add_str(filter, _contacts_contact_email.email, CONTACTS_MATCH_EXACTLY, email.c_str());
+        return filter ? getContactPersonEmail(filter) : nullptr;
+    }
+
+    ContactPersonAddressRef ContactManager::getContactPersonAddress(const std::string &address) const
+    {
+        if(MsgUtils::isValidNumber(address))
+            return getContactPersonNumber(address);
+
+        return getContactPersonEmail(address);
+    }
+
     void ContactManager::contactChangedCb(const char *view_uri, void *user_data)
     {
         ContactManager *self = static_cast<ContactManager *>(user_data);
@@ -215,19 +232,60 @@
             {
                 contacts_record_get_int(crValue, _contacts_person_number.person_id, &contactId);
                 if(contactId > 0)
-                {
                     cResValue = crValue;
-                }
                 else
-                {
                     contacts_record_destroy(crValue, true);
-                }
             }
             ctRrr = contacts_list_next(list);
         }
 
         contacts_list_destroy(list, false);
         return cResValue ? std::make_shared<ContactPersonNumber>(true, cResValue) : nullptr;
+    }
+
+    ContactPersonEmailRef ContactManager::getContactPersonEmail(contacts_filter_h filter) const
+    {
+        contacts_query_h query = nullptr;
+        contacts_list_h list = nullptr;
+        contacts_record_h crValue = nullptr;
+        contacts_record_h cResValue = nullptr;
+
+        contacts_query_create(_contacts_person_email._uri, &query);
+        contacts_query_set_filter(query, filter);
+
+        unsigned int numberProjection[] =
+        {
+            _contacts_person_email.person_id,
+            _contacts_person_email.email,
+            _contacts_person_email.display_name,
+            _contacts_person_email.image_thumbnail_path
+        };
+
+        int ctRrr = contacts_query_set_projection(query, numberProjection, sizeof(numberProjection) / sizeof(unsigned int));
+        if(ctRrr == CONTACTS_ERROR_NONE)
+            ctRrr = contacts_db_get_records_with_query(query, 0, 0, &list);
+
+        contacts_filter_destroy(filter);
+        contacts_query_destroy(query);
+
+        while(ctRrr == CONTACTS_ERROR_NONE)
+        {
+            int contactId = 0;
+
+            contacts_list_get_current_record_p(list, &crValue);
+            if(crValue)
+            {
+                contacts_record_get_int(crValue, _contacts_person_email.person_id, &contactId);
+                if(contactId > 0)
+                    cResValue = crValue;
+                else
+                    contacts_record_destroy(crValue, true);
+            }
+            ctRrr = contacts_list_next(list);
+        }
+
+        contacts_list_destroy(list, false);
+        return cResValue ? std::make_shared<ContactPersonEmail>(true, cResValue) : nullptr;
     }
 }
 
