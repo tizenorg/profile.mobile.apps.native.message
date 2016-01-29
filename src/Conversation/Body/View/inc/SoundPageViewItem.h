@@ -26,7 +26,7 @@ namespace Msg
         : public MediaPageViewItem
     {
         public:
-            SoundPageViewItem(PageView &parent, const std::string &reourcePath);
+            SoundPageViewItem(PageView &parent, const std::string &resourcePath, const std::string &dispName = "");
             virtual ~SoundPageViewItem();
 
             virtual Type getType() const;

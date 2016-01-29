@@ -92,6 +92,13 @@ namespace Msg
              * @retval Returns true if all sucess, false otherwise
              */
             static bool remove(const std::string &path, bool removeCurrentDir = true);
+
+            /**
+             * @brief Read text file
+             * @param[in] file path name
+             * @retval Returns text content
+             */
+            static std::string readTextFile(const std::string &path);
     };
 }
 

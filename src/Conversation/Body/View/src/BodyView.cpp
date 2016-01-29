@@ -65,6 +65,12 @@ const PageView &BodyView::getDefaultPage() const
     return *m_pDefaultPage;
 }
 
+PageView &BodyView::getDefaultPage()
+{
+    assert(m_pDefaultPage);
+    return *m_pDefaultPage;
+}
+
 bool BodyView::isEmpty() const
 {
     const auto pages = getPages();
@@ -247,9 +253,9 @@ PageView *BodyView::addPage()
     return page;
 }
 
-BodyAttachmentView *BodyView::addAttachment(const std::string &filePath)
+BodyAttachmentView *BodyView::addAttachment(const std::string &filePath, const std::string &dispName)
 {
-    BodyAttachmentView *attachment = new BodyAttachmentView(*this, filePath);
+    BodyAttachmentView *attachment = new BodyAttachmentView(*this, filePath, dispName);
     insertBefore(*attachment, *m_pDefaultPage);
     return attachment;
 }
@@ -326,9 +332,9 @@ ImagePageViewItem *BodyView::addImage(PageView &page, const std::string &filePat
     return item;
 }
 
-SoundPageViewItem *BodyView::addSound(PageView &page, const std::string &filePath)
+SoundPageViewItem *BodyView::addSound(PageView &page, const std::string &filePath, const std::string &dispName)
 {
-    SoundPageViewItem *item = new SoundPageViewItem(page, filePath);
+    SoundPageViewItem *item = new SoundPageViewItem(page, filePath, dispName);
     item->setListener(this);
     item->show();
     page.addItem(*item);
