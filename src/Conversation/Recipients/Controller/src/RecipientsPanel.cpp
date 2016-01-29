@@ -49,6 +49,11 @@ void RecipientsPanel::read(Message &msg)
     }
 }
 
+void RecipientsPanel::write(const Message &msg)
+{
+    update(msg.getAddressList());
+}
+
 bool RecipientsPanel::isMms() const
 {
     auto items = getItems();
@@ -86,17 +91,14 @@ void RecipientsPanel::addRecipientsFromEntry()
     setEntryText(result.invalidResult);
 }
 
-void RecipientsPanel::update(const MsgAddressListRef &addressList)
+void RecipientsPanel::update(const MsgAddressList &addressList)
 {
     clearMbe();
-    if(addressList)
+    int addrListLen = addressList.getLength();
+    for(int i = 0; i < addrListLen; i++)
     {
-        int addrListLen = addressList->getLength();
-        for(int i = 0; i < addrListLen; i++)
-        {
-            auto &addr = addressList->at(i);
-            appendItem(addr.getAddress(), addr.getAddressType());
-        }
+        auto &addr = addressList.at(i);
+        appendItem(addr.getAddress(), addr.getAddressType());
     }
 }
 
@@ -106,7 +108,8 @@ void RecipientsPanel::update(const ThreadId &threadId)
     if(threadId.isValid())
     {
         MsgAddressListRef addrList = m_App.getMsgEngine().getStorage().getAddressList(threadId);
-        update(addrList);
+        if(addrList)
+            update(*addrList);
     }
 }
 
@@ -128,9 +131,8 @@ RecipientsPanel::AppendItemStatus RecipientsPanel::appendItem(const std::string 
     if(!isRecipientExists(address))
     {
         if(addressType == MsgAddress::UnknownAddressType)
-        {
             addressType = MsgUtils::getAddressType(address);
-        }
+
         if(addressType == MsgAddress::Phone || addressType == MsgAddress::Email)
         {
             result = SuccessStatus;

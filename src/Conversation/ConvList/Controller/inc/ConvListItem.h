@@ -28,6 +28,7 @@
 namespace Msg
 {
     class MsgConversationItem;
+    class IConvListItemListener;
 
     class ConvListItem
         : public ConvListViewItem
@@ -45,6 +46,8 @@ namespace Msg
              */
             MsgId getMsgId() const;
             void showPopup();
+            void setListener(IConvListItemListener *l);
+
 
         protected:
             virtual Evas_Object *getBubbleContent();
@@ -79,6 +82,7 @@ namespace Msg
             void onPopupDel(Evas_Object *popup, void *eventInfo);
 
         private:
+            IConvListItemListener *m_pListener;
             App &m_App;
             MsgId m_MsgId;
             std::string m_MessageText;
@@ -86,6 +90,13 @@ namespace Msg
             Message::Status m_Status;
             Message::Type m_Type;
             BubbleEntity m_BubbleEntity;
+    };
+
+    class IConvListItemListener
+    {
+        public:
+            virtual ~IConvListItemListener() {}
+            virtual void onEditDraftMsg(ConvListItem &item) {};
     };
 }
 

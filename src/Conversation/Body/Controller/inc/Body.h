@@ -66,6 +66,11 @@ namespace Msg
             void readAttachments(MessageMms &msg);
             void write(const MessageSMS &msg);
             void write(const MessageMms &msg);
+            void writePage(const MsgPage &msgPage, PageView &pageView);
+            void writeText(const MsgMedia &msgMedia, PageView &pageView);
+            void writeImage(const MsgMedia &msgMedia, PageView &pageView);
+            void writeSound(const MsgMedia &msgMedia, PageView &pageView);
+            void writeAttachments(const MessageMms &msg);
             bool isMms(const PageView &page) const;
             void writeTextToFile(TextPageViewItem &item);
 

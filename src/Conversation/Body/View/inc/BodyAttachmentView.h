@@ -29,7 +29,7 @@ namespace Msg
         : public BodyViewItem
     {
         public:
-            BodyAttachmentView(BodyView &parent, const std::string &resourePath);
+            BodyAttachmentView(BodyView &parent, const std::string &resourePath, const std::string &dispName = "");
             virtual ~BodyAttachmentView();
 
             void setListener(IBodyAttachmentViewListener *listener);
@@ -45,7 +45,7 @@ namespace Msg
             Evas_Object *m_pLayaout;
             IBodyAttachmentViewListener *m_pListener;
             const std::string m_ResourePath;
-            const std::string m_FileName;
+            std::string m_FileName;
     };
 
     class IBodyAttachmentViewListener

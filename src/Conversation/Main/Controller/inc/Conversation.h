@@ -116,6 +116,7 @@ namespace Msg
 
             // ConvList callbacks:
             virtual void onAllItemsDeleted(ConvList &list);
+            virtual void onEditDraftMsg(MsgId id);
 
             // IAttachPanelListener:
             virtual void onFileSelected(AttachPanel &panel, const AttachPanel::FileList &files);
@@ -159,9 +160,11 @@ namespace Msg
             void showSendResultPopup(MsgTransport::SendResult result);
 
             void sendMessage();
-            void fillMessage(Message &msg);
-            void fillMsgAddress(Message &msg);
+            void read(Message &msg);
+            void readMsgAddress(Message &msg);
+            void write(const Message &msg);
             void saveDraftMsg();
+            void editDraftMsg(MsgId id);
 
             void onNaviOkButtonClicked();
             void onNaviCenterButtonClicked();
