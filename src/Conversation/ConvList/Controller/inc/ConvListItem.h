@@ -47,7 +47,7 @@ namespace Msg
             void showPopup();
 
         protected:
-            virtual Evas_Object *getBubble();
+            virtual Evas_Object *getBubbleContent();
             virtual Evas_Object *getThumbnail();
             virtual std::string getText();
             virtual std::string getTime();
@@ -57,6 +57,7 @@ namespace Msg
 
         private:
             ConvListViewItem::ConvItemType getConvItemType(MsgConversationItem &item);
+            void prepareBubble(MsgConversationItem &item);
 
             // Create Popup when message is clicked
             void showMainCtxPopup();
@@ -77,8 +78,6 @@ namespace Msg
             void onFailedResendButtonClicked(Popup &popup, int buttonId);
             void onPopupDel(Evas_Object *popup, void *eventInfo);
 
-            void onBubbleResized(Evas_Object *obj, void *data);
-
         private:
             App &m_App;
             MsgId m_MsgId;
@@ -86,10 +85,7 @@ namespace Msg
             bool m_IsDraft;
             Message::Status m_Status;
             Message::Type m_Type;
-
-            //Fixme: temporary fix caused by genlist resize issue
-            Evas_Coord m_Width;
-            Evas_Coord m_Height;
+            BubbleEntity m_BubbleEntity;
     };
 }
 

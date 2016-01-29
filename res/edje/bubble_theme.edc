@@ -181,7 +181,6 @@ group { name: "elm/genlist/item/sentbubble/default";
                 min: 0 BUBBLE_INFO_TEXT_HEIGHT;
                 max: -1 BUBBLE_INFO_TEXT_HEIGHT;
                 rel1.to_y: "info.status";
-                rel1.to_x: "info.pad";
                 rel1.relative: 0.0 1.0;
                 rel2.to_x: "info.thumb.pad";
                 rel2.relative: 0.0 1.0;
@@ -481,7 +480,7 @@ group { name: "elm/genlist/item/receivebubble/default";
                 align: 0.0 0.0;
                 rel1.to_x: "info.thumb.pad";
                 rel1.relative: 1.0 1.0;
-                rel2.to_x: "info.pad";
+                rel2.to_x: "";
                 rel2.relative: 1.0 0.0;
                 text.style: "entry_bubble_receive_textblock_style";
             }

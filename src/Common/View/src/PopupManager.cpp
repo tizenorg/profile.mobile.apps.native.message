@@ -83,12 +83,9 @@ void PopupManager::resetPopup()
 
 ContextPopup &PopupManager::getCtxPopup()
 {
-    if(!m_pCtxPopup)
-    {
-        m_pCtxPopup = new ContextPopup(*this);
-        eext_object_event_callback_add(*m_pCtxPopup, EEXT_CALLBACK_BACK, SMART_CALLBACK(PopupManager, onHwBackButtonCtxPopupClicked), this);
-    }
-
+    reset();
+    m_pCtxPopup = new ContextPopup(*this);
+    eext_object_event_callback_add(*m_pCtxPopup, EEXT_CALLBACK_BACK, SMART_CALLBACK(PopupManager, onHwBackButtonCtxPopupClicked), this);
     return *m_pCtxPopup;
 }
 

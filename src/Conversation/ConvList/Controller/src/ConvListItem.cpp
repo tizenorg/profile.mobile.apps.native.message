@@ -17,7 +17,6 @@
 
 #include "ConvListItem.h"
 #include "MsgConversationItem.h"
-#include "BubbleView.h"
 #include "ListView.h"
 #include "CallbackAssist.h"
 #include "ThumbnailMaker.h"
@@ -32,9 +31,9 @@ ConvListItem::ConvListItem(MsgConversationItem &item, App &app)
     , m_IsDraft(item.isDraft())
     , m_Status(item.getStatus())
     , m_Type(item.getType())
-    , m_Width(0)
-    , m_Height(0)
+    , m_BubbleEntity()
 {
+    prepareBubble(item);
 }
 
 ConvListItem::~ConvListItem()
@@ -58,50 +57,34 @@ ConvListViewItem::ConvItemType ConvListItem::getConvItemType(MsgConversationItem
     return type;
 }
 
-void ConvListItem::onBubbleResized(Evas_Object *obj, void *data)
+void ConvListItem::prepareBubble(MsgConversationItem &item)
 {
-    MSG_LOG("");
-    Evas_Coord w,h;
-    evas_object_geometry_get(obj, nullptr, nullptr, &w, &h);
-    if(m_Height < h || m_Width < w)
+    if(m_Type == Message::MT_SMS)
     {
-        m_Width = w;
-        m_Height = h;
-        MSG_LOG("sizes: ", m_Height, " ",m_Width);
-        elm_genlist_item_update(this->getElmObjItem());
+        m_BubbleEntity.addPart(BubbleEntity::TextPart, item.getText());
+    }
+    else
+    {
+        const MsgConvMediaList &list = item.getMediaList();
+        for(int i = 0; i < list.getLength(); i++)
+        {
+            std::string mime = list.at(i).getMime();
+            if(!list.at(i).getThumbPath().empty())
+                //msg service corrupts thumbnail's metadata, so it lost rotation. Use getPath instead getThumbPath until fix
+                m_BubbleEntity.addPart(BubbleEntity::ThumbnailPart, list.at(i).getPath());
+            else if(mime == "text/plain")
+                m_BubbleEntity.addPart(BubbleEntity::TextFilePart, list.at(i).getPath());
+            else if(mime != "application/smil")
+                m_BubbleEntity.addPart(BubbleEntity::TextPart, list.at(i).getName());
+        }
     }
 }
 
-Evas_Object *ConvListItem::getBubble()
+Evas_Object *ConvListItem::getBubbleContent()
 {
-    //TODO: implement getting of multimedia instead dummy content. Split to separate class (or update BubbleView)
-    //Only for demo
-    Evas_Object *box = elm_box_add(*getOwner());
-    evas_object_event_callback_add(box, EVAS_CALLBACK_RESIZE, EVAS_EVENT_CALLBACK(ConvListItem, onBubbleResized), this);
-    View::expand(box);
-
-    Evas_Object *label = elm_label_add(box);
-    elm_label_line_wrap_set(label, ELM_WRAP_MIXED);
-    elm_object_part_text_set(label, nullptr, m_MessageText.c_str());
-    View::expand(label);
-    evas_object_show(label);
-    elm_box_pack_end(box, label);
-
-    //Dummy image
-    Evas_Object *image = elm_image_add(box);
-    elm_image_file_set(image, PathUtils::getResourcePath(TEST_IMG_PATH).c_str(), nullptr);
-    evas_object_size_hint_min_set(image, 0, 150);
-    View::expand(image);
-    evas_object_show(image);
-    elm_box_pack_end(box, image);
-
-    MSG_LOG("sizes: ", m_Height, " ",m_Width);
-    if(m_Height > 0 && m_Width > 0)
-    {
-        evas_object_size_hint_min_set(box, m_Width, m_Height);
-        evas_object_size_hint_max_set(box, m_Width, m_Height);
-    }
-    return box;
+    BubbleView *bubble = new BubbleView(*getOwner());
+    bubble->fill(m_BubbleEntity);
+    return *bubble;
 }
 
 Evas_Object *ConvListItem::getThumbnail()

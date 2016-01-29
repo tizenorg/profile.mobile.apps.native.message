@@ -358,7 +358,7 @@ void Conversation::sendMessage()
         return;
     }
 
-    auto msg = getMsgEngine().getComposer().createSms();
+    auto msg = getMsgEngine().getComposer().createMessage(m_IsMms ? Message::MT_MMS : Message::MT_SMS);
     fillMessage(*msg);
     MSG_LOG("m_ThreadId = ", m_ThreadId);
     MsgTransport::SendResult sendRes = getMsgEngine().getTransport().sendMessage(*msg, &m_ThreadId);
