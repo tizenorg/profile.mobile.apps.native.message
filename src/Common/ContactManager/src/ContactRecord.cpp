@@ -18,13 +18,17 @@
 
 using namespace Msg;
 
-ContactRecord::ContactRecord(contacts_record_h record)
+ContactRecord::ContactRecord(bool release, contacts_record_h record)
     : m_Record(record)
+    , m_Release(release)
 {
 }
 
 ContactRecord::~ContactRecord()
 {
-
+    if(m_Record && m_Release)
+    {
+        contacts_record_destroy(m_Record, true);
+        m_Record = nullptr;
+    }
 }
-

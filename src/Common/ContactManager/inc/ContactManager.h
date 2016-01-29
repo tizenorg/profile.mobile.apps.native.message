@@ -21,6 +21,7 @@
 #include <list>
 #include <vector>
 #include <contacts.h>
+#include <memory>
 
 #include "ContactList.h"
 #include "ContactPersonPhoneLog.h"
@@ -56,20 +57,20 @@ namespace Msg
              * @param       keyword - search keyword
              */
             template<typename T>
-            ContactList<T> search(const std::string &keyword);
+            std::shared_ptr<ContactList<T>> search(const std::string &keyword);
             /**
              *@brief        search for contacts-id, name, phone-number and thumbnail path based on phone-number
              *@param[in]    number - contact person number
              *@return       ContactPersonNumber
              */
-            ContactPersonNumber getContactPersonNumber(const std::string &number) const;
+            ContactPersonNumberRef getContactPersonNumber(const std::string &number) const;
 
             /**
              *@brief        Search for contacts-id, name, phone-number and thumbnail path based on phone-number id
              *@param[in]    phoneId - identifier of phone-number in contacts-database
              *@return       ContactPersonNumber
              */
-            ContactPersonNumber getContactPersonNumber(int phoneId) const;
+            ContactPersonNumberRef getContactPersonNumber(int phoneId) const;
 
             /**
              *@brief        Add listener on contacts database
@@ -95,7 +96,7 @@ namespace Msg
              * @brief Generic search for basic contact attributes based on custom filter passed from above
              * @param[in] filter to be used for db-request. DO NOT destroy filter manually, it will be destroyed insithe this method.
              */
-            ContactPersonNumber getContactPersonNumber(contacts_filter_h filter) const;
+            ContactPersonNumberRef getContactPersonNumber(contacts_filter_h filter) const;
 
         private:
             std::list<IContactDbChangeListener *> m_Listeners;

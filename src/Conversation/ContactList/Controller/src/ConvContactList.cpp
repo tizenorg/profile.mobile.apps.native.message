@@ -25,14 +25,9 @@ using namespace Msg;
 
 namespace
 {
-    inline bool isValid(const ContactPersonNumber &rec)
+    inline bool isValid(const ContactPersonAddress &rec)
     {
-        return !rec.getNumber().empty();
-    }
-
-    inline bool isValid(const ContactPersonEmail &rec)
-    {
-        return !rec.getEmail().empty();
+        return !rec.getAddress().empty();
     }
 
     inline bool isValid(const ContactPersonPhoneLog &rec)
@@ -93,11 +88,11 @@ template<typename ContactRecord>
 void ConvContactList::search()
 {
     auto list = m_ContactManager.search<ContactRecord>(m_SearchWord);
-    if(list.isValid())
+    if(list)
     {
         do
         {
-            auto rec = list.get();
+            auto &rec = list->get();
             if(isValid(rec))
             {
                 ContactListItem *item = new ContactListItem(rec, m_SearchWord);
@@ -107,8 +102,7 @@ void ConvContactList::search()
             {
                 MSG_LOG("Skip invalid contact");
             }
-        } while(list.next());
-         list.release();
+        } while(list->next());
      }
 }
 

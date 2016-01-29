@@ -112,13 +112,10 @@ void RecipientsPanel::update(const ThreadId &threadId)
 
 RecipientsPanel::AppendItemStatus RecipientsPanel::appendItem(const std::string &address, MsgAddress::AddressType addressType)
 {
-    ContactPersonNumber num = m_App.getContactManager().getContactPersonNumber(address);
-
     std::string dispName;
-    if(num.isValid())
-        dispName = num.getDispName();
-
-    num.release();
+    ContactPersonNumberRef num = m_App.getContactManager().getContactPersonNumber(address);
+    if(num)
+        dispName = num->getDispName();
     if(dispName.empty())
         dispName = address;
 
@@ -252,12 +249,9 @@ void RecipientsPanel::onContactsPicked(const std::list<int> &numberIdList)
     bool duplicateFound = false;
     for(auto phoneNumId : numberIdList)
     {
-        ContactPersonNumber num = m_App.getContactManager().getContactPersonNumber(phoneNumId);
-        if(num.isValid())
-        {
-            duplicateFound |= appendItem(num.getNumber(), num.getDispName(), MsgAddress::Phone) == DuplicatedStatus;
-            num.release();
-        }
+        ContactPersonNumberRef num = m_App.getContactManager().getContactPersonNumber(phoneNumId);
+        if(num)
+            duplicateFound |= appendItem(num->getAddress(), num->getDispName(), MsgAddress::Phone) == DuplicatedStatus;
     }
 
     if(duplicateFound)

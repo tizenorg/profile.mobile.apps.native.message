@@ -36,23 +36,13 @@ ContactListItem::ContactListItem(const ContactPersonPhoneLog &rec, const std::st
     m_MainText = TextDecorator::highlightKeyword(rec.getAddress(), searchWord);
 }
 
-ContactListItem::ContactListItem(const ContactPersonNumber &rec, const std::string &searchWord)
+ContactListItem::ContactListItem(const ContactPersonAddress &rec, const std::string &searchWord)
 {
     setStyle(ContactListViewItem::nameOrEmailStyle);
 
     m_MainText = TextDecorator::highlightKeyword(rec.getDispName(), searchWord);
-    m_SubText = TextDecorator::highlightKeyword(rec.getNumber(), searchWord);
-    m_Recipient = rec.getNumber();
-    m_ImagePath = rec.getThumbnailPath();
-}
-
-ContactListItem::ContactListItem(const ContactPersonEmail &rec, const std::string &searchWord)
-{
-    setStyle(ContactListViewItem::nameOrEmailStyle);
-
-    m_MainText = TextDecorator::highlightKeyword(rec.getDispName(), searchWord);
-    m_SubText = TextDecorator::highlightKeyword(rec.getEmail(), searchWord);
-    m_Recipient = rec.getEmail();
+    m_SubText = TextDecorator::highlightKeyword(rec.getAddress(), searchWord);
+    m_Recipient = rec.getAddress();
     m_ImagePath = rec.getThumbnailPath();
 }
 

@@ -133,9 +133,9 @@ void Conversation::recipientClickHandler(const std::string &address)
     MSG_LOG("");
     // TODO: impl for email
     m_SelectedAddress = address;
-    ContactPersonNumber contactPersonNumber = getApp().getContactManager().getContactPersonNumber(address);
-    if(contactPersonNumber.isValid())
-        ContactViewer::launch(contactPersonNumber.getPersonId());
+    ContactPersonNumberRef contactPersonNumber = getApp().getContactManager().getContactPersonNumber(address);
+    if(contactPersonNumber)
+        ContactViewer::launch(contactPersonNumber->getPersonId());
     else
         showRecipPopup(address);
 }
@@ -587,12 +587,9 @@ void Conversation::updateNavibar()
             {
                 std::string conversationName;
                 std::string firstNumber = addressList->at(0).getAddress();
-                ContactPersonNumber contactPersonNumber = getApp().getContactManager().getContactPersonNumber(firstNumber);
-                if(contactPersonNumber.isValid())
-                {
-                    conversationName = contactPersonNumber.getDispName();
-                    contactPersonNumber.release();
-                }
+                ContactPersonNumberRef contactPersonNumber = getApp().getContactManager().getContactPersonNumber(firstNumber);
+                if(contactPersonNumber)
+                    conversationName = contactPersonNumber->getDispName();
 
                 if(conversationName.empty())
                     conversationName = firstNumber;

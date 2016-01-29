@@ -18,39 +18,37 @@
 #define __ContactRecord_h__
 
 #include <contacts.h>
-#include <vector>
 #include <string>
+#include <memory>
 
 namespace Msg
 {
+    class ContactRecord;
+    typedef std::shared_ptr<ContactRecord> ContactRecordRef;
+
     class ContactRecord
     {
         public:
-            inline void release(bool releaseChildren = true);
-            inline bool isValid() const;
+            ContactRecord(bool release, contacts_record_h record = nullptr);
+            virtual ~ContactRecord();
+            ContactRecord(ContactRecord&) = delete;
+            ContactRecord& operator=(ContactRecord&) = delete;
+
+            virtual int getId() const = 0;
+            void set(contacts_record_h record);
 
         protected:
-            ContactRecord(contacts_record_h record);
-            virtual ~ContactRecord();
             std::string getStr(unsigned propertyId) const;
             int getInt(unsigned propertyId) const;
 
-        protected:
+        private:
             contacts_record_h m_Record;
+            bool m_Release;
     };
 
-    inline bool ContactRecord::isValid() const
+    inline void ContactRecord::set(contacts_record_h record)
     {
-        return m_Record != nullptr;
-    }
-
-    inline void ContactRecord::release(bool releaseChildren)
-    {
-        if(m_Record)
-        {
-            contacts_record_destroy(m_Record, releaseChildren);
-            m_Record = nullptr;
-        }
+        m_Record = record;
     }
 
     inline std::string ContactRecord::getStr(unsigned propertyId) const
@@ -66,6 +64,7 @@ namespace Msg
         contacts_record_get_int(m_Record, propertyId, &val);
         return val;
     }
+
 }
 
 #endif /* __ContactRecord_h__ */

@@ -17,26 +17,27 @@
 #ifndef __ContactPersonPhoneLog_h__
 #define __ContactPersonPhoneLog_h__
 
-#include <ContactRecord.h>
+#include "ContactRecord.h"
 
 namespace Msg
 {
-    class ContactManager;
+    class ContactPersonPhoneLog;
+    typedef std::shared_ptr<ContactPersonPhoneLog> ContactPersonPhoneLogRef;
 
     class ContactPersonPhoneLog
         : public ContactRecord
     {
         public:
-            ContactPersonPhoneLog(contacts_record_h record);
+            ContactPersonPhoneLog(bool release, contacts_record_h record = nullptr);
             static const char *getUri();
-            int getId() const;
+            virtual int getId() const;
             int getPersonId() const;
-            std::string getDispName() const;
             std::string getAddress() const;
+            std::string getDispName() const;
     };
 
-    inline ContactPersonPhoneLog::ContactPersonPhoneLog(contacts_record_h record)
-        : ContactRecord(record)
+    inline ContactPersonPhoneLog::ContactPersonPhoneLog(bool release, contacts_record_h record)
+        : ContactRecord(release, record)
     {
     }
 

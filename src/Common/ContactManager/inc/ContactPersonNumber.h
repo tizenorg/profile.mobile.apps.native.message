@@ -17,27 +17,29 @@
 #ifndef __ContactPersonNumber_h__
 #define __ContactPersonNumber_h__
 
-#include <ContactRecord.h>
+#include "ContactPersonAddress.h"
 
 namespace Msg
 {
-    class ContactManager;
+    class ContactPersonNumber;
+    typedef std::shared_ptr<ContactPersonNumber> ContactPersonNumberRef;
 
     class ContactPersonNumber
-        : public ContactRecord
+        : public ContactPersonAddress
     {
         public:
-            ContactPersonNumber(contacts_record_h record);
+            ContactPersonNumber(bool release, contacts_record_h record = nullptr);
             static const char *getUri();
-            int getId() const;
-            int getPersonId() const;
-            std::string getDispName() const;
-            std::string getNumber() const;
-            std::string getThumbnailPath() const;
+            virtual int getId() const;
+            virtual AddressType getAddressType() const;
+            virtual int getPersonId() const;
+            virtual std::string getDispName() const;
+            virtual std::string getAddress() const;
+            virtual std::string getThumbnailPath() const;
     };
 
-    inline ContactPersonNumber::ContactPersonNumber(contacts_record_h record)
-        : ContactRecord(record)
+    inline ContactPersonNumber::ContactPersonNumber(bool release, contacts_record_h record)
+        : ContactPersonAddress(release, record)
     {
     }
 
@@ -56,7 +58,7 @@ namespace Msg
         return getStr(_contacts_person_number.display_name);
     }
 
-    inline std::string ContactPersonNumber::getNumber() const
+    inline std::string ContactPersonNumber::getAddress() const
     {
         return getStr(_contacts_person_number.number);
     }
@@ -69,6 +71,11 @@ namespace Msg
     inline const char *ContactPersonNumber::getUri()
     {
         return _contacts_person_number._uri;
+    }
+
+    inline ContactPersonNumber::AddressType ContactPersonNumber::getAddressType() const
+    {
+        return NumberType;
     }
 }
 

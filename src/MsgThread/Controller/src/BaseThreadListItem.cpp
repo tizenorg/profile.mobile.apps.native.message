@@ -57,14 +57,14 @@ void BaseThreadListItem::updateThumbnail(const MsgAddressList &addressList)
 
 void BaseThreadListItem::updateThumbnail(const MsgAddress &addr)
 {
-    ContactPersonNumber contactNumber = m_App.getContactManager().getContactPersonNumber(addr.getAddress());
-    m_ThumbPath = contactNumber.getThumbnailPath();
+    ContactPersonNumberRef contactNumber = m_App.getContactManager().getContactPersonNumber(addr.getAddress());
+
+    if(contactNumber)
+        m_ThumbPath = contactNumber->getThumbnailPath();
     if(m_ThumbPath.empty())
         m_ThumbPath = PathUtils::getResourcePath(THUMB_CONTACT_IMG_PATH);
     else
         m_ThumbType = ThumbnailMaker::UserType;
-
-    contactNumber.release();
 }
 
 void BaseThreadListItem::updateTime(time_t time)

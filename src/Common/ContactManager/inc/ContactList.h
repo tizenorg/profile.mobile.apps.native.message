@@ -29,6 +29,17 @@ namespace Msg
             friend class ContactManager;
 
         public:
+            ContactList(contacts_list_h list)
+                : m_List(list)
+                , m_Record(false)
+            {
+            }
+
+            ~ContactList()
+            {
+                if(m_List)
+                    contacts_list_destroy(m_List, true);
+            }
 
             bool next()
             {
@@ -40,11 +51,12 @@ namespace Msg
                 return contacts_list_prev(m_List) == 0;
             }
 
-            T get()
+            T &get()
             {
                 contacts_record_h rec = nullptr;
                 contacts_list_get_current_record_p(m_List, &rec);
-                return T(rec);
+                m_Record.set(rec);
+                return m_Record;
             }
 
             int getCount() const
@@ -54,33 +66,9 @@ namespace Msg
                 return count;
             }
 
-            void release(bool releaseChildren = true)
-            {
-                if(m_List)
-                {
-                    contacts_list_destroy(m_List, releaseChildren);
-                    m_List = nullptr;
-                }
-            }
-
-            bool isValid()
-            {
-                return m_List != nullptr;
-            }
-
-        private:
-            ContactList()
-                : m_List()
-            {
-            }
-
-            ContactList(contacts_list_h list)
-                : m_List(list)
-            {
-            }
-
         private:
             contacts_list_h m_List;
+            T m_Record;
     };
 }
 

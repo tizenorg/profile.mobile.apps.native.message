@@ -89,7 +89,7 @@
 
 
     template <>
-    ContactList<ContactPersonPhoneLog> ContactManager::search<ContactPersonPhoneLog>(const std::string &keyword)
+    std::shared_ptr<ContactList<ContactPersonPhoneLog>> ContactManager::search<ContactPersonPhoneLog>(const std::string &keyword)
     {
         contacts_query_h query = nullptr;
         contacts_filter_h filter = nullptr;
@@ -107,6 +107,7 @@
         {
             _contacts_person_phone_log.person_id,
             _contacts_person_phone_log.address,
+            _contacts_person_phone_log.display_name
         };
 
         contacts_query_set_projection(query, numberProjection, sizeof(numberProjection)/sizeof(unsigned int));
@@ -116,43 +117,41 @@
         contacts_filter_destroy(filter);
         contacts_query_destroy(query);
 
-        return ContactList<ContactPersonPhoneLog>(list);
+        return list ? std::make_shared<ContactList<ContactPersonPhoneLog>>(list) : nullptr;
     }
 
     template<>
-    ContactList<ContactPersonNumber> ContactManager::search<ContactPersonNumber>(const std::string &keyword)
+    std::shared_ptr<ContactList<ContactPersonNumber>> ContactManager::search<ContactPersonNumber>(const std::string &keyword)
     {
         contacts_list_h list = nullptr;
         contacts_db_search_records_with_range(ContactPersonNumber::getUri(), keyword.c_str(),
                                               0, 0, CONTACTS_SEARCH_RANGE_NAME | CONTACTS_SEARCH_RANGE_NUMBER, &list);
-        ContactList<ContactPersonNumber> resultList(list);
-        return resultList;
+        return list ? std::make_shared<ContactList<ContactPersonNumber>>(list) : nullptr;
     }
 
     template<>
-    ContactList<ContactPersonEmail> ContactManager::search<ContactPersonEmail>(const std::string &keyword)
+    std::shared_ptr<ContactList<ContactPersonEmail>> ContactManager::search<ContactPersonEmail>(const std::string &keyword)
     {
         contacts_list_h list = nullptr;
         contacts_db_search_records_with_range(ContactPersonEmail::getUri(), keyword.c_str(),
                                               0, 0, CONTACTS_SEARCH_RANGE_NAME | CONTACTS_SEARCH_RANGE_EMAIL, &list);
-        ContactList<ContactPersonEmail> resultList(list);
-        return resultList;
+        return list ? std::make_shared<ContactList<ContactPersonEmail>>(list) : nullptr;
     }
 
-    ContactPersonNumber ContactManager::getContactPersonNumber(int phoneNumId) const
+    ContactPersonNumberRef ContactManager::getContactPersonNumber(int phoneNumId) const
     {
         contacts_filter_h filter = nullptr;
         contacts_filter_create(_contacts_contact_number._uri, &filter);
         contacts_filter_add_int(filter, _contacts_person_number.number_id, CONTACTS_MATCH_EQUAL, phoneNumId);
-        return getContactPersonNumber(filter);
+        return filter ? getContactPersonNumber(filter) : nullptr;
     }
 
-    ContactPersonNumber ContactManager::getContactPersonNumber(const std::string &number) const
+    ContactPersonNumberRef ContactManager::getContactPersonNumber(const std::string &number) const
     {
         contacts_filter_h filter = nullptr;
         contacts_filter_create(_contacts_contact_number._uri, &filter);
         contacts_filter_add_str(filter, _contacts_person_number.number_filter, CONTACTS_MATCH_EXACTLY, number.c_str());
-        return getContactPersonNumber(filter);
+        return filter ? getContactPersonNumber(filter) : nullptr;
     }
 
     void ContactManager::contactChangedCb(const char *view_uri, void *user_data)
@@ -182,7 +181,7 @@
         }
     }
 
-    ContactPersonNumber ContactManager::getContactPersonNumber(contacts_filter_h filter) const
+    ContactPersonNumberRef ContactManager::getContactPersonNumber(contacts_filter_h filter) const
     {
         contacts_query_h query = nullptr;
         contacts_list_h list = nullptr;
@@ -228,7 +227,7 @@
         }
 
         contacts_list_destroy(list, false);
-        return ContactPersonNumber(cResValue);
+        return cResValue ? std::make_shared<ContactPersonNumber>(true, cResValue) : nullptr;
     }
 }
 
