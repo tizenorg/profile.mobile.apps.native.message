@@ -225,7 +225,7 @@ void Conversation::setConversationMode()
     {
         createRecipPanel(*m_pLayout);
         m_pRecipPanel->showEntry(false);
-        m_pRecipPanel->update(addressList);
+        m_pRecipPanel->update(*addressList);
     }
     else
     {
@@ -328,15 +328,22 @@ void Conversation::createBody(Evas_Object *parent)
     }
 }
 
-void Conversation::fillMessage(Message &msg)
+void Conversation::write(const Message &msg)
 {
-    m_pBody->read(msg);
-    fillMsgAddress(msg);
+    m_pBody->write(msg);
+    if(m_pRecipPanel)
+        m_pRecipPanel->write(msg);
 }
 
-void Conversation::fillMsgAddress(Message &msg)
+void Conversation::read(Message &msg)
 {
-    if(m_ThreadId.isValid() && m_Mode != NewMessageMode)
+    m_pBody->read(msg);
+    readMsgAddress(msg);
+}
+
+void Conversation::readMsgAddress(Message &msg)
+{
+    if(m_ThreadId.isValid())
     {
         MsgAddressListRef addressList = getAddressList();
         if(addressList)
@@ -359,7 +366,7 @@ void Conversation::sendMessage()
     }
 
     auto msg = getMsgEngine().getComposer().createSms();
-    fillMessage(*msg);
+    read(*msg);
     MSG_LOG("m_ThreadId = ", m_ThreadId);
     MsgTransport::SendResult sendRes = getMsgEngine().getTransport().sendMessage(*msg, &m_ThreadId);
 
@@ -390,10 +397,25 @@ void Conversation::saveDraftMsg()
 
         if(msg)
         {
-            fillMessage(*msg);
+            read(*msg);
             MsgId msgId = getMsgEngine().getStorage().saveMessage(*msg);
             MSG_LOG("Draft message id = ", msgId);
         }
+    }
+}
+
+void Conversation::editDraftMsg(MsgId id)
+{
+    MessageRef msg = getMsgEngine().getStorage().getMessage(id);
+    if(msg)
+    {
+        saveDraftMsg(); // TODO: Check case if edit single(int ConvList) when Body not empty
+        if(m_pConvList->getMessageCount() <= 1)
+            setThreadId(ThreadId());
+
+        write(*msg);
+        getMsgEngine().getStorage().deleteMessage(id);
+        m_pBody->setFocus(true);
     }
 }
 
@@ -415,7 +437,7 @@ void Conversation::convertMsgTypeHandler()
 void Conversation::checkAndSetMsgType()
 {
     // Body:
-    bool isMms = !m_pBody->isEmpty() && m_pBody->isMms();
+    bool isMms = m_pBody->isMms();
 
     // Recipients:
     if(!isMms && m_pRecipPanel && !m_pRecipPanel->isMbeEmpty())
@@ -833,6 +855,12 @@ void Conversation::onAllItemsDeleted(ConvList &list)
 {
     MSG_LOG("");
     onHwBackButtonClicked();
+}
+
+void Conversation::onEditDraftMsg(MsgId id)
+{
+    MSG_LOG("");
+    editDraftMsg(id);
 }
 
 void Conversation::onFileSelected(AttachPanel &panel, const AttachPanel::FileList &files)

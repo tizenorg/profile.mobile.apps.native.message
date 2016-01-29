@@ -45,6 +45,7 @@ namespace Msg
             void clear();
             std::string getText() const;
             std::string getPlainUtf8Text() const;
+            void setText(const std::string &text);
 
         private:
             virtual void onBeforeDelete(View &view);

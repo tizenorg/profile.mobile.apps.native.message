@@ -23,16 +23,17 @@
 #include "MsgEngine.h"
 #include "ConvSelectAll.h"
 #include "App.h"
+#include "ConvListItem.h"
 
 namespace Msg
 {
-    class ConvListItem;
     class IConvListListener;
 
     class ConvList
         : public ConvListLayout
         , private IMsgStorageListener
         , private IListViewListener
+        , private IConvListItemListener
     {
         public:
             enum Mode
@@ -86,6 +87,12 @@ namespace Msg
              */
             void deleteSelectedItems();
 
+            /**
+             * @brief Get message count
+             * @return message count
+             */
+            int getMessageCount() const;
+
         private:
             void create(Evas_Object *parent);
             Evas_Object *createSelectAll(Evas_Object *parent);
@@ -104,6 +111,9 @@ namespace Msg
             virtual void onMsgStorageInsert(const MsgIdList &msgIdList);
             virtual void onMsgStorageDelete(const MsgIdList &msgIdList);
             virtual void onMsgStorageContact(const MsgIdList &msgIdList) {};
+
+            // IConvListItemListener:
+            virtual void onEditDraftMsg(ConvListItem &item);
 
             // SelectAll callback:
             void onSelectAllChanged(Evas_Object *obj, void *eventInfo);
@@ -127,6 +137,7 @@ namespace Msg
              * @brief called when all messages has been deleted from current thread
              */
             virtual void onAllItemsDeleted(ConvList &list) {};
+            virtual void onEditDraftMsg(MsgId id) {};
     };
 }
 
