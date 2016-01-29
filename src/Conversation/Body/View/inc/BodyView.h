@@ -54,12 +54,19 @@ namespace Msg
             void setFocus(bool focus);
             bool addMedia(const std::string &filePath);
             const PageView &getDefaultPage() const;
+            PageView &getDefaultPage();
             PageViewCollection getPages() const;
             int getPageCount() const;
             PageView *getNextPage(PageView &page) const;
             PageView *getPrevPage(PageView &page) const;
             PageView *addPage();
             BodyAttachmentCollection getAttachments() const;
+
+        protected:
+            BodyAttachmentView *addAttachment(const std::string &filePath, const std::string &dispName = "");
+            TextPageViewItem *addText(PageView &page);
+            ImagePageViewItem *addImage(PageView &page, const std::string &filePath);
+            SoundPageViewItem *addSound(PageView &page, const std::string &filePath, const std::string &dispName = "");
 
         private:
             /*====Input signals====*/
@@ -107,10 +114,6 @@ namespace Msg
             void showInputPanel(PageViewItem &pageItem, bool show);
             void removePage(PageView &page, bool setNextFocus);
             void removeAttachment(BodyAttachmentView &attachment);
-            TextPageViewItem *addText(PageView &page);
-            ImagePageViewItem *addImage(PageView &page, const std::string &filePath);
-            SoundPageViewItem *addSound(PageView &page, const std::string &filePath);
-            BodyAttachmentView *addAttachment(const std::string &filePath);
             void updateLastFocusedPage(PageViewItem &pageItem);
             PageView *getPageForMedia(PageViewItem::Type type);
             void backKeyHandler(MediaPageViewItem &item);

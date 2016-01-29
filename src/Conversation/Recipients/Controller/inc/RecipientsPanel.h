@@ -48,10 +48,11 @@ namespace Msg
             virtual ~RecipientsPanel();
 
             void read(Message &msg);
+            void write(const Message &msg);
             bool isMms() const;
             void setListener(IRecipientsPanelListener *l);
             void update(const ThreadId &threadId);
-            void update(const MsgAddressListRef &addressList);
+            void update(const MsgAddressList &addressList);
             AppendItemStatus appendItem(const std::string &address, MsgAddress::AddressType addressType = MsgAddress::UnknownAddressType);
             AppendItemStatus appendItem(const std::string &address, const std::string &dispName,
                               MsgAddress::AddressType addressType = MsgAddress::UnknownAddressType);

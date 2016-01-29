@@ -109,6 +109,7 @@ void ConvList::fill()
     {
         MsgConversationItem &item = convList->at(i);
         ConvListItem *listItem = new ConvListItem(item, m_App);
+        listItem->setListener(this);
         m_pList->appendItem(*listItem);
     }
 }
@@ -147,6 +148,12 @@ void ConvList::deleteSelectedItems()
             messages.push_back(item->getMsgId());
     }
     m_MsgEngine.getStorage().deleteMessages(messages);
+}
+
+int ConvList::getMessageCount() const
+{
+    auto items = m_pList->getItems<ConvListItem>();
+    return (int)items.size();
 }
 
 bool ConvList::isAllListItemSelected() const
@@ -210,3 +217,8 @@ void ConvList::onMsgStorageDelete(const MsgIdList &msgIdList)
         m_pListner->onAllItemsDeleted(*this);
 }
 
+void ConvList::onEditDraftMsg(ConvListItem &item)
+{
+    if(m_pListner)
+        m_pListner->onEditDraftMsg(item.getMsgId());
+}

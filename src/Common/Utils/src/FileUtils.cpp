@@ -25,6 +25,7 @@
 #include <dirent.h>
 #include <string.h>
 #include <ctype.h>
+#include <fstream>
 
 using namespace Msg;
 
@@ -182,4 +183,13 @@ bool FileUtils::remove(const std::string &path, bool removeCurrentDir)
     }
 
     return res;
+}
+
+std::string FileUtils::readTextFile(const std::string &path)
+{
+    std::string text;
+    std::ifstream fs(path, std::ifstream::in | std::ifstream::binary);
+    if(fs.is_open())
+        fs >> text;
+    return text;
 }

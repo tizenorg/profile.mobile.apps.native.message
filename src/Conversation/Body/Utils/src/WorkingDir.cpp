@@ -148,11 +148,11 @@ std::string WorkingDir::getNewFilePath(const std::string &path)
     unsigned i = 0;
     do
     {
-        res = m_Path + '/' + name + "-" + std::to_string(i);
+        res = m_Path + '/' + name;
+        if(i > 0)
+            res += "-" + std::to_string(i);
         if(!ext.empty())
-        {
             res += '.' + ext;
-        }
         ++i;
     }
     while(FileUtils::isExists(res));

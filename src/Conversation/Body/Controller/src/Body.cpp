@@ -171,7 +171,75 @@ void Body::write(const MessageSMS &msg)
 
 void Body::write(const MessageMms &msg)
 {
-    // TODO: impl
+    // Pages:
+    auto &pageList = msg.getPageList();
+    for(int i = 0; i < pageList.getLength(); ++i)
+    {
+        PageView &pageView = i == 0 ? getDefaultPage() : *addPage();
+        writePage(pageList[i], pageView);
+    }
+
+    // Attachments:
+    writeAttachments(msg);
+}
+
+void Body::writePage(const MsgPage &msgPage, PageView &pageView)
+{
+    auto &mediaList = msgPage.getMediaList();
+    for(int i = 0; i < mediaList.getLength(); ++i)
+    {
+        const MsgMedia &msgMedia = mediaList[i];
+        switch(msgMedia.getType())
+        {
+            case MsgMedia::SmilText:
+                writeText(msgMedia, pageView);
+                break;
+            case MsgMedia::SmilImage:
+                writeImage(msgMedia, pageView);
+                break;
+            case MsgMedia::SmilAudio:
+                writeSound(msgMedia, pageView);
+                break;
+
+            default:
+                MSG_LOG_WARN("Skip unsupported Smil type");
+                break;
+        }
+    }
+}
+
+void Body::writeText(const MsgMedia &msgMedia, PageView &pageView)
+{
+    TextPageViewItem *textItem = getTextItem(pageView);
+    assert(textItem);
+    if(textItem)
+        textItem->setText(FileUtils::readTextFile(msgMedia.getFilePath()));
+}
+
+void Body::writeImage(const MsgMedia &msgMedia, PageView &pageView)
+{
+    std::string path = m_WorkingDir.addFile(msgMedia.getFilePath());
+    if(!path.empty())
+        addImage(pageView, path);
+}
+
+void Body::writeSound(const MsgMedia &msgMedia, PageView &pageView)
+{
+    std::string path = m_WorkingDir.addFile(msgMedia.getFilePath());
+    if(!path.empty())
+        addSound(pageView, path, msgMedia.getFileName());
+}
+
+void Body::writeAttachments(const MessageMms &msg)
+{
+    auto &attachmentList = msg.getAttachmentList();
+    for(int i = 0; i < attachmentList.getLength(); ++i)
+    {
+        const MsgAttachment &attachment = attachmentList[i];
+        std::string newFilePath = m_WorkingDir.addFile(attachment.getFilePath());
+        if(!newFilePath.empty())
+            addAttachment(newFilePath, attachment.getFileName());
+    }
 }
 
 void Body::writeTextToFile(TextPageViewItem &item)

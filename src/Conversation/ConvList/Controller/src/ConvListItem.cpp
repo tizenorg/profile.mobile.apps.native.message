@@ -26,6 +26,7 @@ using namespace Msg;
 
 ConvListItem::ConvListItem(MsgConversationItem &item, App &app)
     : ConvListViewItem(getConvItemType(item))
+    , m_pListener(nullptr)
     , m_App(app)
     , m_MsgId(item.getMsgId())
     , m_MessageText(item.getText())
@@ -132,6 +133,11 @@ MsgId ConvListItem::getMsgId() const
     return m_MsgId;
 }
 
+void ConvListItem::setListener(IConvListItemListener *l)
+{
+    m_pListener = l;
+}
+
 void ConvListItem::showPopup()
 {
     if(m_IsDraft)
@@ -175,10 +181,8 @@ void ConvListItem::showMainCtxPopup()
 void ConvListItem::showDraftCtxPopup()
 {
     auto &ctxPopup = m_App.getPopupManager().getCtxPopup();
-
     ctxPopup.appendItem(msg("IDS_MSGF_OPT_EDIT_MESSAGE"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onEditItemPressed), this);
     ctxPopup.appendItem(msg("IDS_MSG_OPT_DELETE"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onDeleteItemPressed), this);
-
     ctxPopup.align(m_App.getWindow());
     ctxPopup.show();
 }
@@ -224,6 +228,9 @@ void ConvListItem::onSlideShowItemPressed(ContextPopupItem &item)
 void ConvListItem::onEditItemPressed(ContextPopupItem &item)
 {
     MSG_LOG("");
+    item.getParent().destroy();
+    if(m_pListener)
+        m_pListener->onEditDraftMsg(*this);
 }
 
 void ConvListItem::onSaveAttachmentsItemPressed(ContextPopupItem &item)
@@ -244,6 +251,8 @@ void ConvListItem::onViewDetailsItemPressed(ContextPopupItem &item)
 void ConvListItem::onEditButtonClicked(Evas_Object *obj, void *event_info)
 {
     MSG_LOG("");
+    if(m_pListener)
+        m_pListener->onEditDraftMsg(*this);
 }
 
 void ConvListItem::onFailedButtonClicked(Evas_Object *obj, void *event_info)

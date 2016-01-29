@@ -91,7 +91,7 @@ void TextPageViewItem::setBeginCursorPos()
 
 void TextPageViewItem::setGuideText(const TText &text)
 {
-    setText(m_pEntry, text, "elm.guide");
+    View::setText(m_pEntry, text, "elm.guide");
     int cur = elm_entry_cursor_pos_get(m_pEntry);
     if(!cur)
         elm_entry_cursor_line_end_set(m_pEntry);
@@ -122,6 +122,19 @@ std::string TextPageViewItem::getPlainUtf8Text() const
         }
     }
     return res;
+}
+
+void TextPageViewItem::setText(const std::string &text)
+{
+    if(!text.empty())
+    {
+        char *markupText = elm_entry_utf8_to_markup(text.c_str());
+        if(markupText)
+        {
+            elm_object_text_set(m_pEntry, markupText);
+            free(markupText);
+        }
+    }
 }
 
 Evas_Object *TextPageViewItem::createEntry(Evas_Object *parent)

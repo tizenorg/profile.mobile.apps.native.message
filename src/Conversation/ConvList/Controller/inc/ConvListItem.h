@@ -28,6 +28,7 @@
 namespace Msg
 {
     class MsgConversationItem;
+    class IConvListItemListener;
 
     class ConvListItem
         : public ConvListViewItem
@@ -45,6 +46,8 @@ namespace Msg
              */
             MsgId getMsgId() const;
             void showPopup();
+            void setListener(IConvListItemListener *l);
+
 
         protected:
             virtual Evas_Object *getBubble();
@@ -80,6 +83,7 @@ namespace Msg
             void onBubbleResized(Evas_Object *obj, void *data);
 
         private:
+            IConvListItemListener *m_pListener;
             App &m_App;
             MsgId m_MsgId;
             std::string m_MessageText;
@@ -90,6 +94,13 @@ namespace Msg
             //Fixme: temporary fix caused by genlist resize issue
             Evas_Coord m_Width;
             Evas_Coord m_Height;
+    };
+
+    class IConvListItemListener
+    {
+        public:
+            virtual ~IConvListItemListener() {}
+            virtual void onEditDraftMsg(ConvListItem &item) {};
     };
 }
 

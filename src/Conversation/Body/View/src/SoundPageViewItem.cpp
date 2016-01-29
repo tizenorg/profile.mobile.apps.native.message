@@ -26,10 +26,11 @@ namespace
     const char *fileNamePart = "text.filename";
 }
 
-SoundPageViewItem::SoundPageViewItem(PageView &parent, const std::string &reourcePath)
-    : MediaPageViewItem(parent, reourcePath)
+SoundPageViewItem::SoundPageViewItem(PageView &parent, const std::string &resourcePath, const std::string &dispName)
+    : MediaPageViewItem(parent, resourcePath)
 {
-    Evas_Object *label = createLabel(getButtonLayout(), FileUtils::getFileName(reourcePath));
+    std::string fileName = dispName.empty() ? FileUtils::getFileName(resourcePath) : dispName;
+    Evas_Object *label = createLabel(getButtonLayout(), fileName);
     setButtonContent(label);
 }
 
