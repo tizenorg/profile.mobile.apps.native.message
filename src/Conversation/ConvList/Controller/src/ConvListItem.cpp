@@ -183,6 +183,17 @@ void ConvListItem::showDraftCtxPopup()
     ctxPopup.show();
 }
 
+void ConvListItem::showFailedToSendPopup()
+{
+    Popup &popup = m_App.getPopupManager().getPopup();
+    popup.addEventCb(EVAS_CALLBACK_DEL, EVAS_EVENT_CALLBACK(ConvListItem, onPopupDel), this);
+    popup.addButton(msgt("IDS_MSG_BUTTON_CANCEL_ABB"), Popup::CancelButtonId, POPUP_BUTTON_CB(ConvListItem, onFailedCancelButtonClicked), this);
+    popup.addButton(msgt("IDS_MSG_BUTTON_RESEND_ABB"), Popup::OkButtonId, POPUP_BUTTON_CB(ConvListItem, onFailedResendButtonClicked), this);
+    popup.setTitle(msgt("IDS_MSG_HEADER_FAILED_TO_SEND_MESSAGE_ABB"));
+    popup.setContent(msgt("IDS_MSG_POP_THIS_MESSAGE_WILL_BE_RESENT"));
+    popup.show();
+}
+
 void ConvListItem::onDeleteItemPressed(ContextPopupItem &item)
 {
     item.getParent().destroy();
@@ -202,6 +213,7 @@ void ConvListItem::onForwardItemPressed(ContextPopupItem &item)
 void ConvListItem::onResendItemPressed(ContextPopupItem &item)
 {
     MSG_LOG("");
+    showFailedToSendPopup();
 }
 
 void ConvListItem::onSlideShowItemPressed(ContextPopupItem &item)
@@ -235,6 +247,28 @@ void ConvListItem::onEditButtonClicked(Evas_Object *obj, void *event_info)
 }
 
 void ConvListItem::onFailedButtonClicked(Evas_Object *obj, void *event_info)
+{
+    MSG_LOG("");
+    showFailedToSendPopup();
+}
+
+void ConvListItem::onFailedCancelButtonClicked(Popup &popup, int buttonId)
+{
+    MSG_LOG("");
+    popup.destroy();
+}
+
+void ConvListItem::onFailedResendButtonClicked(Popup &popup, int buttonId)
+{
+    MSG_LOG("");
+    MessageRef msg = m_App.getMsgEngine().getStorage().getMessage(m_MsgId);
+    if(msg)
+        m_App.getMsgEngine().getTransport().sendMessage(msg);
+
+    popup.destroy();
+}
+
+void ConvListItem::onPopupDel(Evas_Object *popup, void *eventInfo)
 {
     MSG_LOG("");
 }

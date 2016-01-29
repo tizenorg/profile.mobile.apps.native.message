@@ -71,6 +71,12 @@ namespace Msg
             void onCopyToSimCardItemPressed(ContextPopupItem &item);
             void onViewDetailsItemPressed(ContextPopupItem &item);
 
+            //Create popup when failed button is clicked
+            void showFailedToSendPopup();
+            void onFailedCancelButtonClicked(Popup &popup, int buttonId);
+            void onFailedResendButtonClicked(Popup &popup, int buttonId);
+            void onPopupDel(Evas_Object *popup, void *eventInfo);
+
             void onBubbleResized(Evas_Object *obj, void *data);
 
         private:
