@@ -113,9 +113,9 @@ void RecipientsPanel::update(const ThreadId &threadId)
 RecipientsPanel::AppendItemStatus RecipientsPanel::appendItem(const std::string &address, MsgAddress::AddressType addressType)
 {
     std::string dispName;
-    ContactPersonNumberRef num = m_App.getContactManager().getContactPersonNumber(address);
-    if(num)
-        dispName = num->getDispName();
+    ContactPersonAddressRef contactAddress = m_App.getContactManager().getContactPersonAddress(address);
+    if(contactAddress)
+        dispName = contactAddress->getDispName();
     if(dispName.empty())
         dispName = address;
 
