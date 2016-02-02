@@ -38,7 +38,7 @@ namespace Msg
             virtual ~ConvListViewItem();
 
         protected:
-            virtual Evas_Object *getBubble() = 0;
+            virtual Evas_Object *getBubbleContent() = 0;
             virtual Evas_Object *getThumbnail() = 0;
             virtual std::string getText() = 0;
             virtual std::string getTime() = 0;
@@ -47,10 +47,16 @@ namespace Msg
             virtual void onFailedButtonClicked(Evas_Object *obj, void *event_info) = 0;
 
         private:
+            void onBubbleResized(Evas_Object *obj, void *data);
             Evas_Object *getButton(bool isEnabled, ConvItemType type);
             virtual std::string getText(ListItem &item, const char *part);
             virtual Evas_Object *getContent(ListItem &item, const char *part);
             virtual const char *getCheckPart(ListItem &item);
+
+        private:
+            //Fixme: temporary fix caused by genlist resize issue
+            Evas_Coord m_BubbleWidth;
+            Evas_Coord m_BubbleHeight;
     };
 }
 

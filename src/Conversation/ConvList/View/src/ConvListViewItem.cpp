@@ -42,6 +42,8 @@ namespace
 
 ConvListViewItem::ConvListViewItem(ConvItemType type)
     : ListItem()
+    , m_BubbleWidth(0)
+    , m_BubbleHeight(0)
 {
     switch (type)
     {
@@ -80,15 +82,32 @@ std::string ConvListViewItem::getText(ListItem &item, const char *part)
 Evas_Object *ConvListViewItem::getContent(ListItem &item, const char *part)
 {
     if(!strcmp(part, bubbleContentPart))
-        return getBubble();
+    {
+        Evas_Object *bubble = getBubbleContent();
+        evas_object_event_callback_add(bubble, EVAS_CALLBACK_RESIZE, EVAS_EVENT_CALLBACK(ConvListViewItem, onBubbleResized), this);
+        if(m_BubbleHeight > 0 && m_BubbleWidth > 0)
+        {
+            evas_object_size_hint_min_set(bubble, m_BubbleWidth, m_BubbleHeight);
+            evas_object_size_hint_max_set(bubble, m_BubbleWidth, m_BubbleHeight);
+        }
+        return bubble;
+    }
     else if(!strcmp(part, thumbContentPart))
+    {
         return getThumbnail();
+    }
     else if(!strcmp(part, draftButtonPart))
+    {
         return getButton(!getOwner()->getCheckMode(), Draft);
+    }
     else if(!strcmp(part, failedButtonPart))
+    {
         return getButton(!getOwner()->getCheckMode(), Failed);
+    }
     else
+    {
         return nullptr;
+    }
 }
 
 const char *ConvListViewItem::getCheckPart(ListItem &item)
@@ -120,4 +139,17 @@ Evas_Object *ConvListViewItem::getButton(bool isEnabled, ConvItemType type)
 
     }
     return button;
+}
+
+void ConvListViewItem::onBubbleResized(Evas_Object *obj, void *data)
+{
+    MSG_LOG("");
+    Evas_Coord w,h;
+    evas_object_geometry_get(obj, nullptr, nullptr, &w, &h);
+    if(m_BubbleHeight < h || m_BubbleWidth < w)
+    {
+        m_BubbleWidth = w;
+        m_BubbleHeight = h;
+        elm_genlist_item_update(this->getElmObjItem());
+    }
 }

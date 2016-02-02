@@ -19,35 +19,68 @@
 #define BubbleView_h_
 
 #include "View.h"
+#include "MsgTypes.h"
 
 #include <string>
+#include <list>
 
 namespace Msg
 {
+    class BubbleView;
+
+    class BubbleEntity
+    {
+        friend class BubbleView;
+
+        public:
+            BubbleEntity();
+            ~BubbleEntity();
+            enum PartType
+            {
+                TextPart,   //raw text
+                TextFilePart,   //path to text file
+                ThumbnailPart   //path to thumbnail image
+            };
+
+            /**
+             * @brief Add new part to bubble entity
+             * @param[in] type Set which type is @value
+             * @param[in] value Resource path or raw text to display
+             */
+            void addPart(PartType type, const std::string &value);
+
+        private:
+            BubbleEntity(BubbleEntity&) = delete;
+            BubbleEntity &operator=(BubbleEntity&) = delete;
+
+            struct BubblePart
+            {
+                PartType type;
+                std::string value;
+            };
+
+        private:
+            std::list<BubblePart> m_Parts;
+    };
+
     class BubbleView
         : public View
     {
         public:
-            enum Style
-            {
-                Sent,
-                Received
-            };
-
-        public:
-            //TODO: remove BubbleView from project and use Body's viewer instead
-            BubbleView(Evas_Object *parent, Style style);
+            BubbleView(Evas_Object *parent);
             virtual ~BubbleView();
 
-            void setText(const std::string &text);
-            void setTime(const std::string &time);
+            /**
+             * @brief Draw content from @entity
+             * @param[in] entity Filled list of contents
+             */
+            void fill(const BubbleEntity &entity);
 
         private:
             void create(Evas_Object *parent);
-            const char *getStyle() const;
-
-        private:
-            Style m_Style;
+            Evas_Object *createTextView(const std::string &text);
+            Evas_Object *createTextFileView(const std::string &path);
+            Evas_Object *createThumbView(const std::string &path);
     };
 }
 
