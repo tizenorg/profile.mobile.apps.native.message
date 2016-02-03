@@ -85,13 +85,11 @@ void MsgThread::onAttached(ViewItem &item)
 
 void MsgThread::showMainCtxPopup()
 {
-    auto &popupMngr = getApp().getPopupManager();
-    // TODO: localization:
-    popupMngr.getCtxPopup().appendItem("Search", nullptr, CTXPOPUP_ITEM_PRESSED_CB(MsgThread, onSearchItemPressed), this);
-    popupMngr.getCtxPopup().appendItem("Delete", nullptr, CTXPOPUP_ITEM_PRESSED_CB(MsgThread, onDeleteItemPressed), this);
-    popupMngr.getCtxPopup().appendItem("Settings", nullptr, CTXPOPUP_ITEM_PRESSED_CB(MsgThread, onSettingsItemPressed), this);
-    popupMngr.getCtxPopup().align(getApp().getWindow());
-    popupMngr.getCtxPopup().show();
+    PopupList &popup = getApp().getPopupManager().getPopupList();
+    popup.appendItem(msg("IDS_MSG_OPT_SEARCH"), POPUPLIST_ITEM_PRESSED_CB(MsgThread, onSearchItemPressed), this);
+    popup.appendItem(msg("IDS_MSG_OPT_DELETE"), POPUPLIST_ITEM_PRESSED_CB(MsgThread, onDeleteItemPressed), this);
+    popup.appendItem(msg("IDS_MSG_OPT_SETTINGS"), POPUPLIST_ITEM_PRESSED_CB(MsgThread, onSettingsItemPressed), this);
+    popup.show();
 }
 
 void MsgThread::composeNewMessage()
@@ -248,21 +246,21 @@ void MsgThread::onHwMoreButtonClicked()
         showMainCtxPopup();
 }
 
-void MsgThread::onSettingsItemPressed(ContextPopupItem &item)
+void MsgThread::onSettingsItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
     item.getParent().destroy();
     navigateToSettings();
 }
 
-void MsgThread::onDeleteItemPressed(ContextPopupItem &item)
+void MsgThread::onDeleteItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
     item.getParent().destroy();
     setMode(DeleteMode);
 }
 
-void MsgThread::onSearchItemPressed(ContextPopupItem &item)
+void MsgThread::onSearchItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
     item.getParent().destroy();

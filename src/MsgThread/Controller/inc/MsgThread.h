@@ -62,9 +62,9 @@ namespace Msg
             virtual void onHwMoreButtonClicked();
 
             // Popup callbacks:
-            void onSettingsItemPressed(ContextPopupItem &item);
-            void onDeleteItemPressed(ContextPopupItem &item);
-            void onSearchItemPressed(ContextPopupItem &item);
+            void onSettingsItemPressed(PopupListItem &item);
+            void onDeleteItemPressed(PopupListItem &item);
+            void onSearchItemPressed(PopupListItem &item);
 
             // IMsgThreadSearchPanelListener:
             virtual void onSearchButtonClicked(MsgThreadSearchPanel &obj);
