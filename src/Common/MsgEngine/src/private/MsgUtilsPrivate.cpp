@@ -79,6 +79,61 @@ MsgAddress::AddressType MsgUtilsPrivate::nativeToAddressType(int type)
     }
 }
 
+
+MsgReport::DeliveryStatus MsgUtilsPrivate::nativeToReportDeliveryStatus(int status)
+{
+    switch(status)
+    {
+        case MSG_DELIVERY_REPORT_SUCCESS:
+            return MsgReport::StatusSuccess;
+
+        case MSG_DELIVERY_REPORT_EXPIRED:
+            return MsgReport::StatusExpired;
+
+        case MSG_DELIVERY_REPORT_REJECTED:
+            return MsgReport::StatusRejected;
+
+        default:
+        case MSG_DELIVERY_REPORT_NONE:
+            return MsgReport::StatusNone;
+    }
+}
+
+MsgReport::ReadStatus MsgUtilsPrivate::nativeToReportReadStatus(int status)
+{
+    switch(status)
+    {
+        case MSG_READ_REPORT_IS_READ:
+            return MsgReport::ReadStatusIsRead;
+
+        case MSG_READ_REPORT_IS_DELETED:
+            return MsgReport::ReadStatusIsDeleted;
+
+        case MSG_READ_REPORT_REJECT_BY_USER:
+            return MsgReport::ReadStatusRejectByUser;
+
+        default:
+        case MSG_READ_REPORT_NONE:
+            return MsgReport::ReadStatusNone;
+    }
+}
+
+MsgReport::Type MsgUtilsPrivate::nativeToReportType(int type)
+{
+    switch(type)
+    {
+        case MSG_REPORT_TYPE_READ:
+            return MsgReport::TypeRead;
+
+        case MSG_REPORT_TYPE_READ_REPORT_SENT:
+            return MsgReport::TypeReadReportSent;
+
+        default:
+        case MSG_REPORT_TYPE_DELIVERY:
+            return MsgReport::TypeDelivery;
+    }
+}
+
 int MsgUtilsPrivate::recipientTypeToNative(MsgAddress::RecipientType type)
 {
     switch(type)

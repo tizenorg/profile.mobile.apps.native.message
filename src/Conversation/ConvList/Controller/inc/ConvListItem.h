@@ -24,6 +24,8 @@
 #include "Message.h"
 #include "ContextPopup.h"
 #include "App.h"
+#include <string>
+#include "MessageDetailContent.h"
 
 namespace Msg
 {
@@ -78,7 +80,7 @@ namespace Msg
             void onCopyToSimCardItemPressed(ContextPopupItem &item);
             void onViewDetailsItemPressed(ContextPopupItem &item);
 
-            //Create popup when failed button is clicked
+            // Create popup when failed button is clicked
             void showFailedToSendPopup();
             void onFailedCancelButtonClicked(Popup &popup, int buttonId);
             void onFailedResendButtonClicked(Popup &popup, int buttonId);
@@ -93,6 +95,7 @@ namespace Msg
             Message::NetworkStatus m_NetworkStatus;
             Message::Type m_Type;
             BubbleEntity m_BubbleEntity;
+            Message::Direction m_Direction;
     };
 
     class IConvListItemListener
