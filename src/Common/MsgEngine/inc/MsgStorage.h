@@ -27,6 +27,7 @@
 #include "Message.h"
 #include "MessageSMS.h"
 #include "MsgConversationItem.h"
+#include "MsgReport.h"
 
 namespace Msg
 {
@@ -61,6 +62,8 @@ namespace Msg
             virtual bool deleteMessages(const MsgIdList &idList) = 0;
             virtual MessageListRef searchMessage(const std::string &word) = 0;
             virtual void setReadStatus(MsgId id, bool status) = 0;
+            virtual MsgReportListRef getMsgReportList(MsgId msgId) = 0;
+            virtual bool isReadReportChecked(MsgId msgId) = 0; //TODO: remove to MmsMessage
 
             // Conversation:
             virtual MsgConversationListRef getConversationList(ThreadId id) = 0;
