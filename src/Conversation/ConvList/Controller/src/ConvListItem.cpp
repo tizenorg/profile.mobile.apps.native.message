@@ -212,6 +212,9 @@ void ConvListItem::onCopyTextItemPressed(ContextPopupItem &item)
 void ConvListItem::onForwardItemPressed(ContextPopupItem &item)
 {
     MSG_LOG("");
+    item.getParent().destroy();
+    if(m_pListener)
+        m_pListener->onForwardMsg(*this);
 }
 
 void ConvListItem::onResendItemPressed(ContextPopupItem &item)

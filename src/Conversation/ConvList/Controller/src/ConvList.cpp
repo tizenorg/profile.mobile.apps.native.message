@@ -217,6 +217,12 @@ void ConvList::onMsgStorageDelete(const MsgIdList &msgIdList)
         m_pListner->onAllItemsDeleted(*this);
 }
 
+void ConvList::onForwardMsg(ConvListItem &item)
+{
+    if(m_pListner)
+        m_pListner->onForwardMsg(item.getMsgId());
+}
+
 void ConvList::onEditDraftMsg(ConvListItem &item)
 {
     if(m_pListner)
