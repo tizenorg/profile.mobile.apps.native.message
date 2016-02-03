@@ -120,6 +120,13 @@ MessagePrivate::NetworkStatus MessagePrivate::getNetworkStatus() const
     return err == 0 ? MsgUtilsPrivate::nativeToNetworkStatus(status) : NS_Unknown;
 }
 
+int MessagePrivate::getMessageSize() const
+{
+    int msgSize = 0;
+    msg_get_int_value(m_MsgStruct, MSG_MESSAGE_DATA_SIZE_INT, &msgSize); // Size in bytes
+    return msgSize;
+}
+
 std::string MessagePrivate::getSubject() const
 {
     return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_MESSAGE_SUBJECT_STR, MAX_SUBJECT_LEN);

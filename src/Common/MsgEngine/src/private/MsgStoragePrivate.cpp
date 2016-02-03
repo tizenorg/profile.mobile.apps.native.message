@@ -23,6 +23,7 @@
 #include "MsgConversationItemPrivate.h"
 #include "Logger.h"
 #include "MsgUtilsPrivate.h"
+#include "MsgReportPrivate.h"
 
 #include <msg_storage.h>
 #include <algorithm>
@@ -362,4 +363,27 @@ void MsgStoragePrivate::setReadStatus(ThreadId id)
 void MsgStoragePrivate::setReadStatus(MsgId id, bool status)
 {
     msg_update_read_status(m_ServiceHandle, id, status);
+}
+
+MsgReportListRef MsgStoragePrivate::getMsgReportList(MsgId &msgId)
+{
+    MsgReportStructListPrivate *result = new MsgReportStructListPrivate(true);
+    msg_get_report_status(m_ServiceHandle, msgId, &result->get());
+    return MsgReportListRef(result);
+}
+
+bool MsgStoragePrivate::isReadReportChecked(MsgId msgId)
+{
+    bool readFlag = false;
+    msg_struct_t mmsSendOpt = NULL;
+    msg_struct_t sendOpt = msg_create_struct(MSG_STRUCT_SENDOPT);
+    msg_struct_t msgInfo = msg_create_struct(MSG_STRUCT_MESSAGE_INFO);
+
+    msg_get_message(m_ServiceHandle, msgId, msgInfo, sendOpt);
+    msg_get_struct_handle(sendOpt, MSG_SEND_OPT_MMS_OPT_HND, &mmsSendOpt);
+    msg_get_bool_value(mmsSendOpt, MSG_MMS_SENDOPTION_READ_REQUEST_BOOL, &readFlag);
+
+    msg_release_struct(&msgInfo);
+    msg_release_struct(&sendOpt);
+    return readFlag;
 }
