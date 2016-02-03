@@ -69,7 +69,7 @@ void BaseThreadListItem::updateThumbnail(const MsgAddress &addr)
 
 void BaseThreadListItem::updateTime(time_t time)
 {
-    m_Time = std::string("7:40"); // TODO: remove hardcode
+    m_Time = decorateTimeText(std::string("7:40")); // TODO: remove hardcode
 }
 
 std::string BaseThreadListItem::getName()

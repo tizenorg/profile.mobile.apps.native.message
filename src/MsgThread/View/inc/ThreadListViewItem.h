@@ -41,8 +41,6 @@ namespace Msg
             void setState(State state, bool updateUi);
             State getState() const;
 
-            Evas_Object *makeUnreadIcon(const std::string &text);
-
         protected:
             virtual std::string getName() = 0;
             virtual std::string getMessage() = 0;
@@ -52,6 +50,14 @@ namespace Msg
             virtual Evas_Object *getIcon();
 
             using ListItem::getState;
+            Evas_Object *makeUnreadIcon(const std::string &text) const;
+            std::string decorateNameText(const std::string &text) const;
+            std::string decorateMessageText(const std::string &text) const;
+            std::string decorateTimeText(const std::string &text) const;
+            std::string decorateUnreadText(const std::string &text) const;
+            std::string decorateFailedText(const std::string &text) const;
+            std::string decorateSendingText(const std::string &text) const;
+            std::string decorateDraftText(const std::string &text) const;
 
         private:
             virtual std::string getText(ListItem &item, const char *part);

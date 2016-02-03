@@ -39,8 +39,8 @@ ThreadId ThreadSearchListItem::getThreadId() const
 void ThreadSearchListItem::update(const MsgThreadItem &item, const std::string &searchWord)
 {
     m_ThreadId = item.getId();
-    m_Name = TextDecorator::highlightKeyword(item.getName(), searchWord);
-    m_Message = item.getLastMessage();
+    m_Name = decorateNameText(TextDecorator::highlightKeyword(item.getName(), searchWord));
+    m_Message = decorateMessageText(item.getLastMessage());
     updateThumbnail(item);
     updateTime(item.getTime());
 }

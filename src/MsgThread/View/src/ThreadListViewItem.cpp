@@ -19,8 +19,8 @@
 #include "Logger.h"
 #include "PathUtils.h"
 #include "ThumbnailMaker.h"
-#include "TextDecorator.h"
 #include "ListView.h"
+#include "TextDecorator.h"
 
 #include <Elementary.h>
 #include <stdlib.h>
@@ -41,9 +41,11 @@ namespace
 
     const TextStyle nameTextStyle(44, "#131313FF");
     const TextStyle msgTextStyle(38, "#969696FF");
-    const TextStyle statusTextStyle(36, "#e43d3dFF");
-    const TextStyle timeTextStyle(36, "#969696FF");
-    const TextStyle unreadTextStyle(36, "#969696FF");
+    const TextStyle timeTextStyle(32, "#969696FF");
+    const TextStyle unreadTextStyle(34, "#e43d3dFF");
+    const TextStyle failedTextStyle(32, "#e43d3dFF");
+    const TextStyle draftTextStyle(32, "#e43d3dFF");
+    const TextStyle sendingTextStyle(32, "#969696FF");
 }
 
 ThreadListViewItem::ThreadListViewItem(Elm_Genlist_Item_Type type)
@@ -60,20 +62,20 @@ std::string ThreadListViewItem::getText(ListItem &item, const char *part)
 {
     if(!strcmp(part, messagePart))
     {
-        return TextDecorator::make(getMessage(), msgTextStyle);
+        return getMessage();
     }
     else if(!strcmp(part, namePart))
     {
-        return TextDecorator::make(getName(), nameTextStyle);
+        return getName();
     }
     else if(!strcmp(part, timePart))
     {
-        return TextDecorator::make(getTime(), timeTextStyle);
+        return getTime();
     }
     else if(!strcmp(part, statusPart))
     {
         if(m_State == StatusState)
-            return TextDecorator::make(getStatus(), statusTextStyle);
+            return getStatus();
     }
 
     return "";
@@ -118,7 +120,7 @@ ThreadListViewItem::State ThreadListViewItem::getState() const
     return m_State;
 }
 
-Evas_Object *ThreadListViewItem::makeUnreadIcon(const std::string &text)
+Evas_Object *ThreadListViewItem::makeUnreadIcon(const std::string &text) const
 {
     Evas_Object *label = elm_label_add(*getOwner());
     evas_object_show(label);
@@ -137,3 +139,37 @@ Evas_Object *ThreadListViewItem::getIcon()
     return nullptr;
 }
 
+std::string ThreadListViewItem::decorateNameText(const std::string &text) const
+{
+    return TextDecorator::make(text, nameTextStyle);
+}
+
+std::string ThreadListViewItem::decorateMessageText(const std::string &text) const
+{
+    return TextDecorator::make(text, msgTextStyle);
+}
+
+std::string ThreadListViewItem::decorateTimeText(const std::string &text) const
+{
+    return TextDecorator::make(text, timeTextStyle);
+}
+
+std::string ThreadListViewItem::decorateUnreadText(const std::string &text) const
+{
+    return TextDecorator::make(text, unreadTextStyle);
+}
+
+std::string ThreadListViewItem::decorateFailedText(const std::string &text) const
+{
+    return TextDecorator::make(text, failedTextStyle);
+}
+
+std::string ThreadListViewItem::decorateSendingText(const std::string &text) const
+{
+    return TextDecorator::make(text, sendingTextStyle);
+}
+
+std::string ThreadListViewItem::decorateDraftText(const std::string &text) const
+{
+    return TextDecorator::make(text, draftTextStyle);
+}

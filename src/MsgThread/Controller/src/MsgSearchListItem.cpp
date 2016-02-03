@@ -47,7 +47,7 @@ void MsgSearchListItem::updateThumbnail(const Message &msg)
 void MsgSearchListItem::update(const Message &msg, const std::string &searchWord)
 {
     m_MsgId = msg.getId();
-    m_Message = TextDecorator::highlightKeyword(msg.getText(), searchWord);
+    m_Message = decorateMessageText(TextDecorator::highlightKeyword(msg.getText(), searchWord));
 
     const MsgAddressList &addressList = msg.getAddressList();
     int addrCount = addressList.getLength();
@@ -56,6 +56,7 @@ void MsgSearchListItem::update(const Message &msg, const std::string &searchWord
         m_Name = addressList.at(0).getAddress();
         if(addrCount > 1)
             m_Name += " + " + std::to_string(addrCount - 1);
+        m_Name = decorateNameText(m_Name);
     }
 
     updateThumbnail(msg);

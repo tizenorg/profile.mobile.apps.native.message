@@ -58,29 +58,29 @@ Evas_Object *ThreadListItem::getIcon()
 void ThreadListItem::updateModel(const MsgThreadItem &threadItem)
 {
     m_ThreadId = threadItem.getId();
-    m_Message = threadItem.getLastMessage();
-    m_Name = threadItem.getName();
+    m_Message = decorateMessageText(threadItem.getLastMessage());
+    m_Name = decorateNameText(threadItem.getName());
 
     State state = NormalState;
     if(threadItem.isSending())
     {
         state = StatusState;
-        m_Status = msg("IDS_MSG_BODY_SENDING_ING_M_STATUS_ABB");
+        m_Status = decorateSendingText(msg("IDS_MSG_BODY_SENDING_ING_M_STATUS_ABB"));
     }
     else if(threadItem.hasFailedMessage())
     {
         state = StatusState;
-        m_Status = msg("IDS_MSG_BODY_FAILED_M_STATUS_ABB2");
+        m_Status = decorateFailedText(msg("IDS_MSG_BODY_FAILED_M_STATUS_ABB2"));
     }
     else if(threadItem.hasDraftMessage())
     {
         state = StatusState;
-        m_Status = msg("IDS_MSG_BODY_DRAFT_M_STATUS_ABB");
+        m_Status = decorateDraftText(msg("IDS_MSG_BODY_DRAFT_M_STATUS_ABB"));
     }
     else if(int unreadCount = threadItem.getUnreadCount() > 0)
     {
         state = IconState;
-        m_UnreadCount = std::to_string(unreadCount);
+        m_UnreadCount = decorateUnreadText(std::to_string(unreadCount));
     }
 
     setState(state, false);
