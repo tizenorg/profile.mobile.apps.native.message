@@ -80,11 +80,11 @@ Message::Type MsgConversationItemPrivate::getType() const
     return MsgUtilsPrivate::nativeToMessageType(type);
 }
 
-Message::Status MsgConversationItemPrivate::getStatus() const
+Message::NetworkStatus MsgConversationItemPrivate::getNetworkStatus() const
 {
     int status = 0;
-    msg_get_int_value(m_MsgStruct, MSG_CONV_MSG_NETWORK_STATUS_INT, &status);
-    return (Message::Status)status;
+    int err = msg_get_int_value(m_MsgStruct, MSG_CONV_MSG_NETWORK_STATUS_INT, &status);
+    return err == 0 ? MsgUtilsPrivate::nativeToNetworkStatus(status) : Message::NS_Unknown;
 }
 
 bool MsgConversationItemPrivate::isDraft() const
@@ -92,26 +92,6 @@ bool MsgConversationItemPrivate::isDraft() const
     int folder = 0;
     msg_get_int_value(m_MsgStruct, MSG_CONV_MSG_FOLDER_ID_INT, &folder);
     return (folder == MSG_DRAFT_ID);
-}
-
-bool MsgConversationItemPrivate::isFailed() const
-{
-    bool failed = false;
-    switch(getStatus())
-    {
-        case Message::MS_Send_Fail:
-        case Message::MS_Send_Pending:
-        case Message::MS_Send_Timeout:
-        case Message::MS_Send_Fail_Mandatory_Info_Missing:
-        case Message::MS_Send_Fail_Temporary:
-        case Message::MS_Send_Fail_By_Mo_Control_With_Mod:
-        case Message::MS_Send_Fail_By_Mo_Control_Not_Allowed:
-            failed = true;
-            break;
-        default:
-            break;
-    }
-    return failed;
 }
 
 bool MsgConversationItemPrivate::isRead() const

@@ -74,6 +74,13 @@ bool MsgThreadItemPrivate::hasFailedMessage() const
     return val;
 }
 
+bool MsgThreadItemPrivate::isSending() const
+{
+    bool val = false;
+    msg_get_bool_value(m_MsgStruct, MSG_THREAD_SENDING_BOOL, &val);
+    return val;
+}
+
 int MsgThreadItemPrivate::getUnreadCount() const
 {
     int unread = 0;

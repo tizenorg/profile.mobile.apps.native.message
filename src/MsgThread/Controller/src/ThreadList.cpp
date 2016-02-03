@@ -68,7 +68,6 @@ bool ThreadList::isDeleteModeEnabled() const
     return m_DeleteMode;
 }
 
-
 void ThreadList::deleteSelectedItems()
 {
     auto collection = getItems<ThreadListItem>();

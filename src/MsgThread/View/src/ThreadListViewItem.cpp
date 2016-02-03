@@ -73,9 +73,7 @@ std::string ThreadListViewItem::getText(ListItem &item, const char *part)
     else if(!strcmp(part, statusPart))
     {
         if(m_State == StatusState)
-        {
             return TextDecorator::make(getStatus(), statusTextStyle);
-        }
     }
 
     return "";

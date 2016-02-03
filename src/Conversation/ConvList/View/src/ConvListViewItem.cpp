@@ -35,6 +35,7 @@ namespace
     const char *timeTextPart = "info.time";
     const char *draftButtonPart = "draft.button";
     const char *failedButtonPart = "failed.button";
+    const char *infoStatus = "info.status";
 
     const char *draftButtonStyle = "edit_button";
     const char *failedButtonStyle = "resend_button";
@@ -98,16 +99,17 @@ Evas_Object *ConvListViewItem::getContent(ListItem &item, const char *part)
     }
     else if(!strcmp(part, draftButtonPart))
     {
-        return getButton(!getOwner()->getCheckMode(), Draft);
+        return createButton(!getOwner()->getCheckMode(), Draft);
     }
     else if(!strcmp(part, failedButtonPart))
     {
-        return getButton(!getOwner()->getCheckMode(), Failed);
+        return createButton(!getOwner()->getCheckMode(), Failed);
     }
-    else
+    else if(!strcmp(part, infoStatus))
     {
-        return nullptr;
+        return getProgress();
     }
+    return nullptr;
 }
 
 const char *ConvListViewItem::getCheckPart(ListItem &item)
@@ -115,7 +117,7 @@ const char *ConvListViewItem::getCheckPart(ListItem &item)
     return checkBoxPart;
 }
 
-Evas_Object *ConvListViewItem::getButton(bool isEnabled, ConvItemType type)
+Evas_Object *ConvListViewItem::createButton(bool isEnabled, ConvItemType type)
 {
     Evas_Object *button = nullptr;
     if(type == Draft || type == Failed)
@@ -139,6 +141,20 @@ Evas_Object *ConvListViewItem::getButton(bool isEnabled, ConvItemType type)
 
     }
     return button;
+}
+
+Evas_Object *ConvListViewItem::createProgress()
+{
+    Evas_Object *progressbar = elm_progressbar_add(*getOwner());
+    elm_object_style_set(progressbar, "process_small");
+    evas_object_show(progressbar);
+    elm_progressbar_pulse(progressbar, EINA_TRUE);
+    return progressbar;
+}
+
+void ConvListViewItem::updateProgressField()
+{
+    updateFields(infoStatus, ELM_GENLIST_ITEM_FIELD_CONTENT);
 }
 
 void ConvListViewItem::onBubbleResized(Evas_Object *obj, void *data)

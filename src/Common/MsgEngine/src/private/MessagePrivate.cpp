@@ -113,6 +113,13 @@ Message::Type MessagePrivate::getType() const
     return MT_Unknown;
 }
 
+MessagePrivate::NetworkStatus MessagePrivate::getNetworkStatus() const
+{
+    int status = 0;
+    int err = msg_get_int_value(m_MsgStruct, MSG_MESSAGE_NETWORK_STATUS_INT, &status);
+    return err == 0 ? MsgUtilsPrivate::nativeToNetworkStatus(status) : NS_Unknown;
+}
+
 std::string MessagePrivate::getSubject() const
 {
     return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_MESSAGE_SUBJECT_STR, MAX_SUBJECT_LEN);

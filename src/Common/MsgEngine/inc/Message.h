@@ -46,33 +46,23 @@ namespace Msg
                 MT_MMS
             };
 
-            enum Status
+            enum NetworkStatus
             {
-                MS_Not_Send = 0,
-                MS_Sending,
-                MS_Send_Success,
-                MS_Send_Fail,
-                MS_Deliver_Success,
-                MS_Deliver_Fail,
-                MS_Received,
-                MS_Req_Cancelled,
-                MS_Retrieving,
-                MS_Retrieve_Success,
-                MS_Retrieve_Fail,
-                MS_Send_Timeout,
-                MS_Send_Fail_Mandatory_Info_Missing,
-                MS_Send_Fail_Temporary,
-                MS_Send_Fail_By_Mo_Control_With_Mod,
-                MS_Send_Fail_By_Mo_Control_Not_Allowed,
-                MS_Deliver_Pending,
-                MS_Deliver_Expired,
-                MS_Send_Pending,
-            #ifdef FEATURE_SMS_CDMA
-                MS_Send_Fail_Unknown_Subscriber,
-                MS_Send_Fail_Ms_Disabled,
-                MS_Send_Fail_Network_Not_Ready,
-                MS_Retrieve_Pending,
-            #endif
+                NS_Unknown = -1,
+                NS_Not_Send,
+                NS_Sending,
+                NS_Send_Success,
+                NS_Send_Fail,
+                NS_Deliver_Success,
+                NS_Deliver_Fail,
+                NS_Received,
+                NS_Req_Cancelled,
+                NS_Retrieving,
+                NS_Retrieve_Success,
+                NS_Retrieve_Fail,
+                NS_Deliver_Pending,
+                NS_Deliver_Expired,
+                NS_Send_Pending
             };
 
         public:
@@ -87,7 +77,7 @@ namespace Msg
             virtual void addAddresses(const MsgAddressList &list) = 0;
             virtual std::string getText() const = 0;
             virtual void setText(const std::string &text) = 0;
-
+            virtual NetworkStatus getNetworkStatus() const = 0;
             virtual std::string getSubject() const = 0;
             virtual void setSubject(const std::string &text) = 0;
     };

@@ -186,3 +186,46 @@ int MsgUtilsPrivate::setStr(msg_struct_t msgStruct, int field, const std::string
 {
     return msg_set_str_value(msgStruct, field, text.c_str(), text.length());
 }
+
+Message::NetworkStatus MsgUtilsPrivate::nativeToNetworkStatus(int status)
+{
+    switch(status)
+    {
+        case MSG_NETWORK_NOT_SEND:
+            return Message::NS_Not_Send;
+        case MSG_NETWORK_SENDING:
+            return Message::NS_Sending;
+        case MSG_NETWORK_SEND_SUCCESS:
+            return Message::NS_Send_Success;
+        case MSG_NETWORK_SEND_FAIL:
+        case MSG_NETWORK_SEND_TIMEOUT:
+        case MSG_NETWORK_SEND_FAIL_MANDATORY_INFO_MISSING:
+        case MSG_NETWORK_SEND_FAIL_TEMPORARY:
+        case MSG_NETWORK_SEND_FAIL_BY_MO_CONTROL_WITH_MOD:
+        case MSG_NETWORK_SEND_FAIL_BY_MO_CONTROL_NOT_ALLOWED:
+            return Message::NS_Send_Fail;
+        case MSG_NETWORK_DELIVER_SUCCESS:
+            return Message::NS_Deliver_Success;
+        case MSG_NETWORK_DELIVER_FAIL:
+            return Message::NS_Deliver_Fail;
+        case MSG_NETWORK_RECEIVED:
+            return Message::NS_Received;
+        case MSG_NETWORK_REQ_CANCELLED:
+            return Message::NS_Req_Cancelled;
+        case MSG_NETWORK_RETRIEVING:
+            return Message::NS_Retrieving;
+        case MSG_NETWORK_RETRIEVE_SUCCESS:
+            return Message::NS_Retrieve_Success;
+        case MSG_NETWORK_RETRIEVE_FAIL:
+            return Message::NS_Retrieve_Fail;
+        case MSG_NETWORK_DELIVER_PENDING:
+            return Message::NS_Deliver_Pending;
+        case MSG_NETWORK_DELIVER_EXPIRED:
+            return Message::NS_Deliver_Expired;
+        case MSG_NETWORK_SEND_PENDING:
+            return Message::NS_Send_Pending;
+        default:
+            break;
+    };
+    return Message::NS_Unknown;
+}

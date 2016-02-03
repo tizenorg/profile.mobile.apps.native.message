@@ -39,6 +39,7 @@ namespace Msg
             virtual time_t getTime() const = 0;
             virtual bool hasDraftMessage() const = 0;
             virtual bool hasFailedMessage() const = 0;
+            virtual bool isSending() const = 0;
             virtual int getUnreadCount() const = 0;
     };
 }

@@ -23,14 +23,14 @@
 
 using namespace Msg;
 
-ConvListItem::ConvListItem(MsgConversationItem &item, App &app)
+ConvListItem::ConvListItem(const MsgConversationItem &item, App &app)
     : ConvListViewItem(getConvItemType(item))
     , m_pListener(nullptr)
     , m_App(app)
     , m_MsgId(item.getMsgId())
     , m_MessageText(item.getText())
     , m_IsDraft(item.isDraft())
-    , m_Status(item.getStatus())
+    , m_NetworkStatus(item.getNetworkStatus())
     , m_Type(item.getType())
     , m_BubbleEntity()
 {
@@ -41,14 +41,25 @@ ConvListItem::~ConvListItem()
 {
 }
 
-ConvListViewItem::ConvItemType ConvListItem::getConvItemType(MsgConversationItem &item)
+void ConvListItem::updateStatus(MsgId id)
+{
+    m_MsgId = id;
+    MessageRef msg = m_App.getMsgEngine().getStorage().getMessage(m_MsgId);
+    if(msg)
+    {
+        m_NetworkStatus = msg->getNetworkStatus();
+        updateProgressField();
+    }
+}
+
+ConvListViewItem::ConvItemType ConvListItem::getConvItemType(const MsgConversationItem &item)
 {
     ConvItemType type = ConvItemType::Sent;
     if(item.getDirection() == Message::Direction::MD_Sent)
     {
         if(item.isDraft())
             type = ConvItemType::Draft;
-        else if(item.isFailed())
+        else if(item.getNetworkStatus() == Message::NS_Send_Fail)
             type = ConvItemType::Failed;
     }
     else
@@ -58,7 +69,7 @@ ConvListViewItem::ConvItemType ConvListItem::getConvItemType(MsgConversationItem
     return type;
 }
 
-void ConvListItem::prepareBubble(MsgConversationItem &item)
+void ConvListItem::prepareBubble(const MsgConversationItem &item)
 {
     if(m_Type == Message::MT_SMS)
     {
@@ -100,6 +111,12 @@ Evas_Object *ConvListItem::getThumbnail()
     return thumb;
 }
 
+Evas_Object *ConvListItem::getProgress()
+{
+    return m_NetworkStatus == Message::NS_Send_Pending ||
+           m_NetworkStatus == Message::NS_Sending  ? createProgress() : nullptr;
+}
+
 std::string ConvListItem::getText()
 {
     return m_MessageText;
@@ -133,7 +150,7 @@ void ConvListItem::showMainCtxPopup()
 {
     auto &ctxPopup = m_App.getPopupManager().getCtxPopup();
 
-    if(m_Status == Message::MS_Send_Fail)
+    if(m_NetworkStatus == Message::NS_Send_Fail)
         ctxPopup.appendItem(msg("IDS_MSG_OPT_RESEND"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onResendItemPressed), this);
 
     ctxPopup.appendItem(msg("IDS_MSG_OPT_DELETE"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onDeleteItemPressed), this);
@@ -146,13 +163,13 @@ void ConvListItem::showMainCtxPopup()
 
     ctxPopup.appendItem(msg("IDS_MSGF_OPT_FORWARD"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onForwardItemPressed), this);
 
-    if(m_Status == Message::MS_Send_Fail)
+    if(m_NetworkStatus == Message::NS_Send_Fail)
         ctxPopup.appendItem(msg("IDS_MSG_OPT_EDIT"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onEditItemPressed), this);
 
     if(m_Type == Message::MT_MMS)
         ctxPopup.appendItem(msg("IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onSaveAttachmentsItemPressed), this);
 
-    if(m_Status != Message::MS_Sending && !m_MessageText.empty())
+    if(m_NetworkStatus != Message::NS_Sending && !m_MessageText.empty())
         ctxPopup.appendItem(msg("IDS_MSG_OPT_COPY_TO_SIM_CARD_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onCopyToSimCardItemPressed), this);
 
     ctxPopup.appendItem(msg("IDS_MSG_OPT_VIEW_DETAILS_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onViewDetailsItemPressed), this);

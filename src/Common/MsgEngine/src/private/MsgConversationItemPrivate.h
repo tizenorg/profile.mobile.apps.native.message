@@ -39,9 +39,8 @@ namespace Msg
             virtual time_t getTime() const;
             virtual Message::Direction getDirection() const;
             virtual Message::Type getType() const;
-            virtual Message::Status getStatus() const;
+            virtual Message::NetworkStatus getNetworkStatus() const;
             virtual bool isDraft() const;
-            virtual bool isFailed() const;
             virtual bool isRead() const;
             virtual int getPagesCount() const;
             virtual int getAttachCount() const;

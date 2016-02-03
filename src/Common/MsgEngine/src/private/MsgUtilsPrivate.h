@@ -40,6 +40,7 @@ namespace Msg
             static Message::Type nativeToMessageType(int type);
             static MsgMedia::SmilType nativeToSmilType(int type);
             static int smilTypeToNative(MsgMedia::SmilType type);
+            static Message::NetworkStatus nativeToNetworkStatus(int status);
 
             static std::string getStr(msg_struct_t msgStruct, int field, int maxStrLen);
             static int setStr(msg_struct_t msgStruct, int field, const std::string &text);

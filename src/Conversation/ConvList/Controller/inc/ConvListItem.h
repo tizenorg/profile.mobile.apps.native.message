@@ -38,7 +38,7 @@ namespace Msg
              * @brief Creates item for Conversation list
              * @param[in] item MsgConversationItem model
              */
-            ConvListItem(MsgConversationItem &item, App &app);
+            ConvListItem(const MsgConversationItem &item, App &app);
             virtual ~ConvListItem();
 
             /**
@@ -47,11 +47,14 @@ namespace Msg
             MsgId getMsgId() const;
             void showPopup();
             void setListener(IConvListItemListener *l);
+            void updateStatus(MsgId id);
 
 
         protected:
+            // ConvListViewItem:
             virtual Evas_Object *getBubbleContent();
             virtual Evas_Object *getThumbnail();
+            virtual Evas_Object *getProgress();
             virtual std::string getText();
             virtual std::string getTime();
 
@@ -59,8 +62,8 @@ namespace Msg
             virtual void onFailedButtonClicked(Evas_Object *obj, void *event_info);
 
         private:
-            ConvListViewItem::ConvItemType getConvItemType(MsgConversationItem &item);
-            void prepareBubble(MsgConversationItem &item);
+            ConvListViewItem::ConvItemType getConvItemType(const MsgConversationItem &item);
+            void prepareBubble(const MsgConversationItem &item);
 
             // Create Popup when message is clicked
             void showMainCtxPopup();
@@ -87,7 +90,7 @@ namespace Msg
             MsgId m_MsgId;
             std::string m_MessageText;
             bool m_IsDraft;
-            Message::Status m_Status;
+            Message::NetworkStatus m_NetworkStatus;
             Message::Type m_Type;
             BubbleEntity m_BubbleEntity;
     };

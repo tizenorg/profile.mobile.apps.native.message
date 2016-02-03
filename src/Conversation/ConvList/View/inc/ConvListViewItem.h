@@ -40,15 +40,20 @@ namespace Msg
         protected:
             virtual Evas_Object *getBubbleContent() = 0;
             virtual Evas_Object *getThumbnail() = 0;
+            virtual Evas_Object *getProgress() = 0;
             virtual std::string getText() = 0;
             virtual std::string getTime() = 0;
 
             virtual void onEditButtonClicked(Evas_Object *obj, void *event_info) = 0;
             virtual void onFailedButtonClicked(Evas_Object *obj, void *event_info) = 0;
 
+        protected:
+            Evas_Object *createProgress();
+            void updateProgressField();
+
         private:
             void onBubbleResized(Evas_Object *obj, void *data);
-            Evas_Object *getButton(bool isEnabled, ConvItemType type);
+            Evas_Object *createButton(bool isEnabled, ConvItemType type);
             virtual std::string getText(ListItem &item, const char *part);
             virtual Evas_Object *getContent(ListItem &item, const char *part);
             virtual const char *getCheckPart(ListItem &item);
