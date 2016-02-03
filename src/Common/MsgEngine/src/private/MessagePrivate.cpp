@@ -108,6 +108,13 @@ std::string MessagePrivate::getText() const
         return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_MESSAGE_SMS_DATA_STR, MAX_MSG_DATA_LEN);
 }
 
+Message::Direction MessagePrivate::getDirection() const
+{
+    int direction = 0;
+    msg_get_int_value(m_MsgStruct, MSG_CONV_MSG_DIRECTION_INT, &direction);
+    return MsgUtilsPrivate::nativeToDirection(direction);
+}
+
 Message::Type MessagePrivate::getType() const
 {
     return MT_Unknown;
@@ -118,6 +125,13 @@ MessagePrivate::NetworkStatus MessagePrivate::getNetworkStatus() const
     int status = 0;
     int err = msg_get_int_value(m_MsgStruct, MSG_MESSAGE_NETWORK_STATUS_INT, &status);
     return err == 0 ? MsgUtilsPrivate::nativeToNetworkStatus(status) : NS_Unknown;
+}
+
+int MessagePrivate::getSize() const
+{
+    int msgSize = 0;
+    msg_get_int_value(m_MsgStruct, MSG_MESSAGE_DATA_SIZE_INT, &msgSize); // Size in bytes
+    return msgSize;
 }
 
 std::string MessagePrivate::getSubject() const
