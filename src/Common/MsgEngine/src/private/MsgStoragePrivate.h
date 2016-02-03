@@ -53,6 +53,8 @@ namespace Msg
             virtual bool deleteMessages(const MsgIdList &idList);
             virtual MessageListRef searchMessage(const std::string &word);
             virtual void setReadStatus(MsgId id, bool status);
+            virtual MsgReportListRef getMsgReportList(MsgId msgId);
+            virtual bool isReadReportChecked(MsgId msgId);
 
             // Conversation:
             virtual MsgConversationListRef getConversationList(ThreadId id);

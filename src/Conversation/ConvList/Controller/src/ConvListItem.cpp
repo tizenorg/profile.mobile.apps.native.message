@@ -20,6 +20,9 @@
 #include "ListView.h"
 #include "CallbackAssist.h"
 #include "ThumbnailMaker.h"
+#include <telephony_common.h>
+#include <telephony_sim.h>
+#include "ContactManager.h"
 
 using namespace Msg;
 
@@ -249,6 +252,11 @@ void ConvListItem::onCopyToSimCardItemPressed(ContextPopupItem &item)
 void ConvListItem::onViewDetailsItemPressed(ContextPopupItem &item)
 {
     MSG_LOG("");
+    Popup &popup = m_App.getPopupManager().getPopup();
+    popup.addButton(msgt("IDS_MSG_BUTTON_OK_ABB"), Popup::CancelButtonId, POPUP_BUTTON_CB(ConvListItem, onFailedCancelButtonClicked), this);
+    popup.setTitle(msgt("IDS_MSGF_HEADER_MESSAGE_DETAILS"));
+    popup.setContent(MessageDetailContent::getMsgDetailContent(m_App, m_MsgId));
+    popup.show();
 }
 
 void ConvListItem::onEditButtonClicked(Evas_Object *obj, void *event_info)
