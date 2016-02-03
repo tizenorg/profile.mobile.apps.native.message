@@ -1,0 +1,61 @@
+/*
+ * Copyright (c) 2009-2016 Samsung Electronics Co., Ltd All Rights Reserved
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+#ifndef MessageDetailContent_H_
+#define MessageDetailContent_H_
+
+#include "MsgConversationItem.h"
+#include "MsgTypes.h"
+#include "Message.h"
+#include "App.h"
+#include <string>
+
+namespace Msg
+{
+    class MsgConversationItem;
+
+    class MessageDetailContent
+    {
+        public:
+            MessageDetailContent(App &app, MsgId &msgId, Message::NetworkStatus &status, Message::Direction &direction);
+            virtual ~MessageDetailContent();
+
+            std::string getMsgDetailContent() const;
+
+        private:
+            // Create Content of Popup for View Details
+            void createMsgDetailsText();
+            std::string getMessageType();
+            std::string getContactsInfo();
+            std::string getSentReceivedTime();
+            std::string makeReportResult();
+            std::string getSubscriberNumber();
+            std::string getSmsStatus();
+            std::string getMmsSubject();
+            std::string getMmsMessageSize();
+            std::string makeReadReportResult();
+
+        private:
+            App &m_App;
+            MsgId m_MsgId;
+            ThreadId m_ThreadId;
+            Message::NetworkStatus m_Status;
+            Message::Type m_Type;
+            Message::Direction m_Direction;
+            std::string m_MsgDetails;
+    };
+}
+
+#endif /* MessageDetailContent_H_ */

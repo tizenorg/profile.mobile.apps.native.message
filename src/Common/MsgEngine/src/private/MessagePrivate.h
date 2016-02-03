@@ -43,6 +43,8 @@ namespace Msg
             virtual std::string getText() const;
             virtual Type getType() const;
             virtual NetworkStatus getNetworkStatus() const;
+
+            virtual int getMessageSize() const;
             virtual std::string getSubject() const;
             virtual void setSubject(const std::string &text);
 

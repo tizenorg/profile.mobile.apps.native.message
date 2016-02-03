@@ -52,4 +52,3 @@ std::string MessageSMSPrivate::getText() const
 {
     return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_MESSAGE_SMS_DATA_STR, MAX_MSG_DATA_LEN);
 }
-
