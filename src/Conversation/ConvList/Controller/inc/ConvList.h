@@ -114,6 +114,7 @@ namespace Msg
 
             // IConvListItemListener:
             virtual void onEditDraftMsg(ConvListItem &item);
+            virtual void onForwardMsg(ConvListItem &item);
 
             // SelectAll callback:
             void onSelectAllChanged(Evas_Object *obj, void *eventInfo);
@@ -138,6 +139,7 @@ namespace Msg
              */
             virtual void onAllItemsDeleted(ConvList &list) {};
             virtual void onEditDraftMsg(MsgId id) {};
+            virtual void onForwardMsg(MsgId id) {};
     };
 }
 

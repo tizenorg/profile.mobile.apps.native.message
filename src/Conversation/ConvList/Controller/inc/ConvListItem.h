@@ -100,6 +100,7 @@ namespace Msg
         public:
             virtual ~IConvListItemListener() {}
             virtual void onEditDraftMsg(ConvListItem &item) {};
+            virtual void onForwardMsg(ConvListItem &item) {};
     };
 }
 

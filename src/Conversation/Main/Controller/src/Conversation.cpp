@@ -419,6 +419,19 @@ void Conversation::editDraftMsg(MsgId id)
     }
 }
 
+void Conversation::forwardMsg(MsgId id)
+{
+    MessageRef msg = getMsgEngine().getStorage().getMessage(id);
+    if(msg)
+    {
+        setThreadId(ThreadId());
+        if(m_pBody)
+            m_pBody->write(*msg);
+        m_pRecipPanel->setEntryFocus(true);
+
+    }
+}
+
 void Conversation::notifyConvertMsgType()
 {
     std::string notifText = m_IsMms ?
@@ -862,6 +875,12 @@ void Conversation::onEditDraftMsg(MsgId id)
 {
     MSG_LOG("");
     editDraftMsg(id);
+}
+
+void Conversation::onForwardMsg(MsgId id)
+{
+    MSG_LOG("");
+    forwardMsg(id);
 }
 
 void Conversation::onFileSelected(AttachPanel &panel, const AttachPanel::FileList &files)
