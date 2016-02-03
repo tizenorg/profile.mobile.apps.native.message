@@ -41,8 +41,11 @@ namespace Msg
             virtual void addAddresses(const MsgAddressList &list);
             virtual void setText(const std::string &text);
             virtual std::string getText() const;
+            Message::Direction getDirection() const;
             virtual Type getType() const;
             virtual NetworkStatus getNetworkStatus() const;
+
+            virtual int getSize() const;
             virtual std::string getSubject() const;
             virtual void setSubject(const std::string &text);
 
