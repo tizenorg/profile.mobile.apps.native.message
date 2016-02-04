@@ -55,6 +55,11 @@ namespace Msg
                 return value > 0; // TODO: check
             }
 
+            void reset()
+            {
+                value = -1;
+            }
+
             int value; // implementation
     };
 

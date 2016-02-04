@@ -840,6 +840,7 @@ void Conversation::onAddRecipientsItemPressed(ContextPopupItem &item)
     MSG_LOG("");
     item.getParent().destroy();
     setMode(NewMessageMode);
+    m_ThreadId.reset();
 }
 
 void Conversation::onMakeVoiceItemPressed(PopupListItem &item)
