@@ -19,6 +19,7 @@
 #define BaseThreadListItem_h_
 
 #include "ThreadListViewItem.h"
+#include "ContactPersonAddress.h"
 #include "ThumbnailMaker.h"
 #include "MsgThreadItem.h"
 #include "MsgAddress.h"
@@ -36,10 +37,15 @@ namespace Msg
             virtual ~BaseThreadListItem();
 
         protected:
-            void updateThumbnail(const MsgAddress &addr);
-            void updateThumbnail(const MsgAddressList &addressList);
-            void updateThumbnail(const MsgThreadItem &threadItem);
+            void updateThumbnailAndName(const MsgAddress &addr, int addressesCount, bool decorateName);
+            void updateThumbnailAndName(const MsgAddressList &addressList, bool decorateName);
+            void updateThumbnailAndName(const MsgThreadItem &threadItem, bool decorateName);
+            void updateName(const MsgAddress &address, int addressesCount, bool decorateName);
+            void updateName(const ContactPersonAddress &address, int addressesCount, bool decorateName);
+            void updateName(const std::string &address, int addressesCount, bool decorateName);
             void updateTime(time_t time);
+            void updateMessage(const MsgThreadItem &threadItem);
+            void updateMessage(const std::string &msg);
 
             // ThreadListViewItem:
             virtual std::string getName();

@@ -34,11 +34,8 @@
             MSG_LOG_ERROR(whatError(error));
         }
 
-        error = contacts_db_add_changed_cb(_contacts_contact._uri, contactChangedCb, this);
-        if(error != 0)
-        {
-            MSG_LOG_ERROR(whatError(error));
-        }
+        contacts_db_add_changed_cb(_contacts_contact._uri, contactChangedCb, this);
+        contacts_setting_add_name_display_order_changed_cb(contactDisplayOrderChangedCb, this);
     }
 
     ContactManager::~ContactManager()
@@ -180,7 +177,16 @@
         }
     }
 
-    void ContactManager::addListener(IContactDbChangeListener &listener)
+    void ContactManager::contactDisplayOrderChangedCb(contacts_name_display_order_e name_display_order, void *user_data)
+    {
+        ContactManager *self = static_cast<ContactManager *>(user_data);
+        for(auto listener : self->m_Listeners)
+        {
+            listener->onContactChanged();
+        }
+    }
+
+    void ContactManager::addListener(IContactManagerListener &listener)
     {
         auto found = std::find(m_Listeners.begin(), m_Listeners.end(), &listener);
         if(found == m_Listeners.end())
@@ -189,7 +195,7 @@
         }
     }
 
-    void ContactManager::removeListener(IContactDbChangeListener &listener)
+    void ContactManager::removeListener(IContactManagerListener &listener)
     {
         auto found = std::find(m_Listeners.begin(), m_Listeners.end(), &listener);
         if(found != m_Listeners.end())

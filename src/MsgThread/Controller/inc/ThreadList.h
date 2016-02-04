@@ -20,6 +20,7 @@
 
 #include "ListView.h"
 #include "MsgStorage.h"
+#include "ContactManager.h"
 
 namespace Msg
 {
@@ -32,6 +33,7 @@ namespace Msg
         : public ListView
         , private IMsgStorageListener
         , private IListViewListener
+        , private IContactManagerListener
     {
         public:
             ThreadList(Evas_Object *parent, App &app);
@@ -45,6 +47,9 @@ namespace Msg
         private:
             // IMsgStorageListener:
             virtual void onMsgStorageChange(const MsgIdList &idList);
+
+            // IContactManagerListener:
+            virtual void onContactChanged();
 
             // IListViewListener:
             virtual void onListItemSelected(ListItem &listItem);

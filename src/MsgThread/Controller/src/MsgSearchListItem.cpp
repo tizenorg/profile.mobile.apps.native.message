@@ -38,27 +38,10 @@ MsgId MsgSearchListItem::getMsgId() const
     return m_MsgId;
 }
 
-void MsgSearchListItem::updateThumbnail(const Message &msg)
-{
-    const MsgAddressList &addressList = msg.getAddressList();
-    BaseThreadListItem::updateThumbnail(addressList);
-}
-
 void MsgSearchListItem::update(const Message &msg, const std::string &searchWord)
 {
     m_MsgId = msg.getId();
-    m_Message = decorateMessageText(TextDecorator::highlightKeyword(msg.getText(), searchWord));
-
-    const MsgAddressList &addressList = msg.getAddressList();
-    int addrCount = addressList.getLength();
-    if(addrCount > 0)
-    {
-        m_Name = addressList.at(0).getAddress();
-        if(addrCount > 1)
-            m_Name += " + " + std::to_string(addrCount - 1);
-        m_Name = decorateNameText(m_Name);
-    }
-
-    updateThumbnail(msg);
+    updateMessage(TextDecorator::highlightKeyword(msg.getText(), searchWord));
+    updateThumbnailAndName(msg.getAddressList(), true);
     updateTime(msg.getTime());
 }

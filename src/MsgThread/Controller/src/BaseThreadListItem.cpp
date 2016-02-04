@@ -18,6 +18,7 @@
 #include "ContactManager.h"
 #include "Resource.h"
 #include "ListView.h"
+#include "Logger.h"
 
 using namespace Msg;
 
@@ -33,38 +34,88 @@ BaseThreadListItem::~BaseThreadListItem()
 
 }
 
-void BaseThreadListItem::updateThumbnail(const MsgThreadItem &threadItem)
+void BaseThreadListItem::updateMessage(const MsgThreadItem &threadItem)
+{
+    updateMessage(threadItem.getLastMessage());
+}
+
+void BaseThreadListItem::updateMessage(const std::string &msg)
+{
+    m_Message = decorateMessageText(msg);
+}
+
+void BaseThreadListItem::updateThumbnailAndName(const MsgThreadItem &threadItem, bool decorateName)
 {
     const MsgAddressListRef addressList = m_App.getMsgEngine().getStorage().getAddressList(threadItem.getId());
     if(addressList)
-        updateThumbnail(*addressList);
+        updateThumbnailAndName(*addressList, decorateName);
 }
 
-void BaseThreadListItem::updateThumbnail(const MsgAddressList &addressList)
+void BaseThreadListItem::updateThumbnailAndName(const MsgAddressList &addressList, bool decorateName)
 {
     int countContact = addressList.getLength();
+    const MsgAddress &addr = addressList[0];
+
     m_ThumbType = ThumbnailMaker::MsgType;
     if(countContact > 1)
     {
         m_ThumbPath = PathUtils::getResourcePath(THUMB_GROUP_IMG_PATH);
+        updateName(addr, countContact, decorateName);
     }
     else if(countContact == 1)
     {
-        const MsgAddress &addr = addressList[0];
-        updateThumbnail(addr);
+        updateThumbnailAndName(addr, countContact, decorateName);
+    }
+    else
+    {
+        MSG_LOG_WARN("Msg address list is empty");
     }
 }
 
-void BaseThreadListItem::updateThumbnail(const MsgAddress &addr)
+void BaseThreadListItem::updateThumbnailAndName(const MsgAddress &addr, int addressesCount, bool decorateName)
 {
-    ContactPersonNumberRef contactNumber = m_App.getContactManager().getContactPersonNumber(addr.getAddress());
+    ContactPersonAddressRef contactAddress = m_App.getContactManager().getContactPersonAddress(addr.getAddress());
 
-    if(contactNumber)
-        m_ThumbPath = contactNumber->getThumbnailPath();
+    if(contactAddress)
+    {
+        m_ThumbPath = contactAddress->getThumbnailPath();
+        updateName(*contactAddress, addressesCount, decorateName);
+    }
+    else
+    {
+        updateName(addr, addressesCount, decorateName);
+    }
     if(m_ThumbPath.empty())
         m_ThumbPath = PathUtils::getResourcePath(THUMB_CONTACT_IMG_PATH);
     else
         m_ThumbType = ThumbnailMaker::UserType;
+}
+
+void BaseThreadListItem::updateName(const MsgAddress &address, int addressesCount, bool decorateName)
+{
+    ContactPersonAddressRef contactAddress = m_App.getContactManager().getContactPersonAddress(address.getAddress());
+    if(contactAddress)
+        updateName(*contactAddress, addressesCount, decorateName);
+    else
+        updateName(address.getAddress(), addressesCount, decorateName);
+}
+
+void BaseThreadListItem::updateName(const ContactPersonAddress &address, int addressesCount, bool decorateName)
+{
+    std::string dispName = address.getDispName();
+    if(dispName.empty())
+        dispName = address.getAddress();
+    updateName(dispName, addressesCount, decorateName);
+}
+
+void BaseThreadListItem::updateName(const std::string &address, int addressesCount, bool decorateName)
+{
+    m_Name = address;
+    --addressesCount;
+    if(addressesCount > 0)
+        m_Name += " +" + std::to_string(addressesCount);
+    if(decorateName)
+        m_Name = decorateNameText(m_Name);
 }
 
 void BaseThreadListItem::updateTime(time_t time)

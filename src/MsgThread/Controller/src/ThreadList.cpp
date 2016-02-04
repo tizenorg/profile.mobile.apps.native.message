@@ -42,12 +42,14 @@ ThreadList::ThreadList(Evas_Object *parent, App &app)
     ListView::setMultiSelection(false);
     ListView::setMode(ELM_LIST_COMPRESS);
     m_App.getMsgEngine().getStorage().addListener(*this);
+    m_App.getContactManager().addListener(*this);
     updateList();
 }
 
 ThreadList::~ThreadList()
 {
     m_App.getMsgEngine().getStorage().removeListener(*this);
+    m_App.getContactManager().removeListener(*this);
 }
 
 void ThreadList::setListener(IThreadListListener *l)
@@ -161,6 +163,14 @@ void ThreadList::updateList()
 }
 
 void ThreadList::onMsgStorageChange(const MsgIdList &idList)
+{
+    ListView::clear(); // FIXME: temporary solution for demo
+    updateList();
+    if(m_pListener)
+        m_pListener->onThreadListChanged();
+}
+
+void ThreadList::onContactChanged()
 {
     ListView::clear(); // FIXME: temporary solution for demo
     updateList();

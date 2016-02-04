@@ -54,7 +54,7 @@ Conversation::~Conversation()
 {
     // Call before delete all children:
     MSG_LOG("");
-    getMsgEngine().getStorage().removeListener(*this);
+    getApp().getContactManager().removeListener(*this);
     if(m_pBody)
         m_pBody->setListener(nullptr);
     if(m_pRecipPanel)
@@ -62,7 +62,6 @@ Conversation::~Conversation()
     if(m_pContactsList)
         m_pContactsList->setListener(nullptr);
     m_AttachPanel.setListener(nullptr);
-    m_ContactEditor.setListener(nullptr);
 }
 
 void Conversation::execCmd(const AppControlComposeRef &cmd)
@@ -116,10 +115,9 @@ void Conversation::create()
     createBody(*m_pMsgInputPanel);
     updateMsgInputPanel();
 
-    getMsgEngine().getStorage().addListener(*this);
+    getApp().getContactManager().addListener(*this);
     setHwButtonListener(*m_pLayout, this);
     m_AttachPanel.setListener(this);
-    m_ContactEditor.setListener(this);
 }
 
 void Conversation::markAsRead()
@@ -391,6 +389,7 @@ void Conversation::sendMessage()
 
 void Conversation::saveDraftMsg()
 {
+    MSG_LOG("");
     if(!isBodyEmpty())
     {
         MessageRef msg = getMsgEngine().getComposer().createMessage(m_IsMms ? Message::MT_MMS : Message::MT_SMS);
@@ -888,13 +887,7 @@ void Conversation::onFileSelected(AttachPanel &panel, const AttachPanel::FileLis
     m_pBody->addMedia(files);
 }
 
-void Conversation::onContactCreated(ContactEditor &obj)
-{
-    MSG_LOG("");
-    contactChangedHandler();
-}
-
-void Conversation::onContactChanged(ContactEditor &obj)
+void Conversation::onContactChanged()
 {
     MSG_LOG("");
     contactChangedHandler();

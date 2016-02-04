@@ -33,7 +33,7 @@ namespace Msg
     /*
      *@brief        A listener to be notified after contact-information will be changed in contacts-db
      */
-    class IContactDbChangeListener;
+    class IContactManagerListener;
     /*
      *@brief        Class that work with contacts database.
      *@brief        Search contacts, add listeners, register callback on changes in database.
@@ -92,12 +92,12 @@ namespace Msg
              *@brief        Add listener on contacts database
              *@param[in]    listener
              */
-            void addListener(IContactDbChangeListener &listener);
+            void addListener(IContactManagerListener &listener);
             /**
              *@brief        Remove listener
              *@param[in]    listener - listener to be remove
              */
-            void removeListener(IContactDbChangeListener &listener);
+            void removeListener(IContactManagerListener &listener);
 
         private:
             /**
@@ -107,6 +107,7 @@ namespace Msg
              *@param[in]    user_data - the user data passed from the callback registration function
              */
             static void contactChangedCb(const char *view_uri, void *user_data);
+            static void contactDisplayOrderChangedCb(contacts_name_display_order_e name_display_order, void *user_data);
 
             /**
              * @brief Generic search for basic contact attributes based on custom filter passed from above
@@ -116,13 +117,13 @@ namespace Msg
             ContactPersonEmailRef getContactPersonEmail(contacts_filter_h filter) const;
 
         private:
-            std::list<IContactDbChangeListener *> m_Listeners;
+            std::list<IContactManagerListener *> m_Listeners;
     };
 
-    class IContactDbChangeListener
+    class IContactManagerListener
     {
         public:
-            virtual ~IContactDbChangeListener() {}
+            virtual ~IContactManagerListener() {}
             /*
              *@brief        A method called when changing of some contact-record has been occurred
              */

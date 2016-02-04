@@ -34,8 +34,6 @@ namespace Msg
 
         private:
             void update(const Message &msg, const std::string &searchWord);
-            void updateThumbnail(const Message &msg);
-
 
         private:
             MsgId m_MsgId;

@@ -33,6 +33,7 @@
 #include "AppControlDefault.h"
 #include "AttachPanel.h"
 #include "ContactEditor.h"
+#include "ContactManager.h"
 
 namespace Msg
 {
@@ -43,14 +44,13 @@ namespace Msg
     class Conversation
         : public FrameController
         , private IHwButtonListener
-        , private IMsgStorageListener
         , private IMessageInputPanelListener
         , private IBodyListener
         , private IRecipientsPanelListener
         , private IConvContactListListener
         , private IConvListListener
         , private IAttachPanelListener
-        , private IContactEditorListener
+        , private IContactManagerListener
     {
         public:
             Conversation(NaviFrameController &parent);
@@ -122,10 +122,8 @@ namespace Msg
             // IAttachPanelListener:
             virtual void onFileSelected(AttachPanel &panel, const AttachPanel::FileList &files);
 
-            // IContactEditorListener:
-            virtual void onContactCreated(ContactEditor &obj);
-            virtual void onContactChanged(ContactEditor &obj);
-
+            // IContactManagerListener:
+            virtual void  onContactChanged();
 
         private:
             void create();

@@ -58,8 +58,6 @@ Evas_Object *ThreadListItem::getIcon()
 void ThreadListItem::updateModel(const MsgThreadItem &threadItem)
 {
     m_ThreadId = threadItem.getId();
-    m_Message = decorateMessageText(threadItem.getLastMessage());
-    m_Name = decorateNameText(threadItem.getName());
 
     State state = NormalState;
     if(threadItem.isSending())
@@ -86,7 +84,8 @@ void ThreadListItem::updateModel(const MsgThreadItem &threadItem)
     setState(state, false);
     setCheckedState(false, false);
 
-    updateThumbnail(threadItem);
+    updateMessage(threadItem);
+    updateThumbnailAndName(threadItem, true);
     updateTime(threadItem.getTime());
 }
 
