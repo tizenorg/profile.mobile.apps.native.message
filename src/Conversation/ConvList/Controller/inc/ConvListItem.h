@@ -79,6 +79,7 @@ namespace Msg
             void onSaveAttachmentsItemPressed(ContextPopupItem &item);
             void onCopyToSimCardItemPressed(ContextPopupItem &item);
             void onViewDetailsItemPressed(ContextPopupItem &item);
+            void prepareMsgText();
 
             // Create popup when failed button is clicked
             void showFailedToSendPopup();
@@ -95,7 +96,6 @@ namespace Msg
             Message::NetworkStatus m_NetworkStatus;
             Message::Type m_Type;
             BubbleEntity m_BubbleEntity;
-            Message::Direction m_Direction;
     };
 
     class IConvListItemListener
