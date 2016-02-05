@@ -210,7 +210,9 @@ void ConvListItem::onDeleteItemPressed(ContextPopupItem &item)
 
 void ConvListItem::onCopyTextItemPressed(ContextPopupItem &item)
 {
-    MSG_LOG("");
+    item.getParent().destroy();
+    if(!m_MessageText.empty())
+        elm_cnp_selection_set(getBubbleContent(), ELM_SEL_TYPE_CLIPBOARD, ELM_SEL_FORMAT_TEXT, m_MessageText.c_str(), m_MessageText.length());
 }
 
 void ConvListItem::onForwardItemPressed(ContextPopupItem &item)
