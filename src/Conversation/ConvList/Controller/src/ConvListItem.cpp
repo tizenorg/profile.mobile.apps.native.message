@@ -23,6 +23,7 @@
 #include <telephony_common.h>
 #include <telephony_sim.h>
 #include "ContactManager.h"
+#include "FileUtils.h"
 
 using namespace Msg;
 
@@ -209,7 +210,42 @@ void ConvListItem::onDeleteItemPressed(ContextPopupItem &item)
 
 void ConvListItem::onCopyTextItemPressed(ContextPopupItem &item)
 {
-    MSG_LOG("");
+    item.getParent().destroy();
+    prepareMsgText();
+    if(!m_MessageText.empty())
+        elm_cnp_selection_set(*getOwner(), ELM_SEL_TYPE_CLIPBOARD, ELM_SEL_FORMAT_TEXT, m_MessageText.c_str(), m_MessageText.length());
+
+}
+
+void ConvListItem::prepareMsgText()
+{
+    if(m_Type == Message::MT_MMS)
+    {
+        m_MessageText.clear();
+        MessageRef msg = m_App.getMsgEngine().getStorage().getMessage(m_MsgId);
+        if(msg)
+        {
+            MessageMms *mms = dynamic_cast<MessageMms*>(msg.get());
+            MsgPageList &pageList = mms->getPageList();
+
+            int size = pageList.getLength();
+            for(int i = 0; i < size; ++i)
+            {
+                MsgMediaList &mediaList = pageList.at(i).getMediaList();
+
+                int sizeList = mediaList.getLength();
+                for(int j = 0; j < sizeList; ++j)
+                {
+                    if(mediaList.at(j).getType() == MsgMedia::SmilText)
+                    {
+                        m_MessageText += FileUtils::readTextFile(mediaList.at(j).getFilePath());
+                        if(i < size - 1)
+                            m_MessageText.append("\n");
+                    }
+                }
+            }
+        }
+    }
 }
 
 void ConvListItem::onForwardItemPressed(ContextPopupItem &item)
