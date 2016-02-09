@@ -19,6 +19,7 @@
 #include "Resource.h"
 #include "ListView.h"
 #include "Logger.h"
+#include "TimeUtils.h"
 
 using namespace Msg;
 
@@ -120,7 +121,7 @@ void BaseThreadListItem::updateName(const std::string &address, int addressesCou
 
 void BaseThreadListItem::updateTime(time_t time)
 {
-    m_Time = decorateTimeText(std::string("7:40")); // TODO: remove hardcode
+    m_Time = TimeUtils::makeThreadTimeString(time);
 }
 
 std::string BaseThreadListItem::getName()
