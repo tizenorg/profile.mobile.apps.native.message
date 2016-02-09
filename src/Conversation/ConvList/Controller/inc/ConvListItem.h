@@ -96,6 +96,7 @@ namespace Msg
             bool m_IsDraft;
             Message::NetworkStatus m_NetworkStatus;
             Message::Type m_Type;
+            time_t m_Time;
             BubbleEntity m_BubbleEntity;
     };
 
