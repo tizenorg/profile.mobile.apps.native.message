@@ -24,6 +24,7 @@
 #include <telephony_sim.h>
 #include "ContactManager.h"
 #include "FileUtils.h"
+#include "TimeUtils.h"
 
 using namespace Msg;
 
@@ -36,6 +37,7 @@ ConvListItem::ConvListItem(const MsgConversationItem &item, App &app)
     , m_IsDraft(item.isDraft())
     , m_NetworkStatus(item.getNetworkStatus())
     , m_Type(item.getType())
+    , m_Time(item.getTime())
     , m_BubbleEntity()
 {
     prepareBubble(item);
@@ -128,8 +130,7 @@ std::string ConvListItem::getText()
 
 std::string ConvListItem::getTime()
 {
-    //TODO: convert time_t to string
-    return "10:23 PM";
+    return TimeUtils::makeBubbleTimeString(m_Time);
 }
 
 MsgId ConvListItem::getMsgId() const
