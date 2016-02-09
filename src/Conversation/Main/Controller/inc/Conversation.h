@@ -118,6 +118,7 @@ namespace Msg
             virtual void onAllItemsDeleted(ConvList &list);
             virtual void onEditDraftMsg(MsgId id);
             virtual void onForwardMsg(MsgId id);
+            virtual void onSlideShow(MsgId id);
 
             // IAttachPanelListener:
             virtual void onFileSelected(AttachPanel &panel, const AttachPanel::FileList &files);
@@ -152,6 +153,7 @@ namespace Msg
             void notifyConvertMsgType();
             void convertMsgTypeHandler();
             void checkAndSetMsgType();
+            void navigateToSlideShow(MsgId id);
 
             void showMainCtxPopup();
             void showNoRecipPopup();

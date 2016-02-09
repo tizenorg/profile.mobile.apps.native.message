@@ -24,10 +24,12 @@
 
 using namespace Msg;
 
-Viewer::Viewer(NaviFrameController &parent)
+Viewer::Viewer(NaviFrameController &parent, MsgId id)
     : FrameController(parent)
+    , m_MsgId(id)
+    , m_pLayout(nullptr)
 {
-
+    create();
 }
 
 Viewer::~Viewer()
@@ -37,10 +39,27 @@ Viewer::~Viewer()
 void Viewer::onAttached(ViewItem &item)
 {
     FrameController::onAttached(item);
+    updateNavibar();
+    setContent(*m_pLayout);
+}
+
+void Viewer::updateNavibar()
+{
     getNaviBar().setTitle("Viewer");
     getNaviBar().setColor(NaviBar::NaviBlueColorId);
     getNaviBar().showButton(NaviPrevButtonId, true);
-    setHwButtonListener(getContent(), this);
+}
+
+void Viewer::create()
+{
+    createLayout();
+    setHwButtonListener(*m_pLayout, this);
+}
+
+void Viewer::createLayout()
+{
+    m_pLayout = new ViewerLayout(getParent());
+    m_pLayout->show();
 }
 
 void Viewer::onHwBackButtonClicked()
@@ -56,7 +75,5 @@ void Viewer::onHwMoreButtonClicked()
 void Viewer::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
 {
     if(buttonId == NaviPrevButtonId)
-    {
         getParent().pop();
-    }
 }
