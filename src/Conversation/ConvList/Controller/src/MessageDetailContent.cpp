@@ -21,6 +21,7 @@
 #include <telephony_sim.h>
 #include "ContactManager.h"
 #include "LangUtils.h"
+#include "TimeUtils.h"
 
 using namespace Msg;
 
@@ -39,7 +40,7 @@ std::string MessageDetailContent::createMsgDetailsText(App &app, MsgId msgId)
 
     msgDetails += getMessageType(msgType);
     msgDetails += getContactsInfo(app, msgDirection, msgThreadId);
-    msgDetails += getSentReceivedTime(msgDirection);
+    msgDetails += getSentReceivedTime(app, msgDirection, msgId);
 
     if(msgDirection == Message::MD_Sent && msgType == Message::MT_SMS)
     {
@@ -133,7 +134,7 @@ std::string MessageDetailContent::getContactsInfo(App &app, Message::Direction m
     return contactsInfo;
 }
 
-std::string MessageDetailContent::getSentReceivedTime(Message::Direction msgDirection)
+std::string MessageDetailContent::getSentReceivedTime(App &app, Message::Direction msgDirection, MsgId msgId)
 {
     std::string msgDetails;
     if(msgDirection == Message::MD_Sent)
@@ -141,7 +142,9 @@ std::string MessageDetailContent::getSentReceivedTime(Message::Direction msgDire
     else if(msgDirection == Message::MD_Received)
         msgDetails.append(msg("IDS_MSG_BODY_TIME_RECEIVED_C"));
 
-    msgDetails.append(" 12:00 12/12/2012"); //TODO: add time when it will be implement
+    msgDetails.append(" ");
+    time_t time = app.getMsgEngine().getStorage().getMessage(msgId)->getTime();
+    msgDetails.append(TimeUtils::makeDateTimeString(time));
     return msgDetails;
 }
 
@@ -167,7 +170,15 @@ std::string MessageDetailContent::makeReportResult(App &app, Message::NetworkSta
                     if(reportList->at(i).getDeliveryStatus() == MsgReport::StatusSuccess)
                     {
                         deliverText.append(msg("IDS_MSGF_BODY_RECEIVED"));
-                        deliverText.append(" (12:40 friday 26.12.2016)"); // TODO: when time locale will be implement
+                        deliverText.append(" (");
+
+                        time_t time = reportList->at(i).getTime();
+                        if(msgType == Message::MT_SMS)
+                            deliverText.append(TimeUtils::makeSmsReportTimeString(time));
+                        else
+                            deliverText.append(TimeUtils::makeMmsReportTimeString(time));
+
+                        deliverText.append(")");
                     }
                     else if(reportList->at(i).getDeliveryStatus() == MsgReport::StatusExpired)
                     {
@@ -311,7 +322,8 @@ std::string MessageDetailContent::makeReadReportResult(App &app, MsgId msgId, Th
                 if(reportList->at(i).getReadStatus() == MsgReport::ReadStatusIsRead)
                 {
                     readReport.append(msg("IDS_MSGF_BODY_MMSREADREPLYMSGREAD"));
-                    readReport.append(" (12:40 friday 26.12.2016)"); // TODO: when time locale will be implement
+                    time_t time = reportList->at(i).getTime();
+                    readReport.append(TimeUtils::makeDateTimeString(time));
                 }
                 else if(reportList->at(i).getReadStatus() == MsgReport::ReadStatusIsDeleted)
                 {
