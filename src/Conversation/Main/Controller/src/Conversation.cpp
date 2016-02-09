@@ -27,6 +27,7 @@
 #include "CallbackAssist.h"
 #include "ContactViewer.h"
 #include "VoiceCall.h"
+#include "Viewer.h"
 
 #include <Elementary.h>
 #include <sstream>
@@ -129,7 +130,6 @@ void Conversation::markAsRead()
 void Conversation::recipientClickHandler(const std::string &address)
 {
     MSG_LOG("");
-    // TODO: impl for email
     m_SelectedAddress = address;
     ContactPersonAddressRef contactPersonAddress = getApp().getContactManager().getContactPersonAddress(address);
     if(contactPersonAddress)
@@ -480,6 +480,12 @@ bool Conversation::isRecipExists() const
 bool Conversation::isBodyEmpty() const
 {
     return m_pBody && m_pBody->isEmpty();
+}
+
+void Conversation::navigateToSlideShow(MsgId id)
+{
+    Viewer *viewer = new Viewer(getParent(), id);
+    getParent().push(*viewer);
 }
 
 void Conversation::showNoRecipPopup()
@@ -880,6 +886,12 @@ void Conversation::onForwardMsg(MsgId id)
 {
     MSG_LOG("");
     forwardMsg(id);
+}
+
+void Conversation::onSlideShow(MsgId id)
+{
+    MSG_LOG("");
+    navigateToSlideShow(id);
 }
 
 void Conversation::onFileSelected(AttachPanel &panel, const AttachPanel::FileList &files)
