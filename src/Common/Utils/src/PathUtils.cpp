@@ -21,12 +21,7 @@
 #include <stdlib.h>
 #include <app.h>
 
-#ifdef _SAVE_IN_USER_SHARE_DIR_
-#include <tzplatform_config.h>
-#endif
-
 using namespace Msg;
-
 
 std::string PathUtils::getResourcePath(const std::string &filePath)
 {
@@ -52,16 +47,26 @@ std::string PathUtils::getDataPath(const std::string &filePath)
     return res;
 }
 
-std::string PathUtils::getSharedTrustedPath(const std::string &filePath)
+std::string PathUtils::getResourcePath()
 {
     std::string res;
-#ifdef _SAVE_IN_USER_SHARE_DIR_
-    res = tzplatform_mkpath(TZ_USER_SHARE, filePath.c_str());
-#else
-    char *absolutePath = app_get_shared_trusted_path();
-    res += absolutePath;
-    res += filePath;
-    free(absolutePath);
-#endif
+    char* resPath = app_get_resource_path();
+    if(resPath)
+    {
+        res = resPath;
+        free(resPath);
+    }
+
     return res;
+}
+
+std::string PathUtils::getLocalePath()
+{
+    std::string resPath(getResourcePath());
+    if(!resPath.empty())
+    {
+        resPath.append("locale");
+    }
+
+    return resPath;
 }
