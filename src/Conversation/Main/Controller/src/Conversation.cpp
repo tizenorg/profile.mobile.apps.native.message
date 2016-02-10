@@ -602,48 +602,30 @@ void Conversation::updateMsgInputPanel()
 
 void Conversation::updateNavibar()
 {
-    getNaviBar().clear();
-    getNaviBar().setColor(NaviBar::NaviWhiteColorId);
-
-    // TODO: Update Navibar title(center) button in separated method ?
+    NaviBar &naviBar = getNaviBar();
+    naviBar.clear();
+    naviBar.setColor(NaviBar::NaviWhiteColorId);
+    naviBar.showButton(NaviPrevButtonId, true);
 
     if(m_Mode == NewMessageMode)
     {
-        getNaviBar().setTitle(msgt("IDS_MSGF_POP_NEW_MESSAGE"));
-        getNaviBar().showButton(NaviPrevButtonId, true);
+        naviBar.setTitle(msgt("IDS_MSGF_POP_NEW_MESSAGE"));
     }
     else if(m_Mode == ConversationMode)
     {
         if(m_pConvList->getMode() == ConvList::SelectMode)
         {
-            getNaviBar().setTitle(msgt("IDS_MSG_OPT_DELETE"));
-            getNaviBar().showButton(NaviCancelButtonId, true);
-            getNaviBar().showButton(NaviOkButtonId, true);
+            naviBar.setTitle(msgt("IDS_MSG_OPT_DELETE"));
+            naviBar.showButton(NaviCancelButtonId, true);
+            naviBar.showButton(NaviOkButtonId, true);
         }
         else
         {
             MsgAddressListRef addressList = getAddressList();
-            if(addressList && !addressList->isEmpty())
+            if(addressList)
             {
-                std::string conversationName;
-                std::string firstAddress = addressList->at(0).getAddress();
-                ContactPersonAddressRef contactPersonNumber = getApp().getContactManager().getContactPersonAddress(firstAddress);
-                if(contactPersonNumber)
-                    conversationName = contactPersonNumber->getDispName();
-
-                if(conversationName.empty())
-                    conversationName = firstAddress;
-
-                int hidenAddresses= addressList->getLength() - 1;
-                if(hidenAddresses > 0)
-                {
-                    conversationName += " + " + std::to_string(hidenAddresses);
-                    getNaviBar().showButton(NaviDownButtonId, true);
-                }
-
-                getNaviBar().showButton(NaviCenterButtonId, true);
-                getNaviBar().showButton(NaviPrevButtonId, true);
-                getNaviBar().setButtonText(NaviCenterButtonId, conversationName);
+                naviBar.showButton(NaviCenterButtonId, true);
+                FrameController::setNaviBarTitle(*addressList);
             }
         }
     }
