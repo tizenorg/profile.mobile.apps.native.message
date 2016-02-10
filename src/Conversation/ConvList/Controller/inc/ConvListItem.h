@@ -83,8 +83,9 @@ namespace Msg
 
             // Create popup when failed button is clicked
             void showFailedToSendPopup();
-            void onFailedCancelButtonClicked(Popup &popup, int buttonId);
+            void onCancelButtonClicked(Popup &popup, int buttonId);
             void onFailedResendButtonClicked(Popup &popup, int buttonId);
+            void onDeleteButtonClicked(Popup &popup, int buttonId);
             void onPopupDel(Evas_Object *popup, void *eventInfo);
 
         private:
