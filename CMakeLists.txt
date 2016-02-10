@@ -34,13 +34,6 @@ INCLUDE_DIRECTORIES(${INCLUDE_DIRECTORIES}
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/Viewer/View/inc/
 )
 
-if(NOT DEFINED TIZEN_2_4)
-    SET(ADDITIONAL_PACKS libtzplatform-config)
-    ADD_DEFINITIONS("-D_SAVE_IN_USER_SHARE_DIR_")
-else(NOT DEFINED TIZEN_2_4)
-    SET(ADDITIONAL_PACKS "")
-endif(NOT DEFINED TIZEN_2_4)
-
 INCLUDE(FindPkgConfig)
 pkg_check_modules(pkgs REQUIRED
             bundle
@@ -77,7 +70,6 @@ pkg_check_modules(pkgs REQUIRED
             efl-extension
             storage
             attach-panel
-            ${ADDITIONAL_PACKS}
 )
 
 ADD_DEFINITIONS("-DAPP_DIR=\"${PKGDIR}\"")
