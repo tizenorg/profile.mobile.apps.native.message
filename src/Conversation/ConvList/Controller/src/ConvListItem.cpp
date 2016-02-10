@@ -195,7 +195,7 @@ void ConvListItem::showFailedToSendPopup()
 {
     Popup &popup = m_App.getPopupManager().getPopup();
     popup.addEventCb(EVAS_CALLBACK_DEL, EVAS_EVENT_CALLBACK(ConvListItem, onPopupDel), this);
-    popup.addButton(msgt("IDS_MSG_BUTTON_CANCEL_ABB"), Popup::CancelButtonId, POPUP_BUTTON_CB(ConvListItem, onFailedCancelButtonClicked), this);
+    popup.addButton(msgt("IDS_MSG_BUTTON_CANCEL_ABB"), Popup::CancelButtonId, POPUP_BUTTON_CB(ConvListItem, onCancelButtonClicked), this);
     popup.addButton(msgt("IDS_MSG_BUTTON_RESEND_ABB"), Popup::OkButtonId, POPUP_BUTTON_CB(ConvListItem, onFailedResendButtonClicked), this);
     popup.setTitle(msgt("IDS_MSG_HEADER_FAILED_TO_SEND_MESSAGE_ABB"));
     popup.setContent(msgt("IDS_MSG_POP_THIS_MESSAGE_WILL_BE_RESENT"));
@@ -205,7 +205,13 @@ void ConvListItem::showFailedToSendPopup()
 void ConvListItem::onDeleteItemPressed(ContextPopupItem &item)
 {
     item.getParent().destroy();
-    m_App.getMsgEngine().getStorage().deleteMessage(getMsgId());
+    Popup &popup = m_App.getPopupManager().getPopup();
+    popup.addEventCb(EVAS_CALLBACK_DEL, EVAS_EVENT_CALLBACK(ConvListItem, onPopupDel), this);
+    popup.addButton(msgt("IDS_MSG_BUTTON_CANCEL_ABB"), Popup::CancelButtonId, POPUP_BUTTON_CB(ConvListItem, onCancelButtonClicked), this);
+    popup.addButton(msgt("IDS_MSG_BUTTON_REMOVE_ABB"), Popup::OkButtonId, POPUP_BUTTON_CB(ConvListItem, onDeleteButtonClicked), this);
+    popup.setTitle(msgt("IDS_MSG_HEADER_DELETE"));
+    popup.setContent(msgt("IDS_MSG_POP_1_MESSAGE_WILL_BE_DELETED"));
+    popup.show();
 }
 
 void ConvListItem::onCopyTextItemPressed(ContextPopupItem &item)
@@ -289,7 +295,7 @@ void ConvListItem::onViewDetailsItemPressed(ContextPopupItem &item)
 {
     MSG_LOG("");
     Popup &popup = m_App.getPopupManager().getPopup();
-    popup.addButton(msgt("IDS_MSG_BUTTON_OK_ABB"), Popup::CancelButtonId, POPUP_BUTTON_CB(ConvListItem, onFailedCancelButtonClicked), this);
+    popup.addButton(msgt("IDS_MSG_BUTTON_OK_ABB"), Popup::CancelButtonId, POPUP_BUTTON_CB(ConvListItem, onCancelButtonClicked), this);
     popup.setTitle(msgt("IDS_MSGF_HEADER_MESSAGE_DETAILS"));
     popup.setContent(MessageDetailContent::getMsgDetailContent(m_App, m_MsgId));
     popup.show();
@@ -308,7 +314,7 @@ void ConvListItem::onFailedButtonClicked(Evas_Object *obj, void *event_info)
     showFailedToSendPopup();
 }
 
-void ConvListItem::onFailedCancelButtonClicked(Popup &popup, int buttonId)
+void ConvListItem::onCancelButtonClicked(Popup &popup, int buttonId)
 {
     MSG_LOG("");
     popup.destroy();
@@ -321,6 +327,12 @@ void ConvListItem::onFailedResendButtonClicked(Popup &popup, int buttonId)
     if(msg)
         m_App.getMsgEngine().getTransport().sendMessage(msg);
 
+    popup.destroy();
+}
+
+void ConvListItem::onDeleteButtonClicked(Popup &popup, int buttonId)
+{
+    m_App.getMsgEngine().getStorage().deleteMessage(getMsgId());
     popup.destroy();
 }
 
