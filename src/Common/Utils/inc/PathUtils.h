@@ -34,23 +34,11 @@ namespace Msg
             static std::string getResourcePath(const std::string &filePath);
 
             /**
-             * @brief Gets the absolute path to file in data directory which is used to store private
- *                    data of the application.
+             * @brief Gets the absolute path to file in data directory which is used to store private data of the application.
              * @param[in] path to file in data dir (without slash at begin/end)
              * @return absolute path to file
              */
             static std::string getDataPath(const std::string &filePath);
-
-            /**
-             * Gets the absolute path to the file in application's shared trusted directory which is used to share data
-             *          with a family of trusted applications.
-             * @details An application can read and write its own files in the application's shared trusted directory
-             *          and the family applications signed with the same certificate can read and write the files in the
-             *          shared trusted directory.
-             * @param[in] path to file in res. dir (without slash at begin/end)
-             * @return absolute path to file
-             */
-            static std::string getSharedTrustedPath(const std::string &filePath);
     };
 }
 

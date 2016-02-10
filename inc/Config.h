@@ -37,12 +37,4 @@
 // Preference storage prefix
 #define PREF_PREFX "db/private/" PACKAGE_NAME "/"
 
-#if !defined(RESDIR)
-#define RESDIR    "/usr/apps/" PACKAGE_NAME "/res" // For Tizen SDK 2.4
-#endif
-
-#if !defined(LOCALEDIR)
-#define LOCALEDIR    RESDIR"/locale"
-#endif
-
 #endif // Config_h_
