@@ -20,6 +20,7 @@
 #include "NaviFrameController.h"
 #include "Logger.h"
 #include "App.h"
+#include "ContactManager.h"
 
 using namespace Msg;
 
@@ -45,3 +46,30 @@ void FrameController::onAttached(ViewItem &item)
     NaviFrameItem::onAttached(item);
 }
 
+void FrameController::setNaviBarTitle(const MsgAddressList &addressList)
+{
+    std::string title;
+    if(!addressList.isEmpty())
+    {
+        std::string firstAddress = addressList[0].getAddress();
+        ContactPersonAddressRef contactPersonAddress = getApp().getContactManager().getContactPersonAddress(firstAddress);
+        if(contactPersonAddress)
+            title = contactPersonAddress->getDispName();
+
+        if(title.empty())
+        {
+            title = firstAddress;
+        }
+        else
+        {
+            int hidenAddresses = addressList.getLength() - 1;
+            if(hidenAddresses > 0)
+            {
+                title += " + " + std::to_string(hidenAddresses);
+                getNaviBar().showButton(NaviDownButtonId, true);
+            }
+        }
+    }
+    getNaviBar().showButton(NaviCenterButtonId, true);
+    getNaviBar().setButtonText(NaviCenterButtonId, title);
+}

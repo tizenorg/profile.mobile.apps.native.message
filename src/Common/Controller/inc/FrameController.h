@@ -21,6 +21,7 @@
 #include "ViewItemController.h"
 #include "NaviFrameItem.h"
 #include "NaviFrameController.h"
+#include "MsgAddress.h"
 
 namespace Msg
 {
@@ -37,6 +38,8 @@ namespace Msg
             virtual NaviFrameController &getParent();
 
         protected:
+            void setNaviBarTitle(const MsgAddressList &addressList);
+
             // NaviFrameItem
             virtual void onAttached(ViewItem &item);
     };

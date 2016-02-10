@@ -23,6 +23,7 @@
 #include "ViewerLayout.h"
 #include "PlayerControl.h"
 #include "MsgTypes.h"
+#include "ContactManager.h"
 
 namespace Msg
 {
@@ -32,6 +33,7 @@ namespace Msg
         : public FrameController
         , private IHwButtonListener
         , private IPlayerControlListener
+        , private IContactManagerListener
     {
         public:
             Viewer(NaviFrameController &parent, MsgId id);
@@ -47,11 +49,14 @@ namespace Msg
             virtual void onHwBackButtonClicked();
             virtual void onHwMoreButtonClicked();
 
-            /// IPlayerControlListener:
+            // IPlayerControlListener:
             virtual void onPlayClicked();
             virtual void onPauseClicked();
             virtual void onNextClicked();
             virtual void onPrevClicked();
+
+            // IContactManagerListener:
+            virtual void onContactChanged();
 
         private:
             void updateNavibar();

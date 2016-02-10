@@ -19,6 +19,8 @@
 #include "Logger.h"
 #include "PathUtils.h"
 #include "Logger.h"
+#include "MsgEngine.h"
+#include "App.h"
 
 #include <Elementary.h>
 #include <sstream>
@@ -36,6 +38,7 @@ Viewer::Viewer(NaviFrameController &parent, MsgId id)
 
 Viewer::~Viewer()
 {
+    getApp().getContactManager().removeListener(*this);
 }
 
 void Viewer::onAttached(ViewItem &item)
@@ -47,13 +50,17 @@ void Viewer::onAttached(ViewItem &item)
 
 void Viewer::updateNavibar()
 {
-    getNaviBar().setTitle("Viewer");
+    getNaviBar().clear();
     getNaviBar().setColor(NaviBar::NaviBlueColorId);
     getNaviBar().showButton(NaviPrevButtonId, true);
+    MessageRef msg = getMsgEngine().getStorage().getMessage(m_MsgId);
+    if(msg)
+        FrameController::setNaviBarTitle(msg->getAddressList());
 }
 
 void Viewer::create()
 {
+    getApp().getContactManager().addListener(*this);
     createLayout();
     createPlayerControl();
     setHwButtonListener(*m_pLayout, this);
@@ -87,8 +94,22 @@ void Viewer::onHwMoreButtonClicked()
 
 void Viewer::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
 {
-    if(buttonId == NaviPrevButtonId)
-        getParent().pop();
+    MSG_LOG("");
+    switch(buttonId)
+    {
+        case NaviCenterButtonId:
+            break;
+
+        case NaviPrevButtonId:
+            getParent().pop();
+            break;
+
+        case NaviDownButtonId:
+            break;
+
+        default:
+            break;
+    };
 }
 
 void Viewer::onPlayClicked()
@@ -111,4 +132,10 @@ void Viewer::onNextClicked()
 void Viewer::onPrevClicked()
 {
     MSG_LOG("");
+}
+
+void Viewer::onContactChanged()
+{
+    MSG_LOG("");
+    updateNavibar();
 }
