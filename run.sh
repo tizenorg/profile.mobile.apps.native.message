@@ -13,7 +13,7 @@ action:
   -b  --build           build project
   -i, --install         install to device or emulator
   -r, --run             run application. Don't use with -t option
-  -t, --test            builds unit-tests as well, ignored without -b option
+  -n, --notest          skips build of unit-tests(tests are included into build-procedure by default), ignored without -b option
   -d, --debug           install debuginfo and debugsource packages
   -l, --local		local incremental build(with --noinit --incremental kwys)
 
@@ -25,7 +25,7 @@ build configuration options:
   -v VERSION, --version VERSION build project for target version. Default build on tizen_3.0
 
   examples:
-  'run.sh -b -t -i -A armv7l' will build application and try to install it to target-device, unit-tests will be also built
+  'run.sh -b -i -A armv7l' will build application and try to install it to target-device, unit-tests will be also built
   'run.sh -i -A armv7l[i586|aarch64]' will install latest build for tizen-2.4 device [emulator|tizen-3.0 device]
   'run.sh -b -A armv7l -v tizen_2.4[tizen_3.0]' will build for tizen-2.4[tizen-3.0] on armv7l arch
 "
@@ -40,13 +40,13 @@ BUILDKEYS=""
 INSTALLOPTION=false
 RUNOPTION=false
 DEBUGOPTION=false
-TESTOPTION=false
+TESTOPTION=true
 PLATFORM=armv7l
 LOCALBUILD=false
 TIZENVERSION="default"
 
-SHORTOPTS="hA:b::irdtlv:"
-LONGOPTS="arch:,build::,install,run,debug,test,help,local,version:"
+SHORTOPTS="hA:b::irdnlv"
+LONGOPTS="arch:,build::,install,run,debug,notest,help,local,version:"
 SCRIPTNAME=`basename $0`
 
 ARGS=$(getopt -q --options "$SHORTOPTS" --longoptions "$LONGOPTS" --name $SCRIPTNAME -- "$@")
@@ -94,8 +94,8 @@ while true; do
       -d|--debug)
          DEBUGOPTION=true
          ;;
-      -t|--test)
-         TESTOPTION=true
+      -n|--notest)
+         TESTOPTION=false
          ;;
       -l|--local)
          LOCALBUILD=true
