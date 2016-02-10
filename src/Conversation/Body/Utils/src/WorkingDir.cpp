@@ -25,7 +25,6 @@
 
 using namespace Msg;
 
-
 const std::string commonWorkingDirName = "msg-composer";
 const std::string currentWorkingDirPrefix = "composer";
 const std::string textFileName = "mms";
@@ -44,7 +43,7 @@ WorkingDir::~WorkingDir()
 void WorkingDir::createWorkingDir()
 {
     // Create common dir. if not exists:
-    std::string commonDir = PathUtils::getSharedTrustedPath(commonWorkingDirName);
+    std::string commonDir = PathUtils::getDataPath(commonWorkingDirName);
     bool isCommonExists = FileUtils::isExists(commonDir);
     if(!isCommonExists)
     {
