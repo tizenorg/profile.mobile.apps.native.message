@@ -61,7 +61,7 @@ MsgReport::Type MsgReportPrivate::getType() const
 
 time_t MsgReportPrivate::getTime() const
 {
-    time_t time;
+    int time = 0;
     msg_get_int_value(m_MsgStruct, MSG_REPORT_TIME_INT, &time);
-    return time;
+    return (time_t)time;
 }

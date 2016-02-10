@@ -42,6 +42,7 @@
 #define CONV_LIST_EDJ_PATH               EDJ_PATH"/conv_list.edj"
 #define SELECT_ALL_EDJ_PATH              EDJ_PATH"/select_all.edj"
 #define VIEWER_LAYOUT_EDJ_PATH           EDJ_PATH"/viewer_layout.edj"
+#define VIEWER_PALYER_EDJ_PATH           EDJ_PATH"/viewer_player.edj"
 
 // Images(res):
 #define THUMB_CONTACT_IMG_PATH           IMAGE_PATH"/list_ic_contacts.png"

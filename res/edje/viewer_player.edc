@@ -1,0 +1,567 @@
+/*
+ * Copyright (c) 2009-2015 Samsung Electronics Co., Ltd All Rights Reserved
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+#include "viewer_defines.inl"
+
+#define TIME_TEXT_HEIGHT 43
+
+collections {
+    base_scale: 2.6;
+    plugins {
+        plugin {
+            name: "touch_sound";
+            source: "feedback";
+            param: "FEEDBACK_TYPE_SOUND FEEDBACK_PATTERN_TAP";
+        }
+    }
+    group {
+        name: "player";
+        images {
+            image: PREV_BTN COMP;
+            image: PLAY_BTN COMP;
+            image: PAUSE_BTN COMP;
+            image: NEXT_BTN COMP;
+        }
+        parts {
+            part {
+                name: "rect";
+                type: RECT;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    min: 0 PLAY_CTRBAR_MIN_VERTICAL_H;
+                    color: COLOR_GRAY;
+                }
+            }
+            part {
+                name: "rect/padding/top";
+                type: SPACER;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    min: 0 55;
+                    align: 0.0 0.0;
+                    fixed: 1 1;
+                    rel1{to:"rect"; relative:0.0 0.0;}
+                    rel2{to:"rect"; relative:1.0 0.0;}
+                }
+            }
+            part {
+                name: "progress/start/time";
+                type: TEXT;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    visible: 1;
+                    min: 0 TIME_TEXT_HEIGHT;
+                    align: 0.0 0.0;
+                    fixed: 1 1;
+                    rel1{to:"progress_area"; relative:0.0 1.0; offset: 0 8;}
+                    rel2{to:"progress_area"; relative:0.2 1.0; offset: 0 8;}
+                    text {
+                        size: 28;
+                        align: 0.0 0.5;
+                        text_class: "label";
+                    }
+                    color: COLOR_TIME_TEXT_EDC;
+                }
+            }
+            part {
+                name: "progress_area";
+                mouse_events: 1;
+                type: SWALLOW;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    visible: 1;
+                    min: 0 16;
+                    align: 0.5 0.0;
+                    fixed: 1 1;
+                    rel1{to:"rect/padding/top"; relative:0.0 1.0; offset: 30 0;}
+                    rel2{to:"rect/padding/top"; relative:1.0 1.0; offset: -30 0;}
+                }
+                description {
+                    state: "horizontal" 0.0;
+                    inherit: "default" 0.0;
+                }
+            }
+            part {
+                name: "progress/end/time";
+                type: TEXT;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    visible: 1;
+                    min: 0 TIME_TEXT_HEIGHT;
+                    align: 1.0 0.0;
+                    fixed: 1 1;
+                    rel1{to:"progress_area"; relative:0.8 1.0; offset: 0 8;}
+                    rel2{to:"progress_area"; relative:1.0 1.0; offset: 0 8;}
+                    text {
+                        size: 28;
+                        align: 1.0 0.5;
+                        text_class: "label";
+                    }
+                    color: COLOR_TIME_TEXT_EDC;
+                }
+            }
+            part {
+                name: "rect/padding/middle";
+                type: SPACER;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    min: 0 11;
+                    align: 0.0 0.0;
+                    fixed: 1 1;
+                    rel1{to_y:"progress/start/time"; relative:0.0 1.0;}
+                    rel2{to_y:"progress/start/time"; relative:1.0 1.0;}
+                }
+            }
+            part {
+                name: "rect/padding/button/top";
+                type: SPACER;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    min: 0 0;
+                    align: 0.0 0.0;
+                    fixed: 1 1;
+                    rel1{to:"rect/padding/middle"; relative:0.0 1.0;}
+                    rel2{to:"rect/padding/middle"; relative:1.0 1.0;}
+                }
+            }
+            part {
+                name: "rect/padding/button/bottom";
+                type: SPACER;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    min: 0 0;
+                    align: 0.0 1.0;
+                    fixed: 1 1;
+                    rel1{to:"rect/padding/bottom"; relative:0.0 0.0;}
+                    rel2{to:"rect/padding/bottom"; relative:1.0 0.0;}
+                }
+            }
+            part {
+                name: "rect/padding/bottom";
+                type: SPACER;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    min: 0 15;
+                    align: 0.0 1.0;
+                    fixed: 1 1;
+                    rel1{to:"rect"; relative:0.0 1.0;}
+                    rel2{to:"rect"; relative:1.0 1.0;}
+                }
+            }
+            part {
+                name: "rect/padding/button_small";
+                type: SPACER;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    fixed: 1 1;
+                    rel1{to:"rect/padding/button/top"; relative:0.0 1.0;}
+                    rel2{to:"rect/padding/button/bottom"; relative:1.0 0.0;}
+                    align: 0.0 0.5;
+                }
+            }
+            part {
+                name: "rect/padding/button_large";
+                type: SPACER;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    fixed: 1 1;
+                    rel1{to:"rect/padding/middle"; relative:0.0 1.0;}
+                    rel2{to:"rect/padding/bottom"; relative:1.0 0.0;}
+                }
+            }
+            part {
+                name: "prev_bg";
+                mouse_events: 0;
+                type: RECT;
+                scale : 1;
+                description {
+                    state: "default" 0.0;
+                    align: 1.0 0.5;
+                    visible: 1;
+                    min: PLAY_CTRBAR_SMALL_BUTTON_W PLAY_CTRBAR_SMALL_BUTTON_W;
+                    max: PLAY_CTRBAR_SMALL_BUTTON_W PLAY_CTRBAR_SMALL_BUTTON_W;
+                    fixed: 1 1;
+                    rel1 {
+                        relative: 0.0 1.0;
+                        to_x: "play_pause_bg";
+                        to_y: "rect/padding/middle";
+                        offset: -25 0;
+                    }
+                    rel2 {
+                        relative: 0.0 0.0;
+                        to_x: "play_pause_bg";
+                        to_y: "rect/padding/bottom";
+                        offset: -25 0;
+                    }
+                    color: 0 0 0 0;
+                }
+            }
+            part {
+                name: "prev";
+                type: IMAGE;
+                mouse_events: 1;
+                scale : 1;
+                description {
+                    state: "default" 0.0;
+                    align: 0.5 0.5;
+                    visible:1;
+                    image { normal: PREV_BTN; }
+                    rel1 {
+                        relative: 0 0;
+                        to: "prev_bg";
+                    }
+                    rel2 {
+                        relative: 1 1;
+                        to: "prev_bg";
+                    }
+                    color: BUBBLE_NAVI_TITLE_COLOR;
+                }
+                description {
+                    state: "press" 0.0;
+                    inherit: "default" 0.0;
+                }
+            }
+            part {
+                name: "play_pause_bg";
+                mouse_events: 0;
+                type: RECT;
+                scale : 1;
+                description {
+                    state: "default" 0.0;
+                    align: 0.5 0.5;
+                    visible: 1;
+                    min: PLAY_CTRBAR_LARGE_BUTTON_W PLAY_CTRBAR_LARGE_BUTTON_W;
+                    max: PLAY_CTRBAR_LARGE_BUTTON_W PLAY_CTRBAR_LARGE_BUTTON_W;
+                    fixed: 1 1;
+                    rel1 {
+                        relative: 0.5 1.0;
+                        to: "rect/padding/middle";
+                    }
+                    rel2 {
+                        relative: 0.5 0.0;
+                        to: "rect/padding/bottom";
+                    }
+                    color: 0 0 0 0;
+                }
+            }
+            part {
+                name: "play_pause";
+                type: IMAGE;
+                mouse_events: 1;
+                scale : 1;
+                description {
+                    state: "default" 0.0;
+                    align: 0.5 0.5;
+                    visible:1;
+                    image { normal: PLAY_BTN; }
+                    rel1 {
+                        relative: 0 0;
+                        to: "play_pause_bg";
+                    }
+                    rel2 {
+                        relative: 1 1;
+                        to: "play_pause_bg";
+                    }
+                    color: BUBBLE_NAVI_TITLE_COLOR;
+                }
+                description {
+                    state: "default" 1.0;
+                    image { normal: PAUSE_BTN; }
+                    rel1 {
+                        relative: 0 0;
+                        to: "play_pause_bg";
+                    }
+                    rel2 {
+                        relative: 1 1;
+                        to: "play_pause_bg";
+                    }
+                    color: BUBBLE_NAVI_TITLE_COLOR;
+                }
+                description {
+                    state: "press" 0.0;
+                    inherit: "default" 0.0;
+                }
+                description {
+                    state: "press" 1.0;
+                    inherit: "default" 1.0;
+                }
+            }
+            part {
+                name: "next_bg";
+                mouse_events: 0;
+                type: RECT;
+                scale : 1;
+                description {
+                    state: "default" 0.0;
+                    align: 0.0 0.5;
+                    visible: 1;
+                    min: PLAY_CTRBAR_SMALL_BUTTON_W PLAY_CTRBAR_SMALL_BUTTON_W;
+                    max: PLAY_CTRBAR_SMALL_BUTTON_W PLAY_CTRBAR_SMALL_BUTTON_W;
+                    fixed: 1 1;
+                    rel1 {
+                        relative: 1.0 1.0;
+                        to_x: "play_pause_bg";
+                        to_y: "rect/padding/middle";
+                        offset: 25 0;
+                    }
+                    rel2 {
+                        relative: 1.0 0.0;
+                        to_x: "play_pause_bg";
+                        to_y: "rect/padding/bottom";
+                        offset: 25 0;
+                    }
+                    color: 0 0 0 0;
+                }
+            }
+            part {
+                name: "next";
+                type: IMAGE;
+                mouse_events: 1;
+                scale : 1;
+                description {
+                    state: "default" 0.0;
+                    align: 0.5 0.5;
+                    visible:1;
+                    image { normal: NEXT_BTN; }
+                    rel1 {
+                        relative: 0 0;
+                        to: "next_bg";
+                    }
+                    rel2 {
+                        relative: 1 1;
+                        to: "next_bg";
+                    }
+                    color: BUBBLE_NAVI_TITLE_COLOR;
+                }
+                description {
+                    state: "press" 0.0;
+                    inherit: "default" 0.0;
+                }
+            }
+
+            programs {
+                program {
+                    name: "play_touch_snd";
+                    signal: "play.touch.sound";
+                    source: "";
+                    action: RUN_PLUGIN "touch_sound";
+                }
+                program {
+                    name: "prev_btn_click";
+                    source: "prev";
+                    signal: "mouse,clicked,1";
+                    script {
+                        new st[31];
+                        new Float:vl;
+                        get_state(PART:"prev", st, 30, vl)
+
+                        if (!strcmp(st, "default"))
+                            emit ("prev_clicked", "");
+                    }
+                }
+                program {
+                    name: "prev_btn_down";
+                    source: "prev";
+                    signal: "mouse,down,1";
+                    script {
+                        new st[31];
+                        new Float:vl;
+                        get_state(PART:"prev", st, 30, vl)
+
+                        if (!strcmp(st, "default")) {
+                            set_state(PART:"prev", "press", 0.0);
+                        }
+                    }
+                }
+                program {
+                    name: "prev_btn_up";
+                    source: "prev";
+                    signal: "mouse,up,1";
+                    script {
+                        new st[31];
+                        new Float:vl;
+                        get_state(PART:"prev", st, 30, vl)
+
+                        if (!strcmp(st, "press")) {
+                            set_state(PART:"prev", "default", 0.0);
+                        }
+                    }
+                }
+                program {
+                    name: "prev_btn_enable";
+                    source: "*";
+                    signal: "prev_enable";
+                    script {
+                        set_state(PART:"prev", "default", 0.0);
+                    }
+                }
+                program {
+                    name: "prev_btn_disable";
+                    source: "*";
+                    signal: "prev_disable";
+                    script {
+                        set_state(PART:"prev", "default", 0.0);
+                    }
+                }
+                program {
+                    name: "play_btn_click";
+                    source: "play_pause";
+                    signal: "mouse,clicked,1";
+                    script {
+                        new st[31];
+                        new Float:vl;
+                        get_state(PART:"play_pause", st, 30, vl)
+                        if(vl == 0.0)
+                            emit ("play_clicked", "");
+                        else
+                            emit ("pause_clicked", "");
+                    }
+                }
+                program {
+                    name: "play_btn_down";
+                    source: "play_pause";
+                    signal: "mouse,down,1";
+                    script {
+                        new st[31];
+                        new Float:vl;
+                        get_state(PART:"play_pause", st, 30, vl)
+                        if(vl == 0.0) {
+                            set_state(PART:"play_pause", "press", 0.0);
+                        } else {
+                            set_state(PART:"play_pause", "press", 1.0);
+                        }
+
+                    }
+                }
+                program {
+                    name: "play_btn_up";
+                    source: "play_pause";
+                    signal: "mouse,up,1";
+                    script {
+                        new st[31];
+                        new Float:vl;
+                        get_state(PART:"play_pause", st, 30, vl)
+                        if(vl == 0.0) {
+                            set_state(PART:"play_pause", "default", 0.0);
+                        } else {
+                            set_state(PART:"play_pause", "default", 1.0);
+                        }
+                    }
+                }
+                program {
+                    name: "play_btn_play";
+                    source: "*";
+                    signal: "play";
+                    script {
+                        set_state(PART:"play_pause", "default", 0.0);
+                    }
+                }
+                program {
+                    name: "play_btn_pause";
+                    source: "*";
+                    signal: "pause";
+                    script {
+                        set_state(PART:"play_pause", "default", 1.0);
+                    }
+                }
+                program {
+                    name: "next_btn_click";
+                    source: "next";
+                    signal: "mouse,clicked,1";
+                    script {
+                        new st[31];
+                        new Float:vl;
+                        get_state(PART:"next", st, 30, vl)
+
+                        if (!strcmp(st, "default"))
+                            emit ("next_clicked", "");
+                    }
+                }
+                program {
+                    name: "next_btn_down";
+                    source: "next";
+                    signal: "mouse,down,1";
+                    script {
+                        new st[31];
+                        new Float:vl;
+                        get_state(PART:"next", st, 30, vl)
+
+                        if (!strcmp(st, "default")) {
+                            set_state(PART:"next", "press", 0.0);
+                        }
+                    }
+                }
+                program {
+                    name: "next_btn_up";
+                    source: "next";
+                    signal: "mouse,up,1";
+                    script {
+                        new st[31];
+                        new Float:vl;
+                        get_state(PART:"next", st, 30, vl)
+
+                        if (!strcmp(st, "press")) {
+                            set_state(PART:"next", "default", 0.0);
+                        }
+                    }
+                }
+                program {
+                    name: "next_btn_enable";
+                    source: "*";
+                    signal: "next_enable";
+                    script {
+                        set_state(PART:"next", "default", 0.0);
+                    }
+                }
+                program {
+                    name: "next_btn_disable";
+                    source: "*";
+                    signal: "next_disable";
+                    script {
+                        set_state(PART:"next", "default", 0.0);
+                    }
+                }
+                program {
+                    name: "progress_vertical";
+                    signal: "progress,set,vertical";
+                    source: "*";
+                    action: STATE_SET "default" 0.0;
+                    target: "progress_area";
+                }
+                program {
+                    name: "progress_horizontal";
+                    signal: "progress,set,horizontal";
+                    source: "*";
+                    action: STATE_SET "horizontal" 0.0;
+                    target: "progress_area";
+                }
+            }
+        }
+    }
+}
+
