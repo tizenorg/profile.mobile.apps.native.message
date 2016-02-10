@@ -118,10 +118,11 @@ void MainApp::initThemes()
 bool MainApp::onAppCreate()
 {
     TRACE;
-    MSG_LOG(LOCALEDIR);
+    std::string localePath(PathUtils::getLocalePath());
+    if(!localePath.empty())
+        bindtextdomain(PROJECT_NAME, localePath.c_str());
 
-    bindtextdomain(PROJECT_NAME, LOCALEDIR);
-    elm_app_base_scale_set(1.8); // If the application is made based on HD(720x1280), set 2.4.
+    elm_app_base_scale_set(2.6);
     elm_config_preferred_engine_set("opengl_x11");
 
     initThemes();
