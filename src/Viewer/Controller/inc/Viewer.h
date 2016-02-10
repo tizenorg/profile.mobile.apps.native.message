@@ -21,6 +21,7 @@
 #include "FrameController.h"
 #include "HwButtonListener.h"
 #include "ViewerLayout.h"
+#include "PlayerControl.h"
 #include "MsgTypes.h"
 
 namespace Msg
@@ -30,6 +31,7 @@ namespace Msg
     class Viewer
         : public FrameController
         , private IHwButtonListener
+        , private IPlayerControlListener
     {
         public:
             Viewer(NaviFrameController &parent, MsgId id);
@@ -45,14 +47,22 @@ namespace Msg
             virtual void onHwBackButtonClicked();
             virtual void onHwMoreButtonClicked();
 
+            /// IPlayerControlListener:
+            virtual void onPlayClicked();
+            virtual void onPauseClicked();
+            virtual void onNextClicked();
+            virtual void onPrevClicked();
+
         private:
             void updateNavibar();
             void create();
             void createLayout();
+            void createPlayerControl();
 
         private:
             MsgId m_MsgId;
             ViewerLayout *m_pLayout;
+            PlayerControl *m_pPlayerControl;
     };
 }
 

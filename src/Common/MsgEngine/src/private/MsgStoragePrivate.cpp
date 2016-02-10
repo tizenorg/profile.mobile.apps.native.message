@@ -205,7 +205,6 @@ int MsgStoragePrivate::getUnreadThreadCount() const
     msg_struct_list_s peerList;
 
     int unreadThreadCount = 0;
-    bool oneThread = true;
 
     msg_set_int_value(sortRule, MSG_SORT_RULE_SORT_TYPE_INT, MSG_SORT_BY_READ_STATUS);
     msg_set_bool_value(sortRule, MSG_SORT_RULE_ACSCEND_BOOL, false);

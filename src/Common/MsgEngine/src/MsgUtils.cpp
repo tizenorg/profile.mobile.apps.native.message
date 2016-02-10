@@ -28,9 +28,6 @@ using namespace Msg;
 namespace
 {
     unsigned emailAddrLenMax = 256;
-    unsigned addrLenMin = 1;
-    const unsigned numberLenMin = 3;
-    const unsigned numberLenMax = 15;
     const char *delimiters = ",;";
     const char *numberRegex = "\\+?([[:digit:]][ *\\(\\)-]*){2,14}[[:digit:]]$";
     const char *emailRegex = "(([[:alnum:]_!#$%&'*+/=?`{|}~^-]+)|(^\"([[:alnum:]_!#$%&'*+/=?`{|}~^-\\(\\)<>\\[\\]:;@,. (\\\\)(\\\")])+\"))+(?:\\.(([[:alnum:]_!#$%&'*+/=?`{|}~^-]+)|(\"([[:alnum:]_!#$%&'*+/=?`{|}~^-\\(\\)<>\\[\\]:;@,. (\\\\)(\\\")])+\")))*@[[:alnum:]-]+(?:\\.[[:alnum:]-]+)*";

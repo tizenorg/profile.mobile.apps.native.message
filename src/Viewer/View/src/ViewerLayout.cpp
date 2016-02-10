@@ -41,7 +41,7 @@ ViewerLayout::~ViewerLayout()
 
 }
 
-void ViewerLayout::setPlayer(Evas_Object *obj)
+void ViewerLayout::setPlayerControl(Evas_Object *obj)
 {
     setContent(obj, playerPart);
 }

@@ -18,6 +18,7 @@
 #include "Viewer.h"
 #include "Logger.h"
 #include "PathUtils.h"
+#include "Logger.h"
 
 #include <Elementary.h>
 #include <sstream>
@@ -28,6 +29,7 @@ Viewer::Viewer(NaviFrameController &parent, MsgId id)
     : FrameController(parent)
     , m_MsgId(id)
     , m_pLayout(nullptr)
+    , m_pPlayerControl(nullptr)
 {
     create();
 }
@@ -53,6 +55,7 @@ void Viewer::updateNavibar()
 void Viewer::create()
 {
     createLayout();
+    createPlayerControl();
     setHwButtonListener(*m_pLayout, this);
 }
 
@@ -60,6 +63,16 @@ void Viewer::createLayout()
 {
     m_pLayout = new ViewerLayout(getParent());
     m_pLayout->show();
+}
+
+void Viewer::createPlayerControl()
+{
+    m_pPlayerControl = new PlayerControl(*m_pLayout);
+    m_pPlayerControl->setStartTime("00:00");
+    m_pPlayerControl->setEndTime("00:00"); // For test
+    m_pPlayerControl->setListener(this);
+    m_pPlayerControl->show();
+    m_pLayout->setPlayerControl(*m_pPlayerControl);
 }
 
 void Viewer::onHwBackButtonClicked()
@@ -76,4 +89,26 @@ void Viewer::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
 {
     if(buttonId == NaviPrevButtonId)
         getParent().pop();
+}
+
+void Viewer::onPlayClicked()
+{
+    MSG_LOG("");
+    m_pPlayerControl->setPlayState(PlayerControl::PauseState);
+}
+
+void Viewer::onPauseClicked()
+{
+    MSG_LOG("");
+    m_pPlayerControl->setPlayState(PlayerControl::PlayState);
+}
+
+void Viewer::onNextClicked()
+{
+    MSG_LOG("");
+}
+
+void Viewer::onPrevClicked()
+{
+    MSG_LOG("");
 }

@@ -46,4 +46,8 @@
     return static_cast<ClassName*>(data)->method(event_info);                      \
 }
 
+#define EDJE_SIGNAL_CALLBACK(ClassName, method) [](void *data, Evas_Object *obj, const char *emission, const char *source) \
+{                                                                                                                          \
+    static_cast<ClassName*>(data)->method(obj, emission, source);                                                          \
+}
 #endif /* CallBackAssist_h_ */

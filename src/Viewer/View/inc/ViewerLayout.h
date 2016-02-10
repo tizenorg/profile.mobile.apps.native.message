@@ -29,7 +29,7 @@ namespace Msg
             ViewerLayout(Evas_Object *parent);
             virtual ~ViewerLayout();
 
-            void setPlayer(Evas_Object *obj);
+            void setPlayerControl(Evas_Object *obj);
             void setSubject(Evas_Object *obj);
             void setBody(Evas_Object *obj);
             void setBg(Evas_Object *obj);
