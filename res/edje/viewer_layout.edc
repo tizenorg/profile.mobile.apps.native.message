@@ -95,7 +95,7 @@ collections {
                 }
             }
             part {
-                name: "body.content";
+                name: "swallow.touch_area";
                 type: SWALLOW;
                 scale: 1;
                 mouse_events: 1;
@@ -103,11 +103,8 @@ collections {
                 description {
                     state: "default" 0.0;
                     fixed: 1 0;
-                    min:0 0;
-                    color: 0 0 0 0;
-                    rel1 {to: "swallow.subject"; relative: 0.0 1.0;}
-                    rel2 {to: "swallow.bottom.content"; relative: 1.0 0.0;}
-                    align: 0.0 0.0;
+                    rel1 {to: "body"; relative: 0.0 0.0;}
+                    rel2 {to: "body"; relative: 1.0 1.0;}
                 }
             }
             part {
@@ -135,6 +132,10 @@ collections {
                     rel1 {to: "rect"; relative:0.0 1.0;}
                     rel2 {to: "rect"; relative:1.0 1.0;}
                 }
+                description {
+                    state: "hide" 0.0;
+                    visible: 0;
+                }
             }
         }
         programs {
@@ -148,5 +149,7 @@ collections {
 
         SIG("show_recipients", "show", "swallow.recipients");
         SIG("hide_recipients", "default", "swallow.recipients");
+        SIG("show_player", "default", "swallow.playctrl");
+        SIG("hide_player", "hide", "swallow.playctrl");
     }
 }
