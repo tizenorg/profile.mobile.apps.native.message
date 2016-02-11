@@ -75,12 +75,12 @@ Evas_Object *PlayerControl::createPlayer(Evas_Object *parent)
 
 Evas_Object *PlayerControl::createProgress(Evas_Object *parent)
 {
-    Evas_Object *progressbar = elm_progressbar_add(parent);
-    elm_object_style_set(progressbar, "list_progress");
-    elm_progressbar_horizontal_set(progressbar, true);
-    elm_progressbar_unit_format_set(progressbar, nullptr);
-    evas_object_show(progressbar);
-    return progressbar;
+    m_pProgress = elm_progressbar_add(parent);
+    elm_object_style_set(m_pProgress, "list_progress");
+    elm_progressbar_horizontal_set(m_pProgress, true);
+    elm_progressbar_unit_format_set(m_pProgress, nullptr);
+    evas_object_show(m_pProgress);
+    return m_pProgress;
 }
 
 void PlayerControl::prevButtonEnable(bool enable)

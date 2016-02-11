@@ -39,7 +39,7 @@ namespace Msg
             virtual ~PlayerControl();
 
             void setListener(IPlayerControlListener *l);
-            void setProgress(double percentage);
+            void setProgress(double value); // 0.0..1.0
             void prevButtonEnable(bool enable);
             void nextButtonEnable(bool enable);
             void setPlayState(PlayPauseState state);

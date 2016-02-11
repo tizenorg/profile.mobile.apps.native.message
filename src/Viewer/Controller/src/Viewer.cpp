@@ -21,6 +21,7 @@
 #include "Logger.h"
 #include "MsgEngine.h"
 #include "App.h"
+#include "CallbackAssist.h"
 
 #include <Elementary.h>
 #include <sstream>
@@ -69,6 +70,7 @@ void Viewer::create()
 void Viewer::createLayout()
 {
     m_pLayout = new ViewerLayout(getParent());
+    m_pLayout->setListener(this);
     m_pLayout->show();
 }
 
@@ -79,6 +81,7 @@ void Viewer::createPlayerControl()
     m_pPlayerControl->setEndTime("00:00"); // For test
     m_pPlayerControl->setListener(this);
     m_pPlayerControl->show();
+    m_pPlayerControl->setProgress(0.5);
     m_pLayout->setPlayerControl(*m_pPlayerControl);
 }
 
@@ -138,4 +141,10 @@ void Viewer::onContactChanged()
 {
     MSG_LOG("");
     updateNavibar();
+}
+
+void Viewer::onLayoutTocuh()
+{
+    MSG_LOG("");
+    m_pLayout->showPlayerControl(!m_pLayout->isVisiblePlayerControl());
 }

@@ -22,6 +22,8 @@
 
 namespace Msg
 {
+    class IViewerLayoutListener;
+
     class ViewerLayout
         : public View
     {
@@ -29,12 +31,27 @@ namespace Msg
             ViewerLayout(Evas_Object *parent);
             virtual ~ViewerLayout();
 
+            void setListener(IViewerLayoutListener *l);
+
             void setPlayerControl(Evas_Object *obj);
             void setSubject(Evas_Object *obj);
             void setBody(Evas_Object *obj);
             void setBg(Evas_Object *obj);
             void setRecipients(Evas_Object *obj);
+
             void showRecipients(bool show);
+            void showPlayerControl(bool show);
+            bool isVisiblePlayerControl() const;
+
+        private:
+            IViewerLayoutListener *m_pListener;
+    };
+
+    class IViewerLayoutListener
+    {
+        public:
+            virtual ~IViewerLayoutListener() {}
+            virtual void onLayoutTocuh() {};
     };
 }
 

@@ -34,6 +34,7 @@ namespace Msg
         , private IHwButtonListener
         , private IPlayerControlListener
         , private IContactManagerListener
+        , private IViewerLayoutListener
     {
         public:
             Viewer(NaviFrameController &parent, MsgId id);
@@ -57,6 +58,9 @@ namespace Msg
 
             // IContactManagerListener:
             virtual void onContactChanged();
+
+            // IViewerLayoutListener:
+            virtual void onLayoutTocuh();
 
         private:
             void updateNavibar();

@@ -27,18 +27,45 @@ namespace
     const char *subjectPart = "swallow.subject";
     const char *bgPart = "body.bg";
     const char *recipientsPart = "swallow.recipients";
+    const char *touchAreaPart = "swallow.touch_area";
     const char *showRecipSig = "show_recipients";
     const char *hideRecipSig = "hide_recipients";
+    const char *showPlayerSig = "show_player";
+    const char *hidePlayerSig = "hide_player";
 }
 
 ViewerLayout::ViewerLayout(Evas_Object *parent)
+    : m_pListener(nullptr)
 {
     setEo(addLayout(parent, VIEWER_LAYOUT_EDJ_PATH, layoutGroup));
+
+    Evas_Object *button = elm_button_add(getEo());
+    elm_object_style_set(button, "transparent");
+    evas_object_show(button);
+    evas_object_smart_callback_add
+    (
+        button,
+        "clicked",
+        [](void *data, Evas_Object *obj, void *event_info)
+        {
+            ViewerLayout *self = static_cast<ViewerLayout*>(data);
+            if(self->m_pListener)
+                self->m_pListener->onLayoutTocuh();
+        },
+        this
+    );
+
+    setContent(button, touchAreaPart);
 }
 
 ViewerLayout::~ViewerLayout()
 {
 
+}
+
+void ViewerLayout::setListener(IViewerLayoutListener *l)
+{
+    m_pListener = l;
 }
 
 void ViewerLayout::setPlayerControl(Evas_Object *obj)
@@ -70,4 +97,16 @@ void ViewerLayout::showRecipients(bool show)
 {
     const char *sig = show ? showRecipSig : hideRecipSig;
     emitSignal(sig, "");
+}
+
+void ViewerLayout::showPlayerControl(bool show)
+{
+    const char *sig = show ? showPlayerSig : hidePlayerSig;
+    emitSignal(sig, "");
+}
+
+bool ViewerLayout::isVisiblePlayerControl() const
+{
+    Evas_Object *obj = getContent(playerPart);
+    return evas_object_visible_get(obj);
 }
