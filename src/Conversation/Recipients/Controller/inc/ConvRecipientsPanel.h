@@ -18,10 +18,9 @@
 #ifndef RecipientsPanel_h_
 #define RecipientsPanel_h_
 
-#include "RecipientViewItem.h"
-#include "RecipientsPanelView.h"
+#include "ConvRecipientsPanelView.h"
 #include "AppControlCompose.h"
-#include "RecipientItem.h"
+#include "ConvRecipientItem.h"
 #include "Message.h"
 #include "App.h"
 #include "AppControlUtils.h"
@@ -29,10 +28,10 @@
 
 namespace Msg
 {
-    class IRecipientsPanelListener;
+    class IConvRecipientsPanelListener;
 
-    class RecipientsPanel
-        : public RecipientsPanelView,
+    class ConvRecipientsPanel
+        : public ConvRecipientsPanelView,
           private IContactPickerListener
     {
         public:
@@ -44,13 +43,13 @@ namespace Msg
             };
 
         public:
-            RecipientsPanel(Evas_Object *parent, App &app);
-            virtual ~RecipientsPanel();
+            ConvRecipientsPanel(Evas_Object *parent, App &app);
+            virtual ~ConvRecipientsPanel();
 
             void read(Message &msg);
             void write(const Message &msg);
             bool isMms() const;
-            void setListener(IRecipientsPanelListener *l);
+            void setListener(IConvRecipientsPanelListener *l);
             void update(const ThreadId &threadId);
             void update(const MsgAddressList &addressList);
             AppendItemStatus appendItem(const std::string &address, MsgAddress::AddressType addressType = MsgAddress::UnknownAddressType);
@@ -60,10 +59,10 @@ namespace Msg
 
         private:
             // RecipientsPanelView:
-            virtual void onItemAdded(RecipientViewItem &item);
-            virtual void onItemDeleted(RecipientViewItem &item);
-            virtual void onItemSelected(RecipientViewItem &item);
-            virtual void onItemClicked(RecipientViewItem &item);
+            virtual void onItemAdded(ConvRecipientViewItem &item);
+            virtual void onItemDeleted(ConvRecipientViewItem &item);
+            virtual void onItemSelected(ConvRecipientViewItem &item);
+            virtual void onItemClicked(ConvRecipientViewItem &item);
             virtual void onKeyDown(Evas_Event_Key_Down *ev);
             virtual void onEntryFocusChanged();
             virtual void onContactButtonClicked();
@@ -82,20 +81,20 @@ namespace Msg
 
         private:
             App &m_App;
-            IRecipientsPanelListener *m_pListener;
+            IConvRecipientsPanelListener *m_pListener;
             ContactPicker m_Picker;
     };
 
-    class IRecipientsPanelListener
+    class IConvRecipientsPanelListener
     {
         public:
-            virtual ~IRecipientsPanelListener() {}
+            virtual ~IConvRecipientsPanelListener() {}
 
-            virtual void onKeyDown(RecipientsPanel &panel, Evas_Event_Key_Down &ev) {};
-            virtual void onEntryFocusChanged(RecipientsPanel &panel) {};
-            virtual void onItemAdded(RecipientsPanel &panel, RecipientItem &item) {};
-            virtual void onItemDeleted(RecipientsPanel &panel, RecipientItem &item) {};
-            virtual void onItemClicked(RecipientsPanel &panel, RecipientItem &item) {};
+            virtual void onKeyDown(ConvRecipientsPanel &panel, Evas_Event_Key_Down &ev) {};
+            virtual void onEntryFocusChanged(ConvRecipientsPanel &panel) {};
+            virtual void onItemAdded(ConvRecipientsPanel &panel, ConvRecipientItem &item) {};
+            virtual void onItemDeleted(ConvRecipientsPanel &panel, ConvRecipientItem &item) {};
+            virtual void onItemClicked(ConvRecipientsPanel &panel, ConvRecipientItem &item) {};
     };
 }
 

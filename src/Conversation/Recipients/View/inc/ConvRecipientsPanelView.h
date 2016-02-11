@@ -15,34 +15,34 @@
  *
  */
 
-#ifndef RecipientsPanelView_h_
-#define RecipientsPanelView_h_
+#ifndef ConvRecipientsPanelView_h_
+#define ConvRecipientsPanelView_h_
 
 #include "View.h"
-#include "RecipientViewItem.h"
+#include "ConvRecipientViewItem.h"
 
 #include <string>
 #include <vector>
 
 namespace Msg
 {
-    class RecipientViewItem;
-    typedef std::vector<RecipientViewItem*> RecipientViewItemList;
+    class ConvRecipientViewItem;
+    typedef std::vector<ConvRecipientViewItem*> ConvRecipientViewItemList;
 
-    class RecipientsPanelView
+    class ConvRecipientsPanelView
         : public View
     {
         public:
-            RecipientsPanelView(Evas_Object *parent, int entryMaxCharCount);
-            virtual ~RecipientsPanelView();
+            ConvRecipientsPanelView(Evas_Object *parent, int entryMaxCharCount);
+            virtual ~ConvRecipientsPanelView();
 
             Evas_Object *getAreaRect() const;
-            void appendItem(RecipientViewItem &item);
+            void appendItem(ConvRecipientViewItem &item);
             void showMbe(bool show);
             void showEntry(bool show);
             std::string getEntryText() const;
             void setEntryText(const std::string &utf8);
-            RecipientViewItemList getItems() const;
+            ConvRecipientViewItemList getItems() const;
             bool isMbeEmpty() const;
             bool isMbeVisible() const;
             bool getEntryFocus() const;
@@ -58,10 +58,10 @@ namespace Msg
 
         private:
             // Out signals:
-            virtual void onItemAdded(RecipientViewItem &item) {};
-            virtual void onItemDeleted(RecipientViewItem &item) {};
-            virtual void onItemSelected(RecipientViewItem &item) {};
-            virtual void onItemClicked(RecipientViewItem &item) {};
+            virtual void onItemAdded(ConvRecipientViewItem &item) {};
+            virtual void onItemDeleted(ConvRecipientViewItem &item) {};
+            virtual void onItemSelected(ConvRecipientViewItem &item) {};
+            virtual void onItemClicked(ConvRecipientViewItem &item) {};
             virtual void onKeyDown(Evas_Event_Key_Down *ev) {};
             virtual void onEntryFocusChanged() {};
             virtual void onContactButtonClicked() {}
@@ -99,7 +99,7 @@ namespace Msg
             Evas_Object *createAreaRect(Evas_Object *parent);
             Evas_Object *createContactBtn(Evas_Object *parent);
             void setContactBtnColor(int r, int g, int b, int a);
-            RecipientViewItem *getItem(void *data);
+            ConvRecipientViewItem *getItem(void *data);
             void deleteNextRecipient();
             void selectLastItem();
             bool isEntryEmpty() const;
@@ -116,4 +116,4 @@ namespace Msg
     };
 }
 
-#endif /* RecipientsPanelView_h_ */
+#endif /* ConvRecipientsPanelView_h_ */

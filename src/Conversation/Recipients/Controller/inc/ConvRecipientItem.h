@@ -15,24 +15,24 @@
  *
  */
 
-#ifndef RecipientItem_h_
-#define RecipientItem_h_
+#ifndef ConvRecipientItem_h_
+#define ConvRecipientItem_h_
 
-#include "RecipientViewItem.h"
+#include "ConvRecipientViewItem.h"
 #include "MsgAddress.h"
 
 #include <string>
 
 namespace Msg
 {
-    class RecipientItem
-        : public RecipientViewItem
+    class ConvRecipientItem
+        : public ConvRecipientViewItem
     {
         public:
-            RecipientItem(const std::string &address,
+            ConvRecipientItem(const std::string &address,
                           MsgAddress::AddressType addressType,
                           MsgAddress::RecipientType recipientType = MsgAddress::To);
-            virtual ~RecipientItem();
+            virtual ~ConvRecipientItem();
 
             const std::string &getAddress() const;
             MsgAddress::AddressType getAddressType() const;
@@ -49,4 +49,4 @@ namespace Msg
     };
 }
 
-#endif /* RecipientItem_h_ */
+#endif /* ConvRecipientItem_h_ */

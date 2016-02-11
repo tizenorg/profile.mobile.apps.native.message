@@ -22,7 +22,7 @@
 #include "App.h"
 #include "Message.h"
 #include "Logger.h"
-#include "RecipientItem.h"
+#include "ConvRecipientItem.h"
 #include "LangUtils.h"
 #include "CallbackAssist.h"
 #include "ContactViewer.h"
@@ -263,7 +263,7 @@ void Conversation::createRecipPanel(Evas_Object *parent)
 {
     if(!m_pRecipPanel)
     {
-        m_pRecipPanel = new RecipientsPanel(parent, getApp());
+        m_pRecipPanel = new ConvRecipientsPanel(parent, getApp());
         m_pRecipPanel->setListener(this);
         m_pRecipPanel->show();
         m_pLayout->setRecipientPanel(*m_pRecipPanel);
@@ -543,7 +543,7 @@ void Conversation::showMainCtxPopup()
     ctxPopup.show();
 }
 
-void Conversation::onKeyDown(RecipientsPanel &panel, Evas_Event_Key_Down &ev)
+void Conversation::onKeyDown(ConvRecipientsPanel &panel, Evas_Event_Key_Down &ev)
 {
     if(ev.keyname)
     {
@@ -559,23 +559,23 @@ void Conversation::onKeyDown(RecipientsPanel &panel, Evas_Event_Key_Down &ev)
     }
 }
 
-void Conversation::onEntryFocusChanged(RecipientsPanel &panel)
+void Conversation::onEntryFocusChanged(ConvRecipientsPanel &panel)
 {
     if(!m_pRecipPanel->getEntryFocus())
         m_pContactsList->clear();
 }
 
-void Conversation::onItemAdded(RecipientsPanel &panel, RecipientItem &item)
+void Conversation::onItemAdded(ConvRecipientsPanel &panel, ConvRecipientItem &item)
 {
     checkAndSetMsgType();
 }
 
-void Conversation::onItemDeleted(RecipientsPanel &panel, RecipientItem &item)
+void Conversation::onItemDeleted(ConvRecipientsPanel &panel, ConvRecipientItem &item)
 {
     checkAndSetMsgType();
 }
 
-void Conversation::onItemClicked(RecipientsPanel &panel, RecipientItem &item)
+void Conversation::onItemClicked(ConvRecipientsPanel &panel, ConvRecipientItem &item)
 {
     MSG_LOG("");
     recipientClickHandler(item.getAddress());

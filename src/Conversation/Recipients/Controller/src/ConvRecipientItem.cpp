@@ -15,12 +15,12 @@
  *
  */
 
-#include "RecipientItem.h"
+#include "ConvRecipientItem.h"
 
 using namespace Msg;
 
 
-RecipientItem::RecipientItem(const std::string &address,
+ConvRecipientItem::ConvRecipientItem(const std::string &address,
                              MsgAddress::AddressType addressType,
                              MsgAddress::RecipientType recipientType)
     : m_Address(address)
@@ -29,36 +29,36 @@ RecipientItem::RecipientItem(const std::string &address,
 {
 }
 
-RecipientItem::~RecipientItem()
+ConvRecipientItem::~ConvRecipientItem()
 {
 }
 
-const std::string &RecipientItem::getAddress() const
+const std::string &ConvRecipientItem::getAddress() const
 {
     return m_Address;
 }
 
-MsgAddress::AddressType RecipientItem::getAddressType() const
+MsgAddress::AddressType ConvRecipientItem::getAddressType() const
 {
     return m_AddressType;
 }
 
-MsgAddress::RecipientType RecipientItem::getRecipientType() const
+MsgAddress::RecipientType ConvRecipientItem::getRecipientType() const
 {
     return m_RecipientType;
 }
 
-void RecipientItem::setAddress(const std::string &address)
+void ConvRecipientItem::setAddress(const std::string &address)
 {
     m_Address = address;
 }
 
-void RecipientItem::setRecipientType(MsgAddress::RecipientType type)
+void ConvRecipientItem::setRecipientType(MsgAddress::RecipientType type)
 {
     m_RecipientType = type;
 }
 
-void RecipientItem::setAddressType(MsgAddress::AddressType type)
+void ConvRecipientItem::setAddressType(MsgAddress::AddressType type)
 {
     m_AddressType = type;
 }

@@ -16,31 +16,31 @@
  */
 
 
-#include "RecipientViewItem.h"
+#include "ConvRecipientViewItem.h"
 
 using namespace Msg;
 
-RecipientViewItem::RecipientViewItem()
+ConvRecipientViewItem::ConvRecipientViewItem()
     : ViewItem()
     , m_pOwner(nullptr)
 {
 }
 
-RecipientViewItem::~RecipientViewItem()
+ConvRecipientViewItem::~ConvRecipientViewItem()
 {
 
 }
 
-void RecipientViewItem::onViewDestroyed()
+void ConvRecipientViewItem::onViewDestroyed()
 {
 }
 
-void RecipientViewItem::setDisplayName(const std::string &displayName)
+void ConvRecipientViewItem::setDisplayName(const std::string &displayName)
 {
     m_DisplayName = displayName;
 }
 
-const std::string &RecipientViewItem::getDisplayName() const
+const std::string &ConvRecipientViewItem::getDisplayName() const
 {
     return m_DisplayName;
 }

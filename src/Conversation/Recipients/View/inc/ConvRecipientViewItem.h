@@ -15,8 +15,8 @@
  *
  */
 
-#ifndef RecipientViewItem_h_
-#define RecipientViewItem_h_
+#ifndef ConvRecipientViewItem_h_
+#define ConvRecipientViewItem_h_
 
 #include "ViewItem.h"
 
@@ -24,16 +24,16 @@
 
 namespace Msg
 {
-    class RecipientsPanelView;
+    class ConvRecipientsPanelView;
 
-    class RecipientViewItem
+    class ConvRecipientViewItem
         : public ViewItem
     {
-             friend class RecipientsPanelView;
+             friend class ConvRecipientsPanelView;
 
         public:
-            RecipientViewItem();
-            virtual ~RecipientViewItem();
+            ConvRecipientViewItem();
+            virtual ~ConvRecipientViewItem();
 
             void setDisplayName(const std::string &displayName);
             const std::string &getDisplayName() const;
@@ -43,8 +43,8 @@ namespace Msg
 
         private:
             std::string m_DisplayName;
-            RecipientsPanelView *m_pOwner;
+            ConvRecipientsPanelView *m_pOwner;
     };
 }
 
-#endif /* RecipientViewItem_h_ */
+#endif /* ConvRecipientViewItem_h_ */

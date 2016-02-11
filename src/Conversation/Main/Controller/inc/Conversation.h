@@ -24,7 +24,7 @@
 #include "MessageInputPanel.h"
 #include "Body.h"
 #include "MsgThreadItem.h"
-#include "RecipientsPanel.h"
+#include "ConvRecipientsPanel.h"
 #include "ListView.h"
 #include "MsgEngine.h"
 #include "ConvContactList.h"
@@ -46,7 +46,7 @@ namespace Msg
         , private IHwButtonListener
         , private IMessageInputPanelListener
         , private IBodyListener
-        , private IRecipientsPanelListener
+        , private IConvRecipientsPanelListener
         , private IConvContactListListener
         , private IConvListListener
         , private IAttachPanelListener
@@ -88,11 +88,11 @@ namespace Msg
             virtual void onButtonClicked(MessageInputPanel &obj, MessageInputPanel::ButtonId id);
 
             // IRecipientsPanelListener:
-            virtual void onItemAdded(RecipientsPanel &panel, RecipientItem &item);
-            virtual void onItemDeleted(RecipientsPanel &panel, RecipientItem &item);
-            virtual void onKeyDown(RecipientsPanel &panel, Evas_Event_Key_Down &ev);
-            virtual void onEntryFocusChanged(RecipientsPanel &panel);
-            virtual void onItemClicked(RecipientsPanel &panel, RecipientItem &item);
+            virtual void onItemAdded(ConvRecipientsPanel &panel, ConvRecipientItem &item);
+            virtual void onItemDeleted(ConvRecipientsPanel &panel, ConvRecipientItem &item);
+            virtual void onKeyDown(ConvRecipientsPanel &panel, Evas_Event_Key_Down &ev);
+            virtual void onEntryFocusChanged(ConvRecipientsPanel &panel);
+            virtual void onItemClicked(ConvRecipientsPanel &panel, ConvRecipientItem &item);
 
             // IBodyListener:
             virtual void onChanged(Body &body);
@@ -177,7 +177,7 @@ namespace Msg
             ConversationLayout *m_pLayout;
             MessageInputPanel *m_pMsgInputPanel;
             Body *m_pBody;
-            RecipientsPanel *m_pRecipPanel;
+            ConvRecipientsPanel *m_pRecipPanel;
             ConvContactList *m_pContactsList;
             ThreadId m_ThreadId;
             bool m_IsMms; // Compose message type
