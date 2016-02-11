@@ -32,6 +32,7 @@ INCLUDE_DIRECTORIES(${INCLUDE_DIRECTORIES}
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/Settings/View/inc/
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/Viewer/Controller/inc/
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/Viewer/View/inc/
+                    ${CMAKE_CURRENT_SOURCE_DIR}/src/Viewer/Utils/inc/
 )
 
 if(NOT DEFINED TIZEN_2_4)

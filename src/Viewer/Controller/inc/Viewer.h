@@ -20,6 +20,8 @@
 
 #include "FrameController.h"
 #include "HwButtonListener.h"
+#include "ViewerLayout.h"
+#include "MsgTypes.h"
 
 namespace Msg
 {
@@ -30,7 +32,7 @@ namespace Msg
         , private IHwButtonListener
     {
         public:
-            Viewer(NaviFrameController &parent);
+            Viewer(NaviFrameController &parent, MsgId id);
             virtual ~Viewer();
 
         private:
@@ -44,6 +46,13 @@ namespace Msg
             virtual void onHwMoreButtonClicked();
 
         private:
+            void updateNavibar();
+            void create();
+            void createLayout();
+
+        private:
+            MsgId m_MsgId;
+            ViewerLayout *m_pLayout;
     };
 }
 

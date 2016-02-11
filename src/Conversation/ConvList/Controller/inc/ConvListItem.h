@@ -105,6 +105,7 @@ namespace Msg
             virtual ~IConvListItemListener() {}
             virtual void onEditDraftMsg(ConvListItem &item) {};
             virtual void onForwardMsg(ConvListItem &item) {};
+            virtual void onSlideShow(ConvListItem &item) {};
     };
 }
 

@@ -271,6 +271,9 @@ void ConvListItem::onResendItemPressed(ContextPopupItem &item)
 void ConvListItem::onSlideShowItemPressed(ContextPopupItem &item)
 {
     MSG_LOG("");
+    item.getParent().destroy();
+    if(m_pListener)
+        m_pListener->onSlideShow(*this);
 }
 
 void ConvListItem::onEditItemPressed(ContextPopupItem &item)

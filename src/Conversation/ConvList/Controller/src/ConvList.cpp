@@ -223,6 +223,12 @@ void ConvList::onForwardMsg(ConvListItem &item)
         m_pListner->onForwardMsg(item.getMsgId());
 }
 
+void ConvList::onSlideShow(ConvListItem &item)
+{
+    if(m_pListner)
+        m_pListner->onSlideShow(item.getMsgId());
+}
+
 void ConvList::onEditDraftMsg(ConvListItem &item)
 {
     if(m_pListner)
