@@ -19,16 +19,12 @@
 #define ConvRecipientsPanelView_h_
 
 #include "View.h"
-#include "ConvRecipientViewItem.h"
 
 #include <string>
 #include <vector>
 
 namespace Msg
 {
-    class ConvRecipientViewItem;
-    typedef std::vector<ConvRecipientViewItem*> ConvRecipientViewItemList;
-
     class ConvRecipientsPanelView
         : public View
     {
@@ -37,12 +33,10 @@ namespace Msg
             virtual ~ConvRecipientsPanelView();
 
             Evas_Object *getAreaRect() const;
-            void appendItem(ConvRecipientViewItem &item);
             void showMbe(bool show);
             void showEntry(bool show);
             std::string getEntryText() const;
             void setEntryText(const std::string &utf8);
-            ConvRecipientViewItemList getItems() const;
             bool isMbeEmpty() const;
             bool isMbeVisible() const;
             bool getEntryFocus() const;
@@ -56,12 +50,11 @@ namespace Msg
              */
             unsigned int getItemsCount() const;
 
+        protected:
+            void setMbe(Evas_Object *obj);
+
         private:
             // Out signals:
-            virtual void onItemAdded(ConvRecipientViewItem &item) {};
-            virtual void onItemDeleted(ConvRecipientViewItem &item) {};
-            virtual void onItemSelected(ConvRecipientViewItem &item) {};
-            virtual void onItemClicked(ConvRecipientViewItem &item) {};
             virtual void onKeyDown(Evas_Event_Key_Down *ev) {};
             virtual void onEntryFocusChanged() {};
             virtual void onContactButtonClicked() {}
@@ -73,7 +66,6 @@ namespace Msg
             void onItemAdded(Evas_Object *obj, void *item);
             void onItemClicked(Evas_Object *obj, void *item);
 
-            Eina_Bool onMbeFilter(Evas_Object *obj, const char *item_label, const void *item_data);
             void onMbeFocused(Evas_Object *obj, void *event_info);
             void onMbeUnfocused(Evas_Object *obj, void *event_info);
             void onMbeClicked(Evas_Object *obj, void *event_info);
@@ -90,20 +82,19 @@ namespace Msg
             void onContactBtnUnpressed(Evas_Object *obj, void *event_info);
             void onContactBtnClicked(Evas_Object *obj, void *event_info);
 
-            void onEntryGeometryChanged(Evas_Object *obj, void *event_info);
+            void onGeometryChanged(Evas_Object *obj, void *event_info);
 
         private:
             void create(Evas_Object *parent);
-            Evas_Object *createMbe(Evas_Object *parent);
             Evas_Object *createEntry(Evas_Object *parent);
             Evas_Object *createAreaRect(Evas_Object *parent);
             Evas_Object *createContactBtn(Evas_Object *parent);
             void setContactBtnColor(int r, int g, int b, int a);
-            ConvRecipientViewItem *getItem(void *data);
             void deleteNextRecipient();
             void selectLastItem();
             bool isEntryEmpty() const;
             void unselectMbeItem();
+            void addGeometryChangedCb(Evas_Object *obj);
 
         private:
             Evas_Object *m_pLayout;

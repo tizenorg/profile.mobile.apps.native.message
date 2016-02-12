@@ -58,6 +58,7 @@ namespace Msg
             void setData(const char *key, const void *data);
             void *getData(const char *key) const;
             void addEventCb(Evas_Callback_Type type, Evas_Object_Event_Cb func, const void *data);
+            void addSmartCb(const char *event, Evas_Smart_Cb func, const void *data);
 
             template<typename T>
             static T staticCast(void *evasObj);
@@ -280,6 +281,11 @@ namespace Msg
     inline void View::addEventCb(Evas_Callback_Type type, Evas_Object_Event_Cb func, const void *data)
     {
         evas_object_event_callback_add(m_pEo, type, func, data);
+    }
+
+    inline void View::addSmartCb(const char *event, Evas_Smart_Cb func, const void *data)
+    {
+        evas_object_smart_callback_add(m_pEo, event, func, data);
     }
 
     inline Evas_Object *View::unsetContent(const char *part)

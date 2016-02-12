@@ -15,36 +15,32 @@
  *
  */
 
-#ifndef ConvRecipientViewItem_h_
-#define ConvRecipientViewItem_h_
+#ifndef MbeRecipientsView_h_
+#define MbeRecipientsView_h_
 
-#include "ViewItem.h"
+#include "View.h"
+#include "MbeRecipientViewItem.h"
 
-#include <string>
+#include <vector>
 
 namespace Msg
 {
-    class ConvRecipientsPanelView;
-
-    class ConvRecipientViewItem
-        : public ViewItem
+    class MbeRecipientsView
+        : public View
     {
-             friend class ConvRecipientsPanelView;
-
         public:
-            ConvRecipientViewItem();
-            virtual ~ConvRecipientViewItem();
+            MbeRecipientsView(Evas_Object *parent);
+            virtual ~MbeRecipientsView();
 
-            void setDisplayName(const std::string &displayName);
-            const std::string &getDisplayName() const;
-
-        private:
-            virtual void onViewDestroyed();
-
-        private:
-            std::string m_DisplayName;
-            ConvRecipientsPanelView *m_pOwner;
+            void appendItem(MbeRecipientItem &item);
+            int getItemsCount() const;
+            std::vector<MbeRecipientItem*> getItems() const;
+            MbeRecipientItem *getSelectedItem() const;
+            void selectItem(MbeRecipientItem &item, bool select);
+            void unselect();
+            bool isEmpty() const;
+            void clear();
     };
 }
 
-#endif /* ConvRecipientViewItem_h_ */
+#endif /* MbeRecipientsView_h_ */

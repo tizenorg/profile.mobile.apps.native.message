@@ -22,7 +22,6 @@
 #include "App.h"
 #include "Message.h"
 #include "Logger.h"
-#include "ConvRecipientItem.h"
 #include "LangUtils.h"
 #include "CallbackAssist.h"
 #include "ContactViewer.h"
@@ -565,17 +564,13 @@ void Conversation::onEntryFocusChanged(ConvRecipientsPanel &panel)
         m_pContactsList->clear();
 }
 
-void Conversation::onItemAdded(ConvRecipientsPanel &panel, ConvRecipientItem &item)
+void Conversation::onMbeChanged(ConvRecipientsPanel &panel)
 {
+    MSG_LOG("");
     checkAndSetMsgType();
 }
 
-void Conversation::onItemDeleted(ConvRecipientsPanel &panel, ConvRecipientItem &item)
-{
-    checkAndSetMsgType();
-}
-
-void Conversation::onItemClicked(ConvRecipientsPanel &panel, ConvRecipientItem &item)
+void Conversation::onItemClicked(ConvRecipientsPanel &panel, MbeRecipientItem &item)
 {
     MSG_LOG("");
     recipientClickHandler(item.getAddress());
@@ -650,7 +645,9 @@ void Conversation::onButtonClicked(MessageInputPanel &obj, MessageInputPanel::Bu
 
 void Conversation::onContactSelected(ContactListItem &item)
 {
-    m_pRecipPanel->appendItem(item.getRecipient());
+    MbeRecipients::AppendItemStatus status = m_pRecipPanel->appendItem(item.getRecipient());
+    if(status == MbeRecipients::DuplicatedStatus)
+        m_pRecipPanel->showDuplicatedRecipientNotif();
     m_pRecipPanel->clearEntry();
     m_pContactsList->clear();
 }

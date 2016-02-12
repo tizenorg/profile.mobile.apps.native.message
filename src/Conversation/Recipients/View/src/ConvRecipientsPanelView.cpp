@@ -44,15 +44,20 @@ ConvRecipientsPanelView::~ConvRecipientsPanelView()
 
 }
 
-void ConvRecipientsPanelView::appendItem(ConvRecipientViewItem &item)
+void ConvRecipientsPanelView::setMbe(Evas_Object *obj)
 {
-    item.m_pOwner = this;
-    Elm_Object_Item *elmItem = elm_multibuttonentry_item_append(m_pMbe, item.getDisplayName().c_str(), nullptr, &item);
+    m_pMbe = obj;
+    addGeometryChangedCb(m_pMbe);
+    elm_object_part_content_set(m_pLayout, "swl.mbe", m_pMbe);
+}
 
-    if(elmItem)
-        item.setElmObjItem(elmItem);
-    else
-        item.m_pOwner = nullptr;
+void ConvRecipientsPanelView::addGeometryChangedCb(Evas_Object *obj)
+{
+    evas_object_event_callback_add(obj, EVAS_CALLBACK_RESIZE, EVAS_EVENT_CALLBACK(ConvRecipientsPanelView, onGeometryChanged), this);
+    evas_object_event_callback_add(obj, EVAS_CALLBACK_MOVE, EVAS_EVENT_CALLBACK(ConvRecipientsPanelView, onGeometryChanged), this);
+    evas_object_event_callback_add(obj, EVAS_CALLBACK_SHOW, EVAS_EVENT_CALLBACK(ConvRecipientsPanelView, onGeometryChanged), this);
+    evas_object_event_callback_add(obj, EVAS_CALLBACK_HIDE, EVAS_EVENT_CALLBACK(ConvRecipientsPanelView, onGeometryChanged), this);
+    evas_object_event_callback_add(obj, EVAS_CALLBACK_CHANGED_SIZE_HINTS, EVAS_EVENT_CALLBACK(ConvRecipientsPanelView, onGeometryChanged), this);
 }
 
 bool ConvRecipientsPanelView::getEntryFocus() const
@@ -79,21 +84,6 @@ void ConvRecipientsPanelView::clear()
 {
     clearEntry();
     clearMbe();
-}
-
-ConvRecipientViewItemList ConvRecipientsPanelView::getItems() const
-{
-    ConvRecipientViewItemList res;
-
-    Elm_Object_Item *elmItem = elm_multibuttonentry_first_item_get(m_pMbe);
-    while(elmItem)
-    {
-        ConvRecipientViewItem *item = static_cast<ConvRecipientViewItem*>(elm_object_item_data_get(elmItem));
-        res.push_back(item);
-        elmItem = elm_multibuttonentry_item_next_get(elmItem);
-    }
-
-    return res;
 }
 
 void ConvRecipientsPanelView::showMbe(bool show)
@@ -168,42 +158,11 @@ void ConvRecipientsPanelView::create(Evas_Object *parent)
     elm_layout_file_set(m_pLayout, path.c_str(), "recipient_panel");
 
     createAreaRect(m_pLayout);
-    Evas_Object *mbe = m_pMbe = createMbe(m_pLayout);
     Evas_Object *entry =  createEntry(m_pLayout);
     Evas_Object *button = createContactBtn(m_pLayout);
 
-    elm_object_part_content_set(m_pLayout, "swl.mbe", mbe);
     elm_object_part_content_set(m_pLayout, "swl.entry", entry);
     elm_object_part_content_set(m_pLayout, "swl.contact_btn", button);
-}
-
-Evas_Object *ConvRecipientsPanelView::createMbe(Evas_Object *parent)
-{
-    m_pMbe = elm_multibuttonentry_add(parent);
-    elm_multibuttonentry_editable_set(m_pMbe, EINA_FALSE);
-    elm_multibuttonentry_expanded_set(m_pMbe, EINA_TRUE);
-    evas_object_size_hint_weight_set(m_pMbe, EVAS_HINT_EXPAND, 0.0);
-    evas_object_size_hint_align_set(m_pMbe, EVAS_HINT_FILL, 0.0);
-    elm_object_focus_allow_set(m_pMbe, EINA_FALSE);
-    elm_object_tree_focus_allow_set(m_pMbe, EINA_TRUE);
-    evas_object_show(m_pMbe);
-
-    evas_object_smart_callback_add(m_pMbe, "item,added", SMART_CALLBACK(ConvRecipientsPanelView, onItemAdded), this);
-    evas_object_smart_callback_add(m_pMbe, "item,deleted", SMART_CALLBACK(ConvRecipientsPanelView, onItemDeleted), this);
-    evas_object_smart_callback_add(m_pMbe, "item,selected", SMART_CALLBACK(ConvRecipientsPanelView, onItemSelected), this);
-    evas_object_smart_callback_add(m_pMbe, "item,clicked", SMART_CALLBACK(ConvRecipientsPanelView, onItemClicked), this);
-
-    evas_object_smart_callback_add(m_pMbe, "focused", SMART_CALLBACK(ConvRecipientsPanelView, onMbeFocused), this);
-    evas_object_smart_callback_add(m_pMbe, "clicked", SMART_CALLBACK(ConvRecipientsPanelView, onMbeClicked), this);
-    evas_object_smart_callback_add(m_pMbe, "unfocused", SMART_CALLBACK(ConvRecipientsPanelView, onMbeUnfocused), this);
-
-    evas_object_event_callback_add(m_pMbe, EVAS_CALLBACK_RESIZE, EVAS_EVENT_CALLBACK(ConvRecipientsPanelView, onEntryGeometryChanged), this);
-    evas_object_event_callback_add(m_pMbe, EVAS_CALLBACK_MOVE, EVAS_EVENT_CALLBACK(ConvRecipientsPanelView, onEntryGeometryChanged), this);
-    evas_object_event_callback_add(m_pMbe, EVAS_CALLBACK_SHOW, EVAS_EVENT_CALLBACK(ConvRecipientsPanelView, onEntryGeometryChanged), this);
-    evas_object_event_callback_add(m_pMbe, EVAS_CALLBACK_HIDE, EVAS_EVENT_CALLBACK(ConvRecipientsPanelView, onEntryGeometryChanged), this);
-    evas_object_event_callback_add(m_pMbe, EVAS_CALLBACK_CHANGED_SIZE_HINTS, EVAS_EVENT_CALLBACK(ConvRecipientsPanelView, onEntryGeometryChanged), this);
-
-    return m_pMbe;
 }
 
 Evas_Object *ConvRecipientsPanelView::createEntry(Evas_Object *parent)
@@ -228,18 +187,12 @@ Evas_Object *ConvRecipientsPanelView::createEntry(Evas_Object *parent)
     evas_object_show(m_pEntry);
 
     evas_object_smart_callback_add(m_pEntry, "changed", SMART_CALLBACK(ConvRecipientsPanelView, onEntryChanged), this);
-    evas_object_smart_callback_add(m_pEntry, "preedit,changed", SMART_CALLBACK(ConvRecipientsPanelView, onEntryPreeditChanged), this);
-    evas_object_smart_callback_add(m_pEntry, "activated", SMART_CALLBACK(ConvRecipientsPanelView, onEntryActivated), this);
     evas_object_smart_callback_add(m_pEntry, "focused", SMART_CALLBACK(ConvRecipientsPanelView, onEntryFocusChanged), this);
     evas_object_smart_callback_add(m_pEntry, "unfocused", SMART_CALLBACK(ConvRecipientsPanelView, onEntryFocusChanged), this);
     evas_object_smart_callback_add(m_pEntry, "clicked", SMART_CALLBACK(ConvRecipientsPanelView, onEntryClicked), this);
     evas_object_smart_callback_add(m_pEntry, "maxlength,reached", SMART_CALLBACK(ConvRecipientsPanelView, onEntryMaxlengthReached), this);
     evas_object_event_callback_add(m_pEntry, EVAS_CALLBACK_KEY_DOWN, EVAS_EVENT_CALLBACK(ConvRecipientsPanelView, onKeyDown), this);
-    evas_object_event_callback_add(m_pEntry, EVAS_CALLBACK_RESIZE, EVAS_EVENT_CALLBACK(ConvRecipientsPanelView, onEntryGeometryChanged), this);
-    evas_object_event_callback_add(m_pEntry, EVAS_CALLBACK_MOVE, EVAS_EVENT_CALLBACK(ConvRecipientsPanelView, onEntryGeometryChanged), this);
-    evas_object_event_callback_add(m_pEntry, EVAS_CALLBACK_SHOW, EVAS_EVENT_CALLBACK(ConvRecipientsPanelView, onEntryGeometryChanged), this);
-    evas_object_event_callback_add(m_pEntry, EVAS_CALLBACK_HIDE, EVAS_EVENT_CALLBACK(ConvRecipientsPanelView, onEntryGeometryChanged), this);
-    evas_object_event_callback_add(m_pEntry, EVAS_CALLBACK_CHANGED_SIZE_HINTS, EVAS_EVENT_CALLBACK(ConvRecipientsPanelView, onEntryGeometryChanged), this);
+    addGeometryChangedCb(m_pEntry);
 
     return m_pEntry;
 }
@@ -279,7 +232,7 @@ Evas_Object *ConvRecipientsPanelView::getAreaRect() const
     return m_pRect;
 }
 
-void ConvRecipientsPanelView::onEntryGeometryChanged(Evas_Object *obj, void *event_info)
+void ConvRecipientsPanelView::onGeometryChanged(Evas_Object *obj, void *event_info)
 {
     int y = 0;
     int w = 0;
@@ -301,17 +254,6 @@ void ConvRecipientsPanelView::setContactBtnColor(int r, int g, int b, int a)
 {
     Evas_Object *icon = elm_object_part_content_get(m_pContactBtn, "button_center_part");
     evas_object_color_set(icon, r, g, b, a);
-}
-
-ConvRecipientViewItem *ConvRecipientsPanelView::getItem(void *data)
-{
-    Elm_Object_Item *elmItem = (Elm_Object_Item*)data;
-    ConvRecipientViewItem* it = static_cast<ConvRecipientViewItem*>(elm_object_item_data_get(elmItem));
-
-    if(!it)
-        MSG_LOG_ERROR("Item is null");
-
-    return it;
 }
 
 void ConvRecipientsPanelView::deleteNextRecipient()
@@ -358,70 +300,13 @@ unsigned int ConvRecipientsPanelView::getItemsCount() const
     unsigned int res = 0;
     const Eina_List* items = elm_multibuttonentry_items_get(m_pMbe);
     if(items)
-    {
         res = eina_list_count(items);
-    }
-
     return res;
-}
-
-void ConvRecipientsPanelView::onItemSelected(Evas_Object *obj, void *item)
-{
-    ConvRecipientViewItem* it = getItem(item);
-    onItemSelected(*it);
-}
-
-void ConvRecipientsPanelView::onItemDeleted(Evas_Object *obj, void *item)
-{
-    ConvRecipientViewItem* it = getItem(item);
-    onItemDeleted(*it);
-    delete it;
-}
-
-void ConvRecipientsPanelView::onItemAdded(Evas_Object *obj, void *item)
-{
-    onItemAdded(*getItem(item));
-}
-
-void ConvRecipientsPanelView::onItemClicked(Evas_Object *obj, void *item)
-{
-    ConvRecipientViewItem* it = getItem(item);
-    onItemClicked(*it);
-}
-
-Eina_Bool ConvRecipientsPanelView::onMbeFilter(Evas_Object *obj, const char *item_label, const void *item_data)
-{
-    return EINA_TRUE;
-}
-
-void ConvRecipientsPanelView::onMbeFocused(Evas_Object *obj, void *event_info)
-{
-
-}
-
-void ConvRecipientsPanelView::onMbeUnfocused(Evas_Object *obj, void *event_info)
-{
-
-}
-
-void ConvRecipientsPanelView::onMbeClicked(Evas_Object *obj, void *event_info)
-{
-
 }
 
 void ConvRecipientsPanelView::onEntryChanged(Evas_Object *obj, void *event_info)
 {
     unselectMbeItem();
-}
-
-void ConvRecipientsPanelView::onEntryPreeditChanged(Evas_Object *obj, void *event_info)
-{
-
-}
-
-void ConvRecipientsPanelView::onEntryActivated(Evas_Object *obj, void *event_info)
-{
-
 }
 
 void ConvRecipientsPanelView::onEntryFocusChanged(Evas_Object *obj, void *event_info)

@@ -19,12 +19,13 @@
 #define RecipientsPanel_h_
 
 #include "ConvRecipientsPanelView.h"
+#include "MbeRecipients.h"
 #include "AppControlCompose.h"
-#include "ConvRecipientItem.h"
 #include "Message.h"
 #include "App.h"
 #include "AppControlUtils.h"
 #include "ContactPicker.h"
+#include "MbeRecipients.h"
 
 namespace Msg
 {
@@ -35,14 +36,6 @@ namespace Msg
           private IContactPickerListener
     {
         public:
-            enum AppendItemStatus
-            {
-                SuccessStatus,
-                DuplicatedStatus,
-                InvalidRecipStatus
-            };
-
-        public:
             ConvRecipientsPanel(Evas_Object *parent, App &app);
             virtual ~ConvRecipientsPanel();
 
@@ -52,29 +45,27 @@ namespace Msg
             void setListener(IConvRecipientsPanelListener *l);
             void update(const ThreadId &threadId);
             void update(const MsgAddressList &addressList);
-            AppendItemStatus appendItem(const std::string &address, MsgAddress::AddressType addressType = MsgAddress::UnknownAddressType);
-            AppendItemStatus appendItem(const std::string &address, const std::string &dispName,
-                              MsgAddress::AddressType addressType = MsgAddress::UnknownAddressType);
             void execCmd(const AppControlComposeRef &cmd);
+            MbeRecipients::AppendItemStatus appendItem(const std::string &address, MsgAddress::AddressType addressType = MsgAddress::UnknownAddressType);
+            void showDuplicatedRecipientNotif();
 
         private:
             // RecipientsPanelView:
-            virtual void onItemAdded(ConvRecipientViewItem &item);
-            virtual void onItemDeleted(ConvRecipientViewItem &item);
-            virtual void onItemSelected(ConvRecipientViewItem &item);
-            virtual void onItemClicked(ConvRecipientViewItem &item);
             virtual void onKeyDown(Evas_Event_Key_Down *ev);
             virtual void onEntryFocusChanged();
             virtual void onContactButtonClicked();
 
+            void onMbeChanged(Evas_Object *oj, void *eventInfo);
+            void onMbeItemClicked(Evas_Object *oj, void *eventInfo);
             void onAppControlRes(app_control_h request, app_control_h reply, app_control_result_e result);
             void onPopupBtnClicked(Popup &popup, int buttonId);
             void onPopupDel(Evas_Object *popup, void *eventInfo);
 
             void addRecipientsFromEntry();
-            void showDuplicatedRecipientPopup();
-            void showTooManyRecipientsPopup();
+            void showTooManyRecipientsNotif();
             bool isRecipientExists(const std::string& address) const;
+            MbeRecipients::AppendItemStatus appendItem(const std::string &address, const std::string &dispName,
+                              MsgAddress::AddressType addressType = MsgAddress::UnknownAddressType);
 
             // IContactPickerListener
             virtual void onContactsPicked(const std::list<int> &numberIdList);
@@ -83,6 +74,7 @@ namespace Msg
             App &m_App;
             IConvRecipientsPanelListener *m_pListener;
             ContactPicker m_Picker;
+            MbeRecipients *m_pMbe;
     };
 
     class IConvRecipientsPanelListener
@@ -92,9 +84,8 @@ namespace Msg
 
             virtual void onKeyDown(ConvRecipientsPanel &panel, Evas_Event_Key_Down &ev) {};
             virtual void onEntryFocusChanged(ConvRecipientsPanel &panel) {};
-            virtual void onItemAdded(ConvRecipientsPanel &panel, ConvRecipientItem &item) {};
-            virtual void onItemDeleted(ConvRecipientsPanel &panel, ConvRecipientItem &item) {};
-            virtual void onItemClicked(ConvRecipientsPanel &panel, ConvRecipientItem &item) {};
+            virtual void onMbeChanged(ConvRecipientsPanel &panel) {};
+            virtual void onItemClicked(ConvRecipientsPanel &panel, MbeRecipientItem &item) {};
     };
 }
 

@@ -88,11 +88,10 @@ namespace Msg
             virtual void onButtonClicked(MessageInputPanel &obj, MessageInputPanel::ButtonId id);
 
             // IRecipientsPanelListener:
-            virtual void onItemAdded(ConvRecipientsPanel &panel, ConvRecipientItem &item);
-            virtual void onItemDeleted(ConvRecipientsPanel &panel, ConvRecipientItem &item);
+            virtual void onMbeChanged(ConvRecipientsPanel &panel);
             virtual void onKeyDown(ConvRecipientsPanel &panel, Evas_Event_Key_Down &ev);
             virtual void onEntryFocusChanged(ConvRecipientsPanel &panel);
-            virtual void onItemClicked(ConvRecipientsPanel &panel, ConvRecipientItem &item);
+            virtual void onItemClicked(ConvRecipientsPanel &panel, MbeRecipientItem &item);
 
             // IBodyListener:
             virtual void onChanged(Body &body);

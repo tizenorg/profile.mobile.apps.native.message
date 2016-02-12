@@ -57,17 +57,13 @@ void FrameController::setNaviBarTitle(const MsgAddressList &addressList)
             title = contactPersonAddress->getDispName();
 
         if(title.empty())
-        {
             title = firstAddress;
-        }
-        else
+
+        int hidenAddresses = addressList.getLength() - 1;
+        if(hidenAddresses > 0)
         {
-            int hidenAddresses = addressList.getLength() - 1;
-            if(hidenAddresses > 0)
-            {
-                title += " + " + std::to_string(hidenAddresses);
-                getNaviBar().showButton(NaviDownButtonId, true);
-            }
+            title += " + " + std::to_string(hidenAddresses);
+            getNaviBar().showButton(NaviDownButtonId, true);
         }
     }
     getNaviBar().showButton(NaviCenterButtonId, true);
