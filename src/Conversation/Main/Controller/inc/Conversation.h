@@ -169,7 +169,7 @@ namespace Msg
 
             void onNaviOkButtonClicked();
             void onNaviCenterButtonClicked();
-            void onNaviDownButtonClicked();
+            void onNaviExpandButtonClicked();
 
         private:
             Mode m_Mode;

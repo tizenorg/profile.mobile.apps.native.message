@@ -40,8 +40,9 @@ namespace Msg
             void setRecipients(Evas_Object *obj);
 
             void showRecipients(bool show);
+            bool isRecipientsVisible() const;
             void showPlayerControl(bool show);
-            bool isVisiblePlayerControl() const;
+            bool isPlayerControlVisible() const;
 
         private:
             IViewerLayoutListener *m_pListener;

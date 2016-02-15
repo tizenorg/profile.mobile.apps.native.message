@@ -24,6 +24,9 @@
 #include "PlayerControl.h"
 #include "MsgTypes.h"
 #include "ContactManager.h"
+#include "MessageMms.h"
+#include "MbeRecipients.h"
+#include "ContactEditor.h"
 
 namespace Msg
 {
@@ -41,7 +44,6 @@ namespace Msg
             virtual ~Viewer();
 
         private:
-
             // NaviFrameItem:
             virtual void onAttached(ViewItem &item);
             virtual void onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId);
@@ -62,16 +64,34 @@ namespace Msg
             // IViewerLayoutListener:
             virtual void onLayoutTocuh();
 
-        private:
-            void updateNavibar();
-            void create();
-            void createLayout();
-            void createPlayerControl();
+            // Popup:
+            void onMakeVoiceItemPressed(PopupListItem &item);
+            void onCreateContactItemPressed(PopupListItem &item);
+            void onUpdateContactItemPressed(PopupListItem &item);
+
+            // MbeRecipients:
+            void onRecipItemClicked(Evas_Object *obj, void *eventInfo);
 
         private:
-            MsgId m_MsgId;
+            void naviExpandButtonHandler();
+            void naviCenterButtonHandler();
+            void naviPrevButtonHandler();
+            void updateNavibar();
+            void updateRecipPanel();
+            void create(MsgId id);
+            void createLayout();
+            void createPlayerControl();
+            void createRecipPanel();
+            void recipientClickHandler(const std::string &address);
+            void showRecipPopup(const std::string &title);
+
+        private:
+            MessageMmsRef m_Msg;
             ViewerLayout *m_pLayout;
             PlayerControl *m_pPlayerControl;
+            MbeRecipients *m_pRecipPanel;
+            std::string m_SelectedAddress;
+            ContactEditor m_ContactEditor;
     };
 }
 

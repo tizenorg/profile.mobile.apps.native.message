@@ -44,7 +44,7 @@ namespace Msg
                 NaviOkButtonId,
                 NaviCenterButtonId,
                 NaviPrevButtonId,
-                NaviDownButtonId,
+                NaviExpandButtonId,
                 NaviButtonMax
             };
 

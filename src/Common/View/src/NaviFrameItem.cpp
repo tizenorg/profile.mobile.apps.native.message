@@ -102,7 +102,7 @@ NaviFrameItem::NaviBar::NaviBar(NaviFrameItem &onwer)
     //TODO: implement style for center button
     m_ButtonList[NaviCenterButtonId] = ButtonStruct(nullptr, centerButtonPart, cancelButtonStyle);
     m_ButtonList[NaviPrevButtonId] = ButtonStruct(nullptr, prevButtonPart, prevButtonStyle);
-    m_ButtonList[NaviDownButtonId] = ButtonStruct(nullptr, downButtonPart, downButtonStyle);
+    m_ButtonList[NaviExpandButtonId] = ButtonStruct(nullptr, downButtonPart, downButtonStyle);
 }
 
 NaviFrameItem::NaviBar::~NaviBar()
@@ -190,7 +190,7 @@ void NaviFrameItem::NaviBar::showButton(NaviButtonId id, bool value)
             showPrevButtonPart(value);
             break;
 
-        case NaviDownButtonId:
+        case NaviExpandButtonId:
             showDownButtonPart(value);
             break;
 
@@ -322,7 +322,7 @@ void NaviFrameItem::NaviBar::setButtonText(NaviButtonId id, const TText &text)
 void NaviFrameItem::NaviBar::setButtonColor(NaviButtonId id, NaviColorId titleColor)
 {
     // Note that, button's color is opposite to title's color
-    if (id == NaviPrevButtonId || id == NaviDownButtonId)
+    if (id == NaviPrevButtonId || id == NaviExpandButtonId)
     {
         switch(titleColor)
         {
@@ -404,5 +404,5 @@ void NaviFrameItem::NaviBar::hideSearch()
 void NaviFrameItem::NaviBar::setDownButtonState(bool expand)
 {
     const char *sig = expand ? "button,expand" : "button,collapse";
-    elm_object_signal_emit(m_ButtonList[NaviDownButtonId].button, sig, "*");
+    elm_object_signal_emit(m_ButtonList[NaviExpandButtonId].button, sig, "*");
 }

@@ -105,8 +105,14 @@ void ViewerLayout::showPlayerControl(bool show)
     emitSignal(sig, "");
 }
 
-bool ViewerLayout::isVisiblePlayerControl() const
+bool ViewerLayout::isPlayerControlVisible() const
 {
     Evas_Object *obj = getContent(playerPart);
+    return evas_object_visible_get(obj);
+}
+
+bool ViewerLayout::isRecipientsVisible() const
+{
+    Evas_Object *obj = getContent(recipientsPart);
     return evas_object_visible_get(obj);
 }

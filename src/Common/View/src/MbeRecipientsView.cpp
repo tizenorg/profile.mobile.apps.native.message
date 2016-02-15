@@ -69,19 +69,6 @@ MbeRecipientItem *MbeRecipientsView::getSelectedItem() const
     return ViewItem::staticCast<MbeRecipientItem*>(elm_multibuttonentry_selected_item_get(getEo()));
 }
 
-void MbeRecipientsView::selectItem(MbeRecipientItem &item, bool select)
-{
-    elm_object_focus_allow_set(item, true);
-    elm_multibuttonentry_item_selected_set(item, select);
-}
-
-void MbeRecipientsView::unselect()
-{
-    Elm_Object_Item *selectedItem = elm_multibuttonentry_selected_item_get(getEo());
-    if(selectedItem)
-        elm_multibuttonentry_item_selected_set(selectedItem, false);
-}
-
 bool MbeRecipientsView::isEmpty() const
 {
     return elm_multibuttonentry_first_item_get(getEo()) == nullptr;

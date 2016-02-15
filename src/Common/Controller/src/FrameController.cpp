@@ -63,7 +63,7 @@ void FrameController::setNaviBarTitle(const MsgAddressList &addressList)
         if(hidenAddresses > 0)
         {
             title += " + " + std::to_string(hidenAddresses);
-            getNaviBar().showButton(NaviDownButtonId, true);
+            getNaviBar().showButton(NaviExpandButtonId, true);
         }
     }
     getNaviBar().showButton(NaviCenterButtonId, true);

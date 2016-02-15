@@ -21,6 +21,10 @@
 #include "Logger.h"
 #include "MsgEngine.h"
 #include "App.h"
+#include "PopupList.h"
+#include "CallbackAssist.h"
+#include "VoiceCall.h"
+#include "ContactViewer.h"
 
 #include <Elementary.h>
 #include <sstream>
@@ -29,11 +33,11 @@ using namespace Msg;
 
 Viewer::Viewer(NaviFrameController &parent, MsgId id)
     : FrameController(parent)
-    , m_MsgId(id)
     , m_pLayout(nullptr)
     , m_pPlayerControl(nullptr)
+    , m_pRecipPanel(nullptr)
 {
-    create();
+    create(id);
 }
 
 Viewer::~Viewer()
@@ -53,35 +57,121 @@ void Viewer::updateNavibar()
     getNaviBar().clear();
     getNaviBar().setColor(NaviBar::NaviBlueColorId);
     getNaviBar().showButton(NaviPrevButtonId, true);
-    MessageRef msg = getMsgEngine().getStorage().getMessage(m_MsgId);
-    if(msg)
-        FrameController::setNaviBarTitle(msg->getAddressList());
+    if(m_Msg->getAddressList().getLength() > 1)
+        getNaviBar().showButton(NaviExpandButtonId, true);
+    FrameController::setNaviBarTitle(m_Msg->getAddressList());
 }
 
-void Viewer::create()
+void Viewer::updateRecipPanel()
 {
+    if(m_pRecipPanel)
+        m_pRecipPanel->update(m_Msg->getAddressList());
+}
+
+void Viewer::create(MsgId id)
+{
+    m_Msg = std::dynamic_pointer_cast<MessageMms>(getMsgEngine().getStorage().getMessage(id));
+    if(!m_Msg)
+    {
+        MSG_LOG_ERROR("Can't get message by id");
+        // Create empty message:
+        m_Msg = getMsgEngine().getComposer().createMms();
+    }
+
     getApp().getContactManager().addListener(*this);
     createLayout();
     createPlayerControl();
+    createRecipPanel();
     setHwButtonListener(*m_pLayout, this);
 }
 
 void Viewer::createLayout()
 {
-    m_pLayout = new ViewerLayout(getParent());
-    m_pLayout->setListener(this);
-    m_pLayout->show();
+    if(!m_pLayout)
+    {
+        m_pLayout = new ViewerLayout(getParent());
+        m_pLayout->setListener(this);
+        m_pLayout->show();
+    }
 }
 
 void Viewer::createPlayerControl()
 {
-    m_pPlayerControl = new PlayerControl(*m_pLayout);
-    m_pPlayerControl->setStartTime("00:00");
-    m_pPlayerControl->setEndTime("00:00"); // For test
-    m_pPlayerControl->setListener(this);
-    m_pPlayerControl->show();
-    m_pPlayerControl->setProgress(0.0);
-    m_pLayout->setPlayerControl(*m_pPlayerControl);
+    if(!m_pPlayerControl)
+    {
+        m_pPlayerControl = new PlayerControl(*m_pLayout);
+        m_pPlayerControl->setStartTime("00:00");
+        m_pPlayerControl->setEndTime("00:00"); // For test
+        m_pPlayerControl->setListener(this);
+        m_pPlayerControl->show();
+        m_pPlayerControl->setProgress(0.0);
+        m_pLayout->setPlayerControl(*m_pPlayerControl);
+    }
+}
+
+void Viewer::createRecipPanel()
+{
+    if(!m_pRecipPanel && m_Msg->getAddressList().getLength() > 1)
+    {
+        m_pRecipPanel = new MbeRecipients(*m_pLayout, getApp());
+        m_pRecipPanel->addSmartCb("item,clicked", SMART_CALLBACK(Viewer, onRecipItemClicked), this);
+        m_pRecipPanel->show();
+        m_pLayout->setRecipients(*m_pRecipPanel);
+        updateRecipPanel();
+    }
+}
+
+void Viewer::naviExpandButtonHandler()
+{
+    MSG_LOG("");
+    if(m_pRecipPanel)
+    {
+        bool isRecipInvisible = !m_pLayout->isRecipientsVisible();
+        m_pLayout->showRecipients(isRecipInvisible);
+        getNaviBar().setDownButtonState(isRecipInvisible);
+    }
+}
+
+void Viewer::naviCenterButtonHandler()
+{
+    MSG_LOG("");
+    if(m_pRecipPanel)
+    {
+        naviExpandButtonHandler();
+    }
+    else
+    {
+        const MsgAddressList &addressList = m_Msg->getAddressList();
+        if(!addressList.isEmpty())
+            recipientClickHandler(addressList[0].getAddress());
+    }
+}
+
+void Viewer::naviPrevButtonHandler()
+{
+    getParent().pop();
+}
+
+void Viewer::showRecipPopup(const std::string &title)
+{
+    PopupList &popup = getApp().getPopupManager().getPopupList();
+    popup.setTitle(title);
+    popup.setAutoDismissBlockClickedFlag(true);
+    popup.appendItem(msg("IDS_MSG_OPT_MAKE_VOICE_CALL"),  POPUPLIST_ITEM_PRESSED_CB(Viewer, onMakeVoiceItemPressed), this);
+    popup.appendItem(msg("IDS_MSG_OPT_CREATE_CONTACT_ABB"),  POPUPLIST_ITEM_PRESSED_CB(Viewer, onCreateContactItemPressed), this);
+    popup.appendItem(msg("IDS_MSG_OPT_UPDATE_CONTACT"),  POPUPLIST_ITEM_PRESSED_CB(Viewer, onUpdateContactItemPressed), this);
+    popup.show();
+}
+
+void Viewer::recipientClickHandler(const std::string &address)
+{
+    MSG_LOG("");
+    m_SelectedAddress = address;
+    ContactPersonAddressRef contactPersonAddress = getApp().getContactManager().getContactPersonAddress(address);
+    if(contactPersonAddress)
+        ContactViewer::launch(contactPersonAddress->getPersonId());
+    else
+        showRecipPopup(address);
 }
 
 void Viewer::onHwBackButtonClicked()
@@ -100,13 +190,15 @@ void Viewer::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
     switch(buttonId)
     {
         case NaviCenterButtonId:
+            naviCenterButtonHandler();
             break;
 
         case NaviPrevButtonId:
-            getParent().pop();
+            naviPrevButtonHandler();
             break;
 
-        case NaviDownButtonId:
+        case NaviExpandButtonId:
+            naviExpandButtonHandler();
             break;
 
         default:
@@ -140,10 +232,39 @@ void Viewer::onContactChanged()
 {
     MSG_LOG("");
     updateNavibar();
+    updateRecipPanel();
 }
 
 void Viewer::onLayoutTocuh()
 {
     MSG_LOG("");
-    m_pLayout->showPlayerControl(!m_pLayout->isVisiblePlayerControl());
+    m_pLayout->showPlayerControl(!m_pLayout->isPlayerControlVisible());
 }
+
+void Viewer::onMakeVoiceItemPressed(PopupListItem &item)
+{
+    MSG_LOG("");
+    item.getParent().destroy();
+    VoiceCall::launch(m_SelectedAddress);
+}
+
+void Viewer::onCreateContactItemPressed(PopupListItem &item)
+{
+    MSG_LOG("");
+    item.getParent().destroy();
+    m_ContactEditor.launch(m_SelectedAddress, ContactEditor::CreateOp);
+}
+
+void Viewer::onUpdateContactItemPressed(PopupListItem &item)
+{
+    MSG_LOG("");
+    item.getParent().destroy();
+    m_ContactEditor.launch(m_SelectedAddress, ContactEditor::EditOp);
+}
+
+void Viewer::onRecipItemClicked(Evas_Object *obj, void *eventInfo)
+{
+    MbeRecipientItem *item = ViewItem::staticCast<MbeRecipientItem*>(eventInfo);
+    recipientClickHandler(item->getAddress());
+}
+

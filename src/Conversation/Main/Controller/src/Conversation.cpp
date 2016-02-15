@@ -704,7 +704,7 @@ void Conversation::onNaviCenterButtonClicked()
     MSG_LOG("");
     if(m_pRecipPanel)
     {
-        onNaviDownButtonClicked();
+        onNaviExpandButtonClicked();
     }
     else
     {
@@ -714,7 +714,7 @@ void Conversation::onNaviCenterButtonClicked()
     }
 }
 
-void Conversation::onNaviDownButtonClicked()
+void Conversation::onNaviExpandButtonClicked()
 {
     MSG_LOG("");
     if(m_pRecipPanel)
@@ -734,8 +734,8 @@ void Conversation::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
             onHwBackButtonClicked();
             break;
 
-        case NaviDownButtonId:
-            onNaviDownButtonClicked();
+        case NaviExpandButtonId:
+            onNaviExpandButtonClicked();
             break;
 
         case NaviCenterButtonId:

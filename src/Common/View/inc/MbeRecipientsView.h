@@ -36,8 +36,6 @@ namespace Msg
             int getItemsCount() const;
             std::vector<MbeRecipientItem*> getItems() const;
             MbeRecipientItem *getSelectedItem() const;
-            void selectItem(MbeRecipientItem &item, bool select);
-            void unselect();
             bool isEmpty() const;
             void clear();
     };
