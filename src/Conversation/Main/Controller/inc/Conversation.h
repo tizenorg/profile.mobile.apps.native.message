@@ -112,6 +112,9 @@ namespace Msg
             void onMakeVoiceItemPressed(PopupListItem &item);
             void onCreateContactItemPressed(PopupListItem &item);
             void onUpdateContactItemPressed(PopupListItem &item);
+            void onRemoveItemPressed(PopupListItem &item);
+            void onEditItemPressed(PopupListItem &item);
+            void onViewContactDetailsItemPressed(PopupListItem &item);
 
             // ConvList callbacks:
             virtual void onAllItemsDeleted(ConvList &list);
@@ -156,7 +159,9 @@ namespace Msg
 
             void showMainCtxPopup();
             void showNoRecipPopup();
-            void showRecipPopup(const std::string &title);
+            PopupList& createPopupList(const std::string &title);
+            void showNotSavedRecipPopup(const std::string &title);
+            void showSavedRecipPopup(const std::string &title);
             void showSendResultPopup(MsgTransport::SendResult result);
 
             void sendMessage();
@@ -183,7 +188,8 @@ namespace Msg
             ConvList *m_pConvList;
             AttachPanel m_AttachPanel;
             DefferedCmd m_DefferedCmd;
-            std::string m_SelectedAddress;
+            MbeRecipientItem *m_pItem;
+            int m_SelectedPersonId;
             ContactEditor m_ContactEditor;
     };
 }

@@ -133,6 +133,19 @@ MbeRecipients::AppendItemStatus ConvRecipientsPanel::appendItem(const std::strin
     return appendStatus;
 }
 
+void ConvRecipientsPanel::removeItem(MbeRecipientItem &item)
+{
+    m_pMbe->removeItem(item);
+}
+
+void ConvRecipientsPanel::editItem(MbeRecipientItem &item)
+{
+    showMbe(true);
+    showEntry(true);
+    setEntryText(item.getAddress());
+    m_pMbe->removeItem(item);
+}
+
 void ConvRecipientsPanel::execCmd(const AppControlComposeRef &cmd)
 {
     m_pMbe->clear();

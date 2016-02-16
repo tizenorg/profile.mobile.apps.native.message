@@ -40,6 +40,7 @@ namespace Msg
             void unselect();
             bool isEmpty() const;
             void clear();
+            void removeItem(MbeRecipientItem &item);
     };
 }
 

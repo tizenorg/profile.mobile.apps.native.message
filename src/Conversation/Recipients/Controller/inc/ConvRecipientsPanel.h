@@ -47,6 +47,8 @@ namespace Msg
             void update(const MsgAddressList &addressList);
             void execCmd(const AppControlComposeRef &cmd);
             MbeRecipients::AppendItemStatus appendItem(const std::string &address, MsgAddress::AddressType addressType = MsgAddress::UnknownAddressType);
+            void removeItem(MbeRecipientItem &item);
+            void editItem(MbeRecipientItem &item);
             void showDuplicatedRecipientNotif();
 
         private:

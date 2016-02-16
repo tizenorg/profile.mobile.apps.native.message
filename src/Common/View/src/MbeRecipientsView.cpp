@@ -92,4 +92,18 @@ void MbeRecipientsView::clear()
     elm_multibuttonentry_clear(getEo());
 }
 
+void MbeRecipientsView::removeItem(MbeRecipientItem &item)
+{
+    Elm_Object_Item *elmItem = elm_multibuttonentry_first_item_get(getEo());
+    while(elmItem)
+    {
+        MbeRecipientItem *pItem = static_cast<MbeRecipientItem*>(elm_object_item_data_get(elmItem));
+        if (item == *pItem)
+        {
+            elm_object_item_del(elmItem);
+            break;
+        }
+        elmItem = elm_multibuttonentry_item_next_get(elmItem);
+    }
+}
 
