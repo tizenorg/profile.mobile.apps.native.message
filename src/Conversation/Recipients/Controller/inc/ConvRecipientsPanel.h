@@ -47,6 +47,10 @@ namespace Msg
             void update(const MsgAddressList &addressList);
             void execCmd(const AppControlComposeRef &cmd);
             MbeRecipients::AppendItemStatus appendItem(const std::string &address, MsgAddress::AddressType addressType = MsgAddress::UnknownAddressType);
+            const MbeRecipientItem *getSelectedItem() const;
+            MbeRecipientItem *getSelectedItem();
+            void removeSelectedItem();
+            void editSelectedItem();
             void showDuplicatedRecipientNotif();
 
         private:
@@ -75,6 +79,7 @@ namespace Msg
             IConvRecipientsPanelListener *m_pListener;
             ContactPicker m_Picker;
             MbeRecipients *m_pMbe;
+            MbeRecipientItem *m_pSelectedItem;
     };
 
     class IConvRecipientsPanelListener

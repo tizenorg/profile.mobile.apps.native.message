@@ -91,5 +91,3 @@ void MbeRecipientsView::clear()
 {
     elm_multibuttonentry_clear(getEo());
 }
-
-

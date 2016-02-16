@@ -38,6 +38,7 @@ namespace Msg
             const std::string &getAddress() const;
             MsgAddress::AddressType getAddressType() const;
             MsgAddress::RecipientType getRecipType() const;
+            bool operator==(const MbeRecipientItem& item) const;
 
         private:
             std::string m_Address;
@@ -73,6 +74,17 @@ namespace Msg
     inline MsgAddress::RecipientType MbeRecipientItem::getRecipType() const
     {
         return m_RecipType;
+    }
+
+    inline bool MbeRecipientItem::operator==(const MbeRecipientItem& item) const
+    {
+        if(this == &item)
+            return true;
+
+        return (m_AddressType == item.getAddressType())
+                && (m_RecipType == item.getRecipType())
+                && (m_Address == item.getAddress())
+                && (m_DispName == item.getDispName());
     }
 }
 
