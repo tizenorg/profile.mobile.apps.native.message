@@ -30,6 +30,7 @@ ConvRecipientsPanel::ConvRecipientsPanel(Evas_Object *parent, App &app)
     , m_App(app)
     , m_pListener(nullptr)
     , m_pMbe(nullptr)
+    , m_pSelectedItem(nullptr)
 {
     m_Picker.setListener(this);
     m_pMbe = new MbeRecipients(*this, m_App);
@@ -131,6 +132,38 @@ MbeRecipients::AppendItemStatus ConvRecipientsPanel::appendItem(const std::strin
     if(appendStatus == MbeRecipients::SuccessStatus && getEntryFocus())
         showMbe(true);
     return appendStatus;
+}
+
+const MbeRecipientItem *ConvRecipientsPanel::getSelectedItem() const
+{
+    return m_pMbe->getSelectedItem() ? m_pMbe->getSelectedItem() : m_pSelectedItem;
+}
+
+MbeRecipientItem *ConvRecipientsPanel::getSelectedItem()
+{
+    return m_pMbe->getSelectedItem() ? m_pMbe->getSelectedItem() : m_pSelectedItem;
+}
+
+void ConvRecipientsPanel::removeSelectedItem()
+{
+    MbeRecipientItem* pItem = getSelectedItem();
+    if(pItem)
+    {
+        pItem->destroy();
+        pItem = nullptr;
+    }
+}
+
+void ConvRecipientsPanel::editSelectedItem()
+{
+    MbeRecipientItem* pItem = getSelectedItem();
+    if(pItem)
+    {
+        showMbe(true);
+        showEntry(true);
+        setEntryText(pItem->getAddress());
+        removeSelectedItem();
+    }
 }
 
 void ConvRecipientsPanel::execCmd(const AppControlComposeRef &cmd)
@@ -249,6 +282,7 @@ void ConvRecipientsPanel::onMbeChanged(Evas_Object *oj, void *eventInfo)
 
 void ConvRecipientsPanel::onMbeItemClicked(Evas_Object *oj, void *eventInfo)
 {
+    m_pSelectedItem = ViewItem::staticCast<MbeRecipientItem*>(eventInfo);
     if(m_pListener)
-        m_pListener->onItemClicked(*this, *ViewItem::staticCast<MbeRecipientItem*>(eventInfo));
+        m_pListener->onItemClicked(*this, *m_pSelectedItem);
 }
