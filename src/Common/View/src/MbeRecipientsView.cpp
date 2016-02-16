@@ -21,17 +21,19 @@
 using namespace Msg;
 
 MbeRecipientsView::MbeRecipientsView(Evas_Object *parent)
+    : m_pListener(nullptr)
+    , m_pSelectedItem(nullptr)
 {
     setEo(elm_multibuttonentry_add(parent));
     elm_multibuttonentry_editable_set(getEo(), EINA_FALSE);
     elm_multibuttonentry_expanded_set(getEo(), EINA_TRUE);
     elm_object_focus_allow_set(getEo(), EINA_FALSE);
     elm_object_tree_focus_allow_set(getEo(), EINA_TRUE);
+    addSmartCb("item,clicked", SMART_CALLBACK(MbeRecipientsView, onMbeItemClicked), this);
 }
 
 MbeRecipientsView::~MbeRecipientsView()
 {
-
 }
 
 void MbeRecipientsView::appendItem(MbeRecipientItem &item)
@@ -66,7 +68,8 @@ std::vector<MbeRecipientItem*> MbeRecipientsView::getItems() const
 
 MbeRecipientItem *MbeRecipientsView::getSelectedItem() const
 {
-    return ViewItem::staticCast<MbeRecipientItem*>(elm_multibuttonentry_selected_item_get(getEo()));
+    MbeRecipientItem *pSelected = ViewItem::staticCast<MbeRecipientItem*>(elm_multibuttonentry_selected_item_get(getEo()));
+    return pSelected ? pSelected : m_pSelectedItem;
 }
 
 bool MbeRecipientsView::isEmpty() const
@@ -79,4 +82,14 @@ void MbeRecipientsView::clear()
     elm_multibuttonentry_clear(getEo());
 }
 
+void MbeRecipientsView::setListener(IMbeRecipientsListener *pListener)
+{
+    m_pListener = pListener;
+}
 
+void MbeRecipientsView::onMbeItemClicked(Evas_Object *obj, void *eventInfo)
+{
+    m_pSelectedItem = ViewItem::staticCast<MbeRecipientItem*>(eventInfo);
+    if (m_pListener)
+        m_pListener->onMbeItemClicked(*m_pSelectedItem);
+}
