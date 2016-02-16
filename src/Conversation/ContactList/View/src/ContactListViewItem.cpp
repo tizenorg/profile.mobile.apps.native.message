@@ -20,8 +20,8 @@
 
 using namespace Msg;
 
-ListItemStyleRef ContactListViewItem::logStyle = ListItemStyle::create("1line");
-ListItemStyleRef ContactListViewItem::nameOrEmailStyle = ListItemStyle::create("2line.top");
+ListItemStyleRef ContactListViewItem::logStyle = ListItemStyle::create("type1");
+ListItemStyleRef ContactListViewItem::nameOrEmailStyle = ListItemStyle::create("type1");
 
 ContactListViewItem::ContactListViewItem()
     : ListItem(ELM_GENLIST_ITEM_NONE)
@@ -36,8 +36,8 @@ std::string ContactListViewItem::getText(ListItem &item, const char *part)
 {
     if(getStyle() == nameOrEmailStyle)
     {
-        const char *mainTextPart = "elm.text.main.left.top";
-        const char *subTextPart = "elm.text.sub.left.bottom";
+        const char *mainTextPart = "elm.text";
+        const char *subTextPart = "elm.text.sub";
 
         if(strcmp(part, mainTextPart) == 0)
         {
@@ -50,7 +50,7 @@ std::string ContactListViewItem::getText(ListItem &item, const char *part)
     }
     if(getStyle() == logStyle)
     {
-        const char *mainTextPart = "elm.text.main.left";
+        const char *mainTextPart = "elm.text";
 
         if(strcmp(part, mainTextPart) == 0)
         {
@@ -63,7 +63,7 @@ std::string ContactListViewItem::getText(ListItem &item, const char *part)
 
 Evas_Object *ContactListViewItem::getContent(ListItem &item, const char *part)
 {
-    if(strcmp(part, "elm.icon.1") == 0)
+    if(strcmp(part, "elm.swallow.icon") == 0)
     {
         return getThumbnail();
     }
