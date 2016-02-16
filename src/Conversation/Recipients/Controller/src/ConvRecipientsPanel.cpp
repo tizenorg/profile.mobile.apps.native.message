@@ -29,15 +29,14 @@ ConvRecipientsPanel::ConvRecipientsPanel(Evas_Object *parent, App &app)
     : ConvRecipientsPanelView(parent, app.getMsgEngine().getSettings().getAddressMaxLen())
     , m_App(app)
     , m_pListener(nullptr)
-    , m_pMbe(nullptr)
 {
     m_Picker.setListener(this);
     m_pMbe = new MbeRecipients(*this, m_App);
     m_pMbe->addSmartCb("item,added", SMART_CALLBACK(ConvRecipientsPanel, onMbeChanged), this);
     m_pMbe->addSmartCb("item,deleted", SMART_CALLBACK(ConvRecipientsPanel, onMbeChanged), this);
-    m_pMbe->addSmartCb("item,clicked", SMART_CALLBACK(ConvRecipientsPanel, onMbeItemClicked), this);
+    m_pMbe->setListener(this);
     m_pMbe->show();
-    setMbe(*m_pMbe);
+    setMbe(m_pMbe);
 }
 
 ConvRecipientsPanel::~ConvRecipientsPanel()
@@ -120,6 +119,7 @@ MbeRecipients::AppendItemStatus ConvRecipientsPanel::appendItem(const std::strin
         const std::string &dispName, MsgAddress::AddressType addressType)
 {
     MbeRecipients::AppendItemStatus appendStatus = m_pMbe->appendItem(address, dispName, addressType);
+
     if(appendStatus == MbeRecipients::SuccessStatus && getEntryFocus())
         showMbe(true);
     return appendStatus;
@@ -128,9 +128,32 @@ MbeRecipients::AppendItemStatus ConvRecipientsPanel::appendItem(const std::strin
 MbeRecipients::AppendItemStatus ConvRecipientsPanel::appendItem(const std::string &address, MsgAddress::AddressType addressType)
 {
     MbeRecipients::AppendItemStatus appendStatus = m_pMbe->appendItem(address, addressType);
+
     if(appendStatus == MbeRecipients::SuccessStatus && getEntryFocus())
         showMbe(true);
     return appendStatus;
+}
+
+void ConvRecipientsPanel::removeSelectedItem()
+{
+    MbeRecipientItem* pItem = getSelectedItem();
+    if(pItem)
+    {
+        pItem->destroy();
+        pItem = nullptr;
+    }
+}
+
+void ConvRecipientsPanel::editSelectedItem()
+{
+    MbeRecipientItem* pItem = getSelectedItem();
+    if(pItem)
+    {
+        showMbe(true);
+        showEntry(true);
+        setEntryText(pItem->getAddress());
+        removeSelectedItem();
+    }
 }
 
 void ConvRecipientsPanel::execCmd(const AppControlComposeRef &cmd)
@@ -189,20 +212,6 @@ void ConvRecipientsPanel::onContactButtonClicked()
         showTooManyRecipientsNotif();
 }
 
-
-bool ConvRecipientsPanel::isRecipientExists(const std::string& address) const
-{
-    auto recipientList = m_pMbe->getItems();
-    for(auto pViewItem : recipientList)
-    {
-        MbeRecipientItem *pItem = dynamic_cast<MbeRecipientItem*>(pViewItem);
-        if(pItem && pItem->getAddress() == address)
-            return true;
-    }
-
-    return false;
-}
-
 void ConvRecipientsPanel::onContactsPicked(const std::list<int> &numberIdList)
 {
     bool duplicateFound = false;
@@ -247,8 +256,8 @@ void ConvRecipientsPanel::onMbeChanged(Evas_Object *oj, void *eventInfo)
         m_pListener->onMbeChanged(*this);
 }
 
-void ConvRecipientsPanel::onMbeItemClicked(Evas_Object *oj, void *eventInfo)
+void ConvRecipientsPanel::onMbeItemClicked(MbeRecipientItem &item)
 {
     if(m_pListener)
-        m_pListener->onItemClicked(*this, *ViewItem::staticCast<MbeRecipientItem*>(eventInfo));
+        m_pListener->onItemClicked(*this, item);
 }
