@@ -19,13 +19,11 @@
 #define RecipientsPanel_h_
 
 #include "ConvRecipientsPanelView.h"
-#include "MbeRecipients.h"
 #include "AppControlCompose.h"
 #include "Message.h"
 #include "App.h"
 #include "AppControlUtils.h"
 #include "ContactPicker.h"
-#include "MbeRecipients.h"
 
 namespace Msg
 {
@@ -33,7 +31,8 @@ namespace Msg
 
     class ConvRecipientsPanel
         : public ConvRecipientsPanelView,
-          private IContactPickerListener
+          private IContactPickerListener,
+          private IMbeRecipientsListener
     {
         public:
             ConvRecipientsPanel(Evas_Object *parent, App &app);
@@ -47,6 +46,8 @@ namespace Msg
             void update(const MsgAddressList &addressList);
             void execCmd(const AppControlComposeRef &cmd);
             MbeRecipients::AppendItemStatus appendItem(const std::string &address, MsgAddress::AddressType addressType = MsgAddress::UnknownAddressType);
+            void removeSelectedItem();
+            void editSelectedItem();
             void showDuplicatedRecipientNotif();
 
         private:
@@ -56,14 +57,16 @@ namespace Msg
             virtual void onContactButtonClicked();
 
             void onMbeChanged(Evas_Object *oj, void *eventInfo);
-            void onMbeItemClicked(Evas_Object *oj, void *eventInfo);
+
+            // IMbeRecipientsListener
+            virtual void onMbeItemClicked(MbeRecipientItem &item);
+
             void onAppControlRes(app_control_h request, app_control_h reply, app_control_result_e result);
             void onPopupBtnClicked(Popup &popup, int buttonId);
             void onPopupDel(Evas_Object *popup, void *eventInfo);
 
             void addRecipientsFromEntry();
             void showTooManyRecipientsNotif();
-            bool isRecipientExists(const std::string& address) const;
             MbeRecipients::AppendItemStatus appendItem(const std::string &address, const std::string &dispName,
                               MsgAddress::AddressType addressType = MsgAddress::UnknownAddressType);
 
@@ -74,7 +77,6 @@ namespace Msg
             App &m_App;
             IConvRecipientsPanelListener *m_pListener;
             ContactPicker m_Picker;
-            MbeRecipients *m_pMbe;
     };
 
     class IConvRecipientsPanelListener

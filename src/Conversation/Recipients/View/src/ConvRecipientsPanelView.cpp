@@ -29,26 +29,25 @@ using namespace Msg;
 ConvRecipientsPanelView::ConvRecipientsPanelView(Evas_Object *parent, int entryMaxCharCount)
     : View()
     , m_pLayout(nullptr)
-    , m_pMbe(nullptr)
     , m_pEntry(nullptr)
     , m_pContactBtn(nullptr)
     , m_pRect(nullptr)
     , m_EntryMaxCharCount(entryMaxCharCount)
     , m_IsMbeVisible(false)
+    , m_pMbe(nullptr)
 {
     create(parent);
 }
 
-ConvRecipientsPanelView::~ConvRecipientsPanelView()
+void ConvRecipientsPanelView::setMbe(MbeRecipientsView *pMbe)
 {
-
+    m_pMbe = pMbe;
+    addGeometryChangedCb(*m_pMbe);
+    elm_object_part_content_set(m_pLayout, "swl.mbe", *m_pMbe);
 }
 
-void ConvRecipientsPanelView::setMbe(Evas_Object *obj)
+ConvRecipientsPanelView::~ConvRecipientsPanelView()
 {
-    m_pMbe = obj;
-    addGeometryChangedCb(m_pMbe);
-    elm_object_part_content_set(m_pLayout, "swl.mbe", m_pMbe);
 }
 
 void ConvRecipientsPanelView::addGeometryChangedCb(Evas_Object *obj)
@@ -77,7 +76,7 @@ void ConvRecipientsPanelView::clearEntry()
 
 void ConvRecipientsPanelView::clearMbe()
 {
-    elm_multibuttonentry_clear(m_pMbe);
+    elm_multibuttonentry_clear(*m_pMbe);
 }
 
 void ConvRecipientsPanelView::clear()
@@ -101,7 +100,7 @@ void ConvRecipientsPanelView::showEntry(bool show)
 
 bool ConvRecipientsPanelView::isMbeEmpty() const
 {
-    return elm_multibuttonentry_first_item_get(m_pMbe) == nullptr;
+    return elm_multibuttonentry_first_item_get(*m_pMbe) == nullptr;
 }
 
 bool ConvRecipientsPanelView::isMbeVisible() const
@@ -238,7 +237,7 @@ void ConvRecipientsPanelView::onGeometryChanged(Evas_Object *obj, void *event_in
     int w = 0;
     int h = 0;
     int lyayoutTop = 0;
-    Evas_Object * targetObj =  evas_object_visible_get(m_pEntry) ? m_pEntry : m_pMbe;
+    Evas_Object * targetObj =  evas_object_visible_get(m_pEntry) ? m_pEntry : m_pMbe->getEo();
 
     evas_object_geometry_get(targetObj, nullptr, &y, nullptr, &h);
     int bottom = y + h;
@@ -260,7 +259,7 @@ void ConvRecipientsPanelView::deleteNextRecipient()
 {
     if(!isMbeEmpty())
     {
-        Elm_Object_Item *selectedItem = elm_multibuttonentry_selected_item_get(m_pMbe);
+        Elm_Object_Item *selectedItem = elm_multibuttonentry_selected_item_get(*m_pMbe);
         if(selectedItem)
             elm_object_item_del(selectedItem);
 
@@ -270,11 +269,11 @@ void ConvRecipientsPanelView::deleteNextRecipient()
 
 void ConvRecipientsPanelView::selectLastItem()
 {
-    Elm_Object_Item *lastItem = elm_multibuttonentry_last_item_get(m_pMbe);
+    Elm_Object_Item *lastItem = elm_multibuttonentry_last_item_get(*m_pMbe);
 
     if(lastItem)
     {
-        elm_object_focus_allow_set(m_pMbe, true);
+        elm_object_focus_allow_set(*m_pMbe, true);
         elm_multibuttonentry_item_selected_set(lastItem, true);
     }
     else
@@ -290,7 +289,7 @@ bool ConvRecipientsPanelView::isEntryEmpty() const
 
 void ConvRecipientsPanelView::unselectMbeItem()
 {
-    Elm_Object_Item *selectedItem = elm_multibuttonentry_selected_item_get(m_pMbe);
+    Elm_Object_Item *selectedItem = elm_multibuttonentry_selected_item_get(*m_pMbe);
     if (selectedItem)
         elm_multibuttonentry_item_selected_set(selectedItem, EINA_FALSE);
 }
@@ -298,7 +297,7 @@ void ConvRecipientsPanelView::unselectMbeItem()
 unsigned int ConvRecipientsPanelView::getItemsCount() const
 {
     unsigned int res = 0;
-    const Eina_List* items = elm_multibuttonentry_items_get(m_pMbe);
+    const Eina_List* items = elm_multibuttonentry_items_get(*m_pMbe);
     if(items)
         res = eina_list_count(items);
     return res;
@@ -346,4 +345,9 @@ void ConvRecipientsPanelView::onContactBtnUnpressed(Evas_Object *obj, void *even
 void ConvRecipientsPanelView::onContactBtnClicked(Evas_Object *obj, void *event_info)
 {
     onContactButtonClicked();
+}
+
+MbeRecipientItem *ConvRecipientsPanelView::getSelectedItem() const
+{
+    return m_pMbe ? m_pMbe->getSelectedItem() : nullptr;
 }

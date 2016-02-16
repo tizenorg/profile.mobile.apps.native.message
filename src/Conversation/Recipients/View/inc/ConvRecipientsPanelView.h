@@ -19,6 +19,7 @@
 #define ConvRecipientsPanelView_h_
 
 #include "View.h"
+#include "MbeRecipients.h"
 
 #include <string>
 #include <vector>
@@ -49,9 +50,9 @@ namespace Msg
              * Gets a count of mbe items
              */
             unsigned int getItemsCount() const;
-
+            MbeRecipientItem *getSelectedItem() const;
         protected:
-            void setMbe(Evas_Object *obj);
+            void setMbe(MbeRecipientsView *pMbe);
 
         private:
             // Out signals:
@@ -60,12 +61,6 @@ namespace Msg
             virtual void onContactButtonClicked() {}
 
         private:
-            // In signals:
-            void onItemSelected(Evas_Object *obj, void *item);
-            void onItemDeleted(Evas_Object *obj, void *item);
-            void onItemAdded(Evas_Object *obj, void *item);
-            void onItemClicked(Evas_Object *obj, void *item);
-
             void onMbeFocused(Evas_Object *obj, void *event_info);
             void onMbeUnfocused(Evas_Object *obj, void *event_info);
             void onMbeClicked(Evas_Object *obj, void *event_info);
@@ -98,12 +93,13 @@ namespace Msg
 
         private:
             Evas_Object *m_pLayout;
-            Evas_Object *m_pMbe;
             Evas_Object *m_pEntry;
             Evas_Object *m_pContactBtn;
             Evas_Object *m_pRect;
             int m_EntryMaxCharCount;
             bool m_IsMbeVisible;
+        protected:
+            MbeRecipientsView *m_pMbe;
     };
 }
 
