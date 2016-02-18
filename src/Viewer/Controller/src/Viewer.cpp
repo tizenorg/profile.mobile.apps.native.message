@@ -25,6 +25,7 @@
 #include "CallbackAssist.h"
 #include "VoiceCall.h"
 #include "ContactViewer.h"
+#include "FileUtils.h"
 
 #include <Elementary.h>
 #include <sstream>
@@ -121,6 +122,30 @@ void Viewer::createRecipPanel()
     }
 }
 
+std::string Viewer::createMessageText() const
+{
+    MsgPageList &pageList = m_Msg->getPageList();
+    std::string result;
+
+    int size = pageList.getLength();
+    for(int i = 0; i < size; ++i)
+    {
+        MsgMediaList &mediaList = pageList.at(i).getMediaList();
+
+        int sizeList = mediaList.getLength();
+        for(int j = 0; j < sizeList; ++j)
+        {
+            if(mediaList.at(j).getType() == MsgMedia::SmilText)
+            {
+                result += FileUtils::readTextFile(mediaList.at(j).getFilePath());
+                if(i < size - 1)
+                    result.append("\n");
+            }
+        }
+    }
+    return result;
+}
+
 void Viewer::naviExpandButtonHandler()
 {
     MSG_LOG("");
@@ -181,7 +206,18 @@ void Viewer::onHwBackButtonClicked()
 
 void Viewer::onHwMoreButtonClicked()
 {
+    PopupList &popup = getApp().getPopupManager().getPopupList();
+    popup.setAutoDismissBlockClickedFlag(true);
+    popup.appendItem(msg("IDS_MSG_OPT_DELETE"), POPUPLIST_ITEM_PRESSED_CB(Viewer, onDeleteItemPressed), this);
 
+    if(!createMessageText().empty())
+        popup.appendItem(msg("IDS_MSG_OPT_COPY_TEXT"), POPUPLIST_ITEM_PRESSED_CB(Viewer, onCopyTextItemPressed), this);
+
+    popup.appendItem(msg("IDS_MSGF_OPT_FORWARD"), POPUPLIST_ITEM_PRESSED_CB(Viewer, onForwardItemPressed), this);
+
+    if(!m_Msg->getAttachmentList().isEmpty())
+        popup.appendItem(msg("IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"), POPUPLIST_ITEM_PRESSED_CB(Viewer, onSaveAttachmentsItemPressed), this);
+    popup.show();
 }
 
 void Viewer::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
@@ -262,9 +298,60 @@ void Viewer::onUpdateContactItemPressed(PopupListItem &item)
     m_ContactEditor.launch(m_SelectedAddress, ContactEditor::EditOp);
 }
 
+void Viewer::onDeleteItemPressed(PopupListItem &item)
+{
+    item.getParent().destroy();
+    Popup &popup = getApp().getPopupManager().getPopup();
+    popup.setAutoDismissBlockClickedFlag(true);
+    popup.addButton(msgt("IDS_MSG_BUTTON_CANCEL_ABB"), Popup::CancelButtonId, POPUP_BUTTON_CB(Viewer, onCancelButtonClicked), this);
+    popup.addButton(msgt("IDS_MSG_BUTTON_REMOVE_ABB"), Popup::OkButtonId, POPUP_BUTTON_CB(Viewer, onDeleteButtonClicked), this);
+    popup.setTitle(msgt("IDS_MSG_HEADER_DELETE"));
+    popup.setContent(msgt("IDS_MSG_POP_1_MESSAGE_WILL_BE_DELETED"));
+    popup.show();
+}
+
+void Viewer::onCancelButtonClicked(Popup &popup, int buttonId)
+{
+    popup.destroy();
+}
+
+void Viewer::onDeleteButtonClicked(Popup &popup, int buttonId)
+{
+    popup.destroy();
+    getApp().getMsgEngine().getStorage().deleteMessage(m_Msg->getId());
+    getParent().pop();
+}
+
+void Viewer::onCopyTextItemPressed(PopupListItem &item)
+{
+    item.getParent().destroy();
+    std::string msgText = createMessageText();
+    elm_cnp_selection_set(this->getContent(), ELM_SEL_TYPE_CLIPBOARD, ELM_SEL_FORMAT_TEXT, msgText.c_str(), msgText.length());
+}
+
+void Viewer::onForwardItemPressed(PopupListItem &item)
+{
+    item.getParent().destroy();
+
+    Conversation *conv = new Conversation(getParent());
+    conv->setListener(this);
+    conv->forwardMsg(m_Msg->getId());
+    getParent().push(*conv);
+}
+
+void Viewer::onSaveAttachmentsItemPressed(PopupListItem &item)
+{
+    MSG_LOG("");
+    item.getParent().destroy(); // TODO: after save attachments menu will be implemented
+}
+
 void Viewer::onRecipItemClicked(Evas_Object *obj, void *eventInfo)
 {
     MbeRecipientItem *item = ViewItem::staticCast<MbeRecipientItem*>(eventInfo);
     recipientClickHandler(item->getAddress());
 }
 
+void Viewer::onConversationSentMessage()
+{
+    getParent().pop();
+}

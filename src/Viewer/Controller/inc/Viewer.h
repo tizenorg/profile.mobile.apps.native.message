@@ -27,6 +27,7 @@
 #include "MessageMms.h"
 #include "MbeRecipients.h"
 #include "ContactEditor.h"
+#include "Conversation.h"
 
 namespace Msg
 {
@@ -38,6 +39,7 @@ namespace Msg
         , private IPlayerControlListener
         , private IContactManagerListener
         , private IViewerLayoutListener
+        , private IConversationListener
     {
         public:
             Viewer(NaviFrameController &parent, MsgId id);
@@ -69,8 +71,19 @@ namespace Msg
             void onCreateContactItemPressed(PopupListItem &item);
             void onUpdateContactItemPressed(PopupListItem &item);
 
+            // More Button popup
+            void onDeleteItemPressed(PopupListItem &item);
+            void onCancelButtonClicked(Popup &popup, int buttonId);
+            void onDeleteButtonClicked(Popup &popup, int buttonId);
+            void onCopyTextItemPressed(PopupListItem &item);
+            void onForwardItemPressed(PopupListItem &item);
+            void onSaveAttachmentsItemPressed(PopupListItem &item);
+
             // MbeRecipients:
             void onRecipItemClicked(Evas_Object *obj, void *eventInfo);
+
+            // Conversation listener
+            virtual void onConversationSentMessage();
 
         private:
             void naviExpandButtonHandler();
@@ -82,6 +95,7 @@ namespace Msg
             void createLayout();
             void createPlayerControl();
             void createRecipPanel();
+            std::string createMessageText() const;
             void recipientClickHandler(const std::string &address);
             void showRecipPopup(const std::string &title);
 

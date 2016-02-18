@@ -40,6 +40,7 @@ namespace Msg
     class NaviFrameController;
     class Scroller;
     class ConversationInputPanel;
+    class IConversationListener;
 
     class Conversation
         : public FrameController
@@ -60,6 +61,8 @@ namespace Msg
             void execCmd(const AppControlComposeRef &cmd);
             void execCmd(const AppControlDefaultRef &cmd);
             void setThreadId(ThreadId id);
+            void setListener(IConversationListener *listener);
+            void forwardMsg(MsgId id);
 
         private:
             enum Mode
@@ -165,7 +168,6 @@ namespace Msg
             void write(const Message &msg);
             void saveDraftMsg();
             void editDraftMsg(MsgId id);
-            void forwardMsg(MsgId id);
 
             void onNaviOkButtonClicked();
             void onNaviCenterButtonClicked();
@@ -185,6 +187,14 @@ namespace Msg
             DefferedCmd m_DefferedCmd;
             std::string m_SelectedAddress;
             ContactEditor m_ContactEditor;
+            IConversationListener *m_pListener;
+    };
+
+    class IConversationListener
+    {
+        public:
+            virtual ~IConversationListener() {};
+            virtual void onConversationSentMessage() {};
     };
 }
 

@@ -76,11 +76,11 @@ void NaviFrameController::execCmd(const AppControlDefaultRef &cmd)
     {
         AppControlDefault::DefaultType type = cmd->getDefaultType();
 
-        MsgThread *thread = getFrame<MsgThread>(); // Check if thread is open
+        MsgThread *thread = getTopFrame<MsgThread>(); // Check if thread is open
         if(!thread)
             insertToBottom(*new MsgThread(*this)); // Push thread list to the bottom
 
-        Conversation *conv = getFrame<Conversation>(); // Check if conversation is open
+        Conversation *conv = getTopFrame<Conversation>(); // Check if conversation is open
         if(type != AppControlDefault::MainType)
         {
             if(conv)
@@ -105,7 +105,7 @@ void NaviFrameController::execCmd(const AppControlComposeRef &cmd)
 {
     if(execCmd(*cmd))
     {
-        Conversation *conv = getFrame<Conversation>();
+        Conversation *conv = getTopFrame<Conversation>();
         if(conv)
         {
             conv->execCmd(cmd);
@@ -120,12 +120,12 @@ void NaviFrameController::execCmd(const AppControlComposeRef &cmd)
 }
 
 template<typename T>
-T *NaviFrameController::getFrame() const
+T *NaviFrameController::getTopFrame() const
 {
     auto items = getItems();
-    for(NaviFrameItem *item : items)
+    for(auto item = items.rbegin(); item != items.rend(); ++item)
     {
-        T *frame = dynamic_cast<T*>(item);
+        T *frame = dynamic_cast<T*>(*item);
         if(frame)
             return frame;
     }

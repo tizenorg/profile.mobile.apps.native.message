@@ -61,7 +61,7 @@ namespace Msg
         private:
             void init();
             template<typename T>
-            T *getFrame() const;
+            T *getTopFrame() const;
             bool execCmd(const AppControlCommand &cmd);
 
             bool isUnreadNotificationSingle(AppControlDefault::DefaultType type) const;

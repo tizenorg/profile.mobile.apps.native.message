@@ -46,6 +46,7 @@ Conversation::Conversation(NaviFrameController &parent)
     , m_IsMms(false)
     , m_pConvList(nullptr)
     , m_AttachPanel(getApp())
+    , m_pListener(nullptr)
 {
     create();
 }
@@ -162,6 +163,23 @@ void Conversation::setThreadId(ThreadId id)
     if(m_pConvList)
         m_pConvList->setThreadId(m_ThreadId);
     markAsRead();
+}
+
+void Conversation::setListener(IConversationListener *listener)
+{
+    m_pListener = listener;
+}
+
+void Conversation::forwardMsg(MsgId id)
+{
+    MessageRef msg = getMsgEngine().getStorage().getMessage(id);
+    if(msg)
+    {
+        setThreadId(ThreadId());
+        if(m_pBody)
+            m_pBody->write(*msg);
+        m_pRecipPanel->setEntryFocus(true);
+    }
 }
 
 MsgAddressListRef Conversation::getAddressList()
@@ -384,6 +402,7 @@ void Conversation::sendMessage()
     {
         showSendResultPopup(sendRes);
     }
+    m_pListener->onConversationSentMessage();
 }
 
 void Conversation::saveDraftMsg()
@@ -414,18 +433,6 @@ void Conversation::editDraftMsg(MsgId id)
         write(*msg);
         getMsgEngine().getStorage().deleteMessage(id);
         m_pBody->setFocus(true);
-    }
-}
-
-void Conversation::forwardMsg(MsgId id)
-{
-    MessageRef msg = getMsgEngine().getStorage().getMessage(id);
-    if(msg)
-    {
-        setThreadId(ThreadId());
-        if(m_pBody)
-            m_pBody->write(*msg);
-        m_pRecipPanel->setEntryFocus(true);
     }
 }
 
