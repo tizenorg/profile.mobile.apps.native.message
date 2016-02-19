@@ -24,6 +24,7 @@
 #include "ConvSelectAll.h"
 #include "App.h"
 #include "ConvListItem.h"
+#include <unordered_map>
 
 namespace Msg
 {
@@ -100,6 +101,9 @@ namespace Msg
             int getMessageCheckedCount() const;
 
         private:
+            typedef std::unordered_map<MsgId::Type, ConvListItem*> ConvListItemMap;
+
+        private:
             void create(Evas_Object *parent);
             Evas_Object *createSelectAll(Evas_Object *parent);
             Evas_Object *createList(Evas_Object *parent);
@@ -107,6 +111,9 @@ namespace Msg
             void selectListItems(bool state);
             bool isAllListItemSelected() const;
             ConvListItem *getItem(MsgId msgId) const;
+            void appendItem(ConvListItem *item);
+            void deleteItem(ConvListItem *item);
+            void clear();
 
             // IListViewListener:
             virtual void onListItemSelected(ListItem &listItem);
@@ -132,6 +139,7 @@ namespace Msg
             ThreadId m_ThreadId;
             ConvSelectAll *m_pSelectAll;
             ListView *m_pList;
+            ConvListItemMap m_ConvListItemMap;
             IConvListListener *m_pListner;
             App &m_App;
     };

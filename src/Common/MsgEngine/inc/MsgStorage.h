@@ -67,6 +67,7 @@ namespace Msg
 
             // Conversation:
             virtual MsgConversationListRef getConversationList(ThreadId id) = 0;
+            virtual MsgConversationItemRef getConversationItem(MsgId id) = 0;
 
         protected:
             typedef std::vector<IMsgStorageListener *> MsgStorageListeners;

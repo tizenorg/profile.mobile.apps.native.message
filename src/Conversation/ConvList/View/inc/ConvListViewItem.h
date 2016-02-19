@@ -50,18 +50,13 @@ namespace Msg
         protected:
             Evas_Object *createProgress();
             void updateProgressField();
+            void updateItemType(ConvItemType type);
 
         private:
-            void onBubbleResized(Evas_Object *obj, void *data);
             Evas_Object *createButton(bool isEnabled, ConvItemType type);
             virtual std::string getText(ListItem &item, const char *part);
             virtual Evas_Object *getContent(ListItem &item, const char *part);
             virtual const char *getCheckPart(ListItem &item);
-
-        private:
-            //Fixme: temporary fix caused by genlist resize issue
-            Evas_Coord m_BubbleWidth;
-            Evas_Coord m_BubbleHeight;
     };
 }
 

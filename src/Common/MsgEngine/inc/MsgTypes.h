@@ -24,12 +24,13 @@ namespace Msg
     class BaseMsgId
     {
         public:
+            typedef int Type;
             BaseMsgId()
                 : value(-1)
             {
             }
 
-            BaseMsgId(int id)
+            BaseMsgId(Type id)
                 : value(id)
             {
             }
@@ -39,12 +40,12 @@ namespace Msg
             {
             }
 
-            operator int() const
+            operator Type() const
             {
                 return value;
             }
 
-            BaseMsgId &operator=(int id)
+            BaseMsgId &operator=(Type id)
             {
                 value = id;
                 return *this;
@@ -60,7 +61,7 @@ namespace Msg
                 value = -1;
             }
 
-            int value; // implementation
+            Type value; // implementation
     };
 
     class ThreadId

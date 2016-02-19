@@ -26,8 +26,8 @@ namespace
 {
     const int verticalBoxPads = 10;
     const int horizontalBoxPads = 0;
-    const int maxWidth = 220; //Fixme: set to 340 when apply base_scale: 2.6
-    const char *textStyle = "DEFAULT='font=Tizen:style=Regular font_size=30 wrap=mixed text_class=label'";
+    const int maxWidth = 340;
+    const char *textStyle = "DEFAULT='font=Tizen:style=Regular font_size=24 wrap=mixed text_class=label'";
 }
 
 BubbleView::BubbleView(Evas_Object *parent)
@@ -68,6 +68,7 @@ void BubbleView::fill(const BubbleEntity &entity)
                 break;
         }
     }
+    elm_box_recalculate(*this);
 }
 
 Evas_Object *BubbleView::createTextView(const std::string &text)
@@ -107,7 +108,6 @@ Evas_Object *BubbleView::createTextFileView(const std::string &path)
 Evas_Object *BubbleView::createThumbView(const std::string &path)
 {
     Evas_Object *image = elm_image_add(*this);
-    elm_image_aspect_fixed_set(image, false);
     elm_image_file_set(image, path.c_str(), nullptr);
     int imageWidth = 0;
     int imageHeight = 0;

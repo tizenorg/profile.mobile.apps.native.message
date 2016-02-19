@@ -43,26 +43,8 @@ namespace
 
 ConvListViewItem::ConvListViewItem(ConvItemType type)
     : ListItem()
-    , m_BubbleWidth(0)
-    , m_BubbleHeight(0)
 {
-    switch (type)
-    {
-        case Sent:
-            setStyle(sentStyle);
-            break;
-        case Received:
-            setStyle(receivedStyle);
-            break;
-        case Draft:
-            setStyle(draftStyle);
-            break;
-        case Failed:
-            setStyle(failedStyle);
-            break;
-        default:
-            break;
-    }
+    updateItemType(type);
 }
 
 ConvListViewItem::~ConvListViewItem()
@@ -72,9 +54,7 @@ ConvListViewItem::~ConvListViewItem()
 
 std::string ConvListViewItem::getText(ListItem &item, const char *part)
 {
-    if(!strcmp(part, "elm.text"))
-        return getText();
-    else if(!strcmp(part, timeTextPart))
+    if(!strcmp(part, timeTextPart))
         return getTime();
     else
         return "";
@@ -84,14 +64,7 @@ Evas_Object *ConvListViewItem::getContent(ListItem &item, const char *part)
 {
     if(!strcmp(part, bubbleContentPart))
     {
-        Evas_Object *bubble = getBubbleContent();
-        evas_object_event_callback_add(bubble, EVAS_CALLBACK_RESIZE, EVAS_EVENT_CALLBACK(ConvListViewItem, onBubbleResized), this);
-        if(m_BubbleHeight > 0 && m_BubbleWidth > 0)
-        {
-            evas_object_size_hint_min_set(bubble, m_BubbleWidth, m_BubbleHeight);
-            evas_object_size_hint_max_set(bubble, m_BubbleWidth, m_BubbleHeight);
-        }
-        return bubble;
+        return getBubbleContent();
     }
     else if(!strcmp(part, thumbContentPart))
     {
@@ -157,15 +130,23 @@ void ConvListViewItem::updateProgressField()
     updateFields(infoStatus, ELM_GENLIST_ITEM_FIELD_CONTENT);
 }
 
-void ConvListViewItem::onBubbleResized(Evas_Object *obj, void *data)
+void ConvListViewItem::updateItemType(ConvItemType type)
 {
-    MSG_LOG("");
-    Evas_Coord w,h;
-    evas_object_geometry_get(obj, nullptr, nullptr, &w, &h);
-    if(m_BubbleHeight < h || m_BubbleWidth < w)
+    switch (type)
     {
-        m_BubbleWidth = w;
-        m_BubbleHeight = h;
-        elm_genlist_item_update(this->getElmObjItem());
+        case Sent:
+            setStyle(sentStyle);
+            break;
+        case Received:
+            setStyle(receivedStyle);
+            break;
+        case Draft:
+            setStyle(draftStyle);
+            break;
+        case Failed:
+            setStyle(failedStyle);
+            break;
+        default:
+            break;
     }
 }

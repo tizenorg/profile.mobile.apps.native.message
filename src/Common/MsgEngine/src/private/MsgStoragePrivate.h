@@ -58,6 +58,7 @@ namespace Msg
 
             // Conversation:
             virtual MsgConversationListRef getConversationList(ThreadId id);
+            virtual MsgConversationItemRef getConversationItem(MsgId id);
 
         private:
             typedef void (IMsgStorageListener::*ListenerMethod)(const MsgIdList &);
