@@ -83,13 +83,13 @@ Evas_Object *PlayerControl::createProgress(Evas_Object *parent)
     return m_pProgress;
 }
 
-void PlayerControl::prevButtonEnable(bool enable)
+void PlayerControl::enablePrevButton(bool enable)
 {
     const char *sig = enable ? prevEnableSig : prevDisableSig;
     emitSignal(sig, "*");
 }
 
-void PlayerControl::nextButtonEnable(bool enable)
+void PlayerControl::enableNextButton(bool enable)
 {
     const char *sig = enable ? nextEnableSig : nextDisableSig;
     emitSignal(sig, "*");

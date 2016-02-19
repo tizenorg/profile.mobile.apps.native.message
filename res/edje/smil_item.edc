@@ -1,0 +1,276 @@
+/*
+ * Copyright (c) 2009-2015 Samsung Electronics Co., Ltd All Rights Reserved
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+ #include "viewer_defines.inl"
+
+collections {
+    base_scale: 2.6;
+
+    group {
+        name: "smil_image_item";
+        parts {
+            part {
+                name: "pad_left";
+                type: SPACER;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    fixed: 1 1;
+                    min: DETAIL_PADDING_H_MIN 0;
+                    max: DETAIL_PADDING_H_MIN 0;
+                    align: 0 0;
+                }
+            }
+            part {
+                name: "pad_right";
+                type: SPACER;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    fixed: 1 1;
+                    min: DETAIL_PADDING_H_MIN 0;
+                    max: DETAIL_PADDING_H_MIN 0;
+                    align: 1 0;
+                }
+            }
+            part {
+                name: "rect";
+                type: SPACER;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    rel1 {relative: 1.0 0.0; to_x: "pad_left";}
+                    rel2 {relative: 0.0 1.0; to_x: "pad_right";}
+                }
+            }
+            part {
+                name: "image.swallow.content";
+                type: SWALLOW;
+                scale: 1;
+                mouse_events: 1;
+                repeat_events: 1;
+                description {
+                    state: "default" 0.0;
+                    align: 0.0 0.0;
+                    rel1 {relative: 0.0 0.0; to: "rect";}
+                    rel2 {relative: 1.0 1.0; to: "rect";}
+                }
+                description {
+                    state: "landscape" 0.0;
+                    align: 0.5 0.0;
+                    rel1 {relative: 0.0 0.0; to: "rect";}
+                    rel2 {relative: 1.0 1.0; to: "rect";}
+                }
+            }
+        }
+        programs {
+            program {
+                name: "show_landscape";
+                signal: "show,landscape";
+                source: "*";
+                action: STATE_SET "landscape" 0.0;
+                target: "image.swallow.content";
+            }
+            program {
+                name: "show_portrait";
+                signal: "show,portrait";
+                source: "*";
+                action: STATE_SET "default" 0.0;
+                target: "image.swallow.content";
+            }
+        }
+    }
+    group {
+        name: "smil_text_item";
+        parts {
+            part {
+                name: "pad_left";
+                type: SPACER;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    fixed: 1 0;
+                    min: 7 0;
+                    max: 7 0;
+                    align: 0 0.5;
+                    rel1.relative: 0 0;
+                    rel2.relative: 0 1;
+                }
+                description {
+                    state: "landscape" 0.0;
+                    inherit: "default" 0.0;
+                    min: 170 0;
+                    max: 170 0;
+                }
+            }
+            part {
+                name: "swallow.content";
+                type: SWALLOW;
+                scale: 1;
+                mouse_events: 1;
+                repeat_events: 1;
+                description {
+                    state: "default" 0.0;
+                    min: 1 0;
+                    align: 0 0.5;
+                    rel1.relative: 1.0 0.0;
+                    rel2.relative: 0.0 0.0;
+                    rel1.to: "pad_left";
+                    rel2.to: "pad_right";
+                }
+            }
+            part {
+                name: "pad_right";
+                type: SPACER;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    fixed: 1 0;
+                    min: 7 0;
+                    max: 7 0;
+                    align: 1 0.5;
+                    rel1.relative: 1 0;
+                    rel2.relative: 1 1;
+                }
+                description {
+                    state: "landscape" 0.0;
+                    inherit: "default" 0.0;
+                    min: 170 0;
+                    max: 170 0;
+                }
+            }
+        }
+        programs {
+            program {
+                name: "show_landscape";
+                signal: "show,landscape";
+                source: "*";
+                action: STATE_SET "landscape" 0.0;
+                target: "pad_right";
+                target: "pad_left";
+            }
+                program {
+                name: "show_portrait";
+                signal: "show,portrait";
+                source: "*";
+                action: STATE_SET "default" 0.0;
+                target: "pad_right";
+                target: "pad_left";
+            }
+        }
+    }
+    group {
+        name: "smil_audio_item";
+        images {
+            image: AUDIO_ICON COMP;
+        }
+        parts {
+            part {
+                name: "rect";
+                type: RECT;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    min: 0 SUPPLEMENT_AREA_H;
+                    color: 0 0 0 0;
+                }
+                description {
+                    state: "show" 0.0;
+                    min: 0 SUPPLEMENT_AUDIO_AREA_H;
+                    color: 0 0 0 0;
+                }
+            }
+            part {
+                name: "swallow.button";
+                type: SWALLOW;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    align: 0.5 0.5;
+                    rel1.to: "rect";
+                    rel1.relative: 0.0 0.0;
+                    rel2.to: "rect";
+                    rel2.relative: 1.0 1.0;
+                    min: 1 0;
+                    max: 464 0;
+                }
+                description {
+                    state: "hide" 0.0;
+                    inherit: "default" 0.0;
+                    visible: 0;
+                }
+            }
+            part {
+                name: "elm.text";
+                type: TEXT;
+                scale: 1;
+                mouse_events: 0;
+                description {
+                    state: "default" 0.0;
+                    rel1{to:"rect"; relative:0.0 0.0; offset: 76 0; }
+                    rel2{to:"rect"; relative:0.8 1.0;}
+                    align: 0.0 0.5;
+                    color: COLOR_BLACK;
+                    text {
+                        size: 24;
+                        align: 0.0 0.5;
+                        text_class: "label";
+                    }
+                }
+            }
+            part {
+                name: "elm.icon";
+                type: IMAGE;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    visible: 0;
+                    min: 38 38;
+                    max: 38 38;
+                    fixed: 1 1;
+                    rel1{to:"rect"; relative:0.0 0.0; offset: 20 0;}
+                    rel2{to:"rect"; relative:0.0 1.0; offset: 20 0;}
+                    align: 0.0 0.5;
+                    image { normal: AUDIO_ICON; }
+                }
+                description {
+                    state: "show" 0.0;
+                    inherit: "default" 0.0;
+                    visible: 1;
+                }
+            }
+            programs {
+                program {
+                    name: "audio.icon.show";
+                    signal: "audio,icon,show";
+                    source: "*";
+                    action: STATE_SET "show" 0.0;
+                    target: "rect";
+                    target: "elm.icon";
+                }
+                program {
+                    name: "audio.icon.hide";
+                    signal: "audio,icon,hide";
+                    source: "*";
+                    action: STATE_SET "default" 0.0;
+                    target: "rect";
+                    target: "elm.icon";
+                }
+            }
+        }
+    }
+}

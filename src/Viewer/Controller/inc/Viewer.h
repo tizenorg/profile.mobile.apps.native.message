@@ -28,6 +28,7 @@
 #include "MbeRecipients.h"
 #include "ContactEditor.h"
 #include "Conversation.h"
+#include "SmilPlayer.h"
 
 namespace Msg
 {
@@ -40,6 +41,7 @@ namespace Msg
         , private IContactManagerListener
         , private IViewerLayoutListener
         , private IConversationListener
+        , private ISmilPlayerListener
     {
         public:
             Viewer(NaviFrameController &parent, MsgId id);
@@ -65,6 +67,11 @@ namespace Msg
 
             // IViewerLayoutListener:
             virtual void onLayoutTocuh();
+
+            // ISmilPlayerListener:
+            virtual void onSmilPlayerStateChanged();
+            virtual void onSmilPlayerPageChanged();
+            virtual void onSmilPlayerTick();
 
             // Popup:
             void onMakeVoiceItemPressed(PopupListItem &item);
@@ -96,8 +103,11 @@ namespace Msg
             void createPlayerControl();
             void createRecipPanel();
             std::string createMessageText() const;
+            void createSmilPlayer();
             void recipientClickHandler(const std::string &address);
             void showRecipPopup(const std::string &title);
+            void updatePlayPos();
+            void updateButtonState();
 
         private:
             MessageMmsRef m_Msg;
@@ -106,6 +116,7 @@ namespace Msg
             MbeRecipients *m_pRecipPanel;
             std::string m_SelectedAddress;
             ContactEditor m_ContactEditor;
+            SmilPlayer *m_pSmilPlayer;
     };
 }
 

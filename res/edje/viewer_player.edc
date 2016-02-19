@@ -242,6 +242,11 @@ collections {
                     color: BUBBLE_NAVI_TITLE_COLOR;
                 }
                 description {
+                    state: "disabled" 0.0;
+                    inherit: "default" 0.0;
+                    color: COLOR_LOCK_BTN_EDC;
+                }
+                description {
                     state: "press" 0.0;
                     inherit: "default" 0.0;
                 }
@@ -359,6 +364,11 @@ collections {
                     color: BUBBLE_NAVI_TITLE_COLOR;
                 }
                 description {
+                    state: "disabled" 0.0;
+                    inherit: "default" 0.0;
+                    color: COLOR_LOCK_BTN_EDC;
+                }
+                description {
                     state: "press" 0.0;
                     inherit: "default" 0.0;
                 }
@@ -425,7 +435,7 @@ collections {
                     source: "*";
                     signal: "prev_disable";
                     script {
-                        set_state(PART:"prev", "default", 0.0);
+                        set_state(PART:"prev", "disabled", 0.0);
                     }
                 }
                 program {
@@ -543,7 +553,7 @@ collections {
                     source: "*";
                     signal: "next_disable";
                     script {
-                        set_state(PART:"next", "default", 0.0);
+                        set_state(PART:"next", "disabled", 0.0);
                     }
                 }
                 program {

@@ -43,6 +43,7 @@
 #define SELECT_ALL_EDJ_PATH              EDJ_PATH"/select_all.edj"
 #define VIEWER_LAYOUT_EDJ_PATH           EDJ_PATH"/viewer_layout.edj"
 #define VIEWER_PALYER_EDJ_PATH           EDJ_PATH"/viewer_player.edj"
+#define SMIL_ITEM_EDJ_PATH               EDJ_PATH"/smil_item.edj"
 
 // Images(res):
 #define THUMB_CONTACT_IMG_PATH           IMAGE_PATH"/list_ic_contacts.png"
