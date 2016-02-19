@@ -28,12 +28,10 @@ FrameController::FrameController(NaviFrameController &parent)
     : ViewItemController(&parent)
     , NaviFrameItem(parent)
 {
-    MSG_LOG("Constructor: ", this);
 }
 
 FrameController::~FrameController()
 {
-    MSG_LOG("Destructor: ", this);
 }
 
 NaviFrameController &FrameController::getParent()

@@ -40,8 +40,8 @@ namespace Msg
 
             void setListener(IPlayerControlListener *l);
             void setProgress(double value); // 0.0..1.0
-            void prevButtonEnable(bool enable);
-            void nextButtonEnable(bool enable);
+            void enablePrevButton(bool enable);
+            void enableNextButton(bool enable);
             void setPlayState(PlayPauseState state);
             void setStartTime(const std::string &time);
             void setEndTime(const std::string &time);
