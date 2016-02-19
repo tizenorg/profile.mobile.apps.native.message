@@ -25,6 +25,8 @@
 
 namespace Msg
 {
+    class IMbeRecipientsListener;
+
     class MbeRecipientsView
         : public View
     {
@@ -38,6 +40,19 @@ namespace Msg
             MbeRecipientItem *getSelectedItem() const;
             bool isEmpty() const;
             void clear();
+            void setListener(IMbeRecipientsListener *pListener);
+        private:
+            void onMbeItemClicked(Evas_Object *obj, void *eventInfo);
+        private:
+            IMbeRecipientsListener *m_pListener;
+            MbeRecipientItem *m_pSelectedItem;
+    };
+
+    class IMbeRecipientsListener
+    {
+    public:
+        virtual ~IMbeRecipientsListener() {};
+        virtual void onMbeItemClicked(MbeRecipientItem &item) = 0;
     };
 }
 
