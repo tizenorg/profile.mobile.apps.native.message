@@ -32,6 +32,7 @@ namespace
     const char *hideRecipSig = "hide_recipients";
     const char *showPlayerSig = "show_player";
     const char *hidePlayerSig = "hide_player";
+    const int tapFingerSize = 15;
 }
 
 ViewerLayout::ViewerLayout(Evas_Object *parent)
@@ -42,15 +43,23 @@ ViewerLayout::ViewerLayout(Evas_Object *parent)
     Evas_Object *button = elm_button_add(getEo());
     elm_object_style_set(button, "transparent");
     evas_object_show(button);
-    evas_object_smart_callback_add
+
+    Evas_Object *layer = elm_gesture_layer_add(getEo());
+    evas_object_show(layer);
+    elm_gesture_layer_tap_finger_size_set(layer, ELM_SCALE_SIZE(tapFingerSize));
+    elm_gesture_layer_attach(layer, button);
+
+    elm_gesture_layer_cb_add
     (
-        button,
-        "clicked",
-        [](void *data, Evas_Object *obj, void *event_info)
+        layer,
+        ELM_GESTURE_N_TAPS,
+        ELM_GESTURE_STATE_END,
+        [](void *data, void *event_info)->Evas_Event_Flags
         {
             ViewerLayout *self = static_cast<ViewerLayout*>(data);
             if(self->m_pListener)
-                self->m_pListener->onLayoutTocuh();
+                self->m_pListener->onLayoutTap();
+            return EVAS_EVENT_FLAG_NONE;
         },
         this
     );

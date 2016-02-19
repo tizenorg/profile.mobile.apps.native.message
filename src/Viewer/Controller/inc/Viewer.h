@@ -66,7 +66,7 @@ namespace Msg
             virtual void onContactChanged();
 
             // IViewerLayoutListener:
-            virtual void onLayoutTocuh();
+            virtual void onLayoutTap();
 
             // ISmilPlayerListener:
             virtual void onSmilPlayerStateChanged();

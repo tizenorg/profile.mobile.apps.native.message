@@ -18,7 +18,9 @@
 
 #include "SmilPage.h"
 #include "SmilImageItemView.h"
+#include "SmilTextItemView.h"
 #include "Logger.h"
+#include "FileUtils.h"
 
 using namespace Msg;
 
@@ -76,7 +78,13 @@ void SmilPage::buildImage(const MsgMedia &media)
 
 void SmilPage::buildText(const MsgMedia& media)
 {
-
+    std::string text = FileUtils::readTextFile(media.getFilePath());
+    if(!text.empty())
+    {
+        SmilTextItemView *item = new SmilTextItemView(getEo(), text);
+        item->show();
+        appendItem(*item);
+    }
 }
 
 void SmilPage::buildAudio(const MsgMedia& media)

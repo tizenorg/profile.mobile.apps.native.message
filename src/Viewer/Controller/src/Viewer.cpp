@@ -333,7 +333,7 @@ void Viewer::onContactChanged()
     updateRecipPanel();
 }
 
-void Viewer::onLayoutTocuh()
+void Viewer::onLayoutTap()
 {
     MSG_LOG("");
     m_pLayout->showPlayerControl(!m_pLayout->isPlayerControlVisible());
