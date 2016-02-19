@@ -52,7 +52,7 @@ namespace Msg
     {
         public:
             virtual ~IViewerLayoutListener() {}
-            virtual void onLayoutTocuh() {};
+            virtual void onLayoutTap() {};
     };
 }
 

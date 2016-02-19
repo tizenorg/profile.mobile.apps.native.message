@@ -27,22 +27,39 @@
 #include "ContactViewer.h"
 #include "FileUtils.h"
 
-#include <Elementary.h>
 #include <sstream>
+#include <iomanip>
 
 using namespace Msg;
+
+namespace
+{
+    std::string makeTimeStr(int timeSec)
+    {
+        const int digitCount = 2;
+        int min = timeSec / 60;
+        int sec = timeSec % 60;
+
+        std::ostringstream ss;
+        ss.width();
+        ss << std::setw(digitCount) << std::setfill('0') << min << ":" << std::setw(digitCount) << std::setfill('0') << sec;
+        return ss.str();
+    }
+}
 
 Viewer::Viewer(NaviFrameController &parent, MsgId id)
     : FrameController(parent)
     , m_pLayout(nullptr)
     , m_pPlayerControl(nullptr)
     , m_pRecipPanel(nullptr)
+    , m_pSmilPlayer(nullptr)
 {
     create(id);
 }
 
 Viewer::~Viewer()
 {
+    MSG_LOG("");
     getApp().getContactManager().removeListener(*this);
 }
 
@@ -79,11 +96,18 @@ void Viewer::create(MsgId id)
         m_Msg = getMsgEngine().getComposer().createMms();
     }
 
-    getApp().getContactManager().addListener(*this);
     createLayout();
     createPlayerControl();
     createRecipPanel();
+    createSmilPlayer();
+
+    updateButtonState();
+    updatePlayPos();
+
+    getApp().getContactManager().addListener(*this);
     setHwButtonListener(*m_pLayout, this);
+
+    m_pSmilPlayer->start();
 }
 
 void Viewer::createLayout()
@@ -101,12 +125,15 @@ void Viewer::createPlayerControl()
     if(!m_pPlayerControl)
     {
         m_pPlayerControl = new PlayerControl(*m_pLayout);
-        m_pPlayerControl->setStartTime("00:00");
-        m_pPlayerControl->setEndTime("00:00"); // For test
+
         m_pPlayerControl->setListener(this);
         m_pPlayerControl->show();
         m_pPlayerControl->setProgress(0.0);
         m_pLayout->setPlayerControl(*m_pPlayerControl);
+
+        createSmilPlayer();
+        m_pPlayerControl->setStartTime(makeTimeStr(0));
+        m_pPlayerControl->setEndTime(makeTimeStr(m_pSmilPlayer->getDuration()));
     }
 }
 
@@ -124,6 +151,7 @@ void Viewer::createRecipPanel()
 
 std::string Viewer::createMessageText() const
 {
+    // TODO: move to common part
     MsgPageList &pageList = m_Msg->getPageList();
     std::string result;
 
@@ -144,6 +172,17 @@ std::string Viewer::createMessageText() const
         }
     }
     return result;
+}
+
+void Viewer::createSmilPlayer()
+{
+    if(!m_pSmilPlayer)
+    {
+        m_pSmilPlayer = new SmilPlayer(*m_pLayout, *m_Msg);
+        m_pSmilPlayer->setListener(this);
+        m_pSmilPlayer->show();
+        m_pLayout->setBody(*m_pSmilPlayer);
+    }
 }
 
 void Viewer::naviExpandButtonHandler()
@@ -199,6 +238,27 @@ void Viewer::recipientClickHandler(const std::string &address)
         showRecipPopup(address);
 }
 
+void Viewer::updatePlayPos()
+{
+    double pos = m_pSmilPlayer->getPosition();
+    int sec = m_pSmilPlayer->getDuration() * pos + 0.5;
+    m_pPlayerControl->setProgress(pos);
+    m_pPlayerControl->setStartTime(makeTimeStr(sec));
+}
+
+void Viewer::updateButtonState()
+{
+    auto playPauseState = PlayerControl::PauseState;
+    bool isPlaying = m_pSmilPlayer->getState() == SmilPlayer::PlayState;
+
+    if(m_pSmilPlayer->getState() == SmilPlayer::StopState)
+        playPauseState = PlayerControl::PlayState;
+
+    m_pPlayerControl->setPlayState(playPauseState);
+    m_pPlayerControl->enableNextButton(m_pSmilPlayer->probeNextPage() && isPlaying);
+    m_pPlayerControl->enablePrevButton(m_pSmilPlayer->probePrevPage() && isPlaying);
+}
+
 void Viewer::onHwBackButtonClicked()
 {
     getParent().pop();
@@ -245,23 +305,25 @@ void Viewer::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
 void Viewer::onPlayClicked()
 {
     MSG_LOG("");
-    m_pPlayerControl->setPlayState(PlayerControl::PauseState);
+    m_pSmilPlayer->start();
 }
 
 void Viewer::onPauseClicked()
 {
     MSG_LOG("");
-    m_pPlayerControl->setPlayState(PlayerControl::PlayState);
+    m_pSmilPlayer->stop();
 }
 
 void Viewer::onNextClicked()
 {
     MSG_LOG("");
+    m_pSmilPlayer->nextPage();
 }
 
 void Viewer::onPrevClicked()
 {
     MSG_LOG("");
+    m_pSmilPlayer->prevPage();
 }
 
 void Viewer::onContactChanged()
@@ -271,7 +333,7 @@ void Viewer::onContactChanged()
     updateRecipPanel();
 }
 
-void Viewer::onLayoutTocuh()
+void Viewer::onLayoutTap()
 {
     MSG_LOG("");
     m_pLayout->showPlayerControl(!m_pLayout->isPlayerControlVisible());
@@ -347,6 +409,7 @@ void Viewer::onSaveAttachmentsItemPressed(PopupListItem &item)
 
 void Viewer::onRecipItemClicked(Evas_Object *obj, void *eventInfo)
 {
+    MSG_LOG("");
     MbeRecipientItem *item = ViewItem::staticCast<MbeRecipientItem*>(eventInfo);
     recipientClickHandler(item->getAddress());
 }
@@ -354,4 +417,23 @@ void Viewer::onRecipItemClicked(Evas_Object *obj, void *eventInfo)
 void Viewer::onConversationSentMessage()
 {
     getParent().pop();
+}
+
+void Viewer::onSmilPlayerStateChanged()
+{
+    MSG_LOG("Smil player state: ", m_pSmilPlayer->getState());
+    updateButtonState();
+}
+
+void Viewer::onSmilPlayerPageChanged()
+{
+    MSG_LOG("");
+    updateButtonState();
+    updatePlayPos();
+}
+
+void Viewer::onSmilPlayerTick()
+{
+    MSG_LOG("");
+    updatePlayPos();
 }

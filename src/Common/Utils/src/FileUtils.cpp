@@ -187,9 +187,6 @@ bool FileUtils::remove(const std::string &path, bool removeCurrentDir)
 
 std::string FileUtils::readTextFile(const std::string &path)
 {
-    std::string text;
     std::ifstream fs(path, std::ifstream::in | std::ifstream::binary);
-    if(fs.is_open())
-        fs >> text;
-    return text;
+    return fs.is_open() ? std::string(std::istreambuf_iterator<char>(fs), std::istreambuf_iterator<char>()) : "";
 }
