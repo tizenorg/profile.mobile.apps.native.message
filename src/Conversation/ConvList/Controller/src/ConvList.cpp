@@ -22,12 +22,19 @@
 
 using namespace Msg;
 
+namespace
+{
+    const int minMessagesBulk = 100;
+    const int additionalMessagesBulk = 50;
+}
+
 ConvList::ConvList(Evas_Object *parent, App &app)
     : ConvListLayout(parent)
     , m_Mode(NormalMode)
     , m_MsgEngine(app.getMsgEngine())
     , m_pSelectAll(nullptr)
     , m_pList(nullptr)
+    , m_ConvListItemMap()
     , m_pListner(nullptr)
     , m_App(app)
 {
@@ -98,17 +105,23 @@ Evas_Object *ConvList::createList(Evas_Object *parent)
 
 void ConvList::fill()
 {
-    m_pList->clear();
+    if(!m_ConvListItemMap.empty())
+    {
+        m_pList->clear();
+        m_ConvListItemMap.clear();
+    }
     if(!m_ThreadId.isValid())
         return;
 
     MsgConversationListRef convList = m_MsgEngine.getStorage().getConversationList(m_ThreadId);
     int convListLen = convList->getLength();
+    m_ConvListItemMap.reserve(convListLen <= minMessagesBulk/2 ? minMessagesBulk : convListLen + additionalMessagesBulk);
 
     for(int i = 0; i < convListLen; ++i)
     {
         MsgConversationItem &item = convList->at(i);
         ConvListItem *listItem = new ConvListItem(item, m_App);
+        m_ConvListItemMap[listItem->getMsgId()] = listItem;
         listItem->setListener(this);
         m_pList->appendItem(*listItem);
     }
@@ -116,8 +129,11 @@ void ConvList::fill()
 
 void ConvList::setThreadId(ThreadId id)
 {
-    m_ThreadId = id;
-    fill();
+    if(m_ThreadId != id)
+    {
+        m_ThreadId = id;
+        fill();
+    }
 }
 
 void ConvList::navigateTo(MsgId msgId)
@@ -129,13 +145,8 @@ void ConvList::navigateTo(MsgId msgId)
 
 ConvListItem *ConvList::getItem(MsgId msgId) const
 {
-    auto items = m_pList->getItems<ConvListItem>();
-    for(ConvListItem *item : items)
-    {
-        if(item->getMsgId() == msgId)
-            return item;
-    }
-    return nullptr;
+    auto it = m_ConvListItemMap.find(msgId);
+    return it != m_ConvListItemMap.end() ? it->second : nullptr;
 }
 
 void ConvList::deleteSelectedItems()
@@ -215,20 +226,40 @@ void ConvList::onListItemChecked(ListItem &listItem)
 
 void ConvList::onMsgStorageUpdate(const MsgIdList &msgIdList)
 {
-    // FIXME: simple impl for demo
-    fill();
+    for(auto &itemId: msgIdList)
+    {
+        ConvListItem *updated = getItem(itemId);
+        if(updated)
+            updated->updateStatus();
+    }
 }
 
 void ConvList::onMsgStorageInsert(const MsgIdList &msgIdList)
 {
-    // FIXME: simple impl for demo
-    fill();
+    for(auto &itemId: msgIdList)
+    {
+        if(m_ThreadId == m_MsgEngine.getStorage().getMessage(itemId)->getThreadId())
+        {
+            MsgConversationItemRef item = m_MsgEngine.getStorage().getConversationItem(itemId);
+            ConvListItem *listItem = new ConvListItem(*item, m_App);
+            m_ConvListItemMap[listItem->getMsgId()] = listItem;
+            listItem->setListener(this);
+            m_pList->appendItem(*listItem);
+        }
+    }
 }
 
 void ConvList::onMsgStorageDelete(const MsgIdList &msgIdList)
 {
-    // FIXME: simple impl for demo
-    fill();
+    for(auto &itemId: msgIdList)
+    {
+        ConvListItem *deleted = getItem(itemId);
+        if(deleted)
+        {
+            m_ConvListItemMap.erase(itemId);
+            m_pList->deleteItem(*deleted);
+        }
+    }
 
     if(m_pListner && m_pList->isEmpty())
         m_pListner->onAllItemsDeleted(*this);

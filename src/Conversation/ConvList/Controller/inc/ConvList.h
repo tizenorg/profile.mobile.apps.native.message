@@ -24,10 +24,12 @@
 #include "ConvSelectAll.h"
 #include "App.h"
 #include "ConvListItem.h"
+#include <unordered_map>
 
 namespace Msg
 {
     class IConvListListener;
+    typedef std::unordered_map<MsgId, ConvListItem*, std::hash<int>> ConvListItemMap;
 
     class ConvList
         : public ConvListLayout
@@ -132,6 +134,7 @@ namespace Msg
             ThreadId m_ThreadId;
             ConvSelectAll *m_pSelectAll;
             ListView *m_pList;
+            ConvListItemMap m_ConvListItemMap;
             IConvListListener *m_pListner;
             App &m_App;
     };

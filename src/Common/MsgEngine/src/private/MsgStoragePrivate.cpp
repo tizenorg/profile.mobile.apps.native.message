@@ -253,6 +253,22 @@ MsgConversationListRef MsgStoragePrivate::getConversationList(ThreadId id)
     return res;
 }
 
+MsgConversationItemRef MsgStoragePrivate::getConversationItem(MsgId id)
+{
+    MsgConversationItemRef res;
+    msg_struct_t convItem = msg_create_struct(MSG_STRUCT_CONV_INFO);
+    if(msg_get_conversation(m_ServiceHandle, id, convItem) == 0)
+    {
+        res.reset(new MsgConversationItemPrivate(true, convItem));
+    }
+    else
+    {
+        msg_release_struct(&convItem);
+    }
+
+    return res;
+}
+
 MessageRef MsgStoragePrivate::getMessage(MsgId id)
 {
     MessageRef msgRef;
