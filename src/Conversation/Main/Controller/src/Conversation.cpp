@@ -402,7 +402,9 @@ void Conversation::sendMessage()
     {
         showSendResultPopup(sendRes);
     }
-    m_pListener->onConversationSentMessage();
+
+    if(m_pListener)
+        m_pListener->onConversationSentMessage();
 }
 
 void Conversation::saveDraftMsg()
