@@ -76,6 +76,7 @@ namespace Msg
             // IThreadListListener:
             virtual void onListItemSelected(ThreadId id);
             virtual void onThreadListChanged();
+            virtual void onThreadListItemChecked();
 
             // ThreadSearchList:
             virtual void onSearchListChanged();

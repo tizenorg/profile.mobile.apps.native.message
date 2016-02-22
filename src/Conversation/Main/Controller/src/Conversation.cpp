@@ -641,11 +641,11 @@ void Conversation::updateNavibar()
     NaviBar &naviBar = getNaviBar();
     naviBar.clear();
     naviBar.setColor(NaviBar::NaviWhiteColorId);
-    naviBar.showButton(NaviPrevButtonId, true);
 
     if(m_Mode == NewMessageMode)
     {
         naviBar.setTitle(msgt("IDS_MSGF_POP_NEW_MESSAGE"));
+        naviBar.showButton(NaviPrevButtonId, true);
     }
     else if(m_Mode == ConversationMode)
     {
@@ -654,9 +654,11 @@ void Conversation::updateNavibar()
             naviBar.setTitle(msgt("IDS_MSG_OPT_DELETE"));
             naviBar.showButton(NaviCancelButtonId, true);
             naviBar.showButton(NaviOkButtonId, true);
+            naviBar.disabledButton(NaviOkButtonId, true);
         }
         else
         {
+            naviBar.showButton(NaviPrevButtonId, true);
             MsgAddressListRef addressList = getAddressList();
             if(addressList)
             {
@@ -948,6 +950,11 @@ void Conversation::onSlideShow(MsgId id)
 {
     MSG_LOG("");
     navigateToSlideShow(id);
+}
+
+void Conversation::onConvListItemChecked()
+{
+    getNaviBar().disabledButton(NaviOkButtonId, m_pConvList->getMessageCheckedCount() == 0);
 }
 
 void Conversation::onFileSelected(AttachPanel &panel, const AttachPanel::FileList &files)

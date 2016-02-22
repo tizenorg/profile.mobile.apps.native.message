@@ -43,6 +43,7 @@ namespace Msg
             void setDeleteMode(bool value);
             bool isDeleteModeEnabled() const;
             void deleteSelectedItems();
+            int getThreadsCheckedCount() const;
 
         private:
             // IMsgStorageListener:
@@ -76,6 +77,7 @@ namespace Msg
             virtual ~IThreadListListener() {}
             virtual void onListItemSelected(ThreadId id) {};
             virtual void onThreadListChanged() {}
+            virtual void onThreadListItemChecked() {}
     };
 }
 

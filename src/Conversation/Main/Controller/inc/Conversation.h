@@ -124,6 +124,7 @@ namespace Msg
             virtual void onEditDraftMsg(MsgId id);
             virtual void onForwardMsg(MsgId id);
             virtual void onSlideShow(MsgId id);
+            virtual void onConvListItemChecked();
 
             // IAttachPanelListener:
             virtual void onFileSelected(AttachPanel &panel, const AttachPanel::FileList &files);

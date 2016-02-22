@@ -156,6 +156,18 @@ int ConvList::getMessageCount() const
     return (int)items.size();
 }
 
+int ConvList::getMessageCheckedCount() const
+{
+    auto items = m_pList->getItems<ConvListItem>();
+    int count = 0;
+    for(ConvListItem *item : items)
+    {
+        if(item->getCheckedState())
+            count++;
+    }
+    return count;
+}
+
 bool ConvList::isAllListItemSelected() const
 {
     // Simple but not fast impl:
@@ -176,6 +188,8 @@ void ConvList::selectListItems(bool state)
         item->setCheckedState(state, false);
     }
     m_pList->updateRealizedItems();
+    if(m_pListner)
+        m_pListner->onConvListItemChecked();
 }
 
 void ConvList::onListItemSelected(ListItem &listItem)
@@ -194,6 +208,9 @@ void ConvList::onListItemChecked(ListItem &listItem)
 {
     bool allSelected = isAllListItemSelected();
     m_pSelectAll->setCheckState(allSelected);
+
+    if(m_pListner)
+        m_pListner->onConvListItemChecked();
 }
 
 void ConvList::onMsgStorageUpdate(const MsgIdList &msgIdList)

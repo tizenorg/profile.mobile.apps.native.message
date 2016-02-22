@@ -93,6 +93,12 @@ namespace Msg
              */
             int getMessageCount() const;
 
+            /**
+             * @brief Get checked message count
+             * @return message count
+             */
+            int getMessageCheckedCount() const;
+
         private:
             void create(Evas_Object *parent);
             Evas_Object *createSelectAll(Evas_Object *parent);
@@ -142,6 +148,7 @@ namespace Msg
             virtual void onSlideShow(MsgId id) {};
             virtual void onEditDraftMsg(MsgId id) {};
             virtual void onForwardMsg(MsgId id) {};
+            virtual void onConvListItemChecked() {};
     };
 }
 

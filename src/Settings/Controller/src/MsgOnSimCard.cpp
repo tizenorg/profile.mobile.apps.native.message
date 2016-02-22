@@ -105,6 +105,7 @@ void MsgOnSimCard::onListItemChecked(ListItem &listItem)
     int total = 0;
     calcChecked(check, total);
     m_CheckCount = check;
+    getNaviBar().disabledButton(NaviOkButtonId, m_CheckCount == 0);
     bool all = (check == total) ? true : false;
     m_pList->getFirstItem()->setCheckedState(all, true);
 
@@ -115,6 +116,7 @@ void MsgOnSimCard::checkHandler(SelectAllListItem &item)
 {
     bool checked = item.getCheckedState();
     m_pList->checkAllItems(checked);
+    getNaviBar().disabledButton(NaviOkButtonId, !checked);
 }
 
 void MsgOnSimCard::onHwMoreButtonClicked()
@@ -228,6 +230,8 @@ void MsgOnSimCard::setTitleWithButtons(bool value)
 
     getNaviBar().clear();
     getNaviBar().showButton(NaviOkButtonId, value);
+    if(value)
+        getNaviBar().disabledButton(NaviOkButtonId, true);
     getNaviBar().showButton(NaviCancelButtonId, value);
     getNaviBar().showButton(NaviPrevButtonId, !value);
 

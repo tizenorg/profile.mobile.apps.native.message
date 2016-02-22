@@ -172,6 +172,8 @@ void MsgThread::setDeleteMode(bool value)
         m_Mode = DeleteMode;
 
     getNaviBar().showButton(NaviOkButtonId, value);
+    if(value)
+        getNaviBar().disabledButton(NaviOkButtonId, value);
     getNaviBar().showButton(NaviCancelButtonId, value);
     m_pThreadList->setDeleteMode(value);
 }
@@ -284,6 +286,11 @@ void MsgThread::onThreadListChanged()
 {
     MSG_LOG("");
     update();
+}
+
+void MsgThread::onThreadListItemChecked()
+{
+    getNaviBar().disabledButton(NaviOkButtonId, m_pThreadList->getThreadsCheckedCount() == 0);
 }
 
 void MsgThread::onSearchListChanged()
