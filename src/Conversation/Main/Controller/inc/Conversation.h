@@ -165,7 +165,8 @@ namespace Msg
             void showNoRecipPopup();
             PopupList &createPopupList(const std::string &title);
             void showSendResultPopup(MsgTransport::SendResult result);
-
+            void showUnsavedRecipientPopup(const std::string &address);
+            void showSavedRecipientPopup(const std::string &title, int personId);
             void sendMessage();
             void read(Message &msg);
             void readMsgAddress(Message &msg);
@@ -189,9 +190,6 @@ namespace Msg
             ConvList *m_pConvList;
             AttachPanel m_AttachPanel;
             DefferedCmd m_DefferedCmd;
-
-            // TODO: remove usage of pre-saved person-id of contact-recipient after implementation of modal popup routine
-            int m_SelectedPersonId;
             ContactEditor m_ContactEditor;
             IConversationListener *m_pListener;
     };

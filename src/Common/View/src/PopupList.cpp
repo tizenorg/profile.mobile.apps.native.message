@@ -20,29 +20,6 @@
 
 using namespace Msg;
 
-const ListItemStyleRef listItemStyle = ListItemStyle::create("type1");
-
-PopupListItem::PopupListItem(PopupList &parent, const std::string &text, PopupListItemPressedCb cb, void *userData)
-    : ListItem(listItemStyle)
-    , m_Parent(parent)
-    , m_Text(text)
-    , m_Cb(cb)
-    , m_pUserData(userData)
-{
-}
-
-PopupList &PopupListItem::getParent()
-{
-    return m_Parent;
-}
-
-std::string PopupListItem::getText(ListItem &item, const char *part)
-{
-    if(strcmp(part, "elm.text") == 0)
-        return m_Text;
-    return std::string();
-}
-
 PopupList::PopupList(Evas_Object *parent)
     : Popup(parent)
     , m_pList(nullptr)
@@ -61,9 +38,14 @@ PopupList::~PopupList()
 {
 }
 
+void PopupList::appendItem(PopupListItem &item)
+{
+    m_pList->appendItem(item);
+}
+
 void PopupList::appendItem(const std::string &text, PopupListItemPressedCb cb, void *userData)
 {
-    m_pList->appendItem(*new PopupListItem(*this, text, cb, userData));
+    m_pList->appendItem(*new PopupTextListItem(*this, text, cb, userData));
 }
 
 void PopupList::create()
@@ -90,6 +72,5 @@ ListView &PopupList::getListView()
 void PopupList::onListItemSelected(ListItem &listItem)
 {
     PopupListItem &it = static_cast<PopupListItem&>(listItem);
-    if(it.m_Cb)
-        it.m_Cb(it, it.m_pUserData);;
+    it.fireCallback();
 }
