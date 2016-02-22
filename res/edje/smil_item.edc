@@ -221,12 +221,12 @@ collections {
                 mouse_events: 0;
                 description {
                     state: "default" 0.0;
-                    rel1{to:"rect"; relative:0.0 0.0; offset: 76 0; }
+                    rel1{to:"rect"; relative:0.0 0.0; offset: 60 0; }
                     rel2{to:"rect"; relative:0.8 1.0;}
                     align: 0.0 0.5;
                     color: COLOR_BLACK;
                     text {
-                        size: 24;
+                        size: 34;
                         align: 0.0 0.5;
                         text_class: "label";
                     }
