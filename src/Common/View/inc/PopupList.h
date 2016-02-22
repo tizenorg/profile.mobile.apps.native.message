@@ -20,36 +20,10 @@
 
 #include "Popup.h"
 #include "ListView.h"
+#include "PopupListItem.h"
 
 namespace Msg
 {
-    class PopupList;
-    class PopupListItem;
-    typedef void (*PopupListItemPressedCb)(PopupListItem &item, void *userData);
-
-    #define POPUPLIST_ITEM_PRESSED_CB(ClassName, method) [](PopupListItem &item, void *userData) \
-    {                                                                                            \
-        static_cast<ClassName*>(userData)->method(item);                                         \
-    }
-
-    class PopupListItem
-        : public ListItem
-    {
-        friend class PopupList;
-        public:
-            PopupListItem(PopupList &parent, const std::string &text, PopupListItemPressedCb cb, void *userData);
-            PopupList &getParent();
-
-        private:
-            virtual std::string getText(ListItem &item, const char *part);
-
-        private:
-            PopupList &m_Parent;
-            std::string m_Text;
-            PopupListItemPressedCb m_Cb;
-            void *m_pUserData;
-    };
-
     class PopupList
         : public Popup
         , private IListViewListener
@@ -59,6 +33,7 @@ namespace Msg
             PopupList(PopupManager &parent);
             virtual ~PopupList();
 
+            void appendItem(PopupListItem *pItem);
             void appendItem(const std::string &text, PopupListItemPressedCb cb, void *userData);
             ListView &getListView();
 

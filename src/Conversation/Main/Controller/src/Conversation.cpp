@@ -27,6 +27,7 @@
 #include "ContactViewer.h"
 #include "VoiceCall.h"
 #include "Viewer.h"
+#include "PopupRecipientListItem.h"
 
 #include <Elementary.h>
 #include <sstream>
@@ -46,7 +47,6 @@ Conversation::Conversation(NaviFrameController &parent)
     , m_IsMms(false)
     , m_pConvList(nullptr)
     , m_AttachPanel(getApp())
-    , m_SelectedPersonId(-1)
     , m_pListener(nullptr)
 {
     create();
@@ -135,42 +135,59 @@ void Conversation::recipientClickHandler(const std::string &address)
     ContactPersonAddressRef contactPersonAddress = getApp().getContactManager().getContactPersonAddress(address);
     if(contactPersonAddress)
     {
-        m_SelectedPersonId = contactPersonAddress->getPersonId();
+        int selectedPersonId = contactPersonAddress->getPersonId();
         if(m_Mode == NewMessageMode)
         {
             MbeRecipientItem *pItem = m_pRecipPanel->getSelectedItem();
             if(pItem)
             {
-                PopupList &popup = createPopupList(pItem->getDispName());
-                popup.appendItem(msg("IDS_MSGF_OPT_REMOVE"), POPUPLIST_ITEM_PRESSED_CB(Conversation, onRemoveItemPressed), this);
-                popup.appendItem(msg("IDS_MSG_OPT_EDIT"), POPUPLIST_ITEM_PRESSED_CB(Conversation, onEditItemPressed), this);
-                popup.appendItem(msg("IDS_MSG_OPT_VIEW_CONTACT_DETAILS_ABB"), POPUPLIST_ITEM_PRESSED_CB(Conversation, onViewContactDetailsItemPressed), this);
-                popup.show();
+                showSavedRecipientPopup(pItem->getDispName(), selectedPersonId);
             }
         }
         else if(m_Mode == ConversationMode)
         {
-            ContactViewer::launch(m_SelectedPersonId);
-            m_SelectedPersonId = -1;
+            ContactViewer::launch(selectedPersonId);
         }
     }
     else
     {
-        PopupList &popup = createPopupList(address);
-        if(m_Mode == NewMessageMode)
-        {
-            popup.appendItem(msg("IDS_MSGF_OPT_REMOVE"), POPUPLIST_ITEM_PRESSED_CB(Conversation, onRemoveItemPressed), this);
-            popup.appendItem(msg("IDS_MSG_OPT_EDIT"), POPUPLIST_ITEM_PRESSED_CB(Conversation, onEditItemPressed), this);
-        }
-        else if(m_Mode == ConversationMode)
-        {
-            popup.appendItem(msg("IDS_MSG_OPT_MAKE_VOICE_CALL"), POPUPLIST_ITEM_PRESSED_CB(Conversation, onMakeVoiceItemPressed), this);
-        }
-
-        popup.appendItem(msg("IDS_MSG_OPT_CREATE_CONTACT_ABB"), POPUPLIST_ITEM_PRESSED_CB(Conversation, onCreateContactItemPressed), this);
-        popup.appendItem(msg("IDS_MSG_OPT_UPDATE_CONTACT"), POPUPLIST_ITEM_PRESSED_CB(Conversation, onUpdateContactItemPressed), this);
-        popup.show();
+        showUnsavedRecipientPopup(address);
     }
+}
+
+void Conversation::showSavedRecipientPopup(const std::string &title, int personId)
+{
+    PopupList &popup = createPopupList(title);
+    popup.appendItem(msg("IDS_MSGF_OPT_REMOVE"), POPUPLIST_ITEM_PRESSED_CB(Conversation, onRemoveItemPressed), this);
+    popup.appendItem(msg("IDS_MSG_OPT_EDIT"), POPUPLIST_ITEM_PRESSED_CB(Conversation, onEditItemPressed), this);
+    popup.appendItem(new PopupPersonIdListItem(popup, msg("IDS_MSG_OPT_VIEW_CONTACT_DETAILS_ABB"), personId,
+            POPUPLIST_ITEM_PRESSED_CB(Conversation, onViewContactDetailsItemPressed), this));
+    popup.show();
+}
+
+void Conversation::showUnsavedRecipientPopup(const std::string &address)
+{
+    PopupList &popup = createPopupList(address);
+    if(m_Mode == NewMessageMode)
+    {
+        popup.appendItem(new PopupAddressListItem(popup, msg("IDS_MSGF_OPT_REMOVE"), address,
+                POPUPLIST_ITEM_PRESSED_CB(Conversation, onRemoveItemPressed), this));
+
+        popup.appendItem(new PopupAddressListItem(popup, msg("IDS_MSG_OPT_EDIT"), address,
+                POPUPLIST_ITEM_PRESSED_CB(Conversation, onEditItemPressed), this));
+    }
+    else if(m_Mode == ConversationMode)
+    {
+        popup.appendItem(new PopupAddressListItem(popup, msg("IDS_MSG_OPT_MAKE_VOICE_CALL"), address,
+                POPUPLIST_ITEM_PRESSED_CB(Conversation, onMakeVoiceItemPressed), this));
+    }
+
+    popup.appendItem(new PopupAddressListItem(popup, msg("IDS_MSG_OPT_CREATE_CONTACT_ABB"), address,
+                POPUPLIST_ITEM_PRESSED_CB(Conversation, onCreateContactItemPressed), this));
+
+    popup.appendItem(new PopupAddressListItem(popup, msg("IDS_MSG_OPT_UPDATE_CONTACT"), address,
+                POPUPLIST_ITEM_PRESSED_CB(Conversation, onUpdateContactItemPressed), this));
+    popup.show();
 }
 
 void Conversation::contactChangedHandler()
@@ -874,34 +891,25 @@ void Conversation::onAddRecipientsItemPressed(ContextPopupItem &item)
 void Conversation::onMakeVoiceItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
+    std::string address = static_cast<PopupAddressListItem&>(item).getAddress();
     item.getParent().destroy();
-    MbeRecipientItem *pItem = m_pRecipPanel->getSelectedItem();
-    if(pItem)
-        VoiceCall::launch(pItem->getAddress());
-
-    m_SelectedPersonId = -1;
+    VoiceCall::launch(address);
 }
 
 void Conversation::onCreateContactItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
+    std::string address = static_cast<PopupAddressListItem&>(item).getAddress();
     item.getParent().destroy();
-    MbeRecipientItem *pItem = m_pRecipPanel->getSelectedItem();
-    if(pItem)
-        m_ContactEditor.launch(pItem->getAddress(), ContactEditor::CreateOp);
-
-    m_SelectedPersonId = -1;
+    m_ContactEditor.launch(address, ContactEditor::CreateOp);
 }
 
 void Conversation::onUpdateContactItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
+    std::string address = static_cast<PopupAddressListItem&>(item).getAddress();
     item.getParent().destroy();
-    MbeRecipientItem *pItem = m_pRecipPanel->getSelectedItem();
-    if(pItem)
-        m_ContactEditor.launch(pItem->getAddress(), ContactEditor::EditOp);
-
-    m_SelectedPersonId = -1;
+    m_ContactEditor.launch(address, ContactEditor::EditOp);
 }
 
 void Conversation::onRemoveItemPressed(PopupListItem &item)
@@ -909,7 +917,6 @@ void Conversation::onRemoveItemPressed(PopupListItem &item)
     MSG_LOG("");
     item.getParent().destroy();
     m_pRecipPanel->removeSelectedItem();
-    m_SelectedPersonId = -1;
 }
 
 void Conversation::onEditItemPressed(PopupListItem &item)
@@ -917,15 +924,14 @@ void Conversation::onEditItemPressed(PopupListItem &item)
     MSG_LOG("");
     item.getParent().destroy();
     m_pRecipPanel->editSelectedItem();
-    m_SelectedPersonId = -1;
 }
 
 void Conversation::onViewContactDetailsItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
+    int personId = static_cast<PopupPersonIdListItem&>(item).getPersonId();
     item.getParent().destroy();
-    ContactViewer::launch(m_SelectedPersonId);
-    m_SelectedPersonId = -1;
+    ContactViewer::launch(personId);
 }
 
 void Conversation::onAllItemsDeleted(ConvList &list)
