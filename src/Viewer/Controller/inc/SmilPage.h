@@ -31,6 +31,8 @@ namespace Msg
             virtual ~SmilPage();
 
             int getDuration() const;
+            bool hasMedia() const;
+            std::string getMediaPath() const;
 
         private:
             const MsgMedia *getMedia(const MsgPage &page, MsgMedia::SmilType type) const;
@@ -41,6 +43,7 @@ namespace Msg
 
         private:
             int m_Duration;
+            std::string m_MediaPath;
     };
 }
 

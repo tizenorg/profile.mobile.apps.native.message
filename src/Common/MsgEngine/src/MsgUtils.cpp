@@ -19,7 +19,6 @@
 
 #include <string.h>
 #include <ctype.h>
-#include <metadata_extractor.h>
 #include <unistd.h>
 #include <regex>
 
@@ -94,38 +93,6 @@ MsgAddress::AddressType MsgUtils::getAddressType(const std::string &address)
     }
 
     return MsgAddress::UnknownAddressType;
-}
-
-std::string MsgUtils::getMediaTitle(const std::string &path)
-{
-    char *alert_title = nullptr;
-    int ret = METADATA_EXTRACTOR_ERROR_NONE;
-    metadata_extractor_h metadata = NULL;
-    if (access( path.c_str(), F_OK ) < 0)
-    {
-        return path;
-    }
-
-    ret = metadata_extractor_create(&metadata);
-    if (ret != METADATA_EXTRACTOR_ERROR_NONE)
-    {
-        return path;
-    }
-
-    ret = metadata_extractor_set_path(metadata, path.c_str());
-    if (ret != METADATA_EXTRACTOR_ERROR_NONE) {
-        metadata_extractor_destroy(metadata);
-        return path;
-    }
-
-    ret = metadata_extractor_get_metadata(metadata, METADATA_TITLE, &alert_title);
-    if (ret != METADATA_EXTRACTOR_ERROR_NONE) {
-        metadata_extractor_destroy(metadata);
-        return path;
-    }
-
-    metadata_extractor_destroy(metadata);
-    return std::string(alert_title);
 }
 
 std::string MsgUtils::makeNormalizedNumber(const std::string &number)

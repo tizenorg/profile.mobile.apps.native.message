@@ -25,7 +25,7 @@
 #include "SettingsListItem.h"
 #include "Logger.h"
 #include "MsgOnSimCard.h"
-#include "MsgUtils.h"
+#include "MediaUtils.h"
 
 #include <Elementary.h>
 #include <app_preference.h>
@@ -238,7 +238,7 @@ void Settings::updateSoundItem()
 {
     MSG_LOG("updateSoundItem activated!");
     m_pSoundItem->disabled(!getMsgSettings().getAlerts());
-    m_pSoundItem->setSubText(MsgUtils::getMediaTitle(getMsgSettings().getNotiSound()));
+    m_pSoundItem->setSubText(MediaUtils::getMediaTitle(getMsgSettings().getNotiSound()));
 }
 
 void Settings::updateVibrationItem()

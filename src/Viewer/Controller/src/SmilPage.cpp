@@ -19,8 +19,10 @@
 #include "SmilPage.h"
 #include "SmilImageItemView.h"
 #include "SmilTextItemView.h"
+#include "SmilAudioItemView.h"
 #include "Logger.h"
 #include "FileUtils.h"
+#include "MediaPlayer.h"
 
 using namespace Msg;
 
@@ -43,6 +45,16 @@ int SmilPage::getDuration() const
     return m_Duration;
 }
 
+bool SmilPage::hasMedia() const
+{
+    return !m_MediaPath.empty();
+}
+
+std::string SmilPage::getMediaPath() const
+{
+    return m_MediaPath;
+}
+
 const MsgMedia *SmilPage::getMedia(const MsgPage &page, MsgMedia::SmilType type) const
 {
     const MsgMediaList &list = page.getMediaList();
@@ -57,8 +69,6 @@ const MsgMedia *SmilPage::getMedia(const MsgPage &page, MsgMedia::SmilType type)
 void SmilPage::build(const MsgPage &page)
 {
     m_Duration = page.getPageDuration();
-    if(m_Duration <= 0)
-        m_Duration = defaultPageDuration;
 
     // TODO: set image, text order
     if(const MsgMedia *image = getMedia(page, MsgMedia::SmilImage))
@@ -67,6 +77,9 @@ void SmilPage::build(const MsgPage &page)
         buildText(*text);
     if(const MsgMedia *audio = getMedia(page, MsgMedia::SmilAudio))
         buildAudio(*audio);
+
+    if(m_Duration <= 0)
+        m_Duration = defaultPageDuration;
 }
 
 void SmilPage::buildImage(const MsgMedia &media)
@@ -89,5 +102,18 @@ void SmilPage::buildText(const MsgMedia& media)
 
 void SmilPage::buildAudio(const MsgMedia& media)
 {
+    m_MediaPath = media.getFilePath();
+    if(m_Duration == 0)
+    {
+        int sec = MediaPlayer::getDuration(m_MediaPath) / 1000.0 + 0.5;
+        MSG_LOG("Duration: ", media.getFilePath(), " ", sec);
 
+        if(m_Duration < sec)
+            m_Duration = sec;
+    }
+
+    SmilAudioItemView *item = new SmilAudioItemView(getEo(), media.getFileName());
+    item->show();
+    item->showIcon(true);
+    appendItem(*item);
 }

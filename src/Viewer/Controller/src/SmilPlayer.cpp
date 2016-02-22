@@ -62,11 +62,13 @@ void SmilPlayer::setListener(ISmilPlayerListener *l)
 
 void SmilPlayer::startTimer(int sec)
 {
-    if(!m_pTimer)
+    if(m_pTimer)
     {
-        m_PageTickCounter = 0;
-        m_pTimer = ecore_timer_add(1.0, ECORE_TACK_CALLBACK(SmilPlayer, onTick), this);
+        ecore_timer_del(m_pTimer);
+        m_pTimer = nullptr;
     }
+    m_PageTickCounter = 0;
+    m_pTimer = ecore_timer_add(1.0, ECORE_TACK_CALLBACK(SmilPlayer, onTick), this);
 }
 
 void SmilPlayer::pauseTimer()
@@ -92,7 +94,13 @@ Eina_Bool SmilPlayer::onTick()
     if(m_PageTickCounter >= getCurrentPage()->getDuration())
     {
         m_pTimer = nullptr;
-        nextPage();
+
+        if(!nextPage())
+        {
+            stop();
+            m_Finished = true;
+        }
+
         return false;
     }
     return true;
@@ -100,9 +108,12 @@ Eina_Bool SmilPlayer::onTick()
 
 void SmilPlayer::setState(State state)
 {
-    m_State = state;
-    if(m_pListener)
-        m_pListener->onSmilPlayerStateChanged();
+    if(m_State != state)
+    {
+        m_State = state;
+        if(m_pListener)
+            m_pListener->onSmilPlayerStateChanged();
+    }
 }
 
 SmilPlayer::State SmilPlayer::getState() const
@@ -119,16 +130,17 @@ void SmilPlayer::start()
 {
     if(m_pTimer)
     {
+        MSG_LOG("Continue");
+
         setState(PlayState);
         continueTimer();
+        startMedia();
     }
     else
     {
-        if(m_Finished)
-        {
-            m_Finished = false;
-            m_CurrentPageIndex = 0;
-        }
+        MSG_LOG("Restart");
+
+        reset();
         setState(PlayState);
         playPage();
     }
@@ -136,43 +148,48 @@ void SmilPlayer::start()
 
 void SmilPlayer::stop()
 {
-    setState(StopState);
     pauseTimer();
+    stopMedia();
+    setState(StopState);
 }
 
 void SmilPlayer::reset()
 {
-    m_Finished = false;
-    m_PageTickCounter = 0;
     stop();
+    m_Finished = false;
+    m_CurrentPageIndex = 0;
+    m_PageTickCounter = 0;
 }
 
 void SmilPlayer::playPage()
 {
-    stopMedia();
     m_Finished = false;
     SmilPage *page = getCurrentPage();
-    displayPage(*page);
-    playMedia("");
+    SmilPlayerView::displayPage(*page);
+    prepareMedia();
+    startMedia();
     startTimer(page->getDuration());
     if(m_pListener)
         m_pListener->onSmilPlayerPageChanged();
 }
 
-void SmilPlayer::stopPage()
+void SmilPlayer::prepareMedia()
 {
-    pauseTimer();
-    stopMedia();
-}
-
-void SmilPlayer::playMedia(const std::string &res)
-{
-    // TODO: impl
+    m_MediaPlayer.stop();
+    SmilPage *page = getCurrentPage();
+    if(page->hasMedia())
+        m_MediaPlayer.setUri(page->getMediaPath());
 }
 
 void SmilPlayer::stopMedia()
 {
-    // TODO: impl
+    m_MediaPlayer.pause();
+}
+
+void SmilPlayer::startMedia()
+{
+    if(getCurrentPage()->hasMedia())
+        m_MediaPlayer.start();
 }
 
 double SmilPlayer::getPosition() const
@@ -203,31 +220,26 @@ int SmilPlayer::getDuration() const
     return m_Duration;
 }
 
-void SmilPlayer::nextPage()
+bool SmilPlayer::nextPage()
 {
-    if(m_CurrentPageIndex < m_PageList.size() - 1)
+    if(probeNextPage())
     {
         ++m_CurrentPageIndex;
         playPage();
+        return true;
     }
-    else
-    {
-        stop();
-        m_Finished = true;
-    }
+    return false;
 }
 
-void SmilPlayer::prevPage()
+bool SmilPlayer::prevPage()
 {
-    if(m_CurrentPageIndex > 0)
+    if(probePrevPage())
     {
         --m_CurrentPageIndex;
         playPage();
+        return true;
     }
-    else
-    {
-        stop();
-    }
+    return false;
 }
 
 bool SmilPlayer::probeNextPage() const

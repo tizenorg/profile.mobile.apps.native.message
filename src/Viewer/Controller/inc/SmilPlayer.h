@@ -21,6 +21,7 @@
 #include "SmilPlayerView.h"
 #include "MessageMms.h"
 #include "SmilPage.h"
+#include "MediaPlayer.h"
 
 #include <Ecore.h>
 #include <vector>
@@ -54,16 +55,16 @@ namespace Msg
             const PageList &getPages() const;
             SmilPage *getCurrentPage() const;
             int getDuration() const;
-            void nextPage();
-            void prevPage();
+            bool nextPage();
+            bool prevPage();
             bool probeNextPage() const;
             bool probePrevPage() const;
 
         private:
             void playPage();
-            void playMedia(const std::string &res);
+            void startMedia();
             void stopMedia();
-            void stopPage();
+            void prepareMedia();
             void create(const MessageMms &mms);
             void startTimer(int sec);
             void pauseTimer();
@@ -75,6 +76,7 @@ namespace Msg
         private:
             ISmilPlayerListener *m_pListener;
             Ecore_Timer *m_pTimer;
+            MediaPlayer m_MediaPlayer;
             PageList m_PageList;
             unsigned m_CurrentPageIndex;
             int m_Duration;
