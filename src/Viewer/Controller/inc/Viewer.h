@@ -29,6 +29,7 @@
 #include "ContactEditor.h"
 #include "Conversation.h"
 #include "SmilPlayer.h"
+#include "SubjectLayout.h"
 
 namespace Msg
 {
@@ -100,6 +101,7 @@ namespace Msg
             void updateRecipPanel();
             void create(MsgId id);
             void createLayout();
+            void createSubjectLayout();
             void createPlayerControl();
             void createRecipPanel();
             std::string createMessageText() const;
@@ -117,6 +119,7 @@ namespace Msg
             std::string m_SelectedAddress;
             ContactEditor m_ContactEditor;
             SmilPlayer *m_pSmilPlayer;
+            SubjectLayout *m_pSubjectLayout;
     };
 }
 
