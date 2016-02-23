@@ -32,6 +32,11 @@ SmilPageLayout::~SmilPageLayout()
 
 }
 
+Evas_Object *SmilPageLayout::getBox() const
+{
+    return m_pBox;
+}
+
 void SmilPageLayout::appendItem(Evas_Object *item)
 {
     expand(item);
@@ -51,6 +56,9 @@ Evas_Object *SmilPageLayout::createScroller(Evas_Object *parent)
 Evas_Object *SmilPageLayout::createBox(Evas_Object *parent)
 {
     m_pBox = elm_box_add(parent);
+    evas_object_size_hint_weight_set(m_pBox, EVAS_HINT_EXPAND, 0.0);
+    evas_object_size_hint_align_set(m_pBox, EVAS_HINT_FILL, 0.0);
+    elm_box_horizontal_set(m_pBox, false);
     elm_box_homogeneous_set(m_pBox, EINA_FALSE);
     evas_object_show(m_pBox);
     return m_pBox;

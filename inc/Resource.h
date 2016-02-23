@@ -25,6 +25,7 @@
 #define CONV_ADD_IMG                    "btn_conversation_add.png"
 #define CONTACT_IMG                     "icon_btn_contact.png"
 #define SOFT_SEARCH_BACK_IMG            "icon_soft_search_back.png"
+#define ATTACH_IMG                      "attach_icon.png"
 
 // Edj:
 #define IMAGES_EDJ_PATH                  EDJ_PATH"/images.edj"
@@ -56,6 +57,7 @@
 #define TEST_IMG_PATH                    IMAGE_PATH"/cat.jpeg"
 
 // Colors:
+#define ICON_COLOR                       61, 185, 204, 255
 #define BUTTON_COLOR                     2, 61, 132, 255
 #define BUTTON_PRESSED_COLOR             1, 37, 79, 255
 #define BUTTON_DISABLED_COLOR            179, 197, 218, 255
