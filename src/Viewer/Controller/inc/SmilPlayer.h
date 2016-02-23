@@ -59,6 +59,7 @@ namespace Msg
             bool prevPage();
             bool probeNextPage() const;
             bool probePrevPage() const;
+            unsigned getCurrentPageIndex() const;
 
         private:
             void playPage();

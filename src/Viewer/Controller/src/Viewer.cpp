@@ -53,6 +53,7 @@ Viewer::Viewer(NaviFrameController &parent, MsgId id)
     , m_pPlayerControl(nullptr)
     , m_pRecipPanel(nullptr)
     , m_pSmilPlayer(nullptr)
+    , m_pSubjectLayout(nullptr)
 {
     create(id);
 }
@@ -97,6 +98,7 @@ void Viewer::create(MsgId id)
     }
 
     createLayout();
+    createSubjectLayout();
     createPlayerControl();
     createRecipPanel();
     createSmilPlayer();
@@ -117,6 +119,18 @@ void Viewer::createLayout()
         m_pLayout = new ViewerLayout(getParent());
         m_pLayout->setListener(this);
         m_pLayout->show();
+    }
+}
+
+void Viewer::createSubjectLayout()
+{
+    if(!m_pSubjectLayout)
+    {
+        m_pSubjectLayout = new SubjectLayout(*m_pLayout);
+        m_pSubjectLayout->setSubjectText(m_Msg->getSubject());
+        m_pSubjectLayout->setNumberOfPages(m_Msg->getPageList().getLength());
+        m_pSubjectLayout->show();
+        m_pLayout->setSubject(*m_pSubjectLayout);
     }
 }
 
@@ -430,6 +444,7 @@ void Viewer::onSmilPlayerPageChanged()
     MSG_LOG("");
     updateButtonState();
     updatePlayPos();
+    m_pSubjectLayout->setPageIndex(m_pSmilPlayer->getCurrentPageIndex() + 1);
 }
 
 void Viewer::onSmilPlayerTick()

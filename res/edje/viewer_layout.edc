@@ -77,6 +77,12 @@ collections {
                     state: "default" 0.0;
                     fixed: 1 1;
                     align: 0.0 0.0;
+                    rel1 {to: "rect"; relative:0.0 0.0;}
+                    rel2 {to: "rect"; relative:1.0 0.0;}
+                }
+                description {
+                    inherit: "default" 0.0;
+                    state: "show";
                     rel1 {to: "swallow.recipients"; relative:0.0 1.0;}
                     rel2 {to: "rect"; relative:1.0 0.0;}
                 }
@@ -150,9 +156,25 @@ collections {
             }
         }
 
-        SIG("show_recipients", "show", "swallow.recipients");
-        SIG("hide_recipients", "default", "swallow.recipients");
         SIG("show_player", "default", "swallow.playctrl");
         SIG("hide_player", "hide", "swallow.playctrl");
+        
+        program { 
+            name: "show_recipients";
+            signal: "show_recipients";
+            source: "";
+            action: STATE_SET "show" 0.0;
+            target: "swallow.recipients";
+            target: "swallow.subject";
+        }
+        program { 
+            name: "hide_recipients";
+            signal: "hide_recipients";
+            source: "";
+            action: STATE_SET "default" 0.0;
+            target: "swallow.recipients";
+            target: "swallow.subject";
+        }
+        
     }
 }
