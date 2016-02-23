@@ -252,6 +252,11 @@ bool SmilPlayer::probePrevPage() const
     return m_CurrentPageIndex > 0;
 }
 
+unsigned SmilPlayer::getCurrentPageIndex() const
+{
+    return m_CurrentPageIndex;
+}
+
 void SmilPlayer::onBeforeDelete(View &view)
 {
     MSG_LOG("");
