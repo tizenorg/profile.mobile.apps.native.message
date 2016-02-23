@@ -16,6 +16,8 @@
 
 #include "MsgAttachmentPrivate.h"
 #include "MsgUtilsPrivate.h"
+#include "FileUtils.h"
+#include "Logger.h"
 
 using namespace Msg;
 
@@ -44,6 +46,14 @@ int MsgAttachmentPrivate::getFileSize() const
 {
     int size = 0;
     msg_get_int_value(m_MsgStruct, MSG_MMS_ATTACH_FILESIZE_INT, &size);
+
+    if(size == 0)
+    {
+        MSG_LOG_WARN("File ", getFilePath(), " size = 0, try to get real file size");
+        size = (int)FileUtils::getFileSize(getFilePath());
+        MSG_LOG("Real file size = ", size);
+    }
+
     return size;
 }
 

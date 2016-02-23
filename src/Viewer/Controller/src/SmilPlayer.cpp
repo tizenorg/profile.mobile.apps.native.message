@@ -43,10 +43,19 @@ SmilPlayer::~SmilPlayer()
 
 void SmilPlayer::create(const MessageMms &mms)
 {
+    // Pages:
     const MsgPageList &pages = mms.getPageList();
     for(int i = 0; i < pages.getLength(); ++i)
     {
         SmilPage *smilPage = new SmilPage(getEo(), pages[i]);
+        m_Duration += smilPage->getDuration();
+        m_PageList.push_back(smilPage);
+    }
+
+    // Attachment:
+    if(!mms.getAttachmentList().isEmpty())
+    {
+        SmilPage *smilPage = new SmilPage(getEo(), mms.getAttachmentList());
         m_Duration += smilPage->getDuration();
         m_PageList.push_back(smilPage);
     }
