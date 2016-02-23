@@ -30,6 +30,7 @@ namespace Msg
             virtual ~SmilPageLayout();
 
             void appendItem(Evas_Object *item);
+            Evas_Object *getBox() const;
 
         private:
             Evas_Object *createScroller(Evas_Object *parent);

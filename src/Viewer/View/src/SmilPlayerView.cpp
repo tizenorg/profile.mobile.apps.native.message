@@ -55,7 +55,6 @@ Evas_Object *SmilPlayerView::createBox(Evas_Object *parent)
     Evas_Object *box = elm_box_add(parent);
     elm_box_align_set(box, 0.5, 0.5);
     elm_box_homogeneous_set(box, false);
-    elm_box_align_set(box, 0.0, 0.0);
     return box;
 }
 

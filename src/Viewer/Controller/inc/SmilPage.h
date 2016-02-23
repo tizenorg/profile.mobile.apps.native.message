@@ -20,6 +20,7 @@
 
 #include "SmilPageLayout.h"
 #include "MsgPage.h"
+#include "MsgAttachment.h"
 
 namespace Msg
 {
@@ -28,6 +29,7 @@ namespace Msg
     {
         public:
             SmilPage(Evas_Object *parent, const MsgPage &page);
+            SmilPage(Evas_Object *parent, const MsgAttachmentList &list);
             virtual ~SmilPage();
 
             int getDuration() const;
@@ -37,9 +39,12 @@ namespace Msg
         private:
             const MsgMedia *getMedia(const MsgPage &page, MsgMedia::SmilType type) const;
             void build(const MsgPage &page);
+            void build(const MsgAttachmentList &list);
             void buildImage(const MsgMedia& media);
             void buildText(const MsgMedia& media);
             void buildAudio(const MsgMedia& media);
+            void buildAttachmentInfo(int attachmentCount);
+            void buildAttachment(const MsgAttachment& attachment);
 
         private:
             int m_Duration;
