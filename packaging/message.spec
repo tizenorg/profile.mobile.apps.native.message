@@ -128,8 +128,6 @@ if [ -f /usr/lib/rpm-plugins/msm.so ]
 then
     find %{DATADIR} -exec chsmack -a 'org.tizen.message' {} \;
 fi
-%else
-pkgdir_maker --create --pkgid=%{name}
 %endif
 
 %files
