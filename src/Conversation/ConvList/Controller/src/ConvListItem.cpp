@@ -33,7 +33,6 @@ ConvListItem::ConvListItem(const MsgConversationItem &item, App &app)
     , m_pListener(nullptr)
     , m_App(app)
     , m_MsgId(item.getMsgId())
-    , m_MessageText(item.getText())
     , m_IsDraft(item.isDraft())
     , m_NetworkStatus(item.getNetworkStatus())
     , m_Type(item.getType())
@@ -136,11 +135,6 @@ Evas_Object *ConvListItem::getProgress()
            m_NetworkStatus == Message::NS_Sending  ? createProgress() : nullptr;
 }
 
-std::string ConvListItem::getText()
-{
-    return m_MessageText;
-}
-
 std::string ConvListItem::getTime()
 {
     return TimeUtils::makeBubbleTimeString(m_Time);
@@ -167,6 +161,7 @@ void ConvListItem::showPopup()
 void ConvListItem::showMainCtxPopup()
 {
     auto &ctxPopup = m_App.getPopupManager().getCtxPopup();
+    std::string msgText = getAllMsgText();
 
     if(m_NetworkStatus == Message::NS_Send_Fail)
         ctxPopup.appendItem(msg("IDS_MSG_OPT_RESEND"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onResendItemPressed), this);
@@ -176,7 +171,7 @@ void ConvListItem::showMainCtxPopup()
     if(m_Type == Message::MT_MMS)
         ctxPopup.appendItem(msg("IDS_MSG_OPT_VIEW_AS_SLIDESHOW_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onSlideShowItemPressed), this);
 
-    if(!m_MessageText.empty())
+    if(!msgText.empty())
         ctxPopup.appendItem(msg("IDS_MSG_OPT_COPY_TEXT"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onCopyTextItemPressed), this);
 
     ctxPopup.appendItem(msg("IDS_MSGF_OPT_FORWARD"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onForwardItemPressed), this);
@@ -187,7 +182,7 @@ void ConvListItem::showMainCtxPopup()
     if(m_Type == Message::MT_MMS)
         ctxPopup.appendItem(msg("IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onSaveAttachmentsItemPressed), this);
 
-    if(m_NetworkStatus != Message::NS_Sending && !m_MessageText.empty())
+    if(m_NetworkStatus != Message::NS_Sending && !msgText.empty())
         ctxPopup.appendItem(msg("IDS_MSG_OPT_COPY_TO_SIM_CARD_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onCopyToSimCardItemPressed), this);
 
     ctxPopup.appendItem(msg("IDS_MSG_OPT_VIEW_DETAILS_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onViewDetailsItemPressed), this);
@@ -231,41 +226,16 @@ void ConvListItem::onDeleteItemPressed(ContextPopupItem &item)
 void ConvListItem::onCopyTextItemPressed(ContextPopupItem &item)
 {
     item.getParent().destroy();
-    prepareMsgText();
-    if(!m_MessageText.empty())
-        elm_cnp_selection_set(*getOwner(), ELM_SEL_TYPE_CLIPBOARD, ELM_SEL_FORMAT_TEXT, m_MessageText.c_str(), m_MessageText.length());
-
+    std::string text = getAllMsgText();
+    if(!text.empty())
+        elm_cnp_selection_set(*getOwner(), ELM_SEL_TYPE_CLIPBOARD, ELM_SEL_FORMAT_TEXT, text.c_str(), text.length());
 }
 
-void ConvListItem::prepareMsgText()
+std::string ConvListItem::getAllMsgText() const
 {
-    if(m_Type == Message::MT_MMS)
-    {
-        m_MessageText.clear();
-        MessageRef msg = m_App.getMsgEngine().getStorage().getMessage(m_MsgId);
-        if(msg)
-        {
-            MessageMms *mms = dynamic_cast<MessageMms*>(msg.get());
-            MsgPageList &pageList = mms->getPageList();
-
-            int size = pageList.getLength();
-            for(int i = 0; i < size; ++i)
-            {
-                MsgMediaList &mediaList = pageList.at(i).getMediaList();
-
-                int sizeList = mediaList.getLength();
-                for(int j = 0; j < sizeList; ++j)
-                {
-                    if(mediaList.at(j).getType() == MsgMedia::SmilText)
-                    {
-                        m_MessageText += FileUtils::readTextFile(mediaList.at(j).getFilePath());
-                        if(i < size - 1)
-                            m_MessageText.append("\n");
-                    }
-                }
-            }
-        }
-    }
+    // Warning: slow function
+    MessageRef msg = m_App.getMsgEngine().getStorage().getMessage(m_MsgId);
+    return msg ? msg->getText() : "";
 }
 
 void ConvListItem::onForwardItemPressed(ContextPopupItem &item)

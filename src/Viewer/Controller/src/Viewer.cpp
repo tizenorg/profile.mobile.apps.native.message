@@ -163,31 +163,6 @@ void Viewer::createRecipPanel()
     }
 }
 
-std::string Viewer::createMessageText() const
-{
-    // TODO: move to common part
-    MsgPageList &pageList = m_Msg->getPageList();
-    std::string result;
-
-    int size = pageList.getLength();
-    for(int i = 0; i < size; ++i)
-    {
-        MsgMediaList &mediaList = pageList.at(i).getMediaList();
-
-        int sizeList = mediaList.getLength();
-        for(int j = 0; j < sizeList; ++j)
-        {
-            if(mediaList.at(j).getType() == MsgMedia::SmilText)
-            {
-                result += FileUtils::readTextFile(mediaList.at(j).getFilePath());
-                if(i < size - 1)
-                    result.append("\n");
-            }
-        }
-    }
-    return result;
-}
-
 void Viewer::createSmilPlayer()
 {
     if(!m_pSmilPlayer)
@@ -284,7 +259,7 @@ void Viewer::onHwMoreButtonClicked()
     popup.setAutoDismissBlockClickedFlag(true);
     popup.appendItem(msg("IDS_MSG_OPT_DELETE"), POPUPLIST_ITEM_PRESSED_CB(Viewer, onDeleteItemPressed), this);
 
-    if(!createMessageText().empty())
+    if(!m_Msg->getText().empty())
         popup.appendItem(msg("IDS_MSG_OPT_COPY_TEXT"), POPUPLIST_ITEM_PRESSED_CB(Viewer, onCopyTextItemPressed), this);
 
     popup.appendItem(msg("IDS_MSGF_OPT_FORWARD"), POPUPLIST_ITEM_PRESSED_CB(Viewer, onForwardItemPressed), this);
@@ -401,7 +376,7 @@ void Viewer::onDeleteButtonClicked(Popup &popup, int buttonId)
 void Viewer::onCopyTextItemPressed(PopupListItem &item)
 {
     item.getParent().destroy();
-    std::string msgText = createMessageText();
+    std::string msgText = m_Msg->getText();
     elm_cnp_selection_set(this->getContent(), ELM_SEL_TYPE_CLIPBOARD, ELM_SEL_FORMAT_TEXT, msgText.c_str(), msgText.length());
 }
 

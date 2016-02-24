@@ -37,12 +37,9 @@ namespace Msg
         public:
             virtual ~MessageMms();
 
-            virtual MsgPageList &getPageList() = 0;
-            const MsgPageList &getPageList() const;
+            virtual const MsgPageList &getPageList() const = 0;
             virtual MsgPage &addPage() = 0;
-
-            virtual MsgAttachmentList &getAttachmentList() = 0;
-            const MsgAttachmentList &getAttachmentList() const;
+            virtual const MsgAttachmentList &getAttachmentList() const = 0;
             virtual MsgAttachment &addAttachment() = 0;
     };
 }
