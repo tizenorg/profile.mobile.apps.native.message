@@ -43,6 +43,7 @@ Evas_Object *ThumbnailMaker::make(Evas_Object *parent, Type type, const std::str
         Evas_Object *img = elm_image_add(ic);
         elm_image_file_set(img, path.c_str(), nullptr);
         evas_object_size_hint_min_set(img, ELM_SCALE_SIZE(defaultThumbSize), ELM_SCALE_SIZE(defaultThumbSize));
+        elm_image_aspect_fixed_set(img, EINA_TRUE);
         elm_image_fill_outside_set(img, EINA_TRUE);
         elm_object_part_content_set(ic, "content", img);
     }
