@@ -46,6 +46,7 @@ namespace Msg
                                            const char *decorateAllItemStyle = nullptr);
         private:
             friend class ListView;
+            friend class ListItem;
 
             void registerCallback();
             void unregisterCallback();

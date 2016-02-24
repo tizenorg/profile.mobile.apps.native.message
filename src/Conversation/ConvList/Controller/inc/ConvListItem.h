@@ -49,8 +49,7 @@ namespace Msg
             MsgId getMsgId() const;
             void showPopup();
             void setListener(IConvListItemListener *l);
-            void updateStatus(MsgId id);
-
+            void updateStatus();
 
         protected:
             // ConvListViewItem:

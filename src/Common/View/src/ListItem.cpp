@@ -227,6 +227,8 @@ void ListItem::setExpanded(bool expand)
 
 void ListItem::update()
 {
+    if(m_ItemStyle->m_pGenlistItemClass != elm_genlist_item_item_class_get(getElmObjItem()))
+        elm_genlist_item_item_class_update(getElmObjItem(), m_ItemStyle->m_pGenlistItemClass);
     elm_genlist_item_update(getElmObjItem());
 }
 

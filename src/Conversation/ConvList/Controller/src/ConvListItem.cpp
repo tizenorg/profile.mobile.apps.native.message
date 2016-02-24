@@ -47,14 +47,27 @@ ConvListItem::~ConvListItem()
 {
 }
 
-void ConvListItem::updateStatus(MsgId id)
+void ConvListItem::updateStatus()
 {
-    m_MsgId = id;
     MessageRef msg = m_App.getMsgEngine().getStorage().getMessage(m_MsgId);
     if(msg)
     {
+        m_Time = msg->getTime();
         m_NetworkStatus = msg->getNetworkStatus();
-        updateProgressField();
+    }
+
+
+    if(m_NetworkStatus != Message::NS_Sending)
+    {
+        if(m_NetworkStatus == Message::NS_Send_Fail)
+            updateItemType(ConvItemType::Failed);
+        else if(m_NetworkStatus == Message::NS_Send_Success)
+            updateItemType(ConvItemType::Sent);
+        else if(m_NetworkStatus == Message::NS_Not_Send)
+            updateItemType(ConvItemType::Draft);
+        else if(m_NetworkStatus == Message::NS_Received)
+            updateItemType(ConvItemType::Received);
+        update();
     }
 }
 

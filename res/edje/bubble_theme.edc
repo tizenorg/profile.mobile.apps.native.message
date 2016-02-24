@@ -280,11 +280,12 @@ group { name: "elm/genlist/item/sentbubble/default";
             desc { "default";
                 max: BUBBLE_CONTENT_WIDTH_MAX -1;
                 rel1.to_y: "bubble.pad.top";
-                rel1.relative: 0.0 1.0;
+                rel1.relative: 1.0 1.0;
                 rel2.to_x: "bubble.pad.right";
                 rel2.to_y: "bubble.pad.bottom";
                 rel2.relative: 0.0 0.0;
                 align: 1.0 0.0;
+                fixed: 1 0;
             }
         }
         spacer { "bubble.pad.right"; scale;
@@ -481,7 +482,7 @@ group { name: "elm/genlist/item/receivebubble/default";
                 rel1.to_x: "info.thumb.pad";
                 rel1.relative: 1.0 1.0;
                 rel2.to_x: "";
-                rel2.relative: 1.0 0.0;
+                rel2.relative: 1.0 1.0;
                 text.style: "entry_bubble_receive_textblock_style";
             }
         }
@@ -490,6 +491,7 @@ group { name: "elm/genlist/item/receivebubble/default";
                 max: BUBBLE_PAD_LEFT_WIDTH -1;
                 rel2.to: "";
                 align: 0.0 0.0;
+                fixed: 1 0;
             }
         }
         spacer { "pad.right"; scale;
@@ -520,7 +522,7 @@ group { name: "elm/genlist/item/receivebubble/default";
             desc { "default";
                 rel1.relative: 1.0 1.0;
                 rel1.to_x: "bubble.pad.left";
-                rel2.relative: 1.0 0.0;
+                rel2.relative: 0.0 0.0;
                 rel2.to_x: "";
                 align: 0.0 0.0;
             }
