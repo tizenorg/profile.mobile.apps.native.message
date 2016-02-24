@@ -20,6 +20,7 @@
 
 #include "BaseView.h"
 #include "LangUtils.h"
+#include "CallbackAssist.h"
 
 #include <Evas.h>
 #include <Elementary.h>
@@ -59,6 +60,7 @@ namespace Msg
             void *getData(const char *key) const;
             void addEventCb(Evas_Callback_Type type, Evas_Object_Event_Cb func, const void *data);
             void addSmartCb(const char *event, Evas_Smart_Cb func, const void *data);
+            void addSignalCb(const char *emission, const char *source, Edje_Signal_Cb func, void *data);
 
             template<typename T>
             static T staticCast(void *evasObj);
@@ -286,6 +288,11 @@ namespace Msg
     inline void View::addSmartCb(const char *event, Evas_Smart_Cb func, const void *data)
     {
         evas_object_smart_callback_add(m_pEo, event, func, data);
+    }
+
+    inline void View::addSignalCb(const char *emission, const char *source, Edje_Signal_Cb func, void *data)
+    {
+        elm_object_signal_callback_add(m_pEo, emission, source, func, data);
     }
 
     inline Evas_Object *View::unsetContent(const char *part)

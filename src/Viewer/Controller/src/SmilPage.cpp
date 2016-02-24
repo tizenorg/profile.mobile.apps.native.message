@@ -20,6 +20,7 @@
 #include "SmilImageItemView.h"
 #include "SmilTextItemView.h"
 #include "SmilAudioItemView.h"
+#include "SmilAttachmentItemView.h"
 #include "Logger.h"
 #include "FileUtils.h"
 #include "MediaPlayer.h"
@@ -28,11 +29,39 @@ using namespace Msg;
 
 const int defaultPageDuration = 5; // sec;
 
+namespace
+{
+    std::string makeKbSizeStr(long long size)
+    {
+        const long long kb = 1000; // Bytes in kb
+        long long sizeKb = 0;
+        if(size <= kb)
+        {
+            sizeKb = 1;
+        }
+        else
+        {
+            sizeKb =  size / kb;
+            long long sizeB = size % kb;
+            if(sizeB > (kb / 2))
+                ++sizeKb;
+        }
+        return std::to_string(sizeKb) + " " + (std::string)msg("IDS_MSGF_BODY_MSGSIZE_KB");
+    }
+}
+
 SmilPage::SmilPage(Evas_Object *parent, const MsgPage &page)
     : SmilPageLayout(parent)
     , m_Duration(0)
 {
     build(page);
+}
+
+SmilPage::SmilPage(Evas_Object *parent, const MsgAttachmentList &list)
+    : SmilPageLayout(parent)
+    , m_Duration(0)
+{
+    build(list);
 }
 
 SmilPage::~SmilPage()
@@ -82,9 +111,23 @@ void SmilPage::build(const MsgPage &page)
         m_Duration = defaultPageDuration;
 }
 
+void SmilPage::build(const MsgAttachmentList &list)
+{
+    m_Duration = defaultPageDuration;
+
+    if(list.isEmpty())
+        return;
+
+    buildAttachmentInfo(list.getLength());
+    for(int i = 0; i < list.getLength(); ++i)
+    {
+        buildAttachment(list[i]);
+    }
+}
+
 void SmilPage::buildImage(const MsgMedia &media)
 {
-    SmilImageItemView *item = new SmilImageItemView(getEo(), media.getFilePath());
+    SmilImageItemView *item = new SmilImageItemView(getBox(), media.getFilePath());
     item->show();
     appendItem(*item);
 }
@@ -94,7 +137,7 @@ void SmilPage::buildText(const MsgMedia& media)
     std::string text = FileUtils::readTextFile(media.getFilePath());
     if(!text.empty())
     {
-        SmilTextItemView *item = new SmilTextItemView(getEo(), text);
+        SmilTextItemView *item = new SmilTextItemView(getBox(), text);
         item->show();
         appendItem(*item);
     }
@@ -112,8 +155,25 @@ void SmilPage::buildAudio(const MsgMedia& media)
             m_Duration = sec;
     }
 
-    SmilAudioItemView *item = new SmilAudioItemView(getEo(), media.getFileName());
+    SmilAudioItemView *item = new SmilAudioItemView(getBox(), media.getFileName());
     item->show();
     item->showIcon(true);
+    appendItem(*item);
+}
+
+void SmilPage::buildAttachmentInfo(int attachmentCount)
+{
+    SmilAttachmentInfoItemView *item = new SmilAttachmentInfoItemView(getBox(), attachmentCount > 1);
+    item->show();
+    appendItem(*item);
+}
+
+void SmilPage::buildAttachment(const MsgAttachment& attachment)
+{
+    SmilAttachmentItemView *item = new SmilAttachmentItemView(getBox());
+    item->setFilePath(attachment.getFilePath());
+    item->setFileName(attachment.getFileName());
+    item->setFileSize(makeKbSizeStr(attachment.getFileSize()));
+    item->show();
     appendItem(*item);
 }
