@@ -42,7 +42,6 @@ namespace Msg
 
         private:
             void create(Evas_Object *parent);
-            Evas_Object *createBackButton(Evas_Object *parent);
             Evas_Object *createClearButton(Evas_Object *parent);
             Evas_Object *createEntry(Evas_Object *parent);
             Evas_Object *createButton(Evas_Object *parent, const char *style);
