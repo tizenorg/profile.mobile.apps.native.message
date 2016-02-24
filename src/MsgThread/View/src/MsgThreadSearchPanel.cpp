@@ -44,9 +44,6 @@ void MsgThreadSearchPanel::create(Evas_Object *parent)
 
     Evas_Object *entry = createEntry(getEo());
     setContent(entry, "elm.swallow.content");
-
-    //Evas_Object *backButton = createBackButton(getEo());
-    // setContent(backButton, "swl.back_button"); TODO:
 }
 
 bool MsgThreadSearchPanel::isEmpty() const
@@ -60,24 +57,9 @@ void MsgThreadSearchPanel::setListener(IMsgThreadSearchPanelListener *listener)
     m_pListener = listener;
 }
 
-Evas_Object *MsgThreadSearchPanel::createBackButton(Evas_Object *parent)
-{
-    Evas_Object *button = createButton(parent, "transparent");
-
-    Evas_Object *ic = elm_image_add(parent);
-    evas_object_show(ic);
-    std::string resPath = PathUtils::getResourcePath(IMAGES_EDJ_PATH);
-    elm_image_file_set(ic, resPath.c_str(), SOFT_SEARCH_BACK_IMG);
-    elm_image_no_scale_set(ic, EINA_FALSE);
-
-    elm_object_content_set(button, ic);
-
-    return button;
-}
-
 Evas_Object *MsgThreadSearchPanel::createClearButton(Evas_Object *parent)
 {
-    m_pClearButton = createButton(parent, "search_clear");
+    m_pClearButton = createButton(parent, "editfield_clear");
     return m_pClearButton;
 }
 
@@ -103,8 +85,7 @@ Evas_Object *MsgThreadSearchPanel::createEntry(Evas_Object *parent)
     evas_object_show(btn);
     elm_object_focus_allow_set(btn, false);
     evas_object_smart_callback_add(btn, "clicked", SMART_CALLBACK(MsgThreadSearchPanel, onClearButtonClicked), this);;
-    elm_object_part_content_set(m_pEntry, "elm.swallow.clear", btn);
-    showClearButton(true);
+    elm_object_part_content_set(getEo(), "elm.swallow.button", btn);
 
     return m_pEntry;
 }
@@ -146,8 +127,8 @@ void MsgThreadSearchPanel::clearEntry()
 
 void MsgThreadSearchPanel::showClearButton(bool visible)
 {
-    const char *sig = visible ? "elm,state,clear,visible" : "elm,state,clear,hidden";
-    elm_object_signal_emit(m_pEntry, sig, "*");
+    const char *sig = visible ? "elm,action,show,button" : "elm,action,hide,button";
+    elm_object_signal_emit(getEo(), sig, "");
 }
 
 void MsgThreadSearchPanel::setGuideText(const std::string &text)
@@ -157,6 +138,7 @@ void MsgThreadSearchPanel::setGuideText(const std::string &text)
 
 void MsgThreadSearchPanel::onEntryChanged(Evas_Object *obj, void *eventInfo)
 {
+    showClearButton(!isEmpty());
     if(m_pListener)
         m_pListener->onEntryChanged(*this);
 }
