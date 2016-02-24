@@ -57,7 +57,6 @@ namespace Msg
             virtual Evas_Object *getBubbleContent();
             virtual Evas_Object *getThumbnail();
             virtual Evas_Object *getProgress();
-            virtual std::string getText();
             virtual std::string getTime();
 
             virtual void onEditButtonClicked(Evas_Object *obj, void *event_info);
@@ -79,7 +78,7 @@ namespace Msg
             void onSaveAttachmentsItemPressed(ContextPopupItem &item);
             void onCopyToSimCardItemPressed(ContextPopupItem &item);
             void onViewDetailsItemPressed(ContextPopupItem &item);
-            void prepareMsgText();
+            std::string getAllMsgText() const;
 
             // Create popup when failed button is clicked
             void showFailedToSendPopup();
@@ -92,7 +91,6 @@ namespace Msg
             IConvListItemListener *m_pListener;
             App &m_App;
             MsgId m_MsgId;
-            std::string m_MessageText;
             bool m_IsDraft;
             Message::NetworkStatus m_NetworkStatus;
             Message::Type m_Type;

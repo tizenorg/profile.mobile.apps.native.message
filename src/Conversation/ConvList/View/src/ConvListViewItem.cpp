@@ -72,9 +72,7 @@ ConvListViewItem::~ConvListViewItem()
 
 std::string ConvListViewItem::getText(ListItem &item, const char *part)
 {
-    if(!strcmp(part, "elm.text"))
-        return getText();
-    else if(!strcmp(part, timeTextPart))
+    if(!strcmp(part, timeTextPart))
         return getTime();
     else
         return "";

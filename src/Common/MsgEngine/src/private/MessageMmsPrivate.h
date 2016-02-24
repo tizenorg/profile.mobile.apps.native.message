@@ -36,10 +36,10 @@ namespace Msg
             virtual std::string getText() const;
             virtual Type getType() const;
 
-            virtual MsgPageListHandlePrivate &getPageList();
+            virtual const MsgPageListHandlePrivate &getPageList() const;
             virtual MsgPagePrivate &addPage();
 
-            virtual MsgAttachmentListHandlePrivate &getAttachmentList();
+            virtual const MsgAttachmentListHandlePrivate &getAttachmentList() const;
             virtual MsgAttachmentPrivate &addAttachment();
 
             void set(msg_struct_t msgStruct);
@@ -48,8 +48,8 @@ namespace Msg
 
         private:
             msg_struct_t m_MmsStruct;
-            MsgPageListHandlePrivate m_PageList;
-            MsgAttachmentListHandlePrivate m_AttachmentList;
+            mutable MsgPageListHandlePrivate m_PageList;
+            mutable MsgAttachmentListHandlePrivate m_AttachmentList;
             MsgPagePrivate m_Page;
             MsgAttachmentPrivate m_Attachment;
     };

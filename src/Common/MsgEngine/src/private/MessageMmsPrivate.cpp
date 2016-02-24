@@ -16,7 +16,8 @@
 
 #include "MessageMmsPrivate.h"
 #include "MsgUtilsPrivate.h"
-
+#include "MsgMedia.h"
+#include "FileUtils.h"
 #include "Logger.h"
 
 using namespace Msg;
@@ -76,10 +77,33 @@ void MessageMmsPrivate::setText(const std::string &text)
 
 std::string MessageMmsPrivate::getText() const
 {
-    return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_MESSAGE_MMS_TEXT_STR, MAX_MSG_TEXT_LEN);
+    // TODO: remove if not needed
+    // Return only text of first page
+    // return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_MESSAGE_MMS_TEXT_STR, MAX_MSG_TEXT_LEN);
+
+    const MsgPageList &pageList = getPageList();
+    std::string result;
+
+    int size = pageList.getLength();
+    for(int i = 0; i < size; ++i)
+    {
+        const MsgMediaList &mediaList = pageList.at(i).getMediaList();
+
+        int sizeList = mediaList.getLength();
+        for(int j = 0; j < sizeList; ++j)
+        {
+            if(mediaList[j].getType() == MsgMedia::SmilText)
+            {
+                result += FileUtils::readTextFile(mediaList[j].getFilePath());
+                if(i < size - 1)
+                    result.append("\n");
+            }
+        }
+    }
+    return result;
 }
 
-MsgPageListHandlePrivate &MessageMmsPrivate::getPageList()
+const MsgPageListHandlePrivate &MessageMmsPrivate::getPageList() const
 {
     msg_list_handle_t list = nullptr;
     msg_get_list_handle(m_MmsStruct, MSG_MMS_PAGE_LIST_HND, (void **)&list);
@@ -95,7 +119,7 @@ MsgPagePrivate &MessageMmsPrivate::addPage()
     return m_Page;
 }
 
-MsgAttachmentListHandlePrivate &MessageMmsPrivate::getAttachmentList()
+const MsgAttachmentListHandlePrivate &MessageMmsPrivate::getAttachmentList() const
 {
     msg_list_handle_t list = nullptr;
     msg_get_list_handle(m_MmsStruct, MSG_MMS_ATTACH_LIST_HND, (void **)&list);

@@ -22,13 +22,3 @@ MessageMms::~MessageMms()
 {
 
 }
-
-const MsgPageList &MessageMms::getPageList() const
-{
-    return const_cast<MessageMms&>(*this).getPageList();
-}
-
-const MsgAttachmentList &MessageMms::getAttachmentList() const
-{
-    return const_cast<MessageMms&>(*this).getAttachmentList();
-}
