@@ -25,8 +25,9 @@ namespace Msg
     class MediaUtils
     {
         public:
-            static std::string getMediaTitle(const std::string &path);
+            static std::string getTitle(const std::string &path);
             static int getDuration(const std::string &uri); // msec;
+            static bool getVideoFrame(const std::string &videoFilePath, const std::string &imageFilePath);
     };
 }
 

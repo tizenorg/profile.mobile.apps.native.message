@@ -16,59 +16,120 @@
  */
 
 #include "MediaUtils.h"
+#include "FileUtils.h"
+#include "Logger.h"
 
 #include <metadata_extractor.h>
-#include <player.h>
-#include <unistd.h>
+#include <image_util.h>
 
 using namespace Msg;
 
-std::string MediaUtils::getMediaTitle(const std::string &path)
+namespace
 {
-    char *alert_title = nullptr;
-    int ret = METADATA_EXTRACTOR_ERROR_NONE;
-    metadata_extractor_h metadata = NULL;
-    if(access( path.c_str(), F_OK ) < 0)
-        return path;
-
-    ret = metadata_extractor_create(&metadata);
-    if (ret != METADATA_EXTRACTOR_ERROR_NONE)
-        return path;
-
-    ret = metadata_extractor_set_path(metadata, path.c_str());
-    if(ret != METADATA_EXTRACTOR_ERROR_NONE)
+    class MetadataExtractor
     {
-        metadata_extractor_destroy(metadata);
-        return path;
-    }
+        public:
+            MetadataExtractor(const std::string &path)
+                : m_Metadata()
+            {
+                if(FileUtils::isExists(path))
+                {
+                    metadata_extractor_create(&m_Metadata);
+                    if(metadata_extractor_set_path(m_Metadata, path.c_str()) != 0)
+                    {
+                        metadata_extractor_destroy(m_Metadata);
+                        m_Metadata = nullptr;
+                    }
+                }
+            }
 
-    ret = metadata_extractor_get_metadata(metadata, METADATA_TITLE, &alert_title);
-    if(ret != METADATA_EXTRACTOR_ERROR_NONE)
-    {
-        metadata_extractor_destroy(metadata);
-        return path;
-    }
+            ~MetadataExtractor()
+            {
+                if(m_Metadata)
+                    metadata_extractor_destroy(m_Metadata);
+            }
 
-    metadata_extractor_destroy(metadata);
-    return alert_title ? alert_title : "";
+            bool isValid() const
+            {
+                return m_Metadata != nullptr;
+            }
+
+            int getInt(metadata_extractor_attr_e attr)
+            {
+                std::string str = getStr(attr);
+                return str.empty() ? 0 : atoi(str.c_str());
+            }
+
+            std::string getStr(metadata_extractor_attr_e attr)
+            {
+                std::string res;
+                char *cStr = nullptr;
+                metadata_extractor_get_metadata(m_Metadata, attr, &cStr);
+                if(cStr)
+                {
+                    res = cStr;
+                    free(cStr);
+                }
+                return res;
+            }
+
+            bool getFrame(void **frame, int *size)
+            {
+                return metadata_extractor_get_frame(m_Metadata, frame, size) == 0;
+            }
+
+        private:
+            metadata_extractor_h m_Metadata;
+    };
+}
+
+std::string MediaUtils::getTitle(const std::string &path)
+{
+    std::string fileName = FileUtils::getFileName(path);
+
+    MetadataExtractor extractor(path);
+    if(!extractor.isValid())
+        return fileName;
+
+    std::string title = extractor.getStr(METADATA_TITLE);
+    return title.empty() ? fileName : title;
 }
 
 int MediaUtils::getDuration(const std::string &uri)
 {
-    int msec = 0;
-    if(!uri.empty())
+    MetadataExtractor extractor(uri);
+    int duration = 0;
+    if(extractor.isValid())
     {
-        player_h player {};
-        player_create(&player);
-
-        if(player_set_uri(player, uri.c_str()) == PLAYER_ERROR_NONE)
-        {
-            player_prepare(player);
-            player_get_duration(player, &msec);
-            player_unprepare(player);
-        }
-        player_destroy(player);
+        duration = extractor.getInt(METADATA_DURATION);
+        MSG_LOG("Duration: ", duration);
     }
-    return msec;
+    return duration;
+}
+
+bool MediaUtils::getVideoFrame(const std::string &videoFilePath, const std::string &imageFilePath)
+{
+    MetadataExtractor extractor(videoFilePath);
+    if(!extractor.isValid())
+        return false;
+
+    int videoW = extractor.getInt(METADATA_VIDEO_WIDTH);
+    int videoH = extractor.getInt(METADATA_VIDEO_HEIGHT);
+
+    int thumbSize = 0;
+    void *thumbnail = nullptr;
+    extractor.getFrame(&thumbnail, &thumbSize);
+
+    MSG_LOG("Frame: width = ", videoW, " height = ", videoH, " size = ", thumbSize);
+
+    if(thumbnail)
+    {
+        const int quality = 90; // JPEG image quality(1 ~ 100)
+        int ret = image_util_encode_jpeg((unsigned char *)thumbnail, videoW, videoH, IMAGE_UTIL_COLORSPACE_RGB888, quality, imageFilePath.c_str());
+        free(thumbnail);
+        return ret != IMAGE_UTIL_ERROR_NONE;
+
+    }
+    return false;
 }
 
