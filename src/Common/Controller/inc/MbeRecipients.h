@@ -19,6 +19,7 @@
 #define MbeRecipients_h_
 
 #include "MbeRecipientsView.h"
+#include "ContactManager.h"
 #include "MsgAddress.h"
 #include "MsgTypes.h"
 #include "App.h"
@@ -27,6 +28,7 @@ namespace Msg
 {
     class MbeRecipients
         : public MbeRecipientsView
+        , private IContactManagerListener
     {
         public:
             enum AppendItemStatus
@@ -48,6 +50,12 @@ namespace Msg
                               MsgAddress::AddressType addressType = MsgAddress::UnknownAddressType);
 
         private:
+            // IContactManagerListener:
+            virtual void onContactChanged();
+
+        private:
+            void updateItemsDispName();
+            std::string getDispName(const std::string &address) const;
             bool isRecipientExists(const std::string& address) const;
             void showRecipPopup(const std::string &title);
 

@@ -39,6 +39,8 @@ namespace Msg
             MsgAddress::AddressType getAddressType() const;
             MsgAddress::RecipientType getRecipType() const;
 
+            void setDispName(const std::string &dispName);
+
         private:
             std::string m_Address;
             std::string m_DispName;
@@ -73,6 +75,13 @@ namespace Msg
     inline MsgAddress::RecipientType MbeRecipientItem::getRecipType() const
     {
         return m_RecipType;
+    }
+
+    inline void MbeRecipientItem::setDispName(const std::string &dispName)
+    {
+        m_DispName = dispName;
+        if(getElmObjItem())
+            setText(dispName);
     }
 }
 
