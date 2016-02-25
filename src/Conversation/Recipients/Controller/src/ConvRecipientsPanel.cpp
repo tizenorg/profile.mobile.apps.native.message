@@ -118,19 +118,15 @@ void ConvRecipientsPanel::update(const ThreadId &threadId)
 MbeRecipients::AppendItemStatus ConvRecipientsPanel::appendItem(const std::string &address,
         const std::string &dispName, MsgAddress::AddressType addressType)
 {
-    MbeRecipients::AppendItemStatus appendStatus = m_pMbe->appendItem(address, dispName, addressType);
-
-    if(appendStatus == MbeRecipients::SuccessStatus && getEntryFocus())
-        showMbe(true);
+    auto appendStatus = m_pMbe->appendItem(address, dispName, addressType);
+    appendStatusHandler(appendStatus);
     return appendStatus;
 }
 
 MbeRecipients::AppendItemStatus ConvRecipientsPanel::appendItem(const std::string &address, MsgAddress::AddressType addressType)
 {
-    MbeRecipients::AppendItemStatus appendStatus = m_pMbe->appendItem(address, addressType);
-
-    if(appendStatus == MbeRecipients::SuccessStatus && getEntryFocus())
-        showMbe(true);
+    auto appendStatus = m_pMbe->appendItem(address, addressType);
+    appendStatusHandler(appendStatus);
     return appendStatus;
 }
 
@@ -164,6 +160,30 @@ void ConvRecipientsPanel::execCmd(const AppControlComposeRef &cmd)
         appendItem(recipStr);
     }
     showMbe(!isMbeEmpty());
+}
+
+int ConvRecipientsPanel::getMaxRecipientCount() const
+{
+    return m_App.getMsgEngine().getSettings().getMaxRecipientCount();
+}
+
+void ConvRecipientsPanel::appendStatusHandler(MbeRecipients::AppendItemStatus status)
+{
+    switch(status)
+    {
+        case MbeRecipients::SuccessStatus:
+        if(getEntryFocus())
+            showMbe(true);
+            break;
+        case MbeRecipients::DuplicatedStatus:
+            showDuplicatedRecipientNotif();
+            break;
+        case MbeRecipients::TooManyRecipStatus:
+            showTooManyRecipientsNotif();
+            break;
+        default:
+            break;
+    }
 }
 
 void ConvRecipientsPanel::onKeyDown(Evas_Event_Key_Down *ev)
@@ -201,13 +221,11 @@ void ConvRecipientsPanel::onEntryFocusChanged()
         m_pListener->onEntryFocusChanged(*this);
 }
 
-
 void ConvRecipientsPanel::onContactButtonClicked()
 {
-    const int maxRecipientCount = m_App.getMsgEngine().getSettings().getMaxRecipientCount();
     int currentRecipientsCount = getItemsCount();
-    if(currentRecipientsCount < maxRecipientCount)
-        m_Picker.launch(maxRecipientCount - currentRecipientsCount);
+    if(currentRecipientsCount < getMaxRecipientCount())
+        m_Picker.launch(getMaxRecipientCount() - currentRecipientsCount);
     else
         showTooManyRecipientsNotif();
 }
@@ -222,9 +240,7 @@ void ConvRecipientsPanel::onContactsPicked(const std::list<int> &numberIdList)
             duplicateFound |= appendItem(num->getAddress(), num->getDispName(), MsgAddress::Phone) == MbeRecipients::DuplicatedStatus;
     }
 
-    if(duplicateFound)
-        showDuplicatedRecipientNotif();
-    else
+    if(!duplicateFound)
         setEntryFocus(true);
 }
 
@@ -246,8 +262,7 @@ void ConvRecipientsPanel::showDuplicatedRecipientNotif()
 
 void ConvRecipientsPanel::showTooManyRecipientsNotif()
 {
-    int maxRecipientCount = m_App.getMsgEngine().getSettings().getMaxRecipientCount();
-    notification_status_message_post(msgArgs("IDS_MSGC_BODY_MAXIMUM_NUMBER_OF_RECIPIENTS_HPD_REACHED", maxRecipientCount).cStr());
+    notification_status_message_post(msgArgs("IDS_MSGC_BODY_MAXIMUM_NUMBER_OF_RECIPIENTS_HPD_REACHED", getMaxRecipientCount()).cStr());
 }
 
 void ConvRecipientsPanel::onMbeChanged(Evas_Object *oj, void *eventInfo)

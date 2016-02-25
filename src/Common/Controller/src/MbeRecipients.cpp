@@ -70,6 +70,9 @@ MbeRecipients::AppendItemStatus MbeRecipients::appendItem(const std::string &add
 
 MbeRecipients::AppendItemStatus MbeRecipients::appendItem(const std::string &address, const std::string &dispName, MsgAddress::AddressType addressType)
 {
+    if(getItemsCount() >= m_App.getMsgEngine().getSettings().getMaxRecipientCount())
+        return TooManyRecipStatus;
+
     AppendItemStatus result = SuccessStatus;
     if(!isRecipientExists(address))
     {

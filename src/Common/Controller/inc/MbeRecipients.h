@@ -33,7 +33,8 @@ namespace Msg
             {
                 SuccessStatus,
                 DuplicatedStatus,
-                InvalidRecipStatus
+                InvalidRecipStatus,
+                TooManyRecipStatus
             };
 
         public:
