@@ -706,8 +706,6 @@ void Conversation::onButtonClicked(MessageInputPanel &obj, MessageInputPanel::Bu
 void Conversation::onContactSelected(ContactListItem &item)
 {
     MbeRecipients::AppendItemStatus status = m_pRecipPanel->appendItem(item.getRecipient());
-    if(status == MbeRecipients::DuplicatedStatus)
-        m_pRecipPanel->showDuplicatedRecipientNotif();
     m_pRecipPanel->clearEntry();
     m_pContactsList->clear();
 }
