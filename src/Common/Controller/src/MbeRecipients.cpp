@@ -26,12 +26,32 @@ MbeRecipients::MbeRecipients(Evas_Object *parent, App &app)
     : MbeRecipientsView(parent)
     , m_App(app)
 {
-
+    m_App.getContactManager().addListener(*this);
 }
 
 MbeRecipients::~MbeRecipients()
 {
+    m_App.getContactManager().removeListener(*this);
+}
 
+std::string MbeRecipients::getDispName(const std::string &address) const
+{
+    std::string dispName;
+    ContactPersonAddressRef contactAddress = m_App.getContactManager().getContactPersonAddress(address);
+    if(contactAddress)
+        dispName = contactAddress->getDispName();
+    if(dispName.empty())
+        dispName = address;
+    return dispName;
+}
+
+void MbeRecipients::updateItemsDispName()
+{
+    auto items = getItems();
+    for(MbeRecipientItem *item: items)
+    {
+        item->setDispName(getDispName(item->getAddress()));
+    }
 }
 
 void MbeRecipients::update(const MsgAddressList &addressList)
@@ -58,14 +78,7 @@ void MbeRecipients::update(ThreadId threadId)
 
 MbeRecipients::AppendItemStatus MbeRecipients::appendItem(const std::string &address, MsgAddress::AddressType addressType)
 {
-    std::string dispName;
-    ContactPersonAddressRef contactAddress = m_App.getContactManager().getContactPersonAddress(address);
-    if(contactAddress)
-        dispName = contactAddress->getDispName();
-    if(dispName.empty())
-        dispName = address;
-
-    return appendItem(address, dispName, addressType);
+    return appendItem(address, getDispName(address), addressType);
 }
 
 MbeRecipients::AppendItemStatus MbeRecipients::appendItem(const std::string &address, const std::string &dispName, MsgAddress::AddressType addressType)
@@ -109,6 +122,12 @@ bool MbeRecipients::isRecipientExists(const std::string& address) const
     }
 
     return false;
+}
+
+void MbeRecipients::onContactChanged()
+{
+    MSG_LOG("");
+    updateItemsDispName();
 }
 
 

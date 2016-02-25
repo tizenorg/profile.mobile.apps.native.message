@@ -319,7 +319,6 @@ void Viewer::onContactChanged()
 {
     MSG_LOG("");
     updateNavibar();
-    updateRecipPanel();
 }
 
 void Viewer::onLayoutTap()

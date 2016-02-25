@@ -193,8 +193,6 @@ void Conversation::showUnsavedRecipientPopup(const std::string &address)
 void Conversation::contactChangedHandler()
 {
     updateNavibar();
-    if(m_pRecipPanel)
-        m_pRecipPanel->update(m_ThreadId);
 }
 
 void Conversation::navigateTo(MsgId msgId)
