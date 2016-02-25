@@ -238,7 +238,7 @@ void Settings::updateSoundItem()
 {
     MSG_LOG("updateSoundItem activated!");
     m_pSoundItem->disabled(!getMsgSettings().getAlerts());
-    m_pSoundItem->setSubText(MediaUtils::getMediaTitle(getMsgSettings().getNotiSound()));
+    m_pSoundItem->setSubText(MediaUtils::getTitle(getMsgSettings().getNotiSound()));
 }
 
 void Settings::updateVibrationItem()
