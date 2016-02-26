@@ -73,6 +73,7 @@ void MediaPageViewItem::setRect(Evas_Object *layout)
 
 void MediaPageViewItem::setListener(IMediaPageViewItemListener *l)
 {
+    PageViewItem::setListener(l);
     m_pListener = l;
 }
 
@@ -135,8 +136,3 @@ Evas_Object *MediaPageViewItem::createButton(Evas_Object *parent)
     return button;
 }
 
-void MediaPageViewItem::onBeforeDelete(View &view)
-{
-    if(m_pListener)
-        m_pListener->onDelete(*this);
-}

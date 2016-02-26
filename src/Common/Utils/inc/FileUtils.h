@@ -89,7 +89,7 @@ namespace Msg
              * @brief Remove recursive files and directorys.
              * @param[in] path File or directory
              * @param[in] true - remove current dir, false - otherwise
-             * @retval Returns true if all sucess, false otherwise
+             * @retval Returns true if all success, false otherwise
              */
             static bool remove(const std::string &path, bool removeCurrentDir = true);
 
@@ -99,6 +99,14 @@ namespace Msg
              * @retval Returns text content
              */
             static std::string readTextFile(const std::string &path);
+
+            /**
+             * @brief Write text file
+             * @param[in] file path name
+             * @param[in] text content
+             * @return Returns true if all success, false otherwise
+             */
+            static bool writeTextFile(const std::string &path, const std::string &text);
     };
 }
 

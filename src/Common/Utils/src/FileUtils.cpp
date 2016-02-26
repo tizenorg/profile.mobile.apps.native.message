@@ -190,3 +190,11 @@ std::string FileUtils::readTextFile(const std::string &path)
     std::ifstream fs(path, std::ifstream::in | std::ifstream::binary);
     return fs.is_open() ? std::string(std::istreambuf_iterator<char>(fs), std::istreambuf_iterator<char>()) : "";
 }
+
+bool FileUtils::writeTextFile(const std::string &path, const std::string &text)
+{
+    std::ofstream file(path, std::ofstream::trunc | std::ofstream::binary | std::ofstream::out);
+    if(file.is_open())
+       file << text;
+    return file.is_open() && file.good();
+}

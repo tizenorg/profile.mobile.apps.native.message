@@ -28,9 +28,11 @@ namespace Msg
         : public MediaPageViewItem
     {
         public:
-            ImagePageViewItem(PageView &parent, const std::string &reourcePath);
+            ImagePageViewItem(PageView &parent, const std::string &reourcePath, const std::string &imagePath);
             virtual ~ImagePageViewItem();
 
+            void showPlayIcon();
+            const std::string &getImagePath() const;
             virtual Type getType() const;
             virtual bool isEmpty() const;
             virtual void highlight(bool value);
@@ -38,10 +40,11 @@ namespace Msg
         private:
             Evas_Object *createImageLayout(Evas_Object *parent);
             Evas_Object *createRect(Evas_Object *parent);
-            Evas_Object *createImageIconAndSetOrient(Evas_Object *parent);
+            Evas_Object *createImage(Evas_Object *parent);
 
         private:
             Evas_Object *m_pImageLayout;
+            const std::string m_ImagePath;
     };
 }
 

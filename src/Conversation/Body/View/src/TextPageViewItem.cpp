@@ -202,8 +202,3 @@ Evas_Object *TextPageViewItem::createEntry(Evas_Object *parent)
     return m_pEntry;
 }
 
-void TextPageViewItem::onBeforeDelete(View &view)
-{
-    if(m_pListener)
-        m_pListener->onDelete(*this);
-}

@@ -63,20 +63,24 @@ namespace Msg
             void readText(MsgPage &msgPage, const PageView &pageView);
             void readSound(MsgPage &msgPage, const PageView &pageView);
             void readImage(MsgPage &msgPage, const PageView &pageView);
+            void readVideo(MsgPage &msgPage, const PageView &pageView);
             void readAttachments(MessageMms &msg);
             void write(const MessageSMS &msg);
             void write(const MessageMms &msg);
             void writePage(const MsgPage &msgPage, PageView &pageView);
             void writeText(const MsgMedia &msgMedia, PageView &pageView);
             void writeImage(const MsgMedia &msgMedia, PageView &pageView);
+            void writeVideo(const MsgMedia &msgMedia, PageView &pageView);
             void writeSound(const MsgMedia &msgMedia, PageView &pageView);
             void writeAttachments(const MessageMms &msg);
             bool isMms(const PageView &page) const;
             void writeTextToFile(TextPageViewItem &item);
+            bool addVideo(PageView &page, const std::string &videoFilePath);
 
             // BodyView:
             virtual void onContentChanged();
-            virtual void onMediaRemoved(const std::string &resourcePath);
+            virtual void onItemDelete(PageViewItem &item);
+            virtual void onItemDelete(BodyAttachmentView &item);
 
         private:
             IBodyListener *m_pListener;

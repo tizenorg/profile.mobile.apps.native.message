@@ -39,7 +39,7 @@ namespace Msg
         PageViewItem::Type type;
     };
 
-    const std::unordered_map<std::string, MediaTypeData> mediaTypeMap =
+    const std::unordered_multimap<std::string, MediaTypeData> mediaTypeMap =
     {
         // Sound:
         {"aac", {"audio/aac", PageViewItem::SoundType}},

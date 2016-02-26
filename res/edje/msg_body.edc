@@ -577,8 +577,8 @@ collections {
                 }
             }
             program {
-                name: "play_button_show";
-                signal: "elm,state,icon,show";
+                name: "play_icon_show";
+                signal: "play_icon_show";
                 source: "";
                 action: STATE_SET "show" 0.0;
                 target: "play_button";

@@ -84,58 +84,7 @@ const std::string &WorkingDir::getPath() const
     return m_Path;
 }
 
-std::string WorkingDir::addFile(const std::string &path)
-{
-    std::string newPath;
-
-    if(FileUtils::isExists(path))
-    {
-        newPath = getNewFilePath(path);
-        if(FileUtils::copy(path, newPath))
-        {
-            MSG_LOG("File added: ", newPath);
-        }
-    }
-
-    return newPath;
-}
-
-std::string WorkingDir::addTextFile(const std::string &text)
-{
-    std::string path = getNewFilePath(textFileName);
-    std::ofstream file(path, std::ofstream::trunc | std::ofstream::binary | std::ofstream::out);
-    if(file.is_open())
-    {
-        file << text;
-        MSG_LOG("Text file added: ", path);
-    }
-    else
-    {
-        path.clear();
-    }
-
-    return path;
-}
-
-bool WorkingDir::write(const std::string &path, const std::string &text)
-{
-    std::ofstream file(path, std::ofstream::trunc | std::ofstream::binary | std::ofstream::out);
-    if(file.is_open())
-       file << text;
-    return file.is_open();
-}
-
-void WorkingDir::removeFile(const std::string &path)
-{
-    FileUtils::remove(path);
-}
-
-void WorkingDir::clear()
-{
-    FileUtils::remove(m_Path, false);
-}
-
-std::string WorkingDir::getNewFilePath(const std::string &path)
+std::string WorkingDir::genUniqueFilePath(const std::string &path) const
 {
     std::string res = path;
 
@@ -156,6 +105,50 @@ std::string WorkingDir::getNewFilePath(const std::string &path)
     }
     while(FileUtils::isExists(res));
     return res;
+}
+
+std::string WorkingDir::addFile(const std::string &path)
+{
+    std::string newPath;
+
+    if(FileUtils::isExists(path))
+    {
+        newPath = genUniqueFilePath(path);
+        if(FileUtils::copy(path, newPath))
+        {
+            MSG_LOG("File added: ", newPath);
+        }
+    }
+
+    return newPath;
+}
+
+std::string WorkingDir::addTextFile(const std::string &text)
+{
+    std::string path = genUniqueFilePath(textFileName);
+    std::ofstream file(path, std::ofstream::trunc | std::ofstream::binary | std::ofstream::out);
+    if(file.is_open())
+    {
+        file << text;
+        MSG_LOG("Text file added: ", path);
+    }
+    else
+    {
+        path.clear();
+    }
+
+    return path;
+}
+
+void WorkingDir::removeFile(const std::string &path)
+{
+    if(!path.empty())
+        FileUtils::remove(path);
+}
+
+void WorkingDir::clear()
+{
+    FileUtils::remove(m_Path, false);
 }
 
 std::string WorkingDir::getUniqueDirName(const std::string &path)

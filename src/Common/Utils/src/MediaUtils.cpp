@@ -21,6 +21,7 @@
 
 #include <metadata_extractor.h>
 #include <image_util.h>
+#include <math.h>
 
 using namespace Msg;
 
@@ -107,6 +108,12 @@ int MediaUtils::getDuration(const std::string &uri)
     return duration;
 }
 
+int MediaUtils::getDurationSec(const std::string &uri)
+{
+    double sec = ceil(getDuration(uri) / 1000.0);
+    return sec <= 0 ? 1 : sec;
+}
+
 bool MediaUtils::getVideoFrame(const std::string &videoFilePath, const std::string &imageFilePath)
 {
     MetadataExtractor extractor(videoFilePath);
@@ -127,7 +134,7 @@ bool MediaUtils::getVideoFrame(const std::string &videoFilePath, const std::stri
         const int quality = 90; // JPEG image quality(1 ~ 100)
         int ret = image_util_encode_jpeg((unsigned char *)thumbnail, videoW, videoH, IMAGE_UTIL_COLORSPACE_RGB888, quality, imageFilePath.c_str());
         free(thumbnail);
-        return ret != IMAGE_UTIL_ERROR_NONE;
+        return ret == IMAGE_UTIL_ERROR_NONE;
 
     }
     return false;

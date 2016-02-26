@@ -78,7 +78,7 @@ void PageView::addItem(PageViewItem &item)
     }
 
     /* Page items order:
-     * Image
+     * Image/Video
      * Text
      * Audio
      */
@@ -98,6 +98,7 @@ void PageView::addItem(PageViewItem &item)
             break;
         }
 
+        case PageViewItem::VideoType:
         case PageViewItem::ImageType:
         {
             // Top:

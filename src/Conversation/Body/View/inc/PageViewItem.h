@@ -23,6 +23,7 @@
 namespace Msg
 {
     class PageView;
+    class IPageViewItemListener;
 
     class PageViewItem
         : public View
@@ -44,6 +45,7 @@ namespace Msg
             virtual Type getType() const = 0;
             virtual bool isEmpty() const = 0;
 
+            void setListener(IPageViewItemListener *l);
             void setResourcePath(const std::string &resourcePath);
             const std::string &getResourcePath() const;
             const PageView &getParentPage() const;
@@ -53,9 +55,19 @@ namespace Msg
         protected:
             const std::string &getEdjPath() const;
 
+            virtual void onBeforeDelete(View &view);
+
         private:
             PageView &m_Parent;
             std::string m_ResourcePath;
+            IPageViewItemListener *m_pListener;
+    };
+
+    class IPageViewItemListener
+    {
+        public:
+            virtual ~IPageViewItemListener() {}
+            virtual void onDelete(PageViewItem &item) {};
     };
 }
 

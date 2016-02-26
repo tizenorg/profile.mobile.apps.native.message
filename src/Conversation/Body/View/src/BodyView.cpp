@@ -170,24 +170,28 @@ void BodyView::append(BodyViewItem &item)
     prepare(item);
     elm_box_pack_end(getEo(), item);
     item.show();
+    onContentChanged();
 }
 
 void BodyView::insertAfter(BodyViewItem &item, BodyViewItem &after)
 {
     prepare(item);
     elm_box_pack_after(getEo(), item, after);
+    onContentChanged();
 }
 
 void BodyView::insertBefore(BodyViewItem &item, BodyViewItem &before)
 {
     prepare(item);
     elm_box_pack_before(getEo(), item, before);
+    onContentChanged();
 }
 
 void BodyView::remove(BodyViewItem &item)
 {
     elm_box_unpack(getEo(), item);
     item.destroy();
+    onContentChanged();
 }
 
 int BodyView::getPageCount() const
@@ -257,6 +261,7 @@ BodyAttachmentView *BodyView::addAttachment(const std::string &filePath, const s
 {
     BodyAttachmentView *attachment = new BodyAttachmentView(*this, filePath, dispName);
     insertBefore(*attachment, *m_pDefaultPage);
+    onContentChanged();
     return attachment;
 }
 
@@ -325,10 +330,11 @@ void BodyView::showInputPanel(PageViewItem &pageItem, bool show)
 
 ImagePageViewItem *BodyView::addImage(PageView &page, const std::string &filePath)
 {
-    ImagePageViewItem *item = new ImagePageViewItem(page, filePath);
+    ImagePageViewItem *item = new ImagePageViewItem(page, filePath, filePath);
     item->setListener(this);
     item->show();
     page.addItem(*item);
+    onContentChanged();
     return item;
 }
 
@@ -338,6 +344,17 @@ SoundPageViewItem *BodyView::addSound(PageView &page, const std::string &filePat
     item->setListener(this);
     item->show();
     page.addItem(*item);
+    onContentChanged();
+    return item;
+}
+
+VideoPageViewItem *BodyView::addVideo(PageView &page, const std::string &filePath, const std::string &imagePath)
+{
+    VideoPageViewItem *item = new VideoPageViewItem(page, filePath, imagePath);
+    item->setListener(this);
+    item->show();
+    page.addItem(*item);
+    onContentChanged();
     return item;
 }
 
@@ -348,6 +365,7 @@ TextPageViewItem *BodyView::addText(PageView &page)
     item->show();
     item->setGuideText(msgt("IDS_MSG_TMBODY_TEXT_MESSAGES"));
     page.addItem(*item);
+    onContentChanged();
     return item;
 }
 
@@ -404,52 +422,6 @@ void BodyView::removeAttachment(BodyAttachmentView &attachment)
     remove(attachment);
 }
 
-bool BodyView::addMedia(const std::string &filePath)
-{
-    bool res = false;
-
-    PageViewItem::Type type = getMediaType(filePath).type;
-    MSG_LOG("Media type: ", type);
-
-    PageView *page = nullptr;
-    if(type != PageViewItem::UnknownType)
-    {
-        page = getPageForMedia(type);
-        if(!page)
-            return false;
-
-        switch(type)
-        {
-            case PageViewItem::ImageType:
-                addImage(*page, filePath);
-                break;
-
-            case PageViewItem::SoundType:
-                addSound(*page, filePath);
-                break;
-
-            case PageViewItem::VideoType:
-                break;
-
-            default:
-                assert(false);
-                return false;
-                break;
-        }
-    }
-    else
-    {
-        addAttachment(filePath);
-        page = m_pDefaultPage;
-    }
-
-    onContentChanged();
-    if(page)
-        setFocus(*page, true); // TODO: check for multi insertion
-
-    return res;
-}
-
 void BodyView::backKeyHandler(MediaPageViewItem &item)
 {
     item.destroy();
@@ -461,17 +433,16 @@ void BodyView::backKeyHandler(TextPageViewItem &item)
     {
         MSG_LOG("Last text cursor position");
         PageView &page = item.getParentPage();
-        if(PageViewItem *image = page.getItem(PageViewItem::ImageType))
-            image->setFocus(true);
+
+        PageViewItem *topItem = page.getItem(PageViewItem::ImageType);
+        if(!topItem)
+            topItem = page.getItem(PageViewItem::VideoType);
+
+        if(topItem)
+            topItem->setFocus(true);
         else
             removePage(page, true);
     }
-}
-
-void BodyView::onDelete(TextPageViewItem &item)
-{
-    MSG_LOG("");
-    onContentChanged();
 }
 
 void BodyView::onCursorChanged(TextPageViewItem &item)
@@ -569,14 +540,16 @@ void BodyView::onKeyUp(MediaPageViewItem &item, Evas_Event_Key_Up &event)
     MSG_LOG("");
 }
 
-void BodyView::onDelete(MediaPageViewItem &item)
+void BodyView::onDelete(BodyAttachmentView &item)
 {
-    onMediaRemoved(item.getResourcePath());
+    MSG_LOG("");
+    onItemDelete(item);
     onContentChanged();
 }
 
-void BodyView::onDelete(BodyAttachmentView &item)
+void BodyView::onDelete(PageViewItem &item)
 {
-    onMediaRemoved(item.getResourcePath());
+    MSG_LOG("");
+    onItemDelete(item);
     onContentChanged();
 }

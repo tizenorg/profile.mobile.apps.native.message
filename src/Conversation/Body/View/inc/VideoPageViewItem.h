@@ -15,21 +15,24 @@
  *
  */
 
-#ifndef MediaUtils_h_
-#define MediaUtils_h_
+#ifndef VideoPageViewItem_h_
+#define VideoPageViewItem_h_
 
-#include <string>
+#include "ImagePageViewItem.h"
+
+#include <vector>
 
 namespace Msg
 {
-    class MediaUtils
+    class VideoPageViewItem
+        : public ImagePageViewItem
     {
         public:
-            static std::string getTitle(const std::string &path);
-            static int getDuration(const std::string &uri); // msec;
-            static int getDurationSec(const std::string &uri); // sec;
-            static bool getVideoFrame(const std::string &videoFilePath, const std::string &imageFilePath);
+            VideoPageViewItem(PageView &parent, const std::string &reourcePath, const std::string &imagePath);
+            virtual ~VideoPageViewItem();
+
+            virtual Type getType() const;
     };
 }
 
-#endif /* MediaUtils_h_ */
+#endif /* VideoPageViewItem_h_ */

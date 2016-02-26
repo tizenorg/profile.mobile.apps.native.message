@@ -20,9 +20,11 @@
 #include "FileUtils.h"
 #include "TextPageViewItem.h"
 #include "ImagePageViewItem.h"
+#include "VideoPageViewItem.h"
 #include "BodyMediaType.h"
 #include "MsgEngine.h"
 #include "Logger.h"
+#include "MediaUtils.h"
 
 #include <assert.h>
 #include <string.h>
@@ -73,9 +75,6 @@ bool Body::addMedia(const std::string &filePath)
 {
     MSG_LOG("Try add resource:", filePath);
 
-    // TODO:
-    // If path is web uri then set path as body text:
-
     if(!FileUtils::isExists(filePath) || FileUtils::isDir(filePath))
     {
         MSG_LOG_ERROR("File not exists: ", filePath);
@@ -86,7 +85,52 @@ bool Body::addMedia(const std::string &filePath)
     if(newFilePath.empty())
         return false;
 
-    return BodyView::addMedia(newFilePath);
+    PageViewItem::Type type = getMediaType(filePath).type;
+    MSG_LOG("Media type: ", type);
+
+    PageView *page = nullptr;
+    if(type != PageViewItem::UnknownType)
+    {
+        page = BodyView::getPageForMedia(type);
+        if(!page)
+            return false;
+
+        switch(type)
+        {
+            case PageViewItem::ImageType:
+            {
+                BodyView::addImage(*page, newFilePath);
+                break;
+            }
+
+            case PageViewItem::SoundType:
+            {
+                BodyView::addSound(*page, newFilePath);
+                break;
+            }
+
+            case PageViewItem::VideoType:
+            {
+                addVideo(*page, newFilePath);
+                break;
+            }
+
+            default:
+                assert(false);
+                return false;
+                break;
+        }
+    }
+    else
+    {
+        BodyView::addAttachment(newFilePath);
+        page = &getDefaultPage();
+    }
+
+    if(page)
+        BodyView::setFocus(*page, true); // TODO: check for multi insertion
+
+    return true;
 }
 
 bool Body::isMms() const
@@ -200,6 +244,9 @@ void Body::writePage(const MsgPage &msgPage, PageView &pageView)
             case MsgMedia::SmilAudio:
                 writeSound(msgMedia, pageView);
                 break;
+            case MsgMedia::SmilVideo:
+                writeVideo(msgMedia, pageView);
+                break;
 
             default:
                 MSG_LOG_WARN("Skip unsupported Smil type");
@@ -221,6 +268,13 @@ void Body::writeImage(const MsgMedia &msgMedia, PageView &pageView)
     std::string path = m_WorkingDir.addFile(msgMedia.getFilePath());
     if(!path.empty())
         addImage(pageView, path);
+}
+
+void Body::writeVideo(const MsgMedia &msgMedia, PageView &pageView)
+{
+    std::string path = m_WorkingDir.addFile(msgMedia.getFilePath());
+    if(!path.empty())
+        addVideo(pageView, path);
 }
 
 void Body::writeSound(const MsgMedia &msgMedia, PageView &pageView)
@@ -247,7 +301,7 @@ void Body::writeTextToFile(TextPageViewItem &item)
     if(item.getResourcePath().empty())
         item.setResourcePath(m_WorkingDir.addTextFile(item.getPlainUtf8Text()));
     else
-        m_WorkingDir.write(item.getResourcePath(), item.getPlainUtf8Text());
+        FileUtils::writeTextFile(item.getResourcePath(), item.getPlainUtf8Text());
 }
 
 void Body::read(MessageSMS &msg)
@@ -269,6 +323,7 @@ void Body::read(MessageMms &msg)
 
         readText(msgPage, *page);
         readImage(msgPage, *page);
+        readVideo(msgPage, *page);
         readSound(msgPage, *page);
     }
 
@@ -314,6 +369,17 @@ void Body::readImage(MsgPage &msgPage, const PageView &pageView)
     }
 }
 
+void Body::readVideo(MsgPage &msgPage, const PageView &pageView)
+{
+    VideoPageViewItem *videoItem = static_cast<VideoPageViewItem*>(pageView.getItem(PageViewItem::VideoType));
+    if(videoItem)
+    {
+        MsgMedia &media = msgPage.addMedia();
+        media.setType(MsgMedia::SmilVideo);
+        media.setFilePath(videoItem->getResourcePath());
+    }
+}
+
 void Body::readAttachments(MessageMms &msg)
 {
     auto attachments = getAttachments();
@@ -342,9 +408,31 @@ void Body::execCmd(const AppControlComposeRef &cmd)
     addMedia(cmd->getFileList());
 }
 
-void Body::onMediaRemoved(const std::string &resourcePath)
+
+bool Body::addVideo(PageView &page, const std::string &videoFilePath)
 {
-    m_WorkingDir.removeFile(resourcePath);
+    const std::string thumbFileName = "thumbnail.jpeg";
+    std::string thumbFilePath =  m_WorkingDir.genUniqueFilePath(thumbFileName);
+
+    // FIXME: if getVideoFrame returns false ?
+    MediaUtils::getVideoFrame(videoFilePath, thumbFilePath);
+    BodyView::addVideo(page, videoFilePath, thumbFilePath);
+
+    return true;
+}
+
+void Body::onItemDelete(PageViewItem &item)
+{
+    MSG_LOG("");
+    if(auto video = dynamic_cast<VideoPageViewItem*>(&item))
+        m_WorkingDir.removeFile(video->getImagePath());
+
+    m_WorkingDir.removeFile(item.getResourcePath());
+}
+
+void Body::onItemDelete(BodyAttachmentView &item)
+{
+    m_WorkingDir.removeFile(item.getResourcePath());
 }
 
 void Body::onContentChanged()

@@ -30,6 +30,7 @@ namespace
     const char *mediaImageEqualSig = "media.image.equal";
     const char *imageLayout = "conv/body/media_image";
     const char *imageContentPart = "swl.thumbnail";
+    const char *showPlayIconSig = "play_icon_show";
 
     const int thumbOriginHeight = 75;
     const int thumbLandscapeWidth = 128;
@@ -39,14 +40,14 @@ namespace
     const int thumbEqual = 106;
 }
 
-ImagePageViewItem::ImagePageViewItem(PageView &parent, const std::string &reourcePath)
+ImagePageViewItem::ImagePageViewItem(PageView &parent, const std::string &reourcePath, const std::string &imagePath)
     : MediaPageViewItem(parent, reourcePath)
     , m_pImageLayout(nullptr)
+    , m_ImagePath(imagePath)
 {
     Evas_Object *imageLayout = createImageLayout(getMediaLayout());
     Evas_Object *rect = createRect(getMediaLayout());
-    Evas_Object *icon = createImageIconAndSetOrient(m_pImageLayout);
-
+    Evas_Object *icon = createImage(imageLayout);
     elm_object_part_content_set(m_pImageLayout, imageContentPart, icon);
     setRect(rect);
     setButtonContent(imageLayout);
@@ -55,6 +56,16 @@ ImagePageViewItem::ImagePageViewItem(PageView &parent, const std::string &reourc
 ImagePageViewItem::~ImagePageViewItem()
 {
 
+}
+
+void ImagePageViewItem::showPlayIcon()
+{
+    elm_object_signal_emit(m_pImageLayout, showPlayIconSig, "");
+}
+
+const std::string &ImagePageViewItem::getImagePath() const
+{
+    return m_ImagePath;
 }
 
 ImagePageViewItem::Type ImagePageViewItem::getType() const
@@ -90,21 +101,19 @@ Evas_Object *ImagePageViewItem::createRect(Evas_Object *parent)
     return rect;
 }
 
-Evas_Object *ImagePageViewItem::createImageIconAndSetOrient(Evas_Object *parent)
+Evas_Object *ImagePageViewItem::createImage(Evas_Object *parent)
 {
-    const std::string resourcePath = getResourcePath();
-
     // Get image dimension:
     Evas *evas = evas_object_evas_get(parent);
     Evas_Object *img = evas_object_image_add(evas);
     evas_object_image_load_orientation_set(img, true);
-    evas_object_image_file_set(img, resourcePath.c_str(), nullptr);
+    evas_object_image_file_set(img, m_ImagePath.c_str(), nullptr);
 
     int err = evas_object_image_load_error_get(img);
     if (err != EVAS_LOAD_ERROR_NONE)
     {
         evas_object_del(img);
-        MSG_LOG_ERROR("Image loading is failed: ", resourcePath);
+        MSG_LOG_ERROR("Image loading is failed: ", m_ImagePath);
         return nullptr;
     }
 
@@ -142,7 +151,7 @@ Evas_Object *ImagePageViewItem::createImageIconAndSetOrient(Evas_Object *parent)
 
     // Create and load icon image:
     Evas_Object *icon = elm_icon_add(parent);
-    elm_image_file_set(icon, resourcePath.c_str(), NULL);
+    elm_image_file_set(icon, m_ImagePath.c_str(), NULL);
     evas_object_size_hint_min_set(icon, iconWidth, iconHeight);
     elm_image_aspect_fixed_set(icon, EINA_FALSE);
     evas_object_show(icon);

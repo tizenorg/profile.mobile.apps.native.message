@@ -24,6 +24,7 @@ using namespace Msg;
 PageViewItem::PageViewItem(PageView &parent, const std::string &resourcePath)
     : m_Parent(parent)
     , m_ResourcePath(resourcePath)
+    , m_pListener(nullptr)
 {
 
 }
@@ -54,6 +55,11 @@ void PageViewItem::setResourcePath(const std::string &resourcePath)
     m_ResourcePath = resourcePath;
 }
 
+void PageViewItem::setListener(IPageViewItemListener *l)
+{
+    m_pListener = l;
+}
+
 const PageView &PageViewItem::getParentPage() const
 {
     return m_Parent;
@@ -62,5 +68,11 @@ const PageView &PageViewItem::getParentPage() const
 PageView &PageViewItem::getParentPage()
 {
     return m_Parent;
+}
+
+void PageViewItem::onBeforeDelete(View &view)
+{
+    if(m_pListener)
+        m_pListener->onDelete(*this);
 }
 

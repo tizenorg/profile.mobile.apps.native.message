@@ -48,8 +48,6 @@ namespace Msg
             void setText(const std::string &text);
 
         private:
-            virtual void onBeforeDelete(View &view);
-
             Evas_Object *createEntry(Evas_Object *parent);
 
             template<class...Args>
@@ -64,7 +62,6 @@ namespace Msg
     {
         public:
             virtual ~ITextPageViewItemListener() {}
-            virtual void onDelete(TextPageViewItem &item) {};
             virtual void onCursorChanged(TextPageViewItem &obj) {};
             virtual void onFocused(TextPageViewItem &obj) {};
             virtual void onUnfocused(TextPageViewItem &obj) {};

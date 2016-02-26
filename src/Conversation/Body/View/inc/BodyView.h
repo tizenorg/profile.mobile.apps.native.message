@@ -24,6 +24,7 @@
 #include "TextPageViewItem.h"
 #include "ImagePageViewItem.h"
 #include "SoundPageViewItem.h"
+#include "VideoPageViewItem.h"
 #include "BodyAttachmentView.h"
 
 #include <vector>
@@ -52,7 +53,6 @@ namespace Msg
             bool isEmpty() const;
             void clear();
             void setFocus(bool focus);
-            bool addMedia(const std::string &filePath);
             const PageView &getDefaultPage() const;
             PageView &getDefaultPage();
             PageViewCollection getPages() const;
@@ -66,13 +66,15 @@ namespace Msg
             BodyAttachmentView *addAttachment(const std::string &filePath, const std::string &dispName = "");
             TextPageViewItem *addText(PageView &page);
             ImagePageViewItem *addImage(PageView &page, const std::string &filePath);
+            VideoPageViewItem *addVideo(PageView &page, const std::string &filePath, const std::string &imagePath);
             SoundPageViewItem *addSound(PageView &page, const std::string &filePath, const std::string &dispName = "");
+            PageView *getPageForMedia(PageViewItem::Type type);
+            void setFocus(PageView &page, bool focus);
 
         private:
             /*====Input signals====*/
 
             // ITextPageViewItemListener:
-            virtual void onDelete(TextPageViewItem &item);
             virtual void onCursorChanged(TextPageViewItem &item);
             virtual void onFocused(TextPageViewItem &item);
             virtual void onUnfocused(TextPageViewItem &item);
@@ -85,7 +87,7 @@ namespace Msg
             virtual void onChanged(TextPageViewItem &item);
 
             // IMediaPageViewItemListener:
-            virtual void onDelete(MediaPageViewItem &item);
+            virtual void onDelete(PageViewItem &item);
             virtual void onPressed(MediaPageViewItem &item);
             virtual void onUnpressed(MediaPageViewItem &item);
             virtual void onFocused(MediaPageViewItem &item);
@@ -94,12 +96,12 @@ namespace Msg
             virtual void onKeyUp(MediaPageViewItem &item, Evas_Event_Key_Up &event);
 
             // IBodyAttachmentViewListener:
-
             virtual void onDelete(BodyAttachmentView &item);
 
             /*====Output signals====*/
             virtual void onContentChanged() {};
-            virtual void onMediaRemoved(const std::string &resourcePath) {};
+            virtual void onItemDelete(PageViewItem &item) {};
+            virtual void onItemDelete(BodyAttachmentView &item) {};
             virtual void onClicked(BodyAttachmentView &item) {};
             virtual void onClicked(MediaPageViewItem &item) {};
 
@@ -109,13 +111,11 @@ namespace Msg
             std::vector<T*> getItems() const;
             BodyViewItemCollection getAllItems() const;
             int getItemCount(BodyViewItem::Type type) const;
-            void setFocus(PageView &page, bool focus);
             void showInputPanel(PageView &page, bool show);
             void showInputPanel(PageViewItem &pageItem, bool show);
             void removePage(PageView &page, bool setNextFocus);
             void removeAttachment(BodyAttachmentView &attachment);
             void updateLastFocusedPage(PageViewItem &pageItem);
-            PageView *getPageForMedia(PageViewItem::Type type);
             void backKeyHandler(MediaPageViewItem &item);
             void backKeyHandler(TextPageViewItem &item);
             void clear(PageView &page);

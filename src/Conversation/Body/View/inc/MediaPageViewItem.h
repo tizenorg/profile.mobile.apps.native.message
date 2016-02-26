@@ -44,7 +44,6 @@ namespace Msg
             void setRect(Evas_Object *layout);
 
         private:
-            virtual void onBeforeDelete(View &view);
 
             Evas_Object *createMainLayout(Evas_Object *parent);
             Evas_Object *createButton(Evas_Object *parent);
@@ -60,11 +59,11 @@ namespace Msg
     };
 
     class IMediaPageViewItemListener
+        : public IPageViewItemListener
     {
         public:
             virtual ~IMediaPageViewItemListener() {}
 
-            virtual void onDelete(MediaPageViewItem &item) {};
             virtual void onClicked(MediaPageViewItem &item) {};
             virtual void onPressed(MediaPageViewItem &item) {};
             virtual void onUnpressed(MediaPageViewItem &item) {};

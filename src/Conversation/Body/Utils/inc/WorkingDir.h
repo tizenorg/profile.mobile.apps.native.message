@@ -34,16 +34,15 @@ namespace Msg
             bool isValid() const;
             const std::string &getPath() const;
 
+            std::string genUniqueFilePath(const std::string &fileName) const;
             std::string addFile(const std::string &path);
             std::string addTextFile(const std::string &text);
-            bool write(const std::string &path, const std::string &text);
             void removeFile(const std::string &path);
             void clear();
 
         private:
             void createWorkingDir();
             void removeWorkingDir();
-            std::string getNewFilePath(const std::string &path);
             std::string getUniqueDirName(const std::string &path);
 
         private:
