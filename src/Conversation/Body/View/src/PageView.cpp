@@ -54,9 +54,7 @@ bool PageView::isEmpty() const
     for(auto it : m_PageItemMap)
     {
         if(!it.second->isEmpty())
-        {
             return false;
-        }
     }
     return true;
 }
@@ -66,17 +64,33 @@ Evas_Object *PageView::getItemParent() const
     return m_pBox;
 }
 
+bool PageView::hasMedia() const
+{
+    for(auto item : m_PageItemMap)
+    {
+        if(item.first != PageViewItem::TextType)
+            return true;
+    }
+    return false;
+}
+
+bool PageView::canItemBeAdded(PageViewItem::Type type) const
+{
+    auto it = m_PageItemMap.find(type);
+    if(it != m_PageItemMap.end())
+        return false;
+
+    if(type == PageViewItem::VideoType && hasMedia())
+        return false;
+
+    if(getItem(PageViewItem::VideoType) && type != PageViewItem::TextType)
+        return false;
+
+    return true;
+}
+
 void PageView::addItem(PageViewItem &item)
 {
-    auto it = m_PageItemMap.find(item.getType());
-    if(it != m_PageItemMap.end())
-    {
-        if(it->second == &item)
-            return;
-        else
-            removeItem(*it->second);
-    }
-
     /* Page items order:
      * Image/Video
      * Text

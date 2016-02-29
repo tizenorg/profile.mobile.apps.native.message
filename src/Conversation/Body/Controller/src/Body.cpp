@@ -151,7 +151,6 @@ bool Body::isMms() const
 
 bool Body::isMms(const PageView &page) const
 {
-
     auto pageItems = page.getItems();
     for(PageViewItem *pageItem : pageItems)
     {

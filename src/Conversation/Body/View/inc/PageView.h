@@ -37,7 +37,9 @@ namespace Msg
             PageView(BodyView &parent);
             virtual ~PageView();
 
+            bool hasMedia() const;
             ItemList getItems() const;
+            bool canItemBeAdded(PageViewItem::Type type) const;
             void addItem(PageViewItem &item);
             void removeItem(PageViewItem &item);
             PageViewItem *getItem(PageViewItem::Type type) const;
