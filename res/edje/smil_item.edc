@@ -20,6 +20,95 @@
 collections {
     base_scale: 2.6;
 
+        group {
+        name: "smil_video_item";
+        parts {
+            part{
+                name: "rect";
+                type: RECT;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    color: 0 0 0 0;
+                }
+            }
+            part {
+                name: "pad_left";
+                type: SPACER;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    fixed: 0 0;
+                    min: 32 0;
+                    max: 32 0;
+                    align: 0 0.0;
+                    rel1 {relative: 0.0 0.0;to:"rect";}
+                    rel2 {relative: 0.0 1.0; to:"rect"; }
+                }
+            }
+            part {
+                name: "pad_right";
+                type: SPACER;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    fixed: 0 0;
+                    min: 32 0;
+                    max: 32 0;
+                    align: 1 0.0;
+                    rel1 {relative: 0.0 0.0; to:"rect";}
+                }
+            }
+            part {
+                name: "bg.swallow";
+                type: SWALLOW;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    rel1 { to: "pad_left"; relative: 1.0 0.0; }
+                    rel2 { to: "pad_right"; relative: 0.0 1.0; }
+                    align: 0.0 0.0;
+                }
+                description {
+                    state: "landscape" 0.0;
+                    inherit: "default" 0.0;
+                    align: 0.0 0.0;
+                    rel1 { to: "pad_left"; relative: 1.0 0.0; }
+                    rel2 { to: "pad_right"; relative: 0.0 1.0; }
+                }
+            }
+            part {
+                name: "swallow.thumbnail";
+                type: SWALLOW;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    visible: 1;
+                    fixed: 0 0;
+                    align: 0.0 0.0;
+                    rel1{to: "bg.swallow"; relative: 0.0 0.0;}
+                    rel2{to: "bg.swallow"; relative: 1.0 1.0;}
+                }
+            }
+        }
+        programs {
+            program {
+                name: "show_landscape";
+                signal: "show,landscape";
+                source: "*";
+                action: STATE_SET "landscape" 0.0;
+                target: "bg.swallow";
+            }
+                program {
+                name: "show_portrait";
+                signal: "show,portrait";
+                source: "*";
+                action: STATE_SET "default" 0.0;
+                target: "bg.swallow";
+            }
+        }
+    }
+
     group {
         name: "smil_image_item";
         parts {

@@ -112,6 +112,7 @@ int MediaUtils::getDurationSec(const std::string &uri)
 {
     double sec = ceil(getDuration(uri) / 1000.0);
     int res = sec <= 0 ? 1 : sec;
+    MSG_LOG("File: ", uri);
     MSG_LOG("Duration sec: ", res);
     return res;
 }
@@ -129,6 +130,7 @@ bool MediaUtils::getVideoFrame(const std::string &videoFilePath, const std::stri
     void *thumbnail = nullptr;
     extractor.getFrame(&thumbnail, &thumbSize);
 
+    MSG_LOG("File: ", videoFilePath);
     MSG_LOG("Frame: width = ", videoW, " height = ", videoH, " size = ", thumbSize);
 
     if(thumbnail)
@@ -142,3 +144,20 @@ bool MediaUtils::getVideoFrame(const std::string &videoFilePath, const std::stri
     return false;
 }
 
+bool MediaUtils::getFrameSize(const std::string &videoFilePath, int &width, int &height)
+{
+    MetadataExtractor extractor(videoFilePath);
+    if(!extractor.isValid())
+        return false;
+
+    width = extractor.getInt(METADATA_VIDEO_WIDTH);
+    height = extractor.getInt(METADATA_VIDEO_HEIGHT);
+    int orient = extractor.getInt(METADATA_ROTATE);
+    if(orient == 90 || orient == 270)
+        std::swap(width, height);
+
+    MSG_LOG("File: ", videoFilePath);
+    MSG_LOG("Frame: width = ", width, " height = ", height);
+
+    return true;
+}

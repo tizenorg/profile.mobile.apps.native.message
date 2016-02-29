@@ -187,7 +187,11 @@ void SmilPlayer::prepareMedia()
     m_MediaPlayer.stop();
     SmilPage *page = getCurrentPage();
     if(page->hasMedia())
+    {
         m_MediaPlayer.setUri(page->getMediaPath());
+        Evas_Object *videoSink = page->getVideoSink();
+        m_MediaPlayer.setDisplay(videoSink);
+    }
 }
 
 void SmilPlayer::stopMedia()

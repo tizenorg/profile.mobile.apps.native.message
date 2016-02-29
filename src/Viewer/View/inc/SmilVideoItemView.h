@@ -15,22 +15,29 @@
  *
  */
 
-#ifndef MediaUtils_h_
-#define MediaUtils_h_
+#ifndef SmilVideoItemView_h_
+#define SmilVideoItemView_h_
 
-#include <string>
+#include "View.h"
 
 namespace Msg
 {
-    class MediaUtils
+    class SmilVideoItemView
+        : public View
     {
         public:
-            static std::string getTitle(const std::string &path);
-            static int getDuration(const std::string &uri); // msec;
-            static int getDurationSec(const std::string &uri); // sec;
-            static bool getVideoFrame(const std::string &videoFilePath, const std::string &imageFilePath);
-            static bool getFrameSize(const std::string &videoFilePath, int &width, int &height);
+            SmilVideoItemView(Evas_Object *parent, int videoWidth, int videoHeight);
+            virtual ~SmilVideoItemView();
+
+            Evas_Object *getVideoSink() const;
+
+        private:
+            Evas_Object *createImage(Evas_Object *parent, int width, int height);
+            Evas_Object *videoRectAdd(Evas_Object *parent, int width, int height);
+
+        private:
+            Evas_Object *m_pVideoSink;
     };
 }
 
-#endif /* MediaUtils_h_ */
+#endif // SmilVideoItemView_h_

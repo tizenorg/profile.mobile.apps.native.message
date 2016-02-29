@@ -20,6 +20,7 @@
 
 #include <player.h>
 #include <string>
+#include <Evas.h>
 
 namespace Msg
 {
@@ -33,6 +34,7 @@ namespace Msg
             MediaPlayer(const MediaPlayer&) = delete;
             MediaPlayer& operator=(const MediaPlayer&) = delete;
 
+            void setDisplay(Evas_Object *obj);
             void start();
             void stop();
             void pause();

@@ -20,10 +20,12 @@
 #include "SmilImageItemView.h"
 #include "SmilTextItemView.h"
 #include "SmilAudioItemView.h"
+#include "SmilVideoItemView.h"
 #include "SmilAttachmentItemView.h"
 #include "Logger.h"
 #include "FileUtils.h"
 #include "MediaPlayer.h"
+#include "MediaUtils.h"
 
 using namespace Msg;
 
@@ -53,6 +55,7 @@ namespace
 SmilPage::SmilPage(Evas_Object *parent, const MsgPage &page)
     : SmilPageLayout(parent)
     , m_Duration(0)
+    , m_pVideoSink(nullptr)
 {
     build(page);
 }
@@ -60,6 +63,7 @@ SmilPage::SmilPage(Evas_Object *parent, const MsgPage &page)
 SmilPage::SmilPage(Evas_Object *parent, const MsgAttachmentList &list)
     : SmilPageLayout(parent)
     , m_Duration(0)
+    , m_pVideoSink(nullptr)
 {
     build(list);
 }
@@ -77,6 +81,16 @@ int SmilPage::getDuration() const
 bool SmilPage::hasMedia() const
 {
     return !m_MediaPath.empty();
+}
+
+bool SmilPage::hasVideo() const
+{
+    return m_pVideoSink != nullptr;
+}
+
+Evas_Object *SmilPage::getVideoSink() const
+{
+    return m_pVideoSink;
 }
 
 std::string SmilPage::getMediaPath() const
@@ -99,16 +113,32 @@ void SmilPage::build(const MsgPage &page)
 {
     m_Duration = page.getPageDuration();
 
-    // TODO: set image, text order
-    if(const MsgMedia *image = getMedia(page, MsgMedia::SmilImage))
-        buildImage(*image);
+    // TODO: image/video, text order
+
+    bool hasVideo = getMedia(page, MsgMedia::SmilVideo) != nullptr;
+
+    if(hasVideo)
+        buildVideo(*getMedia(page, MsgMedia::SmilVideo));
+
+    if(!hasVideo)
+    {
+        if(const MsgMedia *image = getMedia(page, MsgMedia::SmilImage))
+            buildImage(*image);
+    }
+
     if(const MsgMedia *text = getMedia(page, MsgMedia::SmilText))
         buildText(*text);
-    if(const MsgMedia *audio = getMedia(page, MsgMedia::SmilAudio))
-        buildAudio(*audio);
+
+    if(!hasVideo)
+    {
+        if(const MsgMedia *audio = getMedia(page, MsgMedia::SmilAudio))
+            buildAudio(*audio);
+    }
 
     if(m_Duration <= 0)
         m_Duration = defaultPageDuration;
+
+    MSG_LOG("Page duration: ", m_Duration);
 }
 
 void SmilPage::build(const MsgAttachmentList &list)
@@ -146,18 +176,36 @@ void SmilPage::buildText(const MsgMedia& media)
 void SmilPage::buildAudio(const MsgMedia& media)
 {
     m_MediaPath = media.getFilePath();
-    if(m_Duration == 0)
-    {
-        int sec = MediaPlayer::getDuration(m_MediaPath) / 1000.0 + 0.5;
-        MSG_LOG("Duration: ", media.getFilePath(), " ", sec);
 
-        if(m_Duration < sec)
-            m_Duration = sec;
-    }
+    if(m_Duration == 0)
+        m_Duration = MediaUtils::getDurationSec(m_MediaPath);
 
     SmilAudioItemView *item = new SmilAudioItemView(getBox(), media.getFileName());
     item->show();
     item->showIcon(true);
+    appendItem(*item);
+}
+
+void SmilPage::buildVideo(const MsgMedia& media)
+{
+    m_MediaPath = media.getFilePath();
+
+    if(m_Duration == 0)
+        m_Duration = MediaUtils::getDurationSec(m_MediaPath);
+
+    int width = 0;
+    int height = 0;
+    MediaUtils::getFrameSize(m_MediaPath, width, height);
+
+    if(width * height == 0)
+    {
+        // TODO: What to do in this case?
+        MSG_LOG_ERROR("Wrong video dimension");
+    }
+
+    SmilVideoItemView *item = new SmilVideoItemView(getBox(), width, height);
+    m_pVideoSink = item->getVideoSink();
+    item->show();
     appendItem(*item);
 }
 
