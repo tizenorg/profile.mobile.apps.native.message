@@ -122,7 +122,7 @@ Evas_Object *ImagePageViewItem::createImage(Evas_Object *parent)
     evas_object_image_size_get(img, &width, &height);
     evas_object_del(img);
 
-    MSG_LOG_ERROR("Image: width = ", width, " height = ", height);
+    MSG_LOG("Image: width = ", width, " height = ", height);
 
     // Set orientation  of media layout and icon dimension:
     int iconWidth = 0;

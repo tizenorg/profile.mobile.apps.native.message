@@ -34,6 +34,8 @@ namespace Msg
 
             int getDuration() const;
             bool hasMedia() const;
+            bool hasVideo() const;
+            Evas_Object *getVideoSink() const;
             std::string getMediaPath() const;
 
         private:
@@ -43,12 +45,14 @@ namespace Msg
             void buildImage(const MsgMedia& media);
             void buildText(const MsgMedia& media);
             void buildAudio(const MsgMedia& media);
+            void buildVideo(const MsgMedia& media);
             void buildAttachmentInfo(int attachmentCount);
             void buildAttachment(const MsgAttachment& attachment);
 
         private:
             int m_Duration;
             std::string m_MediaPath;
+            Evas_Object *m_pVideoSink;
     };
 }
 
