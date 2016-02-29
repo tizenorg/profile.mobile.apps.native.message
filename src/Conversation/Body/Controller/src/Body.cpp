@@ -318,12 +318,14 @@ void Body::read(MessageMms &msg)
     for(PageView *page : pages)
     {
         MsgPage &msgPage = msg.addPage();
-        msgPage.setPageDuration(defaultPageDuration);
 
         readText(msgPage, *page);
         readImage(msgPage, *page);
         readVideo(msgPage, *page);
         readSound(msgPage, *page);
+
+        if(msgPage.getPageDuration() < defaultPageDuration)
+            msgPage.setPageDuration(defaultPageDuration);
     }
 
     // Attachments:
@@ -354,6 +356,9 @@ void Body::readSound(MsgPage &msgPage, const PageView &pageView)
         MsgMedia &media = msgPage.addMedia();
         media.setType(MsgMedia::SmilAudio);
         media.setFilePath(soundItem->getResourcePath());
+        int sec = MediaUtils::getDurationSec(soundItem->getResourcePath());
+        if(msgPage.getPageDuration() < sec)
+            msgPage.setPageDuration(sec);
     }
 }
 
@@ -376,6 +381,9 @@ void Body::readVideo(MsgPage &msgPage, const PageView &pageView)
         MsgMedia &media = msgPage.addMedia();
         media.setType(MsgMedia::SmilVideo);
         media.setFilePath(videoItem->getResourcePath());
+        int sec = MediaUtils::getDurationSec(videoItem->getResourcePath());
+        if(msgPage.getPageDuration() < sec)
+            msgPage.setPageDuration(sec);
     }
 }
 

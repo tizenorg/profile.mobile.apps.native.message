@@ -103,7 +103,7 @@ int MediaUtils::getDuration(const std::string &uri)
     if(extractor.isValid())
     {
         duration = extractor.getInt(METADATA_DURATION);
-        MSG_LOG("Duration: ", duration);
+        MSG_LOG("Duration msec: ", duration);
     }
     return duration;
 }
@@ -111,7 +111,9 @@ int MediaUtils::getDuration(const std::string &uri)
 int MediaUtils::getDurationSec(const std::string &uri)
 {
     double sec = ceil(getDuration(uri) / 1000.0);
-    return sec <= 0 ? 1 : sec;
+    int res = sec <= 0 ? 1 : sec;
+    MSG_LOG("Duration sec: ", res);
+    return res;
 }
 
 bool MediaUtils::getVideoFrame(const std::string &videoFilePath, const std::string &imageFilePath)
