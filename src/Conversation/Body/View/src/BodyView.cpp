@@ -378,22 +378,10 @@ PageView *BodyView::getPageForMedia(PageViewItem::Type type)
 {
     PageView *page = m_pLastFocusedPage;
 
-    if(page && !page->getItem(type))
+    if(page && page->testAddItem(type))
         return page;
 
-    page = nullptr;
-    auto pages = getPages();
-
-    for(PageView *p : pages)
-    {
-        if(!p->getItem(type))
-        {
-            page = p;
-            break;
-        }
-    }
-    if(!page)
-        page = addPage();
+    page = addPage();
 
     return page;
 }
