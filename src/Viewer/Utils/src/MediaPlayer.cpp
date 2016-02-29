@@ -39,6 +39,13 @@ MediaPlayer::~MediaPlayer()
     player_destroy(m_Player);
 }
 
+void MediaPlayer::setDisplay(Evas_Object *obj)
+{
+    player_set_display_mode(m_Player, PLAYER_DISPLAY_MODE_LETTER_BOX);
+    player_set_display(m_Player, PLAYER_DISPLAY_TYPE_EVAS, GET_DISPLAY(obj));
+    player_set_display_visible(m_Player, obj != nullptr);
+}
+
 player_state_e MediaPlayer::getState() const
 {
     player_state_e state = PLAYER_STATE_NONE;
@@ -48,6 +55,9 @@ player_state_e MediaPlayer::getState() const
 
 void MediaPlayer::start()
 {
+    if(getState() == PLAYER_STATE_IDLE)
+        player_prepare(m_Player);
+
     if(getState() != PLAYER_STATE_PLAYING)
         player_start(m_Player);
 }
@@ -75,7 +85,6 @@ void MediaPlayer::setUri(const std::string &uri)
     stop();
     player_unprepare(m_Player);
     player_set_uri(m_Player, uri.c_str());
-    player_prepare(m_Player);
 }
 
 void MediaPlayer::setListener(IMediaPlayerListener *l)
