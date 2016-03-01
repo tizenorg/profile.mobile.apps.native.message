@@ -264,6 +264,11 @@ build()
       BUILDKEYS+=" -P profile.$TIZENVERSION"
     fi
 
+    if [ $TIZENVERSION != "default" ] && [ $TIZENVERSION != "tizen_3.0" ];
+    then
+      GBSROOT="~/GBS-ROOT-profile.$TIZENVERSION"
+    fi
+
     ShowMessage "gbs -v -d build -B $GBSROOT -A $PLATFORM --include-all --keep-packs $BUILDKEYS"
     gbs -v -d build -B $GBSROOT -A $PLATFORM --include-all --keep-packs $BUILDKEYS 2>&1 | tee $gbsoutput
 
