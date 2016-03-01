@@ -3,8 +3,8 @@
 usage()
 {
 echo "
-usage: sh run.sh [-h] [-b] [-i] [-r] [-t] [-d] [-A ARCH]
-                 [--help] [--build] [--install] [--run] [--test] [--debug] [--arch ARCH]
+usage: sh run.sh [-h] [-b] [-i] [-q] [-r] [-t] [-d] [-A ARCH]
+                 [--help] [--build] [--install] [--quick-install] [--run] [--test] [--debug] [--arch ARCH]
 
 optional arguments:
   -h, --help             show this help message and exit
@@ -12,6 +12,7 @@ optional arguments:
 action:
   -b  --build           build project
   -i, --install         install to device or emulator
+  -q, --quick-install	quick installation(skips pkg_initdb). DO NOT use it when with manifest changed. Ignored in tizen-2.4 build
   -r, --run             run application. Don't use with -t option
   -n, --notest          skips build of unit-tests(tests are included into build-procedure by default), ignored without -b option
   -d, --debug           install debuginfo and debugsource packages
@@ -44,9 +45,10 @@ TESTOPTION=true
 PLATFORM=armv7l
 LOCALBUILD=false
 TIZENVERSION="default"
+QUICKINSTALL=false
 
-SHORTOPTS="hA:b::irdnlv"
-LONGOPTS="arch:,build::,install,run,debug,notest,help,local,version:"
+SHORTOPTS="hA:b::irdnlvq"
+LONGOPTS="arch:,build::,install,run,debug,notest,help,local,version,quick-install:"
 SCRIPTNAME=`basename $0`
 
 ARGS=$(getopt -q --options "$SHORTOPTS" --longoptions "$LONGOPTS" --name $SCRIPTNAME -- "$@")
@@ -97,6 +99,9 @@ while true; do
       -n|--notest)
          TESTOPTION=false
          ;;
+      -q|--quick-install)
+	 QUICKINSTALL=true
+	 ;;
       -l|--local)
          LOCALBUILD=true
          ;;
@@ -119,6 +124,7 @@ echo "DEBUGOPTION=$DEBUGOPTION"
 echo "TESTOPTION=$TESTOPTION"
 echo "PLATFORM=$PLATFORM"
 echo "TIZENVERSION=$TIZENVERSION"
+echo "QUICKINSTALL=$QUICKINSTALL"
 
 ##------------- project config -------------##
 
@@ -264,6 +270,11 @@ build()
       BUILDKEYS+=" -P profile.$TIZENVERSION"
     fi
 
+    if [ $TIZENVERSION != "default" ] && [ $TIZENVERSION != "tizen_3.0" ];
+    then
+      GBSROOT="~/GBS-ROOT-profile.$TIZENVERSION"
+    fi
+
     ShowMessage "gbs -v -d build -B $GBSROOT -A $PLATFORM --include-all --keep-packs $BUILDKEYS"
     gbs -v -d build -B $GBSROOT -A $PLATFORM --include-all --keep-packs $BUILDKEYS 2>&1 | tee $gbsoutput
 
@@ -370,7 +381,7 @@ install()
         SdbShell "rpm -i $TEMPDIR/$DEBUGSOURCEPKGNAME.rpm"
     fi
 
-    if [ $TIZENVERSION != "tizen_2.4" ];
+    if [ $TIZENVERSION != "tizen_2.4" ] && [ $QUICKINSTALL = "false" ];
     then
       SdbShell "pkg_initdb"
       ShowMessage "pkg_initdb finished" -c green --noti
