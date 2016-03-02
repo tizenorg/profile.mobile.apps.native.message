@@ -1,3 +1,4 @@
+#include "colors_define.inl"
 #define ENTRY_BUBBLE_TEXT_SIZE 30
 
 #define BUBBLE_INFO_HEIGHT 88
@@ -39,6 +40,16 @@
 #define BUBBLE_BG_RECEIVED_COLOR 65 197 217 255
 #define BUBBLE_BG_RECEIVED_COLOR_PRESSED 50 150 166 255
 
+#define DATELINE_TEXT_SIZE 28
+#define DATELINE_TOP_PADDING 16
+#define DATELINE_BOTTOM_PADDING 12
+#define DATELINE_SIDE_PADDING 32
+#define DATELINE_CENTER_PADDING 12
+#define DATELINE_HEIGHT 66
+#define DIVIDER_TOP_PADDING 20
+#define DIVIDER_BOTTOM_PADDING 16
+#define DIVIDER_HEIGHT 2
+
 collections {
 
     base_scale: 2.6;
@@ -47,6 +58,7 @@ images {
     image: "messages_bubble_bg.#.png" COMP;
     image: "messages_bubble_bg_ef.#.png" COMP;
     image: "messages_bubble_line_draft.#.png" COMP;
+    image: "messages_date_divider.#.png" COMP;
 }
 
 styles {
@@ -79,6 +91,10 @@ styles {
         tag:  "link" "+ color=#00000080 underline=on underline_color=#00000080";
         tag:  "hilight" "+ font=Tizen:style=Bold";
         tag:  "match" "+ color=#FFFFFF color_class=T1067";
+    }
+    style {
+        name: "dateline_textblock_style";
+        base: "font=Tizen:style=Roman font_size="DATELINE_TEXT_SIZE" color=#"BUBBLE_DATELINE_TEXTSTYLE_COLOR_HEX" align=center";
     }
 }
 
@@ -533,6 +549,141 @@ group { name: "elm/genlist/item/receivebubble/default";
                 rel1.relative: 1.0 0.0;
                 rel2.to: "";
                 align: 0.0 0.0;
+            }
+        }
+    }
+}
+
+group {
+    name: "elm/genlist/item/dateline/default";
+    alias: "elm/genlist/item_compress/dateline/default";
+
+    data.item: "banded_bg_area" "elm.swallow.bg";
+    data.item: "texts" "text.date";
+
+    parts{
+        spacer { "base"; scale; nomouse;
+            desc { "default";
+                align: 0.5 0.5;
+                min: 0 DATELINE_HEIGHT;
+                max: -1 DATELINE_HEIGHT;
+                rel1.relative: 0.0 0.0;
+                rel2.relative: 1.0 1.0;
+                fixed: 0 1;
+            }
+        }
+        swallow { "elm.swallow.bg"; scale; nomouse;
+            desc { "default";
+            }
+        }
+        spacer { "pad.top"; scale; nomouse;
+            desc { "default";
+                align: 0.5 0.0;
+                min: 0 DATELINE_TOP_PADDING;
+                max: -1 DATELINE_TOP_PADDING;
+                rel1.to: "base";
+                fixed: 0 1;
+            }
+        }
+        spacer { "pad.bottom"; scale; nomouse;
+            desc { "default";
+                align: 0.5 1.0;
+                min: 0 DATELINE_BOTTOM_PADDING;
+                max: -1 DATELINE_BOTTOM_PADDING;
+                rel2.to: "base";
+                fixed: 0 1;
+            }
+        }
+        textblock { "text.date"; scale; nomouse;
+            desc { "default";
+                align: 0.5 0.5;
+                rel1.to_x: "base";
+                rel1.to_y: "pad.top";
+                rel1.relative: 0.0 1.0;
+                rel2.to_x: "base";
+                rel2.to_y: "pad.bottom";
+                rel2.relative: 1.0 0.0;
+                text.style: "dateline_textblock_style";
+                text.max: 1 0;
+                fixed: 0 1;
+            }
+        }
+        spacer { "pad.left"; scale; nomouse;
+            desc { "default";
+                align: 0.0 0.5;
+                min: DATELINE_SIDE_PADDING 0;
+                max: DATELINE_SIDE_PADDING -1;
+                rel1.to: "base";
+                fixed: 1 0;
+            }
+        }
+        spacer { "pad.right"; scale; nomouse;
+            desc { "default";
+                align: 1.0 0.5;
+                min: DATELINE_SIDE_PADDING 0;
+                max: DATELINE_SIDE_PADDING -1;
+                rel2.to: "base";
+                fixed: 1 0;
+            }
+        }
+        spacer { "pad.left.center"; scale; nomouse;
+            desc { "default";
+                align: 1.0 0.5;
+                min: DATELINE_CENTER_PADDING 0;
+                max: DATELINE_CENTER_PADDING -1;
+                rel2.to: "text.date";
+                rel2.relative: 0.0 1.0;
+                fixed: 1 0;
+            }
+        }
+        spacer { "pad.right.center"; scale; nomouse;
+            desc { "default";
+                align: 0.0 0.5;
+                min: DATELINE_CENTER_PADDING 0;
+                max: DATELINE_CENTER_PADDING -1;
+                rel1.to: "text.date";
+                rel1.relative: 1.0 0.0;
+                fixed: 1 0;
+            }
+        }
+        spacer { "pad.top.divider"; scale; nomouse;
+            desc { "default";
+                align: 0.5 0.0;
+                min: 0 DIVIDER_TOP_PADDING;
+                max: -1 DIVIDER_TOP_PADDING;
+                rel1.to: "pad.top";
+                rel1.relative: 0.0 1.0;
+                fixed: 0 1;
+            }
+        }
+        image { "dateline.left"; scale; nomouse;
+            description { "default";
+                align: 0.0 0.0;
+                min: 0 DIVIDER_HEIGHT;
+                max: -1 DIVIDER_HEIGHT;
+                rel1.to_x: "pad.left";
+                rel1.to_y: "pad.top.divider";
+                rel1.relative: 1.0 1.0;
+                rel2.to_x: "pad.left.center";
+                rel2.relative: 0.0 1.0;
+                color: BUBBLE_DATELINE_DIVIDER_COLOR_EDC;
+                image.normal: "messages_date_divider.#.png";
+                fixed: 0 1;
+            }
+        }
+        image { "dateline.right"; scale; nomouse;
+            desc { "default";
+                align: 1.0 0.0;
+                min: 0 DIVIDER_HEIGHT;
+                max: -1 DIVIDER_HEIGHT;
+                rel1.to_x: "pad.right.center";
+                rel1.to_y: "pad.top.divider";
+                rel1.relative: 1.0 1.0;
+                rel2.to_x: "pad.right";
+                rel2.relative: 0.0 1.0;
+                color: BUBBLE_DATELINE_DIVIDER_COLOR_EDC;
+                image.normal: "messages_date_divider.#.png";
+                fixed: 0 1;
             }
         }
     }
