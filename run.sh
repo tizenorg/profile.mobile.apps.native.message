@@ -47,6 +47,16 @@ LOCALBUILD=false
 TIZENVERSION="default"
 QUICKINSTALL=false
 
+##------------- project config -------------##
+PREFIX="org.tizen"
+INSTALLDIR=/usr/apps
+HOMEDIR="$(getent passwd $USER | awk -F ':' '{print $6}')"
+SDB=$HOMEDIR/tizen-sdk/tools/sdb
+TEMPDIR=/home/rpms # for keeping rpm packages on device
+GBSROOT=$HOMEDIR/GBS-ROOT
+RPMSPATH=$GBSROOT/local/BUILD-ROOTS/scratch.$PLATFORM.0/home/abuild/rpmbuild/RPMS/$PLATFORM
+##------------- project config -------------##
+
 SHORTOPTS="hA:b::irdnlvq"
 LONGOPTS="arch:,build::,install,run,debug,notest,help,local,version,quick-install:"
 SCRIPTNAME=`basename $0`
@@ -77,6 +87,11 @@ while true; do
            exit 0;
          fi
          TIZENVERSION=$2
+         if [ $TIZENVERSION != "default" ] && [ $TIZENVERSION != "tizen_3.0" ];
+	 then
+	    GBSROOT="$HOMEDIR/GBS-ROOT-profile.$TIZENVERSION"
+	 fi
+	 RPMSPATH=$GBSROOT/local/BUILD-ROOTS/scratch.$PLATFORM.0/home/abuild/rpmbuild/RPMS/$PLATFORM
          shift
          ;;
       -b|--build)
@@ -126,14 +141,6 @@ echo "PLATFORM=$PLATFORM"
 echo "TIZENVERSION=$TIZENVERSION"
 echo "QUICKINSTALL=$QUICKINSTALL"
 
-##------------- project config -------------##
-
-PREFIX="org.tizen"
-INSTALLDIR=/usr/apps
-SDB=~/tizen-sdk/tools/sdb
-TEMPDIR=/home/rpms # for keeping rpm packages on device
-GBSROOT=~/GBS-ROOT
-
 ##------------------ spec ------------------##
 
 spec_file=`find -name *.spec`
@@ -146,8 +153,6 @@ VERSION=`cat "$spec_file" | grep ^Version | awk '{print $2}'`
 RELEASE=`cat "$spec_file" | grep ^Release | awk '{print $2}'`
 # message
 BINNAME=`echo $APPNAME | sed "s/$PREFIX\.//"`
-
-RPMSPATH=$GBSROOT/local/BUILD-ROOTS/scratch.$PLATFORM.0/home/abuild/rpmbuild/RPMS/$PLATFORM
 
 DEBUGSOURCEPKGNAME=$APPNAME-debugsource-$VERSION-$RELEASE.$PLATFORM
 DEBUGINFOPKGNAME=$APPNAME-debuginfo-$VERSION-$RELEASE.$PLATFORM
@@ -268,11 +273,6 @@ build()
     if [ $TIZENVERSION != "default" ];
     then
       BUILDKEYS+=" -P profile.$TIZENVERSION"
-    fi
-
-    if [ $TIZENVERSION != "default" ] && [ $TIZENVERSION != "tizen_3.0" ];
-    then
-      GBSROOT="~/GBS-ROOT-profile.$TIZENVERSION"
     fi
 
     ShowMessage "gbs -v -d build -B $GBSROOT -A $PLATFORM --include-all --keep-packs $BUILDKEYS"
