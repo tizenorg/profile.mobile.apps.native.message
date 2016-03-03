@@ -15,8 +15,8 @@
  *
  */
 
-#ifndef BodyAttachmentView_h_
-#define BodyAttachmentView_h_
+#ifndef BodyAttachmentViewItem_h_
+#define BodyAttachmentViewItem_h_
 
 #include "BodyViewItem.h"
 
@@ -25,12 +25,12 @@ namespace Msg
     class BodyView;
     class IBodyAttachmentViewListener;
 
-    class BodyAttachmentView
+    class BodyAttachmentViewItem
         : public BodyViewItem
     {
         public:
-            BodyAttachmentView(BodyView &parent, const std::string &resourePath, const std::string &dispName = "");
-            virtual ~BodyAttachmentView();
+            BodyAttachmentViewItem(BodyView &parent, const std::string &resourePath, const std::string &dispName = "");
+            virtual ~BodyAttachmentViewItem();
 
             void setListener(IBodyAttachmentViewListener *listener);
             const std::string &getResourcePath() const;
@@ -52,9 +52,9 @@ namespace Msg
     {
         public:
             virtual ~IBodyAttachmentViewListener() {}
-            virtual void onClicked(BodyAttachmentView &item) {};
-            virtual void onDelete(BodyAttachmentView &item) {};
+            virtual void onClicked(BodyAttachmentViewItem &item) {};
+            virtual void onDelete(BodyAttachmentViewItem &item) {};
     };
 }
 
-#endif /* BodyAttachmentView_h_ */
+#endif /* BodyAttachmentViewItem_h_ */

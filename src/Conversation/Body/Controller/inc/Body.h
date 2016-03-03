@@ -30,7 +30,9 @@
 namespace Msg
 {
     class IBodyListener;
-    class MsgEngine;
+    class App;
+    class PopupListItem;
+    class PopupList;
 
     struct BodySmsSize
     {
@@ -42,7 +44,7 @@ namespace Msg
         : public BodyView
     {
         public:
-            Body(Evas_Object *parent, MsgEngine &msgEngine);
+            Body(Evas_Object *parent, App &app);
             virtual ~Body();
 
             void setListener(IBodyListener *listener);
@@ -80,11 +82,20 @@ namespace Msg
             // BodyView:
             virtual void onContentChanged();
             virtual void onItemDelete(PageViewItem &item);
-            virtual void onItemDelete(BodyAttachmentView &item);
+            virtual void onItemDelete(BodyAttachmentViewItem &item);
 
+            //IMediaPageViewItemListener
+            virtual void onClicked(MediaPageViewItem &item);
+
+            //IBodyAttachmentViewListener
+            virtual void onClicked(BodyAttachmentViewItem &item);
+
+            PopupList &createPopupList(const std::string &title);
+            void onRemoveMediaItemPressed(PopupListItem &item);
+            void onRemoveBodyItemPressed(PopupListItem &item);
         private:
             IBodyListener *m_pListener;
-            MsgEngine &m_MsgEngine;
+            App &m_App;
             WorkingDir m_WorkingDir;
             Ecore_Idler *m_pOnChangedIdler;
     };

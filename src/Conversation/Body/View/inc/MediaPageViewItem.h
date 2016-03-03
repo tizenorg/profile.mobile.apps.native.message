@@ -37,6 +37,7 @@ namespace Msg
 
             virtual void highlight(bool value) = 0;
 
+            virtual std::string getFileName() const = 0;
         protected:
             Evas_Object *getMediaLayout() const;
             Evas_Object *getButtonLayout() const;

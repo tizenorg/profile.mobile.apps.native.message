@@ -384,7 +384,7 @@ void Conversation::createBody(Evas_Object *parent)
 {
     if(!m_pBody)
     {
-        m_pBody = new Body(*m_pMsgInputPanel, getMsgEngine());
+        m_pBody = new Body(*m_pMsgInputPanel, getApp());
         m_pBody->setListener(this);
         m_pBody->show();
         assert(m_pMsgInputPanel);
@@ -703,7 +703,7 @@ void Conversation::onButtonClicked(MessageInputPanel &obj, MessageInputPanel::Bu
 
 void Conversation::onContactSelected(ContactListItem &item)
 {
-    MbeRecipients::AppendItemStatus status = m_pRecipPanel->appendItem(item.getRecipient());
+    m_pRecipPanel->appendItem(item.getRecipient());
     m_pRecipPanel->clearEntry();
     m_pContactsList->clear();
 }

@@ -18,7 +18,7 @@
 #include "ImagePageViewItem.h"
 #include "PageView.h"
 #include "Logger.h"
-
+#include "FileUtils.h"
 #include <assert.h>
 
 using namespace Msg;
@@ -82,6 +82,11 @@ void ImagePageViewItem::highlight(bool value)
 {
     const char *sig = value ? "focused" : "unfocused";
     elm_object_signal_emit(m_pImageLayout, sig, "*");
+}
+
+std::string ImagePageViewItem::getFileName() const
+{
+    return FileUtils::getFileName(m_ImagePath);
 }
 
 Evas_Object *ImagePageViewItem::createImageLayout(Evas_Object *parent)

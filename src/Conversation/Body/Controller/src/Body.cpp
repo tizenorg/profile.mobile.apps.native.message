@@ -15,6 +15,7 @@
  *
  */
 
+#include "App.h"
 #include "Body.h"
 #include "PageView.h"
 #include "FileUtils.h"
@@ -25,6 +26,8 @@
 #include "MsgEngine.h"
 #include "Logger.h"
 #include "MediaUtils.h"
+#include "PopupList.h"
+#include "PopupBodyAttachmentListItem.h"
 
 #include <assert.h>
 #include <string.h>
@@ -41,10 +44,10 @@ namespace
     }
 }
 
-Body::Body(Evas_Object *parent, MsgEngine &msgEngine)
+Body::Body(Evas_Object *parent, App &app)
     : BodyView(parent)
     , m_pListener(nullptr)
-    , m_MsgEngine(msgEngine)
+    , m_App(app)
     , m_pOnChangedIdler(nullptr)
 {
 }
@@ -171,8 +174,8 @@ BodySmsSize Body::getSmsSize() const
     {
         std::string text = textItem->getPlainUtf8Text();
 
-        int textLen = m_MsgEngine.calculateTextLen(text);
-        int maxChar = m_MsgEngine.getSettings().getMessageTextMaxChar();
+        int textLen = m_App.getMsgEngine().calculateTextLen(text);
+        int maxChar = m_App.getMsgEngine().getSettings().getMessageTextMaxChar();
 
         int txtLenTmp = textLen > 0 ? textLen - 1 : textLen;
         size.smsCount = txtLenTmp / maxChar + 1;
@@ -390,7 +393,7 @@ void Body::readVideo(MsgPage &msgPage, const PageView &pageView)
 void Body::readAttachments(MessageMms &msg)
 {
     auto attachments = getAttachments();
-    for(BodyAttachmentView *attachView : attachments)
+    for(BodyAttachmentViewItem *attachView : attachments)
     {
         std::string resPath= attachView->getResourcePath();
         std::string mime = getMediaType(resPath).mime;
@@ -437,9 +440,54 @@ void Body::onItemDelete(PageViewItem &item)
     m_WorkingDir.removeFile(item.getResourcePath());
 }
 
-void Body::onItemDelete(BodyAttachmentView &item)
+void Body::onItemDelete(BodyAttachmentViewItem &item)
 {
     m_WorkingDir.removeFile(item.getResourcePath());
+}
+
+void Body::onClicked(MediaPageViewItem &item)
+{
+    MSG_LOG("");
+    PopupList &popupList = createPopupList(item.getFileName());
+    popupList.appendItem(*new PopupBodyAttachmentListItem(popupList, msg("IDS_MSGF_OPT_REMOVE"), item,
+                POPUPLIST_ITEM_PRESSED_CB(Body, onRemoveMediaItemPressed), this));
+    popupList.show();
+}
+
+void Body::onClicked(BodyAttachmentViewItem &item)
+{
+    MSG_LOG("");
+    PopupList &popupList = createPopupList(item.getFileName());
+
+    popupList.appendItem(*new BodyAttachmentListItem(popupList, msg("IDS_MSGF_OPT_REMOVE"), item,
+                POPUPLIST_ITEM_PRESSED_CB(Body, onRemoveBodyItemPressed), this));
+    popupList.show();
+}
+
+PopupList &Body::createPopupList(const std::string &title)
+{
+    PopupList &popupList = m_App.getPopupManager().getPopupList();
+    popupList.setTitle(title);
+    popupList.setAutoDismissBlockClickedFlag(true);
+    return popupList;
+}
+
+void Body::onRemoveMediaItemPressed(PopupListItem &item)
+{
+    MSG_LOG("");
+    PopupBodyAttachmentListItem &listItem = static_cast<PopupBodyAttachmentListItem&>(item);
+    PageViewItem &pageViewItem = listItem.getPageItem();
+    pageViewItem.destroy();
+    item.getParent().destroy();
+}
+
+void Body::onRemoveBodyItemPressed(PopupListItem &item)
+{
+    MSG_LOG("");
+    BodyAttachmentListItem &listItem = static_cast<BodyAttachmentListItem&>(item);
+    BodyAttachmentViewItem &bodyItem = listItem.getBodyItem();
+    bodyItem.destroy();
+    item.getParent().destroy();
 }
 
 void Body::onContentChanged()
