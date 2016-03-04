@@ -29,6 +29,7 @@ namespace Msg
             DateLineViewItem(const std::string &dateLine);
             virtual ~DateLineViewItem();
 
+            std::string getDateLine() const;
         private:
             virtual std::string getText(ListItem &item, const char *part);
 

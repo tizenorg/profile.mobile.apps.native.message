@@ -159,7 +159,7 @@ namespace Msg
     template<typename T>
     inline T ViewItem::dynamicCast(void *elmObjectItem)
     {
-        return dynamic_cast<T>(staticCast<T>(elmObjectItem));
+        return dynamic_cast<T>(staticCast<ViewItem*>(elmObjectItem));
     }
 }
 

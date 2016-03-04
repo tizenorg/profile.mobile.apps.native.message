@@ -277,7 +277,7 @@ namespace Msg
     template<typename T>
     inline T View::dynamicCast(void *evasObj)
     {
-        return dynamic_cast<T>(staticCast<T>(evasObj));
+        return dynamic_cast<T>(staticCast<View*>(evasObj));
     }
 
     inline void View::addEventCb(Evas_Callback_Type type, Evas_Object_Event_Cb func, const void *data)

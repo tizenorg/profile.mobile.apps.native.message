@@ -47,6 +47,11 @@ namespace Msg
              * @brief Returns MsgId related to this ConvListItem
              */
             MsgId getMsgId() const;
+
+            /**
+             * @brief Returns message's time
+             */
+            time_t getRawTime() const;
             void showPopup();
             void setListener(IConvListItemListener *l);
             void updateStatus();

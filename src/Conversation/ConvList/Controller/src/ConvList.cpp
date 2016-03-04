@@ -16,9 +16,9 @@
  */
 
 #include "ConvList.h"
-#include "ConvListItem.h"
 #include "Logger.h"
 #include "CallbackAssist.h"
+#include "TimeUtils.h"
 
 using namespace Msg;
 
@@ -35,6 +35,7 @@ ConvList::ConvList(Evas_Object *parent, App &app)
     , m_pSelectAll(nullptr)
     , m_pList(nullptr)
     , m_ConvListItemMap()
+    , m_DateLineItemMap()
     , m_pListner(nullptr)
     , m_App(app)
 {
@@ -112,6 +113,7 @@ void ConvList::fill()
     MsgConversationListRef convList = m_MsgEngine.getStorage().getConversationList(m_ThreadId);
     int convListLen = convList->getLength();
     m_ConvListItemMap.reserve(convListLen <= minMessagesBulk/2 ? minMessagesBulk : convListLen + additionalMessagesBulk);
+    m_DateLineItemMap.reserve(convListLen <= minMessagesBulk/2 ? minMessagesBulk : convListLen + additionalMessagesBulk);
 
     for(int i = 0; i < convListLen; ++i)
     {
@@ -145,6 +147,7 @@ ConvListItem *ConvList::getItem(MsgId msgId) const
 
 void ConvList::appendItem(ConvListItem *item)
 {
+    dateLineAddIfNec(item);
     m_ConvListItemMap[item->getMsgId()] = item;
     item->setListener(this);
     m_pList->appendItem(*item);
@@ -152,14 +155,55 @@ void ConvList::appendItem(ConvListItem *item)
 
 void ConvList::deleteItem(ConvListItem *item)
 {
+    dateLineDelIfNec(item);
     m_ConvListItemMap.erase(item->getMsgId());
     m_pList->deleteItem(*item);
+}
+
+void ConvList::demoteItem(ConvListItem *item)
+{
+    dateLineDelIfNec(item);
+    dateLineAddIfNec(item);
+    elm_genlist_item_demote(item->getElmObjItem());
+}
+
+void ConvList::dateLineDelIfNec(ConvListItem *item)
+{
+    bool needDelDateLine = false;
+    DateLineViewItem *prev = ViewItem::dynamicCast<DateLineViewItem*>(elm_genlist_item_prev_get(item->getElmObjItem()));
+    if(prev)
+    {
+        auto nextEOI = elm_genlist_item_next_get(item->getElmObjItem());
+        if(nextEOI)
+            needDelDateLine = ViewItem::dynamicCast<DateLineViewItem*>(nextEOI) != nullptr;
+        else
+            needDelDateLine = true;
+    }
+
+    if(needDelDateLine)
+    {
+        m_DateLineItemMap.erase(prev->getDateLine());
+        m_pList->deleteItem(*prev);
+    }
+}
+
+void ConvList::dateLineAddIfNec(ConvListItem *item)
+{
+    std::string dateStr = TimeUtils::makeBubbleDateLineString(item->getRawTime());
+    auto it = m_DateLineItemMap.find(dateStr);
+    if (it == m_DateLineItemMap.end())
+    {
+        DateLineViewItem *dateLine = new DateLineViewItem(dateStr);
+        m_DateLineItemMap[dateStr] = dateLine;
+        m_pList->appendItem(*dateLine);
+    }
 }
 
 void ConvList::clear()
 {
     m_pList->clear();
     m_ConvListItemMap.clear();
+    m_DateLineItemMap.clear();
 }
 
 void ConvList::deleteSelectedItems()
@@ -243,7 +287,10 @@ void ConvList::onMsgStorageUpdate(const MsgIdList &msgIdList)
     {
         ConvListItem *updated = getItem(itemId);
         if(updated)
+        {
             updated->updateStatus();
+            demoteItem(updated);
+        }
     }
 }
 

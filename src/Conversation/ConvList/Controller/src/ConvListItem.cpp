@@ -55,19 +55,15 @@ void ConvListItem::updateStatus()
         m_NetworkStatus = msg->getNetworkStatus();
     }
 
-
-    if(m_NetworkStatus != Message::NS_Sending)
-    {
-        if(m_NetworkStatus == Message::NS_Send_Fail)
-            updateItemType(ConvItemType::Failed);
-        else if(m_NetworkStatus == Message::NS_Send_Success)
-            updateItemType(ConvItemType::Sent);
-        else if(m_NetworkStatus == Message::NS_Not_Send)
-            updateItemType(ConvItemType::Draft);
-        else if(m_NetworkStatus == Message::NS_Received)
-            updateItemType(ConvItemType::Received);
-        update();
-    }
+    if(m_NetworkStatus == Message::NS_Send_Fail)
+        updateItemType(ConvItemType::Failed);
+    else if(m_NetworkStatus == Message::NS_Send_Success || m_NetworkStatus == Message::NS_Sending)
+        updateItemType(ConvItemType::Sent);
+    else if(m_NetworkStatus == Message::NS_Not_Send)
+        updateItemType(ConvItemType::Draft);
+    else if(m_NetworkStatus == Message::NS_Received)
+        updateItemType(ConvItemType::Received);
+    update();
 }
 
 ConvListViewItem::ConvItemType ConvListItem::getConvItemType(const MsgConversationItem &item)
@@ -143,6 +139,11 @@ std::string ConvListItem::getTime()
 MsgId ConvListItem::getMsgId() const
 {
     return m_MsgId;
+}
+
+time_t ConvListItem::getRawTime() const
+{
+    return m_Time;
 }
 
 void ConvListItem::setListener(IConvListItemListener *l)
