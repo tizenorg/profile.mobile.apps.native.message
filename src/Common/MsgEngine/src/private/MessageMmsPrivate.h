@@ -34,6 +34,7 @@ namespace Msg
 
             virtual void setText(const std::string &text);
             virtual std::string getText() const;
+            int getMediaCount() const;
             virtual Type getType() const;
 
             virtual const MsgPageListHandlePrivate &getPageList() const;

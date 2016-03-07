@@ -23,6 +23,7 @@
 #include <telephony_sim.h>
 #include "FileUtils.h"
 #include "TimeUtils.h"
+#include "SaveAttachmentsPopup.h"
 
 using namespace Msg;
 
@@ -155,6 +156,7 @@ void ConvListItem::showPopup()
 void ConvListItem::showMainCtxPopup()
 {
     auto &ctxPopup = m_App.getPopupManager().getCtxPopup();
+
     std::string msgText = getAllMsgText();
 
     if(m_NetworkStatus == Message::NS_Send_Fail)
@@ -174,7 +176,11 @@ void ConvListItem::showMainCtxPopup()
         ctxPopup.appendItem(msg("IDS_MSG_OPT_EDIT"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onEditItemPressed), this);
 
     if(m_Type == Message::MT_MMS)
-        ctxPopup.appendItem(msg("IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onSaveAttachmentsItemPressed), this);
+    {
+        MessageMmsRef mms = std::dynamic_pointer_cast<MessageMms>(m_App.getMsgEngine().getStorage().getMessage(m_MsgId));
+        if(mms && (!mms->getAttachmentList().isEmpty() || mms->getMediaCount() > 0))
+            ctxPopup.appendItem(msg("IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onSaveAttachmentsItemPressed), this);
+    }
 
     if(m_NetworkStatus != Message::NS_Sending && !msgText.empty())
         ctxPopup.appendItem(msg("IDS_MSG_OPT_COPY_TO_SIM_CARD_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onCopyToSimCardItemPressed), this);
@@ -265,6 +271,13 @@ void ConvListItem::onEditItemPressed(ContextPopupItem &item)
 void ConvListItem::onSaveAttachmentsItemPressed(ContextPopupItem &item)
 {
     MSG_LOG("");
+    MessageMmsRef mms = std::dynamic_pointer_cast<MessageMms>(m_App.getMsgEngine().getStorage().getMessage(m_MsgId));
+    if(mms)
+    {
+        SaveAttachmentsPopup *popup = new SaveAttachmentsPopup(m_App, *mms);
+        m_App.getPopupManager().reset(*popup);
+        popup->show();
+    }
 }
 
 void ConvListItem::onCopyToSimCardItemPressed(ContextPopupItem &item)

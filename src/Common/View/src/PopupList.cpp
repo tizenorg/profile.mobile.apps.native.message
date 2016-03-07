@@ -16,6 +16,7 @@
  */
 
 #include "PopupList.h"
+#include "PopupAttachmentListItem.h"
 #include <string.h>
 
 using namespace Msg;
@@ -46,6 +47,11 @@ void PopupList::appendItem(PopupListItem &item)
 void PopupList::appendItem(const std::string &text, PopupListItemPressedCb cb, void *userData)
 {
     m_pList->appendItem(*new PopupTextListItem(*this, text, cb, userData));
+}
+
+void PopupList::appendItem(const std::string &text, const std::string &path, PopupListItemPressedCb cb, void *userData)
+{
+    m_pList->appendItem(*new PopupAttachmentListItem(*this, text, path, cb, userData));
 }
 
 void PopupList::create()
