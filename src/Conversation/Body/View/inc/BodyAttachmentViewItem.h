@@ -29,12 +29,13 @@ namespace Msg
         : public BodyViewItem
     {
         public:
-            BodyAttachmentViewItem(BodyView &parent, const std::string &resourePath, const std::string &dispName = "");
+            BodyAttachmentViewItem(BodyView &parent, const std::string &resourePath, long long fileSize, const std::string &dispName = "");
             virtual ~BodyAttachmentViewItem();
 
             void setListener(IBodyAttachmentViewListener *listener);
             const std::string &getResourcePath() const;
             const std::string &getFileName() const;
+            long long getFileSize() const;
 
         private:
             Evas_Object *createLayout(Evas_Object *parent);
@@ -46,6 +47,7 @@ namespace Msg
             IBodyAttachmentViewListener *m_pListener;
             const std::string m_ResourePath;
             std::string m_FileName;
+            long long m_FileSize;
     };
 
     class IBodyAttachmentViewListener

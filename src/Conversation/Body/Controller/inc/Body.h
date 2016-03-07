@@ -23,6 +23,7 @@
 #include "MessageMms.h"
 #include "WorkingDir.h"
 #include "AppControlCompose.h"
+#include "Page.h"
 
 #include <list>
 #include <Ecore.h>
@@ -34,32 +35,31 @@ namespace Msg
     class PopupListItem;
     class PopupList;
 
-    struct BodySmsSize
-    {
-        int charsLeft;
-        int smsCount;
-    };
+    // TODO: move page(controller) methods to Page class
 
     class Body
         : public BodyView
     {
         public:
-            Body(Evas_Object *parent, App &app);
+            Body(App &app);
             virtual ~Body();
 
+            void create(Evas_Object *parent);
             void setListener(IBodyListener *listener);
 
             bool addMedia(const std::list<std::string> &fileList);
             bool addMedia(const std::string &filePath);
 
-            bool isMms() const;
-            BodySmsSize getSmsSize() const;
-            long long getMmsSize() const;
+            bool isMms();
+            const MsgTextMetric &getTextMetric();
+            long long getMsgSize();
             void read(Message &msg);
             void write(const Message &msg);
             void execCmd(const AppControlComposeRef &cmd);
 
         private:
+            Page &createPage();
+
             void read(MessageSMS &msg);
             void read(MessageMms &msg);
             void readText(MsgPage &msgPage, const PageView &pageView);
@@ -75,9 +75,11 @@ namespace Msg
             void writeVideo(const MsgMedia &msgMedia, PageView &pageView);
             void writeSound(const MsgMedia &msgMedia, PageView &pageView);
             void writeAttachments(const MessageMms &msg);
-            bool isMms(const PageView &page) const;
             void writeTextToFile(TextPageViewItem &item);
-            bool addVideo(PageView &page, const std::string &videoFilePath);
+            void addVideo(PageView &page, const std::string &videoPath);
+            void addImage(PageView &page, const std::string &filePath);
+            void addSound(PageView &page, const std::string &filePath, const std::string &fileName = "");
+            void addAttachment( const std::string &filePath, const std::string &fileName = "");
 
             // BodyView:
             virtual void onContentChanged();

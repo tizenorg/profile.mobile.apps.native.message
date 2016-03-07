@@ -15,24 +15,35 @@
  *
  */
 
-#ifndef VideoPageViewItem_h_
-#define VideoPageViewItem_h_
+#ifndef Page_h_
+#define Page_h_
 
-#include "ImagePageViewItem.h"
-
-#include <vector>
+#include "PageView.h"
+#include "MsgEngine.h"
 
 namespace Msg
 {
-    class VideoPageViewItem
-        : public ImagePageViewItem
+    class Body;
+    class Page
+        : public PageView
     {
         public:
-            VideoPageViewItem(PageView &parent, const std::string &reourcePath, long long fileSize, const std::string &imagePath);
-            virtual ~VideoPageViewItem();
 
-            virtual Type getType() const;
+
+        public:
+            Page(Body &parent);
+            virtual ~Page();
+
+            const MsgTextMetric &getTextMetric();
+            long long getSize();
+            bool isMms();
+
+        private:
+            void updateMsgMetricIfNeeded();
+
+        private:
+            MsgTextMetric m_MsgMetric;
     };
 }
 
-#endif /* VideoPageViewItem_h_ */
+#endif /* Page_h_ */

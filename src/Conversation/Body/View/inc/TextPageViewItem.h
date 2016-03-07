@@ -34,6 +34,8 @@ namespace Msg
 
             virtual Type getType() const;
             virtual bool isEmpty() const;
+            void resetChangedFlag();
+            bool hasChanged() const;
 
             void showInputPanel(bool show);
             int getCursorPos() const;
@@ -56,6 +58,7 @@ namespace Msg
         private:
             Evas_Object *m_pEntry;
             ITextPageViewItemListener *m_pListener;
+            bool m_Changed;
     };
 
     class ITextPageViewItemListener

@@ -77,6 +77,33 @@ namespace Msg
     };
 
     typedef std::vector<MsgId> MsgIdList;
+
+    struct MsgTextMetric
+    {
+        MsgTextMetric();
+        void reset();
+
+        unsigned charsLeft;     // Only for SMS
+        unsigned segmentsCount; // Only for SMS
+        unsigned bytes;         // SMS or MMS
+        bool isMms;             // SMS or MMS
+    };
+
+    inline MsgTextMetric::MsgTextMetric()
+        : charsLeft(0)
+        , segmentsCount(0)
+        , bytes(0)
+        , isMms(false)
+    {
+    }
+
+    inline void MsgTextMetric::reset()
+    {
+        charsLeft = 0;
+        segmentsCount = 0;
+        bytes = 0;
+        isMms = false;
+    }
 }
 
 #endif /* MSGTYPES_H_ */

@@ -37,19 +37,25 @@ using namespace Msg;
 namespace
 {
     const int defaultPageDuration = 5; // sec
-
     inline TextPageViewItem *getTextItem(const PageView &page)
     {
         return page ? static_cast<TextPageViewItem*>(page.getItem(PageViewItem::TextType)) : nullptr;
     }
 }
 
-Body::Body(Evas_Object *parent, App &app)
-    : BodyView(parent)
+Body::Body(App &app)
+    : BodyView()
     , m_pListener(nullptr)
     , m_App(app)
     , m_pOnChangedIdler(nullptr)
 {
+}
+
+void Body::create(Evas_Object *parent)
+{
+    BodyView::create(parent);
+    std::string pagePageStr = std::to_string(m_App.getMsgEngine().getSettings().getMessageMaxPage());
+    BodyView::setMaxPageLabel(pagePageStr);
 }
 
 Body::~Body()
@@ -59,6 +65,13 @@ Body::~Body()
         ecore_idler_del(m_pOnChangedIdler);
         m_pOnChangedIdler = nullptr;
     }
+}
+
+Page &Body::createPage()
+{
+    Page *page = new Page(*this);
+    BodyView::addText(*page);
+    return *page;
 }
 
 void Body::setListener(IBodyListener *listener)
@@ -84,10 +97,6 @@ bool Body::addMedia(const std::string &filePath)
         return false;
     }
 
-    std::string newFilePath = m_WorkingDir.addFile(filePath);
-    if(newFilePath.empty())
-        return false;
-
     PageViewItem::Type type = getMediaType(filePath).type;
     MSG_LOG("Media type: ", type);
 
@@ -102,19 +111,19 @@ bool Body::addMedia(const std::string &filePath)
         {
             case PageViewItem::ImageType:
             {
-                BodyView::addImage(*page, newFilePath);
+                addImage(*page, filePath);
                 break;
             }
 
             case PageViewItem::SoundType:
             {
-                BodyView::addSound(*page, newFilePath);
+                addSound(*page, filePath);
                 break;
             }
 
             case PageViewItem::VideoType:
             {
-                addVideo(*page, newFilePath);
+                addVideo(*page, filePath);
                 break;
             }
 
@@ -126,7 +135,7 @@ bool Body::addMedia(const std::string &filePath)
     }
     else
     {
-        BodyView::addAttachment(newFilePath);
+        addAttachment(filePath);
         page = &getDefaultPage();
     }
 
@@ -136,58 +145,50 @@ bool Body::addMedia(const std::string &filePath)
     return true;
 }
 
-bool Body::isMms() const
+bool Body::isMms()
 {
     auto pages = getPages();
 
     if(pages.size() > 1)
         return true;
 
+    if(getAttachments().size() > 0)
+        return true;
+
     for(PageView *page : pages)
     {
-        if(isMms(*page))
-            return true;
-    }
-
-    return getAttachments().size() > 0;
-}
-
-bool Body::isMms(const PageView &page) const
-{
-    auto pageItems = page.getItems();
-    for(PageViewItem *pageItem : pageItems)
-    {
-        PageViewItem::Type itemType = pageItem->getType();
-        if(itemType != PageViewItem::TextType)
+        if(static_cast<Page*>(page)->isMms())
             return true;
     }
 
     return false;
 }
 
-BodySmsSize Body::getSmsSize() const
+const MsgTextMetric &Body::getTextMetric()
 {
-    BodySmsSize size = {};
-    TextPageViewItem *textItem = getTextItem(getDefaultPage());
+    return static_cast<Page&>(getDefaultPage()).getTextMetric();
+}
 
-    if(textItem)
+long long Body::getMsgSize()
+{
+    // Attachments:
+    long long size = 0;
+    auto attachments = getAttachments();
+    for(BodyAttachmentViewItem *attachment : attachments)
     {
-        std::string text = textItem->getPlainUtf8Text();
+        long long size = attachment->getFileSize();
+        if(size > 0)
+            size += size;
+    }
 
-        int textLen = m_App.getMsgEngine().calculateTextLen(text);
-        int maxChar = m_App.getMsgEngine().getSettings().getMessageTextMaxChar();
-
-        int txtLenTmp = textLen > 0 ? textLen - 1 : textLen;
-        size.smsCount = txtLenTmp / maxChar + 1;
-        size.charsLeft = maxChar - (textLen % (maxChar + 1));
+    // Pages:
+    auto pages = getPages();
+    for(PageView *pageView : pages)
+    {
+        size += static_cast<Page*>(pageView)->getSize();
     }
 
     return size;
-}
-
-long long Body::getMmsSize() const
-{
-    return 0;
 }
 
 void Body::read(Message &msg)
@@ -267,23 +268,17 @@ void Body::writeText(const MsgMedia &msgMedia, PageView &pageView)
 
 void Body::writeImage(const MsgMedia &msgMedia, PageView &pageView)
 {
-    std::string path = m_WorkingDir.addFile(msgMedia.getFilePath());
-    if(!path.empty())
-        addImage(pageView, path);
+    addImage(pageView, msgMedia.getFilePath());
 }
 
 void Body::writeVideo(const MsgMedia &msgMedia, PageView &pageView)
 {
-    std::string path = m_WorkingDir.addFile(msgMedia.getFilePath());
-    if(!path.empty())
-        addVideo(pageView, path);
+    addVideo(pageView, msgMedia.getFilePath());
 }
 
 void Body::writeSound(const MsgMedia &msgMedia, PageView &pageView)
 {
-    std::string path = m_WorkingDir.addFile(msgMedia.getFilePath());
-    if(!path.empty())
-        addSound(pageView, path, msgMedia.getFileName());
+    addSound(pageView, msgMedia.getFilePath(), msgMedia.getFileName());
 }
 
 void Body::writeAttachments(const MessageMms &msg)
@@ -292,9 +287,7 @@ void Body::writeAttachments(const MessageMms &msg)
     for(int i = 0; i < attachmentList.getLength(); ++i)
     {
         const MsgAttachment &attachment = attachmentList[i];
-        std::string newFilePath = m_WorkingDir.addFile(attachment.getFilePath());
-        if(!newFilePath.empty())
-            addAttachment(newFilePath, attachment.getFileName());
+        addAttachment(attachment.getFilePath(), attachment.getFileName());
     }
 }
 
@@ -418,17 +411,50 @@ void Body::execCmd(const AppControlComposeRef &cmd)
     addMedia(cmd->getFileList());
 }
 
-
-bool Body::addVideo(PageView &page, const std::string &videoFilePath)
+void Body::addVideo(PageView &page, const std::string &videoFilePath)
 {
     const std::string thumbFileName = "thumbnail.jpeg";
     std::string thumbFilePath =  m_WorkingDir.genUniqueFilePath(thumbFileName);
 
-    // FIXME: if getVideoFrame returns false ?
-    MediaUtils::getVideoFrame(videoFilePath, thumbFilePath);
-    BodyView::addVideo(page, videoFilePath, thumbFilePath);
+    if(!thumbFilePath.empty())
+    {
+        long long fileSize = FileUtils::getFileSize(thumbFilePath);
+        // FIXME: if getVideoFrame returns false ?
+        MediaUtils::getVideoFrame(videoFilePath, thumbFilePath);
+        BodyView::addVideo(page, videoFilePath, fileSize, thumbFilePath);
+    }
+}
 
-    return true;
+void Body::addImage(PageView &page, const std::string &filePath)
+{
+    std::string newFilePath = m_WorkingDir.addFile(filePath);
+    if(!newFilePath.empty())
+    {
+        long long fileSize = FileUtils::getFileSize(newFilePath);
+        BodyView::addImage(page, newFilePath, fileSize);
+    }
+}
+
+void Body::addSound(PageView &page, const std::string &filePath, const std::string &fileName)
+{
+    std::string newFilePath = m_WorkingDir.addFile(filePath);
+    if(!newFilePath.empty())
+    {
+        long long fileSize = FileUtils::getFileSize(newFilePath);
+        std::string newFileName = fileName.empty() ? FileUtils::getFileName(filePath) : fileName;
+        BodyView::addSound(page, newFilePath, fileSize, newFileName);
+    }
+}
+
+void Body::addAttachment(const std::string &filePath, const std::string &fileName)
+{
+    std::string newFilePath = m_WorkingDir.addFile(filePath);
+    if(!newFilePath.empty())
+    {
+        long long fileSize = FileUtils::getFileSize(newFilePath);
+        std::string newFileName = fileName.empty() ? FileUtils::getFileName(filePath) : fileName;
+        BodyView::addAttachment(newFilePath, fileSize, newFileName);
+    }
 }
 
 void Body::onItemDelete(PageViewItem &item)
