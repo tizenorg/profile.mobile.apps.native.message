@@ -40,8 +40,8 @@ namespace
     const int thumbEqual = 106;
 }
 
-ImagePageViewItem::ImagePageViewItem(PageView &parent, const std::string &reourcePath, const std::string &imagePath)
-    : MediaPageViewItem(parent, reourcePath)
+ImagePageViewItem::ImagePageViewItem(PageView &parent, const std::string &reourcePath, long long fileSize, const std::string &imagePath)
+    : MediaPageViewItem(parent, reourcePath, fileSize)
     , m_pImageLayout(nullptr)
     , m_ImagePath(imagePath)
 {

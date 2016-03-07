@@ -141,8 +141,8 @@ collections {
 			    mouse_events:  1;
 			    description {
 				    state: "default" 0.0;
-				    min: 48 20;
-				    max: 48 20;
+				    min: 54 20;
+				    max: 54 20;
 				    fixed: 1 1;
 				    rel1 { to_x: "padding_right"; to_y: "padding_send_btn_bottom"; relative: 0.0 0.0; }
 				    rel2 { to_x: "padding_right"; to_y: "padding_send_btn_bottom"; relative: 0.0 0.0; }

@@ -35,6 +35,25 @@
 
 using namespace Msg;
 
+// TODO: move to common part
+std::string makeKbStr(long long bytes)
+{
+    const long long kb = 1000; // Bytes in kb
+    long long sizeKb = 0;
+    if(bytes <= kb)
+    {
+        sizeKb = 1;
+    }
+    else
+    {
+        sizeKb =  bytes / kb;
+        long long sizeB = bytes % kb;
+        if(sizeB >= (kb / 2))
+            ++sizeKb;
+    }
+    return std::to_string(sizeKb) + " " + (std::string)msg("IDS_MSGF_BODY_MSGSIZE_KB");
+}
+
 Conversation::Conversation(NaviFrameController &parent)
     : FrameController(parent)
     , m_Mode(InitMode)
@@ -384,7 +403,8 @@ void Conversation::createBody(Evas_Object *parent)
 {
     if(!m_pBody)
     {
-        m_pBody = new Body(*m_pMsgInputPanel, getApp());
+        m_pBody = new Body(getApp());
+        m_pBody->create(*m_pMsgInputPanel);
         m_pBody->setListener(this);
         m_pBody->show();
         assert(m_pMsgInputPanel);
@@ -640,12 +660,19 @@ void Conversation::onChanged(Body &body)
 
 void Conversation::updateMsgInputPanel()
 {
-    // TODO:
-    BodySmsSize size = m_pBody->getSmsSize();
-
-    std::stringstream ss;
-    ss << size.charsLeft << "/" << size.smsCount;
-    m_pMsgInputPanel->setCounter(ss.str());
+    if(m_pBody->isMms())
+    {
+        // Mms:
+        m_pMsgInputPanel->setCounter(makeKbStr(m_pBody->getMsgSize()));
+    }
+    else
+    {
+        // Sms:
+        std::ostringstream ss;
+        const MsgTextMetric &size = m_pBody->getTextMetric();
+        ss << size.charsLeft << "/" << size.segmentsCount;
+        m_pMsgInputPanel->setCounter(ss.str());
+    }
 
     bool disabledButton = m_pBody->isEmpty();
     m_pMsgInputPanel->disabledButton(MessageInputPanel::SendButtonId, disabledButton);

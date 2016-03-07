@@ -28,7 +28,7 @@ namespace Msg
         : public ImagePageViewItem
     {
         public:
-            VideoPageViewItem(PageView &parent, const std::string &resourcePath, const std::string &imagePath);
+            VideoPageViewItem(PageView &parent, const std::string &reourcePath, long long fileSize, const std::string &imagePath);
             virtual ~VideoPageViewItem();
 
             virtual Type getType() const;

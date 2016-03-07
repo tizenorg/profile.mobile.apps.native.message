@@ -59,7 +59,7 @@ namespace Msg
             const MsgComposer &getComposer() const;
 
             static std::string whatError(int error);
-            int calculateTextLen(const std::string &text) const;
+            static void calculateTextMetric(const std::string &text, unsigned &leftChar, unsigned &segmentCount, unsigned &bytes, bool &isMms);
 
         private:
 
