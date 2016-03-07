@@ -43,6 +43,7 @@ namespace Msg
             void move(Evas_Coord x, Evas_Coord y);
             void setSizeHintWeight(double x = EVAS_HINT_EXPAND, double y = EVAS_HINT_EXPAND);
             void setSizeHintAlign(double x = EVAS_HINT_FILL, double y = EVAS_HINT_FILL);
+            void setScrollerContentMinLimit(Eina_Bool w, Eina_Bool h);
             void expand();
             static void expand(Evas_Object *obj);
             void setSizeHintMin(Evas_Coord w, Evas_Coord h);
@@ -149,6 +150,11 @@ namespace Msg
     inline void View::setSizeHintAlign(double x, double y)
     {
         evas_object_size_hint_align_set(m_pEo, x, y);
+    }
+
+    inline void View::setScrollerContentMinLimit(Eina_Bool w, Eina_Bool h)
+    {
+        elm_scroller_content_min_limit(m_pEo, w, h);
     }
 
     inline void View::setSizeHintMin(Evas_Coord w, Evas_Coord h)

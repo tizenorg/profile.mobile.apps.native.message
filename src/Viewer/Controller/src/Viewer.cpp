@@ -26,6 +26,7 @@
 #include "VoiceCall.h"
 #include "ContactViewer.h"
 #include "FileUtils.h"
+#include "SaveAttachmentsPopup.h"
 
 #include <sstream>
 #include <iomanip>
@@ -264,7 +265,7 @@ void Viewer::onHwMoreButtonClicked()
 
     popup.appendItem(msg("IDS_MSGF_OPT_FORWARD"), POPUPLIST_ITEM_PRESSED_CB(Viewer, onForwardItemPressed), this);
 
-    if(!m_Msg->getAttachmentList().isEmpty())
+    if(!m_Msg->getAttachmentList().isEmpty() || m_Msg->getMediaCount() > 0)
         popup.appendItem(msg("IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"), POPUPLIST_ITEM_PRESSED_CB(Viewer, onSaveAttachmentsItemPressed), this);
     popup.show();
 }
@@ -392,7 +393,10 @@ void Viewer::onForwardItemPressed(PopupListItem &item)
 void Viewer::onSaveAttachmentsItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
-    item.getParent().destroy(); // TODO: after save attachments menu will be implemented
+    item.getParent().destroy();
+    SaveAttachmentsPopup *popup = new SaveAttachmentsPopup(getApp(), *m_Msg.get());
+    getApp().getPopupManager().reset(*popup);
+    popup->show();
 }
 
 void Viewer::onRecipItemClicked(Evas_Object *obj, void *eventInfo)
