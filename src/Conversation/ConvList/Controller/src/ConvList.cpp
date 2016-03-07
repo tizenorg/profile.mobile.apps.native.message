@@ -38,7 +38,12 @@ ConvList::ConvList(Evas_Object *parent, App &app)
     , m_DateLineItemMap()
     , m_pListner(nullptr)
     , m_App(app)
+    , m_OwnerThumbPath()
+    , m_RecipThumbPath()
 {
+    auto profile = m_App.getContactManager().getOwnerProfile();
+    if(profile)
+        m_OwnerThumbPath = profile->getThumbnailPath();
     create(parent);
 }
 
@@ -118,7 +123,21 @@ void ConvList::fill()
     for(int i = 0; i < convListLen; ++i)
     {
         MsgConversationItem &item = convList->at(i);
-        ConvListItem *listItem = new ConvListItem(item, m_App);
+        ConvListItem *listItem = nullptr;
+        if(item.getDirection() == Message::MD_Received)
+        {
+            if(m_RecipThumbPath.empty())
+                listItem = new ConvListItem(item, m_App);
+            else
+                listItem = new ConvListItem(item, m_App, ThumbnailMaker::UserType, m_RecipThumbPath);
+        }
+        else
+        {
+            if(m_OwnerThumbPath.empty())
+                listItem = new ConvListItem(item, m_App);
+            else
+                listItem = new ConvListItem(item, m_App, ThumbnailMaker::UserType, m_OwnerThumbPath);
+        }
         appendItem(listItem);
     }
 }
@@ -128,6 +147,25 @@ void ConvList::setThreadId(ThreadId id)
     if(m_ThreadId != id)
     {
         m_ThreadId = id;
+        const MsgAddressListRef addressList = m_App.getMsgEngine().getStorage().getAddressList(m_ThreadId);
+        if(addressList)
+        {
+            int countContact = addressList->getLength();
+            if(countContact > 1)
+            {
+                m_RecipThumbPath = PathUtils::getResourcePath(THUMB_GROUP_IMG_PATH);
+            }
+            else if(countContact == 1)
+            {
+                ContactPersonAddressRef contactAddress = m_App.getContactManager().getContactPersonAddress(addressList->at(0).getAddress());
+                if(contactAddress)
+                    m_RecipThumbPath = contactAddress->getThumbnailPath();
+            }
+            else
+            {
+                MSG_LOG_WARN("Msg address list is empty");
+            }
+        }
         fill();
     }
 }

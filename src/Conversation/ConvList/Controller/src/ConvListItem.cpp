@@ -19,16 +19,14 @@
 #include "MsgConversationItem.h"
 #include "ListView.h"
 #include "CallbackAssist.h"
-#include "ThumbnailMaker.h"
 #include <telephony_common.h>
 #include <telephony_sim.h>
-#include "ContactManager.h"
 #include "FileUtils.h"
 #include "TimeUtils.h"
 
 using namespace Msg;
 
-ConvListItem::ConvListItem(const MsgConversationItem &item, App &app)
+ConvListItem::ConvListItem(const MsgConversationItem &item, App &app, ThumbnailMaker::Type thumbType, const std::string &thumbPath)
     : ConvListViewItem(getConvItemType(item))
     , m_pListener(nullptr)
     , m_App(app)
@@ -38,6 +36,8 @@ ConvListItem::ConvListItem(const MsgConversationItem &item, App &app)
     , m_Type(item.getType())
     , m_Time(item.getTime())
     , m_BubbleEntity()
+    , m_ThumbType(thumbType)
+    , m_ThumbPath(thumbPath)
 {
     prepareBubble(item);
 }
@@ -115,14 +115,7 @@ Evas_Object *ConvListItem::getBubbleContent()
 
 Evas_Object *ConvListItem::getThumbnail()
 {
-    //TODO: fetch thumb from contacts
-    const int thumbSize = 80;
-    Evas_Object *thumb = nullptr;
-    std::string thumbPath = PathUtils::getResourcePath(THUMB_CONTACT_IMG_PATH);
-    thumb = ThumbnailMaker::make(*getOwner(), ThumbnailMaker::MsgType, thumbPath);
-    evas_object_size_hint_min_set(thumb, thumbSize, thumbSize);
-    evas_object_size_hint_max_set(thumb, thumbSize, thumbSize);
-    return thumb;
+    return ThumbnailMaker::make(*getOwner(), m_ThumbType, m_ThumbPath);
 }
 
 Evas_Object *ConvListItem::getProgress()

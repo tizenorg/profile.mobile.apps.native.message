@@ -21,6 +21,7 @@
 #include "ConvListViewItem.h"
 #include "MsgTypes.h"
 #include "BubbleView.h"
+#include "ThumbnailMaker.h"
 #include "Message.h"
 #include "ContextPopup.h"
 #include "App.h"
@@ -40,7 +41,8 @@ namespace Msg
              * @brief Creates item for Conversation list
              * @param[in] item MsgConversationItem model
              */
-            ConvListItem(const MsgConversationItem &item, App &app);
+            ConvListItem(const MsgConversationItem &item, App &app, ThumbnailMaker::Type thumbType = ThumbnailMaker::MsgType,
+                            const std::string &thumbPath = PathUtils::getResourcePath(THUMB_CONTACT_IMG_PATH));
             virtual ~ConvListItem();
 
             /**
@@ -100,6 +102,8 @@ namespace Msg
             Message::Type m_Type;
             time_t m_Time;
             BubbleEntity m_BubbleEntity;
+            ThumbnailMaker::Type m_ThumbType;
+            std::string m_ThumbPath;
     };
 
     class IConvListItemListener
