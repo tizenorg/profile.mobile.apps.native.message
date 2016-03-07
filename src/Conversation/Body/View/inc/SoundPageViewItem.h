@@ -32,9 +32,13 @@ namespace Msg
             virtual Type getType() const;
             virtual bool isEmpty() const;
             virtual void highlight(bool value);
+            virtual std::string getFileName() const;
 
         private:
             Evas_Object *createLabel(Evas_Object *parent, const std::string &fileName);
+
+        private:
+            std::string m_DispName;
     };
 }
 

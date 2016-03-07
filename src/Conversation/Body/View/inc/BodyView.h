@@ -25,7 +25,7 @@
 #include "ImagePageViewItem.h"
 #include "SoundPageViewItem.h"
 #include "VideoPageViewItem.h"
-#include "BodyAttachmentView.h"
+#include "BodyAttachmentViewItem.h"
 
 #include <vector>
 
@@ -35,7 +35,7 @@ namespace Msg
     class PageSeparator;
 
     typedef std::vector<PageView*> PageViewCollection;
-    typedef std::vector<BodyAttachmentView*> BodyAttachmentCollection;
+    typedef std::vector<BodyAttachmentViewItem*> BodyAttachmentCollection;
     typedef std::vector<BodyViewItem*> BodyViewItemCollection;
 
     class BodyView
@@ -63,7 +63,7 @@ namespace Msg
             BodyAttachmentCollection getAttachments() const;
 
         protected:
-            BodyAttachmentView *addAttachment(const std::string &filePath, const std::string &dispName = "");
+            BodyAttachmentViewItem *addAttachment(const std::string &filePath, const std::string &dispName = "");
             TextPageViewItem *addText(PageView &page);
             ImagePageViewItem *addImage(PageView &page, const std::string &filePath);
             VideoPageViewItem *addVideo(PageView &page, const std::string &filePath, const std::string &imagePath);
@@ -96,13 +96,13 @@ namespace Msg
             virtual void onKeyUp(MediaPageViewItem &item, Evas_Event_Key_Up &event);
 
             // IBodyAttachmentViewListener:
-            virtual void onDelete(BodyAttachmentView &item);
+            virtual void onDelete(BodyAttachmentViewItem &item);
 
             /*====Output signals====*/
             virtual void onContentChanged() {};
             virtual void onItemDelete(PageViewItem &item) {};
-            virtual void onItemDelete(BodyAttachmentView &item) {};
-            virtual void onClicked(BodyAttachmentView &item) {};
+            virtual void onItemDelete(BodyAttachmentViewItem &item) {};
+            virtual void onClicked(BodyAttachmentViewItem &item) {};
             virtual void onClicked(MediaPageViewItem &item) {};
 
         private:
@@ -114,7 +114,7 @@ namespace Msg
             void showInputPanel(PageView &page, bool show);
             void showInputPanel(PageViewItem &pageItem, bool show);
             void removePage(PageView &page, bool setNextFocus);
-            void removeAttachment(BodyAttachmentView &attachment);
+            void removeAttachment(BodyAttachmentViewItem &attachment);
             void updateLastFocusedPage(PageViewItem &pageItem);
             void backKeyHandler(MediaPageViewItem &item);
             void backKeyHandler(TextPageViewItem &item);

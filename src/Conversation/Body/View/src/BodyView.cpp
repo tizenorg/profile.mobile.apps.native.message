@@ -17,7 +17,6 @@
 
 #include "BodyView.h"
 #include "PageView.h"
-#include "BodyAttachmentView.h"
 #include "PageSeparator.h"
 #include "Logger.h"
 #include "BodyMediaType.h"
@@ -206,7 +205,7 @@ PageViewCollection BodyView::getPages() const
 
 BodyAttachmentCollection BodyView::getAttachments() const
 {
-    return getItems<BodyAttachmentView>();
+    return getItems<BodyAttachmentViewItem>();
 }
 
 template<typename T>
@@ -257,10 +256,11 @@ PageView *BodyView::addPage()
     return page;
 }
 
-BodyAttachmentView *BodyView::addAttachment(const std::string &filePath, const std::string &dispName)
+BodyAttachmentViewItem *BodyView::addAttachment(const std::string &filePath, const std::string &dispName)
 {
-    BodyAttachmentView *attachment = new BodyAttachmentView(*this, filePath, dispName);
+    BodyAttachmentViewItem *attachment = new BodyAttachmentViewItem(*this, filePath, dispName);
     insertBefore(*attachment, *m_pDefaultPage);
+    attachment->setListener(this);
     onContentChanged();
     return attachment;
 }
@@ -307,7 +307,7 @@ void BodyView::clear()
         }
         else if(item->getType() == BodyViewItem::AttachmentType)
         {
-            BodyAttachmentView *attachment = static_cast<BodyAttachmentView*>(item);
+            BodyAttachmentViewItem *attachment = static_cast<BodyAttachmentViewItem*>(item);
             removeAttachment(*attachment);
         }
     }
@@ -405,7 +405,7 @@ void BodyView::removePage(PageView &page, bool setNextFocus)
     }
 }
 
-void BodyView::removeAttachment(BodyAttachmentView &attachment)
+void BodyView::removeAttachment(BodyAttachmentViewItem &attachment)
 {
     remove(attachment);
 }
@@ -528,7 +528,7 @@ void BodyView::onKeyUp(MediaPageViewItem &item, Evas_Event_Key_Up &event)
     MSG_LOG("");
 }
 
-void BodyView::onDelete(BodyAttachmentView &item)
+void BodyView::onDelete(BodyAttachmentViewItem &item)
 {
     MSG_LOG("");
     onItemDelete(item);
