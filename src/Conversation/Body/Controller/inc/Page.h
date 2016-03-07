@@ -15,31 +15,46 @@
  *
  */
 
-#ifndef SoundPageViewItem_h_
-#define SoundPageViewItem_h_
+#ifndef Page_h_
+#define Page_h_
 
-#include "MediaPageViewItem.h"
+#include "PageView.h"
 
 namespace Msg
 {
-    class SoundPageViewItem
-        : public MediaPageViewItem
+    class Body;
+
+    struct MsgTextMetric
+    {
+        MsgTextMetric();
+        void reset();
+
+        unsigned charsLeft;     // Only for SMS
+        unsigned segmentsCount; // Only for SMS
+        unsigned bytes;         // SMS or MMS
+        bool isMms;             // SMS or MMS
+    };
+
+    class Page
+        : public PageView
     {
         public:
-            SoundPageViewItem(PageView &parent, const std::string &resourcePath, long long fileSize, const std::string &dispName = "");
-            virtual ~SoundPageViewItem();
 
-            virtual Type getType() const;
-            virtual bool isEmpty() const;
-            virtual void highlight(bool value);
-            virtual std::string getFileName() const;
+
+        public:
+            Page(Body &parent);
+            virtual ~Page();
+
+            const MsgTextMetric &getTextMetric();
+            long long getSize();
+            bool isMms();
 
         private:
-            Evas_Object *createLabel(Evas_Object *parent, const std::string &fileName);
+            void updateMsgMetricIfNeeded();
 
         private:
-            std::string m_DispName;
+            MsgTextMetric m_MsgMetric;
     };
 }
 
-#endif /* SoundPageViewItem_h_ */
+#endif /* Page_h_ */

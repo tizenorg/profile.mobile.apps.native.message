@@ -40,6 +40,7 @@ namespace Msg
         PageViewItem &m_PageItem;
     };
 
+    //TODO: rename this class
     class BodyAttachmentListItem
         : public PopupTextListItem
     {
