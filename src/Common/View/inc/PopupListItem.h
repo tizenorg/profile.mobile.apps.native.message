@@ -58,6 +58,22 @@ namespace Msg
     private:
         std::string m_Text;
     };
+
+    /**
+     * A class of popup-item with text and check field
+     */
+    class PopupCheckListItem: public PopupListItem
+    {
+        public:
+            PopupCheckListItem(PopupList &parent, const std::string &text, PopupListItemPressedCb cb, void *userData);
+            virtual ~PopupCheckListItem();
+
+        private:
+            virtual const char *getCheckPart(ListItem &item);
+            virtual std::string getText(ListItem &item, const char *part);
+        private:
+            std::string m_Text;
+    };
 }
 
 #endif /* PopupListItem_h_ */

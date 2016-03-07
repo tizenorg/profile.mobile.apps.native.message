@@ -51,6 +51,13 @@ void PopupManager::reset()
     resetPopup();
 }
 
+void PopupManager::reset(Popup &popup)
+{
+    reset();
+    eext_object_event_callback_add(popup, EEXT_CALLBACK_BACK, SMART_CALLBACK(PopupManager, onHwBackButtonPopupClicked), this);
+    m_pPopup = &popup;
+}
+
 Popup &PopupManager::getPopup()
 {
     reset();

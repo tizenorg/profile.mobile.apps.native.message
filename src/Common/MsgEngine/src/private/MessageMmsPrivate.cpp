@@ -103,6 +103,30 @@ std::string MessageMmsPrivate::getText() const
     return result;
 }
 
+int MessageMmsPrivate::getMediaCount() const
+{
+    const MsgPageList &pageList = getPageList();
+    int result = 0;
+
+    int size = pageList.getLength();
+    for(int i = 0; i < size; ++i)
+    {
+        const MsgMediaList &mediaList = pageList.at(i).getMediaList();
+
+        int sizeList = mediaList.getLength();
+        for(int j = 0; j < sizeList; ++j)
+        {
+            if(mediaList[j].getType() != MsgMedia::SmilText
+                    && mediaList[j].getType() != MsgMedia::SmilMAX
+                    && mediaList[j].getType() != MsgMedia::SmilInvalid)
+            {
+                ++result;
+            }
+        }
+    }
+    return result;
+}
+
 const MsgPageListHandlePrivate &MessageMmsPrivate::getPageList() const
 {
     msg_list_handle_t list = nullptr;

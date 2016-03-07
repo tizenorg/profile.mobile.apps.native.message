@@ -56,3 +56,25 @@ std::string PopupTextListItem::getText(ListItem &item, const char *part)
         return m_Text;
     return std::string();
 }
+
+PopupCheckListItem::PopupCheckListItem(PopupList &parent, const std::string &text, PopupListItemPressedCb cb, void *userData)
+    : PopupListItem(parent, cb, userData)
+    , m_Text(text)
+{
+}
+
+PopupCheckListItem::~PopupCheckListItem()
+{
+}
+
+const char *PopupCheckListItem::getCheckPart(ListItem &item)
+{
+    return "elm.swallow.end";
+}
+
+std::string PopupCheckListItem::getText(ListItem &item, const char *part)
+{
+    if(strcmp(part, "elm.text") == 0)
+        return m_Text;
+    return std::string();
+}
