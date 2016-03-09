@@ -76,7 +76,7 @@ namespace Msg
              * @brief Sets valid thread id
              * @param[in] thread id
              */
-            void setThreadId(ThreadId id);
+            void setThreadId(ThreadId id,const std::string &searchWord = std::string());
 
             /**
              * @brief Navigate to mesage
@@ -150,6 +150,7 @@ namespace Msg
             App &m_App;
             std::string m_OwnerThumbPath;
             std::string m_RecipThumbPath;
+            std::string m_SearchWord;
     };
 
     class IConvListListener

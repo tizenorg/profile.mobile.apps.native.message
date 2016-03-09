@@ -141,9 +141,9 @@ std::string TextDecorator::highlightKeyword(const std::string &str, const std::s
     std::string lastPart = std::string(str.begin() + diff + searchWord.length(), str.end());
 
     res += firstPart;
-    res += "<match>";
+    res += "<font=Tizen:style=Bold>";
     res += std::string(found, searchWord.length());
-    res += "</match>";
+    res += "</font>";
     res += lastPart;
 
     return res;
