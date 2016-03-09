@@ -16,7 +16,6 @@
  */
 
 #include "BubbleView.h"
-#include "FileUtils.h"
 
 #include <Elementary.h>
 
@@ -58,9 +57,6 @@ void BubbleView::fill(const BubbleEntity &entity)
             case BubbleEntity::TextPart:
                 elm_box_pack_end(*this, createTextView(part.value));
                 break;
-            case BubbleEntity::TextFilePart:
-                elm_box_pack_end(*this, createTextFileView(part.value));
-                break;
             case BubbleEntity::ThumbnailPart:
                 elm_box_pack_end(*this, createThumbView(part.value));
                 break;
@@ -74,6 +70,8 @@ void BubbleView::fill(const BubbleEntity &entity)
 Evas_Object *BubbleView::createTextView(const std::string &text)
 {
     //TODO: apply to label the same text style as to textblock (figure out how-to)
+    if(text.empty())
+        return nullptr;
     Evas_Coord ww, hh;
     Evas_Object *label = elm_label_add(*this);
     Evas_Object *textBlock = evas_object_textblock_add(evas_object_evas_get(label));
@@ -94,15 +92,6 @@ Evas_Object *BubbleView::createTextView(const std::string &text)
     evas_object_show(label);
     evas_object_size_hint_align_set(label, 0.0, EVAS_HINT_FILL);
     return label;
-}
-
-Evas_Object *BubbleView::createTextFileView(const std::string &path)
-{
-    std::string text = FileUtils::readTextFile(path);
-    if(text.empty())
-        return nullptr;
-    else
-        return createTextView(text);
 }
 
 Evas_Object *BubbleView::createThumbView(const std::string &path)

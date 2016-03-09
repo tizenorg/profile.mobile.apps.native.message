@@ -40,6 +40,7 @@ ConvList::ConvList(Evas_Object *parent, App &app)
     , m_App(app)
     , m_OwnerThumbPath()
     , m_RecipThumbPath()
+    , m_SearchWord()
 {
     auto profile = m_App.getContactManager().getOwnerProfile();
     if(profile)
@@ -86,7 +87,6 @@ void ConvList::create(Evas_Object *parent)
 
     setSelectAll(selectAll);
     setBubbleList(list);
-    fill();
     showSelectAllMode(m_Mode == SelectMode);
 }
 
@@ -125,28 +125,19 @@ void ConvList::fill()
         MsgConversationItem &item = convList->at(i);
         ConvListItem *listItem = nullptr;
         if(item.getDirection() == Message::MD_Received)
-        {
-            if(m_RecipThumbPath.empty())
-                listItem = new ConvListItem(item, m_App);
-            else
-                listItem = new ConvListItem(item, m_App, ThumbnailMaker::UserType, m_RecipThumbPath);
-        }
+            listItem = new ConvListItem(item, m_App, m_SearchWord, m_RecipThumbPath);
         else
-        {
-            if(m_OwnerThumbPath.empty())
-                listItem = new ConvListItem(item, m_App);
-            else
-                listItem = new ConvListItem(item, m_App, ThumbnailMaker::UserType, m_OwnerThumbPath);
-        }
+            listItem = new ConvListItem(item, m_App, m_SearchWord, m_OwnerThumbPath);
         appendItem(listItem);
     }
 }
 
-void ConvList::setThreadId(ThreadId id)
+void ConvList::setThreadId(ThreadId id, const std::string &searchWord)
 {
-    if(m_ThreadId != id)
+    if(m_ThreadId != id || m_SearchWord != searchWord)
     {
         m_ThreadId = id;
+        m_SearchWord = searchWord;
         const MsgAddressListRef addressList = m_App.getMsgEngine().getStorage().getAddressList(m_ThreadId);
         if(addressList)
         {
@@ -341,7 +332,11 @@ void ConvList::onMsgStorageInsert(const MsgIdList &msgIdList)
             if(!getItem(itemId))
             {
                 MsgConversationItemRef item = m_MsgEngine.getStorage().getConversationItem(itemId);
-                ConvListItem *listItem = new ConvListItem(*item, m_App);
+                ConvListItem *listItem = nullptr;
+                if(item->getDirection() == Message::MD_Received)
+                    listItem = new ConvListItem(*item, m_App, m_SearchWord, m_RecipThumbPath);
+                else
+                    listItem = new ConvListItem(*item, m_App, m_SearchWord, m_OwnerThumbPath);
                 appendItem(listItem);
             }
         }

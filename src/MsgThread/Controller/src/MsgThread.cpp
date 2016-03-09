@@ -105,10 +105,10 @@ void MsgThread::navigateToSettings()
     getParent().push(*frame);
 }
 
-void MsgThread::navigateToConversation(ThreadId threadId, MsgId msgId)
+void MsgThread::navigateToConversation(ThreadId threadId, MsgId msgId, const std::string &searchWord)
 {
     Conversation *frame = new Conversation(getParent());
-    frame->setThreadId(threadId);
+    frame->setThreadId(threadId, searchWord);
     if(msgId.isValid())
         frame->navigateTo(msgId);
     getParent().push(*frame);
@@ -305,12 +305,12 @@ void MsgThread::onSearchListItemSelected(ThreadId id)
     navigateToConversation(id);
 }
 
-void MsgThread::onSearchListItemSelected(MsgId id)
+void MsgThread::onSearchListItemSelected(MsgId id, const std::string &searchWord)
 {
     MSG_LOG("");
     MessageRef msg = getMsgEngine().getStorage().getMessage(id);
     if(msg)
-        navigateToConversation(msg->getThreadId(), id);
+        navigateToConversation(msg->getThreadId(), id, searchWord);
 }
 
 void MsgThread::onFloatingButtonPressed()

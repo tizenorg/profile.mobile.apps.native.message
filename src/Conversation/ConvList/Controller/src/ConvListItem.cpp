@@ -24,10 +24,11 @@
 #include "FileUtils.h"
 #include "TimeUtils.h"
 #include "SaveAttachmentsPopup.h"
+#include "TextDecorator.h"
 
 using namespace Msg;
 
-ConvListItem::ConvListItem(const MsgConversationItem &item, App &app, ThumbnailMaker::Type thumbType, const std::string &thumbPath)
+ConvListItem::ConvListItem(const MsgConversationItem &item, App &app, const std::string &searchWord, const std::string &thumbPath)
     : ConvListViewItem(getConvItemType(item))
     , m_pListener(nullptr)
     , m_App(app)
@@ -37,10 +38,9 @@ ConvListItem::ConvListItem(const MsgConversationItem &item, App &app, ThumbnailM
     , m_Type(item.getType())
     , m_Time(item.getTime())
     , m_BubbleEntity()
-    , m_ThumbType(thumbType)
     , m_ThumbPath(thumbPath)
 {
-    prepareBubble(item);
+    prepareBubble(item, searchWord);
 }
 
 ConvListItem::~ConvListItem()
@@ -84,11 +84,11 @@ ConvListViewItem::ConvItemType ConvListItem::getConvItemType(const MsgConversati
     return type;
 }
 
-void ConvListItem::prepareBubble(const MsgConversationItem &item)
+void ConvListItem::prepareBubble(const MsgConversationItem &item, const std::string &searchWord)
 {
     if(m_Type == Message::MT_SMS)
     {
-        m_BubbleEntity.addPart(BubbleEntity::TextPart, item.getText());
+        m_BubbleEntity.addPart(BubbleEntity::TextPart, TextDecorator::highlightKeyword(item.getText(), searchWord));
     }
     else
     {
@@ -97,12 +97,19 @@ void ConvListItem::prepareBubble(const MsgConversationItem &item)
         {
             std::string mime = list.at(i).getMime();
             if(!list.at(i).getThumbPath().empty())
+            {
                 //msg service corrupts thumbnail's metadata, so it lost rotation. Use getPath instead getThumbPath until fix
                 m_BubbleEntity.addPart(BubbleEntity::ThumbnailPart, list.at(i).getPath());
+            }
             else if(mime == "text/plain")
-                m_BubbleEntity.addPart(BubbleEntity::TextFilePart, list.at(i).getPath());
+            {
+                std::string text = FileUtils::readTextFile(list.at(i).getPath());
+                m_BubbleEntity.addPart(BubbleEntity::TextPart, TextDecorator::highlightKeyword(text, searchWord));
+            }
             else if(mime != "application/smil")
+            {
                 m_BubbleEntity.addPart(BubbleEntity::TextPart, list.at(i).getName());
+            }
         }
     }
 }
@@ -116,7 +123,10 @@ Evas_Object *ConvListItem::getBubbleContent()
 
 Evas_Object *ConvListItem::getThumbnail()
 {
-    return ThumbnailMaker::make(*getOwner(), m_ThumbType, m_ThumbPath);
+    if(m_ThumbPath.empty())
+        return ThumbnailMaker::make(*getOwner(), ThumbnailMaker::MsgType, PathUtils::getResourcePath(THUMB_CONTACT_IMG_PATH));
+    else
+        return ThumbnailMaker::make(*getOwner(), ThumbnailMaker::UserType, m_ThumbPath);
 }
 
 Evas_Object *ConvListItem::getProgress()
