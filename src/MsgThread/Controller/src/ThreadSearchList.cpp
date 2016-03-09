@@ -120,7 +120,7 @@ void ThreadSearchList::onListItemSelected(ListItem &listItem)
     if(m_pListener)
     {
         if(auto it = dynamic_cast<MsgSearchListItem*>(&listItem))
-            m_pListener->onSearchListItemSelected(it->getMsgId());
+            m_pListener->onSearchListItemSelected(it->getMsgId(), m_SearchWord);
         else if(auto it = dynamic_cast<ThreadSearchListItem*>(&listItem))
             m_pListener->onSearchListItemSelected(it->getThreadId());
     }

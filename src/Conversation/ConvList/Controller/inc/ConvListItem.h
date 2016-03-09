@@ -40,9 +40,10 @@ namespace Msg
             /**
              * @brief Creates item for Conversation list
              * @param[in] item MsgConversationItem model
+             * @param[in] searchWord string for search in bubble
+             * @param[in] thumbPath string with path for thumb. If empty default picture will be used
              */
-            ConvListItem(const MsgConversationItem &item, App &app, ThumbnailMaker::Type thumbType = ThumbnailMaker::MsgType,
-                            const std::string &thumbPath = PathUtils::getResourcePath(THUMB_CONTACT_IMG_PATH));
+            ConvListItem(const MsgConversationItem &item, App &app, const std::string &searchWord, const std::string &thumbPath = std::string());
             virtual ~ConvListItem();
 
             /**
@@ -70,7 +71,7 @@ namespace Msg
 
         private:
             ConvListViewItem::ConvItemType getConvItemType(const MsgConversationItem &item);
-            void prepareBubble(const MsgConversationItem &item);
+            void prepareBubble(const MsgConversationItem &item, const std::string &searchWord);
 
             // Create Popup when message is clicked
             void showMainCtxPopup();
@@ -102,7 +103,6 @@ namespace Msg
             Message::Type m_Type;
             time_t m_Time;
             BubbleEntity m_BubbleEntity;
-            ThumbnailMaker::Type m_ThumbType;
             std::string m_ThumbPath;
     };
 

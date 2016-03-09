@@ -73,7 +73,7 @@ namespace Msg
              * @param[in] searchWord word for highlight
              * @retval text with highlighted keyword if keyword found, input text otherwise
              */
-            static std::string highlightKeyword(const std::string &str, const std::string &searchWord);
+            static std::string highlightKeyword(std::string str, const std::string &searchWord);
     };
 }
 
