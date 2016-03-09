@@ -27,6 +27,7 @@ TextPageViewItem::TextPageViewItem(PageView &parent)
     : PageViewItem(parent)
     , m_pEntry(nullptr)
     , m_pListener(nullptr)
+    , m_Changed(true)
 {
     setEo(createEntry(parent.getItemParent()));
 }
@@ -58,6 +59,16 @@ bool TextPageViewItem::isEmpty() const
 void TextPageViewItem::setListener(ITextPageViewItemListener *l)
 {
     m_pListener = l;
+}
+
+void TextPageViewItem::resetChangedFlag()
+{
+    m_Changed = false;
+}
+
+bool TextPageViewItem::hasChanged() const
+{
+    return m_Changed;
 }
 
 int TextPageViewItem::getCursorPos() const
@@ -151,6 +162,8 @@ Evas_Object *TextPageViewItem::createEntry(Evas_Object *parent)
 
     evas_object_smart_callback_add(m_pEntry, "changed", [](void *data, Evas_Object *obj, void *event_info)
     {
+        TextPageViewItem *self = (TextPageViewItem*)data;
+        self->m_Changed = true;
         notifyListener(data, &ITextPageViewItemListener::onChanged);
     }, this);
 

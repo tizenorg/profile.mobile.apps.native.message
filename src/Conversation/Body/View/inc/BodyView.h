@@ -47,9 +47,10 @@ namespace Msg
         friend class PageView;
 
         public:
-            BodyView(Evas_Object *parent);
+            BodyView();
             virtual ~BodyView();
 
+            void create(Evas_Object *parent);
             bool isEmpty() const;
             void clear();
             void setFocus(bool focus);
@@ -63,13 +64,16 @@ namespace Msg
             BodyAttachmentCollection getAttachments() const;
 
         protected:
-            BodyAttachmentViewItem *addAttachment(const std::string &filePath, const std::string &dispName = "");
+            virtual PageView &createPage() = 0;
+
+            BodyAttachmentViewItem *addAttachment(const std::string &filePath, long long fileSize, const std::string &dispName = "");
             TextPageViewItem *addText(PageView &page);
-            ImagePageViewItem *addImage(PageView &page, const std::string &filePath);
-            VideoPageViewItem *addVideo(PageView &page, const std::string &filePath, const std::string &imagePath);
-            SoundPageViewItem *addSound(PageView &page, const std::string &filePath, const std::string &dispName = "");
+            ImagePageViewItem *addImage(PageView &page, const std::string &filePath, long long fileSize);
+            VideoPageViewItem *addVideo(PageView &page, const std::string &filePath, long long fileSize, const std::string &imagePath);
+            SoundPageViewItem *addSound(PageView &page, const std::string &filePath, long long fileSize, const std::string &dispName = "");
             PageView *getPageForMedia(PageViewItem::Type type);
             void setFocus(PageView &page, bool focus);
+            void setMaxPageLabel(const std::string &max);
 
         private:
             /*====Input signals====*/
@@ -106,7 +110,6 @@ namespace Msg
             virtual void onClicked(MediaPageViewItem &item) {};
 
         private:
-            void setMaxPageLabel(const std::string &max);
             template<typename T>
             std::vector<T*> getItems() const;
             BodyViewItemCollection getAllItems() const;
@@ -119,8 +122,6 @@ namespace Msg
             void backKeyHandler(MediaPageViewItem &item);
             void backKeyHandler(TextPageViewItem &item);
             void clear(PageView &page);
-
-            void create(Evas_Object *parent);
             void prepare(BodyViewItem &item);
             void insertAfter(BodyViewItem &item, BodyViewItem &after);
             void insertBefore(BodyViewItem &item, BodyViewItem &before);

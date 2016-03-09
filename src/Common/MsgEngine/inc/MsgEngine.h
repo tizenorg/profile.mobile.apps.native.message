@@ -32,6 +32,7 @@
 #include "MsgSettings.h"
 #include "MsgComposer.h"
 #include "Logger.h"
+#include "MsgTypes.h"
 
 namespace Msg
 {
@@ -59,9 +60,7 @@ namespace Msg
             const MsgComposer &getComposer() const;
 
             static std::string whatError(int error);
-            int calculateTextLen(const std::string &text) const;
-
-        private:
+            static void calculateTextMetric(const std::string &text, MsgTextMetric &textMetric);
 
         private:
             std::unique_ptr<MsgStorage>  m_Storage;

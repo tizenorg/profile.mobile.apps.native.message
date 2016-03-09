@@ -32,13 +32,14 @@ namespace
     const char *fileNamePart = "text.filename";
 }
 
-BodyAttachmentViewItem::BodyAttachmentViewItem(BodyView &parent, const std::string &resourePath, const std::string &dispName)
+BodyAttachmentViewItem::BodyAttachmentViewItem(BodyView &parent, const std::string &resourePath, long long fileSize, const std::string &dispName)
     : BodyViewItem(AttachmentType)
     , m_pLayaout(nullptr)
     , m_pListener(nullptr)
     , m_ResourePath(resourePath)
+    , m_FileName(dispName)
+    , m_FileSize(fileSize)
 {
-    m_FileName = dispName.empty() ? FileUtils::getFileName(resourePath) : dispName;
     setEo(createLayout(parent));
     Evas_Object *button = createButton(getEo());
     Evas_Object *label = createLabel(button, m_FileName);
@@ -65,6 +66,11 @@ const std::string &BodyAttachmentViewItem::getResourcePath() const
 const std::string &BodyAttachmentViewItem::getFileName() const
 {
     return m_FileName;
+}
+
+long long BodyAttachmentViewItem::getFileSize() const
+{
+    return m_FileSize;
 }
 
 Evas_Object *BodyAttachmentViewItem::createLayout(Evas_Object *parent)

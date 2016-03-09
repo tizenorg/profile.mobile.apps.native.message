@@ -16,6 +16,7 @@
  */
 
 #include "MsgEngine.h"
+#include "Logger.h"
 
 #ifdef TIZEN_PRIVATE_API
 #include "private/MsgStoragePrivate.h"
@@ -206,9 +207,61 @@ std::string MsgEngine::whatError(int error)
     return "SOME ANOTHER ERROR";
 }
 
-int MsgEngine::calculateTextLen(const std::string &text) const
+void MsgEngine::calculateTextMetric(const std::string &text, MsgTextMetric &textMetric)
 {
-    // TODO:
-   //  msg_util_calculate_text_length;
-    return text.length();
+#ifdef TIZEN_PRIVATE_API
+    const int maxSegments = 3;
+    const int maxGsm7Len = 160;
+    const int maxUnicodeLen = 70;
+
+    msg_encode_type_t encode = MSG_ENCODE_GSM7BIT;
+    unsigned textLen = 0;
+    unsigned segmentLen = 0;
+    int bytesInChar = 1;
+    textMetric.reset();
+
+    if(!text.empty())
+    {
+        if(msg_util_calculate_text_length(text.c_str(), MSG_ENCODE_AUTO, &textLen, &segmentLen, &encode) != 0)
+        {
+            MSG_LOG_ERROR("msg_util_calculate_text_length returns error");
+        }
+
+        textMetric.bytes = textLen;
+
+        switch(encode)
+        {
+            case MSG_ENCODE_UCS2:
+                bytesInChar = 2;
+                break;
+
+            case MSG_ENCODE_GSM7BIT:
+            case MSG_ENCODE_AUTO:
+                bytesInChar = 1;
+                break;
+
+            default:
+                MSG_LOG_ERROR("Unknown encode type: ", encode);
+                break;
+        }
+
+        textLen /= bytesInChar;
+        segmentLen /= bytesInChar;
+    }
+
+    if(segmentLen == 0)
+        segmentLen = encode == MSG_ENCODE_UCS2 ? maxUnicodeLen : maxGsm7Len;
+
+    if(textLen == 0)
+        textLen = text.length() / bytesInChar;
+
+    textMetric.segmentsCount = (textLen / (segmentLen + 1)) + 1;
+
+    if(textLen > 0)
+        textMetric.charsLeft = segmentLen - (textLen % (segmentLen + 1));
+    else
+        textMetric.charsLeft = maxGsm7Len;
+
+    textMetric.isMms = textMetric.segmentsCount > maxSegments;
+#endif
 }

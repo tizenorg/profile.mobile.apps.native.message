@@ -28,20 +28,17 @@ using namespace Msg;
 
 namespace
 {
-    const std::string maxPageSepLabel = "3"; // TODO: check
-
     inline bool isBackKey(const char *name)
     {
         return name ? strcmp("BackSpace", name) == 0 : false;
     }
 }
 
-BodyView::BodyView(Evas_Object *parent)
+BodyView::BodyView()
     : m_pDefaultPage(nullptr)
     , m_LastTextCursorPos(0)
     , m_pLastFocusedPage(nullptr)
 {
-    create(parent);
 }
 
 BodyView::~BodyView()
@@ -53,8 +50,6 @@ void BodyView::create(Evas_Object *parent)
 {
     setEo(elm_box_add(parent));
     expand();
-
-    setMaxPageLabel(maxPageSepLabel);
     m_pDefaultPage = addPage();
 }
 
@@ -244,21 +239,19 @@ BodyViewItemCollection BodyView::getAllItems() const
 
 PageView *BodyView::addPage()
 {
-    PageView *page = new PageView(*this);
+    PageView &page = createPage();
 
     int pageCount = getItemCount(BodyViewItem::PageType);
     if(pageCount > 0)
         append(*createSep(pageCount));
 
-    append(*page);
-    addText(*page);
-
-    return page;
+    append(page);
+    return &page;
 }
 
-BodyAttachmentViewItem *BodyView::addAttachment(const std::string &filePath, const std::string &dispName)
+BodyAttachmentViewItem *BodyView::addAttachment(const std::string &filePath, long long fileSize, const std::string &dispName)
 {
-    BodyAttachmentViewItem *attachment = new BodyAttachmentViewItem(*this, filePath, dispName);
+    BodyAttachmentViewItem *attachment = new BodyAttachmentViewItem(*this, filePath, fileSize, dispName);
     insertBefore(*attachment, *m_pDefaultPage);
     attachment->setListener(this);
     onContentChanged();
@@ -328,9 +321,9 @@ void BodyView::showInputPanel(PageViewItem &pageItem, bool show)
         showInputPanel(pageItem.getParentPage(), show);
 }
 
-ImagePageViewItem *BodyView::addImage(PageView &page, const std::string &filePath)
+ImagePageViewItem *BodyView::addImage(PageView &page, const std::string &filePath, long long fileSize)
 {
-    ImagePageViewItem *item = new ImagePageViewItem(page, filePath, filePath);
+    ImagePageViewItem *item = new ImagePageViewItem(page, filePath, fileSize, filePath);
     item->setListener(this);
     item->show();
     page.addItem(*item);
@@ -338,9 +331,9 @@ ImagePageViewItem *BodyView::addImage(PageView &page, const std::string &filePat
     return item;
 }
 
-SoundPageViewItem *BodyView::addSound(PageView &page, const std::string &filePath, const std::string &dispName)
+SoundPageViewItem *BodyView::addSound(PageView &page, const std::string &filePath, long long fileSize, const std::string &dispName)
 {
-    SoundPageViewItem *item = new SoundPageViewItem(page, filePath, dispName);
+    SoundPageViewItem *item = new SoundPageViewItem(page, filePath, fileSize, dispName);
     item->setListener(this);
     item->show();
     page.addItem(*item);
@@ -348,9 +341,9 @@ SoundPageViewItem *BodyView::addSound(PageView &page, const std::string &filePat
     return item;
 }
 
-VideoPageViewItem *BodyView::addVideo(PageView &page, const std::string &filePath, const std::string &imagePath)
+VideoPageViewItem *BodyView::addVideo(PageView &page, const std::string &filePath, long long fileSize, const std::string &imagePath)
 {
-    VideoPageViewItem *item = new VideoPageViewItem(page, filePath, imagePath);
+    VideoPageViewItem *item = new VideoPageViewItem(page, filePath, fileSize, imagePath);
     item->setListener(this);
     item->show();
     page.addItem(*item);
