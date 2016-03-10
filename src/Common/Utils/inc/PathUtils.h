@@ -51,6 +51,12 @@ namespace Msg
              * @return absolute path in case of success, or empty string otherwise
              */
             static std::string getLocalePath();
+
+            /**
+             * @brief Gets absolute path to Dowloads directory
+             * @return absolute path in case of success, or empty string otherwise
+             */
+            static const std::string &getDownloadPath();
     };
 }
 

@@ -34,8 +34,8 @@ namespace Msg
                     PopupListItemPressedCb cb, void *userData);
             virtual ~PopupAttachmentListItem();
 
-        private:
-            std::string getFilePath(ListItem &item);
+        public:
+            const std::string &getFilePath() const;
 
         private:
             std::string m_FilePath;

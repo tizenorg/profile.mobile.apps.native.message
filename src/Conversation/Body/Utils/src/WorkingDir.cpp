@@ -86,25 +86,7 @@ const std::string &WorkingDir::getPath() const
 
 std::string WorkingDir::genUniqueFilePath(const std::string &path) const
 {
-    std::string res = path;
-
-    std::string base;
-    std::string name;
-    std::string ext;
-    FileUtils::splitPath(path, base, name, ext);
-
-    unsigned i = 0;
-    do
-    {
-        res = m_Path + '/' + name;
-        if(i > 0)
-            res += "-" + std::to_string(i);
-        if(!ext.empty())
-            res += '.' + ext;
-        ++i;
-    }
-    while(FileUtils::isExists(res));
-    return res;
+     return FileUtils::genUniqueFilePath(m_Path, path);
 }
 
 std::string WorkingDir::addFile(const std::string &path)
