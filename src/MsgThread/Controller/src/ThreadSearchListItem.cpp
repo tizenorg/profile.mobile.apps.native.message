@@ -41,6 +41,6 @@ void ThreadSearchListItem::update(const MsgThreadItem &item, const std::string &
     m_ThreadId = item.getId();
     m_Message = decorateMessageText(item.getLastMessage());
     updateThumbnailAndName(item, false);
-    m_Name = decorateNameText(TextDecorator::highlightKeyword(m_Name, searchWord));
+    m_Name = decorateNameText(TextDecorator::highlightKeyword(std::move(m_Name), searchWord));
     updateTime(item.getTime());
 }

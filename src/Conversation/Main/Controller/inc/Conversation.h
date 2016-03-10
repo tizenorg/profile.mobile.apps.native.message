@@ -60,7 +60,7 @@ namespace Msg
             void navigateTo(MsgId msgId);
             void execCmd(const AppControlComposeRef &cmd);
             void execCmd(const AppControlDefaultRef &cmd);
-            void setThreadId(ThreadId id);
+            void setThreadId(ThreadId id, const std::string &searchWord = std::string());
             void setListener(IConversationListener *listener);
             void forwardMsg(MsgId id);
 

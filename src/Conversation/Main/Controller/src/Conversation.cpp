@@ -219,7 +219,7 @@ void Conversation::navigateTo(MsgId msgId)
     m_pConvList->navigateTo(msgId);
 }
 
-void Conversation::setThreadId(ThreadId id)
+void Conversation::setThreadId(ThreadId id, const std::string &searchWord)
 {
     m_ThreadId = id;
     setMode(m_ThreadId.isValid() ? ConversationMode : NewMessageMode);
@@ -230,7 +230,7 @@ void Conversation::setThreadId(ThreadId id)
         m_pRecipPanel->update(m_ThreadId);
     }
     if(m_pConvList)
-        m_pConvList->setThreadId(m_ThreadId);
+        m_pConvList->setThreadId(m_ThreadId, searchWord);
     markAsRead();
 }
 
