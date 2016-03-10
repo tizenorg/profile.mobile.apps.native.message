@@ -59,6 +59,7 @@ namespace Msg
 
         private:
             Page &createPage();
+            void showTooLargePopup();
 
             void read(MessageSMS &msg);
             void read(MessageMms &msg);
@@ -81,6 +82,8 @@ namespace Msg
             void addSound(PageView &page, const std::string &filePath, const std::string &fileName = "");
             void addAttachment( const std::string &filePath, const std::string &fileName = "");
 
+            void onTooLargePopupDel(Evas_Object *obj, void *eventInfo);
+
             // BodyView:
             virtual void onContentChanged();
             virtual void onItemDelete(PageViewItem &item);
@@ -100,6 +103,7 @@ namespace Msg
             App &m_App;
             WorkingDir m_WorkingDir;
             Ecore_Idler *m_pOnChangedIdler;
+            bool m_TooLargePopupShow;
     };
 
     class IBodyListener

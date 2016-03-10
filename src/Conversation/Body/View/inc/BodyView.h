@@ -73,7 +73,6 @@ namespace Msg
             SoundPageViewItem *addSound(PageView &page, const std::string &filePath, long long fileSize, const std::string &dispName = "");
             PageView *getPageForMedia(PageViewItem::Type type);
             void setFocus(PageView &page, bool focus);
-            void setMaxPageLabel(const std::string &max);
 
         private:
             /*====Input signals====*/
@@ -127,12 +126,13 @@ namespace Msg
             void insertBefore(BodyViewItem &item, BodyViewItem &before);
             void append(BodyViewItem &item);
             void remove(BodyViewItem &item);
-            void rebuildPageSeparators();
-            PageSeparator *createSep(int number);
+            void rebuildSeparators();
+            void updateSeparators();
+            PageSeparator *createSep();
+            void updateSep(PageSeparator &sep, int number, int maxNumber);
 
         private:
             BodyViewItemCollection m_Items;
-            std::string m_MaxPageLabel;
             PageView *m_pDefaultPage;
             int m_LastTextCursorPos;
             PageView *m_pLastFocusedPage;
