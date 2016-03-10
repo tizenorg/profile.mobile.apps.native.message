@@ -37,6 +37,7 @@ namespace Msg
             void appendItem(const std::string &text, PopupListItemPressedCb cb, void *userData);
             void appendItem(const std::string &text, const std::string &path, PopupListItemPressedCb cb, void *userData);
             ListView &getListView();
+            const ListView &getListView() const;
 
         private:
             virtual void onListItemSelected(ListItem &listItem);
