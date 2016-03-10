@@ -64,6 +64,7 @@ namespace Msg
             void setTitle(const std::string &title);
             void setTitle(const TText &title);
             void destroy();
+            void setTimeOut(double timeout);
 
         private:
 

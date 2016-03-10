@@ -198,3 +198,28 @@ bool FileUtils::writeTextFile(const std::string &path, const std::string &text)
        file << text;
     return file.is_open() && file.good();
 }
+
+std::string FileUtils::genUniqueFilePath(const std::string &storagePath, const std::string &filePath)
+{
+    std::string res = filePath;
+    std::string base;
+    std::string name;
+    std::string ext;
+    splitPath(filePath, base, name, ext);
+
+    unsigned i = 0;
+    do
+    {
+        res = storagePath;
+        if(res.back() != '/')
+            res += '/';
+
+        res += name;
+        if(i > 0)
+            res += "-" + std::to_string(i);
+        if(!ext.empty())
+            res += '.' + ext;
+        ++i;
+    } while(isExists(res));
+    return res;
+}

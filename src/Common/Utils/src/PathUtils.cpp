@@ -18,10 +18,16 @@
 #include "PathUtils.h"
 #include "Logger.h"
 
+#include <storage-expand.h>
 #include <stdlib.h>
 #include <app.h>
 
 using namespace Msg;
+
+namespace
+{
+    std::string download;
+}
 
 std::string PathUtils::getResourcePath(const std::string &filePath)
 {
@@ -69,4 +75,36 @@ std::string PathUtils::getLocalePath()
     }
 
     return resPath;
+}
+
+static bool storageCb(int storageId, storage_type_e type, storage_state_e state, const char *path, void *userData)
+{
+    if(type == STORAGE_TYPE_INTERNAL)
+    {
+        int *internalStorage = (int *)userData;
+        *internalStorage = storageId;
+        return false;
+    }
+    return true;
+}
+
+const std::string &PathUtils::getDownloadPath()
+{
+    if(!download.empty())
+        return download;
+
+    char *dirPath = nullptr;
+    int storageId = -1;
+
+    int error = storage_foreach_device_supported(storageCb, &storageId);
+    if(error == STORAGE_ERROR_NONE)
+        storage_get_directory(storageId, STORAGE_DIRECTORY_DOWNLOADS, &dirPath);
+
+    if(dirPath)
+    {
+        download = dirPath;
+        free(dirPath);
+    }
+
+    return download;
 }

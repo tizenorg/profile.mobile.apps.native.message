@@ -30,7 +30,7 @@ PopupAttachmentListItem::~PopupAttachmentListItem()
 {
 }
 
-std::string PopupAttachmentListItem::getFilePath(ListItem &item)
+const std::string &PopupAttachmentListItem::getFilePath() const
 {
     return m_FilePath;
 }

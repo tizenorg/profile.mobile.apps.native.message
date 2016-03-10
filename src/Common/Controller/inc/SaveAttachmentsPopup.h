@@ -50,6 +50,10 @@ namespace Msg
             bool isSaveButtonNeedToBeEnable();
             void disableSaveButton(bool value);
 
+            // Save button clicked
+            bool saveCheckedItems();
+            void showSavingFailedPopup();
+
             // List View Listener
             virtual void onListItemChecked(ListItem &listItem);
 
