@@ -48,14 +48,13 @@ Body::Body(App &app)
     , m_pListener(nullptr)
     , m_App(app)
     , m_pOnChangedIdler(nullptr)
+    , m_TooLargePopupShow(false)
 {
 }
 
 void Body::create(Evas_Object *parent)
 {
     BodyView::create(parent);
-    std::string pagePageStr = std::to_string(m_App.getMsgEngine().getSettings().getMessageMaxPage());
-    BodyView::setMaxPageLabel(pagePageStr);
 }
 
 Body::~Body()
@@ -94,6 +93,15 @@ bool Body::addMedia(const std::string &filePath)
     if(!FileUtils::isExists(filePath) || FileUtils::isDir(filePath))
     {
         MSG_LOG_ERROR("File not exists: ", filePath);
+        return false;
+    }
+
+    long long fileSize = FileUtils::getFileSize(filePath);
+    long long maxSize = m_App.getMsgEngine().getSettings().getMaxMmsSize();
+
+    if((fileSize + getMsgSize()) > maxSize)
+    {
+        showTooLargePopup();
         return false;
     }
 
@@ -498,6 +506,21 @@ PopupList &Body::createPopupList(const std::string &title)
     return popupList;
 }
 
+void Body::showTooLargePopup()
+{
+   if(!m_TooLargePopupShow)
+   {
+        Popup &popup = m_App.getPopupManager().getPopup();
+        popup.addEventCb(EVAS_CALLBACK_DEL, EVAS_EVENT_CALLBACK(Body, onTooLargePopupDel), this);
+        popup.addButton(msgt("IDS_MSG_BUTTON_OK_ABB"), Popup::OkButtonId);
+        popup.setTitle(msgt("IDS_MSG_HEADER_FILE_SIZE_TOO_LARGE_ABB"));
+        popup.setContent(msgt("IDS_MSG_POP_UNABLE_TO_ATTACH_FILE_FILE_SIZE_TOO_LARGE_TRY_SENDING_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"));
+        popup.setAutoDismissBlockClickedFlag(true);
+        popup.show();
+        m_TooLargePopupShow = true;
+   }
+}
+
 void Body::onRemoveMediaItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
@@ -514,6 +537,12 @@ void Body::onRemoveBodyItemPressed(PopupListItem &item)
     BodyAttachmentViewItem &bodyItem = listItem.getBodyItem();
     bodyItem.destroy();
     item.getParent().destroy();
+}
+
+void Body::onTooLargePopupDel(Evas_Object *obj, void *eventInfo)
+{
+    MSG_LOG("");
+    m_TooLargePopupShow = false;
 }
 
 void Body::onContentChanged()

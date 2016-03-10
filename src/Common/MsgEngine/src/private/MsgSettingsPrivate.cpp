@@ -17,6 +17,7 @@
 
 #include "MsgSettingsPrivate.h"
 #include "MsgUtilsPrivate.h"
+#include "Logger.h"
 
 #include <msg_types.h>
 #include <msg.h>
@@ -108,10 +109,16 @@ int MsgSettingsPrivate::getMaxMmsSize() const
     msg_release_struct(&setting);
 
 
+    const int kb = 1024; // TODO: check it
+
     if(res > 0)
     {
-        res *= 1024;
-        res -= 5 * 1024; // header size
+        res *= kb;
+        res -= 5 * kb; // header size
+    }
+    else
+    {
+        res = MAX_MSG_DATA_LEN * kb;
     }
 
     return res;

@@ -107,11 +107,6 @@ PageView *BodyView::getPrevPage(PageView &page) const
     return it != itEnd ? *it : nullptr;
 }
 
-void BodyView::setMaxPageLabel(const std::string &max)
-{
-    m_MaxPageLabel = max;
-}
-
 int BodyView::getItemCount(BodyViewItem::Type type) const
 {
     int count = 0;
@@ -124,14 +119,20 @@ int BodyView::getItemCount(BodyViewItem::Type type) const
     return count;
 }
 
-PageSeparator *BodyView::createSep(int number)
+PageSeparator *BodyView::createSep()
 {
     PageSeparator *sep = new PageSeparator(*this);
-    sep->setText(std::to_string(number) + '/' + m_MaxPageLabel);
     return sep;
 }
 
-void BodyView::rebuildPageSeparators()
+void BodyView::updateSep(PageSeparator &sep, int number, int maxNumber)
+{
+    std::ostringstream ss;
+    ss << number << '/' << maxNumber;
+    sep.setText(ss.str());
+}
+
+void BodyView::rebuildSeparators()
 {
     auto separators = getItems<PageSeparator>();
     for(PageSeparator *sep : separators)
@@ -146,10 +147,25 @@ void BodyView::rebuildPageSeparators()
         if(prevPage)
         {
             ++number;
-            PageSeparator *sep = createSep(number);
+            PageSeparator *sep = createSep();
+            updateSep(*sep, number, pages.size());
             insertAfter(*sep, *prevPage);
         }
         prevPage = page;
+    }
+}
+
+void BodyView::updateSeparators()
+{
+    auto separators = getItems<PageSeparator>();
+    if(separators.empty())
+        return;
+
+    int index = 1;
+    for(PageSeparator *sep : separators)
+    {
+        updateSep(*sep, index, separators.size() + 1);
+        ++index;
     }
 }
 
@@ -243,7 +259,10 @@ PageView *BodyView::addPage()
 
     int pageCount = getItemCount(BodyViewItem::PageType);
     if(pageCount > 0)
-        append(*createSep(pageCount));
+    {
+        append(*createSep());
+        updateSeparators();
+    }
 
     append(page);
     return &page;
@@ -391,7 +410,7 @@ void BodyView::removePage(PageView &page, bool setNextFocus)
         }
 
         page.View::destroy();
-        rebuildPageSeparators();
+        rebuildSeparators();
 
         if(m_pLastFocusedPage == &page)
             m_pLastFocusedPage = nullptr;
