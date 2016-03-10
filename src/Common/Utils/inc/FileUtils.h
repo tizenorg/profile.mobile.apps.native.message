@@ -107,6 +107,14 @@ namespace Msg
              * @return Returns true if all success, false otherwise
              */
             static bool writeTextFile(const std::string &path, const std::string &text);
+
+            /**
+             * @brief Generate new file path
+             * @param[in] storage path
+             * @param[in] file path name
+             * @return Returns unique file path in storage directory
+             */
+            static std::string genUniqueFilePath(const std::string &storagePath, const std::string &filePath);
     };
 }
 
