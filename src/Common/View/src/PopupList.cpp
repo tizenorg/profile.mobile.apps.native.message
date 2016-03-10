@@ -75,6 +75,11 @@ ListView &PopupList::getListView()
     return *m_pList;
 }
 
+const ListView &PopupList::getListView() const
+{
+    return *m_pList;
+}
+
 void PopupList::onListItemSelected(ListItem &listItem)
 {
     PopupListItem &it = static_cast<PopupListItem&>(listItem);

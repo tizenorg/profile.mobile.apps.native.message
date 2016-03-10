@@ -63,14 +63,15 @@ namespace Msg
             PageView *addPage();
             BodyAttachmentCollection getAttachments() const;
 
-        protected:
-            virtual PageView &createPage() = 0;
-
-            BodyAttachmentViewItem *addAttachment(const std::string &filePath, long long fileSize, const std::string &dispName = "");
             TextPageViewItem *addText(PageView &page);
             ImagePageViewItem *addImage(PageView &page, const std::string &filePath, long long fileSize);
             VideoPageViewItem *addVideo(PageView &page, const std::string &filePath, long long fileSize, const std::string &imagePath);
             SoundPageViewItem *addSound(PageView &page, const std::string &filePath, long long fileSize, const std::string &dispName = "");
+
+        protected:
+            virtual PageView &createPage() = 0;
+
+            BodyAttachmentViewItem *addAttachment(const std::string &filePath, long long fileSize, const std::string &dispName = "");
             PageView *getPageForMedia(PageViewItem::Type type);
             void setFocus(PageView &page, bool focus);
 

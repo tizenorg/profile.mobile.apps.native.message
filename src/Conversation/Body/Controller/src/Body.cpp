@@ -36,7 +36,6 @@ using namespace Msg;
 
 namespace
 {
-    const int defaultPageDuration = 5; // sec
     inline TextPageViewItem *getTextItem(const PageView &page)
     {
         return page ? static_cast<TextPageViewItem*>(page.getItem(PageViewItem::TextType)) : nullptr;
@@ -57,6 +56,11 @@ void Body::create(Evas_Object *parent)
     BodyView::create(parent);
 }
 
+Page &Body::getDefaultPage()
+{
+    return static_cast<Page&>(BodyView::getDefaultPage());
+}
+
 Body::~Body()
 {
     if(m_pOnChangedIdler)
@@ -68,7 +72,7 @@ Body::~Body()
 
 Page &Body::createPage()
 {
-    Page *page = new Page(*this);
+    Page *page = new Page(*this, m_WorkingDir);
     BodyView::addText(*page);
     return *page;
 }
@@ -108,38 +112,15 @@ bool Body::addMedia(const std::string &filePath)
     PageViewItem::Type type = getMediaType(filePath).type;
     MSG_LOG("Media type: ", type);
 
-    PageView *page = nullptr;
+    Page *page = nullptr;
     if(type != PageViewItem::UnknownType)
     {
-        page = BodyView::getPageForMedia(type);
+        page = static_cast<Page*>(getPageForMedia(type));
         if(!page)
             return false;
 
-        switch(type)
-        {
-            case PageViewItem::ImageType:
-            {
-                addImage(*page, filePath);
-                break;
-            }
+        page->addMedia(filePath);
 
-            case PageViewItem::SoundType:
-            {
-                addSound(*page, filePath);
-                break;
-            }
-
-            case PageViewItem::VideoType:
-            {
-                addVideo(*page, filePath);
-                break;
-            }
-
-            default:
-                assert(false);
-                return false;
-                break;
-        }
     }
     else
     {
@@ -230,63 +211,12 @@ void Body::write(const MessageMms &msg)
     auto &pageList = msg.getPageList();
     for(int i = 0; i < pageList.getLength(); ++i)
     {
-        PageView &pageView = i == 0 ? getDefaultPage() : *addPage();
-        writePage(pageList[i], pageView);
+        Page &page = i == 0 ? getDefaultPage() : static_cast<Page&>(*addPage());
+        page.write(pageList[i]);
     }
 
     // Attachments:
     writeAttachments(msg);
-}
-
-void Body::writePage(const MsgPage &msgPage, PageView &pageView)
-{
-    auto &mediaList = msgPage.getMediaList();
-    for(int i = 0; i < mediaList.getLength(); ++i)
-    {
-        const MsgMedia &msgMedia = mediaList[i];
-        switch(msgMedia.getType())
-        {
-            case MsgMedia::SmilText:
-                writeText(msgMedia, pageView);
-                break;
-            case MsgMedia::SmilImage:
-                writeImage(msgMedia, pageView);
-                break;
-            case MsgMedia::SmilAudio:
-                writeSound(msgMedia, pageView);
-                break;
-            case MsgMedia::SmilVideo:
-                writeVideo(msgMedia, pageView);
-                break;
-
-            default:
-                MSG_LOG_WARN("Skip unsupported Smil type");
-                break;
-        }
-    }
-}
-
-void Body::writeText(const MsgMedia &msgMedia, PageView &pageView)
-{
-    TextPageViewItem *textItem = getTextItem(pageView);
-    assert(textItem);
-    if(textItem)
-        textItem->setText(FileUtils::readTextFile(msgMedia.getFilePath()));
-}
-
-void Body::writeImage(const MsgMedia &msgMedia, PageView &pageView)
-{
-    addImage(pageView, msgMedia.getFilePath());
-}
-
-void Body::writeVideo(const MsgMedia &msgMedia, PageView &pageView)
-{
-    addVideo(pageView, msgMedia.getFilePath());
-}
-
-void Body::writeSound(const MsgMedia &msgMedia, PageView &pageView)
-{
-    addSound(pageView, msgMedia.getFilePath(), msgMedia.getFileName());
 }
 
 void Body::writeAttachments(const MessageMms &msg)
@@ -318,77 +248,15 @@ void Body::read(MessageSMS &msg)
 void Body::read(MessageMms &msg)
 {
     // Pages:
-    auto pages = BodyView::getPages();
+    auto pages = getPages();
     for(PageView *page : pages)
     {
         MsgPage &msgPage = msg.addPage();
-
-        readText(msgPage, *page);
-        readImage(msgPage, *page);
-        readVideo(msgPage, *page);
-        readSound(msgPage, *page);
-
-        if(msgPage.getPageDuration() < defaultPageDuration)
-            msgPage.setPageDuration(defaultPageDuration);
+        static_cast<Page*>(page)->read(msgPage);
     }
 
     // Attachments:
     readAttachments(msg);
-}
-
-void Body::readText(MsgPage &msgPage, const PageView &pageView)
-{
-    TextPageViewItem *textItem = static_cast<TextPageViewItem*>(pageView.getItem(PageViewItem::TextType));
-    if(textItem)
-    {
-        writeTextToFile(*textItem);
-        MsgMedia &media = msgPage.addMedia();
-        media.setType(MsgMedia::SmilText);
-        media.setFilePath(textItem->getResourcePath());
-    }
-    else
-    {
-        MSG_ASSERT(false, "TextPageViewItem is null");
-    }
-}
-
-void Body::readSound(MsgPage &msgPage, const PageView &pageView)
-{
-    SoundPageViewItem *soundItem = static_cast<SoundPageViewItem*>(pageView.getItem(PageViewItem::SoundType));
-    if(soundItem)
-    {
-        MsgMedia &media = msgPage.addMedia();
-        media.setType(MsgMedia::SmilAudio);
-        media.setFilePath(soundItem->getResourcePath());
-        int sec = MediaUtils::getDurationSec(soundItem->getResourcePath());
-        if(msgPage.getPageDuration() < sec)
-            msgPage.setPageDuration(sec);
-    }
-}
-
-void Body::readImage(MsgPage &msgPage, const PageView &pageView)
-{
-    ImagePageViewItem *imgItem = static_cast<ImagePageViewItem*>(pageView.getItem(PageViewItem::ImageType));
-    if(imgItem)
-    {
-        MsgMedia &media = msgPage.addMedia();
-        media.setType(MsgMedia::SmilImage);
-        media.setFilePath(imgItem->getResourcePath());
-    }
-}
-
-void Body::readVideo(MsgPage &msgPage, const PageView &pageView)
-{
-    VideoPageViewItem *videoItem = static_cast<VideoPageViewItem*>(pageView.getItem(PageViewItem::VideoType));
-    if(videoItem)
-    {
-        MsgMedia &media = msgPage.addMedia();
-        media.setType(MsgMedia::SmilVideo);
-        media.setFilePath(videoItem->getResourcePath());
-        int sec = MediaUtils::getDurationSec(videoItem->getResourcePath());
-        if(msgPage.getPageDuration() < sec)
-            msgPage.setPageDuration(sec);
-    }
 }
 
 void Body::readAttachments(MessageMms &msg)
@@ -417,41 +285,6 @@ void Body::execCmd(const AppControlComposeRef &cmd)
     //TODO: implement fill of subject.
 
     addMedia(cmd->getFileList());
-}
-
-void Body::addVideo(PageView &page, const std::string &videoFilePath)
-{
-    const std::string thumbFileName = "thumbnail.jpeg";
-    std::string thumbFilePath =  m_WorkingDir.genUniqueFilePath(thumbFileName);
-
-    if(!thumbFilePath.empty())
-    {
-        long long fileSize = FileUtils::getFileSize(thumbFilePath);
-        // FIXME: if getVideoFrame returns false ?
-        MediaUtils::getVideoFrame(videoFilePath, thumbFilePath);
-        BodyView::addVideo(page, videoFilePath, fileSize, thumbFilePath);
-    }
-}
-
-void Body::addImage(PageView &page, const std::string &filePath)
-{
-    std::string newFilePath = m_WorkingDir.addFile(filePath);
-    if(!newFilePath.empty())
-    {
-        long long fileSize = FileUtils::getFileSize(newFilePath);
-        BodyView::addImage(page, newFilePath, fileSize);
-    }
-}
-
-void Body::addSound(PageView &page, const std::string &filePath, const std::string &fileName)
-{
-    std::string newFilePath = m_WorkingDir.addFile(filePath);
-    if(!newFilePath.empty())
-    {
-        long long fileSize = FileUtils::getFileSize(newFilePath);
-        std::string newFileName = fileName.empty() ? FileUtils::getFileName(filePath) : fileName;
-        BodyView::addSound(page, newFilePath, fileSize, newFileName);
-    }
 }
 
 void Body::addAttachment(const std::string &filePath, const std::string &fileName)

@@ -56,30 +56,18 @@ namespace Msg
             void read(Message &msg);
             void write(const Message &msg);
             void execCmd(const AppControlComposeRef &cmd);
+            Page &getDefaultPage();
 
         private:
             Page &createPage();
             void showTooLargePopup();
-
             void read(MessageSMS &msg);
             void read(MessageMms &msg);
-            void readText(MsgPage &msgPage, const PageView &pageView);
-            void readSound(MsgPage &msgPage, const PageView &pageView);
-            void readImage(MsgPage &msgPage, const PageView &pageView);
-            void readVideo(MsgPage &msgPage, const PageView &pageView);
             void readAttachments(MessageMms &msg);
             void write(const MessageSMS &msg);
             void write(const MessageMms &msg);
-            void writePage(const MsgPage &msgPage, PageView &pageView);
-            void writeText(const MsgMedia &msgMedia, PageView &pageView);
-            void writeImage(const MsgMedia &msgMedia, PageView &pageView);
-            void writeVideo(const MsgMedia &msgMedia, PageView &pageView);
-            void writeSound(const MsgMedia &msgMedia, PageView &pageView);
             void writeAttachments(const MessageMms &msg);
             void writeTextToFile(TextPageViewItem &item);
-            void addVideo(PageView &page, const std::string &videoPath);
-            void addImage(PageView &page, const std::string &filePath);
-            void addSound(PageView &page, const std::string &filePath, const std::string &fileName = "");
             void addAttachment( const std::string &filePath, const std::string &fileName = "");
 
             void onTooLargePopupDel(Evas_Object *obj, void *eventInfo);

@@ -64,7 +64,7 @@ void SaveAttachmentsPopup::showSelectAllItem()
 
 bool SaveAttachmentsPopup::areAllItemsChecked() const
 {
-    ListItemCollection items = getListView().getItems<ListItem>();
+    ListItemCollection items = getListView().getItems();
 
     auto item = items.empty() ? items.begin() : ++items.begin();
     for(; item != items.end(); ++item)

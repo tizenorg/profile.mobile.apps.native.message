@@ -20,6 +20,8 @@
 
 #include "PageView.h"
 #include "MsgEngine.h"
+#include "WorkingDir.h"
+#include "TextPageViewItem.h"
 
 namespace Msg
 {
@@ -31,18 +33,38 @@ namespace Msg
 
 
         public:
-            Page(Body &parent);
+            Page(Body &parent, WorkingDir &workingDir);
             virtual ~Page();
 
             const MsgTextMetric &getTextMetric();
             long long getSize();
             bool isMms();
+            void read(MsgPage &msgPage);
+            void write(const MsgPage &msgPage);
+            bool addMedia(const std::string &filePath);
 
         private:
             void updateMsgMetricIfNeeded();
 
+            void readText(MsgPage &msgPage);
+            void readSound(MsgPage &msgPage);
+            void readImage(MsgPage &msgPage);
+            void readVideo(MsgPage &msgPage);
+
+            void writeText(const MsgMedia &msgMedia);
+            void writeImage(const MsgMedia &msgMedia);
+            void writeVideo(const MsgMedia &msgMedia);
+            void writeSound(const MsgMedia &msgMedia);
+            void writeTextToFile(TextPageViewItem &item);
+
+            void addVideo(const std::string &videoPath);
+            void addImage(const std::string &filePath);
+            void addSound(const std::string &filePath, const std::string &fileName = "");
+
         private:
+            Body &m_Body;
             MsgTextMetric m_MsgMetric;
+            WorkingDir &m_WorkingDir;
     };
 }
 
