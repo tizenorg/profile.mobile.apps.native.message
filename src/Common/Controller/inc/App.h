@@ -21,6 +21,7 @@
 #include "Window.h"
 #include "MsgEngine.h"
 #include "PopupManager.h"
+#include "ContactManager.h"
 #include <memory>
 
 namespace Msg

@@ -37,8 +37,7 @@ namespace Msg
             ~BubbleEntity();
             enum PartType
             {
-                TextPart,   //raw text
-                TextFilePart,   //path to text file
+                TextPart,   //text
                 ThumbnailPart   //path to thumbnail image
             };
 
@@ -79,7 +78,6 @@ namespace Msg
         private:
             void create(Evas_Object *parent);
             Evas_Object *createTextView(const std::string &text);
-            Evas_Object *createTextFileView(const std::string &path);
             Evas_Object *createThumbView(const std::string &path);
     };
 }

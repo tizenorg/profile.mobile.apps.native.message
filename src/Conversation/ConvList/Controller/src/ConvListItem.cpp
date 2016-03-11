@@ -19,16 +19,16 @@
 #include "MsgConversationItem.h"
 #include "ListView.h"
 #include "CallbackAssist.h"
-#include "ThumbnailMaker.h"
 #include <telephony_common.h>
 #include <telephony_sim.h>
-#include "ContactManager.h"
 #include "FileUtils.h"
 #include "TimeUtils.h"
+#include "SaveAttachmentsPopup.h"
+#include "TextDecorator.h"
 
 using namespace Msg;
 
-ConvListItem::ConvListItem(const MsgConversationItem &item, App &app)
+ConvListItem::ConvListItem(const MsgConversationItem &item, App &app, const std::string &searchWord, const std::string &thumbPath)
     : ConvListViewItem(getConvItemType(item))
     , m_pListener(nullptr)
     , m_App(app)
@@ -38,8 +38,9 @@ ConvListItem::ConvListItem(const MsgConversationItem &item, App &app)
     , m_Type(item.getType())
     , m_Time(item.getTime())
     , m_BubbleEntity()
+    , m_ThumbPath(thumbPath)
 {
-    prepareBubble(item);
+    prepareBubble(item, searchWord);
 }
 
 ConvListItem::~ConvListItem()
@@ -55,19 +56,15 @@ void ConvListItem::updateStatus()
         m_NetworkStatus = msg->getNetworkStatus();
     }
 
-
-    if(m_NetworkStatus != Message::NS_Sending)
-    {
-        if(m_NetworkStatus == Message::NS_Send_Fail)
-            updateItemType(ConvItemType::Failed);
-        else if(m_NetworkStatus == Message::NS_Send_Success)
-            updateItemType(ConvItemType::Sent);
-        else if(m_NetworkStatus == Message::NS_Not_Send)
-            updateItemType(ConvItemType::Draft);
-        else if(m_NetworkStatus == Message::NS_Received)
-            updateItemType(ConvItemType::Received);
-        update();
-    }
+    if(m_NetworkStatus == Message::NS_Send_Fail)
+        updateItemType(ConvItemType::Failed);
+    else if(m_NetworkStatus == Message::NS_Send_Success || m_NetworkStatus == Message::NS_Sending)
+        updateItemType(ConvItemType::Sent);
+    else if(m_NetworkStatus == Message::NS_Not_Send)
+        updateItemType(ConvItemType::Draft);
+    else if(m_NetworkStatus == Message::NS_Received)
+        updateItemType(ConvItemType::Received);
+    update();
 }
 
 ConvListViewItem::ConvItemType ConvListItem::getConvItemType(const MsgConversationItem &item)
@@ -87,11 +84,11 @@ ConvListViewItem::ConvItemType ConvListItem::getConvItemType(const MsgConversati
     return type;
 }
 
-void ConvListItem::prepareBubble(const MsgConversationItem &item)
+void ConvListItem::prepareBubble(const MsgConversationItem &item, const std::string &searchWord)
 {
     if(m_Type == Message::MT_SMS)
     {
-        m_BubbleEntity.addPart(BubbleEntity::TextPart, item.getText());
+        m_BubbleEntity.addPart(BubbleEntity::TextPart, TextDecorator::highlightKeyword(item.getText(), searchWord));
     }
     else
     {
@@ -100,12 +97,19 @@ void ConvListItem::prepareBubble(const MsgConversationItem &item)
         {
             std::string mime = list.at(i).getMime();
             if(!list.at(i).getThumbPath().empty())
+            {
                 //msg service corrupts thumbnail's metadata, so it lost rotation. Use getPath instead getThumbPath until fix
                 m_BubbleEntity.addPart(BubbleEntity::ThumbnailPart, list.at(i).getPath());
+            }
             else if(mime == "text/plain")
-                m_BubbleEntity.addPart(BubbleEntity::TextFilePart, list.at(i).getPath());
+            {
+                std::string text = FileUtils::readTextFile(list.at(i).getPath());
+                m_BubbleEntity.addPart(BubbleEntity::TextPart, TextDecorator::highlightKeyword(std::move(text), searchWord));
+            }
             else if(mime != "application/smil")
+            {
                 m_BubbleEntity.addPart(BubbleEntity::TextPart, list.at(i).getName());
+            }
         }
     }
 }
@@ -119,14 +123,10 @@ Evas_Object *ConvListItem::getBubbleContent()
 
 Evas_Object *ConvListItem::getThumbnail()
 {
-    //TODO: fetch thumb from contacts
-    const int thumbSize = 80;
-    Evas_Object *thumb = nullptr;
-    std::string thumbPath = PathUtils::getResourcePath(THUMB_CONTACT_IMG_PATH);
-    thumb = ThumbnailMaker::make(*getOwner(), ThumbnailMaker::MsgType, thumbPath);
-    evas_object_size_hint_min_set(thumb, thumbSize, thumbSize);
-    evas_object_size_hint_max_set(thumb, thumbSize, thumbSize);
-    return thumb;
+    if(m_ThumbPath.empty())
+        return ThumbnailMaker::make(*getOwner(), ThumbnailMaker::MsgType, PathUtils::getResourcePath(THUMB_CONTACT_IMG_PATH));
+    else
+        return ThumbnailMaker::make(*getOwner(), ThumbnailMaker::UserType, m_ThumbPath);
 }
 
 Evas_Object *ConvListItem::getProgress()
@@ -145,6 +145,11 @@ MsgId ConvListItem::getMsgId() const
     return m_MsgId;
 }
 
+time_t ConvListItem::getRawTime() const
+{
+    return m_Time;
+}
+
 void ConvListItem::setListener(IConvListItemListener *l)
 {
     m_pListener = l;
@@ -161,6 +166,7 @@ void ConvListItem::showPopup()
 void ConvListItem::showMainCtxPopup()
 {
     auto &ctxPopup = m_App.getPopupManager().getCtxPopup();
+
     std::string msgText = getAllMsgText();
 
     if(m_NetworkStatus == Message::NS_Send_Fail)
@@ -180,7 +186,11 @@ void ConvListItem::showMainCtxPopup()
         ctxPopup.appendItem(msg("IDS_MSG_OPT_EDIT"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onEditItemPressed), this);
 
     if(m_Type == Message::MT_MMS)
-        ctxPopup.appendItem(msg("IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onSaveAttachmentsItemPressed), this);
+    {
+        MessageMmsRef mms = std::dynamic_pointer_cast<MessageMms>(m_App.getMsgEngine().getStorage().getMessage(m_MsgId));
+        if(mms && (!mms->getAttachmentList().isEmpty() || mms->getMediaCount() > 0))
+            ctxPopup.appendItem(msg("IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onSaveAttachmentsItemPressed), this);
+    }
 
     if(m_NetworkStatus != Message::NS_Sending && !msgText.empty())
         ctxPopup.appendItem(msg("IDS_MSG_OPT_COPY_TO_SIM_CARD_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onCopyToSimCardItemPressed), this);
@@ -271,6 +281,13 @@ void ConvListItem::onEditItemPressed(ContextPopupItem &item)
 void ConvListItem::onSaveAttachmentsItemPressed(ContextPopupItem &item)
 {
     MSG_LOG("");
+    MessageMmsRef mms = std::dynamic_pointer_cast<MessageMms>(m_App.getMsgEngine().getStorage().getMessage(m_MsgId));
+    if(mms)
+    {
+        SaveAttachmentsPopup *popup = new SaveAttachmentsPopup(m_App, *mms);
+        m_App.getPopupManager().reset(*popup);
+        popup->show();
+    }
 }
 
 void ConvListItem::onCopyToSimCardItemPressed(ContextPopupItem &item)

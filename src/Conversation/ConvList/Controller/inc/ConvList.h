@@ -24,6 +24,7 @@
 #include "ConvSelectAll.h"
 #include "App.h"
 #include "ConvListItem.h"
+#include "DateLineViewItem.h"
 #include <unordered_map>
 
 namespace Msg
@@ -75,7 +76,7 @@ namespace Msg
              * @brief Sets valid thread id
              * @param[in] thread id
              */
-            void setThreadId(ThreadId id);
+            void setThreadId(ThreadId id,const std::string &searchWord = std::string());
 
             /**
              * @brief Navigate to mesage
@@ -102,6 +103,7 @@ namespace Msg
 
         private:
             typedef std::unordered_map<MsgId::Type, ConvListItem*> ConvListItemMap;
+            typedef std::unordered_map<std::string, DateLineViewItem*> DateLineItemMap;
 
         private:
             void create(Evas_Object *parent);
@@ -113,7 +115,10 @@ namespace Msg
             ConvListItem *getItem(MsgId msgId) const;
             void appendItem(ConvListItem *item);
             void deleteItem(ConvListItem *item);
+            void demoteItem(ConvListItem *item); //move down existing item
             void clear();
+            void dateLineDelIfNec(ConvListItem *item);
+            void dateLineAddIfNec(ConvListItem *item);
 
             // IListViewListener:
             virtual void onListItemSelected(ListItem &listItem);
@@ -140,8 +145,12 @@ namespace Msg
             ConvSelectAll *m_pSelectAll;
             ListView *m_pList;
             ConvListItemMap m_ConvListItemMap;
+            DateLineItemMap m_DateLineItemMap;
             IConvListListener *m_pListner;
             App &m_App;
+            std::string m_OwnerThumbPath;
+            std::string m_RecipThumbPath;
+            std::string m_SearchWord;
     };
 
     class IConvListListener

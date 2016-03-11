@@ -38,6 +38,7 @@ namespace Msg
             Window &getWindow() const;
             bool isVisible() const;
             void reset();
+            void reset(Popup &popup);
 
             PopupList &getPopupList();
             Popup &getPopup();

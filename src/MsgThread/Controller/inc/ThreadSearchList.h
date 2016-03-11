@@ -60,7 +60,7 @@ namespace Msg
             virtual ~IThreadSearchListListener() {}
             virtual void onSearchListChanged() {};
             virtual void onSearchListItemSelected(ThreadId id) {};
-            virtual void onSearchListItemSelected(MsgId id) {};
+            virtual void onSearchListItemSelected(MsgId id, const std::string &searchWord) {};
     };
 }
 

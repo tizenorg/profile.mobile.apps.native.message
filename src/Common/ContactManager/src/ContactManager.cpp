@@ -16,9 +16,6 @@
 
 #include "ContactManager.h"
 #include "Logger.h"
-#include "ContactPersonPhoneLog.h"
-#include "ContactPersonNumber.h"
-#include "ContactPersonEmail.h"
 #include "MsgUtils.h"
 
 #include <algorithm>
@@ -166,6 +163,19 @@
             return getContactPersonNumber(address);
 
         return getContactPersonEmail(address);
+    }
+
+    ContactOwnerProfileRef ContactManager::getOwnerProfile() const
+    {
+        contacts_list_h list = nullptr;
+        contacts_record_h myProfile = nullptr;
+        contacts_db_get_all_records(_contacts_my_profile._uri, 0, 1, &list);
+        if(list)
+        {
+            contacts_list_get_current_record_p(list, &myProfile);
+            contacts_list_destroy(list, false);
+        }
+        return myProfile ? std::make_shared<ContactOwnerProfile>(true, myProfile) : nullptr;
     }
 
     void ContactManager::contactChangedCb(const char *view_uri, void *user_data)

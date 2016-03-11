@@ -38,6 +38,11 @@ DateLineViewItem::~DateLineViewItem()
 {
 }
 
+std::string DateLineViewItem::getDateLine() const
+{
+    return m_DateLine;
+}
+
 std::string DateLineViewItem::getText(ListItem &item, const char *part)
 {
     if(!strcmp(part, datePart))

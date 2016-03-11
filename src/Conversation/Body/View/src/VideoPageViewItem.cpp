@@ -19,8 +19,8 @@
 
 using namespace Msg;
 
-VideoPageViewItem::VideoPageViewItem(PageView &parent, const std::string &reourcePath, const std::string &imagePath)
-    : ImagePageViewItem(parent, reourcePath, imagePath)
+VideoPageViewItem::VideoPageViewItem(PageView &parent, const std::string &reourcePath, long long fileSize, const std::string &imagePath)
+    : ImagePageViewItem(parent, reourcePath, fileSize, imagePath)
 {
     showPlayIcon();
 }
@@ -33,3 +33,4 @@ VideoPageViewItem::Type VideoPageViewItem::getType() const
 {
     return VideoType;
 }
+

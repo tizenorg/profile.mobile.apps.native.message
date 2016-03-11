@@ -21,6 +21,7 @@
 #include "ConvListViewItem.h"
 #include "MsgTypes.h"
 #include "BubbleView.h"
+#include "ThumbnailMaker.h"
 #include "Message.h"
 #include "ContextPopup.h"
 #include "App.h"
@@ -39,14 +40,21 @@ namespace Msg
             /**
              * @brief Creates item for Conversation list
              * @param[in] item MsgConversationItem model
+             * @param[in] searchWord string for search in bubble
+             * @param[in] thumbPath string with path for thumb. If empty default picture will be used
              */
-            ConvListItem(const MsgConversationItem &item, App &app);
+            ConvListItem(const MsgConversationItem &item, App &app, const std::string &searchWord, const std::string &thumbPath = std::string());
             virtual ~ConvListItem();
 
             /**
              * @brief Returns MsgId related to this ConvListItem
              */
             MsgId getMsgId() const;
+
+            /**
+             * @brief Returns message's time
+             */
+            time_t getRawTime() const;
             void showPopup();
             void setListener(IConvListItemListener *l);
             void updateStatus();
@@ -63,7 +71,7 @@ namespace Msg
 
         private:
             ConvListViewItem::ConvItemType getConvItemType(const MsgConversationItem &item);
-            void prepareBubble(const MsgConversationItem &item);
+            void prepareBubble(const MsgConversationItem &item, const std::string &searchWord);
 
             // Create Popup when message is clicked
             void showMainCtxPopup();
@@ -95,6 +103,7 @@ namespace Msg
             Message::Type m_Type;
             time_t m_Time;
             BubbleEntity m_BubbleEntity;
+            std::string m_ThumbPath;
     };
 
     class IConvListItemListener

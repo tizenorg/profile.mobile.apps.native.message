@@ -28,7 +28,7 @@ namespace Msg
         : public MediaPageViewItem
     {
         public:
-            ImagePageViewItem(PageView &parent, const std::string &reourcePath, const std::string &imagePath);
+            ImagePageViewItem(PageView &parent, const std::string &reourcePath, long long fileSize, const std::string &imagePath);
             virtual ~ImagePageViewItem();
 
             void showPlayIcon();
@@ -36,6 +36,7 @@ namespace Msg
             virtual Type getType() const;
             virtual bool isEmpty() const;
             virtual void highlight(bool value);
+            virtual std::string getFileName() const;
 
         private:
             Evas_Object *createImageLayout(Evas_Object *parent);

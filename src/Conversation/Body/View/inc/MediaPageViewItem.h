@@ -30,13 +30,14 @@ namespace Msg
         : public PageViewItem
     {
         public:
-            MediaPageViewItem(PageView &parent, const std::string &resourcePath);
+            MediaPageViewItem(PageView &parent, const std::string &resourcePath, long long fileSize);
             virtual ~MediaPageViewItem();
 
             void setListener(IMediaPageViewItemListener *l);
-
+            long long getFileSize() const;
             virtual void highlight(bool value) = 0;
 
+            virtual std::string getFileName() const = 0;
         protected:
             Evas_Object *getMediaLayout() const;
             Evas_Object *getButtonLayout() const;
@@ -56,6 +57,7 @@ namespace Msg
         private:
             IMediaPageViewItemListener *m_pListener;
             Evas_Object *m_pButton;
+            long long m_FileSize;
     };
 
     class IMediaPageViewItemListener

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015 Samsung Electronics Co., Ltd All Rights Reserved
+ * Copyright (c) 2009-2016 Samsung Electronics Co., Ltd All Rights Reserved
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,24 +15,22 @@
  *
  */
 
-#ifndef VideoPageViewItem_h_
-#define VideoPageViewItem_h_
+#include "PopupAttachmentListItem.h"
 
-#include "ImagePageViewItem.h"
+using namespace Msg;
 
-#include <vector>
-
-namespace Msg
+PopupAttachmentListItem::PopupAttachmentListItem(PopupList &parent, const std::string &text, const std::string &path,
+            PopupListItemPressedCb cb, void *userData)
+    : PopupCheckListItem(parent, text, cb, userData)
+    , m_FilePath(path)
 {
-    class VideoPageViewItem
-        : public ImagePageViewItem
-    {
-        public:
-            VideoPageViewItem(PageView &parent, const std::string &reourcePath, long long fileSize, const std::string &imagePath);
-            virtual ~VideoPageViewItem();
-
-            virtual Type getType() const;
-    };
 }
 
-#endif /* VideoPageViewItem_h_ */
+PopupAttachmentListItem::~PopupAttachmentListItem()
+{
+}
+
+std::string PopupAttachmentListItem::getFilePath(ListItem &item)
+{
+    return m_FilePath;
+}

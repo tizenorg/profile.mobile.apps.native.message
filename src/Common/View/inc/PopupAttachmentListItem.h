@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015 Samsung Electronics Co., Ltd All Rights Reserved
+ * Copyright (c) 2009-2016 Samsung Electronics Co., Ltd All Rights Reserved
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,27 +15,30 @@
  *
  */
 
-#ifndef DateLineViewItem_H_
-#define DateLineViewItem_H_
+#ifndef PopupAttachmentListItem_h_
+#define PopupAttachmentListItem_h_
 
-#include "ListItem.h"
+#include "PopupListItem.h"
 
 namespace Msg
 {
-    class DateLineViewItem
-        : public ListItem
+
+    /**
+     * A class of popup-for attach files
+     */
+    class PopupAttachmentListItem
+        : public PopupCheckListItem
     {
         public:
-            DateLineViewItem(const std::string &dateLine);
-            virtual ~DateLineViewItem();
-
-            std::string getDateLine() const;
-        private:
-            virtual std::string getText(ListItem &item, const char *part);
+            PopupAttachmentListItem(PopupList &parent, const std::string &text, const std::string &path,
+                    PopupListItemPressedCb cb, void *userData);
+            virtual ~PopupAttachmentListItem();
 
         private:
-            std::string m_DateLine;
+            std::string getFilePath(ListItem &item);
+
+        private:
+            std::string m_FilePath;
     };
 }
-
-#endif /* DateLineViewItem_H_ */
+#endif /* PopupAttachmentListItem_h_ */

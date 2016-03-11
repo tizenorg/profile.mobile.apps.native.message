@@ -26,15 +26,19 @@ namespace Msg
         : public MediaPageViewItem
     {
         public:
-            SoundPageViewItem(PageView &parent, const std::string &resourcePath, const std::string &dispName = "");
+            SoundPageViewItem(PageView &parent, const std::string &resourcePath, long long fileSize, const std::string &dispName = "");
             virtual ~SoundPageViewItem();
 
             virtual Type getType() const;
             virtual bool isEmpty() const;
             virtual void highlight(bool value);
+            virtual std::string getFileName() const;
 
         private:
             Evas_Object *createLabel(Evas_Object *parent, const std::string &fileName);
+
+        private:
+            std::string m_DispName;
     };
 }
 

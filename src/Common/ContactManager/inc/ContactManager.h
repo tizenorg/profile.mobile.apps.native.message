@@ -27,6 +27,7 @@
 #include "ContactPersonPhoneLog.h"
 #include "ContactPersonNumber.h"
 #include "ContactPersonEmail.h"
+#include "ContactOwnerProfile.h"
 
 namespace Msg
 {
@@ -87,6 +88,12 @@ namespace Msg
              *@return       Reference to ContactPersonNumber
              */
             ContactPersonNumberRef getContactPersonNumber(int phoneId) const;
+
+            /**
+             *@brief        Return owner's ContactPersonAddress record
+             *@return       Reference to ContactPersonAddress
+             */
+            ContactOwnerProfileRef getOwnerProfile() const;
 
             /**
              *@brief        Add listener on contacts database

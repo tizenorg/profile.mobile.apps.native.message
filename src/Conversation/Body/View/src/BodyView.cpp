@@ -17,7 +17,6 @@
 
 #include "BodyView.h"
 #include "PageView.h"
-#include "BodyAttachmentView.h"
 #include "PageSeparator.h"
 #include "Logger.h"
 #include "BodyMediaType.h"
@@ -29,20 +28,17 @@ using namespace Msg;
 
 namespace
 {
-    const std::string maxPageSepLabel = "3"; // TODO: check
-
     inline bool isBackKey(const char *name)
     {
         return name ? strcmp("BackSpace", name) == 0 : false;
     }
 }
 
-BodyView::BodyView(Evas_Object *parent)
+BodyView::BodyView()
     : m_pDefaultPage(nullptr)
     , m_LastTextCursorPos(0)
     , m_pLastFocusedPage(nullptr)
 {
-    create(parent);
 }
 
 BodyView::~BodyView()
@@ -54,8 +50,6 @@ void BodyView::create(Evas_Object *parent)
 {
     setEo(elm_box_add(parent));
     expand();
-
-    setMaxPageLabel(maxPageSepLabel);
     m_pDefaultPage = addPage();
 }
 
@@ -113,11 +107,6 @@ PageView *BodyView::getPrevPage(PageView &page) const
     return it != itEnd ? *it : nullptr;
 }
 
-void BodyView::setMaxPageLabel(const std::string &max)
-{
-    m_MaxPageLabel = max;
-}
-
 int BodyView::getItemCount(BodyViewItem::Type type) const
 {
     int count = 0;
@@ -130,14 +119,20 @@ int BodyView::getItemCount(BodyViewItem::Type type) const
     return count;
 }
 
-PageSeparator *BodyView::createSep(int number)
+PageSeparator *BodyView::createSep()
 {
     PageSeparator *sep = new PageSeparator(*this);
-    sep->setText(std::to_string(number) + '/' + m_MaxPageLabel);
     return sep;
 }
 
-void BodyView::rebuildPageSeparators()
+void BodyView::updateSep(PageSeparator &sep, int number, int maxNumber)
+{
+    std::ostringstream ss;
+    ss << number << '/' << maxNumber;
+    sep.setText(ss.str());
+}
+
+void BodyView::rebuildSeparators()
 {
     auto separators = getItems<PageSeparator>();
     for(PageSeparator *sep : separators)
@@ -152,10 +147,25 @@ void BodyView::rebuildPageSeparators()
         if(prevPage)
         {
             ++number;
-            PageSeparator *sep = createSep(number);
+            PageSeparator *sep = createSep();
+            updateSep(*sep, number, pages.size());
             insertAfter(*sep, *prevPage);
         }
         prevPage = page;
+    }
+}
+
+void BodyView::updateSeparators()
+{
+    auto separators = getItems<PageSeparator>();
+    if(separators.empty())
+        return;
+
+    int index = 1;
+    for(PageSeparator *sep : separators)
+    {
+        updateSep(*sep, index, separators.size() + 1);
+        ++index;
     }
 }
 
@@ -206,7 +216,7 @@ PageViewCollection BodyView::getPages() const
 
 BodyAttachmentCollection BodyView::getAttachments() const
 {
-    return getItems<BodyAttachmentView>();
+    return getItems<BodyAttachmentViewItem>();
 }
 
 template<typename T>
@@ -245,22 +255,24 @@ BodyViewItemCollection BodyView::getAllItems() const
 
 PageView *BodyView::addPage()
 {
-    PageView *page = new PageView(*this);
+    PageView &page = createPage();
 
     int pageCount = getItemCount(BodyViewItem::PageType);
     if(pageCount > 0)
-        append(*createSep(pageCount));
+    {
+        append(*createSep());
+        updateSeparators();
+    }
 
-    append(*page);
-    addText(*page);
-
-    return page;
+    append(page);
+    return &page;
 }
 
-BodyAttachmentView *BodyView::addAttachment(const std::string &filePath, const std::string &dispName)
+BodyAttachmentViewItem *BodyView::addAttachment(const std::string &filePath, long long fileSize, const std::string &dispName)
 {
-    BodyAttachmentView *attachment = new BodyAttachmentView(*this, filePath, dispName);
+    BodyAttachmentViewItem *attachment = new BodyAttachmentViewItem(*this, filePath, fileSize, dispName);
     insertBefore(*attachment, *m_pDefaultPage);
+    attachment->setListener(this);
     onContentChanged();
     return attachment;
 }
@@ -307,7 +319,7 @@ void BodyView::clear()
         }
         else if(item->getType() == BodyViewItem::AttachmentType)
         {
-            BodyAttachmentView *attachment = static_cast<BodyAttachmentView*>(item);
+            BodyAttachmentViewItem *attachment = static_cast<BodyAttachmentViewItem*>(item);
             removeAttachment(*attachment);
         }
     }
@@ -328,9 +340,9 @@ void BodyView::showInputPanel(PageViewItem &pageItem, bool show)
         showInputPanel(pageItem.getParentPage(), show);
 }
 
-ImagePageViewItem *BodyView::addImage(PageView &page, const std::string &filePath)
+ImagePageViewItem *BodyView::addImage(PageView &page, const std::string &filePath, long long fileSize)
 {
-    ImagePageViewItem *item = new ImagePageViewItem(page, filePath, filePath);
+    ImagePageViewItem *item = new ImagePageViewItem(page, filePath, fileSize, filePath);
     item->setListener(this);
     item->show();
     page.addItem(*item);
@@ -338,9 +350,9 @@ ImagePageViewItem *BodyView::addImage(PageView &page, const std::string &filePat
     return item;
 }
 
-SoundPageViewItem *BodyView::addSound(PageView &page, const std::string &filePath, const std::string &dispName)
+SoundPageViewItem *BodyView::addSound(PageView &page, const std::string &filePath, long long fileSize, const std::string &dispName)
 {
-    SoundPageViewItem *item = new SoundPageViewItem(page, filePath, dispName);
+    SoundPageViewItem *item = new SoundPageViewItem(page, filePath, fileSize, dispName);
     item->setListener(this);
     item->show();
     page.addItem(*item);
@@ -348,9 +360,9 @@ SoundPageViewItem *BodyView::addSound(PageView &page, const std::string &filePat
     return item;
 }
 
-VideoPageViewItem *BodyView::addVideo(PageView &page, const std::string &filePath, const std::string &imagePath)
+VideoPageViewItem *BodyView::addVideo(PageView &page, const std::string &filePath, long long fileSize, const std::string &imagePath)
 {
-    VideoPageViewItem *item = new VideoPageViewItem(page, filePath, imagePath);
+    VideoPageViewItem *item = new VideoPageViewItem(page, filePath, fileSize, imagePath);
     item->setListener(this);
     item->show();
     page.addItem(*item);
@@ -398,14 +410,14 @@ void BodyView::removePage(PageView &page, bool setNextFocus)
         }
 
         page.View::destroy();
-        rebuildPageSeparators();
+        rebuildSeparators();
 
         if(m_pLastFocusedPage == &page)
             m_pLastFocusedPage = nullptr;
     }
 }
 
-void BodyView::removeAttachment(BodyAttachmentView &attachment)
+void BodyView::removeAttachment(BodyAttachmentViewItem &attachment)
 {
     remove(attachment);
 }
@@ -528,7 +540,7 @@ void BodyView::onKeyUp(MediaPageViewItem &item, Evas_Event_Key_Up &event)
     MSG_LOG("");
 }
 
-void BodyView::onDelete(BodyAttachmentView &item)
+void BodyView::onDelete(BodyAttachmentViewItem &item)
 {
     MSG_LOG("");
     onItemDelete(item);

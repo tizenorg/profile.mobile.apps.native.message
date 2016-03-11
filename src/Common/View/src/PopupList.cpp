@@ -16,6 +16,7 @@
  */
 
 #include "PopupList.h"
+#include "PopupAttachmentListItem.h"
 #include <string.h>
 
 using namespace Msg;
@@ -48,6 +49,11 @@ void PopupList::appendItem(const std::string &text, PopupListItemPressedCb cb, v
     m_pList->appendItem(*new PopupTextListItem(*this, text, cb, userData));
 }
 
+void PopupList::appendItem(const std::string &text, const std::string &path, PopupListItemPressedCb cb, void *userData)
+{
+    m_pList->appendItem(*new PopupAttachmentListItem(*this, text, path, cb, userData));
+}
+
 void PopupList::create()
 {
     Evas_Object *list = createList(getHostEvasObject());
@@ -65,6 +71,11 @@ Evas_Object *PopupList::createList(Evas_Object *parent)
 }
 
 ListView &PopupList::getListView()
+{
+    return *m_pList;
+}
+
+const ListView &PopupList::getListView() const
 {
     return *m_pList;
 }

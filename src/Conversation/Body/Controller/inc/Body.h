@@ -23,6 +23,7 @@
 #include "MessageMms.h"
 #include "WorkingDir.h"
 #include "AppControlCompose.h"
+#include "Page.h"
 
 #include <list>
 #include <Ecore.h>
@@ -30,63 +31,67 @@
 namespace Msg
 {
     class IBodyListener;
-    class MsgEngine;
+    class App;
+    class PopupListItem;
+    class PopupList;
 
-    struct BodySmsSize
-    {
-        int charsLeft;
-        int smsCount;
-    };
+    // TODO: move page(controller) methods to Page class
 
     class Body
         : public BodyView
     {
         public:
-            Body(Evas_Object *parent, MsgEngine &msgEngine);
+            Body(App &app);
             virtual ~Body();
 
+            void create(Evas_Object *parent);
             void setListener(IBodyListener *listener);
 
             bool addMedia(const std::list<std::string> &fileList);
             bool addMedia(const std::string &filePath);
 
-            bool isMms() const;
-            BodySmsSize getSmsSize() const;
-            long long getMmsSize() const;
+            bool isMms();
+            const MsgTextMetric &getTextMetric();
+            long long getMsgSize();
             void read(Message &msg);
             void write(const Message &msg);
             void execCmd(const AppControlComposeRef &cmd);
+            Page &getDefaultPage();
 
         private:
+            Page &createPage();
+            void showTooLargePopup();
             void read(MessageSMS &msg);
             void read(MessageMms &msg);
-            void readText(MsgPage &msgPage, const PageView &pageView);
-            void readSound(MsgPage &msgPage, const PageView &pageView);
-            void readImage(MsgPage &msgPage, const PageView &pageView);
-            void readVideo(MsgPage &msgPage, const PageView &pageView);
             void readAttachments(MessageMms &msg);
             void write(const MessageSMS &msg);
             void write(const MessageMms &msg);
-            void writePage(const MsgPage &msgPage, PageView &pageView);
-            void writeText(const MsgMedia &msgMedia, PageView &pageView);
-            void writeImage(const MsgMedia &msgMedia, PageView &pageView);
-            void writeVideo(const MsgMedia &msgMedia, PageView &pageView);
-            void writeSound(const MsgMedia &msgMedia, PageView &pageView);
             void writeAttachments(const MessageMms &msg);
-            bool isMms(const PageView &page) const;
             void writeTextToFile(TextPageViewItem &item);
-            bool addVideo(PageView &page, const std::string &videoFilePath);
+            void addAttachment( const std::string &filePath, const std::string &fileName = "");
+
+            void onTooLargePopupDel(Evas_Object *obj, void *eventInfo);
 
             // BodyView:
             virtual void onContentChanged();
             virtual void onItemDelete(PageViewItem &item);
-            virtual void onItemDelete(BodyAttachmentView &item);
+            virtual void onItemDelete(BodyAttachmentViewItem &item);
 
+            //IMediaPageViewItemListener
+            virtual void onClicked(MediaPageViewItem &item);
+
+            //IBodyAttachmentViewListener
+            virtual void onClicked(BodyAttachmentViewItem &item);
+
+            PopupList &createPopupList(const std::string &title);
+            void onRemoveMediaItemPressed(PopupListItem &item);
+            void onRemoveBodyItemPressed(PopupListItem &item);
         private:
             IBodyListener *m_pListener;
-            MsgEngine &m_MsgEngine;
+            App &m_App;
             WorkingDir m_WorkingDir;
             Ecore_Idler *m_pOnChangedIdler;
+            bool m_TooLargePopupShow;
     };
 
     class IBodyListener

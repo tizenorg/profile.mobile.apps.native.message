@@ -28,10 +28,11 @@ namespace
     const char *buttonSwlContent = "elm.swallow.content";
 }
 
-MediaPageViewItem::MediaPageViewItem(PageView &parent, const std::string &resourcePath)
+MediaPageViewItem::MediaPageViewItem(PageView &parent, const std::string &resourcePath, long long fileSize)
     : PageViewItem(parent, resourcePath)
     , m_pListener(nullptr)
     , m_pButton(nullptr)
+    , m_FileSize(fileSize)
 {
     View::setEo(createMainLayout(parent.getItemParent()));
     Evas_Object *button = createButton(getEo());
@@ -75,6 +76,11 @@ void MediaPageViewItem::setListener(IMediaPageViewItemListener *l)
 {
     PageViewItem::setListener(l);
     m_pListener = l;
+}
+
+long long MediaPageViewItem::getFileSize() const
+{
+    return m_FileSize;
 }
 
 Evas_Object *MediaPageViewItem::createMainLayout(Evas_Object *parent)

@@ -30,27 +30,7 @@
 using namespace Msg;
 
 const int defaultPageDuration = 5; // sec;
-
-namespace
-{
-    std::string makeKbSizeStr(long long size)
-    {
-        const long long kb = 1000; // Bytes in kb
-        long long sizeKb = 0;
-        if(size <= kb)
-        {
-            sizeKb = 1;
-        }
-        else
-        {
-            sizeKb =  size / kb;
-            long long sizeB = size % kb;
-            if(sizeB > (kb / 2))
-                ++sizeKb;
-        }
-        return std::to_string(sizeKb) + " " + (std::string)msg("IDS_MSGF_BODY_MSGSIZE_KB");
-    }
-}
+std::string makeKbStr(long long bytes);
 
 SmilPage::SmilPage(Evas_Object *parent, const MsgPage &page)
     : SmilPageLayout(parent)
@@ -221,7 +201,7 @@ void SmilPage::buildAttachment(const MsgAttachment& attachment)
     SmilAttachmentItemView *item = new SmilAttachmentItemView(getBox());
     item->setFilePath(attachment.getFilePath());
     item->setFileName(attachment.getFileName());
-    item->setFileSize(makeKbSizeStr(attachment.getFileSize()));
+    item->setFileSize(makeKbStr(attachment.getFileSize()));
     item->show();
     appendItem(*item);
 }
