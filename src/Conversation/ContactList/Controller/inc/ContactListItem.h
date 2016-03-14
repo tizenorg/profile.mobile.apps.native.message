@@ -21,6 +21,7 @@
 #include "ContactListViewItem.h"
 #include "ContactPersonPhoneLog.h"
 #include "ContactPersonAddress.h"
+#include "App.h"
 
 namespace Msg
 {
@@ -28,22 +29,24 @@ namespace Msg
         : public ContactListViewItem
     {
         public:
-            ContactListItem(const ContactPersonPhoneLog &rec, const std::string &searchWord);
-            ContactListItem(const ContactPersonAddress &rec, const std::string &searchWord);
+            ContactListItem(const ContactPersonPhoneLog &rec, App &app, const std::string &searchWord);
+            ContactListItem(const ContactPersonAddress &rec, App &app, const std::string &searchWord);
             virtual ~ContactListItem();
 
             const std::string &getRecipient() const;
 
         private:
+            ContactListItem(const std::string &recipient, App &app);
             virtual std::string getSubText() const;
             virtual std::string getMainText() const;
             Evas_Object *getThumbnail() const;
 
         private:
+            App &m_App;
             std::string m_Recipient;
+            ThumbnailMaker::ThumbId m_ThumbId;
             std::string m_MainText;
             std::string m_SubText;
-            std::string m_ImagePath;
     };
 }
 
