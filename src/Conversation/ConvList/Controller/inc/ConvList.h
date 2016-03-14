@@ -148,8 +148,8 @@ namespace Msg
             DateLineItemMap m_DateLineItemMap;
             IConvListListener *m_pListner;
             App &m_App;
-            std::string m_OwnerThumbPath;
-            std::string m_RecipThumbPath;
+            ThumbnailMaker::ThumbId m_OwnerThumbId;
+            ThumbnailMaker::ThumbId m_RecipThumbId;
             std::string m_SearchWord;
     };
 

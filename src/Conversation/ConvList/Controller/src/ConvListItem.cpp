@@ -28,7 +28,7 @@
 
 using namespace Msg;
 
-ConvListItem::ConvListItem(const MsgConversationItem &item, App &app, const std::string &searchWord, const std::string &thumbPath)
+ConvListItem::ConvListItem(const MsgConversationItem &item, App &app, const std::string &searchWord, ThumbnailMaker::ThumbId thumbId)
     : ConvListViewItem(getConvItemType(item))
     , m_pListener(nullptr)
     , m_App(app)
@@ -38,7 +38,7 @@ ConvListItem::ConvListItem(const MsgConversationItem &item, App &app, const std:
     , m_Type(item.getType())
     , m_Time(item.getTime())
     , m_BubbleEntity()
-    , m_ThumbPath(thumbPath)
+    , m_ThumbId(thumbId)
 {
     prepareBubble(item, searchWord);
 }
@@ -123,10 +123,7 @@ Evas_Object *ConvListItem::getBubbleContent()
 
 Evas_Object *ConvListItem::getThumbnail()
 {
-    if(m_ThumbPath.empty())
-        return ThumbnailMaker::make(*getOwner(), ThumbnailMaker::MsgType, PathUtils::getResourcePath(THUMB_CONTACT_IMG_PATH));
-    else
-        return ThumbnailMaker::make(*getOwner(), ThumbnailMaker::UserType, m_ThumbPath);
+    return m_App.getThumbnailMaker().getThumbById(*getOwner(), m_ThumbId);
 }
 
 Evas_Object *ConvListItem::getProgress()

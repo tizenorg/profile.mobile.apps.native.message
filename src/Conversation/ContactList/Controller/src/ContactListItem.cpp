@@ -27,23 +27,28 @@
 
 using namespace Msg;
 
-ContactListItem::ContactListItem(const ContactPersonPhoneLog &rec, const std::string &searchWord)
+ContactListItem::ContactListItem(const ContactPersonPhoneLog &rec, App &app, const std::string &searchWord)
+    : ContactListItem(rec.getAddress(), app)
 {
     setStyle(ContactListViewItem::logStyle);
 
-    m_Recipient = rec.getAddress();
-    MSG_LOG(m_Recipient);
     m_MainText = TextDecorator::highlightKeyword(rec.getAddress(), searchWord);
 }
 
-ContactListItem::ContactListItem(const ContactPersonAddress &rec, const std::string &searchWord)
+ContactListItem::ContactListItem(const ContactPersonAddress &rec, App &app, const std::string &searchWord)
+    : ContactListItem(rec.getAddress(), app)
 {
     setStyle(ContactListViewItem::nameOrEmailStyle);
 
     m_MainText = TextDecorator::highlightKeyword(rec.getDispName(), searchWord);
     m_SubText = TextDecorator::highlightKeyword(rec.getAddress(), searchWord);
-    m_Recipient = rec.getAddress();
-    m_ImagePath = rec.getThumbnailPath();
+}
+
+ContactListItem::ContactListItem(const std::string &recipient, App &app)
+    : m_App(app)
+    , m_Recipient(recipient)
+    , m_ThumbId(m_App.getThumbnailMaker().makeThumbFromAddress(recipient))
+{
 }
 
 ContactListItem::~ContactListItem()
@@ -67,7 +72,5 @@ std::string ContactListItem::getMainText() const
 
 Evas_Object *ContactListItem::getThumbnail() const
 {
-    std::string resPath = PathUtils::getResourcePath(THUMB_CONTACT_IMG_PATH);
-    Evas_Object *img = ThumbnailMaker::make(*getOwner(), ThumbnailMaker::MsgType, resPath.c_str());
-    return img;
+    return m_App.getThumbnailMaker().getThumbById(*getOwner(), m_ThumbId);
 }

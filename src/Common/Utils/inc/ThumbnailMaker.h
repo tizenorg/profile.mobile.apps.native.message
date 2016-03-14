@@ -20,20 +20,55 @@
 
 #include <Evas.h>
 #include <string>
+#include <unordered_map>
+#include "MsgAddress.h"
+#include "ContactManager.h"
 
 namespace Msg
 {
+    class App;
+
     class ThumbnailMaker
+        : public IContactManagerListener
     {
         public:
-            enum Type
+            typedef size_t ThumbId;
+            enum DefaultThumbs
             {
-                UserType,
-                MsgType
+                SingleThumb,
+                GroupThumb,
+                OwnerThumb
             };
 
         public:
-            static Evas_Object *make(Evas_Object *parent, Type type, const std::string &path);
+            ThumbnailMaker(App &app);
+            ~ThumbnailMaker();
+            ThumbnailMaker(ThumbnailMaker&) = delete;
+            ThumbnailMaker &operator=(ThumbnailMaker&) = delete;
+
+            ThumbId makeThumbFromAddress(const MsgAddress &address);
+            ThumbId makeThumbFromAddress(const std::string &address);
+            ThumbId makeDefaultThumb(DefaultThumbs thumb);
+            Evas_Object *getThumbById(Evas_Object *parent, ThumbId id);
+
+        private:
+            typedef std::unordered_map<std::string, ThumbId> ContactsMap;
+            typedef std::unordered_map<ThumbId, Evas_Object*> OriginsMap;
+        private:
+            void invalidate();
+            ThumbId makeThumbFromFile(const std::string &path);
+            Evas_Object *makeOriginThumb(Evas_Object *parent, const std::string &path);
+            Evas_Object *makeDefaultOriginThumb(Evas_Object *parent, const std::string &path);
+            std::string DefaultThumbsToStr(DefaultThumbs thumb);
+            std::string DefaultThumbsToPath(DefaultThumbs thumb);
+
+            //IContactManagerListener
+            virtual void onContactChanged();
+        private:
+            App &m_App;
+            ContactsMap m_ContactsMap;
+            OriginsMap m_OriginsMap;
+            ThumbId m_CurrentId;
     };
 }
 

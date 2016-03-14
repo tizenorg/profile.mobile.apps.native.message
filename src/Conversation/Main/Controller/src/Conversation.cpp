@@ -370,7 +370,7 @@ void Conversation::createContactList(Evas_Object *parent)
 {
     if(!m_pContactsList)
     {
-        m_pContactsList = new ConvContactList(parent, getApp().getContactManager());
+        m_pContactsList = new ConvContactList(parent, getApp());
         m_pContactsList->setListener(this);
         m_pContactsList->show();
         m_pLayout->setContactList(*m_pContactsList);
