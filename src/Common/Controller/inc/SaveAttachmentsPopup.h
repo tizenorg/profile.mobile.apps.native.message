@@ -30,8 +30,7 @@ namespace Msg
     class SelectAllListItem;
 
     class SaveAttachmentsPopup
-            : public PopupList
-            , private IListViewListener
+        : public PopupList
     {
         public:
             SaveAttachmentsPopup(App &app, const MessageMms &mms);

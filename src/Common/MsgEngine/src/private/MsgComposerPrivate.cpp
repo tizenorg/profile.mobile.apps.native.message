@@ -26,8 +26,7 @@
 using namespace Msg;
 
 
-MsgComposerPrivate::MsgComposerPrivate(msg_handle_t serviceHandle)
-    : m_ServiceHandle(serviceHandle)
+MsgComposerPrivate::MsgComposerPrivate()
 {
 
 }
