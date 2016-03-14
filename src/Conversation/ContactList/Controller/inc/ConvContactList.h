@@ -19,7 +19,7 @@
 #define ConvContactList_h_
 
 #include "ListView.h"
-#include "ContactManager.h"
+#include "App.h"
 #include "ContactListItem.h"
 
 #include <Ecore.h>
@@ -33,7 +33,7 @@ namespace Msg
         , private IListViewListener
     {
         public:
-            ConvContactList(Evas_Object *parent, ContactManager &cm);
+            ConvContactList(Evas_Object *parent, App &app);
             virtual ~ConvContactList();
 
             void setListener(IConvContactListListener *l);
@@ -53,7 +53,7 @@ namespace Msg
         private:
             IConvContactListListener *m_pListener;
             Ecore_Idler *m_pPredictSearchIdler;
-            ContactManager &m_ContactManager;
+            App &m_App;
             std::string m_SearchWord;
     };
 

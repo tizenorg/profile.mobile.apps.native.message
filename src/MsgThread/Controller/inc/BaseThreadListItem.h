@@ -37,7 +37,6 @@ namespace Msg
             virtual ~BaseThreadListItem();
 
         protected:
-            void updateThumbnailAndName(const MsgAddress &addr, int addressesCount, bool decorateName);
             void updateThumbnailAndName(const MsgAddressList &addressList, bool decorateName);
             void updateThumbnailAndName(const MsgThreadItem &threadItem, bool decorateName);
             void updateName(const MsgAddress &address, int addressesCount, bool decorateName);
@@ -54,8 +53,7 @@ namespace Msg
             virtual Evas_Object *getThumbnail();
 
             App &m_App;
-            ThumbnailMaker::Type m_ThumbType;
-            std::string m_ThumbPath;
+            ThumbnailMaker::ThumbId m_ThumbId;
             std::string m_Name;
             std::string m_Message;
             std::string m_Time;
