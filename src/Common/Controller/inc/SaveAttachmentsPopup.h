@@ -30,8 +30,7 @@ namespace Msg
     class SelectAllListItem;
 
     class SaveAttachmentsPopup
-            : public PopupList
-            , private IListViewListener
+        : public PopupList
     {
         public:
             SaveAttachmentsPopup(App &app, const MessageMms &mms);
@@ -49,6 +48,10 @@ namespace Msg
             void onSaveButtonClicked(Popup &popup, int buttonId);
             bool isSaveButtonNeedToBeEnable();
             void disableSaveButton(bool value);
+
+            // Save button clicked
+            bool saveCheckedItems();
+            void showSavingFailedPopup();
 
             // List View Listener
             virtual void onListItemChecked(ListItem &listItem);

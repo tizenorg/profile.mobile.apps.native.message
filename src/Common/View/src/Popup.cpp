@@ -82,6 +82,11 @@ void Popup::destroy()
         View::destroy();
 }
 
+void Popup::setTimeOut(double timeout)
+{
+    elm_popup_timeout_set(getEo(), timeout);
+}
+
 Evas_Object *Popup::setContent(Evas_Object *content)
 {
     expand(content);

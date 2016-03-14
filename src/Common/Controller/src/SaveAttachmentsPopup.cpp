@@ -20,6 +20,10 @@
 #include <string.h>
 #include "PopupManager.h"
 #include "MsgMedia.h"
+#include "FileUtils.h"
+#include <media_content.h>
+#include <media_content_type.h>
+#include <notification_status.h>
 
 using namespace Msg;
 
@@ -118,7 +122,23 @@ void SaveAttachmentsPopup::onCancelButtonClicked(Popup &popup, int buttonId)
 void SaveAttachmentsPopup::onSaveButtonClicked(Popup &popup, int buttonId)
 {
     MSG_LOG("");
-    // TODO:
+    bool result = false;
+    if(media_content_connect() != 0)
+    {
+        popup.destroy();
+        showSavingFailedPopup();
+        return;
+    }
+
+    result = saveCheckedItems();
+    popup.destroy();
+
+    if(result)
+        notification_status_message_post(msg("IDS_MSGF_POP_SAVED_IN_MY_FILES").cStr());
+    else
+        showSavingFailedPopup();
+
+    media_content_disconnect();
 }
 
 bool SaveAttachmentsPopup::isSaveButtonNeedToBeEnable()
@@ -135,6 +155,34 @@ bool SaveAttachmentsPopup::isSaveButtonNeedToBeEnable()
 void SaveAttachmentsPopup::disableSaveButton(bool value)
 {
     elm_object_disabled_set(m_SaveButton, value);
+}
+
+bool SaveAttachmentsPopup::saveCheckedItems()
+{
+    bool success = true;
+    std::string filePathDst;
+    std::string dowloadPath = PathUtils::getDownloadPath();
+
+    auto items = getListView().getItems<PopupAttachmentListItem>();
+    for(auto *item : items)
+    {
+        if(item->isCheckable() && item->getCheckedState())
+        {
+            filePathDst = FileUtils::genUniqueFilePath(dowloadPath, item->getFilePath());
+            bool copySucceed = FileUtils::copy(item->getFilePath(), filePathDst);
+            success &= copySucceed && (media_content_scan_file(filePathDst.c_str()) == MEDIA_CONTENT_ERROR_NONE);
+        }
+    }
+
+    return success;
+}
+
+void SaveAttachmentsPopup::showSavingFailedPopup()
+{
+    Popup &popup = m_App.getPopupManager().getPopup();
+    popup.setContent(msgt("IDS_MSGF_POP_SAVING_FAILED"));
+    popup.setTimeOut(1.0);
+    popup.show();
 }
 
 void SaveAttachmentsPopup::onListItemChecked(ListItem &listItem)

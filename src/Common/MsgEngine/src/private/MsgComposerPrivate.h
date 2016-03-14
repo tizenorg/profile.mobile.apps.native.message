@@ -27,7 +27,7 @@ namespace Msg
         : public MsgComposer
     {
         public:
-            MsgComposerPrivate(msg_handle_t serviceHandle);
+            MsgComposerPrivate();
             MsgComposerPrivate(MsgComposerPrivate&) = delete;
             MsgComposerPrivate &operator=(MsgComposerPrivate&) = delete;
             virtual ~MsgComposerPrivate();
@@ -37,9 +37,6 @@ namespace Msg
 
         private:
             void setSmilHeader(msg_struct_t mms, bool isTextTop);
-
-        private:
-            msg_handle_t m_ServiceHandle;
     };
 }
 

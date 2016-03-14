@@ -61,7 +61,7 @@ int MsgEngine::openService()
     m_Storage.reset(new MsgStoragePrivate(m_MsgHandle));
     m_Transport.reset(new MsgTransportPrivate(m_MsgHandle));
     m_Settings.reset(new MsgSettingsPrivate(m_MsgHandle));
-    m_Composer.reset(new MsgComposerPrivate(m_MsgHandle));
+    m_Composer.reset(new MsgComposerPrivate());
 #else
     // TODO: impl for public API
 

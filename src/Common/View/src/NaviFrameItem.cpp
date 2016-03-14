@@ -39,7 +39,6 @@ namespace
     const char *downButtonStyle = "naviframe/arrow_down";
     const char *cancelButtonDefTextId = "IDS_MSG_ACBUTTON_CANCEL_ABB";
     const char *okButtonDefTextId = "IDS_MSG_ACBUTTON_DONE_ABB";
-    const char *badgePart = "title_badge";
     const char *buttonTypeKey = "BTkey";
     const char *textColorWhiteTitleButtons = "#3db9cc";
     const char *textColorBlueTitleButtons = "#fafafa";

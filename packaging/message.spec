@@ -1,6 +1,6 @@
 Name:       org.tizen.message
 Summary:    Message application
-Version:    0.0.1
+Version:    0.0.2
 Release:    1
 Group:      Applications/Messaging
 License:    Apache-2.0
