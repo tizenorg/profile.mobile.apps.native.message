@@ -89,7 +89,6 @@ collections {
 			    scale: 1;
 			    description {
 				    state: "default" 0.0;
-				    min: 0 0;
 				    fixed: 1 0;
 				    rel1 { to_x: "padding1"; to_y: "padding_entry_bottom"; relative: 1.0 0.0; }
 				    rel2 { to_x: "padding2"; to_y: "padding_entry_bottom"; relative: 0.0 0.0; }

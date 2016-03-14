@@ -28,6 +28,8 @@ using namespace Msg;
 
 namespace
 {
+    #define maxBodyHeight ELM_SCALE_SIZE(450)
+
     inline bool isBackKey(const char *name)
     {
         return name ? strcmp("BackSpace", name) == 0 : false;
@@ -35,7 +37,10 @@ namespace
 }
 
 BodyView::BodyView()
-    : m_pDefaultPage(nullptr)
+    : m_pRootBox(nullptr)
+    , m_pContentBox(nullptr)
+    , m_pScroller(nullptr)
+    , m_pDefaultPage(nullptr)
     , m_LastTextCursorPos(0)
     , m_pLastFocusedPage(nullptr)
 {
@@ -48,9 +53,51 @@ BodyView::~BodyView()
 
 void BodyView::create(Evas_Object *parent)
 {
-    setEo(elm_box_add(parent));
+    // Root box:
+    m_pRootBox = elm_box_add(parent);
+    setEo(m_pRootBox);
     expand();
+
+    // Scroller:
+    m_pScroller = elm_scroller_add(getEo());
+    expand(m_pScroller);
+    evas_object_show(m_pScroller);
+
+    // Content box:
+    Evas_Object *contentBox = createContentBox(m_pScroller);
+
+    elm_box_pack_end(m_pRootBox, m_pScroller);
+    elm_object_content_set(m_pScroller, contentBox);
+
     m_pDefaultPage = addPage();
+}
+
+Evas_Object *BodyView::createContentBox(Evas_Object *parent)
+{
+    m_pContentBox = elm_box_add(parent);
+    evas_object_show(m_pContentBox);
+    evas_object_size_hint_weight_set(m_pContentBox, EVAS_HINT_EXPAND, 0);
+    evas_object_size_hint_align_set(m_pContentBox, EVAS_HINT_FILL, 0);
+
+    evas_object_event_callback_add(m_pContentBox, EVAS_CALLBACK_RESIZE, EVAS_EVENT_CALLBACK(BodyView, onContentBoxGeometryChanged), this);
+    evas_object_event_callback_add(m_pContentBox, EVAS_CALLBACK_CHANGED_SIZE_HINTS, EVAS_EVENT_CALLBACK(BodyView, onContentBoxGeometryChanged), this);
+
+    return m_pContentBox;
+}
+
+void BodyView::onContentBoxGeometryChanged(Evas_Object *obj, void *event_info)
+{
+    int w = 0;
+    int h = 0;
+
+    evas_object_geometry_get(m_pContentBox, nullptr, nullptr, &w, &h);
+    MSG_LOG(h);
+
+    if(h > maxBodyHeight)
+        h = maxBodyHeight;
+
+    evas_object_size_hint_min_set(m_pRootBox, w, h);
+    evas_object_size_hint_max_set(m_pRootBox, w, h);
 }
 
 const PageView &BodyView::getDefaultPage() const
@@ -178,7 +225,7 @@ void BodyView::prepare(BodyViewItem &item)
 void BodyView::append(BodyViewItem &item)
 {
     prepare(item);
-    elm_box_pack_end(getEo(), item);
+    elm_box_pack_end(m_pContentBox, item);
     item.show();
     onContentChanged();
 }
@@ -186,20 +233,20 @@ void BodyView::append(BodyViewItem &item)
 void BodyView::insertAfter(BodyViewItem &item, BodyViewItem &after)
 {
     prepare(item);
-    elm_box_pack_after(getEo(), item, after);
+    elm_box_pack_after(m_pContentBox, item, after);
     onContentChanged();
 }
 
 void BodyView::insertBefore(BodyViewItem &item, BodyViewItem &before)
 {
     prepare(item);
-    elm_box_pack_before(getEo(), item, before);
+    elm_box_pack_before(m_pContentBox, item, before);
     onContentChanged();
 }
 
 void BodyView::remove(BodyViewItem &item)
 {
-    elm_box_unpack(getEo(), item);
+    elm_box_unpack(m_pContentBox, item);
     item.destroy();
     onContentChanged();
 }
@@ -235,7 +282,7 @@ std::vector<T*> BodyView::getItems() const
 BodyViewItemCollection BodyView::getAllItems() const
 {
     BodyViewItemCollection res;
-    Eina_List *list = elm_box_children_get(getEo());
+    Eina_List *list = elm_box_children_get(m_pContentBox);
     if(list)
     {
         Eina_List *l = nullptr;

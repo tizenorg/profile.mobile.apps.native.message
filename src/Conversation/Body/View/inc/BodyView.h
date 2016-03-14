@@ -78,6 +78,8 @@ namespace Msg
         private:
             /*====Input signals====*/
 
+            void onContentBoxGeometryChanged(Evas_Object *obj, void *event_info);
+
             // ITextPageViewItemListener:
             virtual void onCursorChanged(TextPageViewItem &item);
             virtual void onFocused(TextPageViewItem &item);
@@ -130,9 +132,13 @@ namespace Msg
             void rebuildSeparators();
             void updateSeparators();
             PageSeparator *createSep();
+            Evas_Object *createContentBox(Evas_Object *parent);
             void updateSep(PageSeparator &sep, int number, int maxNumber);
 
         private:
+            Evas_Object *m_pRootBox;
+            Evas_Object *m_pContentBox;
+            Evas_Object *m_pScroller;
             BodyViewItemCollection m_Items;
             PageView *m_pDefaultPage;
             int m_LastTextCursorPos;
