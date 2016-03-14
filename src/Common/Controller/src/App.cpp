@@ -25,6 +25,7 @@ using namespace Msg;
 App::App()
     : m_pContactManager(nullptr)
     , m_pPopupManager(nullptr)
+    , m_pThumbnailMaker(nullptr)
 {
     int serviceResult = m_Engine.openService();
     if(serviceResult != MESSAGES_ERROR_NONE)
@@ -36,6 +37,7 @@ App::App()
 
 App::~App()
 {
+    delete m_pThumbnailMaker;
     delete m_pContactManager;
     delete m_pPopupManager;
 }
@@ -72,6 +74,18 @@ PopupManager &App::getPopupManager()
 const PopupManager &App::getPopupManager() const
 {
     return const_cast<App*>(this)->getPopupManager();
+}
+
+ThumbnailMaker &App::getThumbnailMaker()
+{
+    if(!m_pThumbnailMaker)
+        m_pThumbnailMaker = new ThumbnailMaker(*this);
+    return *m_pThumbnailMaker;
+}
+
+const ThumbnailMaker &App::getThumbnailMaker() const
+{
+    return const_cast<App*>(this)->getThumbnailMaker();
 }
 
 void App::exit()
