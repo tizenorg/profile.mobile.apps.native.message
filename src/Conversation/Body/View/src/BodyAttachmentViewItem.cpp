@@ -50,7 +50,8 @@ BodyAttachmentViewItem::BodyAttachmentViewItem(BodyView &parent, const std::stri
 
 BodyAttachmentViewItem::~BodyAttachmentViewItem()
 {
-
+    if(m_pListener)
+        m_pListener->onDelete(*this);
 }
 
 void BodyAttachmentViewItem::setListener(IBodyAttachmentViewListener *listener)
