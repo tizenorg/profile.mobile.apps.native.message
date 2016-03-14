@@ -36,11 +36,11 @@ namespace
     }
 }
 
-ConvContactList::ConvContactList(Evas_Object *parent, ContactManager &cm)
+ConvContactList::ConvContactList(Evas_Object *parent, App &app)
     : ListView(parent)
     , m_pListener(nullptr)
     , m_pPredictSearchIdler(nullptr)
-    , m_ContactManager(cm)
+    , m_App(app)
 {
     ListView::setListener(this);
     ListView::setMultiSelection(true);
@@ -87,7 +87,7 @@ void ConvContactList::search()
 template<typename ContactRecord>
 void ConvContactList::search()
 {
-    auto list = m_ContactManager.search<ContactRecord>(m_SearchWord);
+    auto list = m_App.getContactManager().search<ContactRecord>(m_SearchWord);
     if(list)
     {
         do
@@ -95,7 +95,7 @@ void ConvContactList::search()
             auto &rec = list->get();
             if(isValid(rec))
             {
-                ContactListItem *item = new ContactListItem(rec, m_SearchWord);
+                ContactListItem *item = new ContactListItem(rec, m_App, m_SearchWord);
                 ListView::appendItem(*item);
             }
             else
