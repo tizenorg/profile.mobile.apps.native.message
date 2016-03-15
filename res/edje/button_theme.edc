@@ -80,6 +80,12 @@ sounds {
 		name: "touch_sound" AS_IS;
 		source: "Tizen_Touch.wav";
 	}
+}	
+styles {
+    style {
+        name: "title_textstyle";
+        base: "font=Tizen:style=Roman font_size=50 color=#2e8b99 align=center";
+    }
 }
 
 ///////////////////////////////////////////////////////
@@ -3151,6 +3157,65 @@ MSG_BUBBLE_BUTTON_STYLE_TRANSLATE("translate_button", "M01_circle_button.png", "
             target: "button_icon";
          }
       }
+   }
+
+#define BUTTON_NAVIFRAME_CENTER_BUTTON_SIZE_MIN 20 80
+#define BUTTON_NAVIFRAME_CENTER_BUTTON_SIZE_MAX -1 80
+#define TEXT_SIDE_SPACER 15
+   group {
+      name: "elm/button/base/naviframe/title_center";
+      inherit: "elm/button/base/naviframe/arrow_back";
+
+      parts {
+         part {
+            name: "button_bg";
+            type: SPACER;
+            scale: 1;
+            mouse_events: 0;
+            description {
+               state: "default" 0.0;
+               min: BUTTON_NAVIFRAME_CENTER_BUTTON_SIZE_MIN;
+               max: BUTTON_NAVIFRAME_CENTER_BUTTON_SIZE_MAX;
+            }
+         }
+         part {
+            name: "effect_spacer";
+            type: SPACER;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               rel1.to_x: "elm.text";
+               rel1.relative: 0.0 0.5;
+               rel1.offset: -TEXT_SIDE_SPACER 0;
+               rel2.to_x: "elm.text";
+               rel2.relative: 1.0 0.5;
+               rel2.offset: TEXT_SIDE_SPACER 0;
+               min: BUTTON_NAVIFRAME_CENTER_BUTTON_SIZE_MIN;
+               max: BUTTON_NAVIFRAME_CENTER_BUTTON_SIZE_MAX;
+            }
+         }
+         part {
+               name: "button_icon";
+               description { "default";
+                   visible: 0;
+               }
+         }
+         part {
+               name: "elm.text";
+               type: TEXTBLOCK;
+               scale: 1;
+               mouse_events: 0;
+               description {
+                  state: "default" 0.0;
+                  min: BUTTON_NAVIFRAME_CENTER_BUTTON_SIZE_MIN;
+                  max: BUTTON_NAVIFRAME_CENTER_BUTTON_SIZE_MAX;
+                  color: BUTTON_NAVIFRAME_BACK_BUTTON_COLOR_BLUE;
+                  text.style: "title_textstyle";
+                  text.max: 1 0;
+               }
+         }
+      }
+      
    }
 
    group {
