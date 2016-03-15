@@ -51,7 +51,7 @@ TEST_F( TestContactManager, FindNameSasha )
     const std::string strName = "Sasha";
 
     m_ContactId = Msg::Test::ContactUtils::getInst().createContact(strName, strNumber);
-    ContactPersonNumberRef item = m_ContactManager.getContactPersonNumber(strNumber);
+    auto item = m_ContactManager.getContactPersonAddress(strNumber);
     std::string result = item->getDispName();
 
     testing::Test::RecordProperty("Number", strNumber.c_str());
@@ -69,7 +69,7 @@ TEST_F( TestContactManager, FindNameVova )
 
     m_ContactId = Msg::Test::ContactUtils::getInst().createContact(strName, strNumber);
 
-    ContactPersonNumberRef item = m_ContactManager.getContactPersonNumber(strNumber);
+    auto item = m_ContactManager.getContactPersonAddress(strNumber);
     std::string result = item->getDispName();
 
     testing::Test::RecordProperty("Number", strNumber.c_str());
@@ -87,7 +87,7 @@ TEST_F( TestContactManager, TestGetNameById )
 
     m_ContactId = Msg::Test::ContactUtils::getInst().createContact(strName, strNumber);
 
-    ContactPersonNumberRef item = m_ContactManager.getContactPersonNumber(strNumber);
+    auto item = m_ContactManager.getContactPersonAddress(strNumber);
     std::string result1 = item->getDispName();
 
     std::string result2 = Msg::Test::ContactUtils::getInst().getNameById(m_ContactId);
