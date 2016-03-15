@@ -722,6 +722,7 @@ void Conversation::onButtonClicked(MessageInputPanel &obj, MessageInputPanel::Bu
             break;
         case MessageInputPanel::SendButtonId:
             sendMessage();
+            m_AttachPanel.show(false);
             break;
         default:
             break;
