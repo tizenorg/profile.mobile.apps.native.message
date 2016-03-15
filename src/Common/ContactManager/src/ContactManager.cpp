@@ -22,9 +22,12 @@
 
  namespace Msg
  {
+    const int mapReservSize = 512;
+
     ContactManager::ContactManager()
     {
         MSG_LOG("");
+        m_AddressMap.reserve(mapReservSize);
         int error = contacts_connect();
         if(error != 0)
         {
@@ -133,15 +136,16 @@
         return list ? std::make_shared<ContactList<ContactPersonEmail>>(list) : nullptr;
     }
 
-    ContactPersonNumberRef ContactManager::getContactPersonNumber(int phoneNumId) const
+    ContactPersonNumberRef ContactManager::getContactPersonNumber(int phoneNumId)
     {
+        // TODO: impl cache policy if needed
         contacts_filter_h filter = nullptr;
         contacts_filter_create(_contacts_contact_number._uri, &filter);
         contacts_filter_add_int(filter, _contacts_person_number.number_id, CONTACTS_MATCH_EQUAL, phoneNumId);
         return filter ? getContactPersonNumber(filter) : nullptr;
     }
 
-    ContactPersonNumberRef ContactManager::getContactPersonNumber(const std::string &number) const
+    ContactPersonNumberRef ContactManager::getContactPersonNumber(const std::string &number)
     {
         contacts_filter_h filter = nullptr;
         contacts_filter_create(_contacts_contact_number._uri, &filter);
@@ -149,7 +153,7 @@
         return filter ? getContactPersonNumber(filter) : nullptr;
     }
 
-    ContactPersonEmailRef ContactManager::getContactPersonEmail(const std::string &email) const
+    ContactPersonEmailRef ContactManager::getContactPersonEmail(const std::string &email)
     {
         contacts_filter_h filter = nullptr;
         contacts_filter_create(_contacts_contact_email._uri, &filter);
@@ -157,30 +161,33 @@
         return filter ? getContactPersonEmail(filter) : nullptr;
     }
 
-    ContactPersonAddressRef ContactManager::getContactPersonAddress(const std::string &address) const
+    ContactPersonAddressRef ContactManager::getContactPersonAddress(const std::string &address)
     {
-        if(MsgUtils::isValidNumber(address))
-            return getContactPersonNumber(address);
-
-        return getContactPersonEmail(address);
+        return getAddress(address);
     }
 
-    ContactOwnerProfileRef ContactManager::getOwnerProfile() const
+    ContactOwnerProfileRef ContactManager::getOwnerProfile()
     {
-        contacts_list_h list = nullptr;
-        contacts_record_h myProfile = nullptr;
-        contacts_db_get_all_records(_contacts_my_profile._uri, 0, 1, &list);
-        if(list)
+        if(!m_OwnerProfile)
         {
-            contacts_list_get_current_record_p(list, &myProfile);
-            contacts_list_destroy(list, false);
+            contacts_list_h list = nullptr;
+            contacts_record_h myProfile = nullptr;
+            contacts_db_get_all_records(_contacts_my_profile._uri, 0, 1, &list);
+            if(list)
+            {
+                contacts_list_get_current_record_p(list, &myProfile);
+                contacts_list_destroy(list, false);
+            }
+            if(myProfile)
+                m_OwnerProfile.reset(new ContactOwnerProfile(true, myProfile));
         }
-        return myProfile ? std::make_shared<ContactOwnerProfile>(true, myProfile) : nullptr;
+        return m_OwnerProfile;
     }
 
     void ContactManager::contactChangedCb(const char *view_uri, void *user_data)
     {
         ContactManager *self = static_cast<ContactManager *>(user_data);
+        self->invalidateCache();
         for(auto listener : self->m_Listeners)
         {
             listener->onContactChanged();
@@ -190,6 +197,7 @@
     void ContactManager::contactDisplayOrderChangedCb(contacts_name_display_order_e name_display_order, void *user_data)
     {
         ContactManager *self = static_cast<ContactManager *>(user_data);
+        self->invalidateCache();
         for(auto listener : self->m_Listeners)
         {
             listener->onContactChanged();
@@ -214,7 +222,7 @@
         }
     }
 
-    ContactPersonNumberRef ContactManager::getContactPersonNumber(contacts_filter_h filter) const
+    ContactPersonNumberRef ContactManager::getContactPersonNumber(contacts_filter_h filter)
     {
         contacts_query_h query = nullptr;
         contacts_list_h list = nullptr;
@@ -259,7 +267,7 @@
         return cResValue ? std::make_shared<ContactPersonNumber>(true, cResValue) : nullptr;
     }
 
-    ContactPersonEmailRef ContactManager::getContactPersonEmail(contacts_filter_h filter) const
+    ContactPersonEmailRef ContactManager::getContactPersonEmail(contacts_filter_h filter)
     {
         contacts_query_h query = nullptr;
         contacts_list_h list = nullptr;
@@ -302,6 +310,30 @@
 
         contacts_list_destroy(list, false);
         return cResValue ? std::make_shared<ContactPersonEmail>(true, cResValue) : nullptr;
+    }
+
+    ContactPersonAddressRef ContactManager::getAddress(const std::string &address)
+    {
+        auto it = m_AddressMap.find(address);
+        if(m_AddressMap.end() == it)
+        {
+            ContactPersonAddressRef personAddress = MsgUtils::isValidNumber(address) ?
+                    std::static_pointer_cast<ContactPersonAddress>(getContactPersonNumber(address)):
+                    std::static_pointer_cast<ContactPersonAddress>(getContactPersonEmail(address));
+            m_AddressMap[address] = personAddress;
+
+            return personAddress;
+        }
+
+        MSG_LOG("Take from cache ", address)
+        return it->second;
+    }
+
+    void ContactManager::invalidateCache()
+    {
+        MSG_LOG("");
+        m_AddressMap.clear();
+        m_OwnerProfile.reset();
     }
 }
 
