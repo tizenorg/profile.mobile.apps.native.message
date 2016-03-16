@@ -49,6 +49,20 @@ void AppControlUtils::getExtraDataArray(app_control_h handle, const std::string 
     }
 }
 
+void AppControlUtils::getExtraDataInt(app_control_h handle, const std::string &key, int &outNumber)
+{
+    char *val = nullptr;
+    if(APP_CONTROL_ERROR_NONE == app_control_get_extra_data(handle, key.c_str(), &val) && val)
+    {
+        std::string::size_type sz;
+        std::string s(val ? val : "");
+        free(val);
+        int parsed = std::stoi(s, &sz);
+        if(sz == s.length())
+            outNumber = parsed;
+    }
+}
+
 void AppControlUtils::getExtraDataIntArray(app_control_h handle, const std::string &key, std::list<int> &outArray)
 {
     int arrayLength = 0;
@@ -72,4 +86,12 @@ void AppControlUtils::getExtraDataIntArray(app_control_h handle, const std::stri
         }
         free(pArrayVal);
     }
+}
+
+void AppControlUtils::getMimeType(app_control_h handle, std::string &outMime)
+{
+    char *mime = nullptr;
+    app_control_get_mime(handle, &mime);
+    if(mime)
+        outMime = mime;
 }
