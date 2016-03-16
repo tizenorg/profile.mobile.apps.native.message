@@ -94,6 +94,21 @@ namespace Msg
              */
             void removeListener(IContactManagerListener &listener);
 
+            /**
+             *@brief        Create content of contact by it`s id
+             *@param[in]    personId - contact id
+             *@param[in]    myProfile - is app control my_profile data type
+             *@return       Content with all info about one contact
+             */
+            std::string makeVcard(const int personId, bool myProfile);
+
+            /**
+             *@brief        Create content of contact by id list
+             *@param[in]    personId - contact id
+             *@return       Content with all info about contacts
+             */
+            std::string makeVcard(const std::list<int> &idList);
+
         private:
             typedef std::unordered_map<std::string, ContactPersonAddressRef> AddressMap;
 
@@ -130,6 +145,9 @@ namespace Msg
 
             void invalidateCache();
             ContactPersonAddressRef getAddress(const std::string &address);
+
+            std::string createContactContent(contacts_record_h record, bool myProfile);
+            std::string createContentForContactList(int personId);
 
         private:
             std::list<IContactManagerListener *> m_Listeners;
