@@ -38,13 +38,10 @@ ConvList::ConvList(Evas_Object *parent, App &app)
     , m_DateLineItemMap()
     , m_pListner(nullptr)
     , m_App(app)
-    , m_OwnerThumbPath()
-    , m_RecipThumbPath()
+    , m_OwnerThumbId(m_App.getThumbnailMaker().getThumbId(ThumbnailMaker::OwnerThumb))
+    , m_RecipThumbId(m_App.getThumbnailMaker().getThumbId(ThumbnailMaker::SingleThumb))
     , m_SearchWord()
 {
-    auto profile = m_App.getContactManager().getOwnerProfile();
-    if(profile)
-        m_OwnerThumbPath = profile->getThumbnailPath();
     create(parent);
 }
 
@@ -125,9 +122,9 @@ void ConvList::fill()
         MsgConversationItem &item = convList->at(i);
         ConvListItem *listItem = nullptr;
         if(item.getDirection() == Message::MD_Received)
-            listItem = new ConvListItem(item, m_App, m_SearchWord, m_RecipThumbPath);
+            listItem = new ConvListItem(item, m_App, m_SearchWord, m_RecipThumbId);
         else
-            listItem = new ConvListItem(item, m_App, m_SearchWord, m_OwnerThumbPath);
+            listItem = new ConvListItem(item, m_App, m_SearchWord, m_OwnerThumbId);
         appendItem(listItem);
     }
 }
@@ -144,13 +141,11 @@ void ConvList::setThreadId(ThreadId id, const std::string &searchWord)
             int countContact = addressList->getLength();
             if(countContact > 1)
             {
-                m_RecipThumbPath = PathUtils::getResourcePath(THUMB_GROUP_IMG_PATH);
+                m_RecipThumbId = m_App.getThumbnailMaker().getThumbId(ThumbnailMaker::GroupThumb);
             }
             else if(countContact == 1)
             {
-                ContactPersonAddressRef contactAddress = m_App.getContactManager().getContactPersonAddress(addressList->at(0).getAddress());
-                if(contactAddress)
-                    m_RecipThumbPath = contactAddress->getThumbnailPath();
+                m_RecipThumbId = m_App.getThumbnailMaker().getThumbId(addressList->at(0));
             }
             else
             {
@@ -334,9 +329,9 @@ void ConvList::onMsgStorageInsert(const MsgIdList &msgIdList)
                 MsgConversationItemRef item = m_MsgEngine.getStorage().getConversationItem(itemId);
                 ConvListItem *listItem = nullptr;
                 if(item->getDirection() == Message::MD_Received)
-                    listItem = new ConvListItem(*item, m_App, m_SearchWord, m_RecipThumbPath);
+                    listItem = new ConvListItem(*item, m_App, m_SearchWord, m_RecipThumbId);
                 else
-                    listItem = new ConvListItem(*item, m_App, m_SearchWord, m_OwnerThumbPath);
+                    listItem = new ConvListItem(*item, m_App, m_SearchWord, m_OwnerThumbId);
                 appendItem(listItem);
             }
         }
