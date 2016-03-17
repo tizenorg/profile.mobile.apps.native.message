@@ -30,6 +30,7 @@ collections {
 		    
 		    PADDING_TOP("padding_top", 1);
 		    PADDING_BOTTOM("padding_btn_bottom", 18);
+		    PADDING_TOP("padding_entry_top", 5);
 		    PADDING_BOTTOM("padding_entry_bottom", 18);
 		    PADDING_BOTTOM("padding_send_btn_bottom", 4);
 		    PADDING_LEFT("padding_left", 11);
@@ -90,15 +91,9 @@ collections {
 			    description {
 				    state: "default" 0.0;
 				    fixed: 0 0;
-				    rel1 { to_x: "padding1"; to_y: "padding_entry_bottom"; relative: 1.0 0.0; }
+				    rel1 { to_x: "padding1"; to_y: "padding_entry_top"; relative: 0.0 0.0; }
 				    rel2 { to_x: "padding2"; to_y: "padding_entry_bottom"; relative: 0.0 0.0; }
 				    align: 0.0 1.0;
-			    }
-			    description {
-				    state: "landscape" 0.0;
-				    inherit: "default" 0.0;
-				    rel1 { to_x: "padding1"; to_y: "padding_entry_bottom"; relative: 1.0 0.0; }
-				    rel2 { to_x: "padding2"; to_y: "padding_entry_bottom"; relative: 0.0 0.0; }
 			    }
 		    }
 		    part {
