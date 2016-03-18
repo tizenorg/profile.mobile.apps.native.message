@@ -50,11 +50,14 @@ namespace Msg
             void onEntryChanged(Evas_Object *obj, void *eventInfo);
             void onKeyDown(Evas_Object *obj, void *eventInfo);
             void onClearButtonClicked(Evas_Object *obj, void *eventInfo);
+            static void onPostponedEntryFocus(void *data);
 
         private:
             Evas_Object *m_pEntry;
             Evas_Object *m_pClearButton;
             IMsgThreadSearchPanelListener *m_pListener;
+            bool m_EntryFocus;
+            Ecore_Job *m_pEntryJob;
     };
 
     class IMsgThreadSearchPanelListener
