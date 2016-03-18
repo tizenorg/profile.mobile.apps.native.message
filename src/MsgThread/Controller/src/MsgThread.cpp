@@ -69,7 +69,6 @@ Evas_Object *MsgThread::createSearchPanel(Evas_Object *parent)
     m_pSearchPanel = new MsgThreadSearchPanel(*m_pLayout);
     m_pSearchPanel->setListener(this);
     m_pSearchPanel->setGuideText("Search");
-    m_pSearchPanel->show();
     return *m_pSearchPanel;
 }
 
