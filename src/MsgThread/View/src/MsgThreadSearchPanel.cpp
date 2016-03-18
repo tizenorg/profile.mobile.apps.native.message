@@ -27,13 +27,19 @@ MsgThreadSearchPanel::MsgThreadSearchPanel(Evas_Object *parent)
     : m_pEntry(nullptr)
     , m_pClearButton(nullptr)
     , m_pListener(nullptr)
+    , m_EntryFocus(false)
+    , m_pEntryJob(nullptr)
 {
     create(parent);
 }
 
 MsgThreadSearchPanel::~MsgThreadSearchPanel()
 {
-
+    if(m_pEntryJob)
+    {
+        ecore_job_del(m_pEntryJob);
+        m_pEntryJob = nullptr;
+    }
 }
 
 void MsgThreadSearchPanel::create(Evas_Object *parent)
@@ -115,9 +121,18 @@ std::string MsgThreadSearchPanel::getEntryText() const
     return res;
 }
 
+void MsgThreadSearchPanel::setPostponedEntryFocus(void *data)
+{
+    MsgThreadSearchPanel *self = static_cast<MsgThreadSearchPanel*>(data);
+    self->m_pEntryJob = nullptr;
+    elm_object_focus_set(self->m_pEntry, self->m_EntryFocus);
+}
+
 void MsgThreadSearchPanel::setEntryFocus(bool focus)
 {
-    elm_object_focus_set(m_pEntry, focus);
+    m_EntryFocus = focus;
+    if(!m_pEntryJob)
+        m_pEntryJob = ecore_job_add(setPostponedEntryFocus, this);
 }
 
 void MsgThreadSearchPanel::clearEntry()
