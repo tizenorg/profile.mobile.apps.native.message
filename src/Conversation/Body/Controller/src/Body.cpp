@@ -36,6 +36,9 @@ using namespace Msg;
 
 namespace
 {
+    const std::string contactFileName = "Contact.vcf";
+    const std::string contactsFileName = "Contacts.vcf";
+
     inline TextPageViewItem *getTextItem(const PageView &page)
     {
         return page ? static_cast<TextPageViewItem*>(page.getItem(PageViewItem::TextType)) : nullptr;
@@ -282,9 +285,13 @@ void Body::execCmd(const AppControlComposeRef &cmd)
     if(textItem)
         textItem->setText(cmd->getMessageText());
 
+    std::list<std::string> path = cmd->getFileList();
+    if(!cmd->getVcfInfo().contactsIdList.empty())
+        path.push_back(createVcfFile(cmd));
+
     //TODO: implement fill of subject.
 
-    addMedia(cmd->getFileList());
+    addMedia(path);
 }
 
 void Body::addAttachment(const std::string &filePath, const std::string &fileName)
@@ -376,6 +383,28 @@ void Body::onTooLargePopupDel(Evas_Object *obj, void *eventInfo)
 {
     MSG_LOG("");
     m_TooLargePopupShow = false;
+}
+
+std::string Body::createVcfFile(const AppControlComposeRef &cmd)
+{
+    auto &idList = cmd->getVcfInfo().contactsIdList;
+    std::string content;
+    std::string path;
+
+    if(cmd->getComposeType() == AppControlCompose::OpShare)
+    {
+        content = m_App.getContactManager().makeVcard(*idList.begin(), cmd->getVcfInfo().isMyProfile);
+        path = contactFileName;
+    }
+    else if(cmd->getComposeType() == AppControlCompose::OpMultiShare)
+    {
+        content = m_App.getContactManager().makeVcard(idList);
+        path = contactsFileName;
+    }
+
+    path = content.empty() ? std::string() : m_WorkingDir.addTextFile(content, path);
+
+    return path;
 }
 
 void Body::onContentChanged()
