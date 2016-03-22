@@ -162,13 +162,15 @@ bool FileUtils::remove(const std::string &path, bool removeCurrentDir)
 
     if(dp)
     {
-        while((ep = readdir(dp)) != nullptr)
+        ep = readdir(dp);
+        while(ep)
         {
             if(strcmp(ep->d_name, ".") != 0 && strcmp(ep->d_name, "..") != 0)
             {
                 std::string child = path + "/" + ep->d_name;
                 res &= remove(child, true);
             }
+            ep = readdir(dp);
         }
 
         closedir(dp);

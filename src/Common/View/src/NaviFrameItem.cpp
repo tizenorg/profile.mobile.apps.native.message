@@ -97,6 +97,7 @@ NaviFrameItem::NaviBar::NaviBar(NaviFrameItem &onwer)
     , m_CurrentColor(NaviBlueColorId)
     , m_SearchBar(nullptr)
 {
+    setEo(addLayout(m_Owner.getOwner(), MSG_TITLE_EDJ_PATH, titleStyleName));
     m_ButtonList[NaviCancelButtonId] = ButtonStruct(nullptr, cancelButtonPart, cancelButtonStyle, cancelButtonDefTextId);
     m_ButtonList[NaviOkButtonId] = ButtonStruct(nullptr, okButtonPart, okButtonStyle, okButtonDefTextId);
     m_ButtonList[NaviCenterButtonId] = ButtonStruct(nullptr, centerButtonPart, centerButtonStyle);
@@ -259,15 +260,7 @@ void NaviFrameItem::onAttached(ViewItem &item)
 {
     ViewItem::onAttached(item);
     elm_naviframe_item_style_set(getElmObjItem(), naviTitleStyleEmpty);
-    m_pNaviBar->initNaviBar();
     setContent(*m_pNaviBar, naviTitlePart);
-}
-
-void NaviFrameItem::NaviBar::initNaviBar()
-{
-    setEo(elm_layout_add(m_Owner.getOwner()));
-    std::string edjPath = PathUtils::getResourcePath(MSG_TITLE_EDJ_PATH);
-    elm_layout_file_set(getEo(), edjPath.c_str(), titleStyleName);
 }
 
 void NaviFrameItem::NaviBar::setColor(NaviColorId id)
