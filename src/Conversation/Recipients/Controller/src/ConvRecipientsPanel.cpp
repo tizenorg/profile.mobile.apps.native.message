@@ -32,8 +32,6 @@ ConvRecipientsPanel::ConvRecipientsPanel(Evas_Object *parent, App &app)
 {
     m_Picker.setListener(this);
     m_pMbe = new MbeRecipients(*this, m_App);
-    m_pMbe->addSmartCb("item,added", SMART_CALLBACK(ConvRecipientsPanel, onMbeChanged), this);
-    m_pMbe->addSmartCb("item,deleted", SMART_CALLBACK(ConvRecipientsPanel, onMbeChanged), this);
     m_pMbe->setListener(this);
     m_pMbe->show();
     setMbe(m_pMbe);
@@ -134,10 +132,7 @@ void ConvRecipientsPanel::removeSelectedItem()
 {
     MbeRecipientItem* pItem = getSelectedItem();
     if(pItem)
-    {
         pItem->destroy();
-        pItem = nullptr;
-    }
 }
 
 void ConvRecipientsPanel::editSelectedItem()
@@ -265,7 +260,7 @@ void ConvRecipientsPanel::showTooManyRecipientsNotif()
     notification_status_message_post(msgArgs("IDS_MSGC_BODY_MAXIMUM_NUMBER_OF_RECIPIENTS_HPD_REACHED", getMaxRecipientCount()).cStr());
 }
 
-void ConvRecipientsPanel::onMbeChanged(Evas_Object *oj, void *eventInfo)
+void ConvRecipientsPanel::onMbeChanged()
 {
     if(m_pListener)
         m_pListener->onMbeChanged(*this);

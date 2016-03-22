@@ -43,16 +43,21 @@ namespace Msg
             void setListener(IMbeRecipientsListener *pListener);
         private:
             void onMbeItemClicked(Evas_Object *obj, void *eventInfo);
+            void onMbeChanged(Evas_Object *obj, void *eventInfo);
+
+
         private:
             IMbeRecipientsListener *m_pListener;
             MbeRecipientItem *m_pSelectedItem;
+            Ecore_Job *m_pChangedJob;
     };
 
     class IMbeRecipientsListener
     {
     public:
         virtual ~IMbeRecipientsListener() {};
-        virtual void onMbeItemClicked(MbeRecipientItem &item) = 0;
+        virtual void onMbeItemClicked(MbeRecipientItem &item) {};
+        virtual void onMbeChanged() {}; // Added/Deleted
     };
 }
 
