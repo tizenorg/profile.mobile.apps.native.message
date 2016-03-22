@@ -25,6 +25,9 @@ using namespace Msg;
 
 namespace
 {
+    const std::string mimeContact = "application/vnd.tizen.contact";
+    const std::string myProfileDataType = "my_profile";
+
     typedef std::unordered_map<std::string, AppControlCompose::OpComposeType> OperationMap;
 
     const OperationMap operationMap =
@@ -88,6 +91,18 @@ void AppControlCompose::createComposeOp(app_control_h handle)
 void AppControlCompose::createShareOp(app_control_h handle)
 {
     parseUriShare(handle);
+
+    if(mimeContact == AppControlUtils::getMimeType(handle))
+    {
+        std::string idStr = AppControlUtils::getExtraData(handle, APP_CONTROL_DATA_ID);
+        if(!idStr.empty())
+        {
+            std::string dataType = AppControlUtils::getExtraData(handle, APP_CONTROL_DATA_TYPE);
+            m_VcfInfo.isMyProfile = (dataType == myProfileDataType);
+            m_VcfInfo.contactsIdList.push_back(atoi(idStr.c_str()));
+        }
+    }
+
     if (m_FileList.empty())
     {
         m_FileList.push_back(AppControlUtils::getExtraData(handle, APP_CONTROL_DATA_PATH));
@@ -95,6 +110,14 @@ void AppControlCompose::createShareOp(app_control_h handle)
 }
 void AppControlCompose::createMultiShareOp(app_control_h handle)
 {
+    if(mimeContact == AppControlUtils::getMimeType(handle))
+    {
+        std::list<std::string> contactsList;
+        AppControlUtils::getExtraDataArray(handle, APP_CONTROL_DATA_ID, contactsList);
+        for(auto it : contactsList)
+            m_VcfInfo.contactsIdList.push_back(atoi(it.c_str()));
+    }
+
     AppControlUtils::getExtraDataArray(handle, APP_CONTROL_DATA_PATH, m_FileList);
     parseUriShare(handle);
 }
@@ -120,6 +143,7 @@ bool AppControlCompose::isMms() const
 {
     return m_isMms;
 }
+
 const std::string &AppControlCompose::getMessageText() const
 {
     return m_MessageText;
@@ -131,6 +155,11 @@ const std::string &AppControlCompose::getMessageSubject() const
 const AppControlCompose::FileList &AppControlCompose::getFileList() const
 {
     return m_FileList;
+}
+
+const VcfInfo &AppControlCompose::getVcfInfo() const
+{
+    return m_VcfInfo;
 }
 
 bool AppControlCompose::parseUriCompose(app_control_h handle)
