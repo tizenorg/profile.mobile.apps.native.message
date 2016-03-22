@@ -83,8 +83,8 @@ std::string MessageMmsPrivate::getText() const
 
     const MsgPageList &pageList = getPageList();
     std::string result;
-
     int size = pageList.getLength();
+
     for(int i = 0; i < size; ++i)
     {
         const MsgMediaList &mediaList = pageList.at(i).getMediaList();
@@ -94,9 +94,14 @@ std::string MessageMmsPrivate::getText() const
         {
             if(mediaList[j].getType() == MsgMedia::SmilText)
             {
-                result += FileUtils::readTextFile(mediaList[j].getFilePath());
-                if(i < size - 1)
-                    result.append("\n");
+                std::string str = FileUtils::readTextFile(mediaList[j].getFilePath());
+                if(!str.empty())
+                {
+                    if(i > 0 && !result.empty())
+                        result.append("\n");
+
+                    result += std::move(str);
+                }
             }
         }
     }
