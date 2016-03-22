@@ -36,7 +36,7 @@ namespace Msg
 
             std::string genUniqueFilePath(const std::string &fileName) const;
             std::string addFile(const std::string &path);
-            std::string addTextFile(const std::string &text);
+            std::string addTextFile(const std::string &text, const std::string &fileName = "");
             void removeFile(const std::string &path);
             void clear();
 
