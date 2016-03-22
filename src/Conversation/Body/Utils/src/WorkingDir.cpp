@@ -95,19 +95,30 @@ std::string WorkingDir::addFile(const std::string &path)
 
     if(FileUtils::isExists(path))
     {
-        newPath = genUniqueFilePath(path);
-        if(FileUtils::copy(path, newPath))
+        if(path.find(m_Path) != std::string::npos)
         {
-            MSG_LOG("File added: ", newPath);
+            newPath = path;
+            MSG_LOG("File is already exists: ", newPath);
+        }
+        else
+        {
+            newPath = genUniqueFilePath(path);
+            if(FileUtils::copy(path, newPath))
+            {
+                MSG_LOG("File added: ", newPath);
+            }
         }
     }
 
     return newPath;
 }
 
-std::string WorkingDir::addTextFile(const std::string &text)
+std::string WorkingDir::addTextFile(const std::string &text, const std::string &fileName)
 {
-    std::string path = genUniqueFilePath(textFileName);
+    std::string result;
+    result = fileName.empty() ? textFileName : fileName;
+
+    std::string path = genUniqueFilePath(result);
     std::ofstream file(path, std::ofstream::trunc | std::ofstream::binary | std::ofstream::out);
     if(file.is_open())
     {
