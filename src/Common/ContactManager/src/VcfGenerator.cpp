@@ -16,7 +16,6 @@
  */
 
 #include "ContactManager.h"
-#include "FileUtils.h"
 #include <sstream>
 #include "Logger.h"
 #include <contacts_vcard.h>
@@ -37,7 +36,7 @@ std::string ContactManager::makeVcard(const int personId, bool myProfile)
         return std::string();
     }
     vcardContent = createContactContent(record, myProfile);
-    MSG_LOG("vcardContent = ", vcardContent);
+
     if(record)
         contacts_record_destroy(record, true);
 
@@ -46,17 +45,11 @@ std::string ContactManager::makeVcard(const int personId, bool myProfile)
 
 std::string ContactManager::makeVcard(const std::list<int> &idList)
 {
-    std::ostringstream vcardContent;
-
+    std::string vcardContent;
     for(auto it : idList)
-    {
-        if(!vcardContent.str().empty())
-            vcardContent << "/n";
+        vcardContent += createContentForContactList(it);
 
-        vcardContent << createContentForContactList(it);
-    }
-    MSG_LOG("vcardContent = ", vcardContent.str());
-    return vcardContent.str();
+    return vcardContent;
 }
 
 std::string ContactManager::createContactContent(contacts_record_h record, bool myProfile)

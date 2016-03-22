@@ -72,6 +72,8 @@ namespace Msg
 
             void onTooLargePopupDel(Evas_Object *obj, void *eventInfo);
 
+            std::string createVcfFile(const AppControlComposeRef &cmd);
+
             // BodyView:
             virtual void onContentChanged();
             virtual void onItemDelete(PageViewItem &item);
