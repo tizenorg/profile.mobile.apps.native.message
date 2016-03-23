@@ -183,8 +183,6 @@ Evas_Object *ConvRecipientsPanelView::createEntry(Evas_Object *parent)
     limitFilter.max_char_count = m_EntryMaxCharCount;
     elm_entry_markup_filter_append(m_pEntry, elm_entry_filter_limit_size, &limitFilter);
 
-    evas_object_show(m_pEntry);
-
     evas_object_smart_callback_add(m_pEntry, "changed", SMART_CALLBACK(ConvRecipientsPanelView, onEntryChanged), this);
     evas_object_smart_callback_add(m_pEntry, "focused", SMART_CALLBACK(ConvRecipientsPanelView, onEntryFocusChanged), this);
     evas_object_smart_callback_add(m_pEntry, "unfocused", SMART_CALLBACK(ConvRecipientsPanelView, onEntryFocusChanged), this);
