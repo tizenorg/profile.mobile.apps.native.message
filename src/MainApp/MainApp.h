@@ -54,8 +54,6 @@ namespace Msg
             void onLowBattery(app_event_info_h appEvent);
             void onRegionChanged(app_event_info_h appEvent);
 
-            void initThemes();
-
         private:
             StandardWindow *m_pWindow;
             NaviFrameController *m_pRootController;

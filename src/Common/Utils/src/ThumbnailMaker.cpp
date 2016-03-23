@@ -35,12 +35,13 @@ ThumbnailMaker::ThumbnailMaker(App &app)
     : m_App(app)
     , m_ContactsMap()
     , m_OriginsMap()
-    , m_CurrentId()
+    , m_CurrentId(-1)
 {
     m_App.getContactManager().addListener(*this);
     m_ContactsMap.reserve(defaultCache);
     m_OriginsMap.reserve(defaultCache);
-    for(int i = 0; i < MaxDefaultThumb; i++)
+
+    for(int i = 0; i <= maxStaticThumbId; i++)
     {
         getThumbId((DefaultThumbs)i);
     }
@@ -72,9 +73,8 @@ ThumbnailMaker::ThumbId ThumbnailMaker::getThumbIdFromFile(const std::string &pa
     {
         auto it = m_ContactsMap.find(path);
         if(it != m_ContactsMap.end())
-        {
             return it->second;
-        }
+
         Evas_Object *origin = makeOriginThumb(m_App.getWindow(), path);
         m_OriginsMap[++m_CurrentId] = origin;
         m_ContactsMap[path] = m_CurrentId;
@@ -98,16 +98,9 @@ ThumbnailMaker::ThumbId ThumbnailMaker::getThumbId(DefaultThumbs thumb)
         }
         else
         {
-            auto ownerProfile = m_App.getContactManager().getOwnerProfile();
-            if(ownerProfile)
-            {
-                origin = makeOriginThumb(m_App.getWindow(), ownerProfile->getThumbnailPath());
-            }
-            else
-            {
-                origin = makeDefaultOriginThumb(m_App.getWindow(), defaultThumbsToPath(SingleThumb));
-            }
-
+            ContactOwnerProfileRef ownerProfile = m_App.getContactManager().getOwnerProfile();
+            origin = ownerProfile ? makeOriginThumb(m_App.getWindow(), ownerProfile->getThumbnailPath()) :
+                                    makeDefaultOriginThumb(m_App.getWindow(), defaultThumbsToPath(SingleThumb));
         }
         m_OriginsMap[++m_CurrentId] = origin;
         m_ContactsMap[defaultThumbsToStr(thumb)] = m_CurrentId;
@@ -117,9 +110,15 @@ ThumbnailMaker::ThumbId ThumbnailMaker::getThumbId(DefaultThumbs thumb)
 
 Evas_Object *ThumbnailMaker::getThumbById(Evas_Object *parent, ThumbId id)
 {
-    Evas_Object *ic = nullptr;
-    Evas_Object *origin = m_OriginsMap[id];
-    ic = evas_object_image_filled_add(evas_object_evas_get(parent));
+    auto it = m_OriginsMap.find(id);
+    if(it == m_OriginsMap.end())
+    {
+        MSG_LOG_ERROR("Invalid thumbnail id");
+        return nullptr;
+    }
+
+    Evas_Object *origin = it->second;
+    Evas_Object *ic = evas_object_image_filled_add(evas_object_evas_get(parent));
     evas_object_image_source_set(ic, origin);
     evas_object_size_hint_min_set(ic, ELM_SCALE_SIZE(defaultThumbSize), ELM_SCALE_SIZE(defaultThumbSize));
     evas_object_size_hint_max_set(ic, ELM_SCALE_SIZE(defaultThumbSize), ELM_SCALE_SIZE(defaultThumbSize));
@@ -166,14 +165,31 @@ Evas_Object *ThumbnailMaker::makeFace(Evas_Object *parent, const std::string &pa
 void ThumbnailMaker::invalidate()
 {
     MSG_LOG("");
-    //TODO: make update on contacts changed cb
-    for(auto it: m_OriginsMap)
+
+    // m_OriginsMap:
+    auto originsIt = m_OriginsMap.begin();
+
+    for(; originsIt != m_OriginsMap.end();)
     {
-        if(it.first >= MaxDefaultThumb)
-            evas_object_del(it.second);
+        if(originsIt->first > maxStaticThumbId)
+        {
+            MSG_LOG(originsIt->first);
+            evas_object_del(originsIt->second);
+            originsIt = m_OriginsMap.erase(originsIt);
+        }
+        else
+            ++originsIt;
     }
-    m_OriginsMap.clear();
-    m_ContactsMap.clear();
+
+    // m_ContactsMap:
+    auto contactsIt = m_ContactsMap.begin();
+    for(; contactsIt != m_ContactsMap.end();)
+    {
+        if(contactsIt->second > maxStaticThumbId)
+            contactsIt = m_ContactsMap.erase(contactsIt);
+        else
+            ++contactsIt;
+    }
 }
 
 const std::string &ThumbnailMaker::defaultThumbsToStr(DefaultThumbs thumb)

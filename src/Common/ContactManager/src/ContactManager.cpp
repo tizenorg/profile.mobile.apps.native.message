@@ -35,6 +35,7 @@
         }
 
         contacts_db_add_changed_cb(_contacts_contact._uri, contactChangedCb, this);
+        contacts_db_add_changed_cb(_contacts_my_profile._uri, contactChangedCb, this);
         contacts_setting_add_name_display_order_changed_cb(contactDisplayOrderChangedCb, this);
     }
 
@@ -329,6 +330,8 @@
 
     void ContactManager::invalidateCache()
     {
+        // TODO: invalidate cache by uri table
+        MSG_LOG("");
         m_AddressMap.clear();
         m_OwnerProfile.reset();
     }

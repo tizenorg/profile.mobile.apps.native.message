@@ -32,12 +32,12 @@ namespace Msg
         : public IContactManagerListener
     {
         public:
-            typedef size_t ThumbId;
+            typedef long ThumbId;
             enum DefaultThumbs
             {
-                SingleThumb = 0,
-                GroupThumb,
-                OwnerThumb,
+                SingleThumb = 0, // Static thumb
+                GroupThumb,      // Static thumb
+                OwnerThumb,      // Mutable thumb
                 MaxDefaultThumb
             };
 
@@ -67,7 +67,10 @@ namespace Msg
 
             //IContactManagerListener
             virtual void onContactChanged();
+
         private:
+            const int maxStaticThumbId = GroupThumb;
+
             App &m_App;
             ContactsMap m_ContactsMap;
             OriginsMap m_OriginsMap;

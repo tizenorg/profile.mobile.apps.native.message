@@ -43,7 +43,7 @@ namespace Msg
              * @param[in] searchWord string for search in bubble
              * @param[in] thumbPath string with path for thumb. If empty default picture will be used
              */
-            ConvListItem(const MsgConversationItem &item, App &app, const std::string &searchWord, ThumbnailMaker::ThumbId thumbId);
+            ConvListItem(const MsgConversationItem &item, App &app, const std::string &searchWord, ThumbnailMaker::ThumbId &thumbId);
             virtual ~ConvListItem();
 
             /**
@@ -57,6 +57,7 @@ namespace Msg
             time_t getRawTime() const;
             void showPopup();
             void setListener(IConvListItemListener *l);
+
             void updateStatus();
 
         protected:
@@ -103,7 +104,7 @@ namespace Msg
             Message::Type m_Type;
             time_t m_Time;
             BubbleEntity m_BubbleEntity;
-            ThumbnailMaker::ThumbId m_ThumbId;
+            ThumbnailMaker::ThumbId &m_ThumbId;
     };
 
     class IConvListItemListener

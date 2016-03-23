@@ -19,6 +19,7 @@
 #include "ViewController.h"
 #include "Logger.h"
 #include "ContactManager.h"
+#include "PathUtils.h"
 
 using namespace Msg;
 
@@ -40,6 +41,24 @@ App::~App()
     delete m_pThumbnailMaker;
     delete m_pContactManager;
     delete m_pPopupManager;
+}
+
+bool App::init()
+{
+    getContactManager();
+    getMsgEngine();
+    getThumbnailMaker();
+
+    std::string imagesPath = PathUtils::getResourcePath(IMAGES_EDJ_PATH);
+    elm_theme_extension_add(nullptr, imagesPath.c_str());
+
+    std::string bubbleThemePath = PathUtils::getResourcePath(BUBBLE_THEME_EDJ_PATH);
+    elm_theme_extension_add(nullptr, bubbleThemePath.c_str());
+
+    std::string buttonThemePath = PathUtils::getResourcePath(BUTTON_THEME_EDJ_PATH);
+    elm_theme_extension_add(nullptr, buttonThemePath.c_str());
+
+    return true;
 }
 
 MsgEngine &App::getMsgEngine()
@@ -67,7 +86,7 @@ const ContactManager &App::getContactManager() const
 PopupManager &App::getPopupManager()
 {
     if(!m_pPopupManager)
-        m_pPopupManager =new PopupManager(getWindow());
+        m_pPopupManager = new PopupManager(getWindow());
     return *m_pPopupManager;
 }
 

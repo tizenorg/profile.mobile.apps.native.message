@@ -28,7 +28,7 @@
 
 using namespace Msg;
 
-ConvListItem::ConvListItem(const MsgConversationItem &item, App &app, const std::string &searchWord, ThumbnailMaker::ThumbId thumbId)
+ConvListItem::ConvListItem(const MsgConversationItem &item, App &app, const std::string &searchWord, ThumbnailMaker::ThumbId &thumbId)
     : ConvListViewItem(getConvItemType(item))
     , m_pListener(nullptr)
     , m_App(app)

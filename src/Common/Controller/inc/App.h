@@ -53,6 +53,9 @@ namespace Msg
 
             void exit();
 
+        protected:
+            bool init();
+
         private:
             virtual void terminate() = 0;
 

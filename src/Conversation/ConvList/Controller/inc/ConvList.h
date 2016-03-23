@@ -24,6 +24,7 @@
 #include "ConvSelectAll.h"
 #include "App.h"
 #include "ConvListItem.h"
+#include "ContactManager.h"
 #include "DateLineViewItem.h"
 #include <unordered_map>
 
@@ -36,6 +37,7 @@ namespace Msg
         , private IMsgStorageListener
         , private IListViewListener
         , private IConvListItemListener
+        , private IContactManagerListener
     {
         public:
             enum Mode
@@ -120,6 +122,9 @@ namespace Msg
             void dateLineDelIfNec(ConvListItem *item);
             void dateLineAddIfNec(ConvListItem *item);
 
+            void updateRecipThumbId();
+            void updateOwnerThumbId();
+
             // IListViewListener:
             virtual void onListItemSelected(ListItem &listItem);
             virtual void onListItemChecked(ListItem &listItem);
@@ -134,6 +139,9 @@ namespace Msg
             virtual void onEditDraftMsg(ConvListItem &item);
             virtual void onForwardMsg(ConvListItem &item);
             virtual void onSlideShow(ConvListItem &item);
+
+            // IContactManagerListener:
+            virtual void onContactChanged();
 
             // SelectAll callback:
             void onSelectAllChanged(Evas_Object *obj, void *eventInfo);
