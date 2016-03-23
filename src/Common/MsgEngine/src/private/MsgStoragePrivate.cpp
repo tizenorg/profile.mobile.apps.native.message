@@ -303,7 +303,7 @@ MessageRef MsgStoragePrivate::getMessage(MsgId id)
     return msgRef;
 }
 
-MsgId MsgStoragePrivate::saveMessage(Message &msg)
+MsgId MsgStoragePrivate::saveMessage(Message &msg, bool updateExisting)
 {
     MsgId newMsgId;
     MessagePrivate &msgPriv = dynamic_cast<MessagePrivate&>(msg);
@@ -312,7 +312,7 @@ MsgId MsgStoragePrivate::saveMessage(Message &msg)
     msg_set_bool_value(sendOpt, MSG_SEND_OPT_SETTING_BOOL, false);
 
     msgPriv.commit();
-    if(msgPriv.getId().isValid())
+    if(msgPriv.getId().isValid() && updateExisting)
     {
         if(msg_update_message(m_ServiceHandle, msgPriv, sendOpt) == 0)
         {

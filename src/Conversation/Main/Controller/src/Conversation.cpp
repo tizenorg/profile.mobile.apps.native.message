@@ -488,7 +488,8 @@ void Conversation::saveDraftMsg()
         if(msg)
         {
             read(*msg);
-            MsgId msgId = getMsgEngine().getStorage().saveMessage(*msg);
+            msg->setMessageStorageType(Message::MS_Phone);
+            MsgId msgId = getMsgEngine().getStorage().saveMessage(*msg, false);
             MSG_LOG("Draft message id = ", msgId);
         }
     }

@@ -333,7 +333,8 @@ void ConvList::onMsgStorageInsert(const MsgIdList &msgIdList)
 {
     for(auto &itemId: msgIdList)
     {
-        if(m_ThreadId == m_MsgEngine.getStorage().getMessage(itemId)->getThreadId())
+        MessageRef msg = m_MsgEngine.getStorage().getMessage(itemId);
+        if(msg && msg->getThreadId() == m_ThreadId && msg->getMessageStorageType() != Message::MS_Sim)
         {
             if(!getItem(itemId))
             {
