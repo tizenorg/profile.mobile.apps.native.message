@@ -26,6 +26,7 @@
 #include "ConvListItem.h"
 #include "ContactManager.h"
 #include "DateLineViewItem.h"
+#include "WorkingDir.h"
 #include <unordered_map>
 
 namespace Msg
@@ -51,8 +52,9 @@ namespace Msg
              * @brief Creates list with messages in thread
              * @param[in] parent parent Evas_Object
              * @param[in] App ref. to main application
+             * @param[in] Smart Ref to current working dir.
              */
-            ConvList(Evas_Object *parent, App &app);
+            ConvList(Evas_Object *parent, App &app, WorkingDirRef workingDir);
             virtual ~ConvList();
 
             /**
@@ -156,6 +158,7 @@ namespace Msg
             DateLineItemMap m_DateLineItemMap;
             IConvListListener *m_pListner;
             App &m_App;
+            WorkingDirRef m_WorkingDir;
             ThumbnailMaker::ThumbId m_OwnerThumbId;
             ThumbnailMaker::ThumbId m_RecipThumbId;
             std::string m_SearchWord;

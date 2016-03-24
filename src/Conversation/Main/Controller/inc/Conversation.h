@@ -181,7 +181,7 @@ namespace Msg
 
         private:
             Mode m_Mode;
-            WorkingDir m_WorkingDir;
+            WorkingDirRef m_WorkingDir;
             ConversationLayout *m_pLayout;
             MessageInputPanel *m_pMsgInputPanel;
             Body *m_pBody;

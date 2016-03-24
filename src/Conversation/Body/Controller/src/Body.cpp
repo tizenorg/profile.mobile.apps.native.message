@@ -62,7 +62,7 @@ namespace
     }
 }
 
-Body::Body(App &app, WorkingDir &workingDir)
+Body::Body(App &app, WorkingDirRef workingDir)
     : BodyView()
     , m_pListener(nullptr)
     , m_App(app)
@@ -254,7 +254,7 @@ void Body::writeAttachments(const MessageMms &msg)
 void Body::writeTextToFile(TextPageViewItem &item)
 {
     if(item.getResourcePath().empty())
-        item.setResourcePath(m_WorkingDir.addTextFile(item.getPlainUtf8Text()));
+        item.setResourcePath(m_WorkingDir->addTextFile(item.getPlainUtf8Text()));
     else
         FileUtils::writeTextFile(item.getResourcePath(), item.getPlainUtf8Text());
 }
@@ -315,7 +315,7 @@ void Body::execCmd(const AppControlComposeRef &cmd)
 
 void Body::addAttachment(const std::string &filePath, const std::string &fileName)
 {
-    std::string newFilePath = m_WorkingDir.addFile(filePath);
+    std::string newFilePath = m_WorkingDir->addFile(filePath);
     if(!newFilePath.empty())
     {
         long long fileSize = FileUtils::getFileSize(newFilePath);
@@ -328,14 +328,14 @@ void Body::onItemDelete(PageViewItem &item)
 {
     MSG_LOG("");
     if(auto video = dynamic_cast<VideoPageViewItem*>(&item))
-        m_WorkingDir.removeFile(video->getImagePath());
+        m_WorkingDir->removeFile(video->getImagePath());
 
-    m_WorkingDir.removeFile(item.getResourcePath());
+    m_WorkingDir->removeFile(item.getResourcePath());
 }
 
 void Body::onItemDelete(BodyAttachmentViewItem &item)
 {
-    m_WorkingDir.removeFile(item.getResourcePath());
+    m_WorkingDir->removeFile(item.getResourcePath());
 }
 
 void Body::onClicked(MediaPageViewItem &item)
@@ -421,7 +421,7 @@ std::string Body::createVcfFile(const AppControlComposeRef &cmd)
         path = contactsFileName;
     }
 
-    path = content.empty() ? std::string() : m_WorkingDir.addTextFile(content, path);
+    path = content.empty() ? std::string() : m_WorkingDir->addTextFile(content, path);
 
     return path;
 }

@@ -28,7 +28,7 @@ namespace
     const int additionalMessagesBulk = 50;
 }
 
-ConvList::ConvList(Evas_Object *parent, App &app)
+ConvList::ConvList(Evas_Object *parent, App &app, WorkingDirRef workingDir)
     : ConvListLayout(parent)
     , m_Mode(NormalMode)
     , m_MsgEngine(app.getMsgEngine())
@@ -38,6 +38,7 @@ ConvList::ConvList(Evas_Object *parent, App &app)
     , m_DateLineItemMap()
     , m_pListner(nullptr)
     , m_App(app)
+    , m_WorkingDir(workingDir)
     , m_OwnerThumbId(m_App.getThumbnailMaker().getThumbId(ThumbnailMaker::OwnerThumb))
     , m_RecipThumbId(m_App.getThumbnailMaker().getThumbId(ThumbnailMaker::SingleThumb))
     , m_SearchWord()
@@ -125,9 +126,9 @@ void ConvList::fill()
         MsgConversationItem &item = convList->at(i);
         ConvListItem *listItem = nullptr;
         if(item.getDirection() == Message::MD_Received)
-            listItem = new ConvListItem(item, m_App, m_SearchWord, m_RecipThumbId);
+            listItem = new ConvListItem(item, m_App, m_WorkingDir,  m_SearchWord, m_RecipThumbId);
         else
-            listItem = new ConvListItem(item, m_App, m_SearchWord, m_OwnerThumbId);
+            listItem = new ConvListItem(item, m_App, m_WorkingDir, m_SearchWord, m_OwnerThumbId);
         appendItem(listItem);
     }
 }
@@ -338,7 +339,7 @@ void ConvList::onMsgStorageInsert(const MsgIdList &msgIdList)
             {
                 MsgConversationItemRef item = m_MsgEngine.getStorage().getConversationItem(itemId);
                 ThumbnailMaker::ThumbId thumbId = item->getDirection() == Message::MD_Received ? m_RecipThumbId : m_OwnerThumbId;
-                appendItem(new ConvListItem(*item, m_App, m_SearchWord, thumbId));
+                appendItem(new ConvListItem(*item, m_App, m_WorkingDir, m_SearchWord, thumbId));
             }
         }
     }

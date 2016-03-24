@@ -131,6 +131,7 @@ void Conversation::execCmd(const AppControlDefaultRef &cmd)
 
 void Conversation::create()
 {
+    m_WorkingDir = std::make_shared<WorkingDir>();
     createMainLayout(getParent());
     createMsgInputPanel(*m_pLayout);
     createBody(*m_pMsgInputPanel);
@@ -329,7 +330,7 @@ void Conversation::createConvList(Evas_Object *parent)
 {
     if(!m_pConvList)
     {
-        m_pConvList = new ConvList(*m_pLayout, getApp());
+        m_pConvList = new ConvList(*m_pLayout, getApp(), m_WorkingDir);
         m_pConvList->setListener(this);
         m_pConvList->show();
         m_pLayout->setConvList(*m_pConvList);
