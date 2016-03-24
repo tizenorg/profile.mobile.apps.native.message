@@ -30,26 +30,24 @@ namespace Msg
     class MsgMedia
     {
         public:
-            enum SmilType
+            enum Type
             {
-                SmilInvalid = 0,
-                SmilImage,
-                SmilAudio,
-                SmilVideo,
-                SmilText,
-                SmilAnimate,
-                SmilImageOrVideo,
-                SmilMAX = 0xffffffff
+                UnknownType = 0,
+                ImageType,
+                AudioType,
+                VideoType,
+                TextType,
+                AnimateType,
+                ImageOrVideoType
             };
 
         public:
             virtual ~MsgMedia() {};
 
-            virtual SmilType getType() const = 0;
+            virtual Type getType() const = 0;
             virtual std::string getFilePath() const = 0;
             virtual std::string getFileName() const = 0;
 
-            virtual void setType(SmilType type) = 0;
             virtual void setFilePath(const std::string &path) = 0;
             virtual void setFileName(const std::string &name) = 0;
     };

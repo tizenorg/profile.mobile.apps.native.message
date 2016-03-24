@@ -39,7 +39,7 @@ namespace Msg
             std::string getMediaPath() const;
 
         private:
-            const MsgMedia *getMedia(const MsgPage &page, MsgMedia::SmilType type) const;
+            const MsgMedia *getMedia(const MsgPage &page, MsgMedia::Type type) const;
             void build(const MsgPage &page);
             void build(const MsgAttachmentList &list);
             void buildImage(const MsgMedia& media);

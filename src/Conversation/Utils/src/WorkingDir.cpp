@@ -27,7 +27,7 @@ using namespace Msg;
 
 const std::string commonWorkingDirName = "msg-composer";
 const std::string currentWorkingDirPrefix = "composer";
-const std::string textFileName = "mms";
+const std::string textFileName = "mms.txt";
 
 
 WorkingDir::WorkingDir()

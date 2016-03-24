@@ -88,7 +88,7 @@ void ConvListItem::prepareBubble(const MsgConversationItem &item, const std::str
 {
     if(m_Type == Message::MT_SMS)
     {
-        m_BubbleEntity.addPart(BubbleEntity::TextPart, TextDecorator::highlightKeyword(item.getText(), searchWord));
+        m_BubbleEntity.addItem(BubbleEntity::TextItem, TextDecorator::highlightKeyword(item.getText(), searchWord));
     }
     else
     {
@@ -99,16 +99,16 @@ void ConvListItem::prepareBubble(const MsgConversationItem &item, const std::str
             if(!list.at(i).getThumbPath().empty())
             {
                 //msg service corrupts thumbnail's metadata, so it lost rotation. Use getPath instead getThumbPath until fix
-                m_BubbleEntity.addPart(BubbleEntity::ThumbnailPart, list.at(i).getPath());
+                m_BubbleEntity.addItem(BubbleEntity::ImageItem, list.at(i).getPath());
             }
             else if(mime == "text/plain")
             {
                 std::string text = FileUtils::readTextFile(list.at(i).getPath());
-                m_BubbleEntity.addPart(BubbleEntity::TextPart, TextDecorator::highlightKeyword(std::move(text), searchWord));
+                m_BubbleEntity.addItem(BubbleEntity::TextItem, TextDecorator::highlightKeyword(std::move(text), searchWord));
             }
             else if(mime != "application/smil")
             {
-                m_BubbleEntity.addPart(BubbleEntity::TextPart, list.at(i).getName());
+                m_BubbleEntity.addItem(BubbleEntity::TextItem, list.at(i).getName());
             }
         }
     }

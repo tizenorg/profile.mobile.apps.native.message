@@ -204,23 +204,22 @@ Message::Type MsgUtilsPrivate::nativeToMessageType(int type)
 
 void MsgUtilsPrivate::checkSmilType()
 {
-    static_assert((int)MMS_SMIL_MEDIA_INVALID == (int)MsgMedia::SmilInvalid &&
-        (int)MMS_SMIL_MEDIA_IMG == (int)MsgMedia::SmilImage &&
-        (int)MMS_SMIL_MEDIA_AUDIO == (int)MsgMedia::SmilAudio &&
-        (int)MMS_SMIL_MEDIA_VIDEO == (int)MsgMedia::SmilVideo &&
-        (int)MMS_SMIL_MEDIA_TEXT == (int)MsgMedia::SmilText &&
-        (int)MMS_SMIL_MEDIA_ANIMATE == (int)MsgMedia::SmilAnimate &&
-        (int)MMS_SMIL_MEDIA_IMG_OR_VIDEO == (int)MsgMedia::SmilImageOrVideo &&
-        (int)MMS_SMIL_MEDIA_MAX ==(int)MsgMedia::SmilMAX, "");
+    static_assert((int)MMS_SMIL_MEDIA_INVALID == (int)MsgMedia::UnknownType &&
+        (int)MMS_SMIL_MEDIA_IMG == (int)MsgMedia::ImageType &&
+        (int)MMS_SMIL_MEDIA_AUDIO == (int)MsgMedia::AudioType &&
+        (int)MMS_SMIL_MEDIA_VIDEO == (int)MsgMedia::VideoType &&
+        (int)MMS_SMIL_MEDIA_TEXT == (int)MsgMedia::TextType &&
+        (int)MMS_SMIL_MEDIA_ANIMATE == (int)MsgMedia::AnimateType &&
+        (int)MMS_SMIL_MEDIA_IMG_OR_VIDEO == (int)MsgMedia::ImageOrVideoType, "");
 }
 
-MsgMedia::SmilType MsgUtilsPrivate::nativeToSmilType(int type)
+MsgMedia::Type MsgUtilsPrivate::nativeToSmilType(int type)
 {
     checkSmilType();
-    return (MsgMedia::SmilType)type;
+    return (MsgMedia::Type)type;
 }
 
-int MsgUtilsPrivate::smilTypeToNative(MsgMedia::SmilType type)
+int MsgUtilsPrivate::smilTypeToNative(MsgMedia::Type type)
 {
     checkSmilType();
     return (int)type;

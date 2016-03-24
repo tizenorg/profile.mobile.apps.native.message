@@ -99,8 +99,8 @@ void SaveAttachmentsPopup::fillList(const MessageMms &mms)
         const MsgMediaList &mediaList = pageList.at(i).getMediaList();
         for(int j = 0; j < mediaList.getLength(); ++j)
         {
-            MsgMedia::SmilType type = mediaList.at(j).getType();
-            if(type != MsgMedia::SmilText && type != MsgMedia::SmilMAX && type != MsgMedia::SmilInvalid)
+            MsgMedia::Type type = mediaList.at(j).getType();
+            if(type != MsgMedia::TextType && type != MsgMedia::UnknownType)
             {
                 appendItem(mediaList.at(j).getFileName(), mediaList.at(j).getFilePath(), nullptr, this);
             }

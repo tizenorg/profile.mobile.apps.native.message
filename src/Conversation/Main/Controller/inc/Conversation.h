@@ -34,6 +34,7 @@
 #include "AttachPanel.h"
 #include "ContactEditor.h"
 #include "ContactManager.h"
+#include "WorkingDir.h"
 
 namespace Msg
 {
@@ -180,6 +181,7 @@ namespace Msg
 
         private:
             Mode m_Mode;
+            WorkingDir m_WorkingDir;
             ConversationLayout *m_pLayout;
             MessageInputPanel *m_pMsgInputPanel;
             Body *m_pBody;

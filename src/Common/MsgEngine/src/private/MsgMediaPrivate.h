@@ -32,16 +32,15 @@ namespace Msg
             MsgMediaPrivate(bool release, msg_struct_t msgStruct = nullptr);
             virtual ~MsgMediaPrivate();
 
-            virtual SmilType getType() const;
+            virtual Type getType() const;
             virtual std::string getFilePath() const;
             virtual std::string getFileName() const;
-
-            virtual void setType(SmilType type);
             virtual void setFileName(const std::string &name);
             virtual void setFilePath(const std::string &path);
 
             std::string getMime() const;
             void setMime(const std::string &mime);
+            void setType(Type type);
     };
 
     typedef class MsgListHandlePrivate<MsgMediaPrivate, MsgMedia> MsgMediaListHandlePrivate;
