@@ -78,7 +78,7 @@ std::string SmilPage::getMediaPath() const
     return m_MediaPath;
 }
 
-const MsgMedia *SmilPage::getMedia(const MsgPage &page, MsgMedia::SmilType type) const
+const MsgMedia *SmilPage::getMedia(const MsgPage &page, MsgMedia::Type type) const
 {
     const MsgMediaList &list = page.getMediaList();
     for(int i = 0; i < list.getLength(); ++i)
@@ -95,23 +95,23 @@ void SmilPage::build(const MsgPage &page)
 
     // TODO: image/video, text order
 
-    bool hasVideo = getMedia(page, MsgMedia::SmilVideo) != nullptr;
+    bool hasVideo = getMedia(page, MsgMedia::VideoType) != nullptr;
 
     if(hasVideo)
-        buildVideo(*getMedia(page, MsgMedia::SmilVideo));
+        buildVideo(*getMedia(page, MsgMedia::VideoType));
 
     if(!hasVideo)
     {
-        if(const MsgMedia *image = getMedia(page, MsgMedia::SmilImage))
+        if(const MsgMedia *image = getMedia(page, MsgMedia::ImageType))
             buildImage(*image);
     }
 
-    if(const MsgMedia *text = getMedia(page, MsgMedia::SmilText))
+    if(const MsgMedia *text = getMedia(page, MsgMedia::TextType))
         buildText(*text);
 
     if(!hasVideo)
     {
-        if(const MsgMedia *audio = getMedia(page, MsgMedia::SmilAudio))
+        if(const MsgMedia *audio = getMedia(page, MsgMedia::AudioType))
             buildAudio(*audio);
     }
 

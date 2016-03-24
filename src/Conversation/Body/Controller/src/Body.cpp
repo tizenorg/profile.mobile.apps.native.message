@@ -22,7 +22,7 @@
 #include "TextPageViewItem.h"
 #include "ImagePageViewItem.h"
 #include "VideoPageViewItem.h"
-#include "BodyMediaType.h"
+#include "MediaType.h"
 #include "MsgEngine.h"
 #include "Logger.h"
 #include "MediaUtils.h"
@@ -43,12 +43,30 @@ namespace
     {
         return page ? static_cast<TextPageViewItem*>(page.getItem(PageViewItem::TextType)) : nullptr;
     }
+
+    PageViewItem::Type msgMediaTypeToPageItemType(MsgMedia::Type type)
+    {
+        switch(type)
+        {
+            case MsgMedia::ImageType:
+                return PageViewItem::ImageType;
+            case MsgMedia::AudioType:
+                return PageViewItem::SoundType;
+            case MsgMedia::VideoType:
+                return PageViewItem::VideoType;
+            case MsgMedia::TextType:
+                return PageViewItem::TextType;
+            default:
+                return PageViewItem::UnknownType;
+        }
+    }
 }
 
-Body::Body(App &app)
+Body::Body(App &app, WorkingDir &workingDir)
     : BodyView()
     , m_pListener(nullptr)
     , m_App(app)
+    , m_WorkingDir(workingDir)
     , m_pOnChangedIdler(nullptr)
     , m_TooLargePopupShow(false)
 {
@@ -112,13 +130,14 @@ bool Body::addMedia(const std::string &filePath)
         return false;
     }
 
-    PageViewItem::Type type = getMediaType(filePath).type;
-    MSG_LOG("Media type: ", type);
+    MediaTypeData meidaType = getMediaType(filePath);
+    MSG_LOG("Media type: ", meidaType.mime);
 
     Page *page = nullptr;
-    if(type != PageViewItem::UnknownType)
+    if(meidaType.type != MsgMedia::UnknownType &&
+       meidaType.type != MsgMedia::TextType)
     {
-        page = static_cast<Page*>(getPageForMedia(type));
+        page = static_cast<Page*>(getPageForMedia(msgMediaTypeToPageItemType(meidaType.type)));
         if(!page)
             return false;
 
