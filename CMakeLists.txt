@@ -14,11 +14,11 @@ INCLUDE_DIRECTORIES(${INCLUDE_DIRECTORIES}
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/Common/MsgEngine/inc/
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/Common/Utils/inc/
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/Common/View/inc/
+                    ${CMAKE_CURRENT_SOURCE_DIR}/src/Conversation/Utils/inc/
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/Conversation/Main/Controller/inc/
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/Conversation/Main/View/inc/
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/Conversation/Body/View/inc/
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/Conversation/Body/Controller/inc/
-                    ${CMAKE_CURRENT_SOURCE_DIR}/src/Conversation/Body/Utils/inc/
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/Conversation/Recipients/View/inc/
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/Conversation/Recipients/Controller/inc/
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/Conversation/ContactList/View/inc/
