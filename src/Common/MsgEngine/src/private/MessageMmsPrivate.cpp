@@ -92,7 +92,7 @@ std::string MessageMmsPrivate::getText() const
         int sizeList = mediaList.getLength();
         for(int j = 0; j < sizeList; ++j)
         {
-            if(mediaList[j].getType() == MsgMedia::SmilText)
+            if(mediaList[j].getType() == MsgMedia::TextType)
             {
                 std::string str = FileUtils::readTextFile(mediaList[j].getFilePath());
                 if(!str.empty())
@@ -121,12 +121,8 @@ int MessageMmsPrivate::getMediaCount() const
         int sizeList = mediaList.getLength();
         for(int j = 0; j < sizeList; ++j)
         {
-            if(mediaList[j].getType() != MsgMedia::SmilText
-                    && mediaList[j].getType() != MsgMedia::SmilMAX
-                    && mediaList[j].getType() != MsgMedia::SmilInvalid)
-            {
+            if(mediaList[j].getType() != MsgMedia::TextType && mediaList[j].getType() != MsgMedia::UnknownType)
                 ++result;
-            }
         }
     }
     return result;

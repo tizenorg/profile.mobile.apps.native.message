@@ -403,7 +403,7 @@ void Conversation::createBody(Evas_Object *parent)
 {
     if(!m_pBody)
     {
-        m_pBody = new Body(getApp());
+        m_pBody = new Body(getApp(), m_WorkingDir);
         m_pBody->create(*m_pMsgInputPanel);
         m_pBody->setListener(this);
         m_pBody->show();

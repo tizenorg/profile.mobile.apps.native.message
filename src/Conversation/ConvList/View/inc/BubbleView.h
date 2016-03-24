@@ -35,31 +35,32 @@ namespace Msg
         public:
             BubbleEntity();
             ~BubbleEntity();
-            enum PartType
+            enum ItemType
             {
-                TextPart,   //text
-                ThumbnailPart   //path to thumbnail image
+                TextItem,
+                ImageItem,
+                VideoItem
             };
 
             /**
-             * @brief Add new part to bubble entity
+             * @brief Add new item to bubble entity
              * @param[in] type Set which type is @value
              * @param[in] value Resource path or raw text to display
              */
-            void addPart(PartType type, const std::string &value);
+            void addItem(ItemType type, const std::string &value);
 
         private:
             BubbleEntity(BubbleEntity&) = delete;
             BubbleEntity &operator=(BubbleEntity&) = delete;
 
-            struct BubblePart
+            struct Item
             {
-                PartType type;
+                ItemType type;
                 std::string value;
             };
 
         private:
-            std::list<BubblePart> m_Parts;
+            std::vector<Item> m_Items;
     };
 
     class BubbleView
@@ -77,8 +78,9 @@ namespace Msg
 
         private:
             void create(Evas_Object *parent);
-            Evas_Object *createTextView(const std::string &text);
-            Evas_Object *createThumbView(const std::string &path);
+            Evas_Object *createText(const std::string &text);
+            Evas_Object *createImage(const std::string &path);
+            Evas_Object *createVideo(const std::string &path);
     };
 }
 

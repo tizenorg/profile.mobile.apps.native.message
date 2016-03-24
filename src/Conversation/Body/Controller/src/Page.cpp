@@ -24,7 +24,7 @@
 #include "MediaPageViewItem.h"
 #include "FileUtils.h"
 #include "MediaUtils.h"
-#include "BodyMediaType.h"
+#include "MediaType.h"
 
 using namespace Msg;
 
@@ -105,34 +105,31 @@ bool Page::isMms()
 
 bool Page::addMedia(const std::string &filePath)
 {
-    PageViewItem::Type type = getMediaType(filePath).type;
-    MSG_LOG("Media type: ", type);
+    MediaTypeData typeData = getMediaType(filePath);
+    MSG_LOG("Media type: ", typeData.mime);
 
-   if(type == PageViewItem::UnknownType)
-       return false;
-
-   switch(type)
+   switch(typeData.type)
    {
-       case PageViewItem::ImageType:
+       case MsgMedia::ImageType:
        {
            addImage(filePath);
            break;
        }
 
-       case PageViewItem::SoundType:
+       case MsgMedia::AudioType:
        {
            addSound(filePath);
            break;
        }
 
-       case PageViewItem::VideoType:
+       case MsgMedia::VideoType:
        {
            addVideo(filePath);
            break;
        }
 
        default:
-           assert(false);
+           MSG_LOG_WARN("Can't add type: ", typeData.mime);
            return false;
            break;
    }
@@ -148,16 +145,16 @@ void Page::write(const MsgPage &msgPage)
         const MsgMedia &msgMedia = mediaList[i];
         switch(msgMedia.getType())
         {
-            case MsgMedia::SmilText:
+            case MsgMedia::TextType:
                 writeText(msgMedia);
                 break;
-            case MsgMedia::SmilImage:
+            case MsgMedia::ImageType:
                 writeImage(msgMedia);
                 break;
-            case MsgMedia::SmilAudio:
+            case MsgMedia::AudioType:
                 writeSound(msgMedia);
                 break;
-            case MsgMedia::SmilVideo:
+            case MsgMedia::VideoType:
                 writeVideo(msgMedia);
                 break;
 
@@ -217,7 +214,6 @@ void Page::readText(MsgPage &msgPage)
     {
         writeTextToFile(*textItem);
         MsgMedia &media = msgPage.addMedia();
-        media.setType(MsgMedia::SmilText);
         media.setFilePath(textItem->getResourcePath());
     }
     else
@@ -232,7 +228,6 @@ void Page::readSound(MsgPage &msgPage)
     if(soundItem)
     {
         MsgMedia &media = msgPage.addMedia();
-        media.setType(MsgMedia::SmilAudio);
         media.setFilePath(soundItem->getResourcePath());
         int sec = MediaUtils::getDurationSec(soundItem->getResourcePath());
         if(msgPage.getPageDuration() < sec)
@@ -246,7 +241,6 @@ void Page::readImage(MsgPage &msgPage)
     if(imgItem)
     {
         MsgMedia &media = msgPage.addMedia();
-        media.setType(MsgMedia::SmilImage);
         media.setFilePath(imgItem->getResourcePath());
     }
 }
@@ -257,7 +251,6 @@ void Page::readVideo(MsgPage &msgPage)
     if(videoItem)
     {
         MsgMedia &media = msgPage.addMedia();
-        media.setType(MsgMedia::SmilVideo);
         media.setFilePath(videoItem->getResourcePath());
         int sec = MediaUtils::getDurationSec(videoItem->getResourcePath());
         if(msgPage.getPageDuration() < sec)

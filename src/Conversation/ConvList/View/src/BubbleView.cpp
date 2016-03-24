@@ -50,15 +50,18 @@ void BubbleView::create(Evas_Object *parent)
 
 void BubbleView::fill(const BubbleEntity &entity)
 {
-    for(const BubbleEntity::BubblePart &part : entity.m_Parts)
+    for(const BubbleEntity::Item &item : entity.m_Items)
     {
-        switch (part.type)
+        switch (item.type)
         {
-            case BubbleEntity::TextPart:
-                elm_box_pack_end(*this, createTextView(part.value));
+            case BubbleEntity::TextItem:
+                elm_box_pack_end(*this, createText(item.value));
                 break;
-            case BubbleEntity::ThumbnailPart:
-                elm_box_pack_end(*this, createThumbView(part.value));
+            case BubbleEntity::ImageItem:
+                elm_box_pack_end(*this, createImage(item.value));
+                break;
+            case BubbleEntity::VideoItem:
+                elm_box_pack_end(*this, createVideo(item.value));
                 break;
             default:
                 break;
@@ -67,11 +70,12 @@ void BubbleView::fill(const BubbleEntity &entity)
     elm_box_recalculate(*this);
 }
 
-Evas_Object *BubbleView::createTextView(const std::string &text)
+Evas_Object *BubbleView::createText(const std::string &text)
 {
     //TODO: apply to label the same text style as to textblock (figure out how-to)
     if(text.empty())
         return nullptr;
+
     Evas_Coord ww, hh;
     Evas_Object *label = elm_label_add(*this);
     Evas_Object *textBlock = evas_object_textblock_add(evas_object_evas_get(label));
@@ -94,7 +98,25 @@ Evas_Object *BubbleView::createTextView(const std::string &text)
     return label;
 }
 
-Evas_Object *BubbleView::createThumbView(const std::string &path)
+Evas_Object *BubbleView::createImage(const std::string &path)
+{
+    Evas_Object *image = elm_image_add(*this);
+    elm_image_file_set(image, path.c_str(), nullptr);
+    int imageWidth = 0;
+    int imageHeight = 0;
+    elm_image_object_size_get(image, &imageWidth, &imageHeight);
+    if(imageWidth > maxWidth)
+    {
+        double scale = maxWidth/(double)imageWidth;
+        imageWidth *= scale;
+        imageHeight *= scale;
+    }
+    evas_object_size_hint_min_set(image, imageWidth, imageHeight);
+    evas_object_show(image);
+    return image;
+}
+
+Evas_Object *BubbleView::createVideo(const std::string &path)
 {
     Evas_Object *image = elm_image_add(*this);
     elm_image_file_set(image, path.c_str(), nullptr);
@@ -120,7 +142,7 @@ BubbleEntity::~BubbleEntity()
 {
 }
 
-void BubbleEntity::addPart(PartType type, const std::string &value)
+void BubbleEntity::addItem(ItemType type, const std::string &value)
 {
-    m_Parts.push_back(BubblePart{type, value});
+    m_Items.push_back(Item{type, value});
 }

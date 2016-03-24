@@ -19,7 +19,7 @@
 #include "PageView.h"
 #include "PageSeparator.h"
 #include "Logger.h"
-#include "BodyMediaType.h"
+#include "MediaType.h"
 
 #include <assert.h>
 #include <algorithm>
