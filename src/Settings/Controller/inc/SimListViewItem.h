@@ -20,6 +20,7 @@
 
 #include "ListItem.h"
 #include <string>
+#include "MessageSMS.h"
 
 namespace Msg
 {
@@ -27,17 +28,26 @@ namespace Msg
         : public ListItem
     {
         public:
-            SimListViewItem(Elm_Genlist_Item_Type type = ELM_GENLIST_ITEM_NONE);
+            SimListViewItem(const MessageSMS &msg, Elm_Genlist_Item_Type type = ELM_GENLIST_ITEM_NONE);
             virtual ~SimListViewItem();
+
+            MsgId getMsgId() const;
+
         protected:
             virtual std::string getName() const;
             virtual std::string getMessage() const;
-            virtual std::string getTime() const;
 
         private:
+            void updateModel(const MessageSMS &msg);
             virtual const char *getCheckPart(ListItem &item);
             // ListItem:
             virtual std::string getText(ListItem &item, const char *part);
+
+        private:
+            std::string m_Name;
+            std::string m_MessageText;
+            std::string m_Time;
+            MsgId m_MsgId;
     };
 }
 

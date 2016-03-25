@@ -65,6 +65,13 @@ namespace Msg
                 NS_Send_Pending
             };
 
+            enum MessageStorageType
+            {
+                MS_Unknown,
+                MS_Phone,
+                MS_Sim
+            };
+
         public:
             virtual ~Message();
 
@@ -82,6 +89,8 @@ namespace Msg
             virtual int getSize() const = 0;
             virtual std::string getSubject() const = 0;
             virtual void setSubject(const std::string &text) = 0;
+            virtual void setMessageStorageType(Message::MessageStorageType msgStorage) = 0;
+            virtual Message::MessageStorageType getMessageStorageType() const = 0;
     };
 }
 
