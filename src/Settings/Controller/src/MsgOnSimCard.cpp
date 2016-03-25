@@ -23,6 +23,8 @@
 #include "Logger.h"
 #include "App.h"
 #include "Popup.h"
+#include "ListItem.h"
+#include <notification_status.h>
 
 #include <Elementary.h>
 #include <sstream>
@@ -36,10 +38,12 @@ MsgOnSimCard::MsgOnSimCard(NaviFrameController &parent)
     , m_CheckCount(0)
 {
     create();
+    getApp().getMsgEngine().getStorage().addListener(*this);
 }
 
 MsgOnSimCard::~MsgOnSimCard()
 {
+    getApp().getMsgEngine().getStorage().removeListener(*this);
 }
 
 void MsgOnSimCard::create()
@@ -50,9 +54,18 @@ void MsgOnSimCard::create()
     m_pList->setMultiSelection(false);
     m_pList->show();
     m_pList->setMode(ELM_LIST_COMPRESS);
+    fillList();
+}
 
-    SimListViewItem *item = new SimListViewItem;
-    m_pList->appendItem(*item);
+void MsgOnSimCard::fillList()
+{
+    MessageSMSListRef list = getMsgEngine().getStorage().getSimMsgList();
+    int length = list->getLength();
+    for(int i = 0; i < length; ++i)
+    {
+        SimListViewItem *item = new SimListViewItem(list->at(i));
+        m_pList->appendItem(*item);
+    }
 }
 
 void MsgOnSimCard::onAttached(ViewItem &item)
@@ -62,14 +75,6 @@ void MsgOnSimCard::onAttached(ViewItem &item)
     setTitleWithButtons(false);
     setHwButtonListener(*m_pList, this);
     setContent(*m_pList);
-
- /*   auto list = getMsgEngine().getStorage().getSimMsgList();
-    for(auto msg : list)
-    {
-        MSG_LOG(msg->getNumber());
-        MSG_LOG(msg->getText());
-        MSG_LOG(msg->getTime());
-    }*/
 }
 
 void MsgOnSimCard::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
@@ -78,11 +83,11 @@ void MsgOnSimCard::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
     {
         if (m_SimMode == DeleteMode)
         {
-            //TODO: deleteSelectedItems();
+            deleteSelectedItems();
         }
         else if (m_SimMode == CopyToDeviceMode)
         {
-            //TODO: copySelectedItems();
+            copySelectedItems();
         }
     }
     else if(buttonId == NaviPrevButtonId)
@@ -153,6 +158,22 @@ void MsgOnSimCard::onDeleteItemPressed(ContextPopupItem &item)
     setMode(DeleteMode);
 }
 
+void MsgOnSimCard::onMsgStorageDelete(const MsgIdList &msgIdList)
+{
+    auto simListItems = m_pList->getItems<SimListViewItem>();
+    for(auto &itemId: msgIdList)
+    {
+        for(auto *simItem : simListItems)
+        {
+            if(simItem->getMsgId() == itemId)
+            {
+                simItem->destroy();
+                break;
+            }
+        }
+    }
+}
+
 void MsgOnSimCard::setMode(SimMode mode)
 {
     if(m_SimMode == mode)
@@ -203,7 +224,7 @@ void MsgOnSimCard::setNormalMode()
 void MsgOnSimCard::setCopyToDeviceMode(bool value)
 {
     if(value)
-        m_SimMode = DeleteMode;
+        m_SimMode = CopyToDeviceMode;
 
     setTitleWithButtons(value);
 }
@@ -238,6 +259,36 @@ void MsgOnSimCard::setTitleWithButtons(bool value)
     m_pList->setCheckMode(value);
     m_pList->checkAllItems(false);
     showSelectAllItem(value);
+}
+
+void MsgOnSimCard::deleteSelectedItems()
+{
+    auto items = m_pList->getItems<SimListViewItem>();
+
+    MsgIdList messages;
+    for(auto *item : items)
+        if(item->getCheckedState())
+            messages.push_back(item->getMsgId());
+
+    getApp().getMsgEngine().getStorage().deleteMessages(messages);
+}
+
+void MsgOnSimCard::copySelectedItems()
+{
+    auto items = m_pList->getItems<SimListViewItem>();
+    for(auto *item : items)
+    {
+        if(item->getCheckedState())
+        {
+            MessageRef msg = getApp().getMsgEngine().getStorage().getMessage(item->getMsgId());
+            if(msg)
+            {
+                msg->setMessageStorageType(Message::MS_Phone);
+                getApp().getMsgEngine().getStorage().saveMessage(*msg, false);
+            }
+        }
+    }
+    notification_status_message_post(msg("IDS_MSG_TPOP_SELECTED_MESSAGES_COPIED_TO_MOBILE_DEVICE").cStr());
 }
 
 void MsgOnSimCard::showSelectAllItem(bool show, bool resetCheck)
