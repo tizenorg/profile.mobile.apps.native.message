@@ -20,6 +20,7 @@
 #include "PathUtils.h"
 #include "ThumbnailMaker.h"
 #include "TextDecorator.h"
+#include "TimeUtils.h"
 
 #include <Elementary.h>
 
@@ -37,13 +38,28 @@ namespace
     const TextStyle msgTextStyle(32, "#969696FF");
 }
 
-SimListViewItem::SimListViewItem(Elm_Genlist_Item_Type type)
+SimListViewItem::SimListViewItem(const MessageSMS &msg, Elm_Genlist_Item_Type type)
     : ListItem(SimItemStyle, type)
 {
+    updateModel(msg);
 }
 
 SimListViewItem::~SimListViewItem()
 {
+}
+
+void SimListViewItem::updateModel(const MessageSMS &msg)
+{
+    const MsgAddressList &addressList = msg.getAddressList();
+    int length = addressList.getLength();
+    for(int i = 0; i < length; ++i)
+    {
+        m_Name += addressList.at(i).getAddress();
+    }
+
+    m_MessageText = msg.getText();
+    m_Time = TimeUtils::makeDateTimeString(msg.getTime());
+    m_MsgId = msg.getId();
 }
 
 std::string SimListViewItem::getText(ListItem &item, const char *part)
@@ -67,20 +83,15 @@ const char *SimListViewItem::getCheckPart(ListItem &item)
 
 std::string SimListViewItem::getName() const
 {
-    std::string number = "0936403503";// TODO: remove hardcode
-    return number;
+    return m_Name;
 }
 
 std::string SimListViewItem::getMessage() const
 {
-    std::string message = "Hello, world!";// TODO: remove hardcode
-    std::string time = getTime();
-    message = message + "<br/><br/>" + time;
-    return message;
+    return m_MessageText + "<br/><br/>" + m_Time;
 }
 
-std::string SimListViewItem::getTime() const
+MsgId SimListViewItem::getMsgId() const
 {
-    std::string time = "12:00 AM";// TODO: remove hardcode
-    return time;
+    return m_MsgId;
 }
