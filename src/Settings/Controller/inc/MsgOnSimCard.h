@@ -25,6 +25,7 @@
 #include "Popup.h"
 #include "ContextPopup.h"
 #include "SelectAllListItem.h"
+#include "MsgStorage.h"
 
 namespace Msg
 {
@@ -35,6 +36,7 @@ namespace Msg
         : public FrameController
         , private IHwButtonListener
         , private IListViewListener
+        , private IMsgStorageListener
     {
         public:
             MsgOnSimCard(NaviFrameController &parent);
@@ -44,6 +46,8 @@ namespace Msg
             void showSelectAllItem(bool show, bool resetCheck = true);
 
         private:
+            void fillList();
+
             // NaviFrameItem:
             virtual void onAttached(ViewItem &item);
             virtual void onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId);
@@ -62,6 +66,9 @@ namespace Msg
             void onCopyToDeviceItemPressed(ContextPopupItem &item);
             void onDeleteItemPressed(ContextPopupItem &item);
 
+            // IMsgStorageListener
+            virtual void onMsgStorageDelete(const MsgIdList &msgIdList);
+
         private:
             enum SimMode
             {
@@ -79,6 +86,8 @@ namespace Msg
             void setCopyToDeviceMode(bool value);
             void setTitleTranslatable();
             void setTitleWithButtons(bool value);
+            void deleteSelectedItems();
+            void copySelectedItems();
 
         private:
             ListView *m_pList;

@@ -47,6 +47,20 @@ Message::Direction MsgUtilsPrivate::nativeToDirection(int direction)
     return Message::MD_Sent;
 }
 
+Message::MessageStorageType MsgUtilsPrivate::nativeToMessageStorage(int id)
+{
+    switch(id)
+    {
+        case MSG_STORAGE_PHONE:
+            return Message::MS_Phone;
+
+        case MSG_STORAGE_SIM:
+            return Message::MS_Sim;
+    }
+    assert(false);
+    return Message::MS_Unknown;
+}
+
 int MsgUtilsPrivate::addressTypeToNative(MsgAddress::AddressType type)
 {
     switch(type)
