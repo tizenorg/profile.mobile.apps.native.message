@@ -144,6 +144,30 @@ void MessagePrivate::setSubject(const std::string &text)
     MsgUtilsPrivate::setStr(m_MsgStruct, MSG_MESSAGE_SUBJECT_STR, text);
 }
 
+void MessagePrivate::setMessageStorageType(Message::MessageStorageType msgStorage)
+{
+    switch(msgStorage)
+    {
+        case Message::MS_Phone:
+            msg_set_int_value(m_MsgStruct, MSG_MESSAGE_STORAGE_ID_INT, MSG_STORAGE_PHONE);
+            break;
+        case Message::MS_Sim:
+            msg_set_int_value(m_MsgStruct, MSG_MESSAGE_STORAGE_ID_INT, MSG_STORAGE_SIM);
+            break;
+        case Message::MS_Unknown:
+        default:
+            MSG_LOG_ERROR("Unknown storage type!")
+        break;
+    }
+}
+
+Message::MessageStorageType MessagePrivate::getMessageStorageType() const
+{
+    int id = -1;
+    msg_get_int_value(m_MsgStruct, MSG_MESSAGE_STORAGE_ID_INT, &id);
+    return MsgUtilsPrivate::nativeToMessageStorage(id);
+}
+
 void MessagePrivate::commit()
 {
 
