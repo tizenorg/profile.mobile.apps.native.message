@@ -118,18 +118,15 @@ void ConvList::fill()
 
     MsgConversationListRef convList = m_MsgEngine.getStorage().getConversationList(m_ThreadId);
     int convListLen = convList->getLength();
-    m_ConvListItemMap.reserve(convListLen <= minMessagesBulk/2 ? minMessagesBulk : convListLen + additionalMessagesBulk);
-    m_DateLineItemMap.reserve(convListLen <= minMessagesBulk/2 ? minMessagesBulk : convListLen + additionalMessagesBulk);
+    int reserveSize = convListLen <= minMessagesBulk/2 ? minMessagesBulk : convListLen + additionalMessagesBulk;
+    m_ConvListItemMap.reserve(reserveSize);
+    m_DateLineItemMap.reserve(reserveSize);
 
     for(int i = 0; i < convListLen; ++i)
     {
         MsgConversationItem &item = convList->at(i);
-        ConvListItem *listItem = nullptr;
-        if(item.getDirection() == Message::MD_Received)
-            listItem = new ConvListItem(item, m_App, m_WorkingDir,  m_SearchWord, m_RecipThumbId);
-        else
-            listItem = new ConvListItem(item, m_App, m_WorkingDir, m_SearchWord, m_OwnerThumbId);
-        appendItem(listItem);
+        const ThumbnailMaker::ThumbId &thumbId = item.getDirection() == Message::MD_Received ? m_RecipThumbId : m_OwnerThumbId;
+        appendItem(new ConvListItem(item, m_App, m_WorkingDir, m_SearchWord, thumbId));
     }
 }
 
@@ -172,6 +169,13 @@ void ConvList::navigateTo(MsgId msgId)
     ConvListItem *item = getItem(msgId);
     if(item)
         m_pList->showItem(*item, ELM_GENLIST_ITEM_SCROLLTO_MIDDLE);
+}
+
+void ConvList::navigateToLastMsg()
+{
+    ListItem *item = m_pList->getLastItem();
+    if(item)
+        m_pList->showItem(*item, ELM_GENLIST_ITEM_SCROLLTO_TOP);
 }
 
 ConvListItem *ConvList::getItem(MsgId msgId) const
@@ -331,18 +335,19 @@ void ConvList::onMsgStorageUpdate(const MsgIdList &msgIdList)
 
 void ConvList::onMsgStorageInsert(const MsgIdList &msgIdList)
 {
+    bool inserted = false;
     for(auto &itemId: msgIdList)
     {
-        if(m_ThreadId == m_MsgEngine.getStorage().getMessage(itemId)->getThreadId())
+        if(m_ThreadId == m_MsgEngine.getStorage().getMessage(itemId)->getThreadId() && !getItem(itemId))
         {
-            if(!getItem(itemId))
-            {
-                MsgConversationItemRef item = m_MsgEngine.getStorage().getConversationItem(itemId);
-                ThumbnailMaker::ThumbId thumbId = item->getDirection() == Message::MD_Received ? m_RecipThumbId : m_OwnerThumbId;
-                appendItem(new ConvListItem(*item, m_App, m_WorkingDir, m_SearchWord, thumbId));
-            }
+            MsgConversationItemRef item = m_MsgEngine.getStorage().getConversationItem(itemId);
+            const ThumbnailMaker::ThumbId &thumbId = item->getDirection() == Message::MD_Received ? m_RecipThumbId : m_OwnerThumbId;
+            appendItem(new ConvListItem(*item, m_App, m_WorkingDir, m_SearchWord, thumbId));
+            inserted = true;
         }
     }
+    if(inserted)
+        navigateToLastMsg();
 }
 
 void ConvList::onMsgStorageDelete(const MsgIdList &msgIdList)

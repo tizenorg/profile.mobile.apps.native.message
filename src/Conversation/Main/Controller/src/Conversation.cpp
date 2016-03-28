@@ -220,6 +220,11 @@ void Conversation::navigateTo(MsgId msgId)
     m_pConvList->navigateTo(msgId);
 }
 
+void Conversation::navigateToLastMsg()
+{
+    m_pConvList->navigateToLastMsg();
+}
+
 void Conversation::setThreadId(ThreadId id, const std::string &searchWord)
 {
     m_ThreadId = id;

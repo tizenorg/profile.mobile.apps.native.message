@@ -50,7 +50,7 @@ namespace Msg
                          App &app,
                          WorkingDirRef workingDir,
                          const std::string &searchWord,
-                         ThumbnailMaker::ThumbId &thumbId);
+                         const ThumbnailMaker::ThumbId &thumbId);
 
             virtual ~ConvListItem();
 
@@ -114,7 +114,7 @@ namespace Msg
             Message::Type m_Type;
             time_t m_Time;
             BubbleEntity m_BubbleEntity;
-            ThumbnailMaker::ThumbId &m_ThumbId;
+            const ThumbnailMaker::ThumbId &m_ThumbId;
     };
 
     class IConvListItemListener
