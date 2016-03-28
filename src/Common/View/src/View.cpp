@@ -131,3 +131,45 @@ Evas_Object *View::addLayout(Evas_Object *parent, const std::string &edjePath, c
     elm_layout_file_set(layout, edjAbsPath.c_str(), group.c_str());
     return layout;
 }
+
+std::string Msg::mrkupToUtf8(const char *str)
+{
+    if(!str)
+        return std::string();
+
+    std::string res;
+    char *markup = elm_entry_markup_to_utf8(str);
+    if(markup)
+    {
+        res = markup;
+        free(markup);
+    }
+
+    return res;
+}
+
+std::string Msg::utf8ToMarkup(const char *str)
+{
+    if(!str)
+        return std::string();
+
+    std::string res;
+    char *markup = elm_entry_utf8_to_markup(str);
+    if(markup)
+    {
+        res = markup;
+        free(markup);
+    }
+
+    return res;
+}
+
+std::string Msg::mrkupToUtf8(const std::string &str)
+{
+    return mrkupToUtf8(str.c_str());
+}
+
+std::string Msg::utf8ToMarkup(const std::string &str)
+{
+    return utf8ToMarkup(str.c_str());
+}
