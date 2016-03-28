@@ -55,10 +55,9 @@ namespace Msg
             virtual void onEntryFocusChanged();
             virtual void onContactButtonClicked();
 
-            void onMbeChanged(Evas_Object *oj, void *eventInfo);
-
             // IMbeRecipientsListener
             virtual void onMbeItemClicked(MbeRecipientItem &item);
+            virtual void onMbeChanged();
 
             void onAppControlRes(app_control_h request, app_control_h reply, app_control_result_e result);
             void onPopupBtnClicked(Popup &popup, int buttonId);

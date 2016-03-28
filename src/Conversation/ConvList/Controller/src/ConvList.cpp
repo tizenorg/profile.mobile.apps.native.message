@@ -38,19 +38,17 @@ ConvList::ConvList(Evas_Object *parent, App &app)
     , m_DateLineItemMap()
     , m_pListner(nullptr)
     , m_App(app)
-    , m_OwnerThumbPath()
-    , m_RecipThumbPath()
+    , m_OwnerThumbId(m_App.getThumbnailMaker().getThumbId(ThumbnailMaker::OwnerThumb))
+    , m_RecipThumbId(m_App.getThumbnailMaker().getThumbId(ThumbnailMaker::SingleThumb))
     , m_SearchWord()
 {
-    auto profile = m_App.getContactManager().getOwnerProfile();
-    if(profile)
-        m_OwnerThumbPath = profile->getThumbnailPath();
     create(parent);
 }
 
 ConvList::~ConvList()
 {
     m_MsgEngine.getStorage().removeListener(*this);
+    m_App.getContactManager().removeListener(*this);
 }
 
 void ConvList::setListener(IConvListListener *l)
@@ -88,6 +86,8 @@ void ConvList::create(Evas_Object *parent)
     setSelectAll(selectAll);
     setBubbleList(list);
     showSelectAllMode(m_Mode == SelectMode);
+
+    m_App.getContactManager().addListener(*this);
 }
 
 Evas_Object *ConvList::createSelectAll(Evas_Object *parent)
@@ -125,9 +125,9 @@ void ConvList::fill()
         MsgConversationItem &item = convList->at(i);
         ConvListItem *listItem = nullptr;
         if(item.getDirection() == Message::MD_Received)
-            listItem = new ConvListItem(item, m_App, m_SearchWord, m_RecipThumbPath);
+            listItem = new ConvListItem(item, m_App, m_SearchWord, m_RecipThumbId);
         else
-            listItem = new ConvListItem(item, m_App, m_SearchWord, m_OwnerThumbPath);
+            listItem = new ConvListItem(item, m_App, m_SearchWord, m_OwnerThumbId);
         appendItem(listItem);
     }
 }
@@ -138,27 +138,32 @@ void ConvList::setThreadId(ThreadId id, const std::string &searchWord)
     {
         m_ThreadId = id;
         m_SearchWord = searchWord;
-        const MsgAddressListRef addressList = m_App.getMsgEngine().getStorage().getAddressList(m_ThreadId);
-        if(addressList)
-        {
-            int countContact = addressList->getLength();
-            if(countContact > 1)
-            {
-                m_RecipThumbPath = PathUtils::getResourcePath(THUMB_GROUP_IMG_PATH);
-            }
-            else if(countContact == 1)
-            {
-                ContactPersonAddressRef contactAddress = m_App.getContactManager().getContactPersonAddress(addressList->at(0).getAddress());
-                if(contactAddress)
-                    m_RecipThumbPath = contactAddress->getThumbnailPath();
-            }
-            else
-            {
-                MSG_LOG_WARN("Msg address list is empty");
-            }
-        }
+        updateRecipThumbId();
         fill();
     }
+}
+
+void ConvList::updateRecipThumbId()
+{
+    const MsgAddressListRef addressList = m_App.getMsgEngine().getStorage().getAddressList(m_ThreadId);
+    if(addressList)
+    {
+        int countContact = addressList->getLength();
+        if(countContact > 1)
+            m_RecipThumbId = m_App.getThumbnailMaker().getThumbId(ThumbnailMaker::GroupThumb);
+        else if(countContact == 1)
+            m_RecipThumbId = m_App.getThumbnailMaker().getThumbId(addressList->at(0));
+        else
+        {
+            m_RecipThumbId = ThumbnailMaker::SingleThumb;
+            MSG_LOG_WARN("Msg address list is empty");
+        }
+    }
+}
+
+void ConvList::updateOwnerThumbId()
+{
+    m_OwnerThumbId = m_App.getThumbnailMaker().getThumbId(ThumbnailMaker::OwnerThumb);
 }
 
 void ConvList::navigateTo(MsgId msgId)
@@ -327,17 +332,14 @@ void ConvList::onMsgStorageInsert(const MsgIdList &msgIdList)
 {
     for(auto &itemId: msgIdList)
     {
-        if(m_ThreadId == m_MsgEngine.getStorage().getMessage(itemId)->getThreadId())
+        MessageRef msg = m_MsgEngine.getStorage().getMessage(itemId);
+        if(msg && msg->getThreadId() == m_ThreadId && msg->getMessageStorageType() != Message::MS_Sim)
         {
             if(!getItem(itemId))
             {
                 MsgConversationItemRef item = m_MsgEngine.getStorage().getConversationItem(itemId);
-                ConvListItem *listItem = nullptr;
-                if(item->getDirection() == Message::MD_Received)
-                    listItem = new ConvListItem(*item, m_App, m_SearchWord, m_RecipThumbPath);
-                else
-                    listItem = new ConvListItem(*item, m_App, m_SearchWord, m_OwnerThumbPath);
-                appendItem(listItem);
+                ThumbnailMaker::ThumbId thumbId = item->getDirection() == Message::MD_Received ? m_RecipThumbId : m_OwnerThumbId;
+                appendItem(new ConvListItem(*item, m_App, m_SearchWord, thumbId));
             }
         }
     }
@@ -372,4 +374,12 @@ void ConvList::onEditDraftMsg(ConvListItem &item)
 {
     if(m_pListner)
         m_pListner->onEditDraftMsg(item.getMsgId());
+}
+
+void ConvList::onContactChanged()
+{
+    MSG_LOG("");
+    updateRecipThumbId();
+    updateOwnerThumbId();
+    m_pList->updateRealizedItems();
 }

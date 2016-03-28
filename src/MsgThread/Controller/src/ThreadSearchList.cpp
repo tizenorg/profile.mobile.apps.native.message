@@ -32,11 +32,13 @@ ThreadSearchList::ThreadSearchList(Evas_Object *parent, App &app)
     setMultiSelection(false);
     setMode(ELM_LIST_COMPRESS);
     ListView::setListener(this);
+    m_App.getContactManager().addListener(*this);
 }
 
 ThreadSearchList::~ThreadSearchList()
 {
     cancelSearch();
+    m_App.getContactManager().removeListener(*this);
 }
 
 void ThreadSearchList::setListener(IThreadSearchListListener *l)
@@ -124,4 +126,9 @@ void ThreadSearchList::onListItemSelected(ListItem &listItem)
         else if(auto it = dynamic_cast<ThreadSearchListItem*>(&listItem))
             m_pListener->onSearchListItemSelected(it->getThreadId());
     }
+}
+
+void ThreadSearchList::onContactChanged()
+{
+    search();
 }

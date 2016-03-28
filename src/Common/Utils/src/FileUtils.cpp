@@ -157,16 +157,23 @@ std::string FileUtils::getFileName(const std::string &path)
 bool FileUtils::remove(const std::string &path, bool removeCurrentDir)
 {
     bool res = true;
-    struct dirent *ep = nullptr;
+    struct dirent ep;
+    struct dirent *dirData = nullptr;
     DIR *dp = opendir(path.c_str());
 
     if(dp)
     {
-        while((ep = readdir(dp)) != nullptr)
+        while(true)
         {
-            if(strcmp(ep->d_name, ".") != 0 && strcmp(ep->d_name, "..") != 0)
+            dirData = nullptr;
+            readdir_r(dp, &ep, &dirData);
+
+            if(dirData == nullptr)
+                break;
+
+            if(strcmp(dirData->d_name, ".") != 0 && strcmp(dirData->d_name, "..") != 0)
             {
-                std::string child = path + "/" + ep->d_name;
+                std::string child = path + "/" + dirData->d_name;
                 res &= remove(child, true);
             }
         }

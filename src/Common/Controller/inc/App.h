@@ -22,6 +22,7 @@
 #include "MsgEngine.h"
 #include "PopupManager.h"
 #include "ContactManager.h"
+#include "ThumbnailMaker.h"
 #include <memory>
 
 namespace Msg
@@ -47,7 +48,13 @@ namespace Msg
             ContactManager &getContactManager();
             const ContactManager &getContactManager() const;
 
+            ThumbnailMaker &getThumbnailMaker();
+            const ThumbnailMaker &getThumbnailMaker() const;
+
             void exit();
+
+        protected:
+            bool init();
 
         private:
             virtual void terminate() = 0;
@@ -56,6 +63,7 @@ namespace Msg
             MsgEngine m_Engine;
             ContactManager *m_pContactManager;
             PopupManager *m_pPopupManager;
+            ThumbnailMaker *m_pThumbnailMaker;
     };
 }
 

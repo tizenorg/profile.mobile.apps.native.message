@@ -42,9 +42,19 @@ namespace Msg
         static void getExtraDataArray(app_control_h handle, const std::string &key, std::list<std::string> &outArray);
 
         /**
+         * Gets a single int number from given app-control handle by a key specified.
+         */
+        static int getExtraDataInt(app_control_h handle, const std::string &key);
+
+        /**
          * Gets an int-array from given app-control handle by a key specified.
          */
         static void getExtraDataIntArray(app_control_h handle, const std::string &key, std::list<int> &outArray);
+
+        /**
+         * Gets a single mime type string from given app-control handle.
+         */
+        static std::string getMimeType(app_control_h handle);
     };
 }
 

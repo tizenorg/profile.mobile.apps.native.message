@@ -35,6 +35,7 @@ namespace
     const char *centerButtonPart = "swallow.center";
     const char *okButtonStyle = "naviframe/title_right";
     const char *cancelButtonStyle = "naviframe/title_left";
+    const char *centerButtonStyle = "naviframe/title_center";
     const char *prevButtonStyle = "naviframe/arrow_back";
     const char *downButtonStyle = "naviframe/arrow_down";
     const char *cancelButtonDefTextId = "IDS_MSG_ACBUTTON_CANCEL_ABB";
@@ -96,10 +97,10 @@ NaviFrameItem::NaviBar::NaviBar(NaviFrameItem &onwer)
     , m_CurrentColor(NaviBlueColorId)
     , m_SearchBar(nullptr)
 {
+    setEo(addLayout(m_Owner.getOwner(), MSG_TITLE_EDJ_PATH, titleStyleName));
     m_ButtonList[NaviCancelButtonId] = ButtonStruct(nullptr, cancelButtonPart, cancelButtonStyle, cancelButtonDefTextId);
     m_ButtonList[NaviOkButtonId] = ButtonStruct(nullptr, okButtonPart, okButtonStyle, okButtonDefTextId);
-    //TODO: implement style for center button
-    m_ButtonList[NaviCenterButtonId] = ButtonStruct(nullptr, centerButtonPart, cancelButtonStyle);
+    m_ButtonList[NaviCenterButtonId] = ButtonStruct(nullptr, centerButtonPart, centerButtonStyle);
     m_ButtonList[NaviPrevButtonId] = ButtonStruct(nullptr, prevButtonPart, prevButtonStyle);
     m_ButtonList[NaviExpandButtonId] = ButtonStruct(nullptr, downButtonPart, downButtonStyle);
 }
@@ -259,15 +260,7 @@ void NaviFrameItem::onAttached(ViewItem &item)
 {
     ViewItem::onAttached(item);
     elm_naviframe_item_style_set(getElmObjItem(), naviTitleStyleEmpty);
-    m_pNaviBar->initNaviBar();
     setContent(*m_pNaviBar, naviTitlePart);
-}
-
-void NaviFrameItem::NaviBar::initNaviBar()
-{
-    setEo(elm_layout_add(m_Owner.getOwner()));
-    std::string edjPath = PathUtils::getResourcePath(MSG_TITLE_EDJ_PATH);
-    elm_layout_file_set(getEo(), edjPath.c_str(), titleStyleName);
 }
 
 void NaviFrameItem::NaviBar::setColor(NaviColorId id)

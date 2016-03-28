@@ -188,6 +188,7 @@ void ThreadList::onMsgStorageChange(const MsgIdList &idList)
 
 void ThreadList::onContactChanged()
 {
+    MSG_LOG("");
     ListView::clear(); // FIXME: temporary solution for demo
     updateList();
     if(m_pListener)

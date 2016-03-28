@@ -141,12 +141,19 @@ int TimeUtils::getTimeFormat()
 std::string TimeUtils::getDefaultLocale()
 {
     const char *locale = nullptr;
+    std::string res;
 
     i18n_ulocale_set_default(getenv("LC_TIME"));
     i18n_ulocale_get_default(&locale);
-    strtok((char *)locale, ".UTF8");
 
-    return locale ? locale : "";
+    if(locale)
+    {
+        res = locale;
+        size_t i = res.find(".UTF8");
+        if(i != std::string::npos)
+            res = res.substr(i);
+    }
+    return res;
 }
 
 std::string TimeUtils::getTimezone()

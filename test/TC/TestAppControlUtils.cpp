@@ -64,6 +64,17 @@ TEST_F( TestAppControlUtils, GetExtraDataArray)
     }
 }
 
+TEST_F( TestAppControlUtils, getExtraDataInt)
+{
+    const char* numsStr = "100";
+    app_control_add_extra_data(m_handle, APP_CONTROL_DATA_SELECTED, numsStr);
+
+    int number = AppControlUtils::getExtraDataInt(m_handle, APP_CONTROL_DATA_SELECTED);
+
+    std::string s(numsStr);
+    ASSERT_EQ(s, std::to_string(number));
+}
+
 TEST_F( TestAppControlUtils, GetExtraDataIntArray)
 {
     const std::size_t arrSize = 4;

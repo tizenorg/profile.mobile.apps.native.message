@@ -28,6 +28,12 @@ namespace Msg
     class AppControlCompose;
     typedef std::shared_ptr<AppControlCompose> AppControlComposeRef;
 
+    struct VcfInfo
+    {
+        std::list<int> contactsIdList;
+        bool isMyProfile;
+    };
+
     class AppControlCompose
         : public AppControlCommand
     {
@@ -78,6 +84,11 @@ namespace Msg
              */
             const FileList &getFileList() const;
 
+            /**
+             * Gets vcf info from APP_CONTROL_DATA_ID
+             */
+            const VcfInfo &getVcfInfo() const;
+
         private:
             bool parseUriCompose(app_control_h handle);
             bool parseUriShare(app_control_h handle);
@@ -94,6 +105,7 @@ namespace Msg
             FileList m_FileList;
             std::string m_MessageText;
             std::string m_Subject;
+            VcfInfo m_VcfInfo;
     };
 }
 

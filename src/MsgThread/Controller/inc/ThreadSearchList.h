@@ -31,6 +31,7 @@ namespace Msg
     class ThreadSearchList
         : public ListView
         , private IListViewListener
+        , private IContactManagerListener
     {
         public:
             ThreadSearchList(Evas_Object *parent, App &app);
@@ -44,6 +45,9 @@ namespace Msg
         private:
             // IListViewListener:
             virtual void onListItemSelected(ListItem &listItem);
+
+            // IContactManagerListener:
+            virtual void onContactChanged();
 
             void search();
 

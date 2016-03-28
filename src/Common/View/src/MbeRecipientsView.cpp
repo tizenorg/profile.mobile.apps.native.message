@@ -23,17 +23,26 @@ using namespace Msg;
 MbeRecipientsView::MbeRecipientsView(Evas_Object *parent)
     : m_pListener(nullptr)
     , m_pSelectedItem(nullptr)
+    , m_pChangedJob(nullptr)
 {
     setEo(elm_multibuttonentry_add(parent));
     elm_multibuttonentry_editable_set(getEo(), EINA_FALSE);
     elm_multibuttonentry_expanded_set(getEo(), EINA_TRUE);
     elm_object_focus_allow_set(getEo(), EINA_FALSE);
     elm_object_tree_focus_allow_set(getEo(), EINA_TRUE);
+
     addSmartCb("item,clicked", SMART_CALLBACK(MbeRecipientsView, onMbeItemClicked), this);
+    addSmartCb("item,added", SMART_CALLBACK(MbeRecipientsView, onMbeChanged), this);
+    addSmartCb("item,deleted", SMART_CALLBACK(MbeRecipientsView, onMbeChanged), this);
 }
 
 MbeRecipientsView::~MbeRecipientsView()
 {
+    if(m_pChangedJob)
+    {
+        ecore_job_del(m_pChangedJob);
+        m_pChangedJob = nullptr;
+    }
 }
 
 void MbeRecipientsView::appendItem(MbeRecipientItem &item)
@@ -92,4 +101,20 @@ void MbeRecipientsView::onMbeItemClicked(Evas_Object *obj, void *eventInfo)
     m_pSelectedItem = ViewItem::staticCast<MbeRecipientItem*>(eventInfo);
     if (m_pListener)
         m_pListener->onMbeItemClicked(*m_pSelectedItem);
+}
+
+void MbeRecipientsView::onMbeChanged(Evas_Object *obj, void *eventInfo)
+{
+    if(!m_pChangedJob)
+        m_pChangedJob = ecore_job_add
+        (
+            [](void *data)
+            {
+                MbeRecipientsView *self = static_cast<MbeRecipientsView*>(data);
+                self->m_pChangedJob = nullptr;
+                if(self->m_pListener)
+                    self->m_pListener->onMbeChanged();
+            },
+            this
+        );
 }

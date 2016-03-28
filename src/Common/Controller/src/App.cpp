@@ -19,12 +19,14 @@
 #include "ViewController.h"
 #include "Logger.h"
 #include "ContactManager.h"
+#include "PathUtils.h"
 
 using namespace Msg;
 
 App::App()
     : m_pContactManager(nullptr)
     , m_pPopupManager(nullptr)
+    , m_pThumbnailMaker(nullptr)
 {
     int serviceResult = m_Engine.openService();
     if(serviceResult != MESSAGES_ERROR_NONE)
@@ -36,8 +38,27 @@ App::App()
 
 App::~App()
 {
+    delete m_pThumbnailMaker;
     delete m_pContactManager;
     delete m_pPopupManager;
+}
+
+bool App::init()
+{
+    getContactManager();
+    getMsgEngine();
+    getThumbnailMaker();
+
+    std::string imagesPath = PathUtils::getResourcePath(IMAGES_EDJ_PATH);
+    elm_theme_extension_add(nullptr, imagesPath.c_str());
+
+    std::string bubbleThemePath = PathUtils::getResourcePath(BUBBLE_THEME_EDJ_PATH);
+    elm_theme_extension_add(nullptr, bubbleThemePath.c_str());
+
+    std::string buttonThemePath = PathUtils::getResourcePath(BUTTON_THEME_EDJ_PATH);
+    elm_theme_extension_add(nullptr, buttonThemePath.c_str());
+
+    return true;
 }
 
 MsgEngine &App::getMsgEngine()
@@ -65,13 +86,25 @@ const ContactManager &App::getContactManager() const
 PopupManager &App::getPopupManager()
 {
     if(!m_pPopupManager)
-        m_pPopupManager =new PopupManager(getWindow());
+        m_pPopupManager = new PopupManager(getWindow());
     return *m_pPopupManager;
 }
 
 const PopupManager &App::getPopupManager() const
 {
     return const_cast<App*>(this)->getPopupManager();
+}
+
+ThumbnailMaker &App::getThumbnailMaker()
+{
+    if(!m_pThumbnailMaker)
+        m_pThumbnailMaker = new ThumbnailMaker(*this);
+    return *m_pThumbnailMaker;
+}
+
+const ThumbnailMaker &App::getThumbnailMaker() const
+{
+    return const_cast<App*>(this)->getThumbnailMaker();
 }
 
 void App::exit()

@@ -25,10 +25,11 @@
 #include "TimeUtils.h"
 #include "SaveAttachmentsPopup.h"
 #include "TextDecorator.h"
+#include <notification_status.h>
 
 using namespace Msg;
 
-ConvListItem::ConvListItem(const MsgConversationItem &item, App &app, const std::string &searchWord, const std::string &thumbPath)
+ConvListItem::ConvListItem(const MsgConversationItem &item, App &app, const std::string &searchWord, ThumbnailMaker::ThumbId &thumbId)
     : ConvListViewItem(getConvItemType(item))
     , m_pListener(nullptr)
     , m_App(app)
@@ -38,7 +39,7 @@ ConvListItem::ConvListItem(const MsgConversationItem &item, App &app, const std:
     , m_Type(item.getType())
     , m_Time(item.getTime())
     , m_BubbleEntity()
-    , m_ThumbPath(thumbPath)
+    , m_ThumbId(thumbId)
 {
     prepareBubble(item, searchWord);
 }
@@ -123,10 +124,7 @@ Evas_Object *ConvListItem::getBubbleContent()
 
 Evas_Object *ConvListItem::getThumbnail()
 {
-    if(m_ThumbPath.empty())
-        return ThumbnailMaker::make(*getOwner(), ThumbnailMaker::MsgType, PathUtils::getResourcePath(THUMB_CONTACT_IMG_PATH));
-    else
-        return ThumbnailMaker::make(*getOwner(), ThumbnailMaker::UserType, m_ThumbPath);
+    return m_App.getThumbnailMaker().getThumbById(*getOwner(), m_ThumbId);
 }
 
 Evas_Object *ConvListItem::getProgress()
@@ -192,7 +190,7 @@ void ConvListItem::showMainCtxPopup()
             ctxPopup.appendItem(msg("IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onSaveAttachmentsItemPressed), this);
     }
 
-    if(m_NetworkStatus != Message::NS_Sending && !msgText.empty())
+    if(m_NetworkStatus != Message::NS_Sending && !msgText.empty() && m_Type == Message::MT_SMS)
         ctxPopup.appendItem(msg("IDS_MSG_OPT_COPY_TO_SIM_CARD_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onCopyToSimCardItemPressed), this);
 
     ctxPopup.appendItem(msg("IDS_MSG_OPT_VIEW_DETAILS_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onViewDetailsItemPressed), this);
@@ -293,6 +291,15 @@ void ConvListItem::onSaveAttachmentsItemPressed(ContextPopupItem &item)
 void ConvListItem::onCopyToSimCardItemPressed(ContextPopupItem &item)
 {
     MSG_LOG("");
+    item.getParent().destroy();
+    MessageRef msg = m_App.getMsgEngine().getStorage().getMessage(m_MsgId);
+    if(msg)
+    {
+        msg->setMessageStorageType(Message::MS_Sim);
+        m_App.getMsgEngine().getStorage().saveMessage(*msg, false);
+    }
+
+    notification_status_message_post(msg("IDS_MSGC_POP_COPIED_TO_SIM_CARD").cStr());
 }
 
 void ConvListItem::onViewDetailsItemPressed(ContextPopupItem &item)

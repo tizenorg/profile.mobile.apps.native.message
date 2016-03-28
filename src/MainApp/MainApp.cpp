@@ -94,7 +94,6 @@ const Window &MainApp::getWindow() const
     return *m_pWindow;
 }
 
-
 void MainApp::terminate()
 {
    /* if(m_pWindow)
@@ -103,21 +102,11 @@ void MainApp::terminate()
     ui_app_exit();
 }
 
-void MainApp::initThemes()
-{
-    std::string imagesPath = PathUtils::getResourcePath(IMAGES_EDJ_PATH);
-    elm_theme_extension_add(nullptr, imagesPath.c_str());
-
-    std::string bubbleThemePath = PathUtils::getResourcePath(BUBBLE_THEME_EDJ_PATH);
-    elm_theme_extension_add(nullptr, bubbleThemePath.c_str());
-
-    std::string buttonThemePath = PathUtils::getResourcePath(BUTTON_THEME_EDJ_PATH);
-    elm_theme_extension_add(nullptr, buttonThemePath.c_str());
-}
-
 bool MainApp::onAppCreate()
 {
     TRACE;
+    bool res = false;
+
     std::string localePath(PathUtils::getLocalePath());
     if(!localePath.empty())
         bindtextdomain(PROJECT_NAME, localePath.c_str());
@@ -125,15 +114,15 @@ bool MainApp::onAppCreate()
     elm_app_base_scale_set(2.6);
     elm_config_preferred_engine_set("opengl_x11");
 
-    initThemes();
-
     m_pWindow = new StandardWindow;
     m_pWindow->show();
+
+    res = App::init();
 
     m_pRootController = new NaviFrameController(*this);
     m_pWindow->setContent(*m_pRootController);
 
-    return true;
+    return res;
 }
 
 void MainApp::onAppTerminate()
