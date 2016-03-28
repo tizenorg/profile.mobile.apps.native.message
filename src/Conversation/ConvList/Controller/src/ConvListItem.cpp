@@ -34,7 +34,7 @@ ConvListItem::ConvListItem(const MsgConversationItem &item,
                            App &app,
                            WorkingDirRef workingDir,
                            const std::string &searchWord,
-                           ThumbnailMaker::ThumbId &thumbId)
+                           const ThumbnailMaker::ThumbId &thumbId)
     : ConvListViewItem(getConvItemType(item))
     , m_pListener(nullptr)
     , m_App(app)

@@ -89,6 +89,11 @@ namespace Msg
             void navigateTo(MsgId msgId);
 
             /**
+             * @brief Navigate to last mesage
+             */
+            void navigateToLastMsg();
+
+            /**
              * @brief Deletes selected items in SelectMode
              */
             void deleteSelectedItems();

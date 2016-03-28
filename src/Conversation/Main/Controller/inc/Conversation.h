@@ -59,6 +59,7 @@ namespace Msg
             virtual ~Conversation();
 
             void navigateTo(MsgId msgId);
+            void navigateToLastMsg();
             void execCmd(const AppControlComposeRef &cmd);
             void execCmd(const AppControlDefaultRef &cmd);
             void setThreadId(ThreadId id, const std::string &searchWord = std::string());
