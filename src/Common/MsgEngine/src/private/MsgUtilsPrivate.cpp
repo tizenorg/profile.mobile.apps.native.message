@@ -172,29 +172,31 @@ MsgAddress::RecipientType MsgUtilsPrivate::nativeToRecipientType(int type)
     }
 }
 
-int MsgUtilsPrivate::messageTypeToNative(Message::Type type)
-{
-    switch(type)
-    {
-        case Message::MT_SMS:
-            return MSG_TYPE_SMS;
-
-        case Message::MT_MMS:
-            return MSG_TYPE_MMS;
-
-        default:
-            return MSG_TYPE_INVALID;
-    }
-}
-
 Message::Type MsgUtilsPrivate::nativeToMessageType(int type)
 {
     switch(type)
     {
         case MSG_TYPE_SMS:
+        case MSG_TYPE_SMS_CB:
+        case MSG_TYPE_SMS_JAVACB:
+        case MSG_TYPE_SMS_WAPPUSH:
+        case MSG_TYPE_SMS_MWI:
+        case MSG_TYPE_SMS_SYNCML:
+        case MSG_TYPE_SMS_REJECT:
+        case MSG_TYPE_SMS_ETWS_PRIMARY:
+        case MSG_TYPE_SMS_ETWS_SECONDARY:
+        case MSG_TYPE_SMS_CMAS_PRESIDENTIAL:
+        case MSG_TYPE_SMS_CMAS_EXTREME:
+        case MSG_TYPE_SMS_CMAS_SEVERE:
+        case MSG_TYPE_SMS_CMAS_AMBER:
+        case MSG_TYPE_SMS_CMAS_TEST:
+        case MSG_TYPE_SMS_CMAS_EXERCISE:
+        case MSG_TYPE_SMS_CMAS_OPERATOR_DEFINED:
             return Message::MT_SMS;
 
         case MSG_TYPE_MMS:
+        case MSG_TYPE_MMS_JAVA:
+        case MSG_TYPE_MMS_NOTI:
             return Message::MT_MMS;
 
         default:

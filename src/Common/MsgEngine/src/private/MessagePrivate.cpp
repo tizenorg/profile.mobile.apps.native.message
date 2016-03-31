@@ -151,13 +151,7 @@ void MessagePrivate::commit()
 
 bool MessagePrivate::isMms() const
 {
-    int type = MSG_TYPE_SMS;
-    msg_get_int_value(m_MsgStruct, MSG_MESSAGE_TYPE_INT, &type);
-
-    if(type == MSG_TYPE_MMS)
-        return true;
-    else if(type != MSG_TYPE_SMS)
-        MSG_LOG("invalid msg type!", type);
-
-    return false;
+    int nativeType = MSG_TYPE_INVALID;
+    msg_get_int_value(m_MsgStruct, MSG_MESSAGE_TYPE_INT, &nativeType);
+    return MsgUtilsPrivate::nativeToMessageType(nativeType) == Message::MT_MMS;
 }

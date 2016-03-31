@@ -34,7 +34,6 @@ namespace Msg
             static int directionToNative(Message::Direction direction);
             static int addressTypeToNative(MsgAddress::AddressType type);
             static int recipientTypeToNative(MsgAddress::RecipientType type);
-            static int messageTypeToNative(Message::Type type);
             static Message::Direction nativeToDirection(int direction);
             static MsgAddress::AddressType nativeToAddressType(int type);
             static MsgAddress::RecipientType nativeToRecipientType(int type);
