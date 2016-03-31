@@ -35,7 +35,7 @@ ConvList::ConvList(Evas_Object *parent, App &app, WorkingDirRef workingDir)
     , m_pSelectAll(nullptr)
     , m_pList(nullptr)
     , m_ConvListItemMap()
-    , m_DateLineItemMap()
+    , m_DateLineItemSet()
     , m_pListner(nullptr)
     , m_App(app)
     , m_WorkingDir(workingDir)
@@ -50,6 +50,7 @@ ConvList::~ConvList()
 {
     m_MsgEngine.getStorage().removeListener(*this);
     m_App.getContactManager().removeListener(*this);
+    m_App.getSysSettingsManager().removeListener(*this);
 }
 
 void ConvList::setListener(IConvListListener *l)
@@ -89,6 +90,7 @@ void ConvList::create(Evas_Object *parent)
     showSelectAllMode(m_Mode == SelectMode);
 
     m_App.getContactManager().addListener(*this);
+    m_App.getSysSettingsManager().addListener(*this);
 }
 
 Evas_Object *ConvList::createSelectAll(Evas_Object *parent)
@@ -120,7 +122,7 @@ void ConvList::fill()
     int convListLen = convList->getLength();
     int reserveSize = convListLen <= minMessagesBulk/2 ? minMessagesBulk : convListLen + additionalMessagesBulk;
     m_ConvListItemMap.reserve(reserveSize);
-    m_DateLineItemMap.reserve(reserveSize);
+    m_DateLineItemSet.reserve(reserveSize);
 
     for(int i = 0; i < convListLen; ++i)
     {
@@ -221,7 +223,7 @@ void ConvList::dateLineDelIfNec(ConvListItem *item)
 
     if(needDelDateLine)
     {
-        m_DateLineItemMap.erase(prev->getDateLine());
+        m_DateLineItemSet.erase(prev->getDateLine());
         m_pList->deleteItem(*prev);
     }
 }
@@ -229,11 +231,11 @@ void ConvList::dateLineDelIfNec(ConvListItem *item)
 void ConvList::dateLineAddIfNec(ConvListItem *item)
 {
     std::string dateStr = TimeUtils::makeBubbleDateLineString(item->getRawTime());
-    auto it = m_DateLineItemMap.find(dateStr);
-    if (it == m_DateLineItemMap.end())
+    auto it = m_DateLineItemSet.find(dateStr);
+    if (it == m_DateLineItemSet.end())
     {
         DateLineViewItem *dateLine = new DateLineViewItem(dateStr);
-        m_DateLineItemMap[dateStr] = dateLine;
+        m_DateLineItemSet.insert(dateStr);
         m_pList->appendItem(*dateLine);
     }
 }
@@ -242,7 +244,7 @@ void ConvList::clear()
 {
     m_pList->clear();
     m_ConvListItemMap.clear();
-    m_DateLineItemMap.clear();
+    m_DateLineItemSet.clear();
 }
 
 void ConvList::deleteSelectedItems()
@@ -386,5 +388,16 @@ void ConvList::onContactChanged()
     MSG_LOG("");
     updateRecipThumbId();
     updateOwnerThumbId();
+    m_pList->updateRealizedItems();
+}
+
+void ConvList::onTimeFormatChanged()
+{
+    MSG_LOG("");
+    auto items = m_pList->getItems<ConvListItem>();
+    for(ConvListItem *item : items)
+    {
+        item->updateTime();
+    }
     m_pList->updateRealizedItems();
 }

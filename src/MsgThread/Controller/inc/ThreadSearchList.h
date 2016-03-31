@@ -32,6 +32,7 @@ namespace Msg
         : public ListView
         , private IListViewListener
         , private IContactManagerListener
+        , private ISystemSettingsManager
     {
         public:
             ThreadSearchList(Evas_Object *parent, App &app);
@@ -48,6 +49,9 @@ namespace Msg
 
             // IContactManagerListener:
             virtual void onContactChanged();
+
+            // ISystemSettingsManager:
+            virtual void onTimeFormatChanged();
 
             void search();
 

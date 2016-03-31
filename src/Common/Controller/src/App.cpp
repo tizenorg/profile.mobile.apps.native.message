@@ -27,6 +27,7 @@ App::App()
     : m_pContactManager(nullptr)
     , m_pPopupManager(nullptr)
     , m_pThumbnailMaker(nullptr)
+    , m_pSysSettingsManager(nullptr)
 {
     int serviceResult = m_Engine.openService();
     if(serviceResult != MESSAGES_ERROR_NONE)
@@ -41,10 +42,12 @@ App::~App()
     delete m_pThumbnailMaker;
     delete m_pContactManager;
     delete m_pPopupManager;
+    delete m_pSysSettingsManager;
 }
 
 bool App::init()
 {
+    getSysSettingsManager();
     getContactManager();
     getMsgEngine();
     getThumbnailMaker();
@@ -105,6 +108,18 @@ ThumbnailMaker &App::getThumbnailMaker()
 const ThumbnailMaker &App::getThumbnailMaker() const
 {
     return const_cast<App*>(this)->getThumbnailMaker();
+}
+
+SystemSettingsManager &App::getSysSettingsManager()
+{
+    if(!m_pSysSettingsManager)
+        m_pSysSettingsManager = new SystemSettingsManager;
+    return *m_pSysSettingsManager;
+}
+
+const SystemSettingsManager &App::getSysSettingsManager() const
+{
+    return const_cast<App*>(this)->getSysSettingsManager();
 }
 
 void App::exit()

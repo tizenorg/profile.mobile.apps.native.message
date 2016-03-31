@@ -43,6 +43,7 @@ ThreadList::ThreadList(Evas_Object *parent, App &app)
     ListView::setMode(ELM_LIST_COMPRESS);
     m_App.getMsgEngine().getStorage().addListener(*this);
     m_App.getContactManager().addListener(*this);
+    m_App.getSysSettingsManager().addListener(*this);
     updateList();
 }
 
@@ -50,6 +51,7 @@ ThreadList::~ThreadList()
 {
     m_App.getMsgEngine().getStorage().removeListener(*this);
     m_App.getContactManager().removeListener(*this);
+    m_App.getSysSettingsManager().removeListener(*this);
 }
 
 void ThreadList::setListener(IThreadListListener *l)
@@ -208,4 +210,16 @@ void ThreadList::onListItemChecked(ListItem &listItem)
         checkHandler(*it);
     else if(SelectAllListItem *it = dynamic_cast<SelectAllListItem*>(&listItem))
         checkHandler(*it);
+}
+
+void ThreadList::onTimeFormatChanged()
+{
+    MSG_LOG("");
+    auto items = ListView::getItems<BaseThreadListItem>();
+    for(BaseThreadListItem *item : items)
+    {
+        item->updateTime();
+    }
+
+    ListView::updateRealizedItems();
 }
