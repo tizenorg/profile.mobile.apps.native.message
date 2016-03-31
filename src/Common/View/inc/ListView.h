@@ -49,6 +49,7 @@ namespace Msg
             void setMode(Elm_List_Mode mode);
             void setHomogeneous(bool isHomogeneous);
             ListItem *getSelectedItem() const;
+            unsigned getItemsCount() const;
 
             void setCheckMode(bool check);
             bool getCheckMode() const;
