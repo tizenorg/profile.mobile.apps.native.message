@@ -20,6 +20,7 @@
 
 #include <Evas.h>
 #include <app.h>
+#include <system_settings.h>
 
 #define SMART_CALLBACK(ClassName, method) [](void *data, Evas_Object *obj, void *event_info) \
 {                                                                                            \
@@ -50,4 +51,5 @@
 {                                                                                                                          \
     static_cast<ClassName*>(data)->method(obj, emission, source);                                                          \
 }
+
 #endif /* CallBackAssist_h_ */

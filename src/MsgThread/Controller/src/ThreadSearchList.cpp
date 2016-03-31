@@ -21,6 +21,7 @@
 #include "MsgEngine.h"
 #include "Logger.h"
 
+
 using namespace Msg;
 
 ThreadSearchList::ThreadSearchList(Evas_Object *parent, App &app)
@@ -33,12 +34,14 @@ ThreadSearchList::ThreadSearchList(Evas_Object *parent, App &app)
     setMode(ELM_LIST_COMPRESS);
     ListView::setListener(this);
     m_App.getContactManager().addListener(*this);
+    m_App.getSysSettingsManager().addListener(*this);
 }
 
 ThreadSearchList::~ThreadSearchList()
 {
     cancelSearch();
     m_App.getContactManager().removeListener(*this);
+    m_App.getSysSettingsManager().removeListener(*this);
 }
 
 void ThreadSearchList::setListener(IThreadSearchListListener *l)
@@ -131,4 +134,16 @@ void ThreadSearchList::onListItemSelected(ListItem &listItem)
 void ThreadSearchList::onContactChanged()
 {
     search();
+}
+
+void ThreadSearchList::onTimeFormatChanged()
+{
+    MSG_LOG("");
+    auto items = ListView::getItems<BaseThreadListItem>();
+    for(BaseThreadListItem *item : items)
+    {
+        item->updateTime();
+    }
+
+    ListView::updateRealizedItems();
 }
