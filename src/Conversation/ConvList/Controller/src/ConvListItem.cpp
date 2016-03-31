@@ -28,6 +28,7 @@
 #include "MediaType.h"
 #include "MediaUtils.h"
 #include <notification_status.h>
+#include "TimeUtils.h"
 
 using namespace Msg;
 
@@ -73,6 +74,11 @@ void ConvListItem::updateStatus()
     else if(m_NetworkStatus == Message::NS_Received)
         updateItemType(ConvItemType::Received);
     update();
+}
+
+void ConvListItem::updateTime()
+{
+    m_TimeStr.clear();
 }
 
 ConvListViewItem::ConvItemType ConvListItem::getConvItemType(const MsgConversationItem &item)
@@ -176,7 +182,9 @@ Evas_Object *ConvListItem::getProgress()
 
 std::string ConvListItem::getTime()
 {
-    return TimeUtils::makeBubbleTimeString(m_Time);
+    if(m_TimeStr.empty())
+        m_TimeStr = TimeUtils::makeBubbleTimeString(m_Time);
+    return m_TimeStr;
 }
 
 MsgId ConvListItem::getMsgId() const

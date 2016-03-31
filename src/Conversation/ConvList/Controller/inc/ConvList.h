@@ -27,7 +27,9 @@
 #include "ContactManager.h"
 #include "DateLineViewItem.h"
 #include "WorkingDir.h"
+
 #include <unordered_map>
+#include <unordered_set>
 
 namespace Msg
 {
@@ -39,6 +41,7 @@ namespace Msg
         , private IListViewListener
         , private IConvListItemListener
         , private IContactManagerListener
+        , private ISystemSettingsManager
     {
         public:
             enum Mode
@@ -112,7 +115,7 @@ namespace Msg
 
         private:
             typedef std::unordered_map<MsgId::Type, ConvListItem*> ConvListItemMap;
-            typedef std::unordered_map<std::string, DateLineViewItem*> DateLineItemMap;
+            typedef std::unordered_set<std::string> DateLineItemSet;
 
         private:
             void create(Evas_Object *parent);
@@ -153,6 +156,9 @@ namespace Msg
             // SelectAll callback:
             void onSelectAllChanged(Evas_Object *obj, void *eventInfo);
 
+            // ISystemSettingsManager:
+            virtual void onTimeFormatChanged();
+
         private:
             Mode m_Mode;
             MsgEngine &m_MsgEngine;
@@ -160,7 +166,7 @@ namespace Msg
             ConvSelectAll *m_pSelectAll;
             ListView *m_pList;
             ConvListItemMap m_ConvListItemMap;
-            DateLineItemMap m_DateLineItemMap;
+            DateLineItemSet m_DateLineItemSet;
             IConvListListener *m_pListner;
             App &m_App;
             WorkingDirRef m_WorkingDir;
