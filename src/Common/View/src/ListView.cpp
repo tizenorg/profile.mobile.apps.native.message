@@ -144,6 +144,11 @@ ListItem *ListView::getSelectedItem() const
     return ListItem::staticCast<ListItem*>(elmItem);
 }
 
+unsigned ListView::getItemsCount() const
+{
+    return elm_genlist_items_count(getEo());
+}
+
 void ListView::notifyListener(void *data, Evas_Object *obj, void *event_info, ListenerMethod method)
 {
     ListItem *item = ListItem::staticCast<ListItem*>(event_info);
