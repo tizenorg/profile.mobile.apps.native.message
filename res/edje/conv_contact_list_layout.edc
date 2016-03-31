@@ -1,0 +1,50 @@
+collections {
+
+	base_scale: 2.6;
+
+	group
+	{
+		name: "conv_contact_list_layout";
+		parts {
+			part {
+				name: "swl.rect";
+				type: SWALLOW;
+				scale: 1;
+				repeat_events: 1;
+				description {
+					state: "default" 0.0;
+					rel1 {relative: 0.0 0.0;}
+					rel2 {relative: 1.0 1.0;}
+					align: 0 0.0;
+					visible: 1;
+					fixed: 1 1;
+				}
+			}
+			part {
+				name: "bg_rect";
+				type: RECT;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					color: 255 255 255 255;
+					rel1 {to: "swl.contact_list"; relative: 0.0 0.0;}
+					rel2 {to: "swl.contact_list"; relative: 1.0 1.0;}
+					visible: 1;
+					align: 0 0.0;
+					fixed: 1 1;
+				}
+			}
+			part {
+				name: "swl.contact_list";
+				type: SWALLOW;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					visible: 1;
+					align: 0 0;
+					fixed: 1 1;
+				}
+			}
+		}
+	}
+}

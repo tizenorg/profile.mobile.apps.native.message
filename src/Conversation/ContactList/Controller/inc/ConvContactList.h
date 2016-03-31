@@ -18,7 +18,7 @@
 #ifndef ConvContactList_h_
 #define ConvContactList_h_
 
-#include "ListView.h"
+#include "ConvContactListView.h"
 #include "App.h"
 #include "ContactListItem.h"
 
@@ -29,7 +29,7 @@ namespace Msg
     class IConvContactListListener;
 
     class ConvContactList
-        : public ListView
+        : public ConvContactListView
         , private IListViewListener
     {
         public:
@@ -39,6 +39,8 @@ namespace Msg
             void setListener(IConvContactListListener *l);
             void setSearchWorld(const std::string &searchWord);
             void requestSearch();
+            void clear();
+            bool isEmpty() const;
 
         private:
             // IListViewListener:
@@ -63,6 +65,7 @@ namespace Msg
             virtual ~IConvContactListListener() {}
 
             virtual void onContactSelected(ContactListItem &item) {};
+            virtual void onContactListChanged() {};
     };
 }
 
