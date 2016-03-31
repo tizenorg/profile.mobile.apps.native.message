@@ -48,8 +48,8 @@ namespace Msg
             static void expand(Evas_Object *obj);
             void setSizeHintMin(Evas_Coord w, Evas_Coord h);
             void setSizeHintMax(Evas_Coord w, Evas_Coord h);
-            void getSizeHintMin(Evas_Coord *w, Evas_Coord *h);
-            void getSizeHintMax(Evas_Coord *w, Evas_Coord *h);
+            void getSizeHintMin(Evas_Coord *w, Evas_Coord *h) const;
+            void getSizeHintMax(Evas_Coord *w, Evas_Coord *h) const;
             Evas_Object *setContent(Evas_Object *content, const char *part = nullptr, bool saveOldContent = false);
             Evas_Object *unsetContent(const char *part = nullptr);
             Evas_Object* getContent(const char *part = nullptr) const;
@@ -174,12 +174,12 @@ namespace Msg
         evas_object_size_hint_max_set(m_pEo, w, h);
     }
 
-    inline void View::getSizeHintMin(Evas_Coord *w, Evas_Coord *h)
+    inline void View::getSizeHintMin(Evas_Coord *w, Evas_Coord *h) const
     {
         evas_object_size_hint_min_get(m_pEo, w, h);
     };
 
-    inline void View::getSizeHintMax(Evas_Coord *w, Evas_Coord *h)
+    inline void View::getSizeHintMax(Evas_Coord *w, Evas_Coord *h) const
     {
         evas_object_size_hint_max_get(m_pEo, w, h);
     }

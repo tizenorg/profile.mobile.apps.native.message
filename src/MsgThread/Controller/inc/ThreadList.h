@@ -21,6 +21,7 @@
 #include "ListView.h"
 #include "MsgStorage.h"
 #include "ContactManager.h"
+#include "SystemSettingsManager.h"
 
 namespace Msg
 {
@@ -34,6 +35,7 @@ namespace Msg
         , private IMsgStorageListener
         , private IListViewListener
         , private IContactManagerListener
+        , private ISystemSettingsManager
     {
         public:
             ThreadList(Evas_Object *parent, App &app);
@@ -55,6 +57,9 @@ namespace Msg
             // IListViewListener:
             virtual void onListItemSelected(ListItem &listItem);
             virtual void onListItemChecked(ListItem &listItem);
+
+            // ISystemSettingsManager:
+            virtual void onTimeFormatChanged();
 
         private:
             void showSelectAllItem(bool show, bool resetCheck = true);
