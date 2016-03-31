@@ -107,7 +107,8 @@ void ConvListItem::prepareBubble(const MsgConversationItem &item, const std::str
 {
     if(m_Type == Message::MT_SMS)
     {
-        m_BubbleEntity.addItem(BubbleEntity::TextItem, TextDecorator::highlightKeyword(item.getText(), searchWord));
+        std::string highlightedText = TextDecorator::highlightKeyword(utf8ToMarkup(item.getText()), utf8ToMarkup(searchWord));
+        m_BubbleEntity.addItem(BubbleEntity::TextItem, highlightedText);
     }
     else
     {
@@ -132,7 +133,8 @@ void ConvListItem::prepareBubble(const MsgConversationItem &item, const std::str
             {
                 // TODO: How to detect text attachment and content(text) of MMS ?
                 std::string text = FileUtils::readTextFile(media.getPath());
-                m_BubbleEntity.addItem(BubbleEntity::TextItem, TextDecorator::highlightKeyword(std::move(text), searchWord));
+                std::string highlightedText = TextDecorator::highlightKeyword(utf8ToMarkup(text), utf8ToMarkup(searchWord));
+                m_BubbleEntity.addItem(BubbleEntity::TextItem, highlightedText);
             }
             else if(mime != "application/smil")
             {
