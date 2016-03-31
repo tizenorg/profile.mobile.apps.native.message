@@ -83,10 +83,15 @@ namespace Msg
             void setThreadId(ThreadId id,const std::string &searchWord = std::string());
 
             /**
-             * @brief Navigate to mesage
+             * @brief Navigate to message
              * @param[in] msgId message id to navigate
              */
             void navigateTo(MsgId msgId);
+
+            /**
+             * @brief Navigate to last message
+             */
+            void navigateToLastMsg();
 
             /**
              * @brief Deletes selected items in SelectMode

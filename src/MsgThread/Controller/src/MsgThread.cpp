@@ -110,6 +110,8 @@ void MsgThread::navigateToConversation(ThreadId threadId, MsgId msgId, const std
     frame->setThreadId(threadId, searchWord);
     if(msgId.isValid())
         frame->navigateTo(msgId);
+    else
+        frame->navigateToLastMsg();
     getParent().push(*frame);
 }
 
