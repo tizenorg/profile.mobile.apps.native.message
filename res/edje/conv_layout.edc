@@ -124,14 +124,14 @@ collections {
 					state: "default" 0.0;
 					fixed: 1 1;
 					rel1 {to: "swl.recipient.rect"; relative: 0.0 1.0;}
-					rel2 {to: "swl.bubble"; relative: 1.0 1.0;}
+					rel2 {to_x: "swl.recipient.rect"; to_y: "swl.msg_input_panel"; relative: 1.0 1.0;}
 					align: 0.5 0.0;
-					visible: 1;
+					visible: 0;
 				}
 				description {
-					state: "hide" 0.0;
+					state: "show" 0.0;
 					inherit: "default" 0.0;
-					visible: 0;
+					visible: 1;
 				}
 			}
 			programs {
@@ -139,16 +139,15 @@ collections {
 					name: "hide.predictsearch";
 					signal: "hide.predictsearch";
 					source: "*";
-					action: STATE_SET "hide" 0.0;
+					action: STATE_SET "default" 0.0;
 					target: "swl.predictsearch";
 				}
 				program {
 					name: "show.predictsearch";
 					signal: "show.predictsearch";
 					source: "*";
-					action: STATE_SET "default" 0.0;
+					action: STATE_SET "show" 0.0;
 					target: "swl.predictsearch";
-					target: "swl.recipient.rect";
 				}
 				program {
 					name: "bubble_layout_clicked";
