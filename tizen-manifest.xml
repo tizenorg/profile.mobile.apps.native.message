@@ -15,6 +15,7 @@
         <privilege>http://tizen.org/privilege/telephony</privilege>
         <privilege>http://tizen.org/privilege/message.read</privilege>
         <privilege>http://tizen.org/privilege/contact.read</privilege>
+        <privilege>http://tizen.org/privilege/call</privilege>
     </privileges>
     <feature name="http://tizen.org/feature/network.telephony">true</feature>
     <feature name="http://tizen.org/feature/network.telephony.mms">true</feature>
