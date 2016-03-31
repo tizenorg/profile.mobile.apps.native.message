@@ -26,6 +26,8 @@
 #include "ContextPopup.h"
 #include "SelectAllListItem.h"
 #include "MsgStorage.h"
+#include "SimMsgLayout.h"
+#include "NoContentLayout.h"
 
 namespace Msg
 {
@@ -47,6 +49,7 @@ namespace Msg
 
         private:
             void fillList();
+            void showNoContent();
 
             // NaviFrameItem:
             virtual void onAttached(ViewItem &item);
@@ -90,6 +93,8 @@ namespace Msg
             void copySelectedItems();
 
         private:
+            SimMsgLayout *m_pLayout;
+            NoContentLayout *m_pNoContent;
             ListView *m_pList;
             SimMode m_SimMode;
             int m_CheckCount;
