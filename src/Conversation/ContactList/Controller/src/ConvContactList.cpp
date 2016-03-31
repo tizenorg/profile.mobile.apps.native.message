@@ -37,15 +37,12 @@ namespace
 }
 
 ConvContactList::ConvContactList(Evas_Object *parent, App &app)
-    : ListView(parent)
+    : ConvContactListView(parent)
     , m_pListener(nullptr)
     , m_pPredictSearchIdler(nullptr)
     , m_App(app)
 {
-    ListView::setListener(this);
-    ListView::setMultiSelection(true);
-    ListView::setMode(ELM_LIST_COMPRESS);
-    ListView::setFocusAllow(false);
+    getList().setListener(this);
 }
 
 ConvContactList::~ConvContactList()
@@ -62,6 +59,19 @@ void ConvContactList::setListener(IConvContactListListener *l)
     m_pListener = l;
 }
 
+void ConvContactList::clear()
+{
+    getList().clear();
+
+    if(m_pListener)
+        m_pListener->onContactListChanged();
+}
+
+bool ConvContactList::isEmpty() const
+{
+    return getList().isEmpty();
+}
+
 void ConvContactList::setSearchWorld(const std::string &searchWord)
 {
     m_SearchWord = searchWord;
@@ -75,13 +85,15 @@ void ConvContactList::requestSearch()
 
 void ConvContactList::search()
 {
-    ListView::clear();
+    getList().clear();
     if(!m_SearchWord.empty())
     {
         search<ContactPersonNumber>();
         search<ContactPersonEmail>();
         search<ContactPersonPhoneLog>();
     }
+    if(m_pListener)
+        m_pListener->onContactListChanged();
 }
 
 template<typename ContactRecord>
@@ -96,7 +108,7 @@ void ConvContactList::search()
             if(isValid(rec))
             {
                 ContactListItem *item = new ContactListItem(rec, m_App, m_SearchWord);
-                ListView::appendItem(*item);
+                getList().appendItem(*item);
             }
             else
             {

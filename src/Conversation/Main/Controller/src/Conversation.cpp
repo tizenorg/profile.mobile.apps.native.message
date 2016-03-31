@@ -380,7 +380,6 @@ void Conversation::createContactList(Evas_Object *parent)
         m_pContactsList->setListener(this);
         m_pContactsList->show();
         m_pLayout->setContactList(*m_pContactsList);
-        m_pLayout->showContactList(true);
     }
 }
 
@@ -740,6 +739,12 @@ void Conversation::onContactSelected(ContactListItem &item)
     m_pRecipPanel->appendItem(item.getRecipient());
     m_pRecipPanel->clearEntry();
     m_pContactsList->clear();
+}
+
+void Conversation::onContactListChanged()
+{
+    if(m_pContactsList)
+        m_pLayout->showContactList(!m_pContactsList->isEmpty());
 }
 
 void Conversation::onAttached(ViewItem &item)

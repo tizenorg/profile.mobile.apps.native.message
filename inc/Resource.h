@@ -34,18 +34,21 @@
 #define BUBBLE_THEME_EDJ_PATH            EDJ_PATH"/bubble_theme.edj"
 #define MSG_INPUT_PANEL_EDJ_PATH         EDJ_PATH"/msg_input_panel.edj"
 #define RECIPIENT_PANEL_EDJ_PATH         EDJ_PATH"/recipient_panel.edj"
-#define CONV_LAYOUT_EDJ_PATH             EDJ_PATH"/conv_layout.edj"
+
 #define MSG_THREAD_EDJ_PATH              EDJ_PATH"/msg_thread.edj"
 #define CONTACTS_SEARCH_EDJ_PATH         EDJ_PATH"/contact_search.edj"
 #define MSG_BODY_EDJ_PATH                EDJ_PATH"/msg_body.edj"
 #define THUMBNAIL_EDJ_PATH               EDJ_PATH"/msg_thumbnail.edj"
 #define MSG_TITLE_EDJ_PATH               EDJ_PATH"/msg_title.edj"
-#define CONV_LIST_EDJ_PATH               EDJ_PATH"/conv_list.edj"
 #define SELECT_ALL_EDJ_PATH              EDJ_PATH"/select_all.edj"
 #define VIEWER_LAYOUT_EDJ_PATH           EDJ_PATH"/viewer_layout.edj"
 #define VIEWER_PALYER_EDJ_PATH           EDJ_PATH"/viewer_player.edj"
 #define VIEWER_SUBJECT_LAYOUT_EDJ_PATH   EDJ_PATH"/viewer_subject_layout.edj"
 #define SMIL_ITEM_EDJ_PATH               EDJ_PATH"/smil_item.edj"
+
+#define CONV_LIST_EDJ_PATH               EDJ_PATH"/conv_list.edj"
+#define CONV_LAYOUT_EDJ_PATH             EDJ_PATH"/conv_layout.edj"
+#define CONV_CONTACT_LIST_LAYOUT         EDJ_PATH"/conv_contact_list_layout.edj"
 
 // Images(res):
 #define THUMB_CONTACT_IMG_PATH           IMAGE_PATH"/list_ic_contacts.png"

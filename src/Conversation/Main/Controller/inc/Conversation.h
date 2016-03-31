@@ -103,6 +103,7 @@ namespace Msg
 
             // IConvContactListListener:
             virtual void onContactSelected(ContactListItem &item);
+            virtual void onContactListChanged();
 
              // Popup callbacks:
             void onPopupDel(Evas_Object *popup, void *eventInfo);
