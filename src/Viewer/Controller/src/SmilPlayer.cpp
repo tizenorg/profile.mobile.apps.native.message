@@ -36,9 +36,7 @@ SmilPlayer::SmilPlayer(Evas_Object *parent, const MessageMms &mms)
 
 SmilPlayer::~SmilPlayer()
 {
-    MSG_LOG("");
-    m_pListener = nullptr;
-    stop();
+
 }
 
 void SmilPlayer::create(const MessageMms &mms)
@@ -197,12 +195,14 @@ void SmilPlayer::prepareMedia()
 void SmilPlayer::stopMedia()
 {
     m_MediaPlayer.pause();
+    getCurrentPage()->playAnimation(false);
 }
 
 void SmilPlayer::startMedia()
 {
     if(getCurrentPage()->hasMedia())
         m_MediaPlayer.start();
+    getCurrentPage()->playAnimation(true);
 }
 
 double SmilPlayer::getPosition() const
@@ -274,8 +274,18 @@ void SmilPlayer::onBeforeDelete(View &view)
 {
     MSG_LOG("");
 
+    m_pListener = nullptr;
+    stop();
+
     for(SmilPage *page : m_PageList)
     {
         page->destroy();
     }
+
+    if(m_pTimer)
+    {
+        ecore_timer_del(m_pTimer);
+        m_pTimer = nullptr;
+    }
+
 }
