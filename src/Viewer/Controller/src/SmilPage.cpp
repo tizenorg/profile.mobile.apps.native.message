@@ -36,6 +36,7 @@ SmilPage::SmilPage(Evas_Object *parent, const MsgPage &page)
     : SmilPageLayout(parent)
     , m_Duration(0)
     , m_pVideoSink(nullptr)
+    , m_pImageItem(nullptr)
 {
     build(page);
 }
@@ -44,6 +45,7 @@ SmilPage::SmilPage(Evas_Object *parent, const MsgAttachmentList &list)
     : SmilPageLayout(parent)
     , m_Duration(0)
     , m_pVideoSink(nullptr)
+    , m_pImageItem(nullptr)
 {
     build(list);
 }
@@ -76,6 +78,17 @@ Evas_Object *SmilPage::getVideoSink() const
 std::string SmilPage::getMediaPath() const
 {
     return m_MediaPath;
+}
+
+bool SmilPage::hasAnimation() const
+{
+    return m_pImageItem && m_pImageItem->hasAnimation();
+}
+
+void SmilPage::playAnimation(bool play)
+{
+    if(m_pImageItem && m_pImageItem->hasAnimation())
+        m_pImageItem->playAnimation(play);
 }
 
 const MsgMedia *SmilPage::getMedia(const MsgPage &page, MsgMedia::Type type) const
@@ -137,9 +150,9 @@ void SmilPage::build(const MsgAttachmentList &list)
 
 void SmilPage::buildImage(const MsgMedia &media)
 {
-    SmilImageItemView *item = new SmilImageItemView(getBox(), media.getFilePath());
-    item->show();
-    appendItem(*item);
+    m_pImageItem = new SmilImageItemView(getBox(), media.getFilePath());
+    m_pImageItem->show();
+    appendItem(*m_pImageItem);
 }
 
 void SmilPage::buildText(const MsgMedia& media)
