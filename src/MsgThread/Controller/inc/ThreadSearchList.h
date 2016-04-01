@@ -21,6 +21,7 @@
 #include "ListView.h"
 #include "App.h"
 #include "MsgTypes.h"
+#include "MsgStorage.h"
 
 #include <Ecore.h>
 
@@ -33,6 +34,7 @@ namespace Msg
         , private IListViewListener
         , private IContactManagerListener
         , private ISystemSettingsManager
+        , private IMsgStorageListener
     {
         public:
             ThreadSearchList(Evas_Object *parent, App &app);
@@ -52,6 +54,11 @@ namespace Msg
 
             // ISystemSettingsManager:
             virtual void onTimeFormatChanged();
+
+            // IMsgStorageListener:
+            virtual void onMsgStorageUpdate(const MsgIdList &msgIdList);
+            virtual void onMsgStorageInsert(const MsgIdList &msgIdList);
+            virtual void onMsgStorageDelete(const MsgIdList &msgIdList);
 
             void search();
 
