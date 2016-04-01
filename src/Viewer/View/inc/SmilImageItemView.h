@@ -29,7 +29,8 @@ namespace Msg
             SmilImageItemView(Evas_Object *parent, const std::string &imagePath);
             virtual ~SmilImageItemView();
 
-            void playImageAnimate(bool play);
+            void playAnimation(bool play);
+            bool hasAnimation() const;
 
         private:
             Evas_Object *createImage(Evas_Object *parent, const std::string &imagePath);

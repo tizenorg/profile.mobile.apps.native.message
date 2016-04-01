@@ -197,12 +197,14 @@ void SmilPlayer::prepareMedia()
 void SmilPlayer::stopMedia()
 {
     m_MediaPlayer.pause();
+    getCurrentPage()->playAnimation(false);
 }
 
 void SmilPlayer::startMedia()
 {
     if(getCurrentPage()->hasMedia())
         m_MediaPlayer.start();
+    getCurrentPage()->playAnimation(true);
 }
 
 double SmilPlayer::getPosition() const
