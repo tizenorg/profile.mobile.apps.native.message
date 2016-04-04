@@ -131,6 +131,7 @@ void Conversation::execCmd(const AppControlDefaultRef &cmd)
 
 void Conversation::create()
 {
+    m_WorkingDir = std::make_shared<WorkingDir>();
     createMainLayout(getParent());
     createMsgInputPanel(*m_pLayout);
     createBody(*m_pMsgInputPanel);
@@ -217,6 +218,11 @@ void Conversation::contactChangedHandler()
 void Conversation::navigateTo(MsgId msgId)
 {
     m_pConvList->navigateTo(msgId);
+}
+
+void Conversation::navigateToLastMsg()
+{
+    m_pConvList->navigateToLastMsg();
 }
 
 void Conversation::setThreadId(ThreadId id, const std::string &searchWord)
@@ -329,7 +335,7 @@ void Conversation::createConvList(Evas_Object *parent)
 {
     if(!m_pConvList)
     {
-        m_pConvList = new ConvList(*m_pLayout, getApp());
+        m_pConvList = new ConvList(*m_pLayout, getApp(), m_WorkingDir);
         m_pConvList->setListener(this);
         m_pConvList->show();
         m_pLayout->setConvList(*m_pConvList);
@@ -445,7 +451,7 @@ void Conversation::sendMessage()
 {
     if(!m_ThreadId.isValid() && m_pRecipPanel->isMbeEmpty())
     {
-        showNoRecipPopup();
+        showAddRecipPopup();
         m_pRecipPanel->setEntryFocus(true);
         return;
     }
@@ -586,7 +592,7 @@ void Conversation::showNoRecipPopup()
     popup.show();
 }
 
-void Conversation::showNoRecipPopup()
+void Conversation::showAddRecipPopup()
 {
     Popup &popup = getApp().getPopupManager().getPopup();
     popup.setContent(msgt("IDS_MSG_TPOP_ADD_RECIPIENTS"));

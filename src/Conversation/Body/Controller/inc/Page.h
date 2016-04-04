@@ -33,7 +33,7 @@ namespace Msg
 
 
         public:
-            Page(Body &parent, WorkingDir &workingDir);
+            Page(Body &parent, WorkingDirRef workingDir);
             virtual ~Page();
 
             const MsgTextMetric &getTextMetric();
@@ -64,7 +64,7 @@ namespace Msg
         private:
             Body &m_Body;
             MsgTextMetric m_MsgMetric;
-            WorkingDir &m_WorkingDir;
+            WorkingDirRef m_WorkingDir;
     };
 }
 

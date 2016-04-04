@@ -104,6 +104,11 @@ namespace Msg
             Evas_Object *m_pEo;
     };
 
+    std::string mrkupToUtf8(const char *str);
+    std::string utf8ToMarkup(const char *str);
+    std::string mrkupToUtf8(const std::string &str);
+    std::string utf8ToMarkup(const std::string &str);
+
     inline View::operator Evas_Object *() const
     {
         return m_pEo;

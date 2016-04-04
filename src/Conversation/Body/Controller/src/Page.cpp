@@ -33,7 +33,7 @@ namespace
     const int defaultPageDuration = 5; // sec
 }
 
-Page::Page(Body &parent, WorkingDir &workingDir)
+Page::Page(Body &parent, WorkingDirRef workingDir)
     : PageView(parent)
     , m_Body(parent)
     , m_MsgMetric()
@@ -191,7 +191,7 @@ void Page::writeSound(const MsgMedia &msgMedia)
 void Page::writeTextToFile(TextPageViewItem &item)
 {
     if(item.getResourcePath().empty())
-        item.setResourcePath(m_WorkingDir.addTextFile(item.getPlainUtf8Text()));
+        item.setResourcePath(m_WorkingDir->addTextFile(item.getPlainUtf8Text()));
     else
         FileUtils::writeTextFile(item.getResourcePath(), item.getPlainUtf8Text());
 }
@@ -261,20 +261,21 @@ void Page::readVideo(MsgPage &msgPage)
 void Page::addVideo(const std::string &videoFilePath)
 {
     const std::string thumbFileName = "thumbnail.jpeg";
-    std::string thumbFilePath =  m_WorkingDir.genUniqueFilePath(thumbFileName);
+    std::string thumbFilePath =  m_WorkingDir->genUniqueFilePath(thumbFileName);
+    std::string newVideoFilePath = m_WorkingDir->addFile(videoFilePath);
 
-    if(!thumbFilePath.empty())
+    if(!newVideoFilePath.empty())
     {
         long long fileSize = FileUtils::getFileSize(thumbFilePath);
         // FIXME: if getVideoFrame returns false ?
         MediaUtils::getVideoFrame(videoFilePath, thumbFilePath);
-        m_Body.addVideo(*this, videoFilePath, fileSize, thumbFilePath);
+        m_Body.addVideo(*this, newVideoFilePath, fileSize, thumbFilePath);
     }
 }
 
 void Page::addImage(const std::string &filePath)
 {
-    std::string newFilePath = m_WorkingDir.addFile(filePath);
+    std::string newFilePath = m_WorkingDir->addFile(filePath);
     if(!newFilePath.empty())
     {
         long long fileSize = FileUtils::getFileSize(newFilePath);
@@ -284,7 +285,7 @@ void Page::addImage(const std::string &filePath)
 
 void Page::addSound(const std::string &filePath, const std::string &fileName)
 {
-    std::string newFilePath = m_WorkingDir.addFile(filePath);
+    std::string newFilePath = m_WorkingDir->addFile(filePath);
     if(!newFilePath.empty())
     {
         long long fileSize = FileUtils::getFileSize(newFilePath);

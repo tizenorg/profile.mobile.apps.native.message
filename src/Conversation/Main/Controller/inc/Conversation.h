@@ -59,6 +59,7 @@ namespace Msg
             virtual ~Conversation();
 
             void navigateTo(MsgId msgId);
+            void navigateToLastMsg();
             void execCmd(const AppControlComposeRef &cmd);
             void execCmd(const AppControlDefaultRef &cmd);
             void setThreadId(ThreadId id, const std::string &searchWord = std::string());
@@ -164,7 +165,7 @@ namespace Msg
 
             void showMainCtxPopup();
             void showNoRecipPopup();
-            void showNoRecipPopup();
+            void showAddRecipPopup();
             PopupList &createPopupList(const std::string &title);
             void showSendResultPopup(MsgTransport::SendResult result);
             void showUnsavedRecipientPopup(const std::string &address);
@@ -182,7 +183,7 @@ namespace Msg
 
         private:
             Mode m_Mode;
-            WorkingDir m_WorkingDir;
+            WorkingDirRef m_WorkingDir;
             ConversationLayout *m_pLayout;
             MessageInputPanel *m_pMsgInputPanel;
             Body *m_pBody;

@@ -41,7 +41,7 @@ namespace Msg
         : public BodyView
     {
         public:
-            Body(App &app, WorkingDir &workingDir);
+            Body(App &app, WorkingDirRef workingDir);
             virtual ~Body();
 
             void create(Evas_Object *parent);
@@ -91,7 +91,7 @@ namespace Msg
         private:
             IBodyListener *m_pListener;
             App &m_App;
-            WorkingDir &m_WorkingDir;
+            WorkingDirRef m_WorkingDir;
             Ecore_Idler *m_pOnChangedIdler;
             bool m_TooLargePopupShow;
     };

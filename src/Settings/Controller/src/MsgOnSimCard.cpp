@@ -33,6 +33,8 @@ using namespace Msg;
 
 MsgOnSimCard::MsgOnSimCard(NaviFrameController &parent)
     : FrameController(parent)
+    , m_pLayout(nullptr)
+    , m_pNoContent(nullptr)
     , m_pList(nullptr)
     , m_SimMode(NormalMode)
     , m_CheckCount(0)
@@ -48,13 +50,23 @@ MsgOnSimCard::~MsgOnSimCard()
 
 void MsgOnSimCard::create()
 {
-    m_pList = new ListView(getParent());
+    m_pLayout = new SimMsgLayout(getParent());
+    m_pLayout->show();
+
+    m_pNoContent = new NoContentLayout(*m_pLayout);
+    m_pNoContent->setText(msgt("IDS_MSG_NPBODY_NO_MESSAGES_ON_SIM_CARD"));
+    m_pNoContent->setHelpText(msgt("IDS_MSG_BODY_AFTER_YOU_COPY_MESSAGES_TO_THE_SIM_CARD_THEY_WILL_BE_SHOWN_HERE"));
+
+    m_pList = new ListView(*m_pLayout);
     m_pList->setListener(this);
     m_pList->expand();
     m_pList->setMultiSelection(false);
-    m_pList->show();
     m_pList->setMode(ELM_LIST_COMPRESS);
     fillList();
+
+    m_pLayout->setNoContent(*m_pNoContent);
+    m_pLayout->setSimMsgList(*m_pList);
+    showNoContent();
 }
 
 void MsgOnSimCard::fillList()
@@ -68,13 +80,19 @@ void MsgOnSimCard::fillList()
     }
 }
 
+void MsgOnSimCard::showNoContent()
+{
+    m_pLayout->setNoContentLayoutVisible(m_pList->isEmpty());
+    m_pLayout->setSimMsgListVisible(!m_pList->isEmpty());
+}
+
 void MsgOnSimCard::onAttached(ViewItem &item)
 {
     FrameController::onAttached(item);
     getNaviBar().setColor(NaviBar::NaviWhiteColorId);
     setTitleWithButtons(false);
     setHwButtonListener(*m_pList, this);
-    setContent(*m_pList);
+    setContent(*m_pLayout);
 }
 
 void MsgOnSimCard::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
@@ -139,11 +157,14 @@ void MsgOnSimCard::onHwBackButtonClicked()
 
 void MsgOnSimCard::showCopyDeletePopup()
 {
-    ContextPopup &popup = getApp().getPopupManager().getCtxPopup();
-    popup.appendItem(msg("IDS_MSG_OPT_COPY_TO_DEVICE_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(MsgOnSimCard, onCopyToDeviceItemPressed), this);
-    popup.appendItem(msg("IDS_MSG_OPT_DELETE"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(MsgOnSimCard, onDeleteItemPressed), this);
-    popup.align(getApp().getWindow());
-    popup.show();
+    if(!m_pList->isEmpty())
+    {
+        ContextPopup &popup = getApp().getPopupManager().getCtxPopup();
+        popup.appendItem(msg("IDS_MSG_OPT_COPY_TO_DEVICE_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(MsgOnSimCard, onCopyToDeviceItemPressed), this);
+        popup.appendItem(msg("IDS_MSG_OPT_DELETE"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(MsgOnSimCard, onDeleteItemPressed), this);
+        popup.align(getApp().getWindow());
+        popup.show();
+    }
 }
 
 void MsgOnSimCard::onCopyToDeviceItemPressed(ContextPopupItem &item)
@@ -172,6 +193,7 @@ void MsgOnSimCard::onMsgStorageDelete(const MsgIdList &msgIdList)
             }
         }
     }
+    showNoContent();
 }
 
 void MsgOnSimCard::setMode(SimMode mode)

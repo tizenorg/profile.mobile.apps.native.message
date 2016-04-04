@@ -25,14 +25,21 @@
 #include "TimeUtils.h"
 #include "SaveAttachmentsPopup.h"
 #include "TextDecorator.h"
+#include "MediaType.h"
+#include "MediaUtils.h"
 #include <notification_status.h>
 
 using namespace Msg;
 
-ConvListItem::ConvListItem(const MsgConversationItem &item, App &app, const std::string &searchWord, ThumbnailMaker::ThumbId &thumbId)
+ConvListItem::ConvListItem(const MsgConversationItem &item,
+                           App &app,
+                           WorkingDirRef workingDir,
+                           const std::string &searchWord,
+                           const ThumbnailMaker::ThumbId &thumbId)
     : ConvListViewItem(getConvItemType(item))
     , m_pListener(nullptr)
     , m_App(app)
+    , m_WorkingDir(workingDir)
     , m_MsgId(item.getMsgId())
     , m_IsDraft(item.isDraft())
     , m_NetworkStatus(item.getNetworkStatus())
@@ -85,20 +92,54 @@ ConvListViewItem::ConvItemType ConvListItem::getConvItemType(const MsgConversati
     return type;
 }
 
+void ConvListItem::addVideoItem(const std::string &path)
+{
+    const std::string thumbFileName = "thumbnail.jpeg";
+    std::string thumbFilePath =  m_WorkingDir->genUniqueFilePath(thumbFileName);
+
+    if(!thumbFilePath.empty())
+    {
+        if(MediaUtils::getVideoFrame(path, thumbFilePath))
+            m_BubbleEntity.addItem(BubbleEntity::VideoItem, thumbFilePath);
+    }
+}
+
 void ConvListItem::prepareBubble(const MsgConversationItem &item, const std::string &searchWord)
 {
     if(m_Type == Message::MT_SMS)
     {
-        m_BubbleEntity.addItem(BubbleEntity::TextItem, TextDecorator::highlightKeyword(item.getText(), searchWord));
+        std::string highlightedText = TextDecorator::highlightKeyword(utf8ToMarkup(item.getText()), utf8ToMarkup(searchWord));
+        m_BubbleEntity.addItem(BubbleEntity::TextItem, highlightedText);
     }
     else
     {
         const MsgConvMediaList &list = item.getMediaList();
         for(int i = 0; i < list.getLength(); i++)
         {
-            std::string mime = list.at(i).getMime();
-            if(!list.at(i).getThumbPath().empty())
+            const MsgConvMedia &media = list.at(i);
+
+            std::string mime = media.getMime();
+            MediaTypeData mediaType = getMediaType(media.getPath());
+
+            if(mediaType.type == MsgMedia::ImageType)
             {
+                // TODO: msg service corrupts thumbnail's metadata, so it lost rotation. Use getPath instead getThumbPath until fix
+                m_BubbleEntity.addItem(BubbleEntity::ImageItem, media.getPath());
+            }
+            else if(mediaType.type == MsgMedia::VideoType)
+            {
+                addVideoItem(media.getPath());
+            }
+            else if(mime == "text/plain")
+            {
+                // TODO: How to detect text attachment and content(text) of MMS ?
+                std::string text = FileUtils::readTextFile(media.getPath());
+                std::string highlightedText = TextDecorator::highlightKeyword(utf8ToMarkup(text), utf8ToMarkup(searchWord));
+                m_BubbleEntity.addItem(BubbleEntity::TextItem, highlightedText);
+            }
+            else if(mime != "application/smil")
+            {
+                m_BubbleEntity.addItem(BubbleEntity::TextItem, media.getName());
                 //msg service corrupts thumbnail's metadata, so it lost rotation. Use getPath instead getThumbPath until fix
                 m_BubbleEntity.addItem(BubbleEntity::ImageItem, list.at(i).getPath());
             }
