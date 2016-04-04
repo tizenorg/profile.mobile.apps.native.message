@@ -35,6 +35,7 @@ namespace Msg
             virtual ~NoContentLayout();
 
             void setText(const TText &text);
+            void setHelpText(const TText &text);
     };
 }
 
