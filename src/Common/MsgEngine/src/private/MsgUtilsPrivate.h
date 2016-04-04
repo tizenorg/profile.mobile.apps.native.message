@@ -21,6 +21,7 @@
 #include "MsgMedia.h"
 #include "MsgReport.h"
 
+#include <msg_storage.h>
 #include <msg_types.h>
 #include <msg.h>
 #include <assert.h>
@@ -36,6 +37,7 @@ namespace Msg
             static int recipientTypeToNative(MsgAddress::RecipientType type);
             static int messageTypeToNative(Message::Type type);
             static Message::Direction nativeToDirection(int direction);
+            static Message::MessageStorageType nativeToMessageStorage(int id);
             static MsgAddress::AddressType nativeToAddressType(int type);
             static MsgAddress::RecipientType nativeToRecipientType(int type);
             static MsgReport::DeliveryStatus nativeToReportDeliveryStatus(int status);

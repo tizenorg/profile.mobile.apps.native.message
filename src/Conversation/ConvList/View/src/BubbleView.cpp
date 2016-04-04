@@ -61,8 +61,7 @@ void BubbleView::fill(const BubbleEntity &entity)
                 elm_box_pack_end(*this, createImage(item.value));
                 break;
             case BubbleEntity::VideoItem:
-                // TODO: create video layout if needed
-                elm_box_pack_end(*this, createImage(item.value));
+                elm_box_pack_end(*this, createVideo(item.value));
                 break;
             default:
                 break;
@@ -100,6 +99,24 @@ Evas_Object *BubbleView::createText(const std::string &text)
 }
 
 Evas_Object *BubbleView::createImage(const std::string &path)
+{
+    Evas_Object *image = elm_image_add(*this);
+    elm_image_file_set(image, path.c_str(), nullptr);
+    int imageWidth = 0;
+    int imageHeight = 0;
+    elm_image_object_size_get(image, &imageWidth, &imageHeight);
+    if(imageWidth > maxWidth)
+    {
+        double scale = maxWidth/(double)imageWidth;
+        imageWidth *= scale;
+        imageHeight *= scale;
+    }
+    evas_object_size_hint_min_set(image, imageWidth, imageHeight);
+    evas_object_show(image);
+    return image;
+}
+
+Evas_Object *BubbleView::createVideo(const std::string &path)
 {
     Evas_Object *image = elm_image_add(*this);
     elm_image_file_set(image, path.c_str(), nullptr);

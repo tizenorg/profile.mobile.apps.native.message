@@ -165,6 +165,7 @@ namespace Msg
 
             void showMainCtxPopup();
             void showNoRecipPopup();
+            void showAddRecipPopup();
             PopupList &createPopupList(const std::string &title);
             void showSendResultPopup(MsgTransport::SendResult result);
             void showUnsavedRecipientPopup(const std::string &address);

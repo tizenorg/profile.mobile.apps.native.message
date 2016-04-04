@@ -48,6 +48,8 @@ namespace Msg
             virtual int getSize() const;
             virtual std::string getSubject() const;
             virtual void setSubject(const std::string &text);
+            virtual void setMessageStorageType(Message::MessageStorageType msgStorage);
+            virtual Message::MessageStorageType getMessageStorageType() const;
 
             void setId(MsgId id);
             void set(msg_struct_t msgStruct);
