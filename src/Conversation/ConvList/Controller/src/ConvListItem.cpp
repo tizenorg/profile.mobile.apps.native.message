@@ -27,6 +27,7 @@
 #include "TextDecorator.h"
 #include "MediaType.h"
 #include "MediaUtils.h"
+#include <notification_status.h>
 
 using namespace Msg;
 
@@ -139,6 +140,17 @@ void ConvListItem::prepareBubble(const MsgConversationItem &item, const std::str
             else if(mime != "application/smil")
             {
                 m_BubbleEntity.addItem(BubbleEntity::TextItem, media.getName());
+                //msg service corrupts thumbnail's metadata, so it lost rotation. Use getPath instead getThumbPath until fix
+                m_BubbleEntity.addItem(BubbleEntity::ImageItem, list.at(i).getPath());
+            }
+            else if(mime == "text/plain")
+            {
+                std::string text = FileUtils::readTextFile(list.at(i).getPath());
+                m_BubbleEntity.addItem(BubbleEntity::TextItem, TextDecorator::highlightKeyword(std::move(text), searchWord));
+            }
+            else if(mime != "application/smil")
+            {
+                m_BubbleEntity.addItem(BubbleEntity::TextItem, list.at(i).getName());
             }
         }
     }
@@ -219,7 +231,7 @@ void ConvListItem::showMainCtxPopup()
             ctxPopup.appendItem(msg("IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onSaveAttachmentsItemPressed), this);
     }
 
-    if(m_NetworkStatus != Message::NS_Sending && !msgText.empty())
+    if(m_NetworkStatus != Message::NS_Sending && !msgText.empty() && m_Type == Message::MT_SMS)
         ctxPopup.appendItem(msg("IDS_MSG_OPT_COPY_TO_SIM_CARD_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onCopyToSimCardItemPressed), this);
 
     ctxPopup.appendItem(msg("IDS_MSG_OPT_VIEW_DETAILS_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onViewDetailsItemPressed), this);
@@ -320,6 +332,15 @@ void ConvListItem::onSaveAttachmentsItemPressed(ContextPopupItem &item)
 void ConvListItem::onCopyToSimCardItemPressed(ContextPopupItem &item)
 {
     MSG_LOG("");
+    item.getParent().destroy();
+    MessageRef msg = m_App.getMsgEngine().getStorage().getMessage(m_MsgId);
+    if(msg)
+    {
+        msg->setMessageStorageType(Message::MS_Sim);
+        m_App.getMsgEngine().getStorage().saveMessage(*msg, false);
+    }
+
+    notification_status_message_post(msg("IDS_MSGC_POP_COPIED_TO_SIM_CARD").cStr());
 }
 
 void ConvListItem::onViewDetailsItemPressed(ContextPopupItem &item)

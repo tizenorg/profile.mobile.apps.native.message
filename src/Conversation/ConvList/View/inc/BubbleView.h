@@ -80,6 +80,7 @@ namespace Msg
             void create(Evas_Object *parent);
             Evas_Object *createText(const std::string &text);
             Evas_Object *createImage(const std::string &path);
+            Evas_Object *createVideo(const std::string &path);
     };
 }
 

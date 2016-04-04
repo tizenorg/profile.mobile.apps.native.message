@@ -48,7 +48,15 @@ namespace Msg
             // Message:
             virtual MessageSMSListRef getSimMsgList();
             virtual MessageRef getMessage(MsgId id);
-            virtual MsgId saveMessage(Message &msg);
+
+            /**
+             *@brief        Return id of new message or of updated message
+             *@param[out]    msg - message that we need to save
+             *@param[in]    updateExisting - true if we need to update our message id DB,
+             *                               false if we need to save message with new id
+             *@return       MessageId
+             */
+            virtual MsgId saveMessage(Message &msg, bool updateExisting);
             virtual bool deleteMessage(MsgId id);
             virtual bool deleteMessages(const MsgIdList &idList);
             virtual MessageListRef searchMessage(const std::string &word);
