@@ -33,4 +33,11 @@ NoContentLayout::~NoContentLayout()
 void NoContentLayout::setText(const TText &text)
 {
     View::setText(text, "elm.text");
+    elm_layout_signal_emit(getEo(), "text,disabled", "");
+    elm_layout_signal_emit(getEo(), "align.center", "elm");
+}
+
+void NoContentLayout::setHelpText(const TText &text)
+{
+    View::setText(text, "elm.help.text");
 }
