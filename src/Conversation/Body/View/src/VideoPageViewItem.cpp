@@ -16,6 +16,7 @@
  */
 
 #include "VideoPageViewItem.h"
+#include "FileUtils.h"
 
 using namespace Msg;
 
@@ -27,6 +28,11 @@ VideoPageViewItem::VideoPageViewItem(PageView &parent, const std::string &reourc
 
 VideoPageViewItem::~VideoPageViewItem()
 {
+}
+
+std::string VideoPageViewItem::getFileName() const
+{
+    return FileUtils::getFileName(getResourcePath());
 }
 
 VideoPageViewItem::Type VideoPageViewItem::getType() const
