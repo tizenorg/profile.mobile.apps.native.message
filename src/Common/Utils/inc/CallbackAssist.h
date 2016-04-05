@@ -50,4 +50,5 @@
 {                                                                                                                          \
     static_cast<ClassName*>(data)->method(obj, emission, source);                                                          \
 }
+
 #endif /* CallBackAssist_h_ */

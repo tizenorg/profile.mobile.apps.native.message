@@ -21,6 +21,7 @@
 #include "MsgEngine.h"
 #include "Logger.h"
 
+
 using namespace Msg;
 
 ThreadSearchList::ThreadSearchList(Evas_Object *parent, App &app)
@@ -33,12 +34,16 @@ ThreadSearchList::ThreadSearchList(Evas_Object *parent, App &app)
     setMode(ELM_LIST_COMPRESS);
     ListView::setListener(this);
     m_App.getContactManager().addListener(*this);
+    m_App.getSysSettingsManager().addListener(*this);
+    m_App.getMsgEngine().getStorage().addListener(*this);
 }
 
 ThreadSearchList::~ThreadSearchList()
 {
     cancelSearch();
     m_App.getContactManager().removeListener(*this);
+    m_App.getSysSettingsManager().removeListener(*this);
+    m_App.getMsgEngine().getStorage().removeListener(*this);
 }
 
 void ThreadSearchList::setListener(IThreadSearchListListener *l)
@@ -130,5 +135,36 @@ void ThreadSearchList::onListItemSelected(ListItem &listItem)
 
 void ThreadSearchList::onContactChanged()
 {
+    MSG_LOG("");
     search();
+}
+
+void ThreadSearchList::onMsgStorageUpdate(const MsgIdList &msgIdList)
+{
+    MSG_LOG("");
+    search();
+}
+
+void ThreadSearchList::onMsgStorageInsert(const MsgIdList &msgIdList)
+{
+    MSG_LOG("");
+    search();
+}
+
+void ThreadSearchList::onMsgStorageDelete(const MsgIdList &msgIdList)
+{
+    MSG_LOG("");
+    search();
+}
+
+void ThreadSearchList::onTimeFormatChanged()
+{
+    MSG_LOG("");
+    auto items = ListView::getItems<BaseThreadListItem>();
+    for(BaseThreadListItem *item : items)
+    {
+        item->updateTime();
+    }
+
+    ListView::updateRealizedItems();
 }

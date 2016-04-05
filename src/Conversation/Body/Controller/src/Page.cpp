@@ -266,7 +266,7 @@ void Page::addVideo(const std::string &videoFilePath)
 
     if(!newVideoFilePath.empty())
     {
-        long long fileSize = FileUtils::getFileSize(thumbFilePath);
+        long long fileSize = FileUtils::getFileSize(newVideoFilePath);
         // FIXME: if getVideoFrame returns false ?
         MediaUtils::getVideoFrame(videoFilePath, thumbFilePath);
         m_Body.addVideo(*this, newVideoFilePath, fileSize, thumbFilePath);

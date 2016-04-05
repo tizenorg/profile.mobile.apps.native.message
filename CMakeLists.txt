@@ -8,6 +8,7 @@ FILE(GLOB_RECURSE SRCS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
 #include file
 INCLUDE_DIRECTORIES(${INCLUDE_DIRECTORIES}
                     ${CMAKE_CURRENT_SOURCE_DIR}/inc/
+                    ${CMAKE_CURRENT_SOURCE_DIR}/src/Common/SystemSettingsManager/inc/
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/Common/AppControl/inc/
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/Common/ContactManager/inc/
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/Common/Controller/inc/

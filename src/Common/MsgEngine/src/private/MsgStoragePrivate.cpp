@@ -277,16 +277,17 @@ MessageRef MsgStoragePrivate::getMessage(MsgId id)
 
     if(msg_get_message(m_ServiceHandle, id, msg, sendOpt) == 0)
     {
-        int msgType = MSG_TYPE_INVALID;
-        msg_get_int_value(msg, MSG_MESSAGE_TYPE_INT, &msgType);
+        int nativeType = MSG_TYPE_INVALID;
+        msg_get_int_value(msg, MSG_MESSAGE_TYPE_INT, &nativeType);
+        Message::Type type = MsgUtilsPrivate::nativeToMessageType(nativeType);
 
-        switch(msgType)
+        switch(type)
         {
-            case MSG_TYPE_SMS:
+            case Message::MT_SMS:
                 msgRef = std::make_shared<MessageSMSPrivate>(true, msg);
                 break;
 
-            case MSG_TYPE_MMS:
+            case Message::MT_MMS:
                 msgRef = std::make_shared<MessageMmsPrivate>(true, msg);
                 break;
 

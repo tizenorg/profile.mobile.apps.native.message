@@ -15,29 +15,34 @@
  *
  */
 
-#ifndef SmilImageItemView_h_
-#define SmilImageItemView_h_
+#ifndef ConvContactListView_h_
+#define ConvContactListView_h_
 
-#include "View.h"
+#include "ListView.h"
 
 namespace Msg
 {
-    class SmilImageItemView
+    class ConvContactListView
         : public View
     {
         public:
-            SmilImageItemView(Evas_Object *parent, const std::string &imagePath);
-            virtual ~SmilImageItemView();
+            ConvContactListView(Evas_Object *parent);
+            virtual ~ConvContactListView();
 
-            void playAnimation(bool play);
-            bool hasAnimation() const;
-
-        private:
-            Evas_Object *createImage(Evas_Object *parent, const std::string &imagePath);
+            ListView &getList();
+            const ListView &getList() const;
 
         private:
-            Evas_Object *m_pImage;
+            int getItemHeight() const;
+            void recalcGeometry();
+            Evas_Object *createRect(Evas_Object *parent);
+            void onGometryChanged(Evas_Object *obj, void *eventInfo);
+
+        private:
+            Evas_Object *m_pRect;
+            Evas_Object *m_pBox;
+            ListView *m_pList;
     };
 }
 
-#endif // SmilImageItemView_h_
+#endif /* ConvContactListView_h_ */
