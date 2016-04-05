@@ -45,6 +45,7 @@ namespace Msg
             void updateTime();
             void updateMessage(const MsgThreadItem &threadItem);
             void updateMessage(const std::string &msg);
+            time_t getRawTime() const;
 
         protected:
             // ThreadListViewItem:

@@ -26,9 +26,14 @@ using namespace Msg;
 
 namespace
 {
-    inline bool isSelectAll(ListItem *it)
+    inline SelectAllListItem *isSelectAll(ListItem *it)
     {
-        return dynamic_cast<SelectAllListItem*>(it) != nullptr;
+        return dynamic_cast<SelectAllListItem*>(it);
+    }
+
+    inline const SelectAllListItem *isSelectAll(const ListItem *it)
+    {
+        return dynamic_cast<const SelectAllListItem*>(it);
     }
 }
 
@@ -41,10 +46,12 @@ ThreadList::ThreadList(Evas_Object *parent, App &app)
     ListView::setListener(this);
     ListView::setMultiSelection(false);
     ListView::setMode(ELM_LIST_COMPRESS);
+    ListView::setCmpFunc(cmpFunc);
+
     m_App.getMsgEngine().getStorage().addListener(*this);
     m_App.getContactManager().addListener(*this);
     m_App.getSysSettingsManager().addListener(*this);
-    updateList();
+    fillList();
 }
 
 ThreadList::~ThreadList()
@@ -74,8 +81,8 @@ bool ThreadList::isDeleteModeEnabled() const
 
 void ThreadList::deleteSelectedItems()
 {
-    auto collection = getItems<ThreadListItem>();
-    for(ThreadListItem *it : collection)
+    auto items = getItems<ThreadListItem>();
+    for(ThreadListItem *it : items)
     {
         if(it->getCheckedState())
             m_App.getMsgEngine().getStorage().deleteThread(it->getThreadId());
@@ -89,7 +96,7 @@ int ThreadList::getThreadsCheckedCount() const
     for(ThreadListItem *item : items)
     {
         if(item->isCheckable() && item->getCheckedState())
-            count++;
+            ++count;
     }
     return count;
 }
@@ -122,8 +129,10 @@ void ThreadList::checkAllItems(bool check)
     for(ListItem *it : items)
     {
         if(it->isCheckable() && !isSelectAll(it))
-            it->setCheckedState(check, true);
+            it->setCheckedState(check, false);
     }
+
+    updateRealizedItems();
 }
 
 bool ThreadList::isAllThreadListItemChecked() const
@@ -166,39 +175,111 @@ void ThreadList::checkHandler(ThreadListItem &item)
         m_pListener->onThreadListItemChecked();
 }
 
-void ThreadList::updateList()
+int ThreadList::cmpFunc(const ListItem &item1, const ListItem &item2)
 {
-    MsgThreadListRef list = m_App.getMsgEngine().getStorage().getThreadList();
-    if(!list)
+    if(isSelectAll(&item1))
+        return 0;
+
+    if(isSelectAll(&item2))
+        return 1;
+
+    auto &threadItem1 = static_cast<const ThreadListItem&>(item1);
+    auto &threadItem2 = static_cast<const ThreadListItem&>(item2);
+    return threadItem2.getRawTime() - threadItem1.getRawTime();
+}
+
+void ThreadList::insertItem(const MsgThreadItem &item)
+{
+    ListView::sortedInsertItem(*new ThreadListItem(item, m_App));
+}
+
+void ThreadList::insertItem(ThreadId id)
+{
+    MsgThreadItemRef threadItem = m_App.getMsgEngine().getStorage().getThread(id);
+    if(threadItem)
+        insertItem(*threadItem);
+}
+
+void ThreadList::fillList()
+{
+    MsgThreadListRef msgThreadList = m_App.getMsgEngine().getStorage().getThreadList();
+    if(!msgThreadList)
         return;
 
-    int length = list->getLength();
+    int length = msgThreadList->getLength();
+
     for(int i = 0; i < length; ++i)
     {
-        ThreadListItem *item = new ThreadListItem(list->at(i), m_App);
-        ListView::appendItem(*item);
+        const MsgThreadItem &msgThreadItem = msgThreadList->at(i);
+        ListView::appendItem(*new ThreadListItem(msgThreadItem, m_App));
     }
 }
 
-void ThreadList::onMsgStorageChange(const MsgIdList &idList)
+void ThreadList::deleteItems()
 {
-    ListView::clear(); // FIXME: temporary solution for demo
-    updateList();
-    if(m_pListener)
-        m_pListener->onThreadListChanged();
+    MsgThreadListRef msgThreadList = m_App.getMsgEngine().getStorage().getThreadList();
+    if(!msgThreadList)
+        return;
+
+    std::set<ThreadId> threadIdSet;
+    int length = msgThreadList->getLength();
+    for(int i = 0; i < length; ++i)
+    {
+        const MsgThreadItem &msgThreadItem = msgThreadList->at(i);
+        threadIdSet.insert(msgThreadItem.getId());
+    }
+
+    auto items = ListView::getItems<ThreadListItem>();
+
+    for(ThreadListItem *item : items)
+    {
+        if(threadIdSet.count(item->getThreadId()) == 0)
+            ListView::deleteItem(*item);
+    }
+
+    updateSelectAllItem();
 }
 
-void ThreadList::onContactChanged()
+void ThreadList::updateItems(const MsgIdList &idList)
 {
-    MSG_LOG("");
-    ListView::clear(); // FIXME: temporary solution for demo
-    updateList();
-    if(m_pListener)
-        m_pListener->onThreadListChanged();
+    auto threadIdSet = getThreadIdSet(idList);
+    auto threadItems = getItems<ThreadListItem>();
+
+    for(ThreadListItem *threadListItem: threadItems)
+    {
+        if(threadIdSet.count(threadListItem->getThreadId()))
+            threadListItem->update();
+    }
+
+    updateRealizedItems();
+}
+
+void ThreadList::updateItems()
+{
+    auto items = getItems<ThreadListItem>();
+    for(ThreadListItem *item: items)
+    {
+        item->update();
+    }
+
+    updateRealizedItems();
+}
+
+std::set<ThreadId> ThreadList::getThreadIdSet(const MsgIdList &idList)
+{
+    std::set<ThreadId> res;
+    for(MsgId msgId : idList)
+    {
+        ThreadId threadId = m_App.getMsgEngine().getStorage().getThreadId(msgId);
+        if(threadId.isValid())
+            res.insert(threadId);
+    }
+    return res;
 }
 
 void ThreadList::onListItemSelected(ListItem &listItem)
 {
+    MSG_LOG("");
     ThreadListItem *it = dynamic_cast<ThreadListItem*>(&listItem);
     if(it && m_pListener)
         m_pListener->onListItemSelected(it->getThreadId());
@@ -206,17 +287,53 @@ void ThreadList::onListItemSelected(ListItem &listItem)
 
 void ThreadList::onListItemChecked(ListItem &listItem)
 {
+    MSG_LOG("");
     if(ThreadListItem *it = dynamic_cast<ThreadListItem*>(&listItem))
         checkHandler(*it);
-    else if(SelectAllListItem *it = dynamic_cast<SelectAllListItem*>(&listItem))
+    else if(SelectAllListItem *it = isSelectAll(&listItem))
         checkHandler(*it);
+}
+
+void ThreadList::onMsgStorageUpdate(const MsgIdList &msgIdList)
+{
+    MSG_LOG("");
+    updateItems(msgIdList);
+}
+
+void ThreadList::onMsgStorageInsert(const MsgIdList &msgIdList)
+{
+    MSG_LOG("");
+    auto threadSet = getThreadIdSet(msgIdList);
+    for(ThreadId id : threadSet)
+    {
+        insertItem(id);
+    }
+
+    updateSelectAllItem();
+
+    if(m_pListener)
+        m_pListener->onThreadListChanged();
+}
+
+void ThreadList::onMsgStorageDelete(const MsgIdList &msgIdList)
+{
+    MSG_LOG("");
+    deleteItems();
+    if(m_pListener)
+        m_pListener->onThreadListChanged();
+}
+
+void ThreadList::onContactChanged()
+{
+    MSG_LOG("");
+    updateItems();
 }
 
 void ThreadList::onTimeFormatChanged()
 {
     MSG_LOG("");
-    auto items = ListView::getItems<BaseThreadListItem>();
-    for(BaseThreadListItem *item : items)
+    auto items = ListView::getItems<ThreadListItem>();
+    for(ThreadListItem *item : items)
     {
         item->updateTime();
     }

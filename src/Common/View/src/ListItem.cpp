@@ -177,14 +177,8 @@ void ListItem::changeCheckedState(bool updateUi)
 void ListItem::setCheckedState(bool state, bool updateUi)
 {
     m_Checked = state;
-    const char *checkPart = getCheckPart(*this);
-    if(checkPart)
-    {
-        if(updateUi)
-        {
-            updateFields(checkPart, ELM_GENLIST_ITEM_FIELD_CONTENT); // FIXME: Blink during update part tizen_2.4
-        }
-    }
+    if(updateUi)
+        elm_genlist_item_update(getElmObjItem());
 }
 
 bool ListItem::getCheckedState() const
