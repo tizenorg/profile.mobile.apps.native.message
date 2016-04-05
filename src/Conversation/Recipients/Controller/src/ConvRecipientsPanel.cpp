@@ -77,8 +77,9 @@ void ConvRecipientsPanel::setListener(IConvRecipientsPanelListener *l)
     m_pListener = l;
 }
 
-void ConvRecipientsPanel::addRecipientsFromEntry()
+void ConvRecipientsPanel::addRecipientsFromEntry(bool showPopup)
 {
+    MSG_LOG("");
     std::string text = getEntryText();
     TokenizedRecipients result = MsgUtils::tokenizeRecipients(text);
     bool duplicateFound = false;
@@ -95,6 +96,8 @@ void ConvRecipientsPanel::addRecipientsFromEntry()
         showDuplicatedRecipientNotif();
 
     setEntryText(result.invalidResult);
+    if(!result.invalidResult.empty() && showPopup)
+        showInvalidRecipientsPopup();
 }
 
 void ConvRecipientsPanel::update(const MsgAddressList &addressList)
@@ -204,12 +207,12 @@ void ConvRecipientsPanel::onEntryFocusChanged()
     MSG_LOG("");
     if(getEntryFocus())
     {
-        showMbe(!isMbeEmpty());
+        expandRecipients();
     }
     else
     {
         addRecipientsFromEntry();
-        showMbe(false);
+        collapseRecipients();
     }
 
     if(m_pListener)
@@ -241,13 +244,21 @@ void ConvRecipientsPanel::onContactsPicked(const std::list<int> &numberIdList)
 
 void ConvRecipientsPanel::onPopupBtnClicked(Popup &popup, int buttonId)
 {
-    setEntryFocus(true);
     popup.destroy();
 }
 
 void ConvRecipientsPanel::onPopupDel(Evas_Object *popup, void *eventInfo)
 {
     setEntryFocus(true);
+}
+
+void ConvRecipientsPanel::showInvalidRecipientsPopup()
+{
+    Popup &popup = m_App.getPopupManager().getPopup();
+    popup.addEventCb(EVAS_CALLBACK_FREE, EVAS_EVENT_CALLBACK(ConvRecipientsPanel, onPopupDel), this);
+    popup.setContent(msgt("IDS_MSG_TPOP_UNABLE_TO_ADD_RECIPIENT_NUMBER_NOT_VALID"));
+    popup.addButton(msgt("IDS_MSG_BUTTON_OK_ABB"), Popup::OkButtonId, POPUP_BUTTON_CB(ConvRecipientsPanel, onPopupBtnClicked), this);
+    popup.show();
 }
 
 void ConvRecipientsPanel::showDuplicatedRecipientNotif()
@@ -262,6 +273,8 @@ void ConvRecipientsPanel::showTooManyRecipientsNotif()
 
 void ConvRecipientsPanel::onMbeChanged()
 {
+    if(!isMbeVisible())
+        updateShortenedRecipients();
     if(m_pListener)
         m_pListener->onMbeChanged(*this);
 }
