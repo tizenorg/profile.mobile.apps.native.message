@@ -35,6 +35,7 @@ ThreadSearchList::ThreadSearchList(Evas_Object *parent, App &app)
     ListView::setListener(this);
     m_App.getContactManager().addListener(*this);
     m_App.getSysSettingsManager().addListener(*this);
+    m_App.getMsgEngine().getStorage().addListener(*this);
 }
 
 ThreadSearchList::~ThreadSearchList()
@@ -42,6 +43,7 @@ ThreadSearchList::~ThreadSearchList()
     cancelSearch();
     m_App.getContactManager().removeListener(*this);
     m_App.getSysSettingsManager().removeListener(*this);
+    m_App.getMsgEngine().getStorage().removeListener(*this);
 }
 
 void ThreadSearchList::setListener(IThreadSearchListListener *l)
@@ -133,6 +135,25 @@ void ThreadSearchList::onListItemSelected(ListItem &listItem)
 
 void ThreadSearchList::onContactChanged()
 {
+    MSG_LOG("");
+    search();
+}
+
+void ThreadSearchList::onMsgStorageUpdate(const MsgIdList &msgIdList)
+{
+    MSG_LOG("");
+    search();
+}
+
+void ThreadSearchList::onMsgStorageInsert(const MsgIdList &msgIdList)
+{
+    MSG_LOG("");
+    search();
+}
+
+void ThreadSearchList::onMsgStorageDelete(const MsgIdList &msgIdList)
+{
+    MSG_LOG("");
     search();
 }
 
