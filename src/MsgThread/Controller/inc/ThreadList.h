@@ -22,6 +22,8 @@
 #include "MsgStorage.h"
 #include "ContactManager.h"
 #include "SystemSettingsManager.h"
+#include "MsgTypes.h"
+#include <set>
 
 namespace Msg
 {
@@ -49,7 +51,9 @@ namespace Msg
 
         private:
             // IMsgStorageListener:
-            virtual void onMsgStorageChange(const MsgIdList &idList);
+            virtual void onMsgStorageUpdate(const MsgIdList &msgIdList);
+            virtual void onMsgStorageInsert(const MsgIdList &msgIdList);
+            virtual void onMsgStorageDelete(const MsgIdList &msgIdList);
 
             // IContactManagerListener:
             virtual void onContactChanged();
@@ -66,9 +70,16 @@ namespace Msg
             void checkAllItems(bool check);
             void checkHandler(SelectAllListItem &item);
             void checkHandler(ThreadListItem &item);
-            void updateList();
+            void fillList();
+            void deleteItems();
+            void updateItems(const MsgIdList &idList);
+            void updateItems();
+            void insertItem(const MsgThreadItem &msgThreadItem);
+            void insertItem(ThreadId id);
             bool isAllThreadListItemChecked() const;
             void updateSelectAllItem();
+            std::set<ThreadId> getThreadIdSet(const MsgIdList &idList);
+            static int cmpFunc(const ListItem &item1, const ListItem &item2);
 
         private:
             IThreadListListener *m_pListener;

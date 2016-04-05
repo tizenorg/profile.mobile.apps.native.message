@@ -31,12 +31,17 @@ namespace Msg
         : public View
     {
         public:
+            typedef int (*CmpFunc)(const ListItem &item1, const ListItem &item2);
+
+        public:
             ListView(Evas_Object *parent);
             virtual ~ListView();
 
             void setListener(IListViewListener *listener);
             bool appendItem(ListItem &listItem, ListItem *parent = nullptr);
             bool prependItem(ListItem &listItem, ListItem *parent = nullptr);
+            bool sortedInsertItem(ListItem &listItem, ListItem *parent = nullptr);
+            void setCmpFunc(CmpFunc fn);
             void deleteItem(ListItem &listItem);
             ListItemCollection getItems() const;
             ListItem *getFirstItem() const;
@@ -76,6 +81,7 @@ namespace Msg
         private:
             IListViewListener *m_pListener;
             bool m_CheckMode;
+            CmpFunc m_CmpFunc;
     };
 
     class IListViewListener

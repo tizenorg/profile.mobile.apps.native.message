@@ -131,3 +131,8 @@ Evas_Object *BaseThreadListItem::getThumbnail()
 {
     return m_App.getThumbnailMaker().getThumbById(*getOwner(), m_ThumbId);
 }
+
+time_t BaseThreadListItem::getRawTime() const
+{
+    return m_RawTime;
+}
