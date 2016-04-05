@@ -67,6 +67,7 @@ namespace Msg
             void setListener(IConvListItemListener *l);
 
             void updateStatus();
+            void updateTime();
 
         protected:
             // ConvListViewItem:
@@ -113,6 +114,7 @@ namespace Msg
             Message::NetworkStatus m_NetworkStatus;
             Message::Type m_Type;
             time_t m_Time;
+            std::string m_TimeStr;
             BubbleEntity m_BubbleEntity;
             const ThumbnailMaker::ThumbId &m_ThumbId;
     };
