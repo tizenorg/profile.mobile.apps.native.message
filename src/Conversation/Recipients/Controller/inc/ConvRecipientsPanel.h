@@ -48,6 +48,7 @@ namespace Msg
             MbeRecipients::AppendItemStatus appendItem(const std::string &address, MsgAddress::AddressType addressType = MsgAddress::UnknownAddressType);
             void removeSelectedItem();
             void editSelectedItem();
+            void addRecipientsFromEntry(bool showPopup = true);
 
         private:
             // RecipientsPanelView:
@@ -65,7 +66,7 @@ namespace Msg
 
             void appendStatusHandler(MbeRecipients::AppendItemStatus status);
             int getMaxRecipientCount() const;
-            void addRecipientsFromEntry();
+            void showInvalidRecipientsPopup();
             void showTooManyRecipientsNotif();
             void showDuplicatedRecipientNotif();
             MbeRecipients::AppendItemStatus appendItem(const std::string &address, const std::string &dispName,

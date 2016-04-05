@@ -767,7 +767,12 @@ void Conversation::onHwBackButtonClicked()
         updateNavibar();
         return;
     }
-
+    if(m_pRecipPanel)
+    {
+        if(m_pRecipPanel->isMbeVisible() || m_pRecipPanel->getItemsCount() == 0)
+            m_pRecipPanel->addRecipientsFromEntry(false);
+        m_pRecipPanel->clearEntry();
+    }
     if(!isRecipExists() && !isBodyEmpty() && m_Mode == NewMessageMode)
     {
         showNoRecipPopup();
