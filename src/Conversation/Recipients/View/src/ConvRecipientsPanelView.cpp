@@ -301,6 +301,33 @@ unsigned int ConvRecipientsPanelView::getItemsCount() const
     return res;
 }
 
+void ConvRecipientsPanelView::collapseRecipients()
+{
+    showMbe(false);
+    m_SavedRecipText = getEntryText();
+    clearEntry();
+    updateShortenedRecipients();
+}
+
+void ConvRecipientsPanelView::expandRecipients()
+{
+    showMbe(!isMbeEmpty());
+    setEntryText(m_SavedRecipText);
+}
+
+void ConvRecipientsPanelView::updateShortenedRecipients()
+{
+    const auto &items = m_pMbe->getItems();
+    std::string shortenedRecipients;
+    if(items.size() >= 1)
+    {
+        shortenedRecipients = items[0]->getDispName();
+        if(items.size() > 1)
+            shortenedRecipients += " + " + std::to_string(items.size() - 1);
+    }
+    setEntryText(shortenedRecipients);
+}
+
 void ConvRecipientsPanelView::onEntryChanged(Evas_Object *obj, void *event_info)
 {
     unselectMbeItem();

@@ -61,7 +61,6 @@ namespace Msg
 
             void onAppControlRes(app_control_h request, app_control_h reply, app_control_result_e result);
             void onPopupBtnClicked(Popup &popup, int buttonId);
-            void onPopupDel(Evas_Object *popup, void *eventInfo);
 
             void appendStatusHandler(MbeRecipients::AppendItemStatus status);
             int getMaxRecipientCount() const;

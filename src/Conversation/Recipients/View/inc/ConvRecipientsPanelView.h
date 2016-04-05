@@ -51,6 +51,9 @@ namespace Msg
              */
             unsigned int getItemsCount() const;
             MbeRecipientItem *getSelectedItem() const;
+            void collapseRecipients();
+            void expandRecipients();
+            void updateShortenedRecipients();
         protected:
             void setMbe(MbeRecipientsView *pMbe);
 
@@ -99,6 +102,7 @@ namespace Msg
             int m_EntryMaxCharCount;
             bool m_IsMbeVisible;
             MbeRecipientsView *m_pMbe;
+            std::string m_SavedRecipText;
     };
 }
 
