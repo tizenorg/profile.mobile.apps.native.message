@@ -120,6 +120,11 @@ void MsgThread::setMode(Mode mode)
     if(m_Mode == mode)
         return;
 
+    if(mode == SearchMode)
+        getNaviBar().setColor(NaviBar::NaviWhiteColorId);
+    else
+        getNaviBar().setColor(NaviBar::NaviBlueColorId);
+
     setNormalMode();
     switch(mode)
     {
