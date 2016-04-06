@@ -94,7 +94,7 @@ void NaviFrameController::execCmd(const AppControlDefaultRef &cmd)
                 {
                         Conversation *conversation = new Conversation(*this);
                         push(*conversation);
-                        ecore_main_loop_iterate(); // FIXME: Fix EFL and remove it
+                        ecore_main_loop_iterate(); // FIXME: Fix EFL(TSAM-2158) and remove it
                         conversation->execCmd(cmd);
                 }
             }
@@ -115,7 +115,7 @@ void NaviFrameController::execCmd(const AppControlComposeRef &cmd)
         {
             Conversation *conv = new Conversation(*this);
             push(*conv);
-            ecore_main_loop_iterate(); // FIXME: Fix EFL and remove it
+            ecore_main_loop_iterate(); // FIXME: Fix EFL(TSAM-2158) and remove it
             conv->execCmd(cmd);
         }
     }
