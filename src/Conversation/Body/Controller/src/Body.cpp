@@ -69,6 +69,7 @@ Body::Body(App &app, WorkingDirRef workingDir)
     , m_WorkingDir(workingDir)
     , m_pOnChangedIdler(nullptr)
     , m_TooLargePopupShow(false)
+    , m_TooMuchAttachedPopupShow(false)
 {
 }
 
@@ -106,14 +107,41 @@ void Body::setListener(IBodyListener *listener)
 bool Body::addMedia(const std::list<std::string> &fileList)
 {
     bool res = true;
+
+    int numAttached = getAttachmentsCountTotal();
+    int numToAttach = fileList.size();
+    int numAttachMax = m_App.getMsgEngine().getSettings().getAttachmentsMaxCount();
+
+    if((numAttached + numToAttach) > numAttachMax)
+    {
+        numToAttach = numAttachMax - numAttached;
+        if (numToAttach > 0)
+            showTooMuchAttachedPopup(numToAttach);
+    }
+
+    int i = 0;
     for(auto &file : fileList)
+    {
+        if (i > numToAttach)
+            break;
         res &= addMedia(file);
+        ++i;
+    }
     return res;
 }
 
 bool Body::addMedia(const std::string &filePath)
 {
     MSG_LOG("Try add resource:", filePath);
+
+    int numAttached = getAttachmentsCountTotal();
+    int numAttachMax = m_App.getMsgEngine().getSettings().getAttachmentsMaxCount();
+
+    if(numAttached >= numAttachMax)
+    {
+        showTooMuchAttachedPopup();
+        return false;
+    }
 
     if(!FileUtils::isExists(filePath) || FileUtils::isDir(filePath))
     {
@@ -200,6 +228,21 @@ long long Body::getMsgSize()
     }
 
     return size;
+}
+
+int Body::getAttachmentsCountTotal()
+{
+    int count = 0;
+
+    auto attachments = getAttachments();
+    for(BodyAttachmentViewItem *attachment : attachments)
+        ++count;
+
+    auto pages = getPages();
+    for(PageView *pageView : pages)
+        count += static_cast<Page*>(pageView)->getAttachmentsCount();
+
+    return count;
 }
 
 void Body::read(Message &msg)
@@ -380,6 +423,38 @@ void Body::showTooLargePopup()
    }
 }
 
+void Body::showTooMuchAttachedPopup(int willBeAttached)
+{
+   if(!m_TooMuchAttachedPopupShow)
+   {
+        Popup &popup = m_App.getPopupManager().getPopup();
+        popup.addEventCb(EVAS_CALLBACK_DEL, EVAS_EVENT_CALLBACK(Body, onTooMuchAttachedPopupDel), this);
+        popup.addButton(msgt("IDS_MSG_BUTTON_OK_ABB"), Popup::OkButtonId);
+        int maxCount = m_App.getMsgEngine().getSettings().getAttachmentsMaxCount();
+        std::string content(msgArgs("IDS_MSGF_BODY_MAXIMUM_NUMBER_OF_ATTACHMENTS_HP1SS_EXCEEDED_ONLY_FIRST_P2SS_WILL_BE_ADDED", std::to_string(maxCount).c_str(), std::to_string(willBeAttached).c_str()));
+        popup.setContent(content);
+        popup.setAutoDismissBlockClickedFlag(true);
+        popup.show();
+        m_TooMuchAttachedPopupShow = true;
+   }
+}
+
+void Body::showTooMuchAttachedPopup()
+{
+   if(!m_TooMuchAttachedPopupShow)
+   {
+        Popup &popup = m_App.getPopupManager().getPopup();
+        popup.addEventCb(EVAS_CALLBACK_DEL, EVAS_EVENT_CALLBACK(Body, onTooMuchAttachedPopupDel), this);
+        popup.addButton(msgt("IDS_MSG_BUTTON_OK_ABB"), Popup::OkButtonId);
+        int maxCount = m_App.getMsgEngine().getSettings().getAttachmentsMaxCount();
+        std::string content(msgArgs("IDS_MSGF_POP_MAXIMUM_NUMBER_OF_ATTACHMENTS_HPS_EXCEEDED", std::to_string(maxCount).c_str()));
+        popup.setContent(content);
+        popup.setAutoDismissBlockClickedFlag(true);
+        popup.show();
+        m_TooMuchAttachedPopupShow = true;
+   }
+}
+
 void Body::onRemoveMediaItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
@@ -402,6 +477,12 @@ void Body::onTooLargePopupDel(Evas_Object *obj, void *eventInfo)
 {
     MSG_LOG("");
     m_TooLargePopupShow = false;
+}
+
+void Body::onTooMuchAttachedPopupDel(Evas_Object *obj, void *eventInfo)
+{
+    MSG_LOG("");
+    m_TooMuchAttachedPopupShow = false;
 }
 
 std::string Body::createVcfFile(const AppControlComposeRef &cmd)

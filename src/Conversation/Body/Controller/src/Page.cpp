@@ -89,6 +89,19 @@ long long Page::getSize()
     return totalSize;
 }
 
+int Page::getAttachmentsCount() const
+{
+    int res = 0;
+    auto items = getItems();
+    for(PageViewItem *item : items)
+    {
+        MediaPageViewItem *mediaItem = dynamic_cast<MediaPageViewItem*>(item);
+        if(mediaItem)
+            ++res;
+    }
+    return res;
+}
+
 bool Page::isMms()
 {
     auto pageItems = getItems();
