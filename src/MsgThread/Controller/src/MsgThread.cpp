@@ -82,7 +82,7 @@ void MsgThread::onAttached(ViewItem &item)
     setContent(*m_pLayout);
 }
 
-void MsgThread::showMainCtxPopup()
+void MsgThread::showMainPopup()
 {
     PopupList &popup = getApp().getPopupManager().getPopupList();
     if (!m_pThreadList->isEmpty())
@@ -254,7 +254,7 @@ void MsgThread::onHwMoreButtonClicked()
 {
     MSG_LOG("");
     if(m_Mode == NormalMode)
-        showMainCtxPopup();
+        showMainPopup();
 }
 
 void MsgThread::onSettingsItemPressed(PopupListItem &item)

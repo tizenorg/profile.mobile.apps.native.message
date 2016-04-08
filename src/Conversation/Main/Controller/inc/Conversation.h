@@ -110,11 +110,8 @@ namespace Msg
             void onMsgSendErrorButtonClicked(Popup &popup, int buttonId);
             void onNoRecipCancelButtonClicked(Popup &popup, int buttonId);
             void onNoRecipDiscardButtonClicked(Popup &popup, int buttonId);
-
-            // ContextPopup callbacks:
-            void onDeleteItemPressed(ContextPopupItem &item);
-            void onAddRecipientsItemPressed(ContextPopupItem &item);
-
+            void onDeleteItemPressed(PopupListItem &item);
+            void onAddRecipientsItemPressed(PopupListItem &item);
             void onMakeVoiceItemPressed(PopupListItem &item);
             void onCreateContactItemPressed(PopupListItem &item);
             void onUpdateContactItemPressed(PopupListItem &item);
@@ -164,7 +161,7 @@ namespace Msg
             void checkAndSetMsgType();
             void navigateToSlideShow(MsgId id);
 
-            void showMainCtxPopup();
+            void showMainPopup();
             void showNoRecipPopup();
             void showAddRecipPopup();
             PopupList &createPopupList(const std::string &title);

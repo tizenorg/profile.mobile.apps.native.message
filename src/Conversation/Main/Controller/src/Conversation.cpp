@@ -622,14 +622,12 @@ void Conversation::showSendResultPopup(MsgTransport::SendResult result)
     popup.show();
 }
 
-void Conversation::showMainCtxPopup()
+void Conversation::showMainPopup()
 {
-    auto &ctxPopup = getApp().getPopupManager().getCtxPopup();
-
-    ctxPopup.appendItem(msg("IDS_MSG_OPT_DELETE"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(Conversation, onDeleteItemPressed), this);
-    ctxPopup.appendItem(msg("IDS_MSG_OPT_ADD_RECIPIENTS_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(Conversation, onAddRecipientsItemPressed), this);
-    ctxPopup.align(getApp().getWindow());
-    ctxPopup.show();
+    PopupList &popup = getApp().getPopupManager().getPopupList();
+    popup.appendItem(msg("IDS_MSG_OPT_DELETE"), POPUPLIST_ITEM_PRESSED_CB(Conversation, onDeleteItemPressed), this);
+    popup.appendItem(msg("IDS_MSG_OPT_ADD_RECIPIENTS_ABB"), POPUPLIST_ITEM_PRESSED_CB(Conversation, onAddRecipientsItemPressed), this);
+    popup.show();
 }
 
 void Conversation::onKeyDown(ConvRecipientsPanel &panel, Evas_Event_Key_Down &ev)
@@ -794,7 +792,7 @@ void Conversation::onHwMoreButtonClicked()
 {
     MSG_LOG("");
     if(m_Mode == ConversationMode && m_pConvList->getMode() == ConvList::NormalMode)
-        showMainCtxPopup();
+        showMainPopup();
 }
 
 void Conversation::onNaviOkButtonClicked()
@@ -921,7 +919,7 @@ void Conversation::onNoRecipDiscardButtonClicked(Popup &popup, int buttonId)
     popup.destroy();
 }
 
-void Conversation::onDeleteItemPressed(ContextPopupItem &item)
+void Conversation::onDeleteItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
     item.getParent().destroy();
@@ -929,7 +927,7 @@ void Conversation::onDeleteItemPressed(ContextPopupItem &item)
     updateNavibar();
 }
 
-void Conversation::onAddRecipientsItemPressed(ContextPopupItem &item)
+void Conversation::onAddRecipientsItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
     item.getParent().destroy();

@@ -97,7 +97,7 @@ namespace Msg
             void composeNewMessage();
             void navigateToSettings();
             void navigateToConversation(ThreadId threadId, MsgId msgId = MsgId(), const std::string &searchWord = std::string());
-            void showMainCtxPopup();
+            void showMainPopup();
             void setMode(Mode mode);
             void setDeleteMode(bool value);
             void setNormalMode();
