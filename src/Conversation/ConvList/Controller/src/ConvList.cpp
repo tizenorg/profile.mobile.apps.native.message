@@ -338,12 +338,15 @@ void ConvList::onMsgStorageUpdate(const MsgIdList &msgIdList)
 void ConvList::onMsgStorageInsert(const MsgIdList &msgIdList)
 {
     bool inserted = false;
-    for(auto &itemId: msgIdList)
+    for(MsgId msgId: msgIdList)
     {
-        MessageRef msg = m_MsgEngine.getStorage().getMessage(itemId);
+        if(getItem(msgId))
+            continue;
+
+        MessageRef msg = m_MsgEngine.getStorage().getMessage(msgId);
         if(msg && msg->getThreadId() == m_ThreadId && msg->getMessageStorageType() != Message::MS_Sim)
         {
-            MsgConversationItemRef item = m_MsgEngine.getStorage().getConversationItem(itemId);
+            MsgConversationItemRef item = m_MsgEngine.getStorage().getConversationItem(msgId);
             const ThumbnailMaker::ThumbId &thumbId = item->getDirection() == Message::MD_Received ? m_RecipThumbId : m_OwnerThumbId;
             appendItem(new ConvListItem(*item, m_App, m_WorkingDir, m_SearchWord, thumbId));
             inserted = true;
