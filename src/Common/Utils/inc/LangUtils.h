@@ -98,10 +98,10 @@ namespace Msg
 
     #define msgt(strId) TText(strId, MSG_DOMAIN)
     #define msg(strId) DText(strId, MSG_DOMAIN)
-    #define msgArgs(strId, args) DText(0, strId, MSG_DOMAIN, args)
+    #define msgArgs(strId, ...) DText(0, strId, MSG_DOMAIN, __VA_ARGS__)
     #define sys(strId) DText(strId, SYS_DOMAIN)
     #define syst(strId) TText(strId, SYS_DOMAIN)
-    #define sysArgs(strId, args) DText(0, strId, SYS_DOMAIN, args)
+    #define sysArgs(strId, ...) DText(0, strId, SYS_DOMAIN, __VA_ARGS__)
 }
 
 #endif /* LangUtils_h_ */
