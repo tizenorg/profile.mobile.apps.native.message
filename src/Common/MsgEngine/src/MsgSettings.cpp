@@ -23,7 +23,7 @@ using namespace Msg;
 
 const int defaultSmsGsm7MaxLen = 160;
 const int defaultSmsMaxPage = 3;
-
+const int defaultMaxAttachmentsCount = 10;
 
 MsgSettings::MsgSettings()
 {
@@ -43,6 +43,11 @@ int MsgSettings::getMessageTextMaxChar() const
 int MsgSettings::getMessageMaxPage() const
 {
     return defaultSmsMaxPage;
+}
+
+int MsgSettings::getAttachmentsMaxCount() const
+{
+    return defaultMaxAttachmentsCount;
 }
 
 void MsgSettings::addListener(IMsgSettingsListener &listener)

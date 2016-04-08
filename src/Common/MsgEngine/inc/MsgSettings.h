@@ -36,6 +36,7 @@ namespace Msg
 
             int getMessageTextMaxChar() const;
             int getMessageMaxPage() const;
+            int getAttachmentsMaxCount() const;
             virtual int getAddressMaxLen() const = 0;
             virtual int getPhoneNumberMaxLen() const = 0;
             virtual int getAddressMaxCount() const = 0;
