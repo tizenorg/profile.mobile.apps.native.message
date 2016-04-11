@@ -179,7 +179,9 @@ void ConvRecipientsPanel::appendStatusHandler(MbeRecipients::AppendItemStatus st
         case MbeRecipients::TooManyRecipStatus:
             showTooManyRecipientsNotif();
             break;
+        case MbeRecipients::InvalidRecipStatus:
         default:
+            showInvalidRecipientsPopup();
             break;
     }
 }
