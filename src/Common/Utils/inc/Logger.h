@@ -42,7 +42,7 @@
         logTuple(LogPriority::WARN, LOGGER_TAG, __FILE__, __FUNCTION__, __LINE__, __VA_ARGS__);
 
 #define MSG_ASSERT(expr, ...)\
-        if(!expr) { MSG_LOG_ERROR(__VA_ARGS__); } \
+        if(!(expr)) { MSG_LOG_ERROR(__VA_ARGS__); } \
         assert(expr)
 
 #endif /* LOGGER_H_ */
