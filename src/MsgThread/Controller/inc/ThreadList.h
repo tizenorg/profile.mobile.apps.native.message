@@ -76,6 +76,7 @@ namespace Msg
             void updateItems();
             void insertItem(const MsgThreadItem &msgThreadItem);
             void insertItem(ThreadId id);
+            ThreadListItem *getItem(ThreadId id) const;
             bool isAllThreadListItemChecked() const;
             void updateSelectAllItem();
             std::set<ThreadId> getThreadIdSet(const MsgIdList &idList);
