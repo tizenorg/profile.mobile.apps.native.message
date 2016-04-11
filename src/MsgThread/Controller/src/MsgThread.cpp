@@ -169,6 +169,7 @@ void MsgThread::setNormalMode()
     }
 
     m_pNoContent->setText(msgt("IDS_MSG_NPBODY_NO_MESSAGES"));
+    m_pNoContent->setHelpText(msgt("IDS_MSG_BODY_AFTER_YOU_SEND_OR_RECEIVE_MESSAGES_THEY_WILL_BE_SHOWN_HERE"));
     m_Mode = NormalMode;
     update();
 }
