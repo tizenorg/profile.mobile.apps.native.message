@@ -200,6 +200,17 @@ void ThreadList::insertItem(ThreadId id)
         insertItem(*threadItem);
 }
 
+ThreadListItem *ThreadList::getItem(ThreadId id) const
+{
+    auto items = ListView::getItems<ThreadListItem>();
+    for(ThreadListItem *item : items)
+    {
+        if(item->getThreadId() == id)
+            return item;
+    }
+    return nullptr;
+}
+
 void ThreadList::fillList()
 {
     MsgThreadListRef msgThreadList = m_App.getMsgEngine().getStorage().getThreadList();
@@ -303,13 +314,30 @@ void ThreadList::onMsgStorageUpdate(const MsgIdList &msgIdList)
 void ThreadList::onMsgStorageInsert(const MsgIdList &msgIdList)
 {
     MSG_LOG("");
+
+    bool inserted = false;
+    bool updated = false;
+
     auto threadSet = getThreadIdSet(msgIdList);
     for(ThreadId id : threadSet)
     {
-        insertItem(id);
+        ThreadListItem *item = getItem(id);
+        if(item)
+        {
+            item->update();
+            updated = true;
+        }
+        else
+        {
+            insertItem(id);
+            inserted = true;
+        }
     }
 
-    updateSelectAllItem();
+    if(inserted)
+        updateSelectAllItem();
+    if(updated)
+        updateRealizedItems();
 
     if(m_pListener)
         m_pListener->onThreadListChanged();
