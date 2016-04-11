@@ -56,6 +56,7 @@ void ListView::createListView(Evas_Object *parent)
     setEo(elm_genlist_add(parent));
     evas_object_smart_callback_add(getEo(), "realized", ListView::on_realized_cb, this);
     evas_object_smart_callback_add(getEo(), "unrealized", ListView::on_unrealized_cb, this);
+    evas_object_smart_callback_add(getEo(), "longpressed", ListView::on_longpressed_cb, this);
 }
 
 bool ListView::appendItem(ListItem &listItem, ListItem *parent)
@@ -262,4 +263,12 @@ void ListView::on_unrealized_cb(void *data, Evas_Object *obj, void *event_info)
 {
     ListItem *item = ListItem::staticCast<ListItem*>(event_info);
     item->onUnrealized(*item);
+}
+
+void ListView::on_longpressed_cb(void *data, Evas_Object *obj, void *event_info)
+{
+    ListItem *item = ListItem::staticCast<ListItem*>(event_info);
+    item->setSelected(false);
+    if(!item->getOwner()->getCheckMode())
+        notifyListener(data, obj, event_info, &IListViewListener::onListItemLongPressed);
 }

@@ -301,10 +301,9 @@ void ConvList::selectListItems(bool state)
         m_pListner->onConvListItemChecked();
 }
 
-void ConvList::onListItemSelected(ListItem &listItem)
+void ConvList::onListItemLongPressed(ListItem &listItem)
 {
     ConvListItem &item = static_cast<ConvListItem&>(listItem);
-    //TODO: replace to long touch, when it will be implement
     item.showPopup();
 }
 

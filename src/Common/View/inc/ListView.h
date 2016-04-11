@@ -77,6 +77,7 @@ namespace Msg
             static void on_item_selected_cb(void *data, Evas_Object *obj, void *event_info);
             static void on_realized_cb(void *data, Evas_Object *obj, void *event_info);
             static void on_unrealized_cb(void *data, Evas_Object *obj, void *event_info);
+            static void on_longpressed_cb(void *data, Evas_Object *obj, void *event_info);
 
         private:
             IListViewListener *m_pListener;
@@ -89,6 +90,7 @@ namespace Msg
     public:
         virtual ~IListViewListener() {};
         virtual void onListItemSelected(ListItem &listItem) {};
+        virtual void onListItemLongPressed(ListItem &listItem) {};
         virtual void onListItemChecked(ListItem &listItem) {};
     };
 
