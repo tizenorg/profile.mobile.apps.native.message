@@ -24,15 +24,17 @@
 #include "App.h"
 #include "AppControlUtils.h"
 #include "ContactPicker.h"
+#include "ContactManager.h"
 
 namespace Msg
 {
     class IConvRecipientsPanelListener;
 
     class ConvRecipientsPanel
-        : public ConvRecipientsPanelView,
-          private IContactPickerListener,
-          private IMbeRecipientsListener
+        : public ConvRecipientsPanelView
+        , private IContactPickerListener
+        , private IMbeRecipientsListener
+        , private IContactManagerListener
     {
         public:
             ConvRecipientsPanel(Evas_Object *parent, App &app);
@@ -74,6 +76,9 @@ namespace Msg
 
             // IContactPickerListener
             virtual void onContactsPicked(const std::list<int> &numberIdList);
+
+            // IContactManagerListener:
+            virtual void onContactChanged();
 
         private:
             App &m_App;

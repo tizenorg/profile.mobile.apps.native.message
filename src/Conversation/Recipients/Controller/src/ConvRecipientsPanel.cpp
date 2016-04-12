@@ -35,11 +35,13 @@ ConvRecipientsPanel::ConvRecipientsPanel(Evas_Object *parent, App &app)
     m_pMbe->setListener(this);
     m_pMbe->show();
     setMbe(m_pMbe);
+    m_App.getContactManager().addListener(*this);
 }
 
 ConvRecipientsPanel::~ConvRecipientsPanel()
 {
     m_Picker.setListener(nullptr);
+    m_App.getContactManager().removeListener(*this);
 }
 
 void ConvRecipientsPanel::read(Message &msg)
@@ -285,4 +287,11 @@ void ConvRecipientsPanel::onMbeItemClicked(MbeRecipientItem &item)
 {
     if(m_pListener)
         m_pListener->onItemClicked(*this, item);
+}
+
+void ConvRecipientsPanel::onContactChanged()
+{
+    MSG_LOG("");
+    if(!getEntryFocus())
+        updateShortenedRecipients();
 }
