@@ -75,10 +75,10 @@ void ThreadListItem::update(const MsgThreadItem &threadItem)
         state = StatusState;
         m_Status = decorateDraftText(msg("IDS_MSG_BODY_DRAFT_M_STATUS_ABB"));
     }
-    else if(int unreadCount = threadItem.getUnreadCount() > 0)
+    else if(threadItem.getUnreadCount() > 0)
     {
         state = IconState;
-        m_UnreadCount = decorateUnreadText(std::to_string(unreadCount));
+        m_UnreadCount = decorateUnreadText(std::to_string(threadItem.getUnreadCount()));
     }
 
     setState(state, false);
