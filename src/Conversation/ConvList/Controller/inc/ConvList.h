@@ -136,7 +136,7 @@ namespace Msg
             void updateOwnerThumbId();
 
             // IListViewListener:
-            virtual void onListItemSelected(ListItem &listItem);
+            virtual void onListItemLongPressed(ListItem &listItem);
             virtual void onListItemChecked(ListItem &listItem);
 
             // IMsgStorageListener:
