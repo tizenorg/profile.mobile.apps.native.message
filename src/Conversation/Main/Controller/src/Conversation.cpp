@@ -100,9 +100,17 @@ void Conversation::execCmd(const AppControlComposeRef &cmd)
 
     setThreadId(ThreadId());
     if(m_pRecipPanel)
+    {
         m_pRecipPanel->execCmd(cmd);
+        if(!isRecipExists())
+            m_pRecipPanel->setEntryFocus(true);
+    }
     if(m_pBody)
+    {
         m_pBody->execCmd(cmd);
+        if(isRecipExists())
+            m_pBody->setFocus(true);
+    }
 }
 
 void Conversation::execCmd(const AppControlDefaultRef &cmd)
