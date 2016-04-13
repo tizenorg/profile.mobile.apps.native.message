@@ -167,6 +167,7 @@ void ConvRecipientsPanelView::create(Evas_Object *parent)
 Evas_Object *ConvRecipientsPanelView::createEntry(Evas_Object *parent)
 {
     m_pEntry = elm_entry_add(parent);
+    evas_object_show(m_pEntry);
     evas_object_size_hint_weight_set(m_pEntry, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
     evas_object_size_hint_align_set(m_pEntry, EVAS_HINT_FILL, EVAS_HINT_FILL);
     elm_object_signal_emit(m_pEntry, "elm,action,hide,search_icon", "");
@@ -190,7 +191,6 @@ Evas_Object *ConvRecipientsPanelView::createEntry(Evas_Object *parent)
     evas_object_smart_callback_add(m_pEntry, "maxlength,reached", SMART_CALLBACK(ConvRecipientsPanelView, onEntryMaxlengthReached), this);
     evas_object_event_callback_add(m_pEntry, EVAS_CALLBACK_KEY_DOWN, EVAS_EVENT_CALLBACK(ConvRecipientsPanelView, onKeyDown), this);
     addGeometryChangedCb(m_pEntry);
-
     return m_pEntry;
 }
 

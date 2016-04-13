@@ -159,7 +159,6 @@ void ConvRecipientsPanel::execCmd(const AppControlComposeRef &cmd)
     {
         appendItem(recipStr);
     }
-    showMbe(!isMbeEmpty());
 }
 
 int ConvRecipientsPanel::getMaxRecipientCount() const
