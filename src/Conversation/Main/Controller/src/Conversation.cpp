@@ -103,6 +103,11 @@ void Conversation::execCmd(const AppControlComposeRef &cmd)
         m_pRecipPanel->execCmd(cmd);
     if(m_pBody)
         m_pBody->execCmd(cmd);
+
+    if(!isRecipExists())
+        m_pRecipPanel->setEntryFocus(true);
+    else
+        m_pBody->setFocus(true);
 }
 
 void Conversation::execCmd(const AppControlDefaultRef &cmd)
