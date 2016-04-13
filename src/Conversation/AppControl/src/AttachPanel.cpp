@@ -28,7 +28,6 @@ namespace
 {
     const char *appControlTotalSize = "http://tizen.org/appcontrol/data/total_size";
     const char *appControlTotalCount = "http://tizen.org/appcontrol/data/total_count";
-    const char *maxAttachment = "10";
 }
 
 AttachPanel::AttachPanel(App &app)
@@ -89,7 +88,8 @@ attach_panel_h AttachPanel::getAttachPanel()
         if(maxMmsSize > 0)
             bundle_add_str(extraData, appControlTotalSize, std::to_string(maxMmsSize).c_str());
 
-        bundle_add_str(extraData, appControlTotalCount, maxAttachment);
+        std::string maxAttachment = std::to_string(m_App.getMsgEngine().getSettings().getAttachmentsMaxCount());
+        bundle_add_str(extraData, appControlTotalCount, maxAttachment.c_str());
 
         if(extraData)
         {
