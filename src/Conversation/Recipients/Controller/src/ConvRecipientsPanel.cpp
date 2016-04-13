@@ -239,7 +239,7 @@ void ConvRecipientsPanel::onContactsPicked(const std::list<int> &numberIdList)
     {
         ContactPersonNumberRef num = m_App.getContactManager().getContactPersonNumber(phoneNumId);
         if(num)
-            duplicateFound |= appendItem(num->getAddress(), num->getDispName(), MsgAddress::Phone) == MbeRecipients::DuplicatedStatus;
+            duplicateFound |= appendItem(num->getAddress(), num->getDispName(), MsgAddress::UnknownAddressType) == MbeRecipients::DuplicatedStatus;
     }
 
     if(!duplicateFound)
