@@ -456,10 +456,11 @@ void Conversation::readMsgAddress(Message &msg)
 
 void Conversation::sendMessage()
 {
-    if(!m_ThreadId.isValid() && m_pRecipPanel->isMbeEmpty())
+    if(m_Mode == NewMessageMode && !isRecipExists())
     {
         showAddRecipPopup();
-        m_pRecipPanel->setEntryFocus(true);
+        if(m_pRecipPanel)
+            m_pRecipPanel->setEntryFocus(true);
         return;
     }
 
