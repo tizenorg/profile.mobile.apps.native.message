@@ -28,6 +28,7 @@
 #include <string>
 #include "MessageDetailContent.h"
 #include "WorkingDir.h"
+#include "MsgUtils.h"
 
 namespace Msg
 {
@@ -36,6 +37,7 @@ namespace Msg
 
     class ConvListItem
         : public ConvListViewItem
+        , public IBubbleViewListener
     {
         public:
             /**
@@ -87,6 +89,7 @@ namespace Msg
             // Create Popup when message is clicked
             void showMainCtxPopup();
             void showDraftCtxPopup();
+            void onDownloadItemPressed(ContextPopupItem &item);
             void onDeleteItemPressed(ContextPopupItem &item);
             void onCopyTextItemPressed(ContextPopupItem &item);
             void onForwardItemPressed(ContextPopupItem &item);
@@ -104,6 +107,9 @@ namespace Msg
             void onFailedResendButtonClicked(Popup &popup, int buttonId);
             void onDeleteButtonClicked(Popup &popup, int buttonId);
             void onPopupDel(Evas_Object *popup, void *eventInfo);
+
+            // IBubbleViewListener
+            virtual void onDownloadButtonClicked();
 
         private:
             IConvListItemListener *m_pListener;

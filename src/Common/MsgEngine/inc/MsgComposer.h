@@ -20,6 +20,8 @@
 
 #include "MessageSMS.h"
 #include "MessageMms.h"
+#include "MsgUtils.h"
+#include "Logger.h"
 
 namespace Msg
 {
@@ -38,20 +40,12 @@ namespace Msg
     {
         MessageRef msg;
 
-        switch(type)
-        {
-            case Message::MT_SMS:
-                msg = createSms();
-            break;
-
-            case Message::MT_MMS:
-                msg = createMms();
-            break;
-
-            case Message::MT_Unknown:
-            default:
-            break;
-        }
+        if (MsgUtils::isSms(type))
+            msg = createSms();
+        else if (MsgUtils::isMms(type))
+            msg = createMms();
+        else
+            MSG_LOG_WARN("Unknown message type");
 
         return msg;
     }

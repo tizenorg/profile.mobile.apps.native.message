@@ -49,6 +49,11 @@ std::string MessageDetailContent::createMsgDetailsText(App &app, MsgId msgId)
         msgDetails += makeReportResult(app, msgStatus, msgType, msgThreadId, msgId);
         msgDetails += getSmsStatus(msgStatus);
     }
+    else if(msgType == Message::MT_MMS_Noti)
+    {
+            msgDetails.append("<br/>");
+            getMmsNotiDetailContent(app, msgId);
+    }
     else if(msgType == Message::MT_MMS)
     {
         msgDetails.append("<br/>");
@@ -65,16 +70,34 @@ std::string MessageDetailContent::createMsgDetailsText(App &app, MsgId msgId)
     return msgDetails;
 }
 
+std::string MessageDetailContent::getMmsNotiDetailContent(App &app, MsgId msgId)
+{
+    std::string msgDetails;
+    msgDetails += getMmsSubject(app, msgId);
+    msgDetails += getMmsMessageSize(app, msgId);
+    msgDetails += getMmsMessageExpired(app, msgId);
+    return msgDetails;
+}
+
 std::string MessageDetailContent::getMessageType(Message::Type msgType)
 {
     std::string msgDetails = msg("IDS_MSG_BODY_TYPE_C");
     msgDetails.append(" ");
 
-    if(msgType == Message::MT_SMS)
+    switch(msgType)
+    {
+    case Message::MT_SMS:
         msgDetails.append(msg("IDS_MSGF_OPT_TEXT_MESSAGE"));
-    else if(msgType == Message::MT_MMS)
+        break;
+    case Message::MT_MMS:
         msgDetails.append(msg("IDS_MSGF_BODY_MULTIMEDIA_MESSAGE"));
-
+        break;
+    case Message::MT_MMS_Noti:
+        msgDetails.append(msg("IDS_MSGF_BODY_MULTIMEDIA_MESSAGE_NOTIFICATION"));
+        break;
+    default:
+        MSG_LOG_WARN("Unknown message type");
+    }
     msgDetails.append("<br/>");
     return msgDetails;
 }
@@ -174,10 +197,10 @@ std::string MessageDetailContent::makeReportResult(App &app, Message::NetworkSta
                         deliverText.append(" (");
 
                         time_t time = reportList->at(i).getTime();
-                        if(msgType == Message::MT_SMS)
-                            deliverText.append(TimeUtils::makeSmsReportTimeString(time));
-                        else
+                        if(MsgUtils::isMms(msgType))
                             deliverText.append(TimeUtils::makeMmsReportTimeString(time));
+                        else
+                            deliverText.append(TimeUtils::makeSmsReportTimeString(time));
 
                         deliverText.append(")");
                     }
@@ -191,7 +214,7 @@ std::string MessageDetailContent::makeReportResult(App &app, Message::NetworkSta
                     }
                     else
                     {
-                        if(msgType == Message::MT_MMS)
+                        if(MsgUtils::isMms(msgType))
                             deliverText.append(msg("IDS_MSGF_BODY_UNKNOWN"));
                         else
                             deliverText.append(msg("IDS_MSGF_BODY_REQUESTED"));
@@ -299,6 +322,19 @@ std::string MessageDetailContent::getMmsMessageSize(App &app, MsgId msgId)
     msgDetails.append(std::to_string(msgSize));
     msgDetails.append(msg("IDS_MSGF_BODY_MSGSIZE_KB"));
 
+    msgDetails.append("<br/>");
+    return msgDetails;
+}
+
+std::string MessageDetailContent::getMmsMessageExpired(App &app, MsgId msgId)
+{
+    std::string msgDetails = msg("IDS_MSGF_BODY_EXPIRED");
+    msgDetails.append(": ");
+
+    time_t msgExpired = app.getMsgEngine().getStorage().getMessage(msgId)->getExpired();
+    msgDetails.append(TimeUtils::makeDateTimeString(msgExpired));
+
+    msgDetails.append("<br/>");
     return msgDetails;
 }
 

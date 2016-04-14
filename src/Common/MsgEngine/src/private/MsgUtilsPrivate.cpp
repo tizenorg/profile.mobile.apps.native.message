@@ -210,8 +210,10 @@ Message::Type MsgUtilsPrivate::nativeToMessageType(int type)
 
         case MSG_TYPE_MMS:
         case MSG_TYPE_MMS_JAVA:
-        case MSG_TYPE_MMS_NOTI:
             return Message::MT_MMS;
+
+        case MSG_TYPE_MMS_NOTI:
+                    return Message::MT_MMS_Noti;
 
         default:
             return Message::MT_Unknown;

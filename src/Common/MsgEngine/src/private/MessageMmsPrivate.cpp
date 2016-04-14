@@ -67,7 +67,9 @@ MessageMmsPrivate::~MessageMmsPrivate()
 
 MessageMmsPrivate::Type MessageMmsPrivate::getType() const
 {
-    return MT_MMS;
+    int nativeType = MSG_TYPE_INVALID;
+    msg_get_int_value(m_MsgStruct, MSG_MESSAGE_TYPE_INT, &nativeType);
+    return MsgUtilsPrivate::nativeToMessageType(nativeType);
 }
 
 void MessageMmsPrivate::setText(const std::string &text)

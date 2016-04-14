@@ -27,6 +27,7 @@ namespace Msg
     {
         public:
             static std::string getMsgDetailContent(App &app, MsgId msgId);
+            static std::string getMmsNotiDetailContent(App &app, MsgId msgId);
 
         private:
             // Create Content of Popup for View Details
@@ -39,6 +40,7 @@ namespace Msg
             static std::string getSmsStatus(Message::NetworkStatus msgStatus);
             static std::string getMmsSubject(App &app, MsgId msgId);
             static std::string getMmsMessageSize(App &app, MsgId msgId);
+            static std::string getMmsMessageExpired(App &app, MsgId msgId);
             static std::string makeReadReportResult(App &app, MsgId msgId, ThreadId msgThreadId, Message::NetworkStatus msgStatus);
     };
 }

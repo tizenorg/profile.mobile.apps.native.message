@@ -94,6 +94,13 @@ time_t MessagePrivate::getTime() const
     return time;
 }
 
+time_t MessagePrivate::getExpired() const
+{
+    int msgExpiry = 0;
+    msg_get_int_value(m_MsgStruct, MSG_MMS_SENDOPTION_EXPIRY_TIME_INT, &msgExpiry);
+    return msgExpiry;
+}
+
 void MessagePrivate::setText(const std::string &text)
 {
     int field = isMms() ? MSG_MESSAGE_MMS_TEXT_STR : MSG_MESSAGE_SMS_DATA_STR;
@@ -177,5 +184,12 @@ bool MessagePrivate::isMms() const
 {
     int nativeType = MSG_TYPE_INVALID;
     msg_get_int_value(m_MsgStruct, MSG_MESSAGE_TYPE_INT, &nativeType);
-    return MsgUtilsPrivate::nativeToMessageType(nativeType) == Message::MT_MMS;
+    switch (MsgUtilsPrivate::nativeToMessageType(nativeType))
+    {
+        case Message::MT_MMS:
+        case Message::MT_MMS_Noti:
+            return true;
+        default:
+            return false;
+    }
 }

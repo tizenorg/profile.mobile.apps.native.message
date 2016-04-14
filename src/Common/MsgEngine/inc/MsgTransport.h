@@ -44,6 +44,8 @@ namespace Msg
             SendResult sendMessage(MessageRef &msg, ThreadId *threadId = nullptr);
             SendResult sendMessage(MessageMmsRef &msg, ThreadId *threadId = nullptr);
             SendResult sendMessage(MessageSMSRef &msg, ThreadId *threadId = nullptr);
+
+            virtual void retrieveMessage(MsgId msgId) = 0;
     };
 }
 

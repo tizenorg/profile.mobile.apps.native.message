@@ -46,20 +46,15 @@ MsgTransport::SendResult MsgTransportPrivate::sendMessage(Message &msg, ThreadId
 
     msg_set_struct_handle(req, MSG_REQUEST_MESSAGE_HND, privMsg);
 
-    if (privMsg.getType() == Message::MT_SMS)
-    {
-        MSG_LOG("Sending SMS");
-        err = msg_sms_send_message(m_ServiceHandle, req);
-    }
-    else if (privMsg.getType() == Message::MT_MMS)
+    if(privMsg.isMms())
     {
         MSG_LOG("Sending MMS");
         err = msg_mms_send_message(m_ServiceHandle, req);
     }
     else
     {
-        msg_release_struct(&req);
-        return SendFail;
+        MSG_LOG("Sending SMS");
+        err = msg_sms_send_message(m_ServiceHandle, req);
     }
 
     if(threadId)
@@ -93,3 +88,20 @@ MsgTransport::SendResult MsgTransportPrivate::sendMessage(Message &msg, ThreadId
     }
 }
 
+void MsgTransportPrivate::retrieveMessage(MsgId msgId)
+{
+	msg_struct_t req = msg_create_struct(MSG_STRUCT_REQUEST_INFO);
+	msg_struct_t sendOpt = msg_create_struct(MSG_STRUCT_SENDOPT);
+	msg_struct_t retrieveMsg = msg_create_struct(MSG_STRUCT_MESSAGE_INFO);
+
+	msg_get_message(m_ServiceHandle, msgId, retrieveMsg, sendOpt);
+	msg_set_struct_handle(req, MSG_REQUEST_MESSAGE_HND, retrieveMsg);
+	msg_set_struct_handle(req, MSG_REQUEST_SENDOPT_HND, sendOpt);
+
+	msg_error_t err = msg_mms_retrieve_message(m_ServiceHandle, req);
+	MSG_LOG("Retrieve message result: ", err);
+
+	msg_release_struct(&retrieveMsg);
+	msg_release_struct(&sendOpt);
+	msg_release_struct(&req);
+}
