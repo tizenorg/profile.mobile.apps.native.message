@@ -63,6 +63,9 @@ void BubbleView::fill(const BubbleEntity &entity)
             case BubbleEntity::VideoItem:
                 elm_box_pack_end(*this, createVideo(item.value));
                 break;
+            case BubbleEntity::DownloadButtonItem:
+                elm_box_pack_end(*this, createDownloadButton());
+                break;
             default:
                 break;
         }
@@ -132,6 +135,29 @@ Evas_Object *BubbleView::createVideo(const std::string &path)
     evas_object_size_hint_min_set(image, imageWidth, imageHeight);
     evas_object_show(image);
     return image;
+}
+
+Evas_Object *BubbleView::createDownloadButton()
+{
+    Evas_Object *retrieveBtn = elm_button_add(*this);
+    View::expand(retrieveBtn);
+    elm_object_part_content_set(*this, "elm.swallow.end", retrieveBtn);
+    elm_object_domain_translatable_text_set(retrieveBtn, MSG_DOMAIN, "IDS_MSG_BUTTON_DOWNLOAD_ABB3");
+    evas_object_smart_callback_add(retrieveBtn, "clicked", SMART_CALLBACK(BubbleView, onDownloadPressed), this);
+    evas_object_show(retrieveBtn);
+
+    return retrieveBtn;
+}
+
+void BubbleView::setListener(IBubbleViewListener *listener)
+{
+    m_pListener = listener;
+}
+
+void BubbleView::onDownloadPressed(Evas_Object *obj, void *event_info)
+{
+    if(m_pListener)
+        m_pListener->onDownloadButtonClicked();
 }
 
 BubbleEntity::BubbleEntity()

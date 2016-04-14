@@ -117,6 +117,13 @@ void ConvListItem::prepareBubble(const MsgConversationItem &item, const std::str
         std::string highlightedText = TextDecorator::highlightKeyword(utf8ToMarkup(item.getText()), utf8ToMarkup(searchWord));
         m_BubbleEntity.addItem(BubbleEntity::TextItem, highlightedText);
     }
+    else if(m_Type == Message::MT_MMS_Noti)
+    {
+        std::string text = MessageDetailContent::getMmsNotiDetailContent(m_App, m_MsgId);
+        std::string highlightedText = TextDecorator::highlightKeyword(text, utf8ToMarkup(searchWord));
+        m_BubbleEntity.addItem(BubbleEntity::TextItem, highlightedText);
+        m_BubbleEntity.addItem(BubbleEntity::DownloadButtonItem);
+    }
     else
     {
         const MsgConvMediaList &list = item.getMediaList();
@@ -166,6 +173,7 @@ Evas_Object *ConvListItem::getBubbleContent()
 {
     BubbleView *bubble = new BubbleView(*getOwner());
     bubble->fill(m_BubbleEntity);
+    bubble->setListener(this);
     return *bubble;
 }
 
@@ -223,6 +231,8 @@ void ConvListItem::showMainCtxPopup()
 
     if(m_Type == Message::MT_MMS)
         ctxPopup.appendItem(msg("IDS_MSG_OPT_VIEW_AS_SLIDESHOW_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onSlideShowItemPressed), this);
+    if(m_Type == Message::MT_MMS_Noti)
+        ctxPopup.appendItem(msg("IDS_MSG_BUTTON_DOWNLOAD_ABB3"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onDownloadItemPressed), this);
 
     if(!msgText.empty())
         ctxPopup.appendItem(msg("IDS_MSG_OPT_COPY_TEXT"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onCopyTextItemPressed), this);
@@ -278,6 +288,17 @@ void ConvListItem::onDeleteItemPressed(ContextPopupItem &item)
     popup.setTitle(msgt("IDS_MSG_HEADER_DELETE"));
     popup.setContent(msgt("IDS_MSG_POP_1_MESSAGE_WILL_BE_DELETED"));
     popup.show();
+}
+
+void ConvListItem::onDownloadItemPressed(ContextPopupItem &item)
+{
+    item.getParent().destroy();
+    m_App.getMsgEngine().getTransport().retrieveMessage(m_MsgId);
+}
+
+void ConvListItem::onDownloadButtonClicked()
+{
+    m_App.getMsgEngine().getTransport().retrieveMessage(m_MsgId);
 }
 
 void ConvListItem::onCopyTextItemPressed(ContextPopupItem &item)

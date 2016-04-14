@@ -288,6 +288,7 @@ MessageRef MsgStoragePrivate::getMessage(MsgId id)
                 break;
 
             case Message::MT_MMS:
+            case Message::MT_MMS_Noti:
                 msgRef = std::make_shared<MessageMmsPrivate>(true, msg);
                 break;
 

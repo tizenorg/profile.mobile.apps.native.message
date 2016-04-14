@@ -36,6 +36,7 @@ namespace Msg
             virtual MsgId getId() const;
             virtual ThreadId getThreadId() const;
             virtual time_t getTime() const;
+            virtual time_t getExpired() const;
             virtual const MsgAddressListHandlePrivate &getAddressList() const;
             virtual MsgAddressPrivate &addAddress();
             virtual void addAddresses(const MsgAddressList &list);
