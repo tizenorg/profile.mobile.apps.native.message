@@ -81,6 +81,7 @@ collections {
                         size: 21;
                         align: 1.0 0.5;
                         min: 1 1;
+                        ellipsis: -1;
                     }
                     color: COLOR_BLUE_EDC;
                     rel1 { to_x : "padding_right"; relative: 0.0 0.0; }

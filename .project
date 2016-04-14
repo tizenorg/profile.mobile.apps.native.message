@@ -6,6 +6,11 @@
 	</projects>
 	<buildSpec>
 		<buildCommand>
+			<name>org.tizen.nativecore.apichecker.apicheckerbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
 			<name>org.eclipse.cdt.managedbuilder.core.genmakebuilder</name>
 			<arguments>
 				<dictionary>
@@ -91,6 +96,7 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 		<nature>org.tizen.nativecpp.apichecker.core.tizenCppNature</nature>
 		<nature>org.tizen.nativecore.apichecker.core.tizenCppNature</nature>
+		<nature>org.tizen.nativecore.apichecker.apicheckernature</nature>
 	</natures>
 	<linkedResources>
 		<link>
