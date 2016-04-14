@@ -177,5 +177,6 @@ bool MessagePrivate::isMms() const
 {
     int nativeType = MSG_TYPE_INVALID;
     msg_get_int_value(m_MsgStruct, MSG_MESSAGE_TYPE_INT, &nativeType);
-    return MsgUtilsPrivate::nativeToMessageType(nativeType) == Message::MT_MMS;
+    Message::Type messageType = MsgUtilsPrivate::nativeToMessageType(nativeType);
+    return MsgUtils::isMms(messageType);
 }

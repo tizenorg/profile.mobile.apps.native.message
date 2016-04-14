@@ -112,10 +112,17 @@ void ConvListItem::addVideoItem(const std::string &path)
 
 void ConvListItem::prepareBubble(const MsgConversationItem &item, const std::string &searchWord)
 {
-    if(m_Type == Message::MT_SMS)
+    if(!MsgUtils::isMms(m_Type))
     {
         std::string highlightedText = TextDecorator::highlightKeyword(utf8ToMarkup(item.getText()), utf8ToMarkup(searchWord));
         m_BubbleEntity.addItem(BubbleEntity::TextItem, highlightedText);
+    }
+    else if(m_Type == Message::MT_MMS_Noti)
+    {
+        std::string text = MessageDetailContent::getMmsNotiConvListItemContent(m_App, m_MsgId);
+        std::string highlightedText = TextDecorator::highlightKeyword(text, utf8ToMarkup(searchWord));
+        m_BubbleEntity.addItem(BubbleEntity::TextItem, highlightedText);
+        m_BubbleEntity.addItem(BubbleEntity::DownloadButtonItem);
     }
     else
     {
@@ -166,6 +173,7 @@ Evas_Object *ConvListItem::getBubbleContent()
 {
     BubbleView *bubble = new BubbleView(*getOwner());
     bubble->fill(m_BubbleEntity);
+    bubble->setListener(this);
     return *bubble;
 }
 
@@ -177,7 +185,8 @@ Evas_Object *ConvListItem::getThumbnail()
 Evas_Object *ConvListItem::getProgress()
 {
     return m_NetworkStatus == Message::NS_Send_Pending ||
-           m_NetworkStatus == Message::NS_Sending  ? createProgress() : nullptr;
+           m_NetworkStatus == Message::NS_Sending ||
+           m_NetworkStatus == Message::NS_Retrieving ? createProgress() : nullptr;
 }
 
 std::string ConvListItem::getTime()
@@ -223,6 +232,8 @@ void ConvListItem::showMainCtxPopup()
 
     if(m_Type == Message::MT_MMS)
         ctxPopup.appendItem(msg("IDS_MSG_OPT_VIEW_AS_SLIDESHOW_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onSlideShowItemPressed), this);
+    if(m_Type == Message::MT_MMS_Noti)
+        ctxPopup.appendItem(msg("IDS_MSG_BUTTON_DOWNLOAD_ABB3"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onDownloadItemPressed), this);
 
     if(!msgText.empty())
         ctxPopup.appendItem(msg("IDS_MSG_OPT_COPY_TEXT"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onCopyTextItemPressed), this);
@@ -278,6 +289,17 @@ void ConvListItem::onDeleteItemPressed(ContextPopupItem &item)
     popup.setTitle(msgt("IDS_MSG_HEADER_DELETE"));
     popup.setContent(msgt("IDS_MSG_POP_1_MESSAGE_WILL_BE_DELETED"));
     popup.show();
+}
+
+void ConvListItem::onDownloadItemPressed(ContextPopupItem &item)
+{
+    item.getParent().destroy();
+    m_App.getMsgEngine().getTransport().retrieveMessage(m_MsgId);
+}
+
+void ConvListItem::onDownloadButtonClicked()
+{
+    m_App.getMsgEngine().getTransport().retrieveMessage(m_MsgId);
 }
 
 void ConvListItem::onCopyTextItemPressed(ContextPopupItem &item)
@@ -357,7 +379,7 @@ void ConvListItem::onViewDetailsItemPressed(ContextPopupItem &item)
     Popup &popup = m_App.getPopupManager().getPopup();
     popup.addButton(msgt("IDS_MSG_BUTTON_OK_ABB"), Popup::CancelButtonId, POPUP_BUTTON_CB(ConvListItem, onCancelButtonClicked), this);
     popup.setTitle(msgt("IDS_MSGF_HEADER_MESSAGE_DETAILS"));
-    popup.setContent(MessageDetailContent::getMsgDetailContent(m_App, m_MsgId));
+    popup.setContent(MessageDetailContent::getMsgDetailsPopupContent(m_App, m_MsgId));
     popup.show();
 }
 

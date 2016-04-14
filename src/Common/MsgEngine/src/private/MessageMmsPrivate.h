@@ -42,10 +42,11 @@ namespace Msg
 
             virtual const MsgAttachmentListHandlePrivate &getAttachmentList() const;
             virtual MsgAttachmentPrivate &addAttachment();
+            virtual time_t getExpired() const;
 
+            virtual void commit();
             void set(msg_struct_t msgStruct);
             msg_struct_t getMmsStruct() const;
-            virtual void commit();
 
         private:
             msg_struct_t m_MmsStruct;

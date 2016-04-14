@@ -26,11 +26,12 @@ namespace Msg
     class MessageDetailContent
     {
         public:
-            static std::string getMsgDetailContent(App &app, MsgId msgId);
+            static std::string getMsgDetailsPopupContent(App &app, MsgId msgId);
+            static std::string getMmsNotiConvListItemContent(App &app, MsgId msgId);
 
         private:
             // Create Content of Popup for View Details
-            static std::string createMsgDetailsText(App &app, MsgId msgId);
+            static std::string createMsgDetailsPopupText(App &app, MsgId msgId);
             static std::string getMessageType(Message::Type msgType);
             static std::string getContactsInfo(App &app, Message::Direction m_Direction, ThreadId msgThreadId);
             static std::string getSentReceivedTime(MsgStorage &msgStorage, Message::Direction msgDirection, MsgId msgId);
@@ -39,6 +40,7 @@ namespace Msg
             static std::string getSmsStatus(Message::NetworkStatus msgStatus);
             static std::string getMmsSubject(App &app, MsgId msgId);
             static std::string getMmsMessageSize(App &app, MsgId msgId);
+            static std::string getMmsMessageExpired(App &app, MsgId msgId);
             static std::string makeReadReportResult(App &app, MsgId msgId, ThreadId msgThreadId, Message::NetworkStatus msgStatus);
     };
 }

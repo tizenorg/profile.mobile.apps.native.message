@@ -108,3 +108,19 @@ std::string MsgUtils::makeNormalizedNumber(const std::string &number)
     return normalizedNumber;
 }
 
+bool MsgUtils::isMms(Message::Type type)
+{
+    switch(type)
+    {
+        case Message::MT_MMS:
+        case Message::MT_MMS_Noti:
+            return true;
+        default:
+            return false;
+    }
+}
+
+bool MsgUtils::isSms(Message::Type type)
+{
+    return type == Message::MT_SMS;
+}
