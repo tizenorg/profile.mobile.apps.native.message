@@ -3,7 +3,6 @@
     <profile name="mobile"/>
     <ui-application appid="org.tizen.message" exec="message" launch_mode="single" multiple="false" nodisplay="false" taskmanage="true" type="c++app">
         <label>Message</label>
-        <icon>message.png</icon>
         <label xml:lang="ar-ae">الرسائل</label>
         <label xml:lang="as-in">মেছেজসমূহ</label>
         <label xml:lang="az-az">Mesajlar</label>
@@ -76,6 +75,7 @@
         <label xml:lang="zh-hk">訊息</label>
         <label xml:lang="zh-sg">讯息</label>
         <label xml:lang="zh-tw">訊息</label>
+        <icon>message.png</icon>
         <app-control>
             <operation name="http://tizen.org/appcontrol/operation/compose"/>
         </app-control>
@@ -118,21 +118,22 @@
         </app-control>
     </ui-application>
     <privileges>
-        <privilege>http://tizen.org/privilege/recorder</privilege>
         <privilege>http://tizen.org/privilege/datasharing</privilege>
         <privilege>http://tizen.org/privilege/callhistory.read</privilege>
         <privilege>http://tizen.org/privilege/camera</privilege>
         <privilege>http://tizen.org/privilege/contact.write</privilege>
-        <privilege>http://tizen.org/privilege/notification</privilege>
         <privilege>http://tizen.org/privilege/message.write</privilege>
         <privilege>http://tizen.org/privilege/content.write</privilege>
         <privilege>http://tizen.org/privilege/appmanager.launch</privilege>
+        <privilege>http://tizen.org/privilege/recorder</privilege>
+        <privilege>http://tizen.org/privilege/notification</privilege>
         <privilege>http://tizen.org/privilege/telephony</privilege>
         <privilege>http://tizen.org/privilege/message.read</privilege>
-        <privilege>http://tizen.org/privilege/contact.read</privilege>
         <privilege>http://tizen.org/privilege/call</privilege>
+        <privilege>http://tizen.org/privilege/contact.read</privilege>
     </privileges>
+    <feature name="http://tizen.org/feature/screen.size.normal">true</feature>
     <feature name="http://tizen.org/feature/network.telephony">true</feature>
-    <feature name="http://tizen.org/feature/network.telephony.mms">true</feature>
     <feature name="http://tizen.org/feature/network.telephony.sms">true</feature>
+    <feature name="http://tizen.org/feature/network.telephony.mms">true</feature>
 </manifest>
