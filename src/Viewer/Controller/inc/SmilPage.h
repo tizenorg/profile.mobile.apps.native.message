@@ -24,6 +24,8 @@
 
 namespace Msg
 {
+    class SmilImageItemView;
+
     class SmilPage
         : public SmilPageLayout
     {
@@ -35,11 +37,13 @@ namespace Msg
             int getDuration() const;
             bool hasMedia() const;
             bool hasVideo() const;
+            bool hasAnimation() const;
+            void playAnimation(bool play);
             Evas_Object *getVideoSink() const;
             std::string getMediaPath() const;
 
         private:
-            const MsgMedia *getMedia(const MsgPage &page, MsgMedia::SmilType type) const;
+            const MsgMedia *getMedia(const MsgPage &page, MsgMedia::Type type) const;
             void build(const MsgPage &page);
             void build(const MsgAttachmentList &list);
             void buildImage(const MsgMedia& media);
@@ -53,6 +57,7 @@ namespace Msg
             int m_Duration;
             std::string m_MediaPath;
             Evas_Object *m_pVideoSink;
+            SmilImageItemView *m_pImageItem;
     };
 }
 

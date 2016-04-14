@@ -35,11 +35,13 @@ ConvRecipientsPanel::ConvRecipientsPanel(Evas_Object *parent, App &app)
     m_pMbe->setListener(this);
     m_pMbe->show();
     setMbe(m_pMbe);
+    m_App.getContactManager().addListener(*this);
 }
 
 ConvRecipientsPanel::~ConvRecipientsPanel()
 {
     m_Picker.setListener(nullptr);
+    m_App.getContactManager().removeListener(*this);
 }
 
 void ConvRecipientsPanel::read(Message &msg)
@@ -77,8 +79,9 @@ void ConvRecipientsPanel::setListener(IConvRecipientsPanelListener *l)
     m_pListener = l;
 }
 
-void ConvRecipientsPanel::addRecipientsFromEntry()
+void ConvRecipientsPanel::addRecipientsFromEntry(bool showPopup)
 {
+    MSG_LOG("");
     std::string text = getEntryText();
     TokenizedRecipients result = MsgUtils::tokenizeRecipients(text);
     bool duplicateFound = false;
@@ -95,6 +98,8 @@ void ConvRecipientsPanel::addRecipientsFromEntry()
         showDuplicatedRecipientNotif();
 
     setEntryText(result.invalidResult);
+    if(!result.invalidResult.empty() && showPopup)
+        showInvalidRecipientsPopup();
 }
 
 void ConvRecipientsPanel::update(const MsgAddressList &addressList)
@@ -154,7 +159,6 @@ void ConvRecipientsPanel::execCmd(const AppControlComposeRef &cmd)
     {
         appendItem(recipStr);
     }
-    showMbe(!isMbeEmpty());
 }
 
 int ConvRecipientsPanel::getMaxRecipientCount() const
@@ -176,7 +180,9 @@ void ConvRecipientsPanel::appendStatusHandler(MbeRecipients::AppendItemStatus st
         case MbeRecipients::TooManyRecipStatus:
             showTooManyRecipientsNotif();
             break;
+        case MbeRecipients::InvalidRecipStatus:
         default:
+            showInvalidRecipientsPopup();
             break;
     }
 }
@@ -204,12 +210,12 @@ void ConvRecipientsPanel::onEntryFocusChanged()
     MSG_LOG("");
     if(getEntryFocus())
     {
-        showMbe(!isMbeEmpty());
+        expandRecipients();
     }
     else
     {
         addRecipientsFromEntry();
-        showMbe(false);
+        collapseRecipients();
     }
 
     if(m_pListener)
@@ -232,7 +238,7 @@ void ConvRecipientsPanel::onContactsPicked(const std::list<int> &numberIdList)
     {
         ContactPersonNumberRef num = m_App.getContactManager().getContactPersonNumber(phoneNumId);
         if(num)
-            duplicateFound |= appendItem(num->getAddress(), num->getDispName(), MsgAddress::Phone) == MbeRecipients::DuplicatedStatus;
+            duplicateFound |= appendItem(num->getAddress(), num->getDispName(), MsgAddress::UnknownAddressType) == MbeRecipients::DuplicatedStatus;
     }
 
     if(!duplicateFound)
@@ -241,13 +247,21 @@ void ConvRecipientsPanel::onContactsPicked(const std::list<int> &numberIdList)
 
 void ConvRecipientsPanel::onPopupBtnClicked(Popup &popup, int buttonId)
 {
-    setEntryFocus(true);
     popup.destroy();
 }
 
 void ConvRecipientsPanel::onPopupDel(Evas_Object *popup, void *eventInfo)
 {
     setEntryFocus(true);
+}
+
+void ConvRecipientsPanel::showInvalidRecipientsPopup()
+{
+    Popup &popup = m_App.getPopupManager().getPopup();
+    popup.addEventCb(EVAS_CALLBACK_FREE, EVAS_EVENT_CALLBACK(ConvRecipientsPanel, onPopupDel), this);
+    popup.setContent(msgt("IDS_MSG_TPOP_UNABLE_TO_ADD_RECIPIENT_NUMBER_NOT_VALID"));
+    popup.addButton(msgt("IDS_MSG_BUTTON_OK_ABB"), Popup::OkButtonId, POPUP_BUTTON_CB(ConvRecipientsPanel, onPopupBtnClicked), this);
+    popup.show();
 }
 
 void ConvRecipientsPanel::showDuplicatedRecipientNotif()
@@ -262,6 +276,8 @@ void ConvRecipientsPanel::showTooManyRecipientsNotif()
 
 void ConvRecipientsPanel::onMbeChanged()
 {
+    if(!isMbeVisible())
+        updateShortenedRecipients();
     if(m_pListener)
         m_pListener->onMbeChanged(*this);
 }
@@ -270,4 +286,11 @@ void ConvRecipientsPanel::onMbeItemClicked(MbeRecipientItem &item)
 {
     if(m_pListener)
         m_pListener->onItemClicked(*this, item);
+}
+
+void ConvRecipientsPanel::onContactChanged()
+{
+    MSG_LOG("");
+    if(!getEntryFocus())
+        updateShortenedRecipients();
 }

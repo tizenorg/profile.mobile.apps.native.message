@@ -35,7 +35,8 @@ namespace Msg
             virtual ~ThreadListItem();
 
             ThreadId getThreadId() const;
-            void updateModel(const MsgThreadItem &threadItem);
+            void update(const MsgThreadItem &threadItem);
+            void update();
 
         private:
             // ThreadListViewItem:

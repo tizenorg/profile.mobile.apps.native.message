@@ -82,11 +82,14 @@ void MsgThread::onAttached(ViewItem &item)
     setContent(*m_pLayout);
 }
 
-void MsgThread::showMainCtxPopup()
+void MsgThread::showMainPopup()
 {
     PopupList &popup = getApp().getPopupManager().getPopupList();
-    popup.appendItem(msg("IDS_MSG_OPT_SEARCH"), POPUPLIST_ITEM_PRESSED_CB(MsgThread, onSearchItemPressed), this);
-    popup.appendItem(msg("IDS_MSG_OPT_DELETE"), POPUPLIST_ITEM_PRESSED_CB(MsgThread, onDeleteItemPressed), this);
+    if (!m_pThreadList->isEmpty())
+    {
+        popup.appendItem(msg("IDS_MSG_OPT_SEARCH"), POPUPLIST_ITEM_PRESSED_CB(MsgThread, onSearchItemPressed), this);
+        popup.appendItem(msg("IDS_MSG_OPT_DELETE"), POPUPLIST_ITEM_PRESSED_CB(MsgThread, onDeleteItemPressed), this);
+    }
     popup.appendItem(msg("IDS_MSG_OPT_SETTINGS"), POPUPLIST_ITEM_PRESSED_CB(MsgThread, onSettingsItemPressed), this);
     popup.show();
 }
@@ -110,6 +113,8 @@ void MsgThread::navigateToConversation(ThreadId threadId, MsgId msgId, const std
     frame->setThreadId(threadId, searchWord);
     if(msgId.isValid())
         frame->navigateTo(msgId);
+    else
+        frame->navigateToLastMsg();
     getParent().push(*frame);
 }
 
@@ -117,6 +122,11 @@ void MsgThread::setMode(Mode mode)
 {
     if(m_Mode == mode)
         return;
+
+    if(mode == SearchMode)
+        getNaviBar().setColor(NaviBar::NaviWhiteColorId);
+    else
+        getNaviBar().setColor(NaviBar::NaviBlueColorId);
 
     setNormalMode();
     switch(mode)
@@ -159,6 +169,7 @@ void MsgThread::setNormalMode()
     }
 
     m_pNoContent->setText(msgt("IDS_MSG_NPBODY_NO_MESSAGES"));
+    m_pNoContent->setHelpText(msgt("IDS_MSG_BODY_AFTER_YOU_SEND_OR_RECEIVE_MESSAGES_THEY_WILL_BE_SHOWN_HERE"));
     m_Mode = NormalMode;
     update();
 }
@@ -244,7 +255,7 @@ void MsgThread::onHwMoreButtonClicked()
 {
     MSG_LOG("");
     if(m_Mode == NormalMode)
-        showMainCtxPopup();
+        showMainPopup();
 }
 
 void MsgThread::onSettingsItemPressed(PopupListItem &item)

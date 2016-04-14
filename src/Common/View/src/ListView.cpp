@@ -37,6 +37,7 @@ ListView::ListView(Evas_Object *parent)
     : View()
     , m_pListener(nullptr)
     , m_CheckMode(false)
+    , m_CmpFunc()
 {
     createListView(parent);
 }
@@ -55,6 +56,7 @@ void ListView::createListView(Evas_Object *parent)
     setEo(elm_genlist_add(parent));
     evas_object_smart_callback_add(getEo(), "realized", ListView::on_realized_cb, this);
     evas_object_smart_callback_add(getEo(), "unrealized", ListView::on_unrealized_cb, this);
+    evas_object_smart_callback_add(getEo(), "longpressed", ListView::on_longpressed_cb, this);
 }
 
 bool ListView::appendItem(ListItem &listItem, ListItem *parent)
@@ -75,8 +77,44 @@ bool ListView::prependItem(ListItem &listItem, ListItem *parent)
     listItem.m_pOwner = this;
     Elm_Object_Item *elmItem = elm_genlist_item_prepend(getEo(), listItem.m_ItemStyle->m_pGenlistItemClass,
                                                        &listItem, parentItem, listItem.getType(), on_item_selected_cb, this);
+
     listItem.setElmObjItem(elmItem);
     return elmItem != nullptr;
+}
+
+bool ListView::sortedInsertItem(ListItem &listItem, ListItem *parent)
+{
+    Elm_Object_Item *parentItem = parent ? parent->getElmObjItem() : nullptr;
+
+    listItem.m_pOwner = this;
+    Elm_Object_Item *elmItem = elm_genlist_item_sorted_insert
+    (
+        getEo(),
+        listItem.m_ItemStyle->m_pGenlistItemClass,
+        &listItem,
+        parentItem,
+        listItem.getType(),
+        [](const void *data1, const void *data2)->int
+        {
+            int res = 0;
+            ListItem *item1 = (ListItem*)elm_object_item_data_get((Elm_Object_Item*)data1);
+            ListItem *item2 = (ListItem*)elm_object_item_data_get((Elm_Object_Item*)data2);
+            if(item1->m_pOwner->m_CmpFunc)
+                res = item1->m_pOwner->m_CmpFunc(*item1, *item2);
+
+            return res;
+        },
+        on_item_selected_cb,
+        this
+    );
+
+    listItem.setElmObjItem(elmItem);
+    return elmItem != nullptr;
+}
+
+void ListView::setCmpFunc(CmpFunc fn)
+{
+    m_CmpFunc = fn;
 }
 
 void ListView::deleteItem(ListItem &listItem)
@@ -142,6 +180,11 @@ ListItem *ListView::getSelectedItem() const
 {
     Elm_Object_Item *elmItem = elm_genlist_selected_item_get(getEo());
     return ListItem::staticCast<ListItem*>(elmItem);
+}
+
+unsigned ListView::getItemsCount() const
+{
+    return elm_genlist_items_count(getEo());
 }
 
 void ListView::notifyListener(void *data, Evas_Object *obj, void *event_info, ListenerMethod method)
@@ -220,4 +263,12 @@ void ListView::on_unrealized_cb(void *data, Evas_Object *obj, void *event_info)
 {
     ListItem *item = ListItem::staticCast<ListItem*>(event_info);
     item->onUnrealized(*item);
+}
+
+void ListView::on_longpressed_cb(void *data, Evas_Object *obj, void *event_info)
+{
+    ListItem *item = ListItem::staticCast<ListItem*>(event_info);
+    item->setSelected(false);
+    if(!item->getOwner()->getCheckMode())
+        notifyListener(data, obj, event_info, &IListViewListener::onListItemLongPressed);
 }

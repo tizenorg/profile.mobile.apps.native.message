@@ -41,7 +41,7 @@ namespace Msg
         : public BodyView
     {
         public:
-            Body(App &app);
+            Body(App &app, WorkingDirRef workingDir);
             virtual ~Body();
 
             void create(Evas_Object *parent);
@@ -53,6 +53,7 @@ namespace Msg
             bool isMms();
             const MsgTextMetric &getTextMetric();
             long long getMsgSize();
+            int getAttachmentsCountTotal() const;
             void read(Message &msg);
             void write(const Message &msg);
             void execCmd(const AppControlComposeRef &cmd);
@@ -61,6 +62,8 @@ namespace Msg
         private:
             Page &createPage();
             void showTooLargePopup();
+            void showTooMuchAttachedPopup(int willBeAttached);
+            void showTooMuchAttachedPopup();
             void read(MessageSMS &msg);
             void read(MessageMms &msg);
             void readAttachments(MessageMms &msg);
@@ -71,6 +74,7 @@ namespace Msg
             void addAttachment( const std::string &filePath, const std::string &fileName = "");
 
             void onTooLargePopupDel(Evas_Object *obj, void *eventInfo);
+            void onTooMuchAttachedPopupDel(Evas_Object *obj, void *eventInfo);
 
             std::string createVcfFile(const AppControlComposeRef &cmd);
 
@@ -91,9 +95,10 @@ namespace Msg
         private:
             IBodyListener *m_pListener;
             App &m_App;
-            WorkingDir m_WorkingDir;
+            WorkingDirRef m_WorkingDir;
             Ecore_Idler *m_pOnChangedIdler;
             bool m_TooLargePopupShow;
+            bool m_TooMuchAttachedPopupShow;
     };
 
     class IBodyListener

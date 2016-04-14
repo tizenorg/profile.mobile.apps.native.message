@@ -23,6 +23,7 @@
 #include "PopupManager.h"
 #include "ContactManager.h"
 #include "ThumbnailMaker.h"
+#include "SystemSettingsManager.h"
 #include <memory>
 
 namespace Msg
@@ -51,6 +52,9 @@ namespace Msg
             ThumbnailMaker &getThumbnailMaker();
             const ThumbnailMaker &getThumbnailMaker() const;
 
+            SystemSettingsManager &getSysSettingsManager();
+            const SystemSettingsManager &getSysSettingsManager() const;
+
             void exit();
 
         protected:
@@ -64,6 +68,7 @@ namespace Msg
             ContactManager *m_pContactManager;
             PopupManager *m_pPopupManager;
             ThumbnailMaker *m_pThumbnailMaker;
+            SystemSettingsManager *m_pSysSettingsManager;
     };
 }
 

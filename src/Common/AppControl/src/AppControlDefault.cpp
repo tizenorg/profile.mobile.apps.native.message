@@ -25,6 +25,7 @@ namespace
     const char *keyType = "type";
     const char *valueReply = "reply";
     const char *valueNewMsg = "new_msg";
+    const char *valueSendFailed = "send_failed_msg";
     const char *keyMsgId = "msgId";
 }
 
@@ -65,7 +66,7 @@ void AppControlDefault::parse(app_control_h handle)
     free(key);
     if(type == valueReply)
         m_DefaultType = ReplyType;
-    else if(type == valueNewMsg)
+    else if(type == valueNewMsg || type == valueSendFailed)
         viewMessage(handle);
     else
         MSG_LOG("Unknown type!");

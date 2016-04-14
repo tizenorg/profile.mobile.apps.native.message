@@ -186,29 +186,31 @@ MsgAddress::RecipientType MsgUtilsPrivate::nativeToRecipientType(int type)
     }
 }
 
-int MsgUtilsPrivate::messageTypeToNative(Message::Type type)
-{
-    switch(type)
-    {
-        case Message::MT_SMS:
-            return MSG_TYPE_SMS;
-
-        case Message::MT_MMS:
-            return MSG_TYPE_MMS;
-
-        default:
-            return MSG_TYPE_INVALID;
-    }
-}
-
 Message::Type MsgUtilsPrivate::nativeToMessageType(int type)
 {
     switch(type)
     {
         case MSG_TYPE_SMS:
+        case MSG_TYPE_SMS_CB:
+        case MSG_TYPE_SMS_JAVACB:
+        case MSG_TYPE_SMS_WAPPUSH:
+        case MSG_TYPE_SMS_MWI:
+        case MSG_TYPE_SMS_SYNCML:
+        case MSG_TYPE_SMS_REJECT:
+        case MSG_TYPE_SMS_ETWS_PRIMARY:
+        case MSG_TYPE_SMS_ETWS_SECONDARY:
+        case MSG_TYPE_SMS_CMAS_PRESIDENTIAL:
+        case MSG_TYPE_SMS_CMAS_EXTREME:
+        case MSG_TYPE_SMS_CMAS_SEVERE:
+        case MSG_TYPE_SMS_CMAS_AMBER:
+        case MSG_TYPE_SMS_CMAS_TEST:
+        case MSG_TYPE_SMS_CMAS_EXERCISE:
+        case MSG_TYPE_SMS_CMAS_OPERATOR_DEFINED:
             return Message::MT_SMS;
 
         case MSG_TYPE_MMS:
+        case MSG_TYPE_MMS_JAVA:
+        case MSG_TYPE_MMS_NOTI:
             return Message::MT_MMS;
 
         default:
@@ -218,23 +220,22 @@ Message::Type MsgUtilsPrivate::nativeToMessageType(int type)
 
 void MsgUtilsPrivate::checkSmilType()
 {
-    static_assert((int)MMS_SMIL_MEDIA_INVALID == (int)MsgMedia::SmilInvalid &&
-        (int)MMS_SMIL_MEDIA_IMG == (int)MsgMedia::SmilImage &&
-        (int)MMS_SMIL_MEDIA_AUDIO == (int)MsgMedia::SmilAudio &&
-        (int)MMS_SMIL_MEDIA_VIDEO == (int)MsgMedia::SmilVideo &&
-        (int)MMS_SMIL_MEDIA_TEXT == (int)MsgMedia::SmilText &&
-        (int)MMS_SMIL_MEDIA_ANIMATE == (int)MsgMedia::SmilAnimate &&
-        (int)MMS_SMIL_MEDIA_IMG_OR_VIDEO == (int)MsgMedia::SmilImageOrVideo &&
-        (int)MMS_SMIL_MEDIA_MAX ==(int)MsgMedia::SmilMAX, "");
+    static_assert((int)MMS_SMIL_MEDIA_INVALID == (int)MsgMedia::UnknownType &&
+        (int)MMS_SMIL_MEDIA_IMG == (int)MsgMedia::ImageType &&
+        (int)MMS_SMIL_MEDIA_AUDIO == (int)MsgMedia::AudioType &&
+        (int)MMS_SMIL_MEDIA_VIDEO == (int)MsgMedia::VideoType &&
+        (int)MMS_SMIL_MEDIA_TEXT == (int)MsgMedia::TextType &&
+        (int)MMS_SMIL_MEDIA_ANIMATE == (int)MsgMedia::AnimateType &&
+        (int)MMS_SMIL_MEDIA_IMG_OR_VIDEO == (int)MsgMedia::ImageOrVideoType, "");
 }
 
-MsgMedia::SmilType MsgUtilsPrivate::nativeToSmilType(int type)
+MsgMedia::Type MsgUtilsPrivate::nativeToSmilType(int type)
 {
     checkSmilType();
-    return (MsgMedia::SmilType)type;
+    return (MsgMedia::Type)type;
 }
 
-int MsgUtilsPrivate::smilTypeToNative(MsgMedia::SmilType type)
+int MsgUtilsPrivate::smilTypeToNative(MsgMedia::Type type)
 {
     checkSmilType();
     return (int)type;

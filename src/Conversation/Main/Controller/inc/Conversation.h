@@ -34,6 +34,7 @@
 #include "AttachPanel.h"
 #include "ContactEditor.h"
 #include "ContactManager.h"
+#include "WorkingDir.h"
 
 namespace Msg
 {
@@ -58,6 +59,7 @@ namespace Msg
             virtual ~Conversation();
 
             void navigateTo(MsgId msgId);
+            void navigateToLastMsg();
             void execCmd(const AppControlComposeRef &cmd);
             void execCmd(const AppControlDefaultRef &cmd);
             void setThreadId(ThreadId id, const std::string &searchWord = std::string());
@@ -101,17 +103,15 @@ namespace Msg
 
             // IConvContactListListener:
             virtual void onContactSelected(ContactListItem &item);
+            virtual void onContactListChanged();
 
              // Popup callbacks:
             void onPopupDel(Evas_Object *popup, void *eventInfo);
             void onMsgSendErrorButtonClicked(Popup &popup, int buttonId);
             void onNoRecipCancelButtonClicked(Popup &popup, int buttonId);
             void onNoRecipDiscardButtonClicked(Popup &popup, int buttonId);
-
-            // ContextPopup callbacks:
-            void onDeleteItemPressed(ContextPopupItem &item);
-            void onAddRecipientsItemPressed(ContextPopupItem &item);
-
+            void onDeleteItemPressed(PopupListItem &item);
+            void onAddRecipientsItemPressed(PopupListItem &item);
             void onMakeVoiceItemPressed(PopupListItem &item);
             void onCreateContactItemPressed(PopupListItem &item);
             void onUpdateContactItemPressed(PopupListItem &item);
@@ -161,8 +161,9 @@ namespace Msg
             void checkAndSetMsgType();
             void navigateToSlideShow(MsgId id);
 
-            void showMainCtxPopup();
+            void showMainPopup();
             void showNoRecipPopup();
+            void showAddRecipPopup();
             PopupList &createPopupList(const std::string &title);
             void showSendResultPopup(MsgTransport::SendResult result);
             void showUnsavedRecipientPopup(const std::string &address);
@@ -180,6 +181,7 @@ namespace Msg
 
         private:
             Mode m_Mode;
+            WorkingDirRef m_WorkingDir;
             ConversationLayout *m_pLayout;
             MessageInputPanel *m_pMsgInputPanel;
             Body *m_pBody;

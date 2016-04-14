@@ -32,6 +32,7 @@ namespace Msg
             virtual ~VideoPageViewItem();
 
             virtual Type getType() const;
+            virtual std::string getFileName() const;
     };
 }
 

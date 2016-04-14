@@ -36,16 +36,18 @@ namespace Msg
             BaseThreadListItem(App &app);
             virtual ~BaseThreadListItem();
 
-        protected:
             void updateThumbnailAndName(const MsgAddressList &addressList, bool decorateName);
             void updateThumbnailAndName(const MsgThreadItem &threadItem, bool decorateName);
             void updateName(const MsgAddress &address, int addressesCount, bool decorateName);
             void updateName(const ContactPersonAddress &address, int addressesCount, bool decorateName);
             void updateName(const std::string &address, int addressesCount, bool decorateName);
             void updateTime(time_t time);
+            void updateTime();
             void updateMessage(const MsgThreadItem &threadItem);
             void updateMessage(const std::string &msg);
+            time_t getRawTime() const;
 
+        protected:
             // ThreadListViewItem:
             virtual std::string getName();
             virtual std::string getMessage();
@@ -57,6 +59,7 @@ namespace Msg
             std::string m_Name;
             std::string m_Message;
             std::string m_Time;
+            time_t m_RawTime;
     };
 }
 

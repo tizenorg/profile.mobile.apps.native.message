@@ -100,9 +100,17 @@ void Conversation::execCmd(const AppControlComposeRef &cmd)
 
     setThreadId(ThreadId());
     if(m_pRecipPanel)
+    {
         m_pRecipPanel->execCmd(cmd);
+        if(!isRecipExists())
+            m_pRecipPanel->setEntryFocus(true);
+    }
     if(m_pBody)
+    {
         m_pBody->execCmd(cmd);
+        if(isRecipExists())
+            m_pBody->setFocus(true);
+    }
 }
 
 void Conversation::execCmd(const AppControlDefaultRef &cmd)
@@ -131,6 +139,7 @@ void Conversation::execCmd(const AppControlDefaultRef &cmd)
 
 void Conversation::create()
 {
+    m_WorkingDir = std::make_shared<WorkingDir>();
     createMainLayout(getParent());
     createMsgInputPanel(*m_pLayout);
     createBody(*m_pMsgInputPanel);
@@ -217,6 +226,11 @@ void Conversation::contactChangedHandler()
 void Conversation::navigateTo(MsgId msgId)
 {
     m_pConvList->navigateTo(msgId);
+}
+
+void Conversation::navigateToLastMsg()
+{
+    m_pConvList->navigateToLastMsg();
 }
 
 void Conversation::setThreadId(ThreadId id, const std::string &searchWord)
@@ -329,7 +343,7 @@ void Conversation::createConvList(Evas_Object *parent)
 {
     if(!m_pConvList)
     {
-        m_pConvList = new ConvList(*m_pLayout, getApp());
+        m_pConvList = new ConvList(*m_pLayout, getApp(), m_WorkingDir);
         m_pConvList->setListener(this);
         m_pConvList->show();
         m_pLayout->setConvList(*m_pConvList);
@@ -374,7 +388,6 @@ void Conversation::createContactList(Evas_Object *parent)
         m_pContactsList->setListener(this);
         m_pContactsList->show();
         m_pLayout->setContactList(*m_pContactsList);
-        m_pLayout->showContactList(true);
     }
 }
 
@@ -403,7 +416,7 @@ void Conversation::createBody(Evas_Object *parent)
 {
     if(!m_pBody)
     {
-        m_pBody = new Body(getApp());
+        m_pBody = new Body(getApp(), m_WorkingDir);
         m_pBody->create(*m_pMsgInputPanel);
         m_pBody->setListener(this);
         m_pBody->show();
@@ -443,10 +456,11 @@ void Conversation::readMsgAddress(Message &msg)
 
 void Conversation::sendMessage()
 {
-    if(!m_ThreadId.isValid() && m_pRecipPanel->isMbeEmpty())
+    if(m_Mode == NewMessageMode && !isRecipExists())
     {
-        notification_status_message_post(msg("IDS_MSG_TPOP_ADD_RECIPIENTS").cStr());
-        m_pRecipPanel->setEntryFocus(true);
+        showAddRecipPopup();
+        if(m_pRecipPanel)
+            m_pRecipPanel->setEntryFocus(true);
         return;
     }
 
@@ -586,6 +600,14 @@ void Conversation::showNoRecipPopup()
     popup.show();
 }
 
+void Conversation::showAddRecipPopup()
+{
+    Popup &popup = getApp().getPopupManager().getPopup();
+    popup.setContent(msgt("IDS_MSG_TPOP_ADD_RECIPIENTS"));
+    popup.setTimeOut(2.0);
+    popup.show();
+}
+
 void Conversation::showSendResultPopup(MsgTransport::SendResult result)
 {
     if(result == MsgTransport::SendSuccess)
@@ -609,14 +631,12 @@ void Conversation::showSendResultPopup(MsgTransport::SendResult result)
     popup.show();
 }
 
-void Conversation::showMainCtxPopup()
+void Conversation::showMainPopup()
 {
-    auto &ctxPopup = getApp().getPopupManager().getCtxPopup();
-
-    ctxPopup.appendItem(msg("IDS_MSG_OPT_DELETE"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(Conversation, onDeleteItemPressed), this);
-    ctxPopup.appendItem(msg("IDS_MSG_OPT_ADD_RECIPIENTS_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(Conversation, onAddRecipientsItemPressed), this);
-    ctxPopup.align(getApp().getWindow());
-    ctxPopup.show();
+    PopupList &popup = getApp().getPopupManager().getPopupList();
+    popup.appendItem(msg("IDS_MSG_OPT_DELETE"), POPUPLIST_ITEM_PRESSED_CB(Conversation, onDeleteItemPressed), this);
+    popup.appendItem(msg("IDS_MSG_OPT_ADD_RECIPIENTS_ABB"), POPUPLIST_ITEM_PRESSED_CB(Conversation, onAddRecipientsItemPressed), this);
+    popup.show();
 }
 
 void Conversation::onKeyDown(ConvRecipientsPanel &panel, Evas_Event_Key_Down &ev)
@@ -737,6 +757,12 @@ void Conversation::onContactSelected(ContactListItem &item)
     m_pContactsList->clear();
 }
 
+void Conversation::onContactListChanged()
+{
+    if(m_pContactsList)
+        m_pLayout->showContactList(!m_pContactsList->isEmpty());
+}
+
 void Conversation::onAttached(ViewItem &item)
 {
     FrameController::onAttached(item);
@@ -753,7 +779,12 @@ void Conversation::onHwBackButtonClicked()
         updateNavibar();
         return;
     }
-
+    if(m_pRecipPanel)
+    {
+        if(m_pRecipPanel->isMbeVisible() || m_pRecipPanel->getItemsCount() == 0)
+            m_pRecipPanel->addRecipientsFromEntry(false);
+        m_pRecipPanel->clearEntry();
+    }
     if(!isRecipExists() && !isBodyEmpty() && m_Mode == NewMessageMode)
     {
         showNoRecipPopup();
@@ -770,7 +801,7 @@ void Conversation::onHwMoreButtonClicked()
 {
     MSG_LOG("");
     if(m_Mode == ConversationMode && m_pConvList->getMode() == ConvList::NormalMode)
-        showMainCtxPopup();
+        showMainPopup();
 }
 
 void Conversation::onNaviOkButtonClicked()
@@ -897,7 +928,7 @@ void Conversation::onNoRecipDiscardButtonClicked(Popup &popup, int buttonId)
     popup.destroy();
 }
 
-void Conversation::onDeleteItemPressed(ContextPopupItem &item)
+void Conversation::onDeleteItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
     item.getParent().destroy();
@@ -905,7 +936,7 @@ void Conversation::onDeleteItemPressed(ContextPopupItem &item)
     updateNavibar();
 }
 
-void Conversation::onAddRecipientsItemPressed(ContextPopupItem &item)
+void Conversation::onAddRecipientsItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
     item.getParent().destroy();

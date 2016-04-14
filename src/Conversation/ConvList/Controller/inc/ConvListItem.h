@@ -27,6 +27,7 @@
 #include "App.h"
 #include <string>
 #include "MessageDetailContent.h"
+#include "WorkingDir.h"
 
 namespace Msg
 {
@@ -40,10 +41,17 @@ namespace Msg
             /**
              * @brief Creates item for Conversation list
              * @param[in] item MsgConversationItem model
+             * @param[in] app Main application
+             * @param[in] workingDir Smart ptr to current working dir.
              * @param[in] searchWord string for search in bubble
-             * @param[in] thumbPath string with path for thumb. If empty default picture will be used
+             * @param[in] thumbId Reference to id of user thumbnail
              */
-            ConvListItem(const MsgConversationItem &item, App &app, const std::string &searchWord, ThumbnailMaker::ThumbId &thumbId);
+            ConvListItem(const MsgConversationItem &item,
+                         App &app,
+                         WorkingDirRef workingDir,
+                         const std::string &searchWord,
+                         const ThumbnailMaker::ThumbId &thumbId);
+
             virtual ~ConvListItem();
 
             /**
@@ -59,6 +67,7 @@ namespace Msg
             void setListener(IConvListItemListener *l);
 
             void updateStatus();
+            void updateTime();
 
         protected:
             // ConvListViewItem:
@@ -73,6 +82,7 @@ namespace Msg
         private:
             ConvListViewItem::ConvItemType getConvItemType(const MsgConversationItem &item);
             void prepareBubble(const MsgConversationItem &item, const std::string &searchWord);
+            void addVideoItem(const std::string &path);
 
             // Create Popup when message is clicked
             void showMainCtxPopup();
@@ -98,13 +108,15 @@ namespace Msg
         private:
             IConvListItemListener *m_pListener;
             App &m_App;
+            WorkingDirRef m_WorkingDir;
             MsgId m_MsgId;
             bool m_IsDraft;
             Message::NetworkStatus m_NetworkStatus;
             Message::Type m_Type;
             time_t m_Time;
+            std::string m_TimeStr;
             BubbleEntity m_BubbleEntity;
-            ThumbnailMaker::ThumbId &m_ThumbId;
+            const ThumbnailMaker::ThumbId &m_ThumbId;
     };
 
     class IConvListItemListener

@@ -33,9 +33,15 @@ SmilImageItemView::~SmilImageItemView()
 
 }
 
-void SmilImageItemView::playImageAnimate(bool play)
+void SmilImageItemView::playAnimation(bool play)
 {
-    elm_image_animated_set(m_pImage, play);
+    if(hasAnimation())
+        elm_image_animated_play_set(m_pImage, play);
+}
+
+bool SmilImageItemView::hasAnimation() const
+{
+    return elm_image_animated_get(m_pImage);
 }
 
 Evas_Object *SmilImageItemView::createImage(Evas_Object *parent, const std::string &imagePath)

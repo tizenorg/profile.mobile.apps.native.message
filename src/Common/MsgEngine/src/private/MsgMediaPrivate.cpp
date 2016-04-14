@@ -19,6 +19,7 @@
 #include "MsgUtilsPrivate.h"
 #include "MsgDefPrivate.h"
 #include "Logger.h"
+#include "MediaType.h"
 #include <msg.h>
 
 using namespace Msg;
@@ -33,9 +34,9 @@ MsgMediaPrivate::~MsgMediaPrivate()
 
 }
 
-MsgMediaPrivate::SmilType MsgMediaPrivate::getType() const
+MsgMediaPrivate::Type MsgMediaPrivate::getType() const
 {
-    int type = SmilInvalid;
+    int type = UnknownType;
     msg_get_int_value(m_MsgStruct, MSG_MMS_MEDIA_TYPE_INT, &type);
     return MsgUtilsPrivate::nativeToSmilType(type);
 }
@@ -55,30 +56,29 @@ std::string MsgMediaPrivate::getMime() const
     return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_MMS_MEDIA_CONTENT_TYPE_STR, MAX_MIME_TYPE_LEN);
 }
 
-void MsgMediaPrivate::setType(SmilType type)
+void MsgMediaPrivate::setType(Type type)
 {
     msg_set_int_value(m_MsgStruct, MSG_MMS_MEDIA_TYPE_INT, MsgUtilsPrivate::smilTypeToNative(type));
 
     switch(type)
     {
-        case SmilImage:
-        case SmilVideo:
-        case SmilAnimate:
-        case SmilImageOrVideo:
+        case ImageType:
+        case VideoType:
+        case AnimateType:
+        case ImageOrVideoType:
         {
             MsgUtilsPrivate::setStr(m_MsgStruct, MSG_MMS_MEDIA_REGION_ID_STR, imageRegionId);
             break;
         }
 
-        case SmilAudio:
+        case AudioType:
         {
             break;
         }
 
-        case SmilText:
+        case TextType:
         {
             MsgUtilsPrivate::setStr(m_MsgStruct, MSG_MMS_MEDIA_REGION_ID_STR, textRegionId);
-            setMime(mimeText);;
 
             // Set font style:
             msg_struct_t textStyle = msg_create_struct(MSG_STRUCT_MMS_SMIL_TEXT);
@@ -104,6 +104,9 @@ void MsgMediaPrivate::setMime(const std::string &mime)
 void MsgMediaPrivate::setFilePath(const std::string &path)
 {
     MsgUtilsPrivate::setStr(m_MsgStruct, MSG_MMS_MEDIA_FILEPATH_STR, path);
+    MediaTypeData mediaData = getMediaType(path);
+    setMime(mediaData.mime);
+    setType(mediaData.type);
 }
 
 void MsgMediaPrivate::setFileName(const std::string &name)

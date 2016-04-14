@@ -36,6 +36,7 @@ SmilPage::SmilPage(Evas_Object *parent, const MsgPage &page)
     : SmilPageLayout(parent)
     , m_Duration(0)
     , m_pVideoSink(nullptr)
+    , m_pImageItem(nullptr)
 {
     build(page);
 }
@@ -44,6 +45,7 @@ SmilPage::SmilPage(Evas_Object *parent, const MsgAttachmentList &list)
     : SmilPageLayout(parent)
     , m_Duration(0)
     , m_pVideoSink(nullptr)
+    , m_pImageItem(nullptr)
 {
     build(list);
 }
@@ -78,7 +80,18 @@ std::string SmilPage::getMediaPath() const
     return m_MediaPath;
 }
 
-const MsgMedia *SmilPage::getMedia(const MsgPage &page, MsgMedia::SmilType type) const
+bool SmilPage::hasAnimation() const
+{
+    return m_pImageItem && m_pImageItem->hasAnimation();
+}
+
+void SmilPage::playAnimation(bool play)
+{
+    if(m_pImageItem && m_pImageItem->hasAnimation())
+        m_pImageItem->playAnimation(play);
+}
+
+const MsgMedia *SmilPage::getMedia(const MsgPage &page, MsgMedia::Type type) const
 {
     const MsgMediaList &list = page.getMediaList();
     for(int i = 0; i < list.getLength(); ++i)
@@ -95,23 +108,23 @@ void SmilPage::build(const MsgPage &page)
 
     // TODO: image/video, text order
 
-    bool hasVideo = getMedia(page, MsgMedia::SmilVideo) != nullptr;
+    bool hasVideo = getMedia(page, MsgMedia::VideoType) != nullptr;
 
     if(hasVideo)
-        buildVideo(*getMedia(page, MsgMedia::SmilVideo));
+        buildVideo(*getMedia(page, MsgMedia::VideoType));
 
     if(!hasVideo)
     {
-        if(const MsgMedia *image = getMedia(page, MsgMedia::SmilImage))
+        if(const MsgMedia *image = getMedia(page, MsgMedia::ImageType))
             buildImage(*image);
     }
 
-    if(const MsgMedia *text = getMedia(page, MsgMedia::SmilText))
+    if(const MsgMedia *text = getMedia(page, MsgMedia::TextType))
         buildText(*text);
 
     if(!hasVideo)
     {
-        if(const MsgMedia *audio = getMedia(page, MsgMedia::SmilAudio))
+        if(const MsgMedia *audio = getMedia(page, MsgMedia::AudioType))
             buildAudio(*audio);
     }
 
@@ -137,9 +150,9 @@ void SmilPage::build(const MsgAttachmentList &list)
 
 void SmilPage::buildImage(const MsgMedia &media)
 {
-    SmilImageItemView *item = new SmilImageItemView(getBox(), media.getFilePath());
-    item->show();
-    appendItem(*item);
+    m_pImageItem = new SmilImageItemView(getBox(), media.getFilePath());
+    m_pImageItem->show();
+    appendItem(*m_pImageItem);
 }
 
 void SmilPage::buildText(const MsgMedia& media)

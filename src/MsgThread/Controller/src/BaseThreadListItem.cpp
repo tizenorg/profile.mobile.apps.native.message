@@ -26,6 +26,7 @@ using namespace Msg;
 BaseThreadListItem::BaseThreadListItem(App &app)
     : m_App(app)
     , m_ThumbId(m_App.getThumbnailMaker().getThumbId(ThumbnailMaker::SingleThumb))
+    , m_RawTime()
 {
 
 }
@@ -102,7 +103,13 @@ void BaseThreadListItem::updateName(const std::string &address, int addressesCou
 
 void BaseThreadListItem::updateTime(time_t time)
 {
+    m_RawTime = time;
     m_Time = TimeUtils::makeThreadTimeString(time);
+}
+
+void BaseThreadListItem::updateTime()
+{
+    m_Time = TimeUtils::makeThreadTimeString(m_RawTime);
 }
 
 std::string BaseThreadListItem::getName()
@@ -123,4 +130,9 @@ std::string BaseThreadListItem::getTime()
 Evas_Object *BaseThreadListItem::getThumbnail()
 {
     return m_App.getThumbnailMaker().getThumbById(*getOwner(), m_ThumbId);
+}
+
+time_t BaseThreadListItem::getRawTime() const
+{
+    return m_RawTime;
 }

@@ -28,16 +28,17 @@ namespace
     const int additionalMessagesBulk = 50;
 }
 
-ConvList::ConvList(Evas_Object *parent, App &app)
+ConvList::ConvList(Evas_Object *parent, App &app, WorkingDirRef workingDir)
     : ConvListLayout(parent)
     , m_Mode(NormalMode)
     , m_MsgEngine(app.getMsgEngine())
     , m_pSelectAll(nullptr)
     , m_pList(nullptr)
     , m_ConvListItemMap()
-    , m_DateLineItemMap()
+    , m_DateLineItemSet()
     , m_pListner(nullptr)
     , m_App(app)
+    , m_WorkingDir(workingDir)
     , m_OwnerThumbId(m_App.getThumbnailMaker().getThumbId(ThumbnailMaker::OwnerThumb))
     , m_RecipThumbId(m_App.getThumbnailMaker().getThumbId(ThumbnailMaker::SingleThumb))
     , m_SearchWord()
@@ -49,6 +50,7 @@ ConvList::~ConvList()
 {
     m_MsgEngine.getStorage().removeListener(*this);
     m_App.getContactManager().removeListener(*this);
+    m_App.getSysSettingsManager().removeListener(*this);
 }
 
 void ConvList::setListener(IConvListListener *l)
@@ -88,6 +90,7 @@ void ConvList::create(Evas_Object *parent)
     showSelectAllMode(m_Mode == SelectMode);
 
     m_App.getContactManager().addListener(*this);
+    m_App.getSysSettingsManager().addListener(*this);
 }
 
 Evas_Object *ConvList::createSelectAll(Evas_Object *parent)
@@ -117,18 +120,15 @@ void ConvList::fill()
 
     MsgConversationListRef convList = m_MsgEngine.getStorage().getConversationList(m_ThreadId);
     int convListLen = convList->getLength();
-    m_ConvListItemMap.reserve(convListLen <= minMessagesBulk/2 ? minMessagesBulk : convListLen + additionalMessagesBulk);
-    m_DateLineItemMap.reserve(convListLen <= minMessagesBulk/2 ? minMessagesBulk : convListLen + additionalMessagesBulk);
+    int reserveSize = convListLen <= minMessagesBulk/2 ? minMessagesBulk : convListLen + additionalMessagesBulk;
+    m_ConvListItemMap.reserve(reserveSize);
+    m_DateLineItemSet.reserve(reserveSize);
 
     for(int i = 0; i < convListLen; ++i)
     {
         MsgConversationItem &item = convList->at(i);
-        ConvListItem *listItem = nullptr;
-        if(item.getDirection() == Message::MD_Received)
-            listItem = new ConvListItem(item, m_App, m_SearchWord, m_RecipThumbId);
-        else
-            listItem = new ConvListItem(item, m_App, m_SearchWord, m_OwnerThumbId);
-        appendItem(listItem);
+        const ThumbnailMaker::ThumbId &thumbId = item.getDirection() == Message::MD_Received ? m_RecipThumbId : m_OwnerThumbId;
+        appendItem(new ConvListItem(item, m_App, m_WorkingDir, m_SearchWord, thumbId));
     }
 }
 
@@ -171,6 +171,13 @@ void ConvList::navigateTo(MsgId msgId)
     ConvListItem *item = getItem(msgId);
     if(item)
         m_pList->showItem(*item, ELM_GENLIST_ITEM_SCROLLTO_MIDDLE);
+}
+
+void ConvList::navigateToLastMsg()
+{
+    ListItem *item = m_pList->getLastItem();
+    if(item)
+        m_pList->showItem(*item, ELM_GENLIST_ITEM_SCROLLTO_TOP);
 }
 
 ConvListItem *ConvList::getItem(MsgId msgId) const
@@ -216,7 +223,7 @@ void ConvList::dateLineDelIfNec(ConvListItem *item)
 
     if(needDelDateLine)
     {
-        m_DateLineItemMap.erase(prev->getDateLine());
+        m_DateLineItemSet.erase(prev->getDateLine());
         m_pList->deleteItem(*prev);
     }
 }
@@ -224,11 +231,11 @@ void ConvList::dateLineDelIfNec(ConvListItem *item)
 void ConvList::dateLineAddIfNec(ConvListItem *item)
 {
     std::string dateStr = TimeUtils::makeBubbleDateLineString(item->getRawTime());
-    auto it = m_DateLineItemMap.find(dateStr);
-    if (it == m_DateLineItemMap.end())
+    auto it = m_DateLineItemSet.find(dateStr);
+    if (it == m_DateLineItemSet.end())
     {
         DateLineViewItem *dateLine = new DateLineViewItem(dateStr);
-        m_DateLineItemMap[dateStr] = dateLine;
+        m_DateLineItemSet.insert(dateStr);
         m_pList->appendItem(*dateLine);
     }
 }
@@ -237,7 +244,7 @@ void ConvList::clear()
 {
     m_pList->clear();
     m_ConvListItemMap.clear();
-    m_DateLineItemMap.clear();
+    m_DateLineItemSet.clear();
 }
 
 void ConvList::deleteSelectedItems()
@@ -294,10 +301,9 @@ void ConvList::selectListItems(bool state)
         m_pListner->onConvListItemChecked();
 }
 
-void ConvList::onListItemSelected(ListItem &listItem)
+void ConvList::onListItemLongPressed(ListItem &listItem)
 {
     ConvListItem &item = static_cast<ConvListItem&>(listItem);
-    //TODO: replace to long touch, when it will be implement
     item.showPopup();
 }
 
@@ -330,19 +336,23 @@ void ConvList::onMsgStorageUpdate(const MsgIdList &msgIdList)
 
 void ConvList::onMsgStorageInsert(const MsgIdList &msgIdList)
 {
-    for(auto &itemId: msgIdList)
+    bool inserted = false;
+    for(MsgId msgId: msgIdList)
     {
-        MessageRef msg = m_MsgEngine.getStorage().getMessage(itemId);
+        if(getItem(msgId))
+            continue;
+
+        MessageRef msg = m_MsgEngine.getStorage().getMessage(msgId);
         if(msg && msg->getThreadId() == m_ThreadId && msg->getMessageStorageType() != Message::MS_Sim)
         {
-            if(!getItem(itemId))
-            {
-                MsgConversationItemRef item = m_MsgEngine.getStorage().getConversationItem(itemId);
-                ThumbnailMaker::ThumbId thumbId = item->getDirection() == Message::MD_Received ? m_RecipThumbId : m_OwnerThumbId;
-                appendItem(new ConvListItem(*item, m_App, m_SearchWord, thumbId));
-            }
+            MsgConversationItemRef item = m_MsgEngine.getStorage().getConversationItem(msgId);
+            const ThumbnailMaker::ThumbId &thumbId = item->getDirection() == Message::MD_Received ? m_RecipThumbId : m_OwnerThumbId;
+            appendItem(new ConvListItem(*item, m_App, m_WorkingDir, m_SearchWord, thumbId));
+            inserted = true;
         }
     }
+    if(inserted)
+        navigateToLastMsg();
 }
 
 void ConvList::onMsgStorageDelete(const MsgIdList &msgIdList)
@@ -381,5 +391,16 @@ void ConvList::onContactChanged()
     MSG_LOG("");
     updateRecipThumbId();
     updateOwnerThumbId();
+    m_pList->updateRealizedItems();
+}
+
+void ConvList::onTimeFormatChanged()
+{
+    MSG_LOG("");
+    auto items = m_pList->getItems<ConvListItem>();
+    for(ConvListItem *item : items)
+    {
+        item->updateTime();
+    }
     m_pList->updateRealizedItems();
 }

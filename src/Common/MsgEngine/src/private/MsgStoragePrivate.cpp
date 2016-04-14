@@ -277,16 +277,17 @@ MessageRef MsgStoragePrivate::getMessage(MsgId id)
 
     if(msg_get_message(m_ServiceHandle, id, msg, sendOpt) == 0)
     {
-        int msgType = MSG_TYPE_INVALID;
-        msg_get_int_value(msg, MSG_MESSAGE_TYPE_INT, &msgType);
+        int nativeType = MSG_TYPE_INVALID;
+        msg_get_int_value(msg, MSG_MESSAGE_TYPE_INT, &nativeType);
+        Message::Type type = MsgUtilsPrivate::nativeToMessageType(nativeType);
 
-        switch(msgType)
+        switch(type)
         {
-            case MSG_TYPE_SMS:
+            case Message::MT_SMS:
                 msgRef = std::make_shared<MessageSMSPrivate>(true, msg);
                 break;
 
-            case MSG_TYPE_MMS:
+            case Message::MT_MMS:
                 msgRef = std::make_shared<MessageMmsPrivate>(true, msg);
                 break;
 
@@ -401,4 +402,19 @@ bool MsgStoragePrivate::isReadReportChecked(MsgId msgId)
     msg_release_struct(&msgInfo);
     msg_release_struct(&sendOpt);
     return readFlag;
+}
+
+ThreadId MsgStoragePrivate::getThreadId(MsgId id)
+{
+    int threadId = -1;
+    msg_struct_t msg = msg_create_struct(MSG_STRUCT_MESSAGE_INFO);
+    msg_struct_t sendOpt = msg_create_struct(MSG_STRUCT_SENDOPT);
+
+    if(msg_get_message(m_ServiceHandle, id, msg, sendOpt) == 0)
+        msg_get_int_value(msg, MSG_MESSAGE_THREAD_ID_INT, &threadId);
+
+    msg_release_struct(&msg);
+    msg_release_struct(&sendOpt);
+
+    return threadId;
 }

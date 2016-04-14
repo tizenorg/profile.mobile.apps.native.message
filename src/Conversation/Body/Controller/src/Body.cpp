@@ -22,7 +22,7 @@
 #include "TextPageViewItem.h"
 #include "ImagePageViewItem.h"
 #include "VideoPageViewItem.h"
-#include "BodyMediaType.h"
+#include "MediaType.h"
 #include "MsgEngine.h"
 #include "Logger.h"
 #include "MediaUtils.h"
@@ -43,14 +43,33 @@ namespace
     {
         return page ? static_cast<TextPageViewItem*>(page.getItem(PageViewItem::TextType)) : nullptr;
     }
+
+    PageViewItem::Type msgMediaTypeToPageItemType(MsgMedia::Type type)
+    {
+        switch(type)
+        {
+            case MsgMedia::ImageType:
+                return PageViewItem::ImageType;
+            case MsgMedia::AudioType:
+                return PageViewItem::SoundType;
+            case MsgMedia::VideoType:
+                return PageViewItem::VideoType;
+            case MsgMedia::TextType:
+                return PageViewItem::TextType;
+            default:
+                return PageViewItem::UnknownType;
+        }
+    }
 }
 
-Body::Body(App &app)
+Body::Body(App &app, WorkingDirRef workingDir)
     : BodyView()
     , m_pListener(nullptr)
     , m_App(app)
+    , m_WorkingDir(workingDir)
     , m_pOnChangedIdler(nullptr)
     , m_TooLargePopupShow(false)
+    , m_TooMuchAttachedPopupShow(false)
 {
 }
 
@@ -88,14 +107,41 @@ void Body::setListener(IBodyListener *listener)
 bool Body::addMedia(const std::list<std::string> &fileList)
 {
     bool res = true;
+
+    int numAttached = getAttachmentsCountTotal();
+    int numToAttach = fileList.size();
+    int numAttachMax = m_App.getMsgEngine().getSettings().getAttachmentsMaxCount();
+
+    if((numAttached + numToAttach) > numAttachMax)
+    {
+        numToAttach = numAttachMax - numAttached;
+        if (numToAttach > 0)
+            showTooMuchAttachedPopup(numToAttach);
+    }
+
+    int i = 0;
     for(auto &file : fileList)
+    {
+        if (i > numToAttach)
+            break;
         res &= addMedia(file);
+        ++i;
+    }
     return res;
 }
 
 bool Body::addMedia(const std::string &filePath)
 {
     MSG_LOG("Try add resource:", filePath);
+
+    int numAttached = getAttachmentsCountTotal();
+    int numAttachMax = m_App.getMsgEngine().getSettings().getAttachmentsMaxCount();
+
+    if(numAttached >= numAttachMax)
+    {
+        showTooMuchAttachedPopup();
+        return false;
+    }
 
     if(!FileUtils::isExists(filePath) || FileUtils::isDir(filePath))
     {
@@ -112,13 +158,14 @@ bool Body::addMedia(const std::string &filePath)
         return false;
     }
 
-    PageViewItem::Type type = getMediaType(filePath).type;
-    MSG_LOG("Media type: ", type);
+    MediaTypeData meidaType = getMediaType(filePath);
+    MSG_LOG("Media type: ", meidaType.mime);
 
     Page *page = nullptr;
-    if(type != PageViewItem::UnknownType)
+    if(meidaType.type != MsgMedia::UnknownType &&
+       meidaType.type != MsgMedia::TextType)
     {
-        page = static_cast<Page*>(getPageForMedia(type));
+        page = static_cast<Page*>(getPageForMedia(msgMediaTypeToPageItemType(meidaType.type)));
         if(!page)
             return false;
 
@@ -183,6 +230,17 @@ long long Body::getMsgSize()
     return size;
 }
 
+int Body::getAttachmentsCountTotal() const
+{
+    int count = getAttachments().size();
+
+    auto pages = getPages();
+    for(PageView *pageView : pages)
+        count += static_cast<Page*>(pageView)->getAttachmentsCount();
+
+    return count;
+}
+
 void Body::read(Message &msg)
 {
     MSG_LOG("");
@@ -235,7 +293,7 @@ void Body::writeAttachments(const MessageMms &msg)
 void Body::writeTextToFile(TextPageViewItem &item)
 {
     if(item.getResourcePath().empty())
-        item.setResourcePath(m_WorkingDir.addTextFile(item.getPlainUtf8Text()));
+        item.setResourcePath(m_WorkingDir->addTextFile(item.getPlainUtf8Text()));
     else
         FileUtils::writeTextFile(item.getResourcePath(), item.getPlainUtf8Text());
 }
@@ -296,7 +354,7 @@ void Body::execCmd(const AppControlComposeRef &cmd)
 
 void Body::addAttachment(const std::string &filePath, const std::string &fileName)
 {
-    std::string newFilePath = m_WorkingDir.addFile(filePath);
+    std::string newFilePath = m_WorkingDir->addFile(filePath);
     if(!newFilePath.empty())
     {
         long long fileSize = FileUtils::getFileSize(newFilePath);
@@ -309,14 +367,14 @@ void Body::onItemDelete(PageViewItem &item)
 {
     MSG_LOG("");
     if(auto video = dynamic_cast<VideoPageViewItem*>(&item))
-        m_WorkingDir.removeFile(video->getImagePath());
+        m_WorkingDir->removeFile(video->getImagePath());
 
-    m_WorkingDir.removeFile(item.getResourcePath());
+    m_WorkingDir->removeFile(item.getResourcePath());
 }
 
 void Body::onItemDelete(BodyAttachmentViewItem &item)
 {
-    m_WorkingDir.removeFile(item.getResourcePath());
+    m_WorkingDir->removeFile(item.getResourcePath());
 }
 
 void Body::onClicked(MediaPageViewItem &item)
@@ -361,6 +419,38 @@ void Body::showTooLargePopup()
    }
 }
 
+void Body::showTooMuchAttachedPopup(int willBeAttached)
+{
+   if(!m_TooMuchAttachedPopupShow)
+   {
+        Popup &popup = m_App.getPopupManager().getPopup();
+        popup.addEventCb(EVAS_CALLBACK_DEL, EVAS_EVENT_CALLBACK(Body, onTooMuchAttachedPopupDel), this);
+        popup.addButton(msgt("IDS_MSG_BUTTON_OK_ABB"), Popup::OkButtonId);
+        int maxCount = m_App.getMsgEngine().getSettings().getAttachmentsMaxCount();
+        std::string content(msgArgs("IDS_MSGF_BODY_MAXIMUM_NUMBER_OF_ATTACHMENTS_HP1SS_EXCEEDED_ONLY_FIRST_P2SS_WILL_BE_ADDED", std::to_string(maxCount).c_str(), std::to_string(willBeAttached).c_str()));
+        popup.setContent(content);
+        popup.setAutoDismissBlockClickedFlag(true);
+        popup.show();
+        m_TooMuchAttachedPopupShow = true;
+   }
+}
+
+void Body::showTooMuchAttachedPopup()
+{
+   if(!m_TooMuchAttachedPopupShow)
+   {
+        Popup &popup = m_App.getPopupManager().getPopup();
+        popup.addEventCb(EVAS_CALLBACK_DEL, EVAS_EVENT_CALLBACK(Body, onTooMuchAttachedPopupDel), this);
+        popup.addButton(msgt("IDS_MSG_BUTTON_OK_ABB"), Popup::OkButtonId);
+        int maxCount = m_App.getMsgEngine().getSettings().getAttachmentsMaxCount();
+        std::string content(msgArgs("IDS_MSGF_POP_MAXIMUM_NUMBER_OF_ATTACHMENTS_HPS_EXCEEDED", std::to_string(maxCount).c_str()));
+        popup.setContent(content);
+        popup.setAutoDismissBlockClickedFlag(true);
+        popup.show();
+        m_TooMuchAttachedPopupShow = true;
+   }
+}
+
 void Body::onRemoveMediaItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
@@ -385,6 +475,12 @@ void Body::onTooLargePopupDel(Evas_Object *obj, void *eventInfo)
     m_TooLargePopupShow = false;
 }
 
+void Body::onTooMuchAttachedPopupDel(Evas_Object *obj, void *eventInfo)
+{
+    MSG_LOG("");
+    m_TooMuchAttachedPopupShow = false;
+}
+
 std::string Body::createVcfFile(const AppControlComposeRef &cmd)
 {
     auto &idList = cmd->getVcfInfo().contactsIdList;
@@ -402,7 +498,7 @@ std::string Body::createVcfFile(const AppControlComposeRef &cmd)
         path = contactsFileName;
     }
 
-    path = content.empty() ? std::string() : m_WorkingDir.addTextFile(content, path);
+    path = content.empty() ? std::string() : m_WorkingDir->addTextFile(content, path);
 
     return path;
 }

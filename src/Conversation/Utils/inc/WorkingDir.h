@@ -19,6 +19,7 @@
 #define WorkingDir_h_
 
 #include <string>
+#include <memory>
 
 namespace Msg
 {
@@ -48,6 +49,8 @@ namespace Msg
         private:
             std::string m_Path;
     };
+
+    typedef std::shared_ptr<WorkingDir> WorkingDirRef;
 }
 
 #endif /* WorkingDir_h_ */

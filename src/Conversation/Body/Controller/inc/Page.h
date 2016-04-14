@@ -33,9 +33,10 @@ namespace Msg
 
 
         public:
-            Page(Body &parent, WorkingDir &workingDir);
+            Page(Body &parent, WorkingDirRef workingDir);
             virtual ~Page();
 
+            int getAttachmentsCount() const;
             const MsgTextMetric &getTextMetric();
             long long getSize();
             bool isMms();
@@ -64,7 +65,7 @@ namespace Msg
         private:
             Body &m_Body;
             MsgTextMetric m_MsgMetric;
-            WorkingDir &m_WorkingDir;
+            WorkingDirRef m_WorkingDir;
     };
 }
 

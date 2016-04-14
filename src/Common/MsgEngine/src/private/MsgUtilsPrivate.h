@@ -35,7 +35,6 @@ namespace Msg
             static int directionToNative(Message::Direction direction);
             static int addressTypeToNative(MsgAddress::AddressType type);
             static int recipientTypeToNative(MsgAddress::RecipientType type);
-            static int messageTypeToNative(Message::Type type);
             static Message::Direction nativeToDirection(int direction);
             static Message::MessageStorageType nativeToMessageStorage(int id);
             static MsgAddress::AddressType nativeToAddressType(int type);
@@ -44,8 +43,8 @@ namespace Msg
             static MsgReport::ReadStatus nativeToReportReadStatus(int status);
             static MsgReport::Type nativeToReportType(int type);
             static Message::Type nativeToMessageType(int type);
-            static MsgMedia::SmilType nativeToSmilType(int type);
-            static int smilTypeToNative(MsgMedia::SmilType type);
+            static MsgMedia::Type nativeToSmilType(int type);
+            static int smilTypeToNative(MsgMedia::Type type);
             static Message::NetworkStatus nativeToNetworkStatus(int status);
 
             static std::string getStr(msg_struct_t msgStruct, int field, int maxStrLen);

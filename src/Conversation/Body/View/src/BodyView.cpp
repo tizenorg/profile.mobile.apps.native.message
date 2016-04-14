@@ -19,7 +19,7 @@
 #include "PageView.h"
 #include "PageSeparator.h"
 #include "Logger.h"
-#include "BodyMediaType.h"
+#include "MediaType.h"
 
 #include <assert.h>
 #include <algorithm>
@@ -435,14 +435,21 @@ void BodyView::updateLastFocusedPage(PageViewItem &pageItem)
 
 PageView *BodyView::getPageForMedia(PageViewItem::Type type)
 {
-    PageView *page = m_pLastFocusedPage;
+    if(m_pLastFocusedPage && m_pLastFocusedPage->canItemBeAdded(type))
+    {
+        return m_pLastFocusedPage;
+    }
+    else
+    {
+        auto pages = getPages();
+        for(PageView *page : pages)
+        {
+            if(page->canItemBeAdded(type))
+                return page;
+        }
+    }
 
-    if(page && page->canItemBeAdded(type))
-        return page;
-
-    page = addPage();
-
-    return page;
+    return addPage();
 }
 
 void BodyView::removePage(PageView &page, bool setNextFocus)
