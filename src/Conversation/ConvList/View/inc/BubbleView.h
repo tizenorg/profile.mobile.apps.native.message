@@ -27,6 +27,7 @@
 namespace Msg
 {
     class BubbleView;
+    class IBubbleViewListener;
 
     class BubbleEntity
     {
@@ -39,7 +40,8 @@ namespace Msg
             {
                 TextItem,
                 ImageItem,
-                VideoItem
+                VideoItem,
+                DownloadButtonItem
             };
 
             /**
@@ -47,7 +49,7 @@ namespace Msg
              * @param[in] type Set which type is @value
              * @param[in] value Resource path or raw text to display
              */
-            void addItem(ItemType type, const std::string &value);
+            void addItem(ItemType type, const std::string &value = std::string());
 
         private:
             BubbleEntity(BubbleEntity&) = delete;
@@ -75,12 +77,25 @@ namespace Msg
              * @param[in] entity Filled list of contents
              */
             void fill(const BubbleEntity &entity);
+            void setListener(IBubbleViewListener *listener);
 
         private:
             void create(Evas_Object *parent);
             Evas_Object *createText(const std::string &text);
             Evas_Object *createImage(const std::string &path);
             Evas_Object *createVideo(const std::string &path);
+            Evas_Object *createDownloadButton();
+            void onDownloadPressed(Evas_Object *obj, void *event_info);
+
+        private:
+            IBubbleViewListener *m_pListener;
+    };
+
+    class IBubbleViewListener
+    {
+        public:
+            virtual ~IBubbleViewListener() {}
+            virtual void onDownloadButtonClicked() {};
     };
 }
 

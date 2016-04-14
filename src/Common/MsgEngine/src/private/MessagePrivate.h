@@ -36,6 +36,7 @@ namespace Msg
             virtual MsgId getId() const;
             virtual ThreadId getThreadId() const;
             virtual time_t getTime() const;
+            virtual time_t getExpired() const;
             virtual const MsgAddressListHandlePrivate &getAddressList() const;
             virtual MsgAddressPrivate &addAddress();
             virtual void addAddresses(const MsgAddressList &list);
@@ -50,13 +51,11 @@ namespace Msg
             virtual void setSubject(const std::string &text);
             virtual void setMessageStorageType(Message::MessageStorageType msgStorage);
             virtual Message::MessageStorageType getMessageStorageType() const;
+            virtual bool isMms() const;
 
             void setId(MsgId id);
             void set(msg_struct_t msgStruct);
             virtual void commit();
-
-        private:
-            bool isMms() const;
 
         protected:
             mutable MsgAddressPrivate m_Address;

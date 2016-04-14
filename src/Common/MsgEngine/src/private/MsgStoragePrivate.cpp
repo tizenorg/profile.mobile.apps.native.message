@@ -18,7 +18,6 @@
 #include "MsgThreadItemPrivate.h"
 #include "MessageSMSPrivate.h"
 #include "MessageMmsPrivate.h"
-#include "MsgUtils.h"
 #include "MsgAddressPrivate.h"
 #include "MsgConversationItemPrivate.h"
 #include "Logger.h"
@@ -281,20 +280,10 @@ MessageRef MsgStoragePrivate::getMessage(MsgId id)
         msg_get_int_value(msg, MSG_MESSAGE_TYPE_INT, &nativeType);
         Message::Type type = MsgUtilsPrivate::nativeToMessageType(nativeType);
 
-        switch(type)
-        {
-            case Message::MT_SMS:
-                msgRef = std::make_shared<MessageSMSPrivate>(true, msg);
-                break;
-
-            case Message::MT_MMS:
-                msgRef = std::make_shared<MessageMmsPrivate>(true, msg);
-                break;
-
-            default:
-                msg_release_struct(&msg);
-                MSG_ASSERT(false, "Unsupported message type");
-        }
+        if (MsgUtils::isMms(type))
+            msgRef = std::make_shared<MessageMmsPrivate>(true, msg);
+        else
+            msgRef = std::make_shared<MessageSMSPrivate>(true, msg);
     }
     else
     {

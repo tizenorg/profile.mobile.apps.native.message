@@ -20,6 +20,7 @@
 #include "Message.h"
 #include "MsgMedia.h"
 #include "MsgReport.h"
+#include "MsgUtils.h"
 
 #include <msg_storage.h>
 #include <msg_types.h>
