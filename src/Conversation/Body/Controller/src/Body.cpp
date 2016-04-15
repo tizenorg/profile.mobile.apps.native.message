@@ -70,6 +70,7 @@ Body::Body(App &app, WorkingDirRef workingDir)
     , m_pOnChangedIdler(nullptr)
     , m_TooLargePopupShow(false)
     , m_TooMuchAttachedPopupShow(false)
+    , m_MmsRecipFlag(false)
 {
 }
 
@@ -186,6 +187,9 @@ bool Body::addMedia(const std::string &filePath)
 
 bool Body::isMms()
 {
+    if(m_MmsRecipFlag)
+        return true;
+
     auto pages = getPages();
 
     if(pages.size() > 1)
@@ -201,6 +205,11 @@ bool Body::isMms()
     }
 
     return false;
+}
+
+void Body::setMmsRecipFlag(bool value)
+{
+    m_MmsRecipFlag = value;
 }
 
 const MsgTextMetric &Body::getTextMetric()

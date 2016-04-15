@@ -237,7 +237,10 @@ void Conversation::setThreadId(ThreadId id, const std::string &searchWord)
 {
     m_ThreadId = id;
     setMode(m_ThreadId.isValid() ? ConversationMode : NewMessageMode);
+
     m_pBody->clear();
+    m_pBody->setMmsRecipFlag( getMsgEngine().getStorage().hasEmail(m_ThreadId));
+
     if(m_pRecipPanel)
     {
         m_pRecipPanel->clear();
@@ -245,7 +248,9 @@ void Conversation::setThreadId(ThreadId id, const std::string &searchWord)
     }
     if(m_pConvList)
         m_pConvList->setThreadId(m_ThreadId, searchWord);
+
     markAsRead();
+    checkAndSetMsgType();
 }
 
 void Conversation::setListener(IConversationListener *listener)
@@ -497,7 +502,6 @@ void Conversation::saveDraftMsg()
     if(!isBodyEmpty())
     {
         MessageRef msg = getMsgEngine().getComposer().createMessage(m_IsMms ? Message::MT_MMS : Message::MT_SMS);
-
         if(msg)
         {
             read(*msg);
@@ -535,6 +539,7 @@ void Conversation::notifyConvertMsgType()
 void Conversation::convertMsgTypeHandler()
 {
     MSG_LOG("Is MMS: ", m_IsMms);
+    updateMsgInputPanel();
     notifyConvertMsgType();
 }
 
@@ -664,6 +669,7 @@ void Conversation::onEntryFocusChanged(ConvRecipientsPanel &panel)
 void Conversation::onMbeChanged(ConvRecipientsPanel &panel)
 {
     MSG_LOG("");
+    m_pBody->setMmsRecipFlag(m_pRecipPanel->isMms());
     checkAndSetMsgType();
 }
 

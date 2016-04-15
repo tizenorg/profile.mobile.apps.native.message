@@ -51,6 +51,7 @@ namespace Msg
             bool addMedia(const std::string &filePath);
 
             bool isMms();
+            void setMmsRecipFlag(bool value);
             const MsgTextMetric &getTextMetric();
             long long getMsgSize();
             int getAttachmentsCountTotal() const;
@@ -99,6 +100,7 @@ namespace Msg
             Ecore_Idler *m_pOnChangedIdler;
             bool m_TooLargePopupShow;
             bool m_TooMuchAttachedPopupShow;
+            bool m_MmsRecipFlag;
     };
 
     class IBodyListener

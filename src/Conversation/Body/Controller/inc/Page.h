@@ -66,6 +66,7 @@ namespace Msg
             Body &m_Body;
             MsgTextMetric m_MsgMetric;
             WorkingDirRef m_WorkingDir;
+            int m_Utf8TextSize;
     };
 }
 

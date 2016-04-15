@@ -54,6 +54,7 @@ namespace Msg
             virtual MsgThreadListRef searchThread(const std::string &word) = 0;
             virtual void setReadStatus(ThreadId id) = 0;
             virtual int getUnreadThreadCount() const = 0;
+            bool hasEmail(ThreadId id);
 
             // Message:
             virtual MessageSMSListRef getSimMsgList() = 0;

@@ -38,6 +38,7 @@ Page::Page(Body &parent, WorkingDirRef workingDir)
     , m_Body(parent)
     , m_MsgMetric()
     , m_WorkingDir(workingDir)
+    , m_Utf8TextSize(0)
 {
 }
 
@@ -59,6 +60,7 @@ void Page::updateMsgMetricIfNeeded()
         if(item->hasChanged())
         {
             std::string text = item->getPlainUtf8Text();
+            m_Utf8TextSize = text.length();
             MsgEngine::calculateTextMetric(text, m_MsgMetric);
             item->resetChangedFlag();
         }
@@ -84,8 +86,7 @@ long long Page::getSize()
         }
     }
     updateMsgMetricIfNeeded();
-    totalSize += m_MsgMetric.bytes;
-
+    totalSize += m_Body.isMms() ? m_Utf8TextSize : m_MsgMetric.bytes;
     return totalSize;
 }
 
