@@ -30,6 +30,8 @@ ConvRecipientsPanelView::ConvRecipientsPanelView(Evas_Object *parent, int entryM
     : View()
     , m_pLayout(nullptr)
     , m_pEntry(nullptr)
+    , m_pEntryFocusJob(nullptr)
+    , m_EntryFocus(false)
     , m_pContactBtn(nullptr)
     , m_pRect(nullptr)
     , m_EntryMaxCharCount(entryMaxCharCount)
@@ -39,15 +41,20 @@ ConvRecipientsPanelView::ConvRecipientsPanelView(Evas_Object *parent, int entryM
     create(parent);
 }
 
+ConvRecipientsPanelView::~ConvRecipientsPanelView()
+{
+    if(m_pEntryFocusJob)
+    {
+        ecore_job_del(m_pEntryFocusJob);
+        m_pEntryFocusJob = nullptr;
+    }
+}
+
 void ConvRecipientsPanelView::setMbe(MbeRecipientsView *pMbe)
 {
     m_pMbe = pMbe;
     addGeometryChangedCb(*m_pMbe);
     elm_object_part_content_set(m_pLayout, "swl.mbe", *m_pMbe);
-}
-
-ConvRecipientsPanelView::~ConvRecipientsPanelView()
-{
 }
 
 void ConvRecipientsPanelView::addGeometryChangedCb(Evas_Object *obj)
@@ -66,7 +73,20 @@ bool ConvRecipientsPanelView::getEntryFocus() const
 
 void ConvRecipientsPanelView::setEntryFocus(bool val)
 {
-    elm_object_focus_set(m_pEntry, val);
+    m_EntryFocus = val;
+    if(!m_pEntryFocusJob)
+    {
+        m_pEntryFocusJob = ecore_job_add
+        (
+            [](void *data)
+            {
+                auto *self =(ConvRecipientsPanelView*)data;
+                self->m_pEntryFocusJob = nullptr;
+                elm_object_focus_set(self->m_pEntry, self->m_EntryFocus);
+            },
+            this
+        );
+    }
 }
 
 void ConvRecipientsPanelView::clearEntry()

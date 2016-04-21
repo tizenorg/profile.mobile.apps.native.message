@@ -186,7 +186,7 @@ void Conversation::recipientClickHandler(const std::string &address)
 void Conversation::showSavedRecipientPopup(const std::string &title, int personId)
 {
     PopupList &popup = createPopupList(title);
-    popup.appendItem(msg("IDS_MSGF_OPT_REMOVE"), POPUPLIST_ITEM_PRESSED_CB(Conversation, onRemoveItemPressed), this);
+    popup.appendItem(msg("IDS_MSGF_OPT_REMOVE"), POPUPLIST_ITEM_PRESSED_CB(Conversation, onRecipRemoveItemPressed), this);
     popup.appendItem(msg("IDS_MSG_OPT_EDIT"), POPUPLIST_ITEM_PRESSED_CB(Conversation, onEditItemPressed), this);
     popup.appendItem(*new PopupPersonIdListItem(popup, msg("IDS_MSG_OPT_VIEW_CONTACT_DETAILS_ABB"), personId,
             POPUPLIST_ITEM_PRESSED_CB(Conversation, onViewContactDetailsItemPressed), this));
@@ -199,7 +199,7 @@ void Conversation::showUnsavedRecipientPopup(const std::string &address)
     if(m_Mode == NewMessageMode)
     {
         popup.appendItem(*new PopupAddressListItem(popup, msg("IDS_MSGF_OPT_REMOVE"), address,
-                POPUPLIST_ITEM_PRESSED_CB(Conversation, onRemoveItemPressed), this));
+                POPUPLIST_ITEM_PRESSED_CB(Conversation, onRecipRemoveItemPressed), this));
 
         popup.appendItem(*new PopupAddressListItem(popup, msg("IDS_MSG_OPT_EDIT"), address,
                 POPUPLIST_ITEM_PRESSED_CB(Conversation, onEditItemPressed), this));
@@ -974,11 +974,12 @@ void Conversation::onUpdateContactItemPressed(PopupListItem &item)
     m_ContactEditor.launch(address, ContactEditor::EditOp);
 }
 
-void Conversation::onRemoveItemPressed(PopupListItem &item)
+void Conversation::onRecipRemoveItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
     item.getParent().destroy();
     m_pRecipPanel->removeSelectedItem();
+    m_pRecipPanel->setEntryFocus(true);
 }
 
 void Conversation::onEditItemPressed(PopupListItem &item)

@@ -115,7 +115,7 @@ namespace Msg
             void onMakeVoiceItemPressed(PopupListItem &item);
             void onCreateContactItemPressed(PopupListItem &item);
             void onUpdateContactItemPressed(PopupListItem &item);
-            void onRemoveItemPressed(PopupListItem &item);
+            void onRecipRemoveItemPressed(PopupListItem &item);
             void onEditItemPressed(PopupListItem &item);
             void onViewContactDetailsItemPressed(PopupListItem &item);
 

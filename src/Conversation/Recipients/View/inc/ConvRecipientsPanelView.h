@@ -97,6 +97,8 @@ namespace Msg
         private:
             Evas_Object *m_pLayout;
             Evas_Object *m_pEntry;
+            Ecore_Job *m_pEntryFocusJob;
+            bool m_EntryFocus;
             Evas_Object *m_pContactBtn;
             Evas_Object *m_pRect;
             int m_EntryMaxCharCount;
