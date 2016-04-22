@@ -39,6 +39,7 @@ collections {
 	RESOURCE_IMAGE("btn_conversation_add.png");
 	RESOURCE_IMAGE("btn_conversation_emotion.png");
 	RESOURCE_IMAGE("icon_btn_contact.png");
+	RESOURCE_IMAGE("core_button_add.png");
 	RESOURCE_IMAGE_NO_ASPECT("btn_conversation_message_sending.png");
 	RESOURCE_IMAGE_NO_ASPECT("btn_conversation_mms_message_sending.png");
 	RESOURCE_IMAGE("M01_icon_send_schedule.png");

@@ -2259,6 +2259,7 @@ BUTTON_ICON_STYLES("send_custom",  46 , 40)
 
 BUTTON_BODY_STYLES("body_button",50,50,50,50)
 BUTTON_BODY_STYLES("contact_button",46,46,75,87)
+BUTTON_BODY_STYLES("plus_button",80,80,80,80)
 
 ///////////////////////////////////////////////////////////////////
 // button for navi title
