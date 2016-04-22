@@ -81,7 +81,7 @@ FOREACH(flag ${pkgs_CFLAGS})
     SET(EXTRA_CXXFLAGS "${EXTRA_CXXFLAGS} ${flag}")
 ENDFOREACH(flag)
 
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${EXTRA_CXXFLAGS} -fpie -Wall -std=c++11 -fpermissive -flto -fvisibility=hidden")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${EXTRA_CXXFLAGS} -Wall -std=c++11 -fpermissive -flto -fvisibility=hidden")
 
 #Set executable
 ADD_EXECUTABLE(${PROJECT_NAME} ${SRCS})
