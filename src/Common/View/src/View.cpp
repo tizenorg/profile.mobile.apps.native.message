@@ -132,7 +132,7 @@ Evas_Object *View::addLayout(Evas_Object *parent, const std::string &edjePath, c
     return layout;
 }
 
-std::string Msg::mrkupToUtf8(const char *str)
+std::string Msg::markupToUtf8(const char *str)
 {
     if(!str)
         return std::string();
@@ -164,9 +164,9 @@ std::string Msg::utf8ToMarkup(const char *str)
     return res;
 }
 
-std::string Msg::mrkupToUtf8(const std::string &str)
+std::string Msg::markupToUtf8(const std::string &str)
 {
-    return mrkupToUtf8(str.c_str());
+    return markupToUtf8(str.c_str());
 }
 
 std::string Msg::utf8ToMarkup(const std::string &str)

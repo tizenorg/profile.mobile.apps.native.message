@@ -29,7 +29,7 @@ namespace Msg
         : public PageViewItem
     {
         public:
-            TextPageViewItem(PageView &parent);
+            TextPageViewItem(PageView &parent, int maxCharCount);
             virtual ~TextPageViewItem();
 
             virtual Type getType() const;
@@ -50,7 +50,8 @@ namespace Msg
             void setText(const std::string &text);
 
         private:
-            Evas_Object *createEntry(Evas_Object *parent);
+            Evas_Object *createEntry(Evas_Object *parent, int maxCharCount);
+            static void entryFilterCheckBoundary(void *data, Evas_Object *entry, char **text);
 
             template<class...Args>
             static void notifyListener(void *data, void (ITextPageViewItemListener::*method)(TextPageViewItem &, Args...args), Args&&...args);
@@ -75,6 +76,7 @@ namespace Msg
             virtual void onMaxLengthReached(TextPageViewItem &obj) {};
             virtual void onKeyDown(TextPageViewItem &obj, Evas_Event_Key_Down &event) {};
             virtual void onKeyUp(TextPageViewItem &obj, Evas_Event_Key_Up &event) {};
+            virtual void onCheckBoundaryText(TextPageViewItem &obj, char **text) {};
     };
 }
 

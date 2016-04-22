@@ -124,6 +124,11 @@ int MsgSettingsPrivate::getMaxMmsSize() const
     return res;
 }
 
+int MsgSettingsPrivate::getMaxMsgTextLen() const
+{
+    return MAX_MSG_TEXT_LEN;
+}
+
 void MsgSettingsPrivate::setAlerts(bool value)
 {
     msg_set_bool_value(m_GeneralOpt, MSG_GENERAL_MSG_NOTIFICATION_BOOL, value);

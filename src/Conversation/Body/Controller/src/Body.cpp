@@ -31,6 +31,7 @@
 
 #include <assert.h>
 #include <string.h>
+#include <notification_status.h>
 
 using namespace Msg;
 
@@ -96,7 +97,7 @@ Body::~Body()
 Page &Body::createPage()
 {
     Page *page = new Page(*this, m_WorkingDir);
-    BodyView::addText(*page);
+    BodyView::addText(*page, m_App.getMsgEngine().getSettings().getMaxMsgTextLen());
     return *page;
 }
 
@@ -386,6 +387,28 @@ void Body::onItemDelete(BodyAttachmentViewItem &item)
     m_WorkingDir->removeFile(item.getResourcePath());
 }
 
+void Body::onMaxLengthReached(TextPageViewItem &item)
+{
+    MSG_LOG("");
+    showMaxCharactersPopup();
+}
+
+void Body::onCheckBoundaryText(TextPageViewItem &item, char **text)
+{
+    MSG_LOG("");
+    if(isMms())
+    {
+        int maxSize = m_App.getMsgEngine().getSettings().getMaxMmsSize();
+        std::string utfText = markupToUtf8(*text);
+        if(getMsgSize() + utfText.size() > maxSize)
+        {
+            free(*text);
+            *text = nullptr;
+            showMaxCharactersPopup();
+        }
+    }
+}
+
 void Body::onClicked(MediaPageViewItem &item)
 {
     MSG_LOG("");
@@ -458,6 +481,13 @@ void Body::showTooMuchAttachedPopup()
         popup.show();
         m_TooMuchAttachedPopupShow = true;
    }
+}
+
+void Body::showMaxCharactersPopup()
+{
+    MSG_LOG("");
+    std::string notifText = msg("IDS_MSGF_POP_MAXIMUM_CHARACTERS");
+    notification_status_message_post(notifText.c_str());
 }
 
 void Body::onRemoveMediaItemPressed(PopupListItem &item)
