@@ -25,14 +25,19 @@
 
 using namespace Msg;
 
+namespace
+{
+    const char *buttonPart = "swl.contact_btn";
+}
 
 ConvRecipientsPanelView::ConvRecipientsPanelView(Evas_Object *parent, int entryMaxCharCount)
     : View()
     , m_pLayout(nullptr)
     , m_pEntry(nullptr)
-    , m_pEntryFocusJob(nullptr)
+    , m_pEntryFocusIdler(nullptr)
     , m_EntryFocus(false)
     , m_pContactBtn(nullptr)
+    , m_pPlusBtn(nullptr)
     , m_pRect(nullptr)
     , m_EntryMaxCharCount(entryMaxCharCount)
     , m_IsMbeVisible(false)
@@ -43,10 +48,10 @@ ConvRecipientsPanelView::ConvRecipientsPanelView(Evas_Object *parent, int entryM
 
 ConvRecipientsPanelView::~ConvRecipientsPanelView()
 {
-    if(m_pEntryFocusJob)
+    if(m_pEntryFocusIdler)
     {
-        ecore_job_del(m_pEntryFocusJob);
-        m_pEntryFocusJob = nullptr;
+        ecore_idler_del(m_pEntryFocusIdler);
+        m_pEntryFocusIdler = nullptr;
     }
 }
 
@@ -55,6 +60,31 @@ void ConvRecipientsPanelView::setMbe(MbeRecipientsView *pMbe)
     m_pMbe = pMbe;
     addGeometryChangedCb(*m_pMbe);
     elm_object_part_content_set(m_pLayout, "swl.mbe", *m_pMbe);
+}
+
+void ConvRecipientsPanelView::showButton(ButtonType buttonType)
+{
+    Evas_Object *button = elm_object_part_content_unset(m_pLayout, buttonPart);
+    if(button)
+        evas_object_hide(button);
+
+    switch(buttonType)
+    {
+        case NoneButton:
+            break;
+
+        case ContactButton:
+            elm_object_part_content_set(m_pLayout, buttonPart, getContactBtn());
+            break;
+
+        case PlusButton:
+            elm_object_part_content_set(m_pLayout, buttonPart, getPlusBtn());
+            break;
+
+        default:
+            assert(false);
+            break;
+    }
 }
 
 void ConvRecipientsPanelView::addGeometryChangedCb(Evas_Object *obj)
@@ -74,15 +104,16 @@ bool ConvRecipientsPanelView::getEntryFocus() const
 void ConvRecipientsPanelView::setEntryFocus(bool val)
 {
     m_EntryFocus = val;
-    if(!m_pEntryFocusJob)
+    if(!m_pEntryFocusIdler)
     {
-        m_pEntryFocusJob = ecore_job_add
+        m_pEntryFocusIdler = ecore_idler_add
         (
-            [](void *data)
+            [](void *data)->Eina_Bool
             {
                 auto *self =(ConvRecipientsPanelView*)data;
-                self->m_pEntryFocusJob = nullptr;
+                self->m_pEntryFocusIdler = nullptr;
                 elm_object_focus_set(self->m_pEntry, self->m_EntryFocus);
+                return false; // Delete idler
             },
             this
         );
@@ -130,26 +161,12 @@ bool ConvRecipientsPanelView::isMbeVisible() const
 
 std::string ConvRecipientsPanelView::getEntryText() const
 {
-    std::string result;
-
-    const char *text = elm_entry_entry_get(m_pEntry);
-
-    if(text)
-    {
-        char *utf8 = elm_entry_markup_to_utf8(text);
-
-        if(utf8)
-            result.assign(utf8);
-        free(utf8);
-    }
-
-    return result;
+    return mrkupToUtf8(elm_entry_entry_get(m_pEntry));
 }
 
 void ConvRecipientsPanelView::setEntryText(const std::string &utf8)
 {
     char *text = elm_entry_utf8_to_markup(utf8.c_str());
-
     if(text)
     {
         elm_entry_entry_set(m_pEntry, text);
@@ -178,10 +195,8 @@ void ConvRecipientsPanelView::create(Evas_Object *parent)
 
     createAreaRect(m_pLayout);
     Evas_Object *entry =  createEntry(m_pLayout);
-    Evas_Object *button = createContactBtn(m_pLayout);
 
     elm_object_part_content_set(m_pLayout, "swl.entry", entry);
-    elm_object_part_content_set(m_pLayout, "swl.contact_btn", button);
 }
 
 Evas_Object *ConvRecipientsPanelView::createEntry(Evas_Object *parent)
@@ -222,12 +237,21 @@ Evas_Object *ConvRecipientsPanelView::createAreaRect(Evas_Object *parent)
     return m_pRect;
 }
 
-Evas_Object *ConvRecipientsPanelView::createContactBtn(Evas_Object *parent)
+Evas_Object *ConvRecipientsPanelView::getContactBtn()
 {
-    m_pContactBtn = elm_button_add(parent);
+    if(m_pContactBtn)
+    {
+        evas_object_show(m_pContactBtn);
+        return m_pContactBtn;
+    }
+
+    m_pContactBtn = elm_button_add(m_pLayout);
+    elm_object_focus_allow_set(m_pContactBtn, false);
+    evas_object_hide(m_pContactBtn);
     elm_object_style_set(m_pContactBtn, "contact_button");
 
-    Evas_Object *icon = elm_image_add(parent);
+    Evas_Object *icon = elm_image_add(m_pLayout);
+    evas_object_show(icon);
     std::string imgPath = PathUtils::getResourcePath(IMAGES_EDJ_PATH);
     elm_image_file_set(icon, imgPath.c_str(), CONTACT_IMG);
 
@@ -235,13 +259,42 @@ Evas_Object *ConvRecipientsPanelView::createContactBtn(Evas_Object *parent)
     elm_image_resizable_set(icon, EINA_TRUE, EINA_TRUE);
     evas_object_color_set(icon, BUTTON_COLOR);
 
-    evas_object_smart_callback_add(m_pContactBtn, "pressed", SMART_CALLBACK(ConvRecipientsPanelView, onContactBtnPressed), this);
-    evas_object_smart_callback_add(m_pContactBtn, "unpressed", SMART_CALLBACK(ConvRecipientsPanelView, onContactBtnUnpressed), this);
+    evas_object_smart_callback_add(m_pContactBtn, "pressed", SMART_CALLBACK(ConvRecipientsPanelView, onBtnPressed), this);
+    evas_object_smart_callback_add(m_pContactBtn, "unpressed", SMART_CALLBACK(ConvRecipientsPanelView, onBtnUnpressed), this);
     evas_object_smart_callback_add(m_pContactBtn, "clicked", SMART_CALLBACK(ConvRecipientsPanelView, onContactBtnClicked), this);
 
-    setContactBtnColor(BUTTON_COLOR);
+    setContactBtnColor(m_pContactBtn, BUTTON_COLOR);
 
     return m_pContactBtn;
+}
+
+Evas_Object *ConvRecipientsPanelView::getPlusBtn()
+{
+    if(m_pPlusBtn)
+    {
+        evas_object_show(m_pPlusBtn);
+        return m_pPlusBtn;
+    }
+
+    m_pPlusBtn = elm_button_add(m_pLayout);
+    elm_object_focus_allow_set(m_pPlusBtn, false);
+    evas_object_hide(m_pPlusBtn);
+    elm_object_style_set(m_pPlusBtn, "plus_button");
+
+    Evas_Object *icon = elm_image_add(m_pLayout);
+    evas_object_show(icon);
+    std::string imgPath = PathUtils::getResourcePath(IMAGES_EDJ_PATH);
+    elm_image_file_set(icon, imgPath.c_str(), ADD_PLUS_ICON);
+    elm_image_resizable_set(icon, EINA_TRUE, EINA_TRUE);
+    evas_object_color_set(icon, BUTTON_COLOR);
+
+    elm_object_part_content_set(m_pPlusBtn, "button_center_part", icon);
+
+    evas_object_smart_callback_add(m_pPlusBtn, "pressed", SMART_CALLBACK(ConvRecipientsPanelView, onBtnPressed), this);
+    evas_object_smart_callback_add(m_pPlusBtn, "unpressed", SMART_CALLBACK(ConvRecipientsPanelView, onBtnUnpressed), this);
+    evas_object_smart_callback_add(m_pPlusBtn, "clicked", SMART_CALLBACK(ConvRecipientsPanelView, onPlusBtnClicked), this);
+
+    return m_pPlusBtn;
 }
 
 Evas_Object *ConvRecipientsPanelView::getAreaRect() const
@@ -267,9 +320,9 @@ void ConvRecipientsPanelView::onGeometryChanged(Evas_Object *obj, void *event_in
     evas_object_size_hint_min_set(m_pRect, w, bottom - lyayoutTop);
 }
 
-void ConvRecipientsPanelView::setContactBtnColor(int r, int g, int b, int a)
+void ConvRecipientsPanelView::setContactBtnColor(Evas_Object *btn, int r, int g, int b, int a)
 {
-    Evas_Object *icon = elm_object_part_content_get(m_pContactBtn, "button_center_part");
+    Evas_Object *icon = elm_object_part_content_get(btn, "button_center_part");
     evas_object_color_set(icon, r, g, b, a);
 }
 
@@ -350,12 +403,11 @@ void ConvRecipientsPanelView::updateShortenedRecipients()
 
 void ConvRecipientsPanelView::onEntryChanged(Evas_Object *obj, void *event_info)
 {
-    unselectMbeItem();
+    onEntryChanged();
 }
 
 void ConvRecipientsPanelView::onEntryFocusChanged(Evas_Object *obj, void *event_info)
 {
-    unselectMbeItem();
     onEntryFocusChanged();
 }
 
@@ -377,19 +429,24 @@ void ConvRecipientsPanelView::onKeyDown(Evas_Object *obj, void *event_info)
     onKeyDown(ev);
 }
 
-void ConvRecipientsPanelView::onContactBtnPressed(Evas_Object *obj, void *event_info)
+void ConvRecipientsPanelView::onBtnPressed(Evas_Object *obj, void *event_info)
 {
-    setContactBtnColor(BUTTON_PRESSED_COLOR);
+    setContactBtnColor(obj, BUTTON_PRESSED_COLOR);
 }
 
-void ConvRecipientsPanelView::onContactBtnUnpressed(Evas_Object *obj, void *event_info)
+void ConvRecipientsPanelView::onBtnUnpressed(Evas_Object *obj, void *event_info)
 {
-    setContactBtnColor(BUTTON_COLOR);
+    setContactBtnColor(obj, BUTTON_COLOR);
 }
 
 void ConvRecipientsPanelView::onContactBtnClicked(Evas_Object *obj, void *event_info)
 {
     onContactButtonClicked();
+}
+
+void ConvRecipientsPanelView::onPlusBtnClicked(Evas_Object *obj, void *event_info)
+{
+    onPlusButtonClicked();
 }
 
 MbeRecipientItem *ConvRecipientsPanelView::getSelectedItem() const

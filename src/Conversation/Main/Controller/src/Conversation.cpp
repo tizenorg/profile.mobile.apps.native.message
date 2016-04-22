@@ -168,9 +168,7 @@ void Conversation::recipientClickHandler(const std::string &address)
         {
             MbeRecipientItem *pItem = m_pRecipPanel->getSelectedItem();
             if(pItem)
-            {
                 showSavedRecipientPopup(pItem->getDispName(), selectedPersonId);
-            }
         }
         else if(m_Mode == ConversationMode)
         {

@@ -57,6 +57,8 @@ namespace Msg
             virtual void onKeyDown(Evas_Event_Key_Down *ev);
             virtual void onEntryFocusChanged();
             virtual void onContactButtonClicked();
+            virtual void onPlusButtonClicked();
+            virtual void onEntryChanged();
 
             // IMbeRecipientsListener
             virtual void onMbeItemClicked(MbeRecipientItem &item);
