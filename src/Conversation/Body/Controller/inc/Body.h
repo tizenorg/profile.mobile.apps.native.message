@@ -65,6 +65,7 @@ namespace Msg
             void showTooLargePopup();
             void showTooMuchAttachedPopup(int willBeAttached);
             void showTooMuchAttachedPopup();
+            void showMaxCharactersPopup();
             void read(MessageSMS &msg);
             void read(MessageMms &msg);
             void readAttachments(MessageMms &msg);
@@ -83,6 +84,8 @@ namespace Msg
             virtual void onContentChanged();
             virtual void onItemDelete(PageViewItem &item);
             virtual void onItemDelete(BodyAttachmentViewItem &item);
+            virtual void onMaxLengthReached(TextPageViewItem &item);
+            virtual void onCheckBoundaryText(TextPageViewItem &item, char **text);
 
             //IMediaPageViewItemListener
             virtual void onClicked(MediaPageViewItem &item);
