@@ -63,7 +63,7 @@ namespace Msg
             PageView *addPage();
             BodyAttachmentCollection getAttachments() const;
 
-            TextPageViewItem *addText(PageView &page);
+            TextPageViewItem *addText(PageView &page, int maxCharCount);
             ImagePageViewItem *addImage(PageView &page, const std::string &filePath, long long fileSize);
             VideoPageViewItem *addVideo(PageView &page, const std::string &filePath, long long fileSize, const std::string &imagePath);
             SoundPageViewItem *addSound(PageView &page, const std::string &filePath, long long fileSize, const std::string &dispName = "");

@@ -23,6 +23,7 @@
 
 #include <assert.h>
 #include <algorithm>
+#include <notification_status.h>
 
 using namespace Msg;
 
@@ -417,9 +418,9 @@ VideoPageViewItem *BodyView::addVideo(PageView &page, const std::string &filePat
     return item;
 }
 
-TextPageViewItem *BodyView::addText(PageView &page)
+TextPageViewItem *BodyView::addText(PageView &page, int maxCharCount)
 {
-    TextPageViewItem *item = new TextPageViewItem(page);
+    TextPageViewItem *item = new TextPageViewItem(page, maxCharCount);
     item->setListener(this);
     item->show();
     item->setGuideText(msgt("IDS_MSG_TMBODY_TEXT_MESSAGES"));
@@ -537,6 +538,9 @@ void BodyView::onClicked(TextPageViewItem &item)
 void BodyView::onMaxLengthReached(TextPageViewItem &item)
 {
     MSG_LOG("");
+    std::string notifText = msg("IDS_MSGF_POP_MAXIMUM_CHARACTERS");
+
+    notification_status_message_post(notifText.c_str());
 }
 
 void BodyView::onKeyDown(TextPageViewItem &item, Evas_Event_Key_Down &event)
