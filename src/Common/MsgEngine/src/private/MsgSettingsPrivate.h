@@ -38,6 +38,7 @@ namespace Msg
             virtual int getDisplayNameMaxLen() const;
             virtual int getMaxRecipientCount() const;
             virtual int getMaxMmsSize() const;
+            virtual int getMaxMsgTextLen() const;
 
             virtual void setAlerts(bool value);
             virtual bool getAlerts() const;

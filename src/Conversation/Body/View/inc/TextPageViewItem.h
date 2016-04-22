@@ -29,7 +29,7 @@ namespace Msg
         : public PageViewItem
     {
         public:
-            TextPageViewItem(PageView &parent);
+            TextPageViewItem(PageView &parent, int maxCharCount);
             virtual ~TextPageViewItem();
 
             virtual Type getType() const;
@@ -50,7 +50,7 @@ namespace Msg
             void setText(const std::string &text);
 
         private:
-            Evas_Object *createEntry(Evas_Object *parent);
+            Evas_Object *createEntry(Evas_Object *parent, int maxCharCount);
 
             template<class...Args>
             static void notifyListener(void *data, void (ITextPageViewItemListener::*method)(TextPageViewItem &, Args...args), Args&&...args);

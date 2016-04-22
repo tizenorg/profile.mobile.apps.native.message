@@ -96,7 +96,7 @@ Body::~Body()
 Page &Body::createPage()
 {
     Page *page = new Page(*this, m_WorkingDir);
-    BodyView::addText(*page);
+    BodyView::addText(*page, m_App.getMsgEngine().getSettings().getMaxMsgTextLen());
     return *page;
 }
 
