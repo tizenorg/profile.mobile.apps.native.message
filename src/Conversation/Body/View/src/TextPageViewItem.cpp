@@ -17,19 +17,20 @@
 
 #include "TextPageViewItem.h"
 #include "PageView.h"
+#include "BaseController.h"
 
 #include <efl_extension.h>
 
 using namespace Msg;
 
 
-TextPageViewItem::TextPageViewItem(PageView &parent)
+TextPageViewItem::TextPageViewItem(PageView &parent, int maxCharCount)
     : PageViewItem(parent)
     , m_pEntry(nullptr)
     , m_pListener(nullptr)
     , m_Changed(true)
 {
-    setEo(createEntry(parent.getItemParent()));
+    setEo(createEntry(parent.getItemParent(), maxCharCount));
 }
 
 TextPageViewItem::~TextPageViewItem()
@@ -148,7 +149,7 @@ void TextPageViewItem::setText(const std::string &text)
     }
 }
 
-Evas_Object *TextPageViewItem::createEntry(Evas_Object *parent)
+Evas_Object *TextPageViewItem::createEntry(Evas_Object *parent, int maxCharCount)
 {
     m_pEntry = elm_entry_add(parent);
     elm_entry_prediction_allow_set(m_pEntry, EINA_TRUE);
@@ -158,6 +159,12 @@ Evas_Object *TextPageViewItem::createEntry(Evas_Object *parent)
     elm_entry_input_panel_enabled_set(m_pEntry, EINA_FALSE);  // Keypad is manually controlled
     eext_entry_selection_back_event_allow_set(m_pEntry, EINA_TRUE);
     expand(m_pEntry);
+
+    Elm_Entry_Filter_Limit_Size limitFilter = {};
+    limitFilter.max_char_count = maxCharCount;
+    elm_entry_markup_filter_append(m_pEntry, elm_entry_filter_limit_size, &limitFilter);
+    elm_entry_markup_filter_append(m_pEntry, entryFilterCheckBoundary, this);
+
     evas_object_show(m_pEntry);
 
     evas_object_smart_callback_add(m_pEntry, "changed", [](void *data, Evas_Object *obj, void *event_info)
@@ -213,5 +220,10 @@ Evas_Object *TextPageViewItem::createEntry(Evas_Object *parent)
     }, this);
 
     return m_pEntry;
+}
+
+void TextPageViewItem::entryFilterCheckBoundary(void *data, Evas_Object *entry, char **text)
+{
+    notifyListener(data, &ITextPageViewItemListener::onCheckBoundaryText, &*text);
 }
 
