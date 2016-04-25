@@ -15,6 +15,7 @@
  */
 
 #include "SystemSettingsManager.h"
+#include "Logger.h"
 
 #include <algorithm>
 #include <system_settings.h>
@@ -30,6 +31,7 @@ using namespace Msg;
 SystemSettingsManager::SystemSettingsManager()
 {
     system_settings_set_changed_cb(SYSTEM_SETTINGS_KEY_LOCALE_TIMEFORMAT_24HOUR, CALLBACK(onTimeFormatChanged), this);
+    system_settings_set_changed_cb(SYSTEM_SETTINGS_KEY_LOCALE_LANGUAGE, CALLBACK(onLanguageChanged), this);
 }
 
 void SystemSettingsManager::addListener(ISystemSettingsManager &l)
@@ -51,5 +53,13 @@ void SystemSettingsManager::onTimeFormatChanged()
     for(ISystemSettingsManager *it : m_Listeners)
     {
         it->onTimeFormatChanged();
+    }
+}
+
+void SystemSettingsManager::onLanguageChanged()
+{
+    for(ISystemSettingsManager *it : m_Listeners)
+    {
+        it->onLanguageChanged();
     }
 }

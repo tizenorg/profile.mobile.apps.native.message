@@ -19,6 +19,7 @@
 #include "ListView.h"
 #include "Logger.h"
 #include "CallbackAssist.h"
+#include "LangUtils.h"
 
 #include <stdlib.h>
 
@@ -83,14 +84,14 @@ std::string SettingsListViewItem::getText(ListItem &item, const char *part)
     if(getStyle().get() == oneLineIconStyle.get())
     {
         if(strcmp(part, "elm.text") == 0)
-            return m_MainText;
+            return msg(m_MainText);
     }
     else if(getStyle().get() == multiLineStyle.get() || getStyle().get() == multiLineIconStyle.get())
     {
         if(strcmp(part, "elm.text") == 0)
-            return m_MainText;
+            return msg(m_MainText);
         else if(strcmp(part, "elm.text.multiline") == 0)
-            return m_SubText;
+            return msg(m_SubText);
     }
     else
     {

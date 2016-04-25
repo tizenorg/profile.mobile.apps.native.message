@@ -63,6 +63,11 @@ namespace Msg
             m_pMsg = dgettext(domainName, stringId);
         }
 
+        explicit DText(const std::string &stringId, const char *domainName)
+        {
+            m_pMsg = dgettext(domainName, stringId.c_str());
+        }
+
         explicit DText(char dummyArg, const char *stringId, const char *domainName, ...)
             : m_pMsg(m_Buf)
         {
