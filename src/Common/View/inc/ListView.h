@@ -55,6 +55,10 @@ namespace Msg
             void setHomogeneous(bool isHomogeneous);
             ListItem *getSelectedItem() const;
             unsigned getItemsCount() const;
+            ListItem *getNextItem(ListItem &item) const;
+            ListItem *getPrevItem(ListItem &item) const;
+            void demoteItem(ListItem &item);
+
 
             void setCheckMode(bool check);
             bool getCheckMode() const;

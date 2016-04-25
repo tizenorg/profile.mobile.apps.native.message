@@ -15,31 +15,27 @@
  *
  */
 
-#ifndef DateLineViewItem_H_
-#define DateLineViewItem_H_
+#ifndef DateLineItem_H_
+#define DateLineItem_H_
 
-#include "ListItem.h"
+#include "DateLineViewItem.h"
+#include <time.h>
 
 namespace Msg
 {
-    class DateLineViewItem
-        : public ListItem
+    class DateLineItem
+        : public DateLineViewItem
     {
         public:
-            DateLineViewItem(const std::string &dateLine);
-            virtual ~DateLineViewItem();
+            DateLineItem(time_t dateTime);
+            DateLineItem(time_t dateTime, const std::string &dateTimeStr);
+            virtual ~DateLineItem();
 
-            std::string getDateLine() const;
-
-        protected:
-            void setDateLine(const std::string &dateLine);
+            void update();
 
         private:
-            virtual std::string getText(ListItem &item, const char *part);
-
-        private:
-            std::string m_DateLine;
+            time_t m_Time;
     };
 }
 
-#endif /* DateLineViewItem_H_ */
+#endif /* DateLineItem_H_ */
