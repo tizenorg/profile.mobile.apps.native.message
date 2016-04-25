@@ -25,7 +25,6 @@
 #include "App.h"
 #include "ConvListItem.h"
 #include "ContactManager.h"
-#include "DateLineViewItem.h"
 #include "WorkingDir.h"
 
 #include <unordered_map>
@@ -158,6 +157,7 @@ namespace Msg
 
             // ISystemSettingsManager:
             virtual void onTimeFormatChanged();
+            virtual void onLanguageChanged();
 
         private:
             Mode m_Mode;

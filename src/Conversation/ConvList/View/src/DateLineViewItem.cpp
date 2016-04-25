@@ -23,7 +23,6 @@ using namespace Msg;
 namespace
 {
     ListItemStyleRef dateLineStyle = ListItemStyle::create("dateline");
-
     const char *datePart = "text.date";
 }
 
@@ -41,6 +40,11 @@ DateLineViewItem::~DateLineViewItem()
 std::string DateLineViewItem::getDateLine() const
 {
     return m_DateLine;
+}
+
+void DateLineViewItem::setDateLine(const std::string &dateLine)
+{
+    m_DateLine = dateLine;
 }
 
 std::string DateLineViewItem::getText(ListItem &item, const char *part)

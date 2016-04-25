@@ -187,6 +187,21 @@ unsigned ListView::getItemsCount() const
     return elm_genlist_items_count(getEo());
 }
 
+ListItem *ListView::getNextItem(ListItem &item) const
+{
+    return ListItem::staticCast<ListItem*>(elm_genlist_item_next_get(item));
+}
+
+ListItem *ListView::getPrevItem(ListItem &item) const
+{
+    return ListItem::staticCast<ListItem*>(elm_genlist_item_prev_get(item));
+}
+
+void ListView::demoteItem(ListItem &item)
+{
+    elm_genlist_item_demote(item);
+}
+
 void ListView::notifyListener(void *data, Evas_Object *obj, void *event_info, ListenerMethod method)
 {
     ListItem *item = ListItem::staticCast<ListItem*>(event_info);

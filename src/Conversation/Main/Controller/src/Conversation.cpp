@@ -76,6 +76,7 @@ Conversation::~Conversation()
     // Call before delete all children:
     MSG_LOG("");
     getApp().getContactManager().removeListener(*this);
+    getApp().getSysSettingsManager().removeListener(*this);
     if(m_pBody)
         m_pBody->setListener(nullptr);
     if(m_pRecipPanel)
@@ -146,6 +147,7 @@ void Conversation::create()
     updateMsgInputPanel();
 
     getApp().getContactManager().addListener(*this);
+    getApp().getSysSettingsManager().addListener(*this);
     setHwButtonListener(*m_pLayout, this);
     m_AttachPanel.setListener(this);
 }
@@ -1034,4 +1036,10 @@ void Conversation::onContactChanged()
 {
     MSG_LOG("");
     contactChangedHandler();
+}
+
+void Conversation::onLanguageChanged()
+{
+    MSG_LOG("");
+    updateMsgInputPanel();
 }

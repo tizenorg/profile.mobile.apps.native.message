@@ -19,6 +19,7 @@
 #include "Logger.h"
 #include "CallbackAssist.h"
 #include "TimeUtils.h"
+#include "DateLineItem.h"
 
 using namespace Msg;
 
@@ -205,20 +206,17 @@ void ConvList::demoteItem(ConvListItem *item)
 {
     dateLineDelIfNec(item);
     dateLineAddIfNec(item);
-    elm_genlist_item_demote(item->getElmObjItem());
+    m_pList->demoteItem(*item);
 }
 
 void ConvList::dateLineDelIfNec(ConvListItem *item)
 {
     bool needDelDateLine = false;
-    DateLineViewItem *prev = ViewItem::dynamicCast<DateLineViewItem*>(elm_genlist_item_prev_get(item->getElmObjItem()));
+    DateLineItem *prev = dynamic_cast<DateLineItem*>(m_pList->getPrevItem(*item));
     if(prev)
     {
-        auto nextEOI = elm_genlist_item_next_get(item->getElmObjItem());
-        if(nextEOI)
-            needDelDateLine = ViewItem::dynamicCast<DateLineViewItem*>(nextEOI) != nullptr;
-        else
-            needDelDateLine = true;
+        ListItem *nextItem = m_pList->getNextItem(*item);
+        needDelDateLine = nextItem ? dynamic_cast<DateLineItem*>(nextItem) != nullptr : true;
     }
 
     if(needDelDateLine)
@@ -234,7 +232,7 @@ void ConvList::dateLineAddIfNec(ConvListItem *item)
     auto it = m_DateLineItemSet.find(dateStr);
     if (it == m_DateLineItemSet.end())
     {
-        DateLineViewItem *dateLine = new DateLineViewItem(dateStr);
+        DateLineItem *dateLine = new DateLineItem(item->getRawTime(), dateStr);
         m_DateLineItemSet.insert(dateStr);
         m_pList->appendItem(*dateLine);
     }
@@ -402,5 +400,28 @@ void ConvList::onTimeFormatChanged()
     {
         item->updateTime();
     }
+    m_pList->updateRealizedItems();
+}
+
+void ConvList::onLanguageChanged()
+{
+    MSG_LOG("");
+
+    // Update ConvListItem:
+    auto convListItems = m_pList->getItems<ConvListItem>();
+    for(ConvListItem *item : convListItems)
+    {
+        item->updateTime();
+    }
+
+    // Update DateLineItem:
+    m_DateLineItemSet.clear();
+    auto DateLineItems = m_pList->getItems<DateLineItem>();
+    for(DateLineItem *item : DateLineItems)
+    {
+        item->update();
+        m_DateLineItemSet.insert(item->getDateLine());
+    }
+
     m_pList->updateRealizedItems();
 }

@@ -34,6 +34,7 @@
 #include "AttachPanel.h"
 #include "ContactEditor.h"
 #include "ContactManager.h"
+#include "SystemSettingsManager.h"
 #include "WorkingDir.h"
 
 namespace Msg
@@ -53,6 +54,7 @@ namespace Msg
         , private IConvListListener
         , private IAttachPanelListener
         , private IContactManagerListener
+        , private ISystemSettingsManager
     {
         public:
             Conversation(NaviFrameController &parent);
@@ -131,6 +133,9 @@ namespace Msg
 
             // IContactManagerListener:
             virtual void  onContactChanged();
+
+            // ISystemSettingsManager:
+            virtual void onLanguageChanged();
 
         private:
             void create();
