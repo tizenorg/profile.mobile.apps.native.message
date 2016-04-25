@@ -30,7 +30,6 @@ namespace Msg
             TimeFormatUnknown,
             TimeFormat24H,
             TimeFormat12H
-
         };
 
         public:
@@ -43,7 +42,7 @@ namespace Msg
 
         protected:
             //made protected to allow inheritance of this class in tests
-            static std::string getDefaultLocale();
+            static const std::string &getDefaultLocale();
             static std::string getDateBestPattern(const std::string &locale, const std::string &skeleton);
             static std::string getFormattedDate(const std::string &locale, const std::string &bestPattern, time_t time);
 
