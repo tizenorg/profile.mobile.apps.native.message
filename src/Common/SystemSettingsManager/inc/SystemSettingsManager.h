@@ -36,6 +36,7 @@ namespace Msg
             SystemSettingsManager &operator =(const SystemSettingsManager&) = delete;
 
             void onTimeFormatChanged();
+            void onLanguageChanged();
 
         private:
             std::vector<ISystemSettingsManager*> m_Listeners;
@@ -47,6 +48,7 @@ namespace Msg
             virtual ~ISystemSettingsManager() {}
 
             virtual void onTimeFormatChanged() {};
+            virtual void onLanguageChanged() {};
     };
 }
 
