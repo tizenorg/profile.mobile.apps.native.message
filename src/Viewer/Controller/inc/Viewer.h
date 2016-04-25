@@ -30,6 +30,7 @@
 #include "Conversation.h"
 #include "SmilPlayer.h"
 #include "SubjectLayout.h"
+#include "SystemSettingsManager.h"
 
 namespace Msg
 {
@@ -43,6 +44,7 @@ namespace Msg
         , private IViewerLayoutListener
         , private IConversationListener
         , private ISmilPlayerListener
+        , private ISystemSettingsManager
     {
         public:
             Viewer(NaviFrameController &parent, MsgId id);
@@ -93,6 +95,9 @@ namespace Msg
             // Conversation listener
             virtual void onConversationSentMessage();
 
+            // SystemSettingsManager:
+            virtual void onLanguageChanged();
+
         private:
             void naviExpandButtonHandler();
             void naviCenterButtonHandler();
@@ -109,6 +114,7 @@ namespace Msg
             void recipientClickHandler(const std::string &address);
             void showRecipPopup(const std::string &title);
             void updatePlayPos();
+            void updateSubject();
             void updateButtonState();
 
         private:

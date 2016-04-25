@@ -63,6 +63,7 @@ Viewer::~Viewer()
 {
     MSG_LOG("");
     getApp().getContactManager().removeListener(*this);
+    getApp().getSysSettingsManager().removeListener(*this);
 }
 
 void Viewer::onAttached(ViewItem &item)
@@ -107,6 +108,7 @@ void Viewer::create(MsgId id)
     updateButtonState();
     updatePlayPos();
 
+    getApp().getSysSettingsManager().addListener(*this);
     getApp().getContactManager().addListener(*this);
     setHwButtonListener(*m_pLayout, this);
 
@@ -128,10 +130,10 @@ void Viewer::createSubjectLayout()
     if(!m_pSubjectLayout)
     {
         m_pSubjectLayout = new SubjectLayout(*m_pLayout);
-        m_pSubjectLayout->setSubjectText(m_Msg->getSubject());
         m_pSubjectLayout->setNumberOfPages(m_Msg->getPageList().getLength());
         m_pSubjectLayout->show();
         m_pLayout->setSubject(*m_pSubjectLayout);
+        updateSubject();
     }
 }
 
@@ -234,6 +236,17 @@ void Viewer::updatePlayPos()
     int sec = m_pSmilPlayer->getDuration() * pos + 0.5;
     m_pPlayerControl->setProgress(pos);
     m_pPlayerControl->setStartTime(makeTimeStr(sec));
+}
+
+void Viewer::updateSubject()
+{
+    if(m_pSubjectLayout)
+    {
+        std::string subject = m_Msg->getSubject();
+        if(subject.empty())
+            subject = msg("IDS_MSGF_BODY_NO_SUBJECT");
+        m_pSubjectLayout->setSubjectText(subject);
+    }
 }
 
 void Viewer::updateButtonState()
@@ -429,4 +442,10 @@ void Viewer::onSmilPlayerTick()
 {
     MSG_LOG("");
     updatePlayPos();
+}
+
+void Viewer::onLanguageChanged()
+{
+    MSG_LOG("");
+    updateSubject();
 }
