@@ -161,7 +161,7 @@ bool ConvRecipientsPanelView::isMbeVisible() const
 
 std::string ConvRecipientsPanelView::getEntryText() const
 {
-    return mrkupToUtf8(elm_entry_entry_get(m_pEntry));
+    return markupToUtf8(elm_entry_entry_get(m_pEntry));
 }
 
 void ConvRecipientsPanelView::setEntryText(const std::string &utf8)
