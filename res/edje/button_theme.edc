@@ -84,7 +84,7 @@ sounds {
 styles {
     style {
         name: "title_textstyle";
-        base: "font=Tizen:style=Roman font_size=50 color=#2e8b99 align=center";
+        base: "font=Tizen:style=Roman font_size=50 color=#2e8b99 align=left ellipsis=1";
     }
 }
 
@@ -3210,6 +3210,7 @@ MSG_BUBBLE_BUTTON_STYLE_TRANSLATE("translate_button", "M01_circle_button.png", "
                   state: "default" 0.0;
                   min: BUTTON_NAVIFRAME_CENTER_BUTTON_SIZE_MIN;
                   max: BUTTON_NAVIFRAME_CENTER_BUTTON_SIZE_MAX;
+                  fixed: 1 1;
                   color: BUTTON_NAVIFRAME_BACK_BUTTON_COLOR_WHITE;
                   text.style: "title_textstyle";
                   text.max: 1 0;
