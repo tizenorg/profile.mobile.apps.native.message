@@ -145,6 +145,7 @@ void ConvRecipientsPanel::editSelectedItem()
     MbeRecipientItem* pItem = getSelectedItem();
     if(pItem)
     {
+        setEditMode(true);
         setEntryText(pItem->getAddress());
         showEntry(true);
         pItem->destroy();

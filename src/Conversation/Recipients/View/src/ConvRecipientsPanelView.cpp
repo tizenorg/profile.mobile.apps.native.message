@@ -34,25 +34,19 @@ ConvRecipientsPanelView::ConvRecipientsPanelView(Evas_Object *parent, int entryM
     : View()
     , m_pLayout(nullptr)
     , m_pEntry(nullptr)
-    , m_pEntryFocusIdler(nullptr)
-    , m_EntryFocus(false)
     , m_pContactBtn(nullptr)
     , m_pPlusBtn(nullptr)
     , m_pRect(nullptr)
     , m_EntryMaxCharCount(entryMaxCharCount)
     , m_IsMbeVisible(false)
     , m_pMbe(nullptr)
+    , m_IsEditItemClicked(false)
 {
     create(parent);
 }
 
 ConvRecipientsPanelView::~ConvRecipientsPanelView()
 {
-    if(m_pEntryFocusIdler)
-    {
-        ecore_idler_del(m_pEntryFocusIdler);
-        m_pEntryFocusIdler = nullptr;
-    }
 }
 
 void ConvRecipientsPanelView::setMbe(MbeRecipientsView *pMbe)
@@ -103,21 +97,7 @@ bool ConvRecipientsPanelView::getEntryFocus() const
 
 void ConvRecipientsPanelView::setEntryFocus(bool val)
 {
-    m_EntryFocus = val;
-    if(!m_pEntryFocusIdler)
-    {
-        m_pEntryFocusIdler = ecore_idler_add
-        (
-            [](void *data)->Eina_Bool
-            {
-                auto *self =(ConvRecipientsPanelView*)data;
-                self->m_pEntryFocusIdler = nullptr;
-                elm_object_focus_set(self->m_pEntry, self->m_EntryFocus);
-                return false; // Delete idler
-            },
-            this
-        );
-    }
+    elm_object_focus_set(m_pEntry, val);
 }
 
 void ConvRecipientsPanelView::clearEntry()
@@ -385,7 +365,10 @@ void ConvRecipientsPanelView::collapseRecipients()
 void ConvRecipientsPanelView::expandRecipients()
 {
     showMbe(!isMbeEmpty());
-    setEntryText(m_SavedRecipText);
+    if(!m_IsEditItemClicked)
+        setEntryText(m_SavedRecipText);
+    else
+        setEditMode(false);
 }
 
 void ConvRecipientsPanelView::updateShortenedRecipients()
@@ -397,8 +380,13 @@ void ConvRecipientsPanelView::updateShortenedRecipients()
         shortenedRecipients = items[0]->getDispName();
         if(items.size() > 1)
             shortenedRecipients += " + " + std::to_string(items.size() - 1);
+        setEntryText(shortenedRecipients);
     }
-    setEntryText(shortenedRecipients);
+}
+
+void ConvRecipientsPanelView::setEditMode(bool isEdit)
+{
+    m_IsEditItemClicked = isEdit;
 }
 
 void ConvRecipientsPanelView::onEntryChanged(Evas_Object *obj, void *event_info)

@@ -67,6 +67,7 @@ namespace Msg
             void showButton(ButtonType buttonType);
             void unselectMbeItem();
             bool isEntryEmpty() const;
+            void setEditMode(bool isEdit);
 
         private:
             // Out signals:
@@ -111,9 +112,6 @@ namespace Msg
         private:
             Evas_Object *m_pLayout;
             Evas_Object *m_pEntry;
-            Ecore_Idler *m_pEntryFocusIdler;
-            Ecore_Idler *m_pEntrySetTextIdler;
-            bool m_EntryFocus;
             Evas_Object *m_pContactBtn;
             Evas_Object *m_pPlusBtn;
             Evas_Object *m_pRect;
@@ -121,6 +119,7 @@ namespace Msg
             bool m_IsMbeVisible;
             MbeRecipientsView *m_pMbe;
             std::string m_SavedRecipText;
+            bool m_IsEditItemClicked;
     };
 }
 
