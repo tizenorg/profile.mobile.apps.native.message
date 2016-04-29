@@ -17,22 +17,30 @@
 
 #include "MediaPlayer.h"
 #include "Logger.h"
+#include "CallbackAssist.h"
+
+#include <sound_manager.h>
+#include <Ecore.h>
 
 using namespace Msg;
 
 MediaPlayer::MediaPlayer()
     : m_Player()
     , m_pListener(nullptr)
+    , m_IsSoundFocusAcquired(false)
 {
     player_create(&m_Player);
     player_set_sound_type(m_Player, SOUND_TYPE_MEDIA);
     player_set_volume(m_Player, 1.0, 1.0);
     player_set_looping(m_Player, false);
     player_set_completed_cb(m_Player, on_completed_cb, this);
+
+    sound_manager_set_focus_state_watch_cb(SOUND_STREAM_FOCUS_FOR_PLAYBACK, on_sound_stream_focus_state_watch_cb, this);
 }
 
 MediaPlayer::~MediaPlayer()
 {
+    sound_manager_unset_focus_state_watch_cb();
     m_pListener = nullptr;
     stop();
     player_unprepare(m_Player);
@@ -51,6 +59,11 @@ player_state_e MediaPlayer::getState() const
     player_state_e state = PLAYER_STATE_NONE;
     player_get_state(m_Player, &state);
     return state;
+}
+
+bool MediaPlayer::isSoundFocusAcquired() const
+{
+    return m_IsSoundFocusAcquired;
 }
 
 void MediaPlayer::start()
@@ -104,18 +117,6 @@ void MediaPlayer::setPosition(int msec)
     player_set_play_position(m_Player, msec, true, on_seek_cb, this);
 }
 
-void MediaPlayer::on_completed_cb(void *user_data)
-{
-    IMediaPlayerListener *l = static_cast<MediaPlayer*>(user_data)->m_pListener;
-    if(l)
-        l->onMediaPlayerCompleted();
-}
-
-void MediaPlayer::on_seek_cb(void *user_data)
-{
-    MSG_LOG("");
-}
-
 int MediaPlayer::getDuration(const std::string &uri)
 {
     int msec = 0;
@@ -132,4 +133,38 @@ int MediaPlayer::getDuration(const std::string &uri)
         player_destroy(player);
     }
     return msec;
+}
+
+void MediaPlayer::on_completed_cb(void *user_data)
+{
+    IMediaPlayerListener *l = static_cast<MediaPlayer*>(user_data)->m_pListener;
+    if(l)
+        l->onMediaPlayerCompleted();
+}
+
+void MediaPlayer::on_seek_cb(void *user_data)
+{
+    MSG_LOG("");
+}
+
+void MediaPlayer::onSoundStreamFocusStateWatch()
+{
+    MSG_LOG("");
+    if(m_pListener)
+        m_pListener->onMediaPlayerSoundFocusChanged();
+}
+
+void MediaPlayer::on_sound_stream_focus_state_watch_cb(sound_stream_focus_mask_e focus_mask,
+        sound_stream_focus_state_e focus_state, sound_stream_focus_change_reason_e reason,
+        const char *extra_info, void *user_data)
+{
+    MSG_LOG("Interrupted focus state = ", focus_state);
+    MSG_LOG("Interrupted focus change reason = ", reason);
+
+    if(reason == SOUND_STREAM_FOCUS_CHANGED_BY_CALL)
+    {
+        MediaPlayer *self = static_cast<MediaPlayer*>(user_data);
+        self->m_IsSoundFocusAcquired = focus_state == SOUND_STREAM_FOCUS_STATE_ACQUIRED;
+        ecore_main_loop_thread_safe_call_sync(ECORE_CALLBACK(MediaPlayer, onSoundStreamFocusStateWatch), self);
+    }
 }

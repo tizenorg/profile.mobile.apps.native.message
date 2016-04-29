@@ -36,6 +36,7 @@ SmilPage::SmilPage(Evas_Object *parent, const MsgPage &page)
     : SmilPageLayout(parent)
     , m_Duration(0)
     , m_pVideoSink(nullptr)
+    , m_HasAudio(false)
     , m_pImageItem(nullptr)
 {
     build(page);
@@ -45,6 +46,7 @@ SmilPage::SmilPage(Evas_Object *parent, const MsgAttachmentList &list)
     : SmilPageLayout(parent)
     , m_Duration(0)
     , m_pVideoSink(nullptr)
+    , m_HasAudio(false)
     , m_pImageItem(nullptr)
 {
     build(list);
@@ -68,6 +70,11 @@ bool SmilPage::hasMedia() const
 bool SmilPage::hasVideo() const
 {
     return m_pVideoSink != nullptr;
+}
+
+bool SmilPage::hasAudio() const
+{
+    return m_HasAudio;
 }
 
 Evas_Object *SmilPage::getVideoSink() const
@@ -169,6 +176,7 @@ void SmilPage::buildText(const MsgMedia& media)
 void SmilPage::buildAudio(const MsgMedia& media)
 {
     m_MediaPath = media.getFilePath();
+    m_HasAudio = true;
 
     if(m_Duration == 0)
         m_Duration = MediaUtils::getDurationSec(m_MediaPath);

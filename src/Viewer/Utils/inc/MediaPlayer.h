@@ -44,15 +44,25 @@ namespace Msg
             int getDuration() const; // msec
             void setPosition(int msec);
             static int getDuration(const std::string &uri);
+            bool isSoundFocusAcquired() const;
 
         private:
             static void on_completed_cb(void *user_data);
             static void on_seek_cb(void *user_data);
+
+            // Call from UI thread:
+            void onSoundStreamFocusStateWatch();
+
+            // Cll from media internal thread:
+            static void on_sound_stream_focus_state_watch_cb(sound_stream_focus_mask_e focus_mask,
+                    sound_stream_focus_state_e focus_state, sound_stream_focus_change_reason_e reason,
+                    const char *extra_info, void *user_data);
             player_state_e getState() const;
 
         private:
             player_h m_Player;
             IMediaPlayerListener *m_pListener;
+            bool m_IsSoundFocusAcquired;
     };
 
     class IMediaPlayerListener
@@ -60,6 +70,7 @@ namespace Msg
         public:
             virtual ~IMediaPlayerListener() {}
             virtual void onMediaPlayerCompleted() {};
+            virtual void onMediaPlayerSoundFocusChanged() {};
     };
 }
 

@@ -32,6 +32,7 @@ namespace Msg
 
     class SmilPlayer
         : public SmilPlayerView
+        , private IMediaPlayerListener
     {
         public:
             typedef std::vector<SmilPage*> PageList;
@@ -62,6 +63,13 @@ namespace Msg
             unsigned getCurrentPageIndex() const;
 
         private:
+            // IMediaPlayerListener:
+            virtual void onMediaPlayerSoundFocusChanged();
+
+            // View:
+            virtual void onBeforeDelete(View &view);
+
+        private:
             void playPage();
             void startMedia();
             void stopMedia();
@@ -72,7 +80,8 @@ namespace Msg
             void continueTimer();
             Eina_Bool onTick();
             void setState(State state);
-            virtual void onBeforeDelete(View &view);
+            void showUnableToPlayVideoNotif();
+            void showUnableToPlayAudioNotif();
 
         private:
             ISmilPlayerListener *m_pListener;
