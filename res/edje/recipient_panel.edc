@@ -10,6 +10,9 @@ collections {
 
 group {
     name: "recipient_panel";
+    images {
+        image: "M02_icon_invalid.png" COMP;
+    }
     parts {
         part {
             name: "bg"; 
@@ -163,26 +166,34 @@ group {
                 rel2 { to_x: "contact_padding_left"; to_y: "entry_padding_bottom"; relative: 0.0 0.0; }
             }
             description {
-                state: "with_invalid_icon" 0.0;
+                state: "show_with_invalid_icon" 0.0;
                 min: 0 MSG_COMPOSER_RECIPIENT_TO_FIELD_MIN_H;
                 fixed: 1 1;
                 visible: 1;
                 rel1 { to_x: "entry_padding_left"; to_y: "entry_padding_top"; relative: 1.0 1.0;}
-                rel2 { to_x: "swl.invalid_icon"; to_y: "entry_padding_bottom"; relative: 0.0 0.0; }
+                rel2 { to_x: "img.invalid_icon"; to_y: "entry_padding_bottom"; relative: 0.0 0.0; }
             }
         }
         part {
-            name: "swl.invalid_icon";
-            type: SWALLOW;
+            name: "img.invalid_icon";
+            type: IMAGE;
             scale: 1;
             description {
                 state: "default" 0.0;
-                min: 30 30;
-                max: 30 30;
+                image.normal: "M02_icon_invalid.png";
+                min: 0 0;
+                max: 0 0;
                 fixed: 1 1;
                 rel1 { to: "contact_padding_left"; relative: 0.0 0.0;}
                 rel2 { to: "contact_padding_left"; relative: 0.0 1.0;}
                 align: 1.0 0.5;
+                visible: 0;
+            }
+            description {
+                state: "show" 0.0;
+                inherit: "default" 0.0;
+                min: 30 30;
+                max: 30 30;
                 visible: 1;
             }
         }
@@ -251,20 +262,6 @@ group {
             target: "swl.contact_btn";
         }
         program {
-            name: "entry_with_invalid_icon";
-            signal: "entry_with_invalid_icon";
-            source: "*";
-            action: STATE_SET "with_invalid_icon" 0.0;
-            target: "swl.entry";
-        }
-        program {
-            name: "entry_with_no_invalid_icon";
-            signal: "entry_with_no_invalid_icon";
-            source: "*";
-            action: STATE_SET "default" 0.0;
-            target: "swl.entry";
-        }
-        program {
             name: "show_to_mbe";
             signal: "show_to_mbe";
             source: "*";
@@ -297,6 +294,20 @@ group {
             target: "swl.entry";
             target: "entry.main.bg";
             target: "swl.contact_btn";
+        }
+        program {
+            name: "show_invalid_icon";
+            signal: "show_invalid_icon";
+            source: "*";
+            action: STATE_SET "show" 0.0;
+            target: "img.invalid_icon";
+        }
+        program {
+            name: "hide_invalid_icon";
+            signal: "hide_invalid_icon";
+            source: "*";
+            action: STATE_SET "default" 0.0;
+            target: "img.invalid_icon";
         }
     }
 }

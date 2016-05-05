@@ -389,6 +389,12 @@ void ConvRecipientsPanelView::setEditMode(bool isEdit)
     m_IsEditItemClicked = isEdit;
 }
 
+void ConvRecipientsPanelView::showInvalidIcon(bool show)
+{
+    const char *sig = show ? "show_invalid_icon" : "hide_invalid_icon";
+    elm_object_signal_emit(m_pLayout, sig, "*");
+}
+
 void ConvRecipientsPanelView::onEntryChanged(Evas_Object *obj, void *event_info)
 {
     onEntryChanged();

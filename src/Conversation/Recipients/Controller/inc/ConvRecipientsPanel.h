@@ -72,6 +72,7 @@ namespace Msg
             int getMaxRecipientCount() const;
             void showInvalidRecipientsPopup();
             void showTooManyRecipientsNotif();
+            void showAddRecipNotif();
             void showDuplicatedRecipientNotif();
             MbeRecipients::AppendItemStatus appendItem(const std::string &address, const std::string &dispName,
                               MsgAddress::AddressType addressType = MsgAddress::UnknownAddressType);

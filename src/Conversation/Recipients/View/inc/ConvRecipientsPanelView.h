@@ -68,6 +68,7 @@ namespace Msg
             void unselectMbeItem();
             bool isEntryEmpty() const;
             void setEditMode(bool isEdit);
+            void showInvalidIcon(bool show);
 
         private:
             // Out signals:
