@@ -147,13 +147,6 @@ void MediaPlayer::on_seek_cb(void *user_data)
     MSG_LOG("");
 }
 
-void MediaPlayer::onSoundStreamFocusStateWatch()
-{
-    MSG_LOG("");
-    if(m_pListener)
-        m_pListener->onMediaPlayerSoundFocusChanged();
-}
-
 void MediaPlayer::on_sound_stream_focus_state_watch_cb(sound_stream_focus_mask_e focus_mask,
         sound_stream_focus_state_e focus_state, sound_stream_focus_change_reason_e reason,
         const char *extra_info, void *user_data)
@@ -165,6 +158,17 @@ void MediaPlayer::on_sound_stream_focus_state_watch_cb(sound_stream_focus_mask_e
     {
         MediaPlayer *self = static_cast<MediaPlayer*>(user_data);
         self->m_IsSoundFocusAcquired = focus_state == SOUND_STREAM_FOCUS_STATE_ACQUIRED;
-        ecore_main_loop_thread_safe_call_sync(ECORE_CALLBACK(MediaPlayer, onSoundStreamFocusStateWatch), self);
+        ecore_main_loop_thread_safe_call_sync
+        (
+            [](void *data)->void*
+            {
+                MSG_LOG("");
+                auto *self = (MediaPlayer*)data;
+                if(self->m_pListener)
+                    self->m_pListener->onMediaPlayerSoundFocusChanged();
+                return nullptr;
+            },
+            self
+        );
     }
 }
