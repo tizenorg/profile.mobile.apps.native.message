@@ -168,14 +168,13 @@ namespace Msg
 
             void showMainPopup();
             void showNoRecipPopup();
-            void showAddRecipPopup();
             PopupList &createPopupList(const std::string &title);
             void showSendResultPopup(MsgTransport::SendResult result);
             void showUnsavedRecipientPopup(const std::string &address);
             void showSavedRecipientPopup(const std::string &title, int personId);
             void sendMessage();
-            void read(Message &msg);
-            void readMsgAddress(Message &msg);
+            bool read(Message &msg);
+            bool readMsgAddress(Message &msg);
             void write(const Message &msg);
             void saveDraftMsg();
             void editDraftMsg(MsgId id);

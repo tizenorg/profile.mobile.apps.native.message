@@ -438,44 +438,51 @@ void Conversation::write(const Message &msg)
         m_pRecipPanel->write(msg);
 }
 
-void Conversation::read(Message &msg)
+bool Conversation::read(Message &msg)
 {
-    m_pBody->read(msg);
-    readMsgAddress(msg);
+    if(readMsgAddress(msg))
+    {
+        m_pBody->read(msg);
+        return true;
+    }
+    return false;
 }
 
-void Conversation::readMsgAddress(Message &msg)
+bool Conversation::readMsgAddress(Message &msg)
 {
+    bool res = false;
     if(m_ThreadId.isValid())
     {
         MsgAddressListRef addressList = getAddressList();
         if(addressList)
+        {
+            res = !addressList->isEmpty();
             msg.addAddresses(*addressList);
+        }
     }
     else
     {
         if(m_pRecipPanel)
+        {
             m_pRecipPanel->read(msg);
+            res = !m_pRecipPanel->isMbeEmpty();
+        }
     }
+    return res;
 }
 
 void Conversation::sendMessage()
 {
-    if(m_Mode == NewMessageMode && !isRecipExists())
-    {
-        showAddRecipPopup();
-        if(m_pRecipPanel)
-            m_pRecipPanel->setEntryFocus(true);
-        return;
-    }
-
     auto msg = getMsgEngine().getComposer().createMessage(m_IsMms ? Message::MT_MMS : Message::MT_SMS);
-    read(*msg);
-    MSG_LOG("m_ThreadId = ", m_ThreadId);
+
+    if(!read(*msg))
+        return;
+
+    MSG_LOG("Old threadId = ", m_ThreadId);
     MsgTransport::SendResult sendRes = getMsgEngine().getTransport().sendMessage(*msg, &m_ThreadId);
 
     MSG_LOG("Send result = ", sendRes);
-    MSG_LOG("m_ThreadId = ", m_ThreadId);
+    MSG_LOG("New threadId = ", m_ThreadId);
 
     if(sendRes == MsgTransport::SendSuccess && m_ThreadId.isValid())
     {
@@ -602,14 +609,6 @@ void Conversation::showNoRecipPopup()
     popup.addButton(msgt("IDS_MSG_BUTTON_DISCARD_ABB"), Popup::OkButtonId, POPUP_BUTTON_CB(Conversation, onNoRecipDiscardButtonClicked), this);
     popup.setTitle(msgt("IDS_MSG_HEADER_DISCARD_MESSAGE_M_CLOSE_ABB"));
     popup.setContent(msgt("IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"));
-    popup.show();
-}
-
-void Conversation::showAddRecipPopup()
-{
-    Popup &popup = getApp().getPopupManager().getPopup();
-    popup.setContent(msgt("IDS_MSG_TPOP_ADD_RECIPIENTS"));
-    popup.setTimeOut(2.0);
     popup.show();
 }
 

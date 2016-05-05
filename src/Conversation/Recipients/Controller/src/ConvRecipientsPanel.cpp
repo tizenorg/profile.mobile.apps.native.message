@@ -55,6 +55,13 @@ void ConvRecipientsPanel::read(Message &msg)
         msgAddr.setRecipientType(recipItem->getRecipType());
         msgAddr.setAddressType(recipItem->getAddressType());
     }
+
+    if(list.empty())
+    {
+        showInvalidIcon(true);
+        showAddRecipNotif();
+        setEntryFocus(true);
+    }
 }
 
 void ConvRecipientsPanel::write(const Message &msg)
@@ -172,8 +179,9 @@ void ConvRecipientsPanel::appendStatusHandler(MbeRecipients::AppendItemStatus st
     switch(status)
     {
         case MbeRecipients::SuccessStatus:
-        if(getEntryFocus())
-            showMbe(true);
+            showInvalidIcon(false);
+            if(getEntryFocus())
+                showMbe(true);
             break;
         case MbeRecipients::DuplicatedStatus:
             showDuplicatedRecipientNotif();
@@ -232,7 +240,10 @@ void ConvRecipientsPanel::onEntryChanged()
 {
     unselectMbeItem();
     if(!isEntryEmpty() && getEntryFocus())
+    {
         showButton(PlusButton);
+        showInvalidIcon(false);
+    }
     else
         showButton(ContactButton);
 }
@@ -288,6 +299,11 @@ void ConvRecipientsPanel::showDuplicatedRecipientNotif()
 void ConvRecipientsPanel::showTooManyRecipientsNotif()
 {
     notification_status_message_post(msgArgs("IDS_MSGC_BODY_MAXIMUM_NUMBER_OF_RECIPIENTS_HPD_REACHED", getMaxRecipientCount()).cStr());
+}
+
+void ConvRecipientsPanel::showAddRecipNotif()
+{
+    notification_status_message_post(msg("IDS_MSG_TPOP_ADD_RECIPIENTS").cStr());
 }
 
 void ConvRecipientsPanel::onMbeChanged()
