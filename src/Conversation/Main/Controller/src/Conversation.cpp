@@ -419,15 +419,14 @@ void Conversation::createMsgInputPanel(Evas_Object *parent)
 
 void Conversation::createBody(Evas_Object *parent)
 {
-    if(!m_pBody)
+    assert(m_pMsgInputPanel);
+    if(!m_pBody && m_pMsgInputPanel)
     {
         m_pBody = new Body(getApp(), m_WorkingDir);
         m_pBody->create(*m_pMsgInputPanel);
         m_pBody->setListener(this);
         m_pBody->show();
-        assert(m_pMsgInputPanel);
-        if(m_pMsgInputPanel)
-            m_pMsgInputPanel->setEntry(*m_pBody);
+        m_pMsgInputPanel->setEntry(*m_pBody);
     }
 }
 
