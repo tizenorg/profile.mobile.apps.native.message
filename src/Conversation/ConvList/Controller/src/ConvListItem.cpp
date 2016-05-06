@@ -19,16 +19,16 @@
 #include "MsgConversationItem.h"
 #include "ListView.h"
 #include "CallbackAssist.h"
-#include <telephony_common.h>
-#include <telephony_sim.h>
 #include "FileUtils.h"
 #include "TimeUtils.h"
 #include "SaveAttachmentsPopup.h"
 #include "TextDecorator.h"
 #include "MediaType.h"
 #include "MediaUtils.h"
-#include <notification_status.h>
 #include "TimeUtils.h"
+#include "FileViewer.h"
+
+#include <notification_status.h>
 
 using namespace Msg;
 
@@ -98,16 +98,49 @@ ConvListViewItem::ConvItemType ConvListItem::getConvItemType(const MsgConversati
     return type;
 }
 
-void ConvListItem::addVideoItem(const std::string &path)
+void ConvListItem::addVideoItem(const MsgConvMedia &media)
 {
     const std::string thumbFileName = "thumbnail.jpeg";
     std::string thumbFilePath =  m_WorkingDir->genUniqueFilePath(thumbFileName);
 
     if(!thumbFilePath.empty())
     {
+        std::string path = media.getPath();
         if(MediaUtils::getVideoFrame(path, thumbFilePath))
-            m_BubbleEntity.addItem(BubbleEntity::VideoItem, thumbFilePath);
+            m_BubbleEntity.addItem(BubbleEntity::VideoItem, thumbFilePath, path);
     }
+}
+
+void ConvListItem::addAudioItem(const MsgConvMedia &media)
+{
+    std::string dsipName = media.getName();
+    std::string path = media.getPath();
+    if(dsipName.empty())
+        dsipName = FileUtils::getFileName(path);
+    m_BubbleEntity.addItem(BubbleEntity::AudioItem, dsipName, path);
+}
+
+void ConvListItem::addAttachedFileItem(const MsgConvMedia &media)
+{
+    std::string dsipName = media.getName();
+    std::string path = media.getPath();
+    if(dsipName.empty())
+        dsipName = FileUtils::getFileName(path);
+    m_BubbleEntity.addItem(BubbleEntity::AttachedFileItem, dsipName, path);
+}
+
+void ConvListItem::addTextItem(const MsgConvMedia &media, const std::string &searchWord)
+{
+    // TODO: How to detect text attachment and content(text) of MMS ?
+    std::string text = FileUtils::readTextFile(media.getPath());
+    std::string highlightedText = TextDecorator::highlightKeyword(utf8ToMarkup(text), utf8ToMarkup(searchWord));
+    m_BubbleEntity.addItem(BubbleEntity::TextItem, highlightedText);
+}
+
+void ConvListItem::addImageItem(const MsgConvMedia &media)
+{
+    // TODO: msg service corrupts thumbnail's metadata, so it lost rotation. Use getPath instead getThumbPath until fix
+    m_BubbleEntity.addItem(BubbleEntity::ImageItem, media.getPath(), media.getPath());
 }
 
 void ConvListItem::prepareBubble(const MsgConversationItem &item, const std::string &searchWord)
@@ -120,8 +153,7 @@ void ConvListItem::prepareBubble(const MsgConversationItem &item, const std::str
     else if(m_Type == Message::MT_MMS_Noti)
     {
         std::string text = MessageDetailContent::getMmsNotiConvListItemContent(m_App, m_MsgId);
-        std::string highlightedText = TextDecorator::highlightKeyword(text, utf8ToMarkup(searchWord));
-        m_BubbleEntity.addItem(BubbleEntity::TextItem, highlightedText);
+        m_BubbleEntity.addItem(BubbleEntity::TextItem, text);
         m_BubbleEntity.addItem(BubbleEntity::DownloadButtonItem);
     }
     else
@@ -130,40 +162,26 @@ void ConvListItem::prepareBubble(const MsgConversationItem &item, const std::str
         for(int i = 0; i < list.getLength(); i++)
         {
             const MsgConvMedia &media = list.at(i);
-
-            std::string mime = media.getMime();
             MediaTypeData mediaType = getMediaType(media.getPath());
 
-            if(mediaType.type == MsgMedia::ImageType)
+            switch(mediaType.type)
             {
-                // TODO: msg service corrupts thumbnail's metadata, so it lost rotation. Use getPath instead getThumbPath until fix
-                m_BubbleEntity.addItem(BubbleEntity::ImageItem, media.getPath());
-            }
-            else if(mediaType.type == MsgMedia::VideoType)
-            {
-                addVideoItem(media.getPath());
-            }
-            else if(mime == "text/plain")
-            {
-                // TODO: How to detect text attachment and content(text) of MMS ?
-                std::string text = FileUtils::readTextFile(media.getPath());
-                std::string highlightedText = TextDecorator::highlightKeyword(utf8ToMarkup(text), utf8ToMarkup(searchWord));
-                m_BubbleEntity.addItem(BubbleEntity::TextItem, highlightedText);
-            }
-            else if(mime != "application/smil")
-            {
-                m_BubbleEntity.addItem(BubbleEntity::TextItem, media.getName());
-                //msg service corrupts thumbnail's metadata, so it lost rotation. Use getPath instead getThumbPath until fix
-                m_BubbleEntity.addItem(BubbleEntity::ImageItem, list.at(i).getPath());
-            }
-            else if(mime == "text/plain")
-            {
-                std::string text = FileUtils::readTextFile(list.at(i).getPath());
-                m_BubbleEntity.addItem(BubbleEntity::TextItem, TextDecorator::highlightKeyword(std::move(text), searchWord));
-            }
-            else if(mime != "application/smil")
-            {
-                m_BubbleEntity.addItem(BubbleEntity::TextItem, list.at(i).getName());
+                case MsgMedia::TextType:
+                    addTextItem(media, searchWord);
+                    break;
+                case MsgMedia::ImageType:
+                    addImageItem(media);
+                    break;
+                case MsgMedia::AudioType:
+                    addAudioItem(media);
+                    break;
+                case MsgMedia::VideoType:
+                    addVideoItem(media);
+                    break;
+                default:
+                    if(mediaType.mime != "application/smil")
+                        addAttachedFileItem(media);
+                    break;
             }
         }
     }
@@ -293,13 +311,21 @@ void ConvListItem::onDeleteItemPressed(ContextPopupItem &item)
 
 void ConvListItem::onDownloadItemPressed(ContextPopupItem &item)
 {
+    MSG_LOG("");
     item.getParent().destroy();
     m_App.getMsgEngine().getTransport().retrieveMessage(m_MsgId);
 }
 
 void ConvListItem::onDownloadButtonClicked()
 {
+    MSG_LOG("");
     m_App.getMsgEngine().getTransport().retrieveMessage(m_MsgId);
+}
+
+void ConvListItem::onItemClicked(BubbleEntity::Item &item)
+{
+    MSG_LOG("");
+    FileViewer::launch(item.value2);
 }
 
 void ConvListItem::onCopyTextItemPressed(ContextPopupItem &item)

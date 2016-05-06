@@ -84,7 +84,11 @@ namespace Msg
         private:
             ConvListViewItem::ConvItemType getConvItemType(const MsgConversationItem &item);
             void prepareBubble(const MsgConversationItem &item, const std::string &searchWord);
-            void addVideoItem(const std::string &path);
+            void addVideoItem(const MsgConvMedia &media);
+            void addAudioItem(const MsgConvMedia &media);
+            void addTextItem(const MsgConvMedia &media, const std::string &searchWord);
+            void addImageItem(const MsgConvMedia &media);
+            void addAttachedFileItem(const MsgConvMedia &media);
 
             // Create Popup when message is clicked
             void showMainCtxPopup();
@@ -110,6 +114,7 @@ namespace Msg
 
             // IBubbleViewListener
             virtual void onDownloadButtonClicked();
+            virtual void onItemClicked(BubbleEntity::Item &item);
 
         private:
             IConvListItemListener *m_pListener;
