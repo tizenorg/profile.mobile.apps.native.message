@@ -44,6 +44,8 @@ pkg_check_modules(pkgs REQUIRED
             capi-appfw-preference
             capi-base-utils-i18n
             capi-content-media-content
+            capi-content-mime-type
+            capi-media-sound-manager
             capi-system-device
             capi-system-info
             capi-media-image-util
