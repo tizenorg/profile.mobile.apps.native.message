@@ -144,26 +144,26 @@ namespace Msg
 
         // Text:
         {"txt", {"text/plain", MsgMedia::TextType}},
-        {"text", {"text/plain", MsgMedia::TextType}},
-        {"html", {"text/html", MsgMedia::TextType}},
-        {"htm", {"text/html", MsgMedia::TextType}},
-        {"wml", {"text/vnd.wap.wml", MsgMedia::TextType}},
-        {"xml", {"text/xml", MsgMedia::TextType}},
+        {"text", {"text/plain", MsgMedia::UnknownType}},
+        {"html", {"text/html", MsgMedia::UnknownType}},
+        {"htm", {"text/html", MsgMedia::UnknownType}},
+        {"wml", {"text/vnd.wap.wml", MsgMedia::UnknownType}},
+        {"xml", {"text/xml", MsgMedia::UnknownType}},
 
         // vObject:
-        {"vbm", {"text/x-vbookmark", MsgMedia::TextType}},
-        {"vcf", {"text/x-vcard", MsgMedia::TextType}},
-        {"vcs", {"text/x-vCalendar", MsgMedia::TextType}},
-        {"vnt", {"text/x-vnote", MsgMedia::TextType}},
+        {"vbm", {"text/x-vbookmark", MsgMedia::UnknownType}},
+        {"vcf", {"text/x-vcard", MsgMedia::UnknownType}},
+        {"vcs", {"text/x-vCalendar", MsgMedia::UnknownType}},
+        {"vnt", {"text/x-vnote", MsgMedia::UnknownType}},
 
         // Doc:
-        {"doc", {"application/msword", MsgMedia::TextType}},
-        {"doc", {"applcation/vnd.ms-word", MsgMedia::TextType}},
-        {"xls", {"application/vnd.ms-excel", MsgMedia::TextType}},
-        {"xls", {"application/x-msexcel", MsgMedia::TextType}},
-        {"ppt", {"application/vnd.ms-powerpoint", MsgMedia::TextType}},
-        {"ppt", {"application/x-mspowerpoint", MsgMedia::TextType}},
-        {"pdf", {"application/pdf", MsgMedia::TextType}},
+        {"doc", {"application/msword", MsgMedia::UnknownType}},
+        {"doc", {"applcation/vnd.ms-word", MsgMedia::UnknownType}},
+        {"xls", {"application/vnd.ms-excel", MsgMedia::UnknownType}},
+        {"xls", {"application/x-msexcel", MsgMedia::UnknownType}},
+        {"ppt", {"application/vnd.ms-powerpoint", MsgMedia::UnknownType}},
+        {"ppt", {"application/x-mspowerpoint", MsgMedia::UnknownType}},
+        {"pdf", {"application/pdf", MsgMedia::UnknownType}},
 
         // Etc:
         {"rm ", {"application/vnd.rn-realmedia", MsgMedia::UnknownType}},
