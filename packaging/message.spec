@@ -1,6 +1,6 @@
-Name:       org.tizen.message
-#VCS_FROM:   profile/mobile/apps/native/message#9dd09cdfb94b001ad870409690816e40f93343fe
-#RS_Ver:    20160425_1 
+Name:       message
+#VCS_FROM:   profile/mobile/apps/native/message#9c96ef03eca993fa91161dab9dda11781fb61901
+#RS_Ver:    20160505_1 
 Summary:    Message application
 Version:    1.0.0
 Release:    1
@@ -11,6 +11,7 @@ Source0:    %{name}-%{version}.tar.gz
 BuildRequires:  pkgconfig(libtzplatform-config)
 Requires(post):  /usr/bin/tpk-backend
 
+%define internal_name org.tizen.message
 %define preload_tpk_path %{TZ_SYS_RO_APP}/.preload-tpk 
 
 %ifarch i386 i486 i586 i686 x86_64
@@ -24,6 +25,7 @@ Requires(post):  /usr/bin/tpk-backend
 %endif
 
 %description
+profile/mobile/apps/native/message#9c96ef03eca993fa91161dab9dda11781fb61901
 This is a container package which have preload TPK files
 
 %prep
@@ -34,7 +36,7 @@ This is a container package which have preload TPK files
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/%{preload_tpk_path}
-install %{name}-%{version}-%{target}.tpk %{buildroot}/%{preload_tpk_path}/
+install %{internal_name}-%{version}-%{target}.tpk %{buildroot}/%{preload_tpk_path}/
 
 %post
 
