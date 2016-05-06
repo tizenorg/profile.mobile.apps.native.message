@@ -170,6 +170,7 @@ namespace Msg
             void showNoRecipPopup();
             PopupList &createPopupList(const std::string &title);
             void showSendResultPopup(MsgTransport::SendResult result);
+            void showMobileDataPopup();
             void showUnsavedRecipientPopup(const std::string &address);
             void showSavedRecipientPopup(const std::string &title, int personId);
             void sendMessage();

@@ -472,6 +472,18 @@ bool Conversation::readMsgAddress(Message &msg)
 
 void Conversation::sendMessage()
 {
+    if(!getApp().getSysSettingsManager().isSimInserted())
+    {
+        showSendResultPopup(MsgTransport::SendNoSIM);
+        return;
+    }
+
+    if(m_IsMms && !getApp().getSysSettingsManager().isMobileDataEnabled())
+    {
+        showMobileDataPopup();
+        return;
+    }
+
     auto msg = getMsgEngine().getComposer().createMessage(m_IsMms ? Message::MT_MMS : Message::MT_SMS);
 
     if(!read(*msg))
@@ -631,6 +643,16 @@ void Conversation::showSendResultPopup(MsgTransport::SendResult result)
     popup.addEventCb(EVAS_CALLBACK_DEL, EVAS_EVENT_CALLBACK(Conversation, onPopupDel), this);
     popup.addButton(msgt("IDS_MSG_BUTTON_OK_ABB"), Popup::OkButtonId, POPUP_BUTTON_CB(Conversation, onMsgSendErrorButtonClicked), this);
     popup.setContent(msgt(strId));
+    popup.show();
+}
+
+void Conversation::showMobileDataPopup()
+{
+    auto &popupMngr = getApp().getPopupManager();
+    Popup &popup = popupMngr.getPopup();
+    popup.addEventCb(EVAS_CALLBACK_DEL, EVAS_EVENT_CALLBACK(Conversation, onPopupDel), this);
+    popup.addButton(msgt("IDS_MSG_BUTTON_OK_ABB"), Popup::OkButtonId, POPUP_BUTTON_CB(Conversation, onMsgSendErrorButtonClicked), this);
+    popup.setContent(msgt("IDS_MSGC_POP_MOBILE_DATA_IS_DISABLED_ENABLE_MOBILE_DATA_AND_TRY_AGAIN"));
     popup.show();
 }
 

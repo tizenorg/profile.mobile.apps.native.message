@@ -29,9 +29,18 @@ using namespace Msg;
 }
 
 SystemSettingsManager::SystemSettingsManager()
+    : m_TelHandleList()
 {
+    int err = telephony_init(&m_TelHandleList);
+    MSG_LOG("telephony_init = ", err);
+
     system_settings_set_changed_cb(SYSTEM_SETTINGS_KEY_LOCALE_TIMEFORMAT_24HOUR, CALLBACK(onTimeFormatChanged), this);
     system_settings_set_changed_cb(SYSTEM_SETTINGS_KEY_LOCALE_LANGUAGE, CALLBACK(onLanguageChanged), this);
+}
+
+SystemSettingsManager::~SystemSettingsManager()
+{
+    telephony_deinit(&m_TelHandleList);
 }
 
 void SystemSettingsManager::addListener(ISystemSettingsManager &l)
@@ -46,6 +55,29 @@ void SystemSettingsManager::removeListener(ISystemSettingsManager&l)
     auto it = std::find(m_Listeners.begin(), m_Listeners.end(), &l);
     if(it != m_Listeners.end())
         m_Listeners.erase(it);
+}
+
+bool SystemSettingsManager::isSimInserted() const
+{
+    bool res = false;
+
+    if(m_TelHandleList.count > 0)
+    {
+        telephony_h handle = m_TelHandleList.handle[0];
+        telephony_sim_state_e simState = TELEPHONY_SIM_STATE_UNAVAILABLE;
+        telephony_sim_get_state(handle, &simState);
+        res = simState != TELEPHONY_SIM_STATE_UNAVAILABLE &&
+              simState != TELEPHONY_SIM_STATE_UNKNOWN;
+    }
+
+    return res;
+}
+
+bool SystemSettingsManager::isMobileDataEnabled() const
+{
+    bool res = false;
+    system_settings_get_value_bool(SYSTEM_SETTINGS_KEY_3G_DATA_NETWORK_ENABLED, &res);
+    return res;
 }
 
 void SystemSettingsManager::onTimeFormatChanged()
@@ -63,3 +95,4 @@ void SystemSettingsManager::onLanguageChanged()
         it->onLanguageChanged();
     }
 }
+
