@@ -71,13 +71,17 @@ Body::Body(App &app, WorkingDirRef workingDir)
     , m_pOnChangedIdler(nullptr)
     , m_TooLargePopupShow(false)
     , m_TooMuchAttachedPopupShow(false)
+    , m_ResizingPopupShow(false)
     , m_MmsRecipFlag(false)
+    , m_AttachmentHandler(workingDir)
 {
+    m_AttachmentHandler.setListener(this);
 }
 
 void Body::create(Evas_Object *parent)
 {
     BodyView::create(parent);
+
 }
 
 Page &Body::getDefaultPage()
@@ -106,84 +110,25 @@ void Body::setListener(IBodyListener *listener)
     m_pListener = listener;
 }
 
-bool Body::addMedia(const std::list<std::string> &fileList)
+void Body::addMedia(const std::list<std::string> &fileList)
 {
-    bool res = true;
-
-    int numAttached = getAttachmentsCountTotal();
-    int numToAttach = fileList.size();
-    int numAttachMax = m_App.getMsgEngine().getSettings().getAttachmentsMaxCount();
-
-    if((numAttached + numToAttach) > numAttachMax)
-    {
-        numToAttach = numAttachMax - numAttached;
-        if (numToAttach > 0)
-            showTooMuchAttachedPopup(numToAttach);
-    }
-
-    int i = 0;
-    for(auto &file : fileList)
-    {
-        if (i > numToAttach)
-            break;
-        res &= addMedia(file);
-        ++i;
-    }
-    return res;
+    for(auto& file : fileList)
+        m_SelectedFiles.push(file);
+    runFileProcessing();
 }
 
-bool Body::addMedia(const std::string &filePath)
+void Body::addMedia(const std::string &filePath)
 {
-    MSG_LOG("Try add resource:", filePath);
+    m_SelectedFiles.push(filePath);
+    runFileProcessing();
+}
 
-    int numAttached = getAttachmentsCountTotal();
-    int numAttachMax = m_App.getMsgEngine().getSettings().getAttachmentsMaxCount();
-
-    if(numAttached >= numAttachMax)
-    {
-        showTooMuchAttachedPopup();
-        return false;
-    }
-
-    if(!FileUtils::isExists(filePath) || FileUtils::isDir(filePath))
-    {
-        MSG_LOG_ERROR("File not exists: ", filePath);
-        return false;
-    }
-
-    long long fileSize = FileUtils::getFileSize(filePath);
-    long long maxSize = m_App.getMsgEngine().getSettings().getMaxMmsSize();
-
-    if((fileSize + getMsgSize()) > maxSize)
-    {
-        showTooLargePopup();
-        return false;
-    }
-
-    MediaTypeData meidaType = getMediaType(filePath);
-    MSG_LOG("Media type: ", meidaType.mime);
-
-    Page *page = nullptr;
-    if(meidaType.type != MsgMedia::UnknownType &&
-       meidaType.type != MsgMedia::TextType)
-    {
-        page = static_cast<Page*>(getPageForMedia(msgMediaTypeToPageItemType(meidaType.type)));
-        if(!page)
-            return false;
-
-        page->addMedia(filePath);
-
-    }
-    else
-    {
-        addAttachment(filePath);
-        page = &getDefaultPage();
-    }
-
-    if(page)
-        BodyView::setFocus(*page, true); // TODO: check for multi insertion
-
-    return true;
+void Body::runFileProcessing()
+{
+    long long freeSpace = m_App.getMsgEngine().getSettings().getMaxMmsSize() - getMsgSize();
+    if(freeSpace < FileUtils::getFileSize(m_SelectedFiles.front()))
+        showResizingPopup();
+    m_AttachmentHandler.processFile(m_SelectedFiles.front());
 }
 
 bool Body::isMms()
@@ -436,7 +381,7 @@ PopupList &Body::createPopupList(const std::string &title)
     return popupList;
 }
 
-void Body::showTooLargePopup()
+void Body::showTooLargePopup(const std::list <std::string> &tooBigFiles)
 {
    if(!m_TooLargePopupShow)
    {
@@ -444,7 +389,13 @@ void Body::showTooLargePopup()
         popup.addEventCb(EVAS_CALLBACK_DEL, EVAS_EVENT_CALLBACK(Body, onTooLargePopupDel), this);
         popup.addButton(msgt("IDS_MSG_BUTTON_OK_ABB"), Popup::OkButtonId);
         popup.setTitle(msgt("IDS_MSG_HEADER_FILE_SIZE_TOO_LARGE_ABB"));
-        popup.setContent(msgt("IDS_MSG_POP_UNABLE_TO_ATTACH_FILE_FILE_SIZE_TOO_LARGE_TRY_SENDING_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"));
+        std::string content(msg("IDS_MSG_POP_UNABLE_TO_ATTACH_FILE_FILE_SIZE_TOO_LARGE_TRY_SENDING_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"));
+        for(auto& file: tooBigFiles)
+        {
+            content.append("<br/>");
+            content.append(FileUtils::getFileName(file));
+        }
+        popup.setContent(content);
         popup.setAutoDismissBlockClickedFlag(true);
         popup.show();
         m_TooLargePopupShow = true;
@@ -483,6 +434,26 @@ void Body::showTooMuchAttachedPopup()
    }
 }
 
+void Body::showResizingPopup()
+{
+    if(!m_ResizingPopupShow)
+    {
+        Popup &popup = m_App.getPopupManager().getPopup();
+        popup.addEventCb(EVAS_CALLBACK_DEL, EVAS_EVENT_CALLBACK(Body, onResizingPopupDel), this);
+        int maxSize = m_App.getMsgEngine().getSettings().getMaxMmsSize();
+        std::string content(msgArgs("IDS_MSG_TPOP_MAXIMUM_MESSAGE_SIZE_HPS_EXCEEDED_RESIZING_ATTACHMENTS_ING", std::to_string(maxSize).c_str()));
+        popup.setContent(content);
+        popup.setAutoDismissBlockClickedFlag(true);
+        popup.show();
+        m_ResizingPopupShow = true;
+    }
+}
+
+void Body::hideResizingPopup()
+{
+    m_App.getPopupManager().reset();
+}
+
 void Body::showMaxCharactersPopup()
 {
     MSG_LOG("");
@@ -518,6 +489,12 @@ void Body::onTooMuchAttachedPopupDel(Evas_Object *obj, void *eventInfo)
 {
     MSG_LOG("");
     m_TooMuchAttachedPopupShow = false;
+}
+
+void Body::onResizingPopupDel(Evas_Object *obj, void *eventInfo)
+{
+    MSG_LOG("");
+    m_ResizingPopupShow = false;
 }
 
 std::string Body::createVcfFile(const AppControlComposeRef &cmd)
@@ -559,4 +536,67 @@ void Body::onContentChanged()
             this
         );
     }
+}
+
+void Body::onFileReady(const std::string &filePath)
+{
+    int numAttached = getAttachmentsCountTotal();
+    int numAttachMax = m_App.getMsgEngine().getSettings().getAttachmentsMaxCount();
+    if(numAttached == numAttachMax)
+    {
+        std::queue <std::string> empty;
+        std::swap(m_SelectedFiles, empty);
+        showTooMuchAttachedPopup();
+        return;
+    }
+    MediaTypeData mediaType = getMediaType(filePath);
+    MSG_LOG("Media type: ", mediaType.mime);
+
+    Page *page = nullptr;
+    if(mediaType.type != MsgMedia::UnknownType &&
+            mediaType.type != MsgMedia::TextType)
+    {
+        page = static_cast<Page*>(getPageForMedia(msgMediaTypeToPageItemType(mediaType.type)));
+        if(!page)
+            return;
+
+        page->addMedia(filePath);
+
+    }
+    else
+    {
+        addAttachment(filePath);
+        page = &getDefaultPage();
+    }
+
+    if(page)
+        BodyView::setFocus(*page, true); // TODO: check for multi insertion
+    m_SelectedFiles.pop();
+    if(!m_SelectedFiles.empty())
+    {
+        long long freeSpace = m_App.getMsgEngine().getSettings().getMaxMmsSize() - getMsgSize();
+        if(freeSpace < FileUtils::getFileSize(m_SelectedFiles.front()))
+            showResizingPopup();
+        m_AttachmentHandler.processFile(m_SelectedFiles.front());
+    }
+    else
+    {
+        hideResizingPopup();
+    }
+}
+
+void Body::onFileFails()
+{
+    std::list <std::string> overflowList;
+    while (!m_SelectedFiles.empty())
+    {
+        overflowList.push_back(m_SelectedFiles.front());
+        m_SelectedFiles.pop();
+    }
+    showTooLargePopup(overflowList);
+}
+
+long long Body::onFreeSpaceRequest()
+{
+    return m_App.getMsgEngine().getSettings().getMaxMmsSize() - getMsgSize();
 }
