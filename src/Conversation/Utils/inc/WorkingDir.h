@@ -20,6 +20,7 @@
 
 #include <string>
 #include <memory>
+#include <mutex>
 
 namespace Msg
 {
@@ -48,6 +49,7 @@ namespace Msg
 
         private:
             std::string m_Path;
+            mutable std::recursive_mutex m_Mutex;
     };
 
     typedef std::shared_ptr<WorkingDir> WorkingDirRef;
