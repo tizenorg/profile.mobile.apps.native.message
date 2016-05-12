@@ -1,6 +1,6 @@
 Name:       org.tizen.message
 #VCS_FROM:   profile/mobile/apps/native/message#f9dddfa3bddad0f2839e258f63f51329c35f2082
-#RS_Ver:    20160509_2 
+#RS_Ver:    20160511_2 
 Summary:    Message application
 Version:    1.0.0
 Release:    1
