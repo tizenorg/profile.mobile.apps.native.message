@@ -200,6 +200,7 @@ void MsgThread::setSearchMode(bool value)
         m_pSearchList->clear();
         getNaviBar().showSearch();
         m_pNoContent->setText(msgt("IDS_MSG_NPBODY_NO_RESULTS_FOUND_ABB"));
+        m_pNoContent->setHelpText(msgt(""));
     }
     else
     {
