@@ -41,3 +41,8 @@ void NoContentLayout::setHelpText(const TText &text)
 {
     View::setText(text, "elm.help.text");
 }
+
+void NoContentLayout::setHelpText(const std::string &text)
+{
+    View::setText(text, "elm.help.text");
+}
