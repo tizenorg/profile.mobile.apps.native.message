@@ -18,7 +18,7 @@
 #include "PathUtils.h"
 #include "Logger.h"
 
-#include <storage-expand.h>
+#include <storage/storage-expand.h>
 #include <stdlib.h>
 #include <app.h>
 
