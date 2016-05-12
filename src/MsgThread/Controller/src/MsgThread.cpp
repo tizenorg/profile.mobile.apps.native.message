@@ -87,8 +87,8 @@ void MsgThread::showMainPopup()
     PopupList &popup = getApp().getPopupManager().getPopupList();
     if (!m_pThreadList->isEmpty())
     {
-        popup.appendItem(msg("IDS_MSG_OPT_SEARCH"), POPUPLIST_ITEM_PRESSED_CB(MsgThread, onSearchItemPressed), this);
         popup.appendItem(msg("IDS_MSG_OPT_DELETE"), POPUPLIST_ITEM_PRESSED_CB(MsgThread, onDeleteItemPressed), this);
+        popup.appendItem(msg("IDS_MSG_OPT_SEARCH"), POPUPLIST_ITEM_PRESSED_CB(MsgThread, onSearchItemPressed), this);
     }
     popup.appendItem(msg("IDS_MSG_OPT_SETTINGS"), POPUPLIST_ITEM_PRESSED_CB(MsgThread, onSettingsItemPressed), this);
     popup.show();
