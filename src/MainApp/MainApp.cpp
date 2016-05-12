@@ -96,10 +96,12 @@ const Window &MainApp::getWindow() const
 
 void MainApp::terminate()
 {
-   /* if(m_pWindow)
-        m_pWindow->lower();*/
+    // Minimize window:
+    if(m_pWindow)
+        m_pWindow->lower();
 
-    ui_app_exit();
+   // Exit from application:
+   // ui_app_exit();
 }
 
 bool MainApp::onAppCreate()
