@@ -30,6 +30,7 @@ namespace Msg
             static int getDurationSec(const std::string &uri); // sec;
             static bool getVideoFrame(const std::string &videoFilePath, const std::string &imageFilePath);
             static bool getFrameSize(const std::string &videoFilePath, int &width, int &height);
+            static long long downgradeImageQuality(const std::string &imagePath);
     };
 }
 

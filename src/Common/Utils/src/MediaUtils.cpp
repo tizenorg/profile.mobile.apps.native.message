@@ -27,6 +27,7 @@ using namespace Msg;
 
 namespace
 {
+    const int QUALITY = 50;
     class MetadataExtractor
     {
         public:
@@ -160,4 +161,83 @@ bool MediaUtils::getFrameSize(const std::string &videoFilePath, int &width, int 
     MSG_LOG("Frame: width = ", width, " height = ", height);
 
     return true;
+}
+
+long long MediaUtils::downgradeImageQuality(const std::string &imagePath)
+{
+    image_util_decode_h decode_h;
+    image_util_encode_h encode_h;
+    unsigned char *buffer = nullptr;
+    unsigned long width;
+    unsigned long height;
+    unsigned long long size;
+    int res = IMAGE_UTIL_ERROR_NONE;
+
+    res = image_util_decode_create(&decode_h);
+    if(res != IMAGE_UTIL_ERROR_NONE)
+    {
+        return FileUtils::getFileSize(imagePath);
+    }
+
+    res = image_util_decode_set_input_path(decode_h, imagePath.c_str());
+    if(res != IMAGE_UTIL_ERROR_NONE)
+    {
+        image_util_decode_destroy(decode_h);
+        return FileUtils::getFileSize(imagePath);
+    }
+
+    res = image_util_decode_set_output_buffer(decode_h, &buffer);
+    if(res != IMAGE_UTIL_ERROR_NONE)
+    {
+        image_util_decode_destroy(decode_h);
+        return FileUtils::getFileSize(imagePath);
+    }
+
+    res = image_util_decode_run(decode_h, &width, &height, &size);
+    image_util_decode_destroy(decode_h);
+    if(res != IMAGE_UTIL_ERROR_NONE)
+    {
+        return FileUtils::getFileSize(imagePath);
+    }
+
+    res = image_util_encode_create(IMAGE_UTIL_JPEG, &encode_h);
+    if(res != IMAGE_UTIL_ERROR_NONE)
+    {
+        return FileUtils::getFileSize(imagePath);
+    }
+
+    res = image_util_encode_set_resolution(encode_h, width, height);
+    if(res != IMAGE_UTIL_ERROR_NONE)
+    {
+        image_util_encode_destroy(encode_h);
+        return FileUtils::getFileSize(imagePath);
+    }
+
+    res = image_util_encode_set_quality(encode_h, QUALITY);
+    if(res != IMAGE_UTIL_ERROR_NONE)
+    {
+        image_util_encode_destroy(encode_h);
+        return FileUtils::getFileSize(imagePath);
+    }
+
+    res = image_util_encode_set_input_buffer(encode_h, buffer);
+    if(res != IMAGE_UTIL_ERROR_NONE)
+    {
+        image_util_encode_destroy(encode_h);
+        return FileUtils::getFileSize(imagePath);
+    }
+
+    res = image_util_encode_set_output_path(encode_h, imagePath.c_str());
+    if(res != IMAGE_UTIL_ERROR_NONE)
+    {
+        image_util_encode_destroy(encode_h);
+        return FileUtils::getFileSize(imagePath);
+    }
+    res = image_util_encode_run(encode_h, &size);
+    image_util_encode_destroy(encode_h);
+    if(res != IMAGE_UTIL_ERROR_NONE)
+    {
+        return FileUtils::getFileSize(imagePath);
+    }
+    return size;
 }

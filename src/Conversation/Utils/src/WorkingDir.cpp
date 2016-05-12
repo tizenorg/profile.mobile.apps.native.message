@@ -86,11 +86,13 @@ const std::string &WorkingDir::getPath() const
 
 std::string WorkingDir::genUniqueFilePath(const std::string &path) const
 {
-     return FileUtils::genUniqueFilePath(m_Path, path);
+    std::lock_guard<std::recursive_mutex> _lock(m_Mutex);
+    return FileUtils::genUniqueFilePath(m_Path, path);
 }
 
 std::string WorkingDir::addFile(const std::string &path)
 {
+    std::lock_guard<std::recursive_mutex> _lock(m_Mutex);
     std::string newPath;
 
     if(FileUtils::isExists(path))
@@ -115,6 +117,7 @@ std::string WorkingDir::addFile(const std::string &path)
 
 std::string WorkingDir::addTextFile(const std::string &text, const std::string &fileName)
 {
+    std::lock_guard<std::recursive_mutex> _lock(m_Mutex);
     std::string result;
     result = fileName.empty() ? textFileName : fileName;
 
@@ -135,12 +138,14 @@ std::string WorkingDir::addTextFile(const std::string &text, const std::string &
 
 void WorkingDir::removeFile(const std::string &path)
 {
+    std::lock_guard<std::recursive_mutex> _lock(m_Mutex);
     if(!path.empty())
         FileUtils::remove(path);
 }
 
 void WorkingDir::clear()
 {
+    std::lock_guard<std::recursive_mutex> _lock(m_Mutex);
     FileUtils::remove(m_Path, false);
 }
 
