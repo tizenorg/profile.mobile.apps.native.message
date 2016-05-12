@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <manifest xmlns="http://tizen.org/ns/packages" api-version="3.0" package="org.tizen.message" version="1.0.0">
     <profile name="mobile"/>
-    <ui-application appid="org.tizen.message" exec="message" hw-acceleration="on" launch_mode="single" multiple="false" nodisplay="false" taskmanage="true" type="c++app">
+    <ui-application appid="org.tizen.message" exec="message" hw-acceleration="on" launch_mode="single" multiple="false" nodisplay="false" taskmanage="true" process-pool="true" type="c++app">
         <label>Message</label>
         <label xml:lang="ar-ae">الرسائل</label>
         <label xml:lang="as-in">মেছেজসমূহ</label>
