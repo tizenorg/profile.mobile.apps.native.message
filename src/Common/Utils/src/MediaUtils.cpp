@@ -22,6 +22,7 @@
 #include <metadata_extractor.h>
 #include <image_util.h>
 #include <math.h>
+#include <Elementary.h>
 
 using namespace Msg;
 
@@ -160,4 +161,21 @@ bool MediaUtils::getFrameSize(const std::string &videoFilePath, int &width, int 
     MSG_LOG("Frame: width = ", width, " height = ", height);
 
     return true;
+}
+
+bool MediaUtils::downgradeImageQuality(const std::string &imagePath, long long freeSpace)
+{
+    Ecore_Evas *ee = ecore_evas_buffer_new(0,0);
+    Evas *canvas = ecore_evas_get(ee);
+    Evas_Object *img = evas_object_image_filled_add(canvas);
+    evas_object_image_file_set(img, imagePath.c_str(), nullptr);
+
+    //TODO: use image util
+    Eina_Bool b = evas_object_image_save(img, imagePath.c_str(), nullptr, "quality=50 compress=9");
+    if (b == EINA_FALSE) {
+        MSG_LOG("evas_object_image_save fails! Path: ", imagePath);
+    }
+
+    ecore_evas_free(ee);
+    return FileUtils::getFileSize(imagePath) <= freeSpace;
 }

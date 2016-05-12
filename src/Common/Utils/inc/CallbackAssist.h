@@ -56,4 +56,7 @@
     static_cast<ClassName*>(data)->method();             \
 }
 
+#define ECORE_SAFE_SYNC_CALL(ClassName, method, self)\
+ecore_main_loop_thread_safe_call_sync(static_cast<ClassName*>(data)->method, self)
+
 #endif /* CallBackAssist_h_ */

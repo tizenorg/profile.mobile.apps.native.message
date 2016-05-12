@@ -24,6 +24,7 @@
 #include "WorkingDir.h"
 #include "AppControlCompose.h"
 #include "Page.h"
+#include "AttachmentHandler.h"
 
 #include <list>
 #include <Ecore.h>
@@ -39,6 +40,7 @@ namespace Msg
 
     class Body
         : public BodyView
+        , private IAttachmentHandlerListener
     {
         public:
             Body(App &app, WorkingDirRef workingDir);
@@ -47,8 +49,8 @@ namespace Msg
             void create(Evas_Object *parent);
             void setListener(IBodyListener *listener);
 
-            bool addMedia(const std::list<std::string> &fileList);
-            bool addMedia(const std::string &filePath);
+            void addMedia(const std::list<std::string> &fileList);
+            void addMedia(const std::string &filePath);
 
             bool isMms();
             void setMmsRecipFlag(bool value);
@@ -62,10 +64,12 @@ namespace Msg
 
         private:
             Page &createPage();
-            void showTooLargePopup();
+            void showTooLargePopup(const std::list <std::string> &tooBigFiles);
             void showTooMuchAttachedPopup(int willBeAttached);
             void showTooMuchAttachedPopup();
             void showMaxCharactersPopup();
+            void showResizingPopup();
+            void hideResizingPopup();
             void read(MessageSMS &msg);
             void read(MessageMms &msg);
             void readAttachments(MessageMms &msg);
@@ -96,6 +100,16 @@ namespace Msg
             PopupList &createPopupList(const std::string &title);
             void onRemoveMediaItemPressed(PopupListItem &item);
             void onRemoveBodyItemPressed(PopupListItem &item);
+
+            //IAttachmentHandlerListener
+            virtual int OnAvailableSlotsRequest();
+            virtual long long OnAvailableSpaceRequest();
+            virtual void OnResizingStart();
+            virtual void OnResizingDone();
+            virtual void OnFileAttached(const std::string &filePath);
+            virtual void OnSpaceOverflow(const std::list <std::string> &tooBigFiles);
+            virtual void OnMaxAttachmentsReached();
+
         private:
             IBodyListener *m_pListener;
             App &m_App;
@@ -104,6 +118,7 @@ namespace Msg
             bool m_TooLargePopupShow;
             bool m_TooMuchAttachedPopupShow;
             bool m_MmsRecipFlag;
+            AttachmentHandler m_AttachmentHandler;
     };
 
     class IBodyListener

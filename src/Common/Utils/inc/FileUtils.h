@@ -86,7 +86,7 @@ namespace Msg
             static std::string getFileName(const std::string &path);
 
             /**
-             * @brief Remove recursive files and directorys.
+             * @brief Remove recursive files and directories.
              * @param[in] path File or directory
              * @param[in] true - remove current dir, false - otherwise
              * @retval Returns true if all success, false otherwise
