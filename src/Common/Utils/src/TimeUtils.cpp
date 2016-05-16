@@ -71,7 +71,7 @@ std::string TimeUtils::makeThreadTimeString(time_t msgTime)
     }
     else
     {
-        bool notThisYear = notThisYear = (msgTimeTm.tm_year - curTimeTm.tm_year != 0);
+        bool notThisYear = (msgTimeTm.tm_year - curTimeTm.tm_year != 0);
         const std::string &date = notThisYear ? dateListYear : dateListDefault;
         return getFormattedDate(locale, getDateBestPattern(locale, date), msgTime);
     }
