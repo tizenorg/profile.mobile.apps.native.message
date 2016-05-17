@@ -27,7 +27,7 @@
 #include "App.h"
 #include <string>
 #include "MessageDetailContent.h"
-#include "WorkingDir.h"
+#include "FileViewer.h"
 #include "MsgUtils.h"
 
 namespace Msg
@@ -120,6 +120,7 @@ namespace Msg
             IConvListItemListener *m_pListener;
             App &m_App;
             WorkingDirRef m_WorkingDir;
+            FileViewer m_FileViewer;
             MsgId m_MsgId;
             bool m_IsDraft;
             Message::NetworkStatus m_NetworkStatus;
