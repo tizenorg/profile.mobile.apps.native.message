@@ -23,7 +23,8 @@
 
 using namespace Msg;
 
-FileViewer::FileViewer()
+FileViewer::FileViewer(WorkingDirRef workingDir)
+    : m_WorkingDir(workingDir)
 {
 }
 
@@ -43,12 +44,30 @@ bool FileViewer::launch(const std::string &file)
     {
         app_control_set_operation(svc_handle, APP_CONTROL_OPERATION_VIEW);
         app_control_set_mime(svc_handle, mime.c_str());
-        app_control_set_uri(svc_handle, file.c_str());
+        std::string uri = "file://" + file;
+        app_control_set_uri(svc_handle, uri.c_str());
         app_control_set_launch_mode(svc_handle, APP_CONTROL_LAUNCH_MODE_GROUP);
         int ret = app_control_send_launch_request(svc_handle, nullptr, nullptr);
         MSG_LOG("Result code: ", ret);
         res = ret == APP_CONTROL_ERROR_NONE;
         app_control_destroy(svc_handle);
+    }
+
+    return res;
+}
+
+bool FileViewer::launchWithCopy(const std::string &file)
+{
+    bool res = false;
+    if(m_WorkingDir)
+    {
+        // Remove previous file (correct only for APP_CONTROL_LAUNCH_MODE_GROUP)
+        if(!m_FilePath.empty())
+            m_WorkingDir->removeFile(m_FilePath);
+
+        m_FilePath = m_WorkingDir->addFile(file);
+        if(!m_FilePath.empty())
+            res = launch(m_FilePath);
     }
 
     return res;
