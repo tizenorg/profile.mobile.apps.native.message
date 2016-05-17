@@ -40,6 +40,7 @@ ConvList::ConvList(Evas_Object *parent, App &app, WorkingDirRef workingDir)
     , m_pListner(nullptr)
     , m_App(app)
     , m_WorkingDir(workingDir)
+    , m_FileViewer(workingDir)
     , m_OwnerThumbId(m_App.getThumbnailMaker().getThumbId(ThumbnailMaker::OwnerThumb))
     , m_RecipThumbId(m_App.getThumbnailMaker().getThumbId(ThumbnailMaker::SingleThumb))
     , m_SearchWord()
@@ -128,8 +129,7 @@ void ConvList::fill()
     for(int i = 0; i < convListLen; ++i)
     {
         MsgConversationItem &item = convList->at(i);
-        const ThumbnailMaker::ThumbId &thumbId = item.getDirection() == Message::MD_Received ? m_RecipThumbId : m_OwnerThumbId;
-        appendItem(new ConvListItem(item, m_App, m_WorkingDir, m_SearchWord, thumbId));
+        appendItem(item);
     }
 }
 
@@ -185,6 +185,12 @@ ConvListItem *ConvList::getItem(MsgId msgId) const
 {
     auto it = m_ConvListItemMap.find(msgId);
     return it != m_ConvListItemMap.end() ? it->second : nullptr;
+}
+
+void ConvList::appendItem(const MsgConversationItem &item)
+{
+    const ThumbnailMaker::ThumbId &thumbId = item.getDirection() == Message::MD_Received ? m_RecipThumbId : m_OwnerThumbId;
+    appendItem(new ConvListItem(item, m_App, m_FileViewer, m_WorkingDir, m_SearchWord, thumbId));
 }
 
 void ConvList::appendItem(ConvListItem *item)
@@ -344,9 +350,11 @@ void ConvList::onMsgStorageInsert(const MsgIdList &msgIdList)
         if(msg && msg->getThreadId() == m_ThreadId && msg->getMessageStorageType() != Message::MS_Sim)
         {
             MsgConversationItemRef item = m_MsgEngine.getStorage().getConversationItem(msgId);
-            const ThumbnailMaker::ThumbId &thumbId = item->getDirection() == Message::MD_Received ? m_RecipThumbId : m_OwnerThumbId;
-            appendItem(new ConvListItem(*item, m_App, m_WorkingDir, m_SearchWord, thumbId));
-            inserted = true;
+            if(item)
+            {
+                appendItem(*item);
+                inserted = true;
+            }
         }
     }
     if(inserted)

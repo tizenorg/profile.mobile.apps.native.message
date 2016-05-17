@@ -34,6 +34,7 @@ using namespace Msg;
 
 ConvListItem::ConvListItem(const MsgConversationItem &item,
                            App &app,
+                           FileViewer &fileViewer,
                            WorkingDirRef workingDir,
                            const std::string &searchWord,
                            const ThumbnailMaker::ThumbId &thumbId)
@@ -41,6 +42,7 @@ ConvListItem::ConvListItem(const MsgConversationItem &item,
     , m_pListener(nullptr)
     , m_App(app)
     , m_WorkingDir(workingDir)
+    , m_FileViewer(fileViewer)
     , m_MsgId(item.getMsgId())
     , m_IsDraft(item.isDraft())
     , m_NetworkStatus(item.getNetworkStatus())
@@ -325,7 +327,7 @@ void ConvListItem::onDownloadButtonClicked()
 void ConvListItem::onItemClicked(BubbleEntity::Item &item)
 {
     MSG_LOG("");
-    FileViewer::launch(item.value2);
+    m_FileViewer.launchWithCopy(item.value2);
 }
 
 void ConvListItem::onCopyTextItemPressed(ContextPopupItem &item)
