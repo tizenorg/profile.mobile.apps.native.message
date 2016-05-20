@@ -134,6 +134,7 @@ fi
 
 %files
 %manifest %{name}.manifest
+%license LICENSE
 %defattr(-,root,root,-)
 %dir
 %if %TIZEN_2_4_BUILD == 1
