@@ -1,6 +1,6 @@
 Name:       org.tizen.message
-#VCS_FROM:   profile/mobile/apps/native/message#942e08660b521cacae784816a150cd84d1029b81
-#RS_Ver:    20160518_1 
+#VCS_FROM:   profile/mobile/apps/native/message#b99924e1d431fc2c545c8f94c3735b7dd5ed83f3
+#RS_Ver:    20160520_2 
 Summary:    Message application
 Version:    1.0.0
 Release:    1
@@ -8,6 +8,7 @@ Group:      Applications/Messaging
 License:    Apache-2.0
 Source0:    %{name}-%{version}.tar.gz
 
+ExcludeArch:  aarch64 x86_64
 BuildRequires:  pkgconfig(libtzplatform-config)
 Requires(post):  /usr/bin/tpk-backend
 
@@ -25,7 +26,7 @@ Requires(post):  /usr/bin/tpk-backend
 %endif
 
 %description
-profile/mobile/apps/native/message#942e08660b521cacae784816a150cd84d1029b81
+profile/mobile/apps/native/message#b99924e1d431fc2c545c8f94c3735b7dd5ed83f3
 This is a container package which have preload TPK files
 
 %prep
