@@ -43,6 +43,7 @@ namespace
 
 ConvListViewItem::ConvListViewItem(ConvItemType type)
     : ListItem()
+    , m_SearchMode(false)
 {
     updateItemType(type);
 }
@@ -123,6 +124,26 @@ Evas_Object *ConvListViewItem::createProgress()
     evas_object_show(progressbar);
     elm_progressbar_pulse(progressbar, EINA_TRUE);
     return progressbar;
+}
+
+void ConvListViewItem::showSearch()
+{
+    m_SearchMode = true;
+    if(getElmObjItem())
+        emitSignal("show_search", "*");
+}
+
+void ConvListViewItem::onRealized(ListItem &item)
+{
+    if(m_SearchMode)
+        emitSignal("show_search", "*");
+}
+
+void ConvListViewItem::onUnrealized(ListItem &item)
+{
+    // Use because genlist does not save state for other items
+    if(m_SearchMode)
+        emitSignal("hide_search", "*");
 }
 
 void ConvListViewItem::updateProgressField()

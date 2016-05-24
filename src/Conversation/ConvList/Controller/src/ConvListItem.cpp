@@ -31,6 +31,22 @@
 #include <notification_status.h>
 
 using namespace Msg;
+namespace
+{
+
+    bool isContentFind(const std::string &str, const std::string &searchWord)
+    {
+        if(str.empty() || searchWord.empty())
+            return false;
+
+        std::string s(markupToUtf8(str));
+        std::transform(s.begin(), s.end(), s.begin(), tolower);
+        std::string sw(markupToUtf8(searchWord));
+        std::transform(sw.begin(), sw.end(), sw.begin(), tolower);
+        size_t size = s.find(sw);
+        return size != std::string::npos;
+    }
+}
 
 ConvListItem::ConvListItem(const MsgConversationItem &item,
                            App &app,
@@ -135,8 +151,12 @@ void ConvListItem::addTextItem(const MsgConvMedia &media, const std::string &sea
 {
     // TODO: How to detect text attachment and content(text) of MMS ?
     std::string text = FileUtils::readTextFile(media.getPath());
-    std::string highlightedText = TextDecorator::highlightKeyword(utf8ToMarkup(text), utf8ToMarkup(searchWord));
-    m_BubbleEntity.addItem(BubbleEntity::TextItem, highlightedText);
+    if(isContentFind(text, searchWord))
+        showSearch();
+
+    // It may be required after update the UI document
+    // std::string highlightedText = TextDecorator::highlightKeyword(utf8ToMarkup(text), utf8ToMarkup(searchWord));
+    m_BubbleEntity.addItem(BubbleEntity::TextItem, text);
 }
 
 void ConvListItem::addImageItem(const MsgConvMedia &media)
@@ -149,8 +169,13 @@ void ConvListItem::prepareBubble(const MsgConversationItem &item, const std::str
 {
     if(!MsgUtils::isMms(m_Type))
     {
-        std::string highlightedText = TextDecorator::highlightKeyword(utf8ToMarkup(item.getText()), utf8ToMarkup(searchWord));
-        m_BubbleEntity.addItem(BubbleEntity::TextItem, highlightedText);
+        std::string textItem = item.getText();
+        if(isContentFind(textItem, searchWord))
+            showSearch();
+
+        // It may be after to update the UI document
+        // std::string highlightedText = TextDecorator::highlightKeyword(utf8ToMarkup(item.getText()), utf8ToMarkup(searchWord));
+        m_BubbleEntity.addItem(BubbleEntity::TextItem, textItem);
     }
     else if(m_Type == Message::MT_MMS_Noti)
     {

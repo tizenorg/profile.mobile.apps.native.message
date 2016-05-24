@@ -57,6 +57,7 @@ collections {
 images {
     image: "messages_bubble_bg.#.png" COMP;
     image: "messages_bubble_bg_ef.#.png" COMP;
+    image: "messages_bubble_bg_search.#.png" COMP;
     image: "messages_bubble_line_draft.#.png" COMP;
     image: "messages_date_divider.#.png" COMP;
 }
@@ -272,6 +273,18 @@ group { name: "elm/genlist/item/sentbubble/default";
                 rel2.to: "bubble.bg.image";
             }
         }
+        image { "bubble.bg.search"; scale;
+            desc { "default";
+                visible: 0;
+            }
+            desc { "show_search";
+                inherit: "default";
+                visible: 1;
+                image.normal: "messages_bubble_bg_search.#.png";
+                rel1.to: "bubble.bg.image";
+                rel2.to: "bubble.bg.image";
+            }
+        }
         spacer { "bubble.pad.top"; scale;
             desc { "default";
                 min: 0 BUBBLE_CONTENT_PAD_TOP_HEIGHT;
@@ -353,6 +366,18 @@ group { name: "elm/genlist/item/sentbubble/default";
             action: STATE_SET "selection" 0.0;
             target: "bubble.check";
             target: "pad.check";
+        }
+        program { name: "show_search";
+            signal: "show_search";
+            source: "*";
+            action: STATE_SET "show_search" 0.0;
+            target: "bubble.bg.search";
+        }
+        program { name: "hide_search";
+            signal: "hide_search";
+            source: "*";
+            action: STATE_SET "default" 0.0;
+            target: "bubble.bg.search";
         }
         program { name: "default_mode";
             signal: "elm,state,default";
