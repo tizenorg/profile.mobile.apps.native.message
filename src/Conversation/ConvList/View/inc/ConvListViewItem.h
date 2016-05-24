@@ -46,16 +46,23 @@ namespace Msg
             virtual void onEditButtonClicked(Evas_Object *obj, void *event_info) = 0;
             virtual void onFailedButtonClicked(Evas_Object *obj, void *event_info) = 0;
 
+            void showSearch();
+
         protected:
             Evas_Object *createProgress();
             void updateProgressField();
             void updateItemType(ConvItemType type);
+            virtual void onRealized(ListItem &item);
+            virtual void onUnrealized(ListItem &item);
 
         private:
             Evas_Object *createButton(bool isEnabled, ConvItemType type);
             virtual std::string getText(ListItem &item, const char *part);
             virtual Evas_Object *getContent(ListItem &item, const char *part);
             virtual const char *getCheckPart(ListItem &item);
+
+        private:
+            bool m_SearchMode;
     };
 }
 

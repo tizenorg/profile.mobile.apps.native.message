@@ -31,6 +31,18 @@
 #include <notification_status.h>
 
 using namespace Msg;
+namespace
+{
+
+    bool isContentFind(const std::string &str, const std::string &searchWord)
+    {
+        if(str.empty() || searchWord.empty())
+            return false;
+
+        char *found = strcasestr((char*)str.c_str(), (char*)searchWord.c_str());
+        return found;
+    }
+}
 
 ConvListItem::ConvListItem(const MsgConversationItem &item,
                            App &app,
@@ -135,8 +147,12 @@ void ConvListItem::addTextItem(const MsgConvMedia &media, const std::string &sea
 {
     // TODO: How to detect text attachment and content(text) of MMS ?
     std::string text = FileUtils::readTextFile(media.getPath());
-    std::string highlightedText = TextDecorator::highlightKeyword(utf8ToMarkup(text), utf8ToMarkup(searchWord));
-    m_BubbleEntity.addItem(BubbleEntity::TextItem, highlightedText);
+    if(isContentFind(utf8ToMarkup(text), utf8ToMarkup(searchWord)))
+        showSearch();
+
+    // It may be required after update the UI document
+    // std::string highlightedText = TextDecorator::highlightKeyword(utf8ToMarkup(text), utf8ToMarkup(searchWord));
+    m_BubbleEntity.addItem(BubbleEntity::TextItem, text);
 }
 
 void ConvListItem::addImageItem(const MsgConvMedia &media)
@@ -149,8 +165,13 @@ void ConvListItem::prepareBubble(const MsgConversationItem &item, const std::str
 {
     if(!MsgUtils::isMms(m_Type))
     {
-        std::string highlightedText = TextDecorator::highlightKeyword(utf8ToMarkup(item.getText()), utf8ToMarkup(searchWord));
-        m_BubbleEntity.addItem(BubbleEntity::TextItem, highlightedText);
+        std::string textItem = item.getText();
+        if(isContentFind(utf8ToMarkup(textItem), utf8ToMarkup(searchWord)))
+            showSearch();
+
+        // It may be after to update the UI document
+        // std::string highlightedText = TextDecorator::highlightKeyword(utf8ToMarkup(item.getText()), utf8ToMarkup(searchWord));
+        m_BubbleEntity.addItem(BubbleEntity::TextItem, textItem);
     }
     else if(m_Type == Message::MT_MMS_Noti)
     {
