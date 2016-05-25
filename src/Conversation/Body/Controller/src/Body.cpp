@@ -170,9 +170,9 @@ long long Body::getMsgSize()
     auto attachments = getAttachments();
     for(BodyAttachmentViewItem *attachment : attachments)
     {
-        long long size = attachment->getFileSize();
-        if(size > 0)
-            size += size;
+        long long fileSize = attachment->getFileSize();
+        if(fileSize > 0)
+            size += fileSize;
     }
 
     // Pages:
@@ -343,9 +343,9 @@ void Body::onCheckBoundaryText(TextPageViewItem &item, char **text)
     MSG_LOG("");
     if(isMms())
     {
-        int maxSize = m_App.getMsgEngine().getSettings().getMaxMmsSize();
+        long long maxSize = m_App.getMsgEngine().getSettings().getMaxMmsSize();
         std::string utfText = markupToUtf8(*text);
-        if(getMsgSize() + utfText.size() > maxSize)
+        if(getMsgSize() + static_cast<long long>(utfText.size()) > maxSize)
         {
             free(*text);
             *text = nullptr;
