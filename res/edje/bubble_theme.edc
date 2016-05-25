@@ -23,7 +23,7 @@
 #define BUBBLE_INFO_STATUS_WIDTH 44
 #define BUBBLE_INFO_STATUS_PAD_WIDTH 4
 #define BUBBLE_INFO_TEXT_HEIGHT 38
-#define BUBBLE_DRAFT_PAD_WIDTH 94
+#define BUBBLE_DRAFT_PAD_WIDTH 74
 #define BUBBLE_DRAFT_BUTTON_PAD_WIDTH 26
 #define BUBBLE_DRAFT_BUTTON_PAD_HEIGHT 7
 #define BUBBLE_DRAFT_BUTTON_WIDTH 56
@@ -104,7 +104,7 @@ group { name: "elm/genlist/item/sentbubble/default";
 
     data.item: "banded_bg_area" "elm.swallow.bg";
     data.item: "texts" "info.time";
-    data.item: "contents" "bubble.content info.thumbnail info.status info.status1 bubble.check";
+    data.item: "contents" "bubble.content info.status info.status1 bubble.check";
     parts{
         spacer { "base"; scale; mouse;
             desc { "default";
@@ -129,26 +129,6 @@ group { name: "elm/genlist/item/sentbubble/default";
                 fixed: 0 1;
             }
         }
-        swallow { "info.thumbnail"; scale;
-            desc { "default";
-                min: BUBBLE_INFO_THUMB_WIDTH BUBBLE_INFO_THUMB_HEIGHT;
-                max: BUBBLE_INFO_THUMB_WIDTH BUBBLE_INFO_THUMB_HEIGHT;
-                align: 1.0 0.0;
-                rel1.to_y: "info.pad";
-                rel2.to_x: "info.pad";
-                fixed: 1 1;
-            }
-        }
-        spacer { "info.thumb.pad"; scale;
-            desc { "default"
-                min: BUBBLE_INFO_THUMB_PAD_WIDTH 0;
-                max: BUBBLE_INFO_THUMB_PAD_WIDTH -1;
-                align: 1.0 0.0;
-                rel2.to_x: "info.thumbnail";
-                rel2.relative: 0.0 1.0;
-                fixed: 1 0;
-            }
-        }
         spacer { "info.pad.top"; scale;
             desc { "default"
                 min: 0 BUBBLE_INFO_PAD_TOP_HEIGHT;
@@ -165,7 +145,7 @@ group { name: "elm/genlist/item/sentbubble/default";
                 align: 1.0 0.0;
                 rel1.to_y: "info.pad.top";
                 rel1.relative: 0.0 1.0;
-                rel2.to_x: "info.thumb.pad";
+                rel2.to_x: "info.pad";
                 rel2.relative: 0.0 1.0;
                 fixed: 1 1;
             }
@@ -194,13 +174,13 @@ group { name: "elm/genlist/item/sentbubble/default";
         }
         textblock { "info.time"; scale;
             desc { "default";
-                align: 1.0 0.0;
+                align: 0.0 0.0;
                 min: 0 BUBBLE_INFO_TEXT_HEIGHT;
                 max: -1 BUBBLE_INFO_TEXT_HEIGHT;
+                rel2.to_x: "bubble.pad.right";
                 rel1.to_y: "info.status";
                 rel1.relative: 0.0 1.0;
-                rel2.to_x: "info.thumb.pad";
-                rel2.relative: 0.0 1.0;
+                rel2.relative: 1.0 1.0;
                 text.style: "entry_bubble_sent_textblock_style";
             }
         }
@@ -393,7 +373,7 @@ group { name: "elm/genlist/item/draft/default";
     alias: "elm/genlist/item_compress/draft/default";
     inherit: "elm/genlist/item/sentbubble/default";
 
-    data.item: "contents" "bubble.content info.thumbnail info.status info.status1 bubble.check draft.button";
+    data.item: "contents" "bubble.content info.status info.status1 bubble.check draft.button";
 
     parts {
         image { "bubble.bg.image"; scale;
@@ -413,8 +393,8 @@ group { name: "elm/genlist/item/draft/default";
         }
         spacer { "draft.pad"; scale;
             desc { "default";
-                min: BUBBLE_DRAFT_PAD_WIDTH 0;
-                max: BUBBLE_DRAFT_PAD_WIDTH -1;
+                min: BUBBLE_DRAFT_PAD_WIDTH 50;
+                max: BUBBLE_DRAFT_PAD_WIDTH 50;
                 rel2.to_x: "pad.right";
                 rel2.relative: 0.0 0.0;
                 align: 1.0 0.0;
@@ -447,7 +427,7 @@ group { name: "elm/genlist/item/failed/default";
     alias: "elm/genlist/item_compress/failed/default";
     inherit: "elm/genlist/item/draft/default";
     part_remove: "draft.button";
-    data.item: "contents" "bubble.content info.thumbnail info.status info.status1 bubble.check failed.button";
+    data.item: "contents" "bubble.content info.status info.status1 bubble.check failed.button";
 
     parts {
         image { "bubble.bg.image"; scale;
@@ -474,21 +454,28 @@ group { name: "elm/genlist/item/failed/default";
 group { name: "elm/genlist/item/receivebubble/default";
     alias: "elm/genlist/item_compress/receivebubble/default";
     inherit: "elm/genlist/item/sentbubble/default";
+    data.item: "contents" "bubble.content info.thumbnail info.status info.status1 bubble.check";
 
     parts {
         swallow { "info.thumbnail"; scale;
             desc { "default";
+                min: BUBBLE_INFO_THUMB_WIDTH BUBBLE_INFO_THUMB_HEIGHT;
+                max: BUBBLE_INFO_THUMB_WIDTH BUBBLE_INFO_THUMB_HEIGHT;
                 align: 0.0 0.0;
                 rel1.to: "info.pad";
                 rel2.to: "";
+                fixed: 1 1;
             }
         }
         spacer { "info.thumb.pad"; scale;
             desc { "default"
+                min: BUBBLE_INFO_THUMB_PAD_WIDTH 0;
+                max: BUBBLE_INFO_THUMB_PAD_WIDTH -1;
                 align: 0.0 0.0;
                 rel1.to_x: "info.thumbnail";
                 rel1.relative: 1.0 0.0;
                 rel2.to: "";
+                fixed: 1 0;
             }
         }
         swallow { "info.status"; scale;
