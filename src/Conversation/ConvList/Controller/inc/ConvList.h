@@ -133,7 +133,6 @@ namespace Msg
             void dateLineAddIfNec(ConvListItem *item);
 
             void updateRecipThumbId();
-            void updateOwnerThumbId();
 
             // IListViewListener:
             virtual void onListItemLongPressed(ListItem &listItem);
@@ -172,7 +171,6 @@ namespace Msg
             App &m_App;
             WorkingDirRef m_WorkingDir;
             FileViewer m_FileViewer;
-            ThumbnailMaker::ThumbId m_OwnerThumbId;
             ThumbnailMaker::ThumbId m_RecipThumbId;
             std::string m_SearchWord;
     };

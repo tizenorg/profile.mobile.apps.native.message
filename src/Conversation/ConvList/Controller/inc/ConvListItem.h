@@ -53,7 +53,7 @@ namespace Msg
                          FileViewer &fileViewer,
                          WorkingDirRef workingDir,
                          const std::string &searchWord,
-                         const ThumbnailMaker::ThumbId &thumbId);
+                         const ThumbnailMaker::ThumbId &thumbId = -1);
 
             virtual ~ConvListItem();
 
