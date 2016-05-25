@@ -16,6 +16,7 @@
  */
 
 #include "SettingsGroupListViewItem.h"
+#include "LangUtils.h"
 
 using namespace Msg;
 
@@ -37,7 +38,7 @@ SettingsGroupListViewItem::~SettingsGroupListViewItem()
 std::string SettingsGroupListViewItem::getText(ListItem &item, const char *part)
 {
     if(!strcmp(part, "elm.text"))
-        return m_Title;
+        return msg(m_Title);
     else
         return "";
 }

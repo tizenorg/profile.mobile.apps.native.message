@@ -23,6 +23,7 @@
 #include "ListView.h"
 #include "SettingsListItem.h"
 #include "MsgSettings.h"
+#include "SystemSettingsManager.h"
 
 namespace Msg
 {
@@ -35,6 +36,7 @@ namespace Msg
         , private IListViewListener
         , private ISettingsListViewItemListener
         , private IMsgSettingsListener
+        , private ISystemSettingsManager
     {
         public:
             Settings(NaviFrameController &parent);
@@ -53,6 +55,9 @@ namespace Msg
 
             // IMsgSettingsListener
             virtual void onNotiSoundChanged(MsgSettings &msgSetting);
+
+            // ISystemSettingsManager:
+            virtual void onLanguageChanged();
 
         private:
             MsgSettings &getMsgSettings();

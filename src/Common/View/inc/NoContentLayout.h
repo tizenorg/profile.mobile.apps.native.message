@@ -36,6 +36,7 @@ namespace Msg
 
             void setText(const TText &text);
             void setHelpText(const TText &text);
+            void setHelpText(const std::string &text = "");
     };
 }
 

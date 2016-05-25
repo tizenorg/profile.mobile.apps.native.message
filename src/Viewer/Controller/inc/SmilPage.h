@@ -37,6 +37,7 @@ namespace Msg
             int getDuration() const;
             bool hasMedia() const;
             bool hasVideo() const;
+            bool hasAudio() const;
             bool hasAnimation() const;
             void playAnimation(bool play);
             Evas_Object *getVideoSink() const;
@@ -57,6 +58,7 @@ namespace Msg
             int m_Duration;
             std::string m_MediaPath;
             Evas_Object *m_pVideoSink;
+            bool m_HasAudio;
             SmilImageItemView *m_pImageItem;
     };
 }

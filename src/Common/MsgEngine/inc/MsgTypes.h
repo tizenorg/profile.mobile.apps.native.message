@@ -85,8 +85,8 @@ namespace Msg
 
         unsigned charsLeft;     // Only for SMS
         unsigned segmentsCount; // Only for SMS
-        unsigned bytes;         // SMS or MMS
-        bool isMms;             // SMS or MMS
+        unsigned bytes;         // Only for SMS
+        bool isMms;
     };
 
     inline MsgTextMetric::MsgTextMetric()

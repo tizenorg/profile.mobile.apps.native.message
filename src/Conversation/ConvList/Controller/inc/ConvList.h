@@ -25,8 +25,7 @@
 #include "App.h"
 #include "ConvListItem.h"
 #include "ContactManager.h"
-#include "DateLineViewItem.h"
-#include "WorkingDir.h"
+#include "FileViewer.h"
 
 #include <unordered_map>
 #include <unordered_set>
@@ -125,6 +124,7 @@ namespace Msg
             void selectListItems(bool state);
             bool isAllListItemSelected() const;
             ConvListItem *getItem(MsgId msgId) const;
+            void appendItem(const MsgConversationItem &item);
             void appendItem(ConvListItem *item);
             void deleteItem(ConvListItem *item);
             void demoteItem(ConvListItem *item); //move down existing item
@@ -136,7 +136,7 @@ namespace Msg
             void updateOwnerThumbId();
 
             // IListViewListener:
-            virtual void onListItemSelected(ListItem &listItem);
+            virtual void onListItemLongPressed(ListItem &listItem);
             virtual void onListItemChecked(ListItem &listItem);
 
             // IMsgStorageListener:
@@ -158,6 +158,7 @@ namespace Msg
 
             // ISystemSettingsManager:
             virtual void onTimeFormatChanged();
+            virtual void onLanguageChanged();
 
         private:
             Mode m_Mode;
@@ -170,6 +171,7 @@ namespace Msg
             IConvListListener *m_pListner;
             App &m_App;
             WorkingDirRef m_WorkingDir;
+            FileViewer m_FileViewer;
             ThumbnailMaker::ThumbId m_OwnerThumbId;
             ThumbnailMaker::ThumbId m_RecipThumbId;
             std::string m_SearchWord;

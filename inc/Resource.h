@@ -26,6 +26,7 @@
 #define CONTACT_IMG                     "icon_btn_contact.png"
 #define SOFT_SEARCH_BACK_IMG            "icon_soft_search_back.png"
 #define ATTACH_IMG                      "attach_icon.png"
+#define ADD_PLUS_ICON                   "core_button_add.png"
 
 // Edj:
 #define IMAGES_EDJ_PATH                  EDJ_PATH"/images.edj"
@@ -49,6 +50,7 @@
 #define CONV_LIST_EDJ_PATH               EDJ_PATH"/conv_list.edj"
 #define CONV_LAYOUT_EDJ_PATH             EDJ_PATH"/conv_layout.edj"
 #define CONV_CONTACT_LIST_LAYOUT         EDJ_PATH"/conv_contact_list_layout.edj"
+
 
 // Images(res):
 #define THUMB_CONTACT_IMG_PATH           IMAGE_PATH"/list_ic_contacts.png"

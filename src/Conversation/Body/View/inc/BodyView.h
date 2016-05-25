@@ -63,7 +63,7 @@ namespace Msg
             PageView *addPage();
             BodyAttachmentCollection getAttachments() const;
 
-            TextPageViewItem *addText(PageView &page);
+            TextPageViewItem *addText(PageView &page, int maxCharCount);
             ImagePageViewItem *addImage(PageView &page, const std::string &filePath, long long fileSize);
             VideoPageViewItem *addVideo(PageView &page, const std::string &filePath, long long fileSize, const std::string &imagePath);
             SoundPageViewItem *addSound(PageView &page, const std::string &filePath, long long fileSize, const std::string &dispName = "");
@@ -87,7 +87,6 @@ namespace Msg
             virtual void onPreeditChanged(TextPageViewItem &item);
             virtual void onPress(TextPageViewItem &item);
             virtual void onClicked(TextPageViewItem &item);
-            virtual void onMaxLengthReached(TextPageViewItem &item);
             virtual void onKeyDown(TextPageViewItem &obj, Evas_Event_Key_Down &event);
             virtual void onKeyUp(TextPageViewItem &obj, Evas_Event_Key_Up &event);
             virtual void onChanged(TextPageViewItem &item);

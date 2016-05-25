@@ -26,6 +26,7 @@
 #include "Logger.h"
 #include "MsgOnSimCard.h"
 #include "MediaUtils.h"
+#include "App.h"
 
 #include <Elementary.h>
 #include <app_preference.h>
@@ -54,6 +55,7 @@ Settings::Settings(NaviFrameController &parent)
 Settings::~Settings()
 {
      getMsgSettings().removeListener(*this);
+     getApp().getSysSettingsManager().removeListener(*this);
 }
 
 void Settings::create()
@@ -70,6 +72,7 @@ void Settings::create()
     fillList();
     updateItems();
     getMsgSettings().addListener(*this);
+    getApp().getSysSettingsManager().addListener(*this);
 }
 
 MsgSettings &Settings::getMsgSettings()
@@ -103,16 +106,16 @@ bool Settings::isExistingMmsAutoRetrRoamingBackup() const
 
 void Settings::fillList()
 {
-    appendGroupItem("Notifications");
+    appendGroupItem("IDS_MSGS_BODY_NOTIFICATIONS");
     appendAlertsItem();
     appendSoundItem();
     appendVibrationItem();
 
-    appendGroupItem("Text messages");
+    appendGroupItem("IDS_MSGF_BODY_TEXT_MESSAGES");
     appendDelivReportSmsItem();
     appendMsgOnSimItem();
 
-    appendGroupItem("Multimedia message");
+    appendGroupItem("IDS_MSGF_BODY_MULTIMEDIA_MESSAGE");
     appendDelivReportMmsItem();
     appendReadReportItem();
     appendAutoRetItem();
@@ -151,26 +154,26 @@ SettingsListItem *Settings::appendItem(ListItemStyleRef style, SettingsListItem:
 
 void Settings::appendAlertsItem()
 {
-    m_pAlertsItem = appendItem(SettingsListViewItem::oneLineIconStyle, &Settings::alertsItemHandler, "Alerts");
+    m_pAlertsItem = appendItem(SettingsListViewItem::oneLineIconStyle, &Settings::alertsItemHandler, "IDS_MSG_MBODY_ALERTS");
 }
 
 void Settings::appendSoundItem()
 {
-    m_pSoundItem = appendItem(SettingsListViewItem::multiLineStyle, &Settings::soundItemHandler, "Sound", "Default");
+    m_pSoundItem = appendItem(SettingsListViewItem::multiLineStyle, &Settings::soundItemHandler, "IDS_MSG_TMBODY_SOUND", "Default");
 }
 
 void Settings::appendVibrationItem()
 {
-    m_pVibrationItem = appendItem(SettingsListViewItem::oneLineIconStyle, &Settings::vibrationItemHandler, "Vibration");
+    m_pVibrationItem = appendItem(SettingsListViewItem::oneLineIconStyle, &Settings::vibrationItemHandler, "IDS_MSG_MBODY_VIBRATION");
 }
 
 void Settings::appendDelivReportSmsItem()
 {
     m_pDelivReportSmsItem = appendItem
     (   SettingsListViewItem::multiLineIconStyle,
-         &Settings::delivReportSmsItemHandler,
-        "Delivery report",
-        "Request a delivery report for each message you send"
+        &Settings::delivReportSmsItemHandler,
+        "IDS_MSGF_BODY_DELIVERY_REPORT",
+        "IDS_MSGS_BODY_REQUEST_A_DELIVERY_REPORT_FOR_EACH_MESSAGE_YOU_SEND"
     );
 }
 
@@ -191,8 +194,8 @@ void Settings::appendDelivReportMmsItem()
     (
         SettingsListViewItem::multiLineIconStyle,
         &Settings::delivReportMmsItemHandler,
-        "Delivery report",
-        "Request a delivery report for each message you send"
+        "IDS_MSGF_BODY_DELIVERY_REPORT",
+        "IDS_MSGS_BODY_REQUEST_A_DELIVERY_REPORT_FOR_EACH_MESSAGE_YOU_SEND"
     );
 }
 
@@ -202,8 +205,8 @@ void Settings::appendReadReportItem()
     (
         SettingsListViewItem::multiLineIconStyle,
         &Settings::readReportItemHandler,
-        "Read report",
-        "Request a read report for each message you send"
+        "IDS_MSGF_BODY_READ_REPORT",
+        "IDS_MSGS_BODY_REQUEST_A_READ_REPORT_FOR_EACH_MESSAGE_YOU_SEND"
     );
 }
 
@@ -213,8 +216,8 @@ void Settings::appendAutoRetItem()
     (
         SettingsListViewItem::multiLineIconStyle,
         &Settings::autoRetItemHandler,
-        "Auto retrieve",
-        "Request message automatically"
+        "IDS_MSG_TMBODY_AUTO_RETRIEVE",
+        "IDS_MSG_BODY_RETRIEVE_MESSAGES_AUTOMATICALLY"
     );
 }
 
@@ -224,8 +227,8 @@ void Settings::appendAutoRetRoamingItem()
     (
          SettingsListViewItem::multiLineIconStyle,
          &Settings::autoRetRoamingItemHandler,
-         "Auto retrieve while roaming",
-         "Retrieve messages automatically while roaming"
+         "IDS_MSG_TMBODY_AUTO_RETRIEVE_WHILE_ROAMING",
+         "IDS_MSG_BODY_RETRIEVE_MESSAGES_AUTOMATICALLY_WHILE_ROAMING"
     );
 }
 
@@ -404,10 +407,14 @@ void Settings::onNotiSoundChanged(MsgSettings &msgSetting)
     m_pSoundItem->update();
 }
 
+void Settings::onLanguageChanged()
+{
+    MSG_LOG("");
+    m_pList->updateRealizedItems();
+}
+
 void Settings::onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId)
 {
     if(buttonId == NaviPrevButtonId)
-    {
         getParent().pop();
-    }
 }

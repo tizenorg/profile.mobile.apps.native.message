@@ -48,11 +48,13 @@ namespace Msg
             virtual MsgThreadItemRef getThread(ThreadId id) = 0;
             virtual ThreadId getThreadId(const MsgAddressList &addressList) = 0;
             virtual ThreadId getThreadId(const std::list<std::string> &addressList) = 0;
+            virtual ThreadId getThreadId(MsgId id) = 0;
             virtual bool deleteThread(ThreadId id) = 0;
             virtual MsgAddressListRef getAddressList(ThreadId id) = 0;
             virtual MsgThreadListRef searchThread(const std::string &word) = 0;
             virtual void setReadStatus(ThreadId id) = 0;
             virtual int getUnreadThreadCount() const = 0;
+            bool hasEmail(ThreadId id);
 
             // Message:
             virtual MessageSMSListRef getSimMsgList() = 0;

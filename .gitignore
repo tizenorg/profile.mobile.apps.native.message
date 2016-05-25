@@ -9,3 +9,4 @@ crash-info
 .sdk_delta.info
 .settings/
 org.tizen.message-Test-result.xml
+.package-stamp

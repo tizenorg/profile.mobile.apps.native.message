@@ -28,6 +28,7 @@
 #include "MsgStorage.h"
 #include "SimMsgLayout.h"
 #include "NoContentLayout.h"
+#include "SystemSettingsManager.h"
 
 namespace Msg
 {
@@ -39,6 +40,7 @@ namespace Msg
         , private IHwButtonListener
         , private IListViewListener
         , private IMsgStorageListener
+        , private ISystemSettingsManager
     {
         public:
             MsgOnSimCard(NaviFrameController &parent);
@@ -71,6 +73,9 @@ namespace Msg
 
             // IMsgStorageListener
             virtual void onMsgStorageDelete(const MsgIdList &msgIdList);
+
+            // ISystemSettingsManager:
+            virtual void onLanguageChanged();
 
         private:
             enum SimMode

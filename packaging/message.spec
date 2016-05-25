@@ -19,6 +19,8 @@ BuildRequires:  pkgconfig(capi-appfw-application)
 BuildRequires:  pkgconfig(capi-appfw-app-manager)
 BuildRequires:  pkgconfig(capi-base-utils-i18n)
 BuildRequires:  pkgconfig(capi-content-media-content)
+BuildRequires:  pkgconfig(capi-content-mime-type)
+BuildRequires:  pkgconfig(capi-media-sound-manager)
 BuildRequires:  pkgconfig(capi-media-image-util)
 BuildRequires:  pkgconfig(capi-media-metadata-extractor)
 BuildRequires:  pkgconfig(capi-media-player)
@@ -132,6 +134,7 @@ fi
 
 %files
 %manifest %{name}.manifest
+%license LICENSE
 %defattr(-,root,root,-)
 %dir
 %if %TIZEN_2_4_BUILD == 1

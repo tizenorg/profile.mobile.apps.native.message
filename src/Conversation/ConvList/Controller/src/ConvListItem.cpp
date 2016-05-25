@@ -19,21 +19,38 @@
 #include "MsgConversationItem.h"
 #include "ListView.h"
 #include "CallbackAssist.h"
-#include <telephony_common.h>
-#include <telephony_sim.h>
 #include "FileUtils.h"
 #include "TimeUtils.h"
 #include "SaveAttachmentsPopup.h"
 #include "TextDecorator.h"
 #include "MediaType.h"
 #include "MediaUtils.h"
-#include <notification_status.h>
 #include "TimeUtils.h"
+#include "FileViewer.h"
+
+#include <notification_status.h>
 
 using namespace Msg;
+namespace
+{
+
+    bool isContentFind(const std::string &str, const std::string &searchWord)
+    {
+        if(str.empty() || searchWord.empty())
+            return false;
+
+        std::string s(markupToUtf8(str));
+        std::transform(s.begin(), s.end(), s.begin(), tolower);
+        std::string sw(markupToUtf8(searchWord));
+        std::transform(sw.begin(), sw.end(), sw.begin(), tolower);
+        size_t size = s.find(sw);
+        return size != std::string::npos;
+    }
+}
 
 ConvListItem::ConvListItem(const MsgConversationItem &item,
                            App &app,
+                           FileViewer &fileViewer,
                            WorkingDirRef workingDir,
                            const std::string &searchWord,
                            const ThumbnailMaker::ThumbId &thumbId)
@@ -41,6 +58,7 @@ ConvListItem::ConvListItem(const MsgConversationItem &item,
     , m_pListener(nullptr)
     , m_App(app)
     , m_WorkingDir(workingDir)
+    , m_FileViewer(fileViewer)
     , m_MsgId(item.getMsgId())
     , m_IsDraft(item.isDraft())
     , m_NetworkStatus(item.getNetworkStatus())
@@ -98,24 +116,72 @@ ConvListViewItem::ConvItemType ConvListItem::getConvItemType(const MsgConversati
     return type;
 }
 
-void ConvListItem::addVideoItem(const std::string &path)
+void ConvListItem::addVideoItem(const MsgConvMedia &media)
 {
     const std::string thumbFileName = "thumbnail.jpeg";
     std::string thumbFilePath =  m_WorkingDir->genUniqueFilePath(thumbFileName);
 
     if(!thumbFilePath.empty())
     {
+        std::string path = media.getPath();
         if(MediaUtils::getVideoFrame(path, thumbFilePath))
-            m_BubbleEntity.addItem(BubbleEntity::VideoItem, thumbFilePath);
+            m_BubbleEntity.addItem(BubbleEntity::VideoItem, thumbFilePath, path);
     }
+}
+
+void ConvListItem::addAudioItem(const MsgConvMedia &media)
+{
+    std::string dsipName = media.getName();
+    std::string path = media.getPath();
+    if(dsipName.empty())
+        dsipName = FileUtils::getFileName(path);
+    m_BubbleEntity.addItem(BubbleEntity::AudioItem, dsipName, path);
+}
+
+void ConvListItem::addAttachedFileItem(const MsgConvMedia &media)
+{
+    std::string dsipName = media.getName();
+    std::string path = media.getPath();
+    if(dsipName.empty())
+        dsipName = FileUtils::getFileName(path);
+    m_BubbleEntity.addItem(BubbleEntity::AttachedFileItem, dsipName, path);
+}
+
+void ConvListItem::addTextItem(const MsgConvMedia &media, const std::string &searchWord)
+{
+    // TODO: How to detect text attachment and content(text) of MMS ?
+    std::string text = FileUtils::readTextFile(media.getPath());
+    if(isContentFind(text, searchWord))
+        showSearch();
+
+    // It may be required after update the UI document
+    // std::string highlightedText = TextDecorator::highlightKeyword(utf8ToMarkup(text), utf8ToMarkup(searchWord));
+    m_BubbleEntity.addItem(BubbleEntity::TextItem, text);
+}
+
+void ConvListItem::addImageItem(const MsgConvMedia &media)
+{
+    // TODO: msg service corrupts thumbnail's metadata, so it lost rotation. Use getPath instead getThumbPath until fix
+    m_BubbleEntity.addItem(BubbleEntity::ImageItem, media.getPath(), media.getPath());
 }
 
 void ConvListItem::prepareBubble(const MsgConversationItem &item, const std::string &searchWord)
 {
-    if(m_Type == Message::MT_SMS)
+    if(!MsgUtils::isMms(m_Type))
     {
-        std::string highlightedText = TextDecorator::highlightKeyword(utf8ToMarkup(item.getText()), utf8ToMarkup(searchWord));
-        m_BubbleEntity.addItem(BubbleEntity::TextItem, highlightedText);
+        std::string textItem = item.getText();
+        if(isContentFind(textItem, searchWord))
+            showSearch();
+
+        // It may be after to update the UI document
+        // std::string highlightedText = TextDecorator::highlightKeyword(utf8ToMarkup(item.getText()), utf8ToMarkup(searchWord));
+        m_BubbleEntity.addItem(BubbleEntity::TextItem, textItem);
+    }
+    else if(m_Type == Message::MT_MMS_Noti)
+    {
+        std::string text = MessageDetailContent::getMmsNotiConvListItemContent(m_App, m_MsgId);
+        m_BubbleEntity.addItem(BubbleEntity::TextItem, text);
+        m_BubbleEntity.addItem(BubbleEntity::DownloadButtonItem);
     }
     else
     {
@@ -123,40 +189,26 @@ void ConvListItem::prepareBubble(const MsgConversationItem &item, const std::str
         for(int i = 0; i < list.getLength(); i++)
         {
             const MsgConvMedia &media = list.at(i);
-
-            std::string mime = media.getMime();
             MediaTypeData mediaType = getMediaType(media.getPath());
 
-            if(mediaType.type == MsgMedia::ImageType)
+            switch(mediaType.type)
             {
-                // TODO: msg service corrupts thumbnail's metadata, so it lost rotation. Use getPath instead getThumbPath until fix
-                m_BubbleEntity.addItem(BubbleEntity::ImageItem, media.getPath());
-            }
-            else if(mediaType.type == MsgMedia::VideoType)
-            {
-                addVideoItem(media.getPath());
-            }
-            else if(mime == "text/plain")
-            {
-                // TODO: How to detect text attachment and content(text) of MMS ?
-                std::string text = FileUtils::readTextFile(media.getPath());
-                std::string highlightedText = TextDecorator::highlightKeyword(utf8ToMarkup(text), utf8ToMarkup(searchWord));
-                m_BubbleEntity.addItem(BubbleEntity::TextItem, highlightedText);
-            }
-            else if(mime != "application/smil")
-            {
-                m_BubbleEntity.addItem(BubbleEntity::TextItem, media.getName());
-                //msg service corrupts thumbnail's metadata, so it lost rotation. Use getPath instead getThumbPath until fix
-                m_BubbleEntity.addItem(BubbleEntity::ImageItem, list.at(i).getPath());
-            }
-            else if(mime == "text/plain")
-            {
-                std::string text = FileUtils::readTextFile(list.at(i).getPath());
-                m_BubbleEntity.addItem(BubbleEntity::TextItem, TextDecorator::highlightKeyword(std::move(text), searchWord));
-            }
-            else if(mime != "application/smil")
-            {
-                m_BubbleEntity.addItem(BubbleEntity::TextItem, list.at(i).getName());
+                case MsgMedia::TextType:
+                    addTextItem(media, searchWord);
+                    break;
+                case MsgMedia::ImageType:
+                    addImageItem(media);
+                    break;
+                case MsgMedia::AudioType:
+                    addAudioItem(media);
+                    break;
+                case MsgMedia::VideoType:
+                    addVideoItem(media);
+                    break;
+                default:
+                    if(mediaType.mime != "application/smil")
+                        addAttachedFileItem(media);
+                    break;
             }
         }
     }
@@ -166,6 +218,7 @@ Evas_Object *ConvListItem::getBubbleContent()
 {
     BubbleView *bubble = new BubbleView(*getOwner());
     bubble->fill(m_BubbleEntity);
+    bubble->setListener(this);
     return *bubble;
 }
 
@@ -177,7 +230,8 @@ Evas_Object *ConvListItem::getThumbnail()
 Evas_Object *ConvListItem::getProgress()
 {
     return m_NetworkStatus == Message::NS_Send_Pending ||
-           m_NetworkStatus == Message::NS_Sending  ? createProgress() : nullptr;
+           m_NetworkStatus == Message::NS_Sending ||
+           m_NetworkStatus == Message::NS_Retrieving ? createProgress() : nullptr;
 }
 
 std::string ConvListItem::getTime()
@@ -223,6 +277,8 @@ void ConvListItem::showMainCtxPopup()
 
     if(m_Type == Message::MT_MMS)
         ctxPopup.appendItem(msg("IDS_MSG_OPT_VIEW_AS_SLIDESHOW_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onSlideShowItemPressed), this);
+    if(m_Type == Message::MT_MMS_Noti)
+        ctxPopup.appendItem(msg("IDS_MSG_BUTTON_DOWNLOAD_ABB3"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onDownloadItemPressed), this);
 
     if(!msgText.empty())
         ctxPopup.appendItem(msg("IDS_MSG_OPT_COPY_TEXT"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onCopyTextItemPressed), this);
@@ -274,10 +330,29 @@ void ConvListItem::onDeleteItemPressed(ContextPopupItem &item)
     Popup &popup = m_App.getPopupManager().getPopup();
     popup.addEventCb(EVAS_CALLBACK_DEL, EVAS_EVENT_CALLBACK(ConvListItem, onPopupDel), this);
     popup.addButton(msgt("IDS_MSG_BUTTON_CANCEL_ABB"), Popup::CancelButtonId, POPUP_BUTTON_CB(ConvListItem, onCancelButtonClicked), this);
-    popup.addButton(msgt("IDS_MSG_BUTTON_REMOVE_ABB"), Popup::OkButtonId, POPUP_BUTTON_CB(ConvListItem, onDeleteButtonClicked), this);
+    popup.addButton(msgt("IDS_MSG_BUTTON_DELETE_ABB4"), Popup::OkButtonId, POPUP_BUTTON_CB(ConvListItem, onDeleteButtonClicked), this);
     popup.setTitle(msgt("IDS_MSG_HEADER_DELETE"));
     popup.setContent(msgt("IDS_MSG_POP_1_MESSAGE_WILL_BE_DELETED"));
     popup.show();
+}
+
+void ConvListItem::onDownloadItemPressed(ContextPopupItem &item)
+{
+    MSG_LOG("");
+    item.getParent().destroy();
+    m_App.getMsgEngine().getTransport().retrieveMessage(m_MsgId);
+}
+
+void ConvListItem::onDownloadButtonClicked()
+{
+    MSG_LOG("");
+    m_App.getMsgEngine().getTransport().retrieveMessage(m_MsgId);
+}
+
+void ConvListItem::onItemClicked(BubbleEntity::Item &item)
+{
+    MSG_LOG("");
+    m_FileViewer.launchWithCopy(item.value2);
 }
 
 void ConvListItem::onCopyTextItemPressed(ContextPopupItem &item)
@@ -357,7 +432,7 @@ void ConvListItem::onViewDetailsItemPressed(ContextPopupItem &item)
     Popup &popup = m_App.getPopupManager().getPopup();
     popup.addButton(msgt("IDS_MSG_BUTTON_OK_ABB"), Popup::CancelButtonId, POPUP_BUTTON_CB(ConvListItem, onCancelButtonClicked), this);
     popup.setTitle(msgt("IDS_MSGF_HEADER_MESSAGE_DETAILS"));
-    popup.setContent(MessageDetailContent::getMsgDetailContent(m_App, m_MsgId));
+    popup.setContent(MessageDetailContent::getMsgDetailsPopupContent(m_App, m_MsgId));
     popup.show();
 }
 

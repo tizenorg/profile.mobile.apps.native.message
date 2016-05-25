@@ -96,10 +96,12 @@ const Window &MainApp::getWindow() const
 
 void MainApp::terminate()
 {
-   /* if(m_pWindow)
-        m_pWindow->lower();*/
+    // Minimize window:
+    if(m_pWindow)
+        m_pWindow->lower();
 
-    ui_app_exit();
+   // Exit from application:
+   // ui_app_exit();
 }
 
 bool MainApp::onAppCreate()
@@ -112,7 +114,7 @@ bool MainApp::onAppCreate()
         bindtextdomain(PROJECT_NAME, localePath.c_str());
 
     elm_app_base_scale_set(2.6);
-    elm_config_preferred_engine_set("opengl_x11");
+    elm_config_accel_preference_set("3d");
 
     m_pWindow = new StandardWindow;
     m_pWindow->show();

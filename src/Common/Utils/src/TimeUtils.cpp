@@ -17,8 +17,10 @@
 
 #include "TimeUtils.h"
 #include "Logger.h"
+
 #include <system_settings.h>
 #include <unistd.h>
+
 /* for i18n */
 #include <utils_i18n_ustring.h>
 #include <utils_i18n_ulocale.h>
@@ -48,100 +50,83 @@ namespace
 
 std::string TimeUtils::makeThreadTimeString(time_t msgTime)
 {
-    tm msgTimeTm;
-    tm curTimeTm;
-    time_t curTime;
-    bool isToday = false;
-    bool notThisYear = false;
-    int msgDay = 0;
-    int curDay = 0;
-    std::string locale = getDefaultLocale();
+    tm msgTimeTm = {};
+    tm curTimeTm = {};
+    const std::string &locale = getDefaultLocale();
 
-    curTime = (time_t)time(nullptr);
+    time_t curTime = time(nullptr);
 
     localtime_r(&msgTime, &msgTimeTm);
     localtime_r(&curTime, &curTimeTm);
 
-    msgDay = (msgTimeTm.tm_year - 1900) * 365 + msgTimeTm.tm_yday + (msgTimeTm.tm_year - 1900 - 1) / 4;
-    curDay = (curTimeTm.tm_year - 1900) * 365 + curTimeTm.tm_yday + (curTimeTm.tm_year - 1900 - 1) / 4;
+    int msgDay = (msgTimeTm.tm_year - 1900) * 365 + msgTimeTm.tm_yday + (msgTimeTm.tm_year - 1900 - 1) / 4;
+    int curDay = (curTimeTm.tm_year - 1900) * 365 + curTimeTm.tm_yday + (curTimeTm.tm_year - 1900 - 1) / 4;
 
-    isToday = (curDay - msgDay == 0);
-    notThisYear = (msgTimeTm.tm_year - curTimeTm.tm_year != 0);
+    bool isToday = (curDay - msgDay == 0);
 
     if(isToday)
     {
-        if(getTimeFormat() == TimeFormat24H)
-            return getFormattedDate(locale, getDateBestPattern(locale, time24H), msgTime);
-        else
-            return getFormattedDate(locale, getDateBestPattern(locale, time12H), msgTime);
+        const std::string &timeFormat = getTimeFormat() == TimeFormat24H  ? time24H : time12H;
+        return getFormattedDate(locale, getDateBestPattern(locale, timeFormat), msgTime);
     }
     else
     {
-        if(notThisYear)
-            return getFormattedDate(locale, getDateBestPattern(locale, dateListYear), msgTime);
-        else
-            return getFormattedDate(locale, getDateBestPattern(locale, dateListDefault), msgTime);
+        bool notThisYear = (msgTimeTm.tm_year - curTimeTm.tm_year != 0);
+        const std::string &date = notThisYear ? dateListYear : dateListDefault;
+        return getFormattedDate(locale, getDateBestPattern(locale, date), msgTime);
     }
 }
 
 std::string TimeUtils::makeBubbleTimeString(time_t msgTime)
 {
-    std::string locale = getDefaultLocale();
-
-    return getTimeFormat() == TimeFormat24H
-            ? getFormattedDate(locale, getDateBestPattern(locale, time24H), msgTime)
-            : getFormattedDate(locale, getDateBestPattern(locale, time12H), msgTime);
+    const std::string &locale = getDefaultLocale();
+    const std::string &timeFormat = getTimeFormat() == TimeFormat24H  ? time24H : time12H;
+    return getFormattedDate(locale, getDateBestPattern(locale, timeFormat), msgTime);
 }
 
 std::string TimeUtils::makeBubbleDateLineString(time_t msgTime)
 {
-    std::string locale = getDefaultLocale();
+    const std::string &locale = getDefaultLocale();
     return getFormattedDate(locale, getDateBestPattern(locale, dateYear), msgTime);
 }
 
 std::string TimeUtils::makeDateTimeString(time_t msgTime) //the same for Sim Message List
 {
-    std::string locale = getDefaultLocale();
+    const std::string &locale = getDefaultLocale();
     std::string res = getFormattedDate(locale, getDateBestPattern(locale, dateTimeSceleton), msgTime);
 
     res.append(" ");
-    if(getTimeFormat() == TimeFormat24H)
-        res += getFormattedDate(locale, getDateBestPattern(locale, time24H), msgTime);
-    else
-        res += getFormattedDate(locale, getDateBestPattern(locale, time12H), msgTime);
+    const std::string &timeFormat = getTimeFormat() == TimeFormat24H  ? time24H : time12H;
+    res += getFormattedDate(locale, getDateBestPattern(locale, timeFormat), msgTime);
 
     return res;
 }
 std::string TimeUtils::makeSmsReportTimeString(time_t msgTime)
 {
-    std::string locale = getDefaultLocale();
-    return getTimeFormat() == TimeFormat24H
-            ? getFormattedDate(locale, getDateBestPattern(locale, delivReportSms24H), msgTime)
-            : getFormattedDate(locale, getDateBestPattern(locale, delivReportSms12H), msgTime);
+    const std::string &locale = getDefaultLocale();
+    const std::string &timeFormat = getTimeFormat() == TimeFormat24H ? delivReportSms24H : delivReportSms12H;
+    return getFormattedDate(locale, getDateBestPattern(locale, timeFormat), msgTime);
 }
 
 std::string TimeUtils::makeMmsReportTimeString(time_t msgTime)
 {
-    std::string locale = getDefaultLocale();
-    return getTimeFormat() == TimeFormat24H
-            ? getFormattedDate(locale, getDateBestPattern(locale, delivReportMms24H), msgTime)
-            : getFormattedDate(locale, getDateBestPattern(locale, delivReportMms12H), msgTime);
+    const std::string &locale = getDefaultLocale();
+    const std::string &timeFormat = getTimeFormat() == TimeFormat24H ? delivReportMms24H : delivReportMms12H;
+    return getFormattedDate(locale, getDateBestPattern(locale, timeFormat), msgTime);
 }
 
 int TimeUtils::getTimeFormat()
 {
     bool timeFormat = false;
-
-    if (system_settings_get_value_bool(SYSTEM_SETTINGS_KEY_LOCALE_TIMEFORMAT_24HOUR, &timeFormat) < 0)
+    if(system_settings_get_value_bool(SYSTEM_SETTINGS_KEY_LOCALE_TIMEFORMAT_24HOUR, &timeFormat) < 0)
         return TimeFormatUnknown;
-
     return timeFormat ? TimeFormat24H : TimeFormat12H;
 }
 
-std::string TimeUtils::getDefaultLocale()
+const std::string &TimeUtils::getDefaultLocale()
 {
     const char *locale = nullptr;
-    std::string res;
+    static std::string res;
 
     i18n_ulocale_set_default(getenv("LC_TIME"));
     i18n_ulocale_get_default(&locale);
@@ -169,9 +154,18 @@ std::string TimeUtils::getTimezone()
     else
     {
         MSG_LOG_ERROR("Getting default timezone failed, use system settings value");
+
+        std::string res;
         char *time_zone = nullptr;
+
         system_settings_get_value_string(SYSTEM_SETTINGS_KEY_LOCALE_TIMEZONE, &time_zone);
-        return time_zone ? time_zone : "";
+        if(time_zone)
+        {
+            res = time_zone;
+            free(time_zone);
+        }
+
+        return res;
     }
 
     return buf + filePathLength;
@@ -254,8 +248,6 @@ std::string TimeUtils::getFormattedDate(const std::string &locale, const std::st
 i18n_udate_format_h TimeUtils::getDateFormat(const std::string &locale, const i18n_uchar *pattern, int *status)
 {
     i18n_udate_format_h dateFormat = nullptr;
-
     *status = i18n_udate_create(I18N_UDATE_PATTERN, I18N_UDATE_PATTERN, locale.c_str(), nullptr, -1, pattern, -1, &dateFormat);
-
     return dateFormat;
 }

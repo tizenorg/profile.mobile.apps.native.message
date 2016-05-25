@@ -42,6 +42,7 @@ namespace Msg
             virtual const MsgAttachmentList &getAttachmentList() const = 0;
             virtual MsgAttachment &addAttachment() = 0;
             virtual int getMediaCount() const = 0;
+            virtual time_t getExpired() const = 0;
     };
 }
 

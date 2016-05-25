@@ -18,6 +18,7 @@
 #define __SystemSettingsManager_h__
 
 #include <vector>
+#include <telephony.h>
 
 namespace Msg
 {
@@ -27,18 +28,23 @@ namespace Msg
     {
         public:
             SystemSettingsManager();
+            ~SystemSettingsManager();
 
             void addListener(ISystemSettingsManager &l);
             void removeListener(ISystemSettingsManager&l);
+            bool isSimInserted() const;
+            bool isMobileDataEnabled() const;
 
         private:
             SystemSettingsManager(SystemSettingsManager&) = delete;
             SystemSettingsManager &operator =(const SystemSettingsManager&) = delete;
 
             void onTimeFormatChanged();
+            void onLanguageChanged();
 
         private:
             std::vector<ISystemSettingsManager*> m_Listeners;
+            telephony_handle_list_s m_TelHandleList;
     };
 
     class ISystemSettingsManager
@@ -47,6 +53,7 @@ namespace Msg
             virtual ~ISystemSettingsManager() {}
 
             virtual void onTimeFormatChanged() {};
+            virtual void onLanguageChanged() {};
     };
 }
 

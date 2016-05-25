@@ -6,7 +6,7 @@
 
 using namespace Msg;
 
-int main(int argc, char *argv[])
+EXPORT_API int main(int argc, char *argv[])
 {
     std::cout << "Message start" << std::endl; // Test for entrance to the main function (use stdout)
     TRACE;

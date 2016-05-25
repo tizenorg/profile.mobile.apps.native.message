@@ -2,7 +2,7 @@
 <manifest xmlns="http://tizen.org/ns/packages" api-version="3.0" package="org.tizen.message" version="0.1.0">
     <label>Message</label>
     <description>Message Application</description>
-    <ui-application appid="org.tizen.message" exec="/usr/apps/org.tizen.message/bin/message" launch_mode="caller" nodisplay="false" multiple="false" type="capp" taskmanage="true" hw-acceleration="use-GL">
+    <ui-application appid="org.tizen.message" exec="/usr/apps/org.tizen.message/bin/message" launch_mode="caller" nodisplay="false" multiple="false" type="c++app" taskmanage="true" hw-acceleration="on" process-pool="true">
         <metadata key="http://developer.samsung.com/tizen/metadata/multiwindow"/>
         <metadata key="http://developer.samsung.com/tizen/metadata/multiwindow/nodisplay"/>
         <icon>/usr/share/icons/default/small/message.png</icon>

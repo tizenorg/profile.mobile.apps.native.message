@@ -16,6 +16,7 @@
 
 #include "MsgStorage.h"
 #include "Logger.h"
+#include "MsgUtils.h"
 #include <algorithm>
 
 using namespace Msg;
@@ -45,4 +46,24 @@ void MsgStorage::removeListener(IMsgStorageListener &listener)
     {
         m_Listeners.erase(itr);
     }
+}
+
+bool MsgStorage::hasEmail(ThreadId id)
+{
+    if(!id.isValid())
+        return false;
+
+    const MsgAddressListRef addressList = getAddressList(id);
+    if(addressList)
+    {
+        for(int i = 0; i < addressList->getLength(); ++i)
+        {
+            const MsgAddress &msgAddr = addressList->at(i);
+            if(msgAddr.getAddressType() == MsgAddress::Email)
+                return true;
+            else if(MsgUtils::isValidEmail(msgAddr.getAddress()))
+                return true;
+        }
+    }
+    return false;
 }

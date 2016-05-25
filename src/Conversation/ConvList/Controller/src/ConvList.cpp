@@ -19,6 +19,7 @@
 #include "Logger.h"
 #include "CallbackAssist.h"
 #include "TimeUtils.h"
+#include "DateLineItem.h"
 
 using namespace Msg;
 
@@ -39,6 +40,7 @@ ConvList::ConvList(Evas_Object *parent, App &app, WorkingDirRef workingDir)
     , m_pListner(nullptr)
     , m_App(app)
     , m_WorkingDir(workingDir)
+    , m_FileViewer(workingDir)
     , m_OwnerThumbId(m_App.getThumbnailMaker().getThumbId(ThumbnailMaker::OwnerThumb))
     , m_RecipThumbId(m_App.getThumbnailMaker().getThumbId(ThumbnailMaker::SingleThumb))
     , m_SearchWord()
@@ -127,8 +129,7 @@ void ConvList::fill()
     for(int i = 0; i < convListLen; ++i)
     {
         MsgConversationItem &item = convList->at(i);
-        const ThumbnailMaker::ThumbId &thumbId = item.getDirection() == Message::MD_Received ? m_RecipThumbId : m_OwnerThumbId;
-        appendItem(new ConvListItem(item, m_App, m_WorkingDir, m_SearchWord, thumbId));
+        appendItem(item);
     }
 }
 
@@ -186,6 +187,12 @@ ConvListItem *ConvList::getItem(MsgId msgId) const
     return it != m_ConvListItemMap.end() ? it->second : nullptr;
 }
 
+void ConvList::appendItem(const MsgConversationItem &item)
+{
+    const ThumbnailMaker::ThumbId &thumbId = item.getDirection() == Message::MD_Received ? m_RecipThumbId : m_OwnerThumbId;
+    appendItem(new ConvListItem(item, m_App, m_FileViewer, m_WorkingDir, m_SearchWord, thumbId));
+}
+
 void ConvList::appendItem(ConvListItem *item)
 {
     dateLineAddIfNec(item);
@@ -205,20 +212,17 @@ void ConvList::demoteItem(ConvListItem *item)
 {
     dateLineDelIfNec(item);
     dateLineAddIfNec(item);
-    elm_genlist_item_demote(item->getElmObjItem());
+    m_pList->demoteItem(*item);
 }
 
 void ConvList::dateLineDelIfNec(ConvListItem *item)
 {
     bool needDelDateLine = false;
-    DateLineViewItem *prev = ViewItem::dynamicCast<DateLineViewItem*>(elm_genlist_item_prev_get(item->getElmObjItem()));
+    DateLineItem *prev = dynamic_cast<DateLineItem*>(m_pList->getPrevItem(*item));
     if(prev)
     {
-        auto nextEOI = elm_genlist_item_next_get(item->getElmObjItem());
-        if(nextEOI)
-            needDelDateLine = ViewItem::dynamicCast<DateLineViewItem*>(nextEOI) != nullptr;
-        else
-            needDelDateLine = true;
+        ListItem *nextItem = m_pList->getNextItem(*item);
+        needDelDateLine = nextItem ? dynamic_cast<DateLineItem*>(nextItem) != nullptr : true;
     }
 
     if(needDelDateLine)
@@ -234,7 +238,7 @@ void ConvList::dateLineAddIfNec(ConvListItem *item)
     auto it = m_DateLineItemSet.find(dateStr);
     if (it == m_DateLineItemSet.end())
     {
-        DateLineViewItem *dateLine = new DateLineViewItem(dateStr);
+        DateLineItem *dateLine = new DateLineItem(item->getRawTime(), dateStr);
         m_DateLineItemSet.insert(dateStr);
         m_pList->appendItem(*dateLine);
     }
@@ -301,10 +305,9 @@ void ConvList::selectListItems(bool state)
         m_pListner->onConvListItemChecked();
 }
 
-void ConvList::onListItemSelected(ListItem &listItem)
+void ConvList::onListItemLongPressed(ListItem &listItem)
 {
     ConvListItem &item = static_cast<ConvListItem&>(listItem);
-    //TODO: replace to long touch, when it will be implement
     item.showPopup();
 }
 
@@ -338,15 +341,20 @@ void ConvList::onMsgStorageUpdate(const MsgIdList &msgIdList)
 void ConvList::onMsgStorageInsert(const MsgIdList &msgIdList)
 {
     bool inserted = false;
-    for(auto &itemId: msgIdList)
+    for(MsgId msgId: msgIdList)
     {
-        MessageRef msg = m_MsgEngine.getStorage().getMessage(itemId);
+        if(getItem(msgId))
+            continue;
+
+        MessageRef msg = m_MsgEngine.getStorage().getMessage(msgId);
         if(msg && msg->getThreadId() == m_ThreadId && msg->getMessageStorageType() != Message::MS_Sim)
         {
-            MsgConversationItemRef item = m_MsgEngine.getStorage().getConversationItem(itemId);
-            const ThumbnailMaker::ThumbId &thumbId = item->getDirection() == Message::MD_Received ? m_RecipThumbId : m_OwnerThumbId;
-            appendItem(new ConvListItem(*item, m_App, m_WorkingDir, m_SearchWord, thumbId));
-            inserted = true;
+            MsgConversationItemRef item = m_MsgEngine.getStorage().getConversationItem(msgId);
+            if(item)
+            {
+                appendItem(*item);
+                inserted = true;
+            }
         }
     }
     if(inserted)
@@ -400,5 +408,28 @@ void ConvList::onTimeFormatChanged()
     {
         item->updateTime();
     }
+    m_pList->updateRealizedItems();
+}
+
+void ConvList::onLanguageChanged()
+{
+    MSG_LOG("");
+
+    // Update ConvListItem:
+    auto convListItems = m_pList->getItems<ConvListItem>();
+    for(ConvListItem *item : convListItems)
+    {
+        item->updateTime();
+    }
+
+    // Update DateLineItem:
+    m_DateLineItemSet.clear();
+    auto DateLineItems = m_pList->getItems<DateLineItem>();
+    for(DateLineItem *item : DateLineItems)
+    {
+        item->update();
+        m_DateLineItemSet.insert(item->getDateLine());
+    }
+
     m_pList->updateRealizedItems();
 }

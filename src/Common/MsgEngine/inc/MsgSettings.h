@@ -36,6 +36,7 @@ namespace Msg
 
             int getMessageTextMaxChar() const;
             int getMessageMaxPage() const;
+            int getAttachmentsMaxCount() const;
             virtual int getAddressMaxLen() const = 0;
             virtual int getPhoneNumberMaxLen() const = 0;
             virtual int getAddressMaxCount() const = 0;
@@ -43,6 +44,7 @@ namespace Msg
             virtual int getDisplayNameMaxLen() const = 0;
             virtual int getMaxRecipientCount() const = 0;
             virtual int getMaxMmsSize() const = 0;
+            virtual int getMaxMsgTextLen() const = 0;
 
             virtual void setAlerts(bool value) = 0;
             virtual bool getAlerts() const = 0;

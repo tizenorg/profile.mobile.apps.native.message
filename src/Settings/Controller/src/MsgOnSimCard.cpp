@@ -40,12 +40,12 @@ MsgOnSimCard::MsgOnSimCard(NaviFrameController &parent)
     , m_CheckCount(0)
 {
     create();
-    getApp().getMsgEngine().getStorage().addListener(*this);
 }
 
 MsgOnSimCard::~MsgOnSimCard()
 {
     getApp().getMsgEngine().getStorage().removeListener(*this);
+    getApp().getSysSettingsManager().removeListener(*this);
 }
 
 void MsgOnSimCard::create()
@@ -67,6 +67,9 @@ void MsgOnSimCard::create()
     m_pLayout->setNoContent(*m_pNoContent);
     m_pLayout->setSimMsgList(*m_pList);
     showNoContent();
+
+    getApp().getMsgEngine().getStorage().addListener(*this);
+    getApp().getSysSettingsManager().addListener(*this);
 }
 
 void MsgOnSimCard::fillList()
@@ -346,4 +349,10 @@ void MsgOnSimCard::calcChecked(int &check, int &total) const
             ++check;
         ++total;
     }
+}
+
+void MsgOnSimCard::onLanguageChanged()
+{
+    MSG_LOG("");
+    setTitleTranslatable();
 }

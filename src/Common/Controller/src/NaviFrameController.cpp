@@ -93,8 +93,9 @@ void NaviFrameController::execCmd(const AppControlDefaultRef &cmd)
                 if(type == AppControlDefault::ViewType || type == AppControlDefault::ReplyType || isUnreadNotificationSingle(type))
                 {
                         Conversation *conversation = new Conversation(*this);
-                        conversation->execCmd(cmd);
                         push(*conversation);
+                        ecore_main_loop_iterate(); // FIXME: Fix EFL(TSAM-2158) and remove it
+                        conversation->execCmd(cmd);
                 }
             }
         }
@@ -113,8 +114,9 @@ void NaviFrameController::execCmd(const AppControlComposeRef &cmd)
         else
         {
             Conversation *conv = new Conversation(*this);
-            conv->execCmd(cmd);
             push(*conv);
+            ecore_main_loop_iterate(); // FIXME: Fix EFL(TSAM-2158) and remove it
+            conv->execCmd(cmd);
         }
     }
 }

@@ -51,4 +51,9 @@
     static_cast<ClassName*>(data)->method(obj, emission, source);                                                          \
 }
 
+#define ECORE_CALLBACK(ClassName, method) [](void *data) \
+{                                                        \
+    static_cast<ClassName*>(data)->method();             \
+}
+
 #endif /* CallBackAssist_h_ */

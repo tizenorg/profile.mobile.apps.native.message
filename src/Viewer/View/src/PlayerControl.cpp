@@ -76,9 +76,10 @@ Evas_Object *PlayerControl::createPlayer(Evas_Object *parent)
 Evas_Object *PlayerControl::createProgress(Evas_Object *parent)
 {
     m_pProgress = elm_progressbar_add(parent);
-    elm_object_style_set(m_pProgress, "list_progress");
     elm_progressbar_horizontal_set(m_pProgress, true);
     elm_progressbar_unit_format_set(m_pProgress, nullptr);
+    elm_progressbar_pulse_set(m_pProgress, true);
+    elm_progressbar_pulse(m_pProgress, true);
     evas_object_show(m_pProgress);
     return m_pProgress;
 }

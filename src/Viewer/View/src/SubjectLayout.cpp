@@ -47,14 +47,8 @@ Evas_Object *SubjectLayout::createLayout(Evas_Object *parent)
 
 void SubjectLayout::setSubjectText(const std::string &subject)
 {
-    std::ostringstream subjectText;
-    subjectText << "(";
-    if(subject.empty())
-        subjectText << (std::string)msg("IDS_MSGF_BODY_NO_SUBJECT");
-    else
-        subjectText << subject;
-    subjectText << ")";
-    setText(subjectText.str(), partSubject);
+    std::string subjectText = '(' + subject + ')';
+    setText(subjectText, partSubject);
 }
 
 void SubjectLayout::setNumberOfPages(int numberOfPages)

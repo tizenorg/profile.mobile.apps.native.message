@@ -22,11 +22,17 @@
 #include <metadata_extractor.h>
 #include <image_util.h>
 #include <math.h>
+#include <libexif/exif-data.h>
+#include <fstream>
 
 using namespace Msg;
 
 namespace
 {
+    const int QUALITY = 50;
+    const char EXIF_HEADER[] = { 0xff, 0xd8, 0xff, 0xe1 };
+    const unsigned int EXIF_HEADER_LEN = sizeof(EXIF_HEADER);
+    const unsigned int JPEG_HEADER_OFFSET = 20;
     class MetadataExtractor
     {
         public:
@@ -160,4 +166,128 @@ bool MediaUtils::getFrameSize(const std::string &videoFilePath, int &width, int 
     MSG_LOG("Frame: width = ", width, " height = ", height);
 
     return true;
+}
+
+long long MediaUtils::downgradeImageQuality(const std::string &imagePath)
+{
+    image_util_decode_h decode_h = {};
+    image_util_encode_h encode_h = {};
+    unsigned char *buffer = nullptr;
+    unsigned long width = 0;
+    unsigned long height = 0;
+    int res = IMAGE_UTIL_ERROR_NONE;
+    ExifData *exifData = nullptr;
+    unsigned char *exifBuff = nullptr;
+    unsigned int exifBuffLen = 0;
+    unsigned char *jpegBuff = nullptr;
+    unsigned long long int jpegBuffLen = 0;
+    std::ofstream outputFile;
+
+    exifData = exif_data_new_from_file(imagePath.c_str());
+    if(exifData)
+    {
+        exif_data_save_data(exifData, &exifBuff, &exifBuffLen);
+    }
+
+    res = image_util_decode_create(&decode_h);
+    if(res != IMAGE_UTIL_ERROR_NONE)
+    {
+        return FileUtils::getFileSize(imagePath);
+    }
+
+    res = image_util_decode_set_input_path(decode_h, imagePath.c_str());
+    if(res != IMAGE_UTIL_ERROR_NONE)
+    {
+        image_util_decode_destroy(decode_h);
+        return FileUtils::getFileSize(imagePath);
+    }
+
+    res = image_util_decode_set_output_buffer(decode_h, &buffer);
+    if(res != IMAGE_UTIL_ERROR_NONE)
+    {
+        image_util_decode_destroy(decode_h);
+        return FileUtils::getFileSize(imagePath);
+    }
+
+    res = image_util_decode_run(decode_h, &width, &height, nullptr);
+    image_util_decode_destroy(decode_h);
+    if(res != IMAGE_UTIL_ERROR_NONE)
+    {
+        return FileUtils::getFileSize(imagePath);
+    }
+
+    res = image_util_encode_create(IMAGE_UTIL_JPEG, &encode_h);
+    if(res != IMAGE_UTIL_ERROR_NONE)
+    {
+        return FileUtils::getFileSize(imagePath);
+    }
+
+    res = image_util_encode_set_resolution(encode_h, width, height);
+    if(res != IMAGE_UTIL_ERROR_NONE)
+    {
+        image_util_encode_destroy(encode_h);
+        return FileUtils::getFileSize(imagePath);
+    }
+
+    res = image_util_encode_set_quality(encode_h, QUALITY);
+    if(res != IMAGE_UTIL_ERROR_NONE)
+    {
+        image_util_encode_destroy(encode_h);
+        return FileUtils::getFileSize(imagePath);
+    }
+
+    res = image_util_encode_set_input_buffer(encode_h, buffer);
+    if(res != IMAGE_UTIL_ERROR_NONE)
+    {
+        image_util_encode_destroy(encode_h);
+        return FileUtils::getFileSize(imagePath);
+    }
+
+    res = image_util_encode_set_output_buffer(encode_h, &jpegBuff);
+    if(res != IMAGE_UTIL_ERROR_NONE)
+    {
+        image_util_encode_destroy(encode_h);
+        return FileUtils::getFileSize(imagePath);
+    }
+    res = image_util_encode_run(encode_h, &jpegBuffLen);
+    image_util_encode_destroy(encode_h);
+    if(res != IMAGE_UTIL_ERROR_NONE)
+    {
+        free(buffer);
+        free(jpegBuff);
+        return FileUtils::getFileSize(imagePath);
+    }
+
+    outputFile.open(imagePath.c_str());
+    if(!outputFile.is_open())
+    {
+        MSG_LOG_ERROR("Can't open file for write");
+        free(buffer);
+        free(jpegBuff);
+        return FileUtils::getFileSize(imagePath);
+    }
+    if(exifData)
+    {
+        // Write EXIF header
+        outputFile.write(EXIF_HEADER, EXIF_HEADER_LEN);
+        // Write EXIF block length in big-endian order
+        outputFile.put((exifBuffLen+2) >> 8);
+        outputFile.put((exifBuffLen+2) & 0xff);
+        // Write EXIF data block
+        outputFile.write((char *)exifBuff, exifBuffLen);
+        // Write JPEG image data, skipping the non-EXIF header
+        outputFile.write((char *)jpegBuff + JPEG_HEADER_OFFSET, jpegBuffLen - JPEG_HEADER_OFFSET);
+        free(exifBuff);
+        exif_data_unref(exifData);
+    }
+    else
+    {
+        // Write JPEG image data
+        outputFile.write((char *)jpegBuff, jpegBuffLen);
+    }
+    outputFile.close();
+    free(buffer);
+    free(jpegBuff);
+
+    return FileUtils::getFileSize(imagePath);
 }

@@ -417,9 +417,9 @@ VideoPageViewItem *BodyView::addVideo(PageView &page, const std::string &filePat
     return item;
 }
 
-TextPageViewItem *BodyView::addText(PageView &page)
+TextPageViewItem *BodyView::addText(PageView &page, int maxCharCount)
 {
-    TextPageViewItem *item = new TextPageViewItem(page);
+    TextPageViewItem *item = new TextPageViewItem(page, maxCharCount);
     item->setListener(this);
     item->show();
     item->setGuideText(msgt("IDS_MSG_TMBODY_TEXT_MESSAGES"));
@@ -435,14 +435,21 @@ void BodyView::updateLastFocusedPage(PageViewItem &pageItem)
 
 PageView *BodyView::getPageForMedia(PageViewItem::Type type)
 {
-    PageView *page = m_pLastFocusedPage;
+    if(m_pLastFocusedPage && m_pLastFocusedPage->canItemBeAdded(type))
+    {
+        return m_pLastFocusedPage;
+    }
+    else
+    {
+        auto pages = getPages();
+        for(PageView *page : pages)
+        {
+            if(page->canItemBeAdded(type))
+                return page;
+        }
+    }
 
-    if(page && page->canItemBeAdded(type))
-        return page;
-
-    page = addPage();
-
-    return page;
+    return addPage();
 }
 
 void BodyView::removePage(PageView &page, bool setNextFocus)
@@ -525,11 +532,6 @@ void BodyView::onClicked(TextPageViewItem &item)
 {
     MSG_LOG("");
     showInputPanel(item, true);
-}
-
-void BodyView::onMaxLengthReached(TextPageViewItem &item)
-{
-    MSG_LOG("");
 }
 
 void BodyView::onKeyDown(TextPageViewItem &item, Evas_Event_Key_Down &event)

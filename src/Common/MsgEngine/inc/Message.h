@@ -43,7 +43,8 @@ namespace Msg
             {
                 MT_Unknown,
                 MT_SMS,
-                MT_MMS
+                MT_MMS,
+                MT_MMS_Noti
             };
 
             enum NetworkStatus
@@ -91,6 +92,7 @@ namespace Msg
             virtual void setSubject(const std::string &text) = 0;
             virtual void setMessageStorageType(Message::MessageStorageType msgStorage) = 0;
             virtual Message::MessageStorageType getMessageStorageType() const = 0;
+            virtual bool isMms() const = 0;
     };
 }
 

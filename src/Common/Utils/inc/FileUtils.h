@@ -86,7 +86,7 @@ namespace Msg
             static std::string getFileName(const std::string &path);
 
             /**
-             * @brief Remove recursive files and directorys.
+             * @brief Remove recursive files and directories.
              * @param[in] path File or directory
              * @param[in] true - remove current dir, false - otherwise
              * @retval Returns true if all success, false otherwise
@@ -115,6 +115,14 @@ namespace Msg
              * @return Returns unique file path in storage directory
              */
             static std::string genUniqueFilePath(const std::string &storagePath, const std::string &filePath);
+
+            /**
+             * @brief Gets the MIME type by file ptah/name(with extension)
+             * @param[in] filePath
+             * @return Returns The MIME type is 'application/octet-stream' if
+             *         the given file extension is not associated with specific file formats
+             */
+            static std::string getMimeType(const std::string &filePath);
     };
 }
 

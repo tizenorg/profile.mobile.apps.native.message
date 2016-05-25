@@ -34,6 +34,7 @@
 #include "AttachPanel.h"
 #include "ContactEditor.h"
 #include "ContactManager.h"
+#include "SystemSettingsManager.h"
 #include "WorkingDir.h"
 
 namespace Msg
@@ -53,6 +54,7 @@ namespace Msg
         , private IConvListListener
         , private IAttachPanelListener
         , private IContactManagerListener
+        , private ISystemSettingsManager
     {
         public:
             Conversation(NaviFrameController &parent);
@@ -110,15 +112,12 @@ namespace Msg
             void onMsgSendErrorButtonClicked(Popup &popup, int buttonId);
             void onNoRecipCancelButtonClicked(Popup &popup, int buttonId);
             void onNoRecipDiscardButtonClicked(Popup &popup, int buttonId);
-
-            // ContextPopup callbacks:
-            void onDeleteItemPressed(ContextPopupItem &item);
-            void onAddRecipientsItemPressed(ContextPopupItem &item);
-
+            void onDeleteItemPressed(PopupListItem &item);
+            void onAddRecipientsItemPressed(PopupListItem &item);
             void onMakeVoiceItemPressed(PopupListItem &item);
             void onCreateContactItemPressed(PopupListItem &item);
             void onUpdateContactItemPressed(PopupListItem &item);
-            void onRemoveItemPressed(PopupListItem &item);
+            void onRecipRemoveItemPressed(PopupListItem &item);
             void onEditItemPressed(PopupListItem &item);
             void onViewContactDetailsItemPressed(PopupListItem &item);
 
@@ -134,6 +133,9 @@ namespace Msg
 
             // IContactManagerListener:
             virtual void  onContactChanged();
+
+            // ISystemSettingsManager:
+            virtual void onLanguageChanged();
 
         private:
             void create();
@@ -164,16 +166,16 @@ namespace Msg
             void checkAndSetMsgType();
             void navigateToSlideShow(MsgId id);
 
-            void showMainCtxPopup();
+            void showMainPopup();
             void showNoRecipPopup();
-            void showAddRecipPopup();
             PopupList &createPopupList(const std::string &title);
             void showSendResultPopup(MsgTransport::SendResult result);
+            void showMobileDataPopup();
             void showUnsavedRecipientPopup(const std::string &address);
             void showSavedRecipientPopup(const std::string &title, int personId);
             void sendMessage();
-            void read(Message &msg);
-            void readMsgAddress(Message &msg);
+            bool read(Message &msg);
+            bool readMsgAddress(Message &msg);
             void write(const Message &msg);
             void saveDraftMsg();
             void editDraftMsg(MsgId id);

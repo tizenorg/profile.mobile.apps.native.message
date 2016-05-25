@@ -33,7 +33,7 @@ ThreadListItem::ThreadListItem(const MsgThreadItem &threadItem, App &app)
     : BaseThreadListItem(app)
     , m_ThreadId()
 {
-    updateModel(threadItem);
+    update(threadItem);
 }
 
 ThreadListItem::~ThreadListItem()
@@ -55,7 +55,7 @@ Evas_Object *ThreadListItem::getIcon()
     return makeUnreadIcon(m_UnreadCount);
 }
 
-void ThreadListItem::updateModel(const MsgThreadItem &threadItem)
+void ThreadListItem::update(const MsgThreadItem &threadItem)
 {
     m_ThreadId = threadItem.getId();
 
@@ -75,17 +75,23 @@ void ThreadListItem::updateModel(const MsgThreadItem &threadItem)
         state = StatusState;
         m_Status = decorateDraftText(msg("IDS_MSG_BODY_DRAFT_M_STATUS_ABB"));
     }
-    else if(int unreadCount = threadItem.getUnreadCount() > 0)
+    else if(threadItem.getUnreadCount() > 0)
     {
         state = IconState;
-        m_UnreadCount = decorateUnreadText(std::to_string(unreadCount));
+        m_UnreadCount = decorateUnreadText(std::to_string(threadItem.getUnreadCount()));
     }
 
     setState(state, false);
-    setCheckedState(false, false);
 
     updateMessage(threadItem);
     updateThumbnailAndName(threadItem, true);
     updateTime(threadItem.getTime());
+}
+
+void ThreadListItem::update()
+{
+    MsgThreadItemRef msgThread = m_App.getMsgEngine().getStorage().getThread(m_ThreadId);
+    if(msgThread)
+        update(*msgThread);
 }
 

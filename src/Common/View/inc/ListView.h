@@ -31,12 +31,17 @@ namespace Msg
         : public View
     {
         public:
+            typedef int (*CmpFunc)(const ListItem &item1, const ListItem &item2);
+
+        public:
             ListView(Evas_Object *parent);
             virtual ~ListView();
 
             void setListener(IListViewListener *listener);
             bool appendItem(ListItem &listItem, ListItem *parent = nullptr);
             bool prependItem(ListItem &listItem, ListItem *parent = nullptr);
+            bool sortedInsertItem(ListItem &listItem, ListItem *parent = nullptr);
+            void setCmpFunc(CmpFunc fn);
             void deleteItem(ListItem &listItem);
             ListItemCollection getItems() const;
             ListItem *getFirstItem() const;
@@ -50,6 +55,10 @@ namespace Msg
             void setHomogeneous(bool isHomogeneous);
             ListItem *getSelectedItem() const;
             unsigned getItemsCount() const;
+            ListItem *getNextItem(ListItem &item) const;
+            ListItem *getPrevItem(ListItem &item) const;
+            void demoteItem(ListItem &item);
+
 
             void setCheckMode(bool check);
             bool getCheckMode() const;
@@ -72,10 +81,12 @@ namespace Msg
             static void on_item_selected_cb(void *data, Evas_Object *obj, void *event_info);
             static void on_realized_cb(void *data, Evas_Object *obj, void *event_info);
             static void on_unrealized_cb(void *data, Evas_Object *obj, void *event_info);
+            static void on_longpressed_cb(void *data, Evas_Object *obj, void *event_info);
 
         private:
             IListViewListener *m_pListener;
             bool m_CheckMode;
+            CmpFunc m_CmpFunc;
     };
 
     class IListViewListener
@@ -83,6 +94,7 @@ namespace Msg
     public:
         virtual ~IListViewListener() {};
         virtual void onListItemSelected(ListItem &listItem) {};
+        virtual void onListItemLongPressed(ListItem &listItem) {};
         virtual void onListItemChecked(ListItem &listItem) {};
     };
 

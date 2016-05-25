@@ -44,6 +44,8 @@ pkg_check_modules(pkgs REQUIRED
             capi-appfw-preference
             capi-base-utils-i18n
             capi-content-media-content
+            capi-content-mime-type
+            capi-media-sound-manager
             capi-system-device
             capi-system-info
             capi-media-image-util
@@ -81,7 +83,8 @@ FOREACH(flag ${pkgs_CFLAGS})
     SET(EXTRA_CXXFLAGS "${EXTRA_CXXFLAGS} ${flag}")
 ENDFOREACH(flag)
 
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${EXTRA_CXXFLAGS} -fpie -Wall -std=c++11 -fpermissive -flto -fvisibility=hidden")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${EXTRA_CXXFLAGS} -fPIE -Wall -std=c++11 -fpermissive -flto -fvisibility=hidden")
+SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pie")
 
 #Set executable
 ADD_EXECUTABLE(${PROJECT_NAME} ${SRCS})

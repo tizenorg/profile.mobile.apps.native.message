@@ -27,7 +27,8 @@
 #include "App.h"
 #include <string>
 #include "MessageDetailContent.h"
-#include "WorkingDir.h"
+#include "FileViewer.h"
+#include "MsgUtils.h"
 
 namespace Msg
 {
@@ -36,6 +37,7 @@ namespace Msg
 
     class ConvListItem
         : public ConvListViewItem
+        , public IBubbleViewListener
     {
         public:
             /**
@@ -48,6 +50,7 @@ namespace Msg
              */
             ConvListItem(const MsgConversationItem &item,
                          App &app,
+                         FileViewer &fileViewer,
                          WorkingDirRef workingDir,
                          const std::string &searchWord,
                          const ThumbnailMaker::ThumbId &thumbId);
@@ -82,11 +85,16 @@ namespace Msg
         private:
             ConvListViewItem::ConvItemType getConvItemType(const MsgConversationItem &item);
             void prepareBubble(const MsgConversationItem &item, const std::string &searchWord);
-            void addVideoItem(const std::string &path);
+            void addVideoItem(const MsgConvMedia &media);
+            void addAudioItem(const MsgConvMedia &media);
+            void addTextItem(const MsgConvMedia &media, const std::string &searchWord);
+            void addImageItem(const MsgConvMedia &media);
+            void addAttachedFileItem(const MsgConvMedia &media);
 
             // Create Popup when message is clicked
             void showMainCtxPopup();
             void showDraftCtxPopup();
+            void onDownloadItemPressed(ContextPopupItem &item);
             void onDeleteItemPressed(ContextPopupItem &item);
             void onCopyTextItemPressed(ContextPopupItem &item);
             void onForwardItemPressed(ContextPopupItem &item);
@@ -105,10 +113,15 @@ namespace Msg
             void onDeleteButtonClicked(Popup &popup, int buttonId);
             void onPopupDel(Evas_Object *popup, void *eventInfo);
 
+            // IBubbleViewListener
+            virtual void onDownloadButtonClicked();
+            virtual void onItemClicked(BubbleEntity::Item &item);
+
         private:
             IConvListItemListener *m_pListener;
             App &m_App;
             WorkingDirRef m_WorkingDir;
+            FileViewer &m_FileViewer;
             MsgId m_MsgId;
             bool m_IsDraft;
             Message::NetworkStatus m_NetworkStatus;

@@ -50,13 +50,11 @@ namespace Msg
             virtual void setSubject(const std::string &text);
             virtual void setMessageStorageType(Message::MessageStorageType msgStorage);
             virtual Message::MessageStorageType getMessageStorageType() const;
+            virtual bool isMms() const;
 
             void setId(MsgId id);
             void set(msg_struct_t msgStruct);
             virtual void commit();
-
-        private:
-            bool isMms() const;
 
         protected:
             mutable MsgAddressPrivate m_Address;

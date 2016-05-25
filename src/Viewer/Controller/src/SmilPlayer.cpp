@@ -18,6 +18,9 @@
 #include "SmilPlayer.h"
 #include "Logger.h"
 #include "CallbackAssist.h"
+#include "LangUtils.h"
+
+#include <notification.h>
 
 using namespace Msg;
 
@@ -41,6 +44,8 @@ SmilPlayer::~SmilPlayer()
 
 void SmilPlayer::create(const MessageMms &mms)
 {
+    m_MediaPlayer.setListener(this);
+
     // Pages:
     const MsgPageList &pages = mms.getPageList();
     for(int i = 0; i < pages.getLength(); ++i)
@@ -270,6 +275,18 @@ unsigned SmilPlayer::getCurrentPageIndex() const
     return m_CurrentPageIndex;
 }
 
+void SmilPlayer::showUnableToPlayVideoNotif()
+{
+    // TODO: localization "Video" word
+    notification_status_message_post(msg("IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL").cStr());
+}
+
+void SmilPlayer::showUnableToPlayAudioNotif()
+{
+    // TODO: localization "Audo" word
+    notification_status_message_post(msg("IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL").cStr());
+}
+
 void SmilPlayer::onBeforeDelete(View &view)
 {
     MSG_LOG("");
@@ -287,5 +304,21 @@ void SmilPlayer::onBeforeDelete(View &view)
         ecore_timer_del(m_pTimer);
         m_pTimer = nullptr;
     }
+}
 
+void SmilPlayer::onMediaPlayerSoundFocusChanged()
+{
+    MSG_LOG("");
+    if(m_MediaPlayer.isPlaying())
+    {
+        SmilPage *page = getCurrentPage();
+        if(page)
+        {
+            m_MediaPlayer.pause();
+            if(page->hasVideo())
+                showUnableToPlayVideoNotif();
+            else if(page->hasAudio())
+                showUnableToPlayAudioNotif();
+        }
+    }
 }

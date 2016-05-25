@@ -27,9 +27,13 @@ namespace
     const int horizontalBoxPads = 0;
     const int maxWidth = 340;
     const char *textStyle = "DEFAULT='font=Tizen:style=Regular font_size=24 wrap=mixed text_class=label'";
+    const int tapFingerSize = 12;
+    const char *selfKey = "self";
+    const char *itemButtonDataKey = "data";
 }
 
 BubbleView::BubbleView(Evas_Object *parent)
+    : m_pListener(nullptr)
 {
     create(parent);
 }
@@ -58,10 +62,19 @@ void BubbleView::fill(const BubbleEntity &entity)
                 elm_box_pack_end(*this, createText(item.value));
                 break;
             case BubbleEntity::ImageItem:
-                elm_box_pack_end(*this, createImage(item.value));
+                elm_box_pack_end(*this, createItemButton(createImage(item.value), &item));
                 break;
             case BubbleEntity::VideoItem:
-                elm_box_pack_end(*this, createVideo(item.value));
+                elm_box_pack_end(*this, createItemButton(createVideo(item.value), &item));
+                break;
+            case BubbleEntity::AudioItem:
+                elm_box_pack_end(*this, createItemButton(createText(item.value), &item));
+                break;
+            case BubbleEntity::AttachedFileItem:
+                elm_box_pack_end(*this, createItemButton(createText(item.value), &item));
+                break;
+            case BubbleEntity::DownloadButtonItem:
+                elm_box_pack_end(*this, createDownloadButton());
                 break;
             default:
                 break;
@@ -134,6 +147,79 @@ Evas_Object *BubbleView::createVideo(const std::string &path)
     return image;
 }
 
+Evas_Object *BubbleView::createDownloadButton()
+{
+    Evas_Object *retrieveBtn = elm_button_add(*this);
+    View::expand(retrieveBtn);
+    elm_object_domain_translatable_text_set(retrieveBtn, MSG_DOMAIN, "IDS_MSG_BUTTON_DOWNLOAD_ABB3");
+    evas_object_smart_callback_add(retrieveBtn, "clicked", SMART_CALLBACK(BubbleView, onDownloadPressed), this);
+    evas_object_show(retrieveBtn);
+
+    return retrieveBtn;
+}
+
+Evas_Object *BubbleView::createItemButton(Evas_Object *content, const void *data)
+{
+    Evas_Object *button = elm_button_add(*this);
+    evas_object_data_set(button, selfKey, this);
+    evas_object_data_set(button, itemButtonDataKey, data);
+    elm_object_style_set(button, "transparent");
+
+    int w = 0;
+    int h = 0;
+
+    evas_object_size_hint_min_get(content, &w, &h);
+    evas_object_size_hint_min_set(button, w, h);
+
+    evas_object_size_hint_max_get(content, &w, &h);
+    evas_object_size_hint_max_set(button, w, h);
+
+    elm_object_content_set(button, content);
+    evas_object_show(button);
+
+    Evas_Object *layer = elm_gesture_layer_add(getEo());
+    evas_object_smart_data_set(layer, button);
+    evas_object_show(layer);
+    elm_gesture_layer_tap_finger_size_set(layer, ELM_SCALE_SIZE(tapFingerSize));
+    elm_gesture_layer_attach(layer, button);
+
+    elm_gesture_layer_cb_add
+    (
+        layer,
+        ELM_GESTURE_N_TAPS,
+        ELM_GESTURE_STATE_END,
+        [](void *data, void *event_info)->Evas_Event_Flags
+        {
+            auto *button = static_cast<Evas_Object*>(data);
+            auto *self = static_cast<BubbleView*>(evas_object_data_get(button, selfKey));
+            if(self)
+                self->onItemClicked(button, event_info);
+            return EVAS_EVENT_FLAG_NONE;
+        },
+        button
+    );
+
+    return button;
+}
+
+void BubbleView::setListener(IBubbleViewListener *listener)
+{
+    m_pListener = listener;
+}
+
+void BubbleView::onDownloadPressed(Evas_Object *obj, void *event_info)
+{
+    if(m_pListener)
+        m_pListener->onDownloadButtonClicked();
+}
+
+void BubbleView::onItemClicked(Evas_Object *obj, void *event_info)
+{
+    auto *item = static_cast<BubbleEntity::Item*>(evas_object_data_get(obj, itemButtonDataKey));
+    if(m_pListener && item)
+        m_pListener->onItemClicked(*item);
+}
+
 BubbleEntity::BubbleEntity()
 {
 }
@@ -142,7 +228,7 @@ BubbleEntity::~BubbleEntity()
 {
 }
 
-void BubbleEntity::addItem(ItemType type, const std::string &value)
+void BubbleEntity::addItem(ItemType type, const std::string &value, const std::string &value2)
 {
-    m_Items.push_back(Item{type, value});
+    m_Items.push_back(Item{type, value, value2});
 }

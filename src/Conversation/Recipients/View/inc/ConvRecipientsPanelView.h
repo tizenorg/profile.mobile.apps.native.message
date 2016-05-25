@@ -51,14 +51,32 @@ namespace Msg
              */
             unsigned int getItemsCount() const;
             MbeRecipientItem *getSelectedItem() const;
+            void collapseRecipients();
+            void expandRecipients();
+            void updateShortenedRecipients();
+
         protected:
+            enum ButtonType
+            {
+                NoneButton,
+                ContactButton,
+                PlusButton
+            };
+
             void setMbe(MbeRecipientsView *pMbe);
+            void showButton(ButtonType buttonType);
+            void unselectMbeItem();
+            bool isEntryEmpty() const;
+            void setEditMode(bool isEdit);
+            void showInvalidIcon(bool show);
 
         private:
             // Out signals:
             virtual void onKeyDown(Evas_Event_Key_Down *ev) {};
             virtual void onEntryFocusChanged() {};
             virtual void onContactButtonClicked() {}
+            virtual void onPlusButtonClicked() {}
+            virtual void onEntryChanged() {}
 
         private:
             void onMbeFocused(Evas_Object *obj, void *event_info);
@@ -73,32 +91,36 @@ namespace Msg
             void onEntryMaxlengthReached(Evas_Object *obj, void *event_info);
             void onKeyDown(Evas_Object *obj, void *event_info);
 
-            void onContactBtnPressed(Evas_Object *obj, void *event_info);
-            void onContactBtnUnpressed(Evas_Object *obj, void *event_info);
+            void onBtnPressed(Evas_Object *obj, void *event_info);
+            void onBtnUnpressed(Evas_Object *obj, void *event_info);
             void onContactBtnClicked(Evas_Object *obj, void *event_info);
+            void onPlusBtnClicked(Evas_Object *obj, void *event_info);
 
             void onGeometryChanged(Evas_Object *obj, void *event_info);
 
         private:
             void create(Evas_Object *parent);
             Evas_Object *createEntry(Evas_Object *parent);
+            Evas_Object *getPlusBtn();
+            Evas_Object *getContactBtn();
             Evas_Object *createAreaRect(Evas_Object *parent);
-            Evas_Object *createContactBtn(Evas_Object *parent);
-            void setContactBtnColor(int r, int g, int b, int a);
+            void setContactBtnColor(Evas_Object *btn, int r, int g, int b, int a);
             void deleteNextRecipient();
             void selectLastItem();
-            bool isEntryEmpty() const;
-            void unselectMbeItem();
+
             void addGeometryChangedCb(Evas_Object *obj);
 
         private:
             Evas_Object *m_pLayout;
             Evas_Object *m_pEntry;
             Evas_Object *m_pContactBtn;
+            Evas_Object *m_pPlusBtn;
             Evas_Object *m_pRect;
             int m_EntryMaxCharCount;
             bool m_IsMbeVisible;
             MbeRecipientsView *m_pMbe;
+            std::string m_SavedRecipText;
+            bool m_IsEditItemClicked;
     };
 }
 

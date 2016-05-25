@@ -26,6 +26,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <fstream>
+#include <mime_type.h>
 
 using namespace Msg;
 
@@ -228,5 +229,25 @@ std::string FileUtils::genUniqueFilePath(const std::string &storagePath, const s
             res += '.' + ext;
         ++i;
     } while(isExists(res));
+    return res;
+}
+
+std::string FileUtils::getMimeType(const std::string &filePath)
+{
+    std::string res;
+    std::string base;
+    std::string name;
+    std::string ext;
+    splitPath(filePath, base, name, ext);
+    if(!ext.empty())
+    {
+        char *mime = nullptr;
+        mime_type_get_mime_type(ext.c_str(), &mime);
+        if(mime)
+        {
+            res = mime;
+            free(mime);
+        }
+    }
     return res;
 }

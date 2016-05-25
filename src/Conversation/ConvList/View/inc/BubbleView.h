@@ -27,6 +27,9 @@
 namespace Msg
 {
     class BubbleView;
+    class IBubbleViewListener;
+
+    // TODO: refact. BubbleEntity
 
     class BubbleEntity
     {
@@ -35,29 +38,37 @@ namespace Msg
         public:
             BubbleEntity();
             ~BubbleEntity();
+
             enum ItemType
             {
                 TextItem,
                 ImageItem,
-                VideoItem
+                VideoItem,
+                AudioItem,
+                AttachedFileItem,
+                DownloadButtonItem
+            };
+
+            struct Item
+            {
+                ItemType type;
+                std::string value;
+                std::string value2;
             };
 
             /**
              * @brief Add new item to bubble entity
              * @param[in] type Set which type is @value
              * @param[in] value Resource path or raw text to display
+             * @param[in] value Real resource path
              */
-            void addItem(ItemType type, const std::string &value);
+            void addItem(ItemType type, const std::string &value = std::string(), const std::string &value2 = std::string());
 
         private:
             BubbleEntity(BubbleEntity&) = delete;
             BubbleEntity &operator=(BubbleEntity&) = delete;
 
-            struct Item
-            {
-                ItemType type;
-                std::string value;
-            };
+
 
         private:
             std::vector<Item> m_Items;
@@ -75,12 +86,29 @@ namespace Msg
              * @param[in] entity Filled list of contents
              */
             void fill(const BubbleEntity &entity);
+            void setListener(IBubbleViewListener *listener);
 
         private:
             void create(Evas_Object *parent);
             Evas_Object *createText(const std::string &text);
             Evas_Object *createImage(const std::string &path);
             Evas_Object *createVideo(const std::string &path);
+            Evas_Object *createDownloadButton();
+            Evas_Object *createItemButton(Evas_Object *content, const void *data);
+
+            void onDownloadPressed(Evas_Object *obj, void *event_info);
+            void onItemClicked(Evas_Object *obj, void *event_info);
+
+        private:
+            IBubbleViewListener *m_pListener;
+    };
+
+    class IBubbleViewListener
+    {
+        public:
+            virtual ~IBubbleViewListener() {}
+            virtual void onDownloadButtonClicked() {};
+            virtual void onItemClicked(BubbleEntity::Item &item) {};
     };
 }
 
