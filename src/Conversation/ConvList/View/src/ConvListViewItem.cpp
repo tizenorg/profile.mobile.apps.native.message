@@ -36,6 +36,7 @@ namespace
     const char *draftButtonPart = "draft.button";
     const char *failedButtonPart = "failed.button";
     const char *infoStatus = "info.status";
+    const char *msgType = "msg.type";
 
     const char *draftButtonStyle = "edit_button";
     const char *failedButtonStyle = "resend_button";
@@ -57,6 +58,8 @@ std::string ConvListViewItem::getText(ListItem &item, const char *part)
 {
     if(!strcmp(part, timeTextPart))
         return getTime();
+    else if(!strcmp(part, msgType))
+        return getMsgType();
     else
         return "";
 }

@@ -241,6 +241,12 @@ std::string ConvListItem::getTime()
     return m_TimeStr;
 }
 
+std::string ConvListItem::getMsgType()
+{
+    // TODO: localization for "SMS"
+    return MsgUtils::isMms(m_Type) ? (std::string)msg("IDS_MSGF_BODY_MMS") : msg("SMS");
+}
+
 MsgId ConvListItem::getMsgId() const
 {
     return m_MsgId;

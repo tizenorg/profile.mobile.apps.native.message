@@ -1,6 +1,7 @@
 #include "colors_define.inl"
 #define ENTRY_BUBBLE_TEXT_SIZE 30
 
+#define BUBBLE_MSG_TYPE_PAD_WIDTH 8
 #define BUBBLE_INFO_HEIGHT 88
 #define BUBBLE_CONTENT_WIDTH_MAX 340
 #define BUBBLE_BG_IMAGE_MIN_WIDTH 120
@@ -103,7 +104,7 @@ group { name: "elm/genlist/item/sentbubble/default";
     alias: "elm/genlist/item_compress/sentbubble/default";
 
     data.item: "banded_bg_area" "elm.swallow.bg";
-    data.item: "texts" "info.time";
+    data.item: "texts" "info.time msg.type";
     data.item: "contents" "bubble.content info.status info.status1 bubble.check";
     parts{
         spacer { "base"; scale; mouse;
@@ -172,16 +173,49 @@ group { name: "elm/genlist/item/sentbubble/default";
                 fixed: 1 1;
             }
         }
-        textblock { "info.time"; scale;
+        textblock { "msg.type"; scale;
             desc { "default";
-                align: 0.0 0.0;
-                min: 0 BUBBLE_INFO_TEXT_HEIGHT;
-                max: -1 BUBBLE_INFO_TEXT_HEIGHT;
+                align: 1.0 0.0;
+                rel1.to_x: "bubble.pad.right";
                 rel2.to_x: "bubble.pad.right";
                 rel1.to_y: "info.status";
-                rel1.relative: 0.0 1.0;
+                rel2.to_y: "info.status";
+                rel1.relative: 1.0 1.0;
                 rel2.relative: 1.0 1.0;
-                text.style: "entry_bubble_sent_textblock_style";
+                text{
+                    style: "entry_bubble_sent_textblock_style";
+                    min: 1 1;
+                    ellipsis: -1;
+                    text: "SMS";
+                }
+            }
+        }
+        spacer { "msg.type.pad"; scale;
+            desc { "default"
+                min: BUBBLE_MSG_TYPE_PAD_WIDTH 0;
+                max: BUBBLE_MSG_TYPE_PAD_WIDTH -1;
+                align: 1.0 0.0;
+                rel1.to_x: "msg.type";
+                rel2.to_x: "msg.type";
+                rel1.relative: 0.0 0.0;
+                rel2.relative: 0.0 1.0;
+                fixed: 1 1;
+            }
+        }
+        textblock { "info.time"; scale;
+            desc { "default";
+                align: 1.0 0.0;
+                rel1.to_x: "msg.type.pad";
+                rel2.to_x: "msg.type.pad";
+                rel1.to_y: "info.status";
+                rel2.to_y: "info.status";
+                rel1.relative: 0.0 1.0;
+                rel2.relative: 0.0 1.0;
+                text{
+                    style: "entry_bubble_sent_textblock_style";
+                    min: 1 1;
+                    ellipsis: -1;
+                }
             }
         }
         spacer { "pad.left"; scale;
@@ -509,7 +543,31 @@ group { name: "elm/genlist/item/receivebubble/default";
                 align: 0.0 0.0;
                 rel1.to_x: "info.thumb.pad";
                 rel1.relative: 1.0 1.0;
-                rel2.to_x: "";
+                rel2.to_x: "info.thumb.pad";
+                rel2.relative: 1.0 1.0;
+                text.style: "entry_bubble_receive_textblock_style";
+            }
+        }
+        spacer { "msg.type.pad"; scale;
+            desc { "default"
+                min: BUBBLE_MSG_TYPE_PAD_WIDTH 0;
+                max: BUBBLE_MSG_TYPE_PAD_WIDTH -1;
+                align: 0.0 0.0;
+                rel1.to_x: "info.time";
+                rel2.to_x: "info.time";
+                rel1.relative: 1.0 0.0;
+                rel2.relative: 1.0 1.0;
+                fixed: 1 1;
+            }
+        }
+        textblock { "msg.type"; scale;
+            desc { "default";
+                align: 0.0 0.0;
+                rel1.to_x: "msg.type.pad";
+                rel2.to_x: "msg.type.pad";
+                rel1.to_y: "info.time";
+                rel2.to_y: "info.time";
+                rel1.relative: 1.0 0.0;
                 rel2.relative: 1.0 1.0;
                 text.style: "entry_bubble_receive_textblock_style";
             }
