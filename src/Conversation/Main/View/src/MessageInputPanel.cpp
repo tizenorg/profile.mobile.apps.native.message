@@ -151,7 +151,7 @@ void MessageInputPanel::onButtonClicked(Evas_Object *obj, void *event_info)
 {
     if(m_pListener)
     {
-        int id = (int)evas_object_data_get(obj, buttonIdKey);
+        int id = (int)(intptr_t)evas_object_data_get(obj, buttonIdKey);
         m_pListener->onButtonClicked(*this, (ButtonId)id);
     }
 }

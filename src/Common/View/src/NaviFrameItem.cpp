@@ -252,7 +252,7 @@ void NaviFrameItem::NaviBar::showDownButtonPart(bool value)
 void NaviFrameItem::NaviBar::on_button_clicked(void *data, Evas_Object *obj, void *event_info)
 {
     NaviFrameItem::NaviBar *naviBar = static_cast<NaviFrameItem::NaviBar*>(data);
-    int type = (int)evas_object_data_get(obj, buttonTypeKey);
+    int type = (int)(intptr_t)evas_object_data_get(obj, buttonTypeKey);
     naviBar->getOwner().onButtonClicked(naviBar->getOwner(), (NaviButtonId)type);
 }
 
