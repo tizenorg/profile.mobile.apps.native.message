@@ -125,10 +125,13 @@ void Body::addMedia(const std::string &filePath)
 
 void Body::runFileProcessing()
 {
-    long long freeSpace = m_App.getMsgEngine().getSettings().getMaxMmsSize() - getMsgSize();
-    if(freeSpace < FileUtils::getFileSize(m_SelectedFiles.front()))
-        showResizingPopup();
-    m_AttachmentHandler.processFile(m_SelectedFiles.front());
+    if(!m_SelectedFiles.empty())
+    {
+        long long freeSpace = m_App.getMsgEngine().getSettings().getMaxMmsSize() - getMsgSize();
+        if(freeSpace < FileUtils::getFileSize(m_SelectedFiles.front()))
+            showResizingPopup();
+        m_AttachmentHandler.processFile(m_SelectedFiles.front());
+    }
 }
 
 bool Body::isMms()
