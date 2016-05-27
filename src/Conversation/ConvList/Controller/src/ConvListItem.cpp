@@ -154,9 +154,10 @@ void ConvListItem::addTextItem(const MsgConvMedia &media, const std::string &sea
     if(isContentFind(text, searchWord))
         showSearch();
 
+    std::string markupText = utf8ToMarkup(text);
     // It may be required after update the UI document
-    // std::string highlightedText = TextDecorator::highlightKeyword(utf8ToMarkup(text), utf8ToMarkup(searchWord));
-    m_BubbleEntity.addItem(BubbleEntity::TextItem, text);
+    // std::string highlightedText = TextDecorator::highlightKeyword(markupText, utf8ToMarkup(searchWord));
+    m_BubbleEntity.addItem(BubbleEntity::TextItem, markupText);
 }
 
 void ConvListItem::addImageItem(const MsgConvMedia &media)
@@ -173,9 +174,10 @@ void ConvListItem::prepareBubble(const MsgConversationItem &item, const std::str
         if(isContentFind(textItem, searchWord))
             showSearch();
 
+        std::string markupText = utf8ToMarkup(textItem);
         // It may be after to update the UI document
-        // std::string highlightedText = TextDecorator::highlightKeyword(utf8ToMarkup(item.getText()), utf8ToMarkup(searchWord));
-        m_BubbleEntity.addItem(BubbleEntity::TextItem, textItem);
+        // std::string highlightedText = TextDecorator::highlightKeyword(markupText, utf8ToMarkup(searchWord));
+        m_BubbleEntity.addItem(BubbleEntity::TextItem, markupText);
     }
     else if(m_Type == Message::MT_MMS_Noti)
     {
