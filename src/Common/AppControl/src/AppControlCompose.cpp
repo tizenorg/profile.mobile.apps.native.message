@@ -50,6 +50,8 @@ AppControlCompose::AppControlCompose(const std::string &opMsg, app_control_h han
     , m_ComposeType(getOperation(opMsg))
     , m_isMms(false)
 {
+    MSG_LOG("ComposeType: ", m_ComposeType);
+
     if(handle)
     {
         switch(m_ComposeType)
@@ -88,6 +90,7 @@ void AppControlCompose::createComposeOp(app_control_h handle)
     m_Subject = AppControlUtils::getExtraData(handle, APP_CONTROL_DATA_SUBJECT);
     AppControlUtils::getExtraDataArray(handle, APP_CONTROL_DATA_PATH, m_FileList);
 }
+
 void AppControlCompose::createShareOp(app_control_h handle)
 {
     parseUriShare(handle);
@@ -103,11 +106,14 @@ void AppControlCompose::createShareOp(app_control_h handle)
         }
     }
 
-    if (m_FileList.empty())
+    if(m_FileList.empty())
     {
-        m_FileList.push_back(AppControlUtils::getExtraData(handle, APP_CONTROL_DATA_PATH));
+        std::string path = AppControlUtils::getExtraData(handle, APP_CONTROL_DATA_PATH);
+        if(!path.empty())
+            m_FileList.push_back(std::move(path));
     }
 }
+
 void AppControlCompose::createMultiShareOp(app_control_h handle)
 {
     if(mimeContact == AppControlUtils::getMimeType(handle))
@@ -217,7 +223,7 @@ bool AppControlCompose::parseUriShare(app_control_h handle)
             if (cur == "sms" || cur == "mmsto" || cur == "file")
             {
                 m_isMms = (cur == "mmsto" || cur == "file");
-                if (cur == "file" && m_FileList.empty())
+                if(cur == "file" && m_FileList.empty())
                 {
                     std::string prefix("file://");
                     m_FileList.push_back(uriToParse.erase(0, prefix.length()));

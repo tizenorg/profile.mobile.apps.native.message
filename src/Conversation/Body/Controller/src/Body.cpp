@@ -591,7 +591,7 @@ void Body::onFileReady(const std::string &filePath)
 void Body::onFileFails()
 {
     std::list <std::string> overflowList;
-    while (!m_SelectedFiles.empty())
+    while(!m_SelectedFiles.empty())
     {
         overflowList.push_back(m_SelectedFiles.front());
         m_SelectedFiles.pop();

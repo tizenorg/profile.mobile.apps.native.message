@@ -23,6 +23,7 @@
 #include <mutex>
 #include <condition_variable>
 #include <string>
+#include <atomic>
 #include "WorkingDir.h"
 
 namespace Msg
@@ -57,7 +58,7 @@ namespace Msg
             long long m_CurrentFreeSpace;
             mutable std::mutex m_Mutex;
             std::condition_variable m_Condition;
-            bool m_NeedTerminate;
+            std::atomic<bool> m_NeedTerminate;
             std::queue <std::string> m_Task;
     };
 
