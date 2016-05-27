@@ -3313,6 +3313,7 @@ MSG_BUBBLE_BUTTON_STYLE_TRANSLATE("translate_button", "M01_circle_button.png", "
             type: IMAGE;
             scale: 1;
             mouse_events: 0;
+            clip_to: "color_rect";
             description {
                state: "default" 0.0;
                min: BUTTON_NAVIFRAME_BACK_BUTTON_SIZE_INC;
@@ -3330,7 +3331,6 @@ MSG_BUBBLE_BUTTON_STYLE_TRANSLATE("translate_button", "M01_circle_button.png", "
             name: "color_rect";
             type: RECT;
             scale: 1;
-            clip_to: "button_icon";
             description {
                state: "default" 0.0;
                rel1.to: "button_icon";
