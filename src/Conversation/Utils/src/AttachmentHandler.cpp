@@ -114,8 +114,8 @@ void AttachmentHandler::onRoutine()
         ecore_main_loop_thread_safe_call_sync(safeCallOnFreeSpaceRequest, this);
         if(FileUtils::getFileSize(m_CurrentFile) > m_CurrentFreeSpace)
         {
-            if((getMediaType(m_CurrentFile).type == MsgMedia::ImageType && MediaUtils::downgradeImageQuality(m_CurrentFile) > m_CurrentFreeSpace)
-                    || getMediaType(m_CurrentFile).type != MsgMedia::ImageType)
+            bool isImage = getMsgMediaTypeByFileExt(m_CurrentFile).type == MsgMedia::ImageType;
+            if((isImage && MediaUtils::downgradeImageQuality(m_CurrentFile) > m_CurrentFreeSpace) || !isImage)
             {
                 m_WorkingDir->removeFile(m_CurrentFile);
                 ecore_main_loop_thread_safe_call_sync(safeCallOnFileFails, this);
