@@ -30,7 +30,7 @@ using namespace Msg;
 namespace
 {
     const int QUALITY = 50;
-    const char EXIF_HEADER[] = { 0xff, 0xd8, 0xff, 0xe1 };
+    const unsigned char EXIF_HEADER[] = { 0xff, 0xd8, 0xff, 0xe1 };
     const unsigned int EXIF_HEADER_LEN = sizeof(EXIF_HEADER);
     const unsigned int JPEG_HEADER_OFFSET = 20;
     class MetadataExtractor
@@ -269,7 +269,7 @@ long long MediaUtils::downgradeImageQuality(const std::string &imagePath)
     if(exifData)
     {
         // Write EXIF header
-        outputFile.write(EXIF_HEADER, EXIF_HEADER_LEN);
+        outputFile.write((char *)EXIF_HEADER, EXIF_HEADER_LEN);
         // Write EXIF block length in big-endian order
         outputFile.put((exifBuffLen+2) >> 8);
         outputFile.put((exifBuffLen+2) & 0xff);
