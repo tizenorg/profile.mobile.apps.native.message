@@ -34,10 +34,7 @@ AttachmentHandler::AttachmentHandler(WorkingDirRef workingDir)
 
 AttachmentHandler::~AttachmentHandler()
 {
-    std::unique_lock<std::mutex> _lock(m_Mutex);
     m_NeedTerminate = true;
-    _lock.unlock();
-
     m_Condition.notify_one();
     if(m_Thread.joinable())
         m_Thread.join();
@@ -50,6 +47,7 @@ void AttachmentHandler::processFile(const std::string &file)
 
     std::unique_lock<std::mutex> _lock(m_Mutex);
     m_Task.push(file);
+    _lock.unlock();
     m_Condition.notify_one();
 }
 

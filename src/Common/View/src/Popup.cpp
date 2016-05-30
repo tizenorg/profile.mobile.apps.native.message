@@ -130,7 +130,7 @@ Evas_Object *Popup::addButton(const TText &text, int buttonId, PopupButtonCb but
     {
         ++m_CurrentButtonIndex;
         evas_object_show(btn);
-        evas_object_data_set(btn, buttonIdKey, (void*)buttonId);
+        evas_object_data_set(btn, buttonIdKey, (void*)(intptr_t)buttonId);
         evas_object_data_set(btn, buttonCbKey, (void*)buttonCb);
         evas_object_data_set(btn, buttonCbDataKey, userData);
         evas_object_smart_callback_add(btn, "clicked", on_button_clicked, this);
@@ -173,7 +173,7 @@ void Popup::on_button_clicked(void *data, Evas_Object *obj, void *event_info)
     {
         void *userData = evas_object_data_get(obj, buttonCbDataKey);
         Popup *popup = static_cast<Popup*>(data);
-        int buttonId = (int)evas_object_data_get(obj, buttonIdKey);
+        int buttonId = (int)(intptr_t)evas_object_data_get(obj, buttonIdKey);
         cb(*popup, buttonId, userData);
     }
 }

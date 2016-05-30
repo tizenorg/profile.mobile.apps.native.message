@@ -41,7 +41,6 @@ ConvList::ConvList(Evas_Object *parent, App &app, WorkingDirRef workingDir)
     , m_App(app)
     , m_WorkingDir(workingDir)
     , m_FileViewer(workingDir)
-    , m_OwnerThumbId(m_App.getThumbnailMaker().getThumbId(ThumbnailMaker::OwnerThumb))
     , m_RecipThumbId(m_App.getThumbnailMaker().getThumbId(ThumbnailMaker::SingleThumb))
     , m_SearchWord()
 {
@@ -162,11 +161,6 @@ void ConvList::updateRecipThumbId()
     }
 }
 
-void ConvList::updateOwnerThumbId()
-{
-    m_OwnerThumbId = m_App.getThumbnailMaker().getThumbId(ThumbnailMaker::OwnerThumb);
-}
-
 void ConvList::navigateTo(MsgId msgId)
 {
     ConvListItem *item = getItem(msgId);
@@ -189,7 +183,7 @@ ConvListItem *ConvList::getItem(MsgId msgId) const
 
 void ConvList::appendItem(const MsgConversationItem &item)
 {
-    const ThumbnailMaker::ThumbId &thumbId = item.getDirection() == Message::MD_Received ? m_RecipThumbId : m_OwnerThumbId;
+    const ThumbnailMaker::ThumbId &thumbId = item.getDirection() == Message::MD_Received ? m_RecipThumbId : -1;
     appendItem(new ConvListItem(item, m_App, m_FileViewer, m_WorkingDir, m_SearchWord, thumbId));
 }
 
@@ -396,7 +390,6 @@ void ConvList::onContactChanged()
 {
     MSG_LOG("");
     updateRecipThumbId();
-    updateOwnerThumbId();
     m_pList->updateRealizedItems();
 }
 

@@ -53,7 +53,7 @@ namespace Msg
                          FileViewer &fileViewer,
                          WorkingDirRef workingDir,
                          const std::string &searchWord,
-                         const ThumbnailMaker::ThumbId &thumbId);
+                         const ThumbnailMaker::ThumbId &thumbId = -1);
 
             virtual ~ConvListItem();
 
@@ -78,6 +78,7 @@ namespace Msg
             virtual Evas_Object *getThumbnail();
             virtual Evas_Object *getProgress();
             virtual std::string getTime();
+            virtual std::string getMsgType();
 
             virtual void onEditButtonClicked(Evas_Object *obj, void *event_info);
             virtual void onFailedButtonClicked(Evas_Object *obj, void *event_info);
