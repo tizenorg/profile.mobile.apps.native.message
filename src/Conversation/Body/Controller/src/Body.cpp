@@ -284,7 +284,7 @@ void Body::readAttachments(MessageMms &msg)
     for(BodyAttachmentViewItem *attachView : attachments)
     {
         std::string resPath= attachView->getResourcePath();
-        std::string mime = getMediaType(resPath).mime;
+        std::string mime = getMsgMediaTypeByFileExt(resPath).mime;
         long long fileSize = FileUtils::getFileSize(resPath);
 
         MsgAttachment &msgAttach = msg.addAttachment();
@@ -552,7 +552,7 @@ void Body::onFileReady(const std::string &filePath)
         showTooMuchAttachedPopup();
         return;
     }
-    MediaTypeData mediaType = getMediaType(filePath);
+    MediaTypeData mediaType = getMsgMediaTypeByFileExt(filePath);
     MSG_LOG("Media type: ", mediaType.mime);
 
     Page *page = nullptr;

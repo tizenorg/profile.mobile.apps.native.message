@@ -191,9 +191,10 @@ void ConvListItem::prepareBubble(const MsgConversationItem &item, const std::str
         for(int i = 0; i < list.getLength(); i++)
         {
             const MsgConvMedia &media = list.at(i);
-            MediaTypeData mediaType = getMediaType(media.getPath());
+            std::string mime = media.getMime();
+            MsgMedia::Type msgMediaType = getMsgMediaTypeByMime(mime);
 
-            switch(mediaType.type)
+            switch(msgMediaType)
             {
                 case MsgMedia::TextType:
                     addTextItem(media, searchWord);
@@ -208,7 +209,7 @@ void ConvListItem::prepareBubble(const MsgConversationItem &item, const std::str
                     addVideoItem(media);
                     break;
                 default:
-                    if(mediaType.mime != "application/smil")
+                    if(mime != "application/smil")
                         addAttachedFileItem(media);
                     break;
             }

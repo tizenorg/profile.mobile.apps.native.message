@@ -104,7 +104,7 @@ void MsgMediaPrivate::setMime(const std::string &mime)
 void MsgMediaPrivate::setFilePath(const std::string &path)
 {
     MsgUtilsPrivate::setStr(m_MsgStruct, MSG_MMS_MEDIA_FILEPATH_STR, path);
-    MediaTypeData mediaData = getMediaType(path);
+    MediaTypeData mediaData = getMsgMediaTypeByFileExt(path);
     setMime(mediaData.mime);
     setType(mediaData.type);
 }
