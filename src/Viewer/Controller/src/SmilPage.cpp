@@ -87,6 +87,11 @@ std::string SmilPage::getMediaPath() const
     return m_MediaPath;
 }
 
+const std::list<std::string> &SmilPage::getAttachments() const
+{
+    return m_Attachments;
+}
+
 bool SmilPage::hasAnimation() const
 {
     return m_pImageItem && m_pImageItem->hasAnimation();
@@ -112,6 +117,12 @@ const MsgMedia *SmilPage::getMedia(const MsgPage &page, MsgMedia::Type type) con
 void SmilPage::build(const MsgPage &page)
 {
     m_Duration = page.getPageDuration();
+
+    const MsgMediaList &list = page.getMediaList();
+    for(int i = 0; i < list.getLength(); ++i)
+    {
+        m_Attachments.push_back(list[i].getFilePath());
+    }
 
     // TODO: image/video, text order
 
@@ -144,6 +155,11 @@ void SmilPage::build(const MsgPage &page)
 void SmilPage::build(const MsgAttachmentList &list)
 {
     m_Duration = defaultPageDuration;
+
+    for(int i = 0; i < list.getLength(); ++i)
+    {
+        m_Attachments.push_back(list[i].getFilePath());
+    }
 
     if(list.isEmpty())
         return;
