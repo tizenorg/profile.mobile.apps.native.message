@@ -27,6 +27,7 @@
 #include "ContactViewer.h"
 #include "FileUtils.h"
 #include "SaveAttachmentsPopup.h"
+#include "FileShare.h"
 
 #include <sstream>
 #include <iomanip>
@@ -269,6 +270,8 @@ void Viewer::onHwBackButtonClicked()
 
 void Viewer::onHwMoreButtonClicked()
 {
+    m_pSmilPlayer->stop();
+
     PopupList &popup = getApp().getPopupManager().getPopupList();
     popup.setAutoDismissBlockClickedFlag(true);
     popup.appendItem(msg("IDS_MSG_OPT_DELETE"), POPUPLIST_ITEM_PRESSED_CB(Viewer, onDeleteItemPressed), this);
@@ -278,8 +281,13 @@ void Viewer::onHwMoreButtonClicked()
 
     popup.appendItem(msg("IDS_MSGF_OPT_FORWARD"), POPUPLIST_ITEM_PRESSED_CB(Viewer, onForwardItemPressed), this);
 
-    if(!m_Msg->getAttachmentList().isEmpty() || m_Msg->getMediaCount() > 0)
+    bool hasAttachment = !m_Msg->getAttachmentList().isEmpty() || m_Msg->getMediaCount() > 0;
+    if(hasAttachment)
+    {
         popup.appendItem(msg("IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"), POPUPLIST_ITEM_PRESSED_CB(Viewer, onSaveAttachmentsItemPressed), this);
+        popup.appendItem(msg("IDS_COM_BUTTON_SHARE"), POPUPLIST_ITEM_PRESSED_CB(Viewer, onShareItemPressed), this);
+    }
+
     popup.show();
 }
 
@@ -410,6 +418,16 @@ void Viewer::onSaveAttachmentsItemPressed(PopupListItem &item)
     SaveAttachmentsPopup *popup = new SaveAttachmentsPopup(getApp(), *m_Msg.get());
     getApp().getPopupManager().reset(*popup);
     popup->show();
+}
+
+void Viewer::onShareItemPressed(PopupListItem &item)
+{
+    MSG_LOG("");
+    item.getParent().destroy();
+
+    SmilPage *page = m_pSmilPlayer->getCurrentPage();
+    if(page)
+        FileShare::launch(page->getAttachments());
 }
 
 void Viewer::onRecipItemClicked(Evas_Object *obj, void *eventInfo)
