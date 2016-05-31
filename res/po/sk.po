@@ -4,14 +4,17 @@ msgstr "Domov"
 msgid "IDS_MSGC_POP_DATA_ROAMING_IS_DISABLED_ENABLE_DATA_ROAMING_AND_TRY_AGAIN"
 msgstr "Dátový roaming je vypnutý. Zapnite dátový roaming a skúste to znova."
 
-msgid "IDS_MSGF_POP_NEW_MESSAGE"
-msgstr "Nová správa"
-
 msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
 msgstr "ZRUŠIŤ"
 
 msgid "IDS_MSG_ACBUTTON_DONE_ABB"
 msgstr "HOTOVO"
+
+msgid "IDS_MSGF_POP_NEW_MESSAGE"
+msgstr "Nová správa"
+
+msgid "IDS_COM_BUTTON_SHARE"
+msgstr "Zdieľať"
 
 msgid "IDS_COM_BODY_UNKNOWN"
 msgstr "Neznáme"
@@ -24,9 +27,6 @@ msgstr "Mobilné dátové pripojenie je vypnuté. Zapnite mobilné dátové prip
 
 msgid "IDS_TPLATFORM_ACBUTTON_SEND_ABB"
 msgstr "ODOSLAŤ"
-
-msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
-msgstr "Nepodporovaný typ média."
 
 msgid "IDS_MSGC_POP_UNABLE_TO_SEND_MESSAGES_WHILE_IN_FLIGHT_MODE_DISABLE_FLIGHT_MODE_AND_TRY_AGAIN"
 msgstr "V letovom režime nemožno odosielať správy. Vypnite letový režim a skúste to znova."
@@ -55,9 +55,6 @@ msgstr "Správa bola naplánovaná na odoslanie príjemcovi %s. Odoslať teraz?"
 msgid "IDS_MSGC_POP_MAXIMUM_MESSAGE_SIZE_REACHED"
 msgstr "Dosiahla sa maximálna veľkosť správy."
 
-msgid "IDS_MSGC_POP_LOW_BATTERY"
-msgstr "Batéria vybitá."
-
 msgid "IDS_MSGC_POP_DURATION_MUST_BE_AT_LEAST_PD_SECONDS"
 msgstr "Trvanie musí byť aspoň %d sekundy."
 
@@ -66,9 +63,6 @@ msgstr "Zakazuje sa letový režim..."
 
 msgid "IDS_MSGC_POP_COPIED_TO_SIM_CARD"
 msgstr "Skopírované na kartu SIM."
-
-msgid "IDS_MSGC_POP_CANCELLED"
-msgstr "Zrušené"
 
 msgid "IDS_MSGC_OPT_USE_OTHER_CONTACT_INFO_ABB"
 msgstr "Použ. ďal. kont. údaje"
@@ -79,32 +73,14 @@ msgstr "Odoslať cez"
 msgid "IDS_MSGC_OPT_IMAGE"
 msgstr "Obrázok"
 
-msgid "IDS_MSGC_OPT_EMAIL"
-msgstr "E-mail"
-
 msgid "IDS_MSGC_OPT_EDIT_ITEM_REPLACE"
 msgstr "Nahradiť"
-
-msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
-msgstr "Zobraziť"
-
-msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
-msgstr "Odstrániť"
-
-msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
-msgstr "Prehrať"
-
-msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
-msgstr "Komu"
 
 msgid "IDS_MSGC_OPT_CANCEL_MESSAGE"
 msgstr "Zrušiť správu"
 
 msgid "IDS_MSGC_HEADER_RECIPIENT_LIST"
 msgstr "Zoznam príjemcov"
-
-msgid "IDS_MSGC_HEADER_PREVIEW"
-msgstr "Ukážka"
 
 msgid "IDS_MSGC_HEADER_DURATION_FOR_SLIDE_PD_PD"
 msgstr "Trvanie snímky %d/%d"
@@ -127,9 +103,6 @@ msgstr "Nevyžiadané"
 msgid "IDS_MSGC_BODY_MAXIMUM_NUMBER_OF_RECIPIENTS_HPD_REACHED"
 msgstr "Dosiahol sa maximálny počet príjemcov (%d)."
 
-msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
-msgstr "Zadať predmet"
-
 msgid "IDS_MSGC_BODY_DUPLICATED_RECIPIENT"
 msgstr "Duplicitný príjemca."
 
@@ -138,9 +111,6 @@ msgstr "Predať"
 
 msgid "IDS_MSGF_POP_UNABLE_TO_SAVE"
 msgstr "Nedá sa uložiť."
-
-msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
-msgstr "Nedá sa nájsť umiestnenie."
 
 msgid "IDS_MSGF_POP_UNABLE_TO_DELETE"
 msgstr "Nedá sa odstrániť."
@@ -168,9 +138,6 @@ msgstr "Obmedzený typ obsahu. Priložiť napriek tomu?"
 
 msgid "IDS_MSGF_POP_RESTORING_ING"
 msgstr "Obnovenie..."
-
-msgid "IDS_MSGF_POP_REJECTED"
-msgstr "Odmietnuté."
 
 msgid "IDS_MSGF_POP_READ_REPORT"
 msgstr "Potvrdenie o prečítaní"
@@ -214,20 +181,11 @@ msgstr "Tato správa obsahuje nezobrazené priložené súbory."
 msgid "IDS_MSGF_POP_FILE_NAME_ALREADY_EXISTS"
 msgstr "Názov súboru už existuje."
 
-msgid "IDS_MSGF_POP_DELETING"
-msgstr "Odstraňovanie..."
-
-msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
-msgstr "Skopírované do schránky."
-
 msgid "IDS_MSGF_POP_CONVERTING_TO_TEXT_MESSAGE_ING"
 msgstr "Konvertuje sa na textovú správu..."
 
 msgid "IDS_MSGF_POP_CONVERTING_TO_MULTIMEDIA_MESSAGE_ING"
 msgstr "Konvertuje sa na multimediálnu správu..."
-
-msgid "IDS_MSGF_POP_BLOCK_PS_Q"
-msgstr "Blokovať %s?"
 
 msgid "IDS_MSGF_POP_ABOUT_TO_GO_ONLINE_CONTINUE_Q"
 msgstr "Chystáte sa prejsť do režimu online (%s). Chcete pokračovať?"
@@ -235,38 +193,17 @@ msgstr "Chystáte sa prejsť do režimu online (%s). Chcete pokračovať?"
 msgid "IDS_MSGF_OPT_TEXT_MESSAGE"
 msgstr "SMS"
 
-msgid "IDS_MSGF_OPT_SUBJECT_COLON"
-msgstr "Predmet:"
-
-msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
-msgstr "Odosielateľ cez e-mail"
-
 msgid "IDS_MSGF_OPT_SENDER_ABB"
 msgstr "Odosielateľ"
-
-msgid "IDS_MSGF_OPT_SELECT"
-msgstr "Vybrať"
 
 msgid "IDS_MSGF_OPT_SAVE_ATTACHMENT"
 msgstr "Uložiť prílohu"
 
-msgid "IDS_MSGF_OPT_SAVE"
-msgstr "Uložiť"
-
-msgid "IDS_MSGF_OPT_REMOVE"
-msgstr "Odstrániť"
-
 msgid "IDS_MSGF_OPT_INSTALL"
 msgstr "Inštalovať"
 
-msgid "IDS_MSGF_OPT_FORWARD"
-msgstr "Preposlať"
-
 msgid "IDS_MSGF_OPT_EDIT_MESSAGE"
 msgstr "Upraviť správu"
-
-msgid "IDS_MSGF_OPT_DELETE_Q"
-msgstr "Odstrániť?"
 
 msgid "IDS_MSGF_OPT_DELETE_MESSAGES"
 msgstr "Odstrániť správy"
@@ -283,14 +220,8 @@ msgstr "Podrobnosti o správe"
 msgid "IDS_MSGF_HEADER_EXPIRES_C_PS"
 msgstr "Platnosť do: %s"
 
-msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
-msgstr "Rozšírené hľadanie"
-
 msgid "IDS_MSGF_BUTTON_SAVE_ALL_ATTACHMENTS_ABB"
 msgstr "Ulož. všetky prílohy"
-
-msgid "IDS_MSGF_BODY_UNKNOWN"
-msgstr "Neznáme"
 
 msgid "IDS_MSGF_BODY_TO_C"
 msgstr "Komu:"
@@ -301,23 +232,14 @@ msgstr "SMS"
 msgid "IDS_MSGF_BODY_SIM_MEMORY_FULL_DELETE_SOME_ITEMS"
 msgstr "Pamäť karty SIM je plná. Vymažte niektoré položky."
 
-msgid "IDS_MSGF_BODY_SETTINGS"
-msgstr "Nastavenia"
-
 msgid "IDS_MSGF_BODY_SENT_M_DATE_C"
 msgstr "Odoslané:"
 
 msgid "IDS_MSGF_BODY_REQUESTED"
 msgstr "Vyžiadané."
 
-msgid "IDS_MSGF_BODY_RECIPIENTS"
-msgstr "Príjemcovia"
-
 msgid "IDS_MSGF_BODY_RECEIVED_M_DATE_C"
 msgstr "Prijaté:"
-
-msgid "IDS_MSGF_BODY_RECEIVED"
-msgstr "Prijatá"
 
 msgid "IDS_MSGF_BODY_READ_REPORT"
 msgstr "Potvrdenie o prečítaní"
@@ -331,12 +253,6 @@ msgstr "Počet správ: %d"
 msgid "IDS_MSGF_BODY_PD_CONVERSATIONS"
 msgstr "%d konverzácie"
 
-msgid "IDS_MSGF_BODY_OTHER"
-msgstr "Ďalšie"
-
-msgid "IDS_MSGF_BODY_NO_SUBJECT"
-msgstr "Žiadny predmet"
-
 msgid "IDS_MSGF_BODY_NO_NAME"
 msgstr "Žiadny názov"
 
@@ -345,9 +261,6 @@ msgstr "Oznámenie o multimediálnej správe"
 
 msgid "IDS_MSGF_BODY_MULTIMEDIA_MESSAGE"
 msgstr "MMS"
-
-msgid "IDS_MSGF_BODY_MSGSIZE_KB"
-msgstr "kB"
 
 msgid "IDS_MSGF_BODY_MMSREADREPLYMSGREAD"
 msgstr "Čítať"
@@ -367,12 +280,6 @@ msgstr "Možnosti správy"
 msgid "IDS_MSGF_BODY_MESSAGE_DELIVERED"
 msgstr "Správa bola doručená"
 
-msgid "IDS_MSGF_BODY_MESSAGE"
-msgstr "Správa"
-
-msgid "IDS_MSGF_BODY_ME"
-msgstr "Ja"
-
 msgid "IDS_MSGF_BODY_MAXIMUM_NUMBER_OF_ATTACHMENTS_HP1SS_EXCEEDED_ONLY_FIRST_P2SS_WILL_BE_ADDED"
 msgstr "Prekročil sa maximálny počet príloh (%1$s). Pridá sa iba prvých %2$s."
 
@@ -384,9 +291,6 @@ msgstr "Od"
 
 msgid "IDS_MSGF_BODY_FLFROM"
 msgstr "Od:"
-
-msgid "IDS_MSGF_BODY_EXPIRED"
-msgstr "Platnosť vypršala"
 
 msgid "IDS_MSGF_BODY_DETAILSSENDINGFAILED"
 msgstr "Odosielanie sa nepodarilo."
@@ -402,9 +306,6 @@ msgstr "Kopírovať text"
 
 msgid "IDS_MSGF_BODY_CB_MESSAGES"
 msgstr "Správy CB"
-
-msgid "IDS_MSGF_BODY_ALL"
-msgstr "Všetky"
 
 msgid "IDS_MSGF_BODY_1_MESSAGE"
 msgstr "1 správa"
@@ -433,6 +334,9 @@ msgstr "Automaticky načítať správy MMS."
 msgid "IDS_MSG_TPOP_UNABLE_TO_PREVIEW_FILE_UNSUPPORTED_FILE_TYPE"
 msgstr "Ukážka súboru sa nedá zobraziť. Nepodporovaný typ súboru."
 
+msgid "IDS_MSG_TPOP_UNABLE_TO_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Súbor sa nedá priložiť. Formát súboru nie je podporovaný."
+
 msgid "IDS_MSG_TPOP_UNABLE_TO_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
 msgstr "Niektorí príjemcovia sa nedajú pridať. Čísla nie sú platné."
 
@@ -448,6 +352,9 @@ msgstr "Príloha sa nedá pridať. Dosiahol sa maximálny počet príloh (%d)."
 msgid "IDS_MSG_TPOP_THIS_NUMBER_IS_NOT_VALID"
 msgstr "Toto číslo nie je platné."
 
+msgid "IDS_MSG_TPOP_SOME_RECIPIENTS_ALREADY_ADDED"
+msgstr "Niektorí príjemcovia sú už pridaní."
+
 msgid "IDS_MSG_TPOP_SELECTED_MESSAGES_COPIED_TO_MOBILE_DEVICE"
 msgstr "Vybraté správy sa skopírovali do mobilného zariadenia."
 
@@ -459,6 +366,9 @@ msgstr "Číslo sa odstránilo zo zoznamu blokovaní správ."
 
 msgid "IDS_MSG_TPOP_NUMBER_ADDED_TO_MESSAGE_BLOCK_LIST"
 msgstr "Číslo sa pridalo do zoznamu blokovaní správ."
+
+msgid "IDS_MSG_TPOP_NETWORK_NOT_AVAILABLE_MESSAGE_WILL_BE_SENT_WHEN_CONNECTED_TO_NETWORK"
+msgstr "Sieť nie je k dispozícii. Správa sa odošle po pripojení k sieti."
 
 msgid "IDS_MSG_TPOP_MESSAGE_COPIED_TO_PS_SIM_CARD"
 msgstr "Správa sa skopírovala na kartu SIM %s."
@@ -502,9 +412,6 @@ msgstr "Automatické načítavanie"
 msgid "IDS_MSG_SK_SEND_NOW"
 msgstr "Odoslať"
 
-msgid "IDS_MSG_SK_NO_ABB"
-msgstr "Nie"
-
 msgid "IDS_MSG_SBODY_SELECT_AN_INPUT_MODE_FOR_COMPOSING_MESSAGES"
 msgstr "Vyberte režim vstupu na písanie správ."
 
@@ -514,14 +421,8 @@ msgstr "Žiadne"
 msgid "IDS_MSG_SBODY_MANAGE_THE_MESSAGES_STORED_ON_YOUR_SIM_CARD"
 msgstr "Môžete spravovať správy uložené na karte SIM."
 
-msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
-msgstr "Správa sa zahodí. Neboli vybratí žiadni príjemcovia."
-
 msgid "IDS_MSG_POP_UNABLE_TO_SEND_SCHEDULED_MESSAGE_SET_ANOTHER_TIME"
 msgstr "Naplánovaná správa sa nedá odoslať. Nastavte iný čas."
-
-msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
-msgstr "Počas hovoru sa nedá prehrávať."
 
 msgid "IDS_MSG_POP_UNABLE_TO_ATTACH_FILE_FILE_SIZE_TOO_LARGE_TRY_SENDING_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
 msgstr "Súbor sa nedá priložiť. Súbor je príliš veľký. Skúste vykonať odoslanie cez e-mail, Bluetooth, Wi-Fi atď."
@@ -544,17 +445,11 @@ msgstr "Vykoná sa odstránenie %d konverzácií."
 msgid "IDS_MSG_POP_NO_TEMPLATES_IN_LIST"
 msgstr "Žiadne šablóny v zozname"
 
-msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
-msgstr "Iba prichádzajúce správy"
-
 msgid "IDS_MSG_POP_INCLUDE_ORIGINAL_TEXT_IN_OUTGOING_MESSAGE"
 msgstr "Zahrnúť pôvodný text v odchádzajúcej správe"
 
 msgid "IDS_MSG_POP_DURATION_MUST_BE_SHORTER_THAN_PD_SECONDS"
 msgstr "Trvanie musí byť kratšie než %d sekúnd."
-
-msgid "IDS_MSG_POP_DELETED"
-msgstr "Odstránené."
 
 msgid "IDS_MSG_POP_1_MESSAGE_WILL_BE_DELETED"
 msgstr "1 správa sa odstráni."
@@ -571,26 +466,14 @@ msgstr "Zobraziť kontaktné údaje"
 msgid "IDS_MSG_OPT_VIEW_AS_SLIDESHOW_ABB"
 msgstr "Zobraziť ako prezentáciu"
 
-msgid "IDS_MSG_OPT_VIDEOS"
-msgstr "Videá"
-
 msgid "IDS_MSG_OPT_UPDATE_CONTACT"
 msgstr "Aktualizovať kontakt"
 
 msgid "IDS_MSG_OPT_UNICODE"
 msgstr "Unicode"
 
-msgid "IDS_MSG_OPT_TEXT"
-msgstr "Text"
-
 msgid "IDS_MSG_OPT_TAKE_PICTURE_ABB"
 msgstr "Odfotografovať"
-
-msgid "IDS_MSG_OPT_SETTINGS"
-msgstr "Nastavenia"
-
-msgid "IDS_MSG_OPT_SEARCH"
-msgstr "Vyhľadávanie"
 
 msgid "IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"
 msgstr "Uložiť prílohy"
@@ -604,23 +487,14 @@ msgstr "Odpovedať"
 msgid "IDS_MSG_OPT_REMOVE_FROM_BLOCK_LIST_ABB"
 msgstr "Odstrániť zo zozn. blokovaných"
 
-msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
-msgstr "Nahrať video"
-
 msgid "IDS_MSG_OPT_RECORD_AUDIO_FILE_ABB"
 msgstr "Nahrať zvukový súbor"
 
 msgid "IDS_MSG_OPT_QUICK_RESPONSE_ABB"
 msgstr "Rýchla odpoveď"
 
-msgid "IDS_MSG_OPT_NONE"
-msgstr "Žiadny"
-
 msgid "IDS_MSG_OPT_MAKE_VOICE_CALL"
 msgstr "Uskutočniť hovor"
-
-msgid "IDS_MSG_OPT_IMAGES"
-msgstr "Obrázky"
 
 msgid "IDS_MSG_OPT_GSM_ALPHABET_ABB"
 msgstr "Abeceda GSM"
@@ -628,20 +502,11 @@ msgstr "Abeceda GSM"
 msgid "IDS_MSG_OPT_EXPORT_TO_DEVICE_MEMORY"
 msgstr "Exportovať do pamäte zariadenia"
 
-msgid "IDS_MSG_OPT_EDIT"
-msgstr "Upraviť"
-
 msgid "IDS_MSG_OPT_DELETE_MESSAGE"
 msgstr "Odstrániť správu"
 
 msgid "IDS_MSG_OPT_DELETE_CONVERSATION_ABB"
 msgstr "Odstrániť konverzáciu"
-
-msgid "IDS_MSG_OPT_DELETE"
-msgstr "Odstrániť"
-
-msgid "IDS_MSG_OPT_DEFAULT"
-msgstr "Predvolený"
 
 msgid "IDS_MSG_OPT_CREATE_CONTACT_ABB"
 msgstr "Vytvoriť kontakt"
@@ -709,15 +574,6 @@ msgstr "Neznáme číslo"
 msgid "IDS_MSG_MBODY_TEXT_MESSAGE_CENTRE_NUMBER_ABB"
 msgstr "Číslo centra textových správ"
 
-msgid "IDS_MSG_MBODY_SELECT_ALL"
-msgstr "Vybrať všetko"
-
-msgid "IDS_MSG_MBODY_ALERTS"
-msgstr "Upozornenia"
-
-msgid "IDS_MSG_HEADER_TRANSLATE"
-msgstr "Preložiť"
-
 msgid "IDS_MSG_HEADER_TEXT_MESSAGES_ABB"
 msgstr "Textové správy"
 
@@ -727,9 +583,6 @@ msgstr "Prepnutie mobilnej siete"
 msgid "IDS_MSG_HEADER_SMS_CENTRE_ABB2"
 msgstr "Centrum SMS"
 
-msgid "IDS_MSG_HEADER_SETTINGS"
-msgstr "Nastavenia"
-
 msgid "IDS_MSG_HEADER_SELECT_RECIPIENT"
 msgstr "Vybrať príjemcu"
 
@@ -738,9 +591,6 @@ msgstr "Vybraté: %d"
 
 msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
 msgstr "Správy na karte SIM"
-
-msgid "IDS_MSG_HEADER_MESSAGES"
-msgstr "Správy"
 
 msgid "IDS_MSG_HEADER_INPUT_MODE_ABB"
 msgstr "Vstupný režim"
@@ -754,14 +604,8 @@ msgstr "Nepodarilo sa odoslať správu"
 msgid "IDS_MSG_HEADER_DISCARD_MESSAGE_M_CLOSE_ABB"
 msgstr "Zahodiť správu"
 
-msgid "IDS_MSG_HEADER_DELETE"
-msgstr "Odstrániť"
-
 msgid "IDS_MSG_HEADER_CREATE"
 msgstr "Vytvoriť"
-
-msgid "IDS_MSG_HEADER_ATTENTION"
-msgstr "Pozor"
 
 msgid "IDS_MSG_HEADER_ADD_CONTENT_ABB"
 msgstr "Pridanie obsahu"
@@ -775,15 +619,6 @@ msgstr "Uložiť"
 msgid "IDS_MSG_BUTTON_RESEND_ABB"
 msgstr "Odoslať znova"
 
-msgid "IDS_MSG_BUTTON_REMOVE_ABB"
-msgstr "Odstrániť"
-
-msgid "IDS_MSG_BUTTON_OK_ABB"
-msgstr "OK"
-
-msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
-msgstr "Stiahnuť"
-
 msgid "IDS_MSG_BUTTON_DISCARD_ABB"
 msgstr "Zrušiť"
 
@@ -793,17 +628,11 @@ msgstr "Odstrániť"
 msgid "IDS_MSG_BUTTON_CANCEL_ABB2"
 msgstr "Zrušiť"
 
-msgid "IDS_MSG_BUTTON_CANCEL_ABB"
-msgstr "Zrušiť"
-
 msgid "IDS_MSG_BUTTON2_CONTACTS_ABB_M_APPLICATION_NAME"
 msgstr "Kontakty"
 
 msgid "IDS_MSG_BODY_YOU_HAVE_SELECTED_A_SOUND_N_SHOT_FILE_SOUND_DATA_IS_NOT_SUPPORTED_FOR_MMS_SO_ONLY_THE_PICTURE_WILL_BE_ATTACHED"
 msgstr "Vybrali ste súbor ozvučenej snímky. Správy MMS nepodporujú zvukové údaje, preto sa priloží iba fotografia."
-
-msgid "IDS_MSG_BODY_YES"
-msgstr "Áno"
 
 msgid "IDS_MSG_BODY_WAITING_TO_SEND_ING_M_STATUS"
 msgstr "Čaká sa na odoslanie..."
@@ -823,9 +652,6 @@ msgstr "Čas odoslania:"
 msgid "IDS_MSG_BODY_TIME_RECEIVED_C"
 msgstr "Čas prijatia:"
 
-msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
-msgstr "Začiarkavacie políčko"
-
 msgid "IDS_MSG_BODY_STATUS_C"
 msgstr "Stav:"
 
@@ -838,9 +664,6 @@ msgstr "Odosiela..."
 msgid "IDS_MSG_BODY_SENDING_FAILED_M_STATUS"
 msgstr "Odoslanie zlyhalo"
 
-msgid "IDS_MSG_BODY_SEC"
-msgstr "s"
-
 msgid "IDS_MSG_BODY_RETRIEVE_MESSAGES_AUTOMATICALLY_WHILE_ROAMING"
 msgstr "Správy sa budú načítavať automaticky počas roamingu."
 
@@ -852,9 +675,6 @@ msgstr "Potvrdenie o prečítaní: %s"
 
 msgid "IDS_MSG_BODY_OTHER_PERSON"
 msgstr "Iná osoba"
-
-msgid "IDS_MSG_BODY_MESSAGE"
-msgstr "Správa"
 
 msgid "IDS_MSG_BODY_MEMO_T_MAINMENU"
 msgstr "Poznámka"
@@ -895,14 +715,197 @@ msgstr "Tu sa zobrazia čísla, ktoré pridáte do zoznamu blokovaní správ."
 msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
 msgstr "ODSTRÁNIŤ"
 
-msgid "IDS_ST_BODY_LOADING_ING"
-msgstr "Načítava sa..."
+msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
+msgstr "Nepodporovaný typ média."
 
-msgid "IDS_MSGS_BODY_NOTIFICATIONS"
-msgstr "Oznámenia"
+msgid "IDS_MSGC_POP_LOW_BATTERY"
+msgstr "Batéria vybitá."
 
-msgid "IDS_MSG_HEADER_ME"
+msgid "IDS_MSGC_POP_CANCELLED"
+msgstr "Zrušené"
+
+msgid "IDS_MSGC_OPT_EMAIL"
+msgstr "E-mail"
+
+msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
+msgstr "Zobraziť"
+
+msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
+msgstr "Odstrániť"
+
+msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
+msgstr "Prehrať"
+
+msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
+msgstr "Komu"
+
+msgid "IDS_MSGC_HEADER_PREVIEW"
+msgstr "Ukážka"
+
+msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
+msgstr "Zadať predmet"
+
+msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
+msgstr "Nedá sa nájsť umiestnenie."
+
+msgid "IDS_MSGF_POP_REJECTED"
+msgstr "Odmietnuté."
+
+msgid "IDS_MSGF_POP_DELETING"
+msgstr "Odstraňovanie..."
+
+msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
+msgstr "Skopírované do schránky."
+
+msgid "IDS_MSGF_POP_BLOCK_PS_Q"
+msgstr "Blokovať %s?"
+
+msgid "IDS_MSGF_OPT_SUBJECT_COLON"
+msgstr "Predmet:"
+
+msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
+msgstr "Odosielateľ cez e-mail"
+
+msgid "IDS_MSGF_OPT_SELECT"
+msgstr "Vybrať"
+
+msgid "IDS_MSGF_OPT_SAVE"
+msgstr "Uložiť"
+
+msgid "IDS_MSGF_OPT_REMOVE"
+msgstr "Odstrániť"
+
+msgid "IDS_MSGF_OPT_FORWARD"
+msgstr "Preposlať"
+
+msgid "IDS_MSGF_OPT_DELETE_Q"
+msgstr "Odstrániť?"
+
+msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
+msgstr "Rozšírené hľadanie"
+
+msgid "IDS_MSGF_BODY_UNKNOWN"
+msgstr "Neznáme"
+
+msgid "IDS_MSGF_BODY_SETTINGS"
+msgstr "Nastavenia"
+
+msgid "IDS_MSGF_BODY_RECIPIENTS"
+msgstr "Príjemcovia"
+
+msgid "IDS_MSGF_BODY_RECEIVED"
+msgstr "Prijatá"
+
+msgid "IDS_MSGF_BODY_OTHER"
+msgstr "Ďalšie"
+
+msgid "IDS_MSGF_BODY_NO_SUBJECT"
+msgstr "Žiadny predmet"
+
+msgid "IDS_MSGF_BODY_MSGSIZE_KB"
+msgstr "kB"
+
+msgid "IDS_MSGF_BODY_MESSAGE"
+msgstr "Správa"
+
+msgid "IDS_MSGF_BODY_ME"
 msgstr "Ja"
+
+msgid "IDS_MSGF_BODY_EXPIRED"
+msgstr "Platnosť vypršala"
+
+msgid "IDS_MSGF_BODY_ALL"
+msgstr "Všetky"
+
+msgid "IDS_MSG_SK_NO_ABB"
+msgstr "Nie"
+
+msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
+msgstr "Správa sa zahodí. Neboli vybratí žiadni príjemcovia."
+
+msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
+msgstr "Počas hovoru sa nedá prehrávať."
+
+msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
+msgstr "Iba prichádzajúce správy"
+
+msgid "IDS_MSG_POP_DELETED"
+msgstr "Odstránené."
+
+msgid "IDS_MSG_OPT_VIDEOS"
+msgstr "Videá"
+
+msgid "IDS_MSG_OPT_TEXT"
+msgstr "Text"
+
+msgid "IDS_MSG_OPT_SETTINGS"
+msgstr "Nastavenia"
+
+msgid "IDS_MSG_OPT_SEARCH"
+msgstr "Vyhľadávanie"
+
+msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
+msgstr "Nahrať video"
+
+msgid "IDS_MSG_OPT_NONE"
+msgstr "Žiadny"
+
+msgid "IDS_MSG_OPT_IMAGES"
+msgstr "Obrázky"
+
+msgid "IDS_MSG_OPT_EDIT"
+msgstr "Upraviť"
+
+msgid "IDS_MSG_OPT_DELETE"
+msgstr "Odstrániť"
+
+msgid "IDS_MSG_OPT_DEFAULT"
+msgstr "Predvolený"
+
+msgid "IDS_MSG_MBODY_SELECT_ALL"
+msgstr "Vybrať všetko"
+
+msgid "IDS_MSG_MBODY_ALERTS"
+msgstr "Upozornenia"
+
+msgid "IDS_MSG_HEADER_TRANSLATE"
+msgstr "Preložiť"
+
+msgid "IDS_MSG_HEADER_SETTINGS"
+msgstr "Nastavenia"
+
+msgid "IDS_MSG_HEADER_MESSAGES"
+msgstr "Správy"
+
+msgid "IDS_MSG_HEADER_DELETE"
+msgstr "Odstrániť"
+
+msgid "IDS_MSG_HEADER_ATTENTION"
+msgstr "Pozor"
+
+msgid "IDS_MSG_BUTTON_REMOVE_ABB"
+msgstr "Odstrániť"
+
+msgid "IDS_MSG_BUTTON_OK_ABB"
+msgstr "OK"
+
+msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
+msgstr "Stiahnuť"
+
+msgid "IDS_MSG_BUTTON_CANCEL_ABB"
+msgstr "Zrušiť"
+
+msgid "IDS_MSG_BODY_YES"
+msgstr "Áno"
+
+msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
+msgstr "Začiarkavacie políčko"
+
+msgid "IDS_MSG_BODY_SEC"
+msgstr "s"
+
+msgid "IDS_MSG_BODY_MESSAGE"
+msgstr "Správa"
 
 msgid "IDS_MSG_BUTTON_SEND_ABB5"
 msgstr "Odos."
@@ -912,4 +915,31 @@ msgstr "Pošli"
 
 msgid "IDS_MSG_ACBUTTON_SEND_ABB3"
 msgstr "ODOS."
+
+msgid "IDS_ST_BODY_LOADING_ING"
+msgstr "Načítava sa..."
+
+msgid "IDS_MSGS_BODY_NOTIFICATIONS"
+msgstr "Oznámenia"
+
+msgid "IDS_MSG_HEADER_ME"
+msgstr "Ja"
+
+msgid "IDS_MSG_BODY_UNKNOWN"
+msgstr "Neznáme"
+
+msgid "IDS_MSG_TMBODY_ADD_OR_REMOVE_RECIPIENTS"
+msgstr "Pridať/odstrániť príjemcov"
+
+msgid "IDS_MSG_POP_THE_SENDER_HAS_REQUESTED_A_READ_REPORT_TAP_SEND_TO_SEND_ONE"
+msgstr "Odosielateľ si vyžiadal potvrdenie o prečítaní. Ťuknutím na tlačidlo Odoslať ho môžete odoslať."
+
+msgid "IDS_MSGF_OPT_SEND_READ_REPORT"
+msgstr "Odoslať potvrdenie o prečítaní"
+
+msgid "IDS_MSG_HEADER_COMPOSE_MESSAGE_ABB"
+msgstr "Napíšte správu"
+
+msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
+msgstr "Nie sú pridaní žiadni platní príjemcovia. Táto správa sa zahodí."
 

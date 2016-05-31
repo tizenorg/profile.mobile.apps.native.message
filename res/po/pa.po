@@ -4,14 +4,17 @@ msgstr "ਘਰ"
 msgid "IDS_MSGC_POP_DATA_ROAMING_IS_DISABLED_ENABLE_DATA_ROAMING_AND_TRY_AGAIN"
 msgstr "ਡੈਟਾ ਰੋਮਿੰਗ ਅਸਮਰੱਥ ਹੈ। ਡੈਟਾ ਰੋਮਿੰਗ ਸਮਰੱਥ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
 
-msgid "IDS_MSGF_POP_NEW_MESSAGE"
-msgstr "ਨਵਾਂ ਸੰਦੇਸ਼"
-
 msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
 msgstr "ਰੱਦ ਕਰੋ"
 
 msgid "IDS_MSG_ACBUTTON_DONE_ABB"
 msgstr "ਪੂਰਨ"
+
+msgid "IDS_MSGF_POP_NEW_MESSAGE"
+msgstr "ਨਵਾਂ ਸੰਦੇਸ਼"
+
+msgid "IDS_COM_BUTTON_SHARE"
+msgstr "ਸਾਂਝਾ"
 
 msgid "IDS_COM_BODY_UNKNOWN"
 msgstr "ਅਗਿਆਤ"
@@ -24,9 +27,6 @@ msgstr "ਮੋਬਾਈਲ ਡੈਟਾ ਅਸਮਰੱਥ ਹੈ। ਮੋਬ�
 
 msgid "IDS_TPLATFORM_ACBUTTON_SEND_ABB"
 msgstr "ਭੇਜੋ"
-
-msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
-msgstr "ਅਸਮਰਥਿਤ ਮੀਡਿਆ ਪ੍ਰਕਾਰ।"
 
 msgid "IDS_MSGC_POP_UNABLE_TO_SEND_MESSAGES_WHILE_IN_FLIGHT_MODE_DISABLE_FLIGHT_MODE_AND_TRY_AGAIN"
 msgstr "ਫਲਾਈਟ ਮੋਡ ਵਿੱਚ ਸੰਦੇਸ਼ ਭੇਜਣ ਵਿੱਚ ਅਸਮਰੱਥ। ਫਲਾਈਟ ਮੋਡ ਅਸਮਰੱਥ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
@@ -55,9 +55,6 @@ msgstr "ਸੰਦੇਸ਼ %s ਨੂੰ ਭੇਜਣ ਲਈ ਸ਼ੈਡਿਊਲ ਕ�
 msgid "IDS_MSGC_POP_MAXIMUM_MESSAGE_SIZE_REACHED"
 msgstr "ਸੰਦੇਸ਼ ਅਧਿਕਤਮ ਆਕਾਰ ਤੇ ਪਹੁੰਚ ਗਿਆ।"
 
-msgid "IDS_MSGC_POP_LOW_BATTERY"
-msgstr "ਘੱਟ ਬੈਟਰੀ।"
-
 msgid "IDS_MSGC_POP_DURATION_MUST_BE_AT_LEAST_PD_SECONDS"
 msgstr "ਅਵਧੀ ਘੱਟ ਤੋਂ ਘੱਟ %d ਸਕਿੰਟਾਂ ਦੀ ਹੋਣੀ ਜ਼ਰੂਰੀ ਹੈ।"
 
@@ -66,9 +63,6 @@ msgstr "ਫਲਾਈਟ ਮੋਡ ਅਸਮਰੱਥ ਹੋ ਰਿਹਾ ਹੈ.
 
 msgid "IDS_MSGC_POP_COPIED_TO_SIM_CARD"
 msgstr "SIM ਕਾਰਡ ਤੇ ਕਾਪੀ ਹੋਇਆ।"
-
-msgid "IDS_MSGC_POP_CANCELLED"
-msgstr "ਰੱਦ।"
 
 msgid "IDS_MSGC_OPT_USE_OTHER_CONTACT_INFO_ABB"
 msgstr "ਕੋਈ ਦੂਜੀ ਸੰਪਰਕ ਜਾਣਕਾਰੀ ਉਪਯੋਗ ਕਰੋ"
@@ -79,32 +73,14 @@ msgstr "ਇਸ ਰਾਹੀਂ ਭੇਜੋ"
 msgid "IDS_MSGC_OPT_IMAGE"
 msgstr "ਚਿੱਤਰ"
 
-msgid "IDS_MSGC_OPT_EMAIL"
-msgstr "ਈਮੇਲ"
-
 msgid "IDS_MSGC_OPT_EDIT_ITEM_REPLACE"
 msgstr "ਬਦਲੋ"
-
-msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
-msgstr "ਦੇਖੋ"
-
-msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
-msgstr "ਹਟਾਉ"
-
-msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
-msgstr "ਪਲੇ ਕਰੋ"
-
-msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
-msgstr "ਨੂੰ"
 
 msgid "IDS_MSGC_OPT_CANCEL_MESSAGE"
 msgstr "ਸੰਦੇਸ਼ ਰੱਦ ਕਰੋ"
 
 msgid "IDS_MSGC_HEADER_RECIPIENT_LIST"
 msgstr "ਪ੍ਰਾਪਤਕਰਤਾ ਸੂਚੀ"
-
-msgid "IDS_MSGC_HEADER_PREVIEW"
-msgstr "ਪੂਰਵ-ਦਰਸ਼ਨ"
 
 msgid "IDS_MSGC_HEADER_DURATION_FOR_SLIDE_PD_PD"
 msgstr "ਸਲਾਈਡ ਲਈ ਅਵਧੀ %d/%d"
@@ -127,9 +103,6 @@ msgstr "ਬੇਨਤੀ ਨਹੀਂ ਕੀਤੀ ਗਈ"
 msgid "IDS_MSGC_BODY_MAXIMUM_NUMBER_OF_RECIPIENTS_HPD_REACHED"
 msgstr "ਪ੍ਰਾਪਤਕਰਤਾ ਅਧਿਕਤਮ ਸੰਖਿਆ (%d) ਤੇ ਪਹੁੰਚ ਗਏ।"
 
-msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
-msgstr "ਵਿਸ਼ਾ ਦਾਖ਼ਲ ਕਰੋ।"
-
 msgid "IDS_MSGC_BODY_DUPLICATED_RECIPIENT"
 msgstr "ਡੁਪਲੀਕੇਟ ਪ੍ਰਾਪਤਕਰਤਾ।"
 
@@ -138,9 +111,6 @@ msgstr "ਫਾੱਵਰਡ"
 
 msgid "IDS_MSGF_POP_UNABLE_TO_SAVE"
 msgstr "ਸੁਰੱਖਿਅਤ ਕਰਨ'ਚ ਅਸਮਰੱਥ।"
-
-msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
-msgstr "ਸਥਾਨ ਲੱਭਣ 'ਚ ਅਸਮਰੱਥ।"
 
 msgid "IDS_MSGF_POP_UNABLE_TO_DELETE"
 msgstr "ਮਿਟਾਉਣ ਵਿੱਚ ਅਸਮਰੱਥ।"
@@ -168,9 +138,6 @@ msgstr "ਪ੍ਰਤੀਬੰਧਿਤ ਸਮੱਗਰੀ ਪ੍ਰਕਾਰ। 
 
 msgid "IDS_MSGF_POP_RESTORING_ING"
 msgstr "ਪੁਨਰ ਸਥਾਪਿਤ ਹੋ ਰਿਹਾ ਹੈ..."
-
-msgid "IDS_MSGF_POP_REJECTED"
-msgstr "ਅਸਵੀਕਾਰ।"
 
 msgid "IDS_MSGF_POP_READ_REPORT"
 msgstr "ਪੜ੍ਹੇ ਜਾਣ ਦੀ ਰਿਪੋਰਟ ਭੇਜੋ"
@@ -214,20 +181,11 @@ msgstr "ਇਸ ਸੰਦੇਸ਼ ਵਿੱਚ ਅਟੈਚ ਕੀਤੀਆਂ ਫ�
 msgid "IDS_MSGF_POP_FILE_NAME_ALREADY_EXISTS"
 msgstr "ਫਾਈਲ ਨਾਂ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ।"
 
-msgid "IDS_MSGF_POP_DELETING"
-msgstr "ਮਿਟਾ ਰਿਹਾ ਹੈ..."
-
-msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
-msgstr "ਕਲਿਪਬੋਰਡ ਤੇ ਕਾਪੀ ਹੋਇਆ।"
-
 msgid "IDS_MSGF_POP_CONVERTING_TO_TEXT_MESSAGE_ING"
 msgstr "ਟੈਕਸਟ ਸੰਦੇਸ਼ ਵਿੱਚ ਤਬਦੀਲ ਹੋ ਰਿਹਾ ਹੈ..."
 
 msgid "IDS_MSGF_POP_CONVERTING_TO_MULTIMEDIA_MESSAGE_ING"
 msgstr "ਮਲਟੀਮੀਡਿਆ ਸੰਦੇਸ਼ ਵਿੱਚ ਤਬਦੀਲ ਹੋ ਰਿਹਾ ਹੈ..."
-
-msgid "IDS_MSGF_POP_BLOCK_PS_Q"
-msgstr "ਕੀ %s ਨੂੰ ਬਲੌਕ ਕਰਨਾ ਹੈ?"
 
 msgid "IDS_MSGF_POP_ABOUT_TO_GO_ONLINE_CONTINUE_Q"
 msgstr "ਤੁਸੀਂ ਆੱਨਲਾਈਨ(%s) ਹੋਣ ਵਾਲੇ ਹੋ। ਜਾਰੀ ਰੱਖੀਏ?"
@@ -235,38 +193,17 @@ msgstr "ਤੁਸੀਂ ਆੱਨਲਾਈਨ(%s) ਹੋਣ ਵਾਲੇ ਹੋ�
 msgid "IDS_MSGF_OPT_TEXT_MESSAGE"
 msgstr "ਟੈਕਸਟ ਸੰਦੇਸ਼"
 
-msgid "IDS_MSGF_OPT_SUBJECT_COLON"
-msgstr "ਵਿਸ਼ਾ:"
-
-msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
-msgstr "ਈਮੇਲ ਦੁਆਰਾ ਭੇਜੋ"
-
 msgid "IDS_MSGF_OPT_SENDER_ABB"
 msgstr "ਭੇਜਣ ਵਾਲਾ"
-
-msgid "IDS_MSGF_OPT_SELECT"
-msgstr "ਚੁਣੋ"
 
 msgid "IDS_MSGF_OPT_SAVE_ATTACHMENT"
 msgstr "ਅਟੈਚਮੈਂਟ ਸੁਰੱਖਿਅਤ ਕਰੋ"
 
-msgid "IDS_MSGF_OPT_SAVE"
-msgstr "ਸੇਵ ਕਰੋ"
-
-msgid "IDS_MSGF_OPT_REMOVE"
-msgstr "ਹਟਾਉ"
-
 msgid "IDS_MSGF_OPT_INSTALL"
 msgstr "ਸਥਾਪਿਤ ਕਰੋ"
 
-msgid "IDS_MSGF_OPT_FORWARD"
-msgstr "ਅੱਗੇ ਭੇਜੋ"
-
 msgid "IDS_MSGF_OPT_EDIT_MESSAGE"
 msgstr "ਸੰਦੇਸ਼ ਸੰਪਾਦਿਤ ਕਰੋ"
-
-msgid "IDS_MSGF_OPT_DELETE_Q"
-msgstr "ਮਿਟਾਉਣਾ ਹੈ?"
 
 msgid "IDS_MSGF_OPT_DELETE_MESSAGES"
 msgstr "ਸੰਦੇਸ਼ ਮਿਟਾਓ"
@@ -283,14 +220,8 @@ msgstr "ਸੰਦੇਸ਼ ਵੇਰਵੇ"
 msgid "IDS_MSGF_HEADER_EXPIRES_C_PS"
 msgstr "ਮਿਆਦ ਸਮਾਪਤ: %s"
 
-msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
-msgstr "ਉੱਨਤ ਖੋਜ"
-
 msgid "IDS_MSGF_BUTTON_SAVE_ALL_ATTACHMENTS_ABB"
 msgstr "ਸਾਰੇ ਅਟੈਚਮੈਂਟਸ ਸੁਰੱਖਿਅਤ ਕਰੋ"
-
-msgid "IDS_MSGF_BODY_UNKNOWN"
-msgstr "ਅਗਿਆਤ"
 
 msgid "IDS_MSGF_BODY_TO_C"
 msgstr "ਨੂੰ:"
@@ -301,23 +232,14 @@ msgstr "ਟੈਕਸਟ ਸੰਦੇਸ਼"
 msgid "IDS_MSGF_BODY_SIM_MEMORY_FULL_DELETE_SOME_ITEMS"
 msgstr "SIM ਮੈਮਰੀ ਪੂਰਨ। ਕੁਝ ਆਈਟਮਸ ਨੂੰ ਮਿਟਾਓ।"
 
-msgid "IDS_MSGF_BODY_SETTINGS"
-msgstr "ਸੈੱਟਿੰਗਸ"
-
 msgid "IDS_MSGF_BODY_SENT_M_DATE_C"
 msgstr "ਭੇਜਿਆ:"
 
 msgid "IDS_MSGF_BODY_REQUESTED"
 msgstr "ਬੇਨਤੀ ਕੀਤੀ।"
 
-msgid "IDS_MSGF_BODY_RECIPIENTS"
-msgstr "ਪ੍ਰਾਪਤਕਰਤਾ"
-
 msgid "IDS_MSGF_BODY_RECEIVED_M_DATE_C"
 msgstr "ਪ੍ਰਾਪਤ:"
-
-msgid "IDS_MSGF_BODY_RECEIVED"
-msgstr "ਪ੍ਰਾਪਤ ਕੀਤਾ।"
 
 msgid "IDS_MSGF_BODY_READ_REPORT"
 msgstr "ਪੜ੍ਹੇ ਜਾਣ ਦੀ ਰਿਪੋਰਟ ਭੇਜੋ"
@@ -331,12 +253,6 @@ msgstr "%d ਸੰਦੇਸ਼"
 msgid "IDS_MSGF_BODY_PD_CONVERSATIONS"
 msgstr "%d ਵਾਰਤਾਲਾਪ"
 
-msgid "IDS_MSGF_BODY_OTHER"
-msgstr "ਹੋਰ"
-
-msgid "IDS_MSGF_BODY_NO_SUBJECT"
-msgstr "ਕੋਈ ਵਿਸ਼ਾ ਨਹੀਂ"
-
 msgid "IDS_MSGF_BODY_NO_NAME"
 msgstr "ਕੋਈ ਨਾਂ ਨਹੀਂ ਹੈ"
 
@@ -345,9 +261,6 @@ msgstr "ਮਲਟੀਮੀਡਿਆ ਸੰਦੇਸ਼ ਸੂਚਨਾ"
 
 msgid "IDS_MSGF_BODY_MULTIMEDIA_MESSAGE"
 msgstr "ਮਲਟੀਮੀਡਿਆ ਸੰਦੇਸ਼"
-
-msgid "IDS_MSGF_BODY_MSGSIZE_KB"
-msgstr "KB"
 
 msgid "IDS_MSGF_BODY_MMSREADREPLYMSGREAD"
 msgstr "ਪੜ੍ਹੋ"
@@ -367,12 +280,6 @@ msgstr "ਸੰਦੇਸ਼ ਵਿਕਲਪ"
 msgid "IDS_MSGF_BODY_MESSAGE_DELIVERED"
 msgstr "ਸੰਦੇਸ਼ ਪਹੁੰਚਾਇਆ ਗਿਆ"
 
-msgid "IDS_MSGF_BODY_MESSAGE"
-msgstr "ਸੰਦੇਸ਼"
-
-msgid "IDS_MSGF_BODY_ME"
-msgstr "ਮੈਂ"
-
 msgid "IDS_MSGF_BODY_MAXIMUM_NUMBER_OF_ATTACHMENTS_HP1SS_EXCEEDED_ONLY_FIRST_P2SS_WILL_BE_ADDED"
 msgstr "ਅਟੈਚਮੈਂਟਸ (%1$s) ਅਧਿਕਤਮ ਸੰਖਿਆ ਤੋਂ ਵੱਧ ਗਏ ਹਨ। ਕੇਵਲ ਪਹਿਲੀਆਂ %2$s ਹੀ ਜੋੜੀਆਂ ਜਾਣਗੀਆਂ।"
 
@@ -384,9 +291,6 @@ msgstr "ਵੱਲੋਂ"
 
 msgid "IDS_MSGF_BODY_FLFROM"
 msgstr "ਵੱਲੋਂ:"
-
-msgid "IDS_MSGF_BODY_EXPIRED"
-msgstr "ਮਿਆਦ ਸਮਾਪਤ"
 
 msgid "IDS_MSGF_BODY_DETAILSSENDINGFAILED"
 msgstr "ਭੇਜਣਾ ਅਸਫਲ।"
@@ -402,9 +306,6 @@ msgstr "ਟੈਕਸਟ ਕਾਪੀ ਕਰੋ"
 
 msgid "IDS_MSGF_BODY_CB_MESSAGES"
 msgstr "CB ਸੰਦੇਸ਼"
-
-msgid "IDS_MSGF_BODY_ALL"
-msgstr "ਸਭ"
 
 msgid "IDS_MSGF_BODY_1_MESSAGE"
 msgstr "1 ਸੰਦੇਸ਼"
@@ -433,6 +334,9 @@ msgstr "MMS ਸੰਦੇਸ਼ ਸਵੈਚਲਿਤ ਪ੍ਰਾਪਤ ਕਰੋ�
 msgid "IDS_MSG_TPOP_UNABLE_TO_PREVIEW_FILE_UNSUPPORTED_FILE_TYPE"
 msgstr "ਫਾਈਲ ਦਾ ਪੂਰਵ-ਦਰਸ਼ਨ ਦੇਖਣ ਵਿੱਚ ਅਸਮਰੱਥ। ਅਸਮਰਥਿਤ ਫਾਈਲ ਪ੍ਰਕਾਰ।"
 
+msgid "IDS_MSG_TPOP_UNABLE_TO_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "ਫਾਈਲ ਅਟੈਚ ਕਰਨ ਵਿੱਚ ਅਸਮਰੱਥ। ਫਾਈਲ ਫੌਰਮੈਟ ਸਮਰਥਿਤ ਨਹੀਂ।"
+
 msgid "IDS_MSG_TPOP_UNABLE_TO_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
 msgstr "ਕੁੱਝ ਪ੍ਰਾਪਤਕਰਤਾਵਾਂ ਨੂੰ ਜੋੜਨ ਵਿੱਚ ਅਸਮਰੱਥ ਹੈ। ਨੰਬਰ ਵੈਧ ਨਹੀਂ ਹਨ।"
 
@@ -448,6 +352,9 @@ msgstr "ਅਟੈਚਮੈਂਟ ਜੋੜਨ ਵਿੱਚ ਅਸਮਰੱਥ।
 msgid "IDS_MSG_TPOP_THIS_NUMBER_IS_NOT_VALID"
 msgstr "ਇਹ ਨੰਬਰ ਵੈਧ ਨਹੀਂ ਹੈ।"
 
+msgid "IDS_MSG_TPOP_SOME_RECIPIENTS_ALREADY_ADDED"
+msgstr "ਕੁੱਝ ਪ੍ਰਾਪਤਕਰਤਾਵਾਂ ਨੂੰ ਪਹਿਲਾਂ ਤੋਂ ਹੀ ਜੋੜਿਆ ਗਿਆ ਹੈ।"
+
 msgid "IDS_MSG_TPOP_SELECTED_MESSAGES_COPIED_TO_MOBILE_DEVICE"
 msgstr "ਚੁਣੇ ਗਏ ਸੰਦੇਸ਼ ਮੋਬਾਈਲ ਡਿਵਾਈਸ ਤੇ ਕਾਪੀ ਕੀਤੇ ਗਏ।"
 
@@ -459,6 +366,9 @@ msgstr "ਨੰਬਰ ਨੂੰ ਸੰਦੇਸ਼ ਬਲੌਕ ਸੂਚੀ ਵਿ�
 
 msgid "IDS_MSG_TPOP_NUMBER_ADDED_TO_MESSAGE_BLOCK_LIST"
 msgstr "ਨੰਬਰ ਨੂੰ ਸੰਦੇਸ਼ ਬਲੌਕ ਸੂਚੀ ਵਿੱਚ ਜੋੜਿਆ ਗਿਆ।"
+
+msgid "IDS_MSG_TPOP_NETWORK_NOT_AVAILABLE_MESSAGE_WILL_BE_SENT_WHEN_CONNECTED_TO_NETWORK"
+msgstr "ਨੈੱਟਵਰਕ ਉਪਲਬਧ ਨਹੀਂ। ਨੈੱਟਵਰਕ ਨਾਲ ਕਨੈਕਟ ਹੋਣ ਤੇ ਸੰਦੇਸ਼ ਭੇਜਿਆ ਜਾਵੇਗਾ।"
 
 msgid "IDS_MSG_TPOP_MESSAGE_COPIED_TO_PS_SIM_CARD"
 msgstr "ਸੰਦੇਸ਼ %s SIM ਕਾਰਡ ਤੇ ਕਾਪੀ ਕੀਤਾ ਗਿਆ।"
@@ -502,9 +412,6 @@ msgstr "ਸਵੈ ਪ੍ਰਾਪਤ ਕਰੋ"
 msgid "IDS_MSG_SK_SEND_NOW"
 msgstr "ਹੁਣ ਭੇਜੋ"
 
-msgid "IDS_MSG_SK_NO_ABB"
-msgstr "ਨਹੀਂ"
-
 msgid "IDS_MSG_SBODY_SELECT_AN_INPUT_MODE_FOR_COMPOSING_MESSAGES"
 msgstr "ਸੰਦੇਸ਼ ਲਿਖਣ ਲਈ ਇਨਪੁਟ ਮੋਡ ਚੁਣੋ।"
 
@@ -514,14 +421,8 @@ msgstr "ਕੋਈ ਨਹੀਂ"
 msgid "IDS_MSG_SBODY_MANAGE_THE_MESSAGES_STORED_ON_YOUR_SIM_CARD"
 msgstr "ਆਪਣੇ SIM ਕਾਰਡ ਤੇ ਸਟੋਰ ਕੀਤੇ ਸੰਦੇਸ਼ ਪ੍ਰਬੰਧਿਤ ਕਰੋ।"
 
-msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
-msgstr "ਤੁਹਾਡਾ ਸੰਦੇਸ਼ ਰੱਦ ਹੋ ਜਾਵੇਗਾ। ਕਿਸੇ ਪ੍ਰਾਪਤਕਰਤਾ ਦੀ ਚੋਣ ਨਹੀਂ ਕੀਤੀ ਗਈ ਹੈ।"
-
 msgid "IDS_MSG_POP_UNABLE_TO_SEND_SCHEDULED_MESSAGE_SET_ANOTHER_TIME"
 msgstr "ਸ਼ੈਡਿਊਲ ਕੀਤਾ ਸੰਦੇਸ਼ ਭੇਜਣ ਵਿੱਚ ਅਸਮੱਰਥ। ਕੋਈ ਹੋਰ ਸਮਾਂ ਸੈੱਟ ਕਰੋ।"
-
-msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
-msgstr "ਕਾੱਲ ਦੇ ਦੌਰਾਨ ਪਲੇ ਕਰਨ ਵਿੱਚ ਅਸਮਰੱਥ।"
 
 msgid "IDS_MSG_POP_UNABLE_TO_ATTACH_FILE_FILE_SIZE_TOO_LARGE_TRY_SENDING_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
 msgstr "ਫਾਈਲ ਅਟੈਚ ਕਰਨ ਵਿੱਚ ਅਸਮਰੱਥ। ਫਾਈਲ ਦਾ ਆਕਾਰ ਬਹੁਤ ਵੱਡਾ ਹੈ। ਈਮੇਲ, ਬਲੂਟੁੱਥ, Wi-Fi, ਆਦਿ ਦੇ ਰਾਹੀਂ ਭੇਜਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
@@ -544,17 +445,11 @@ msgstr "%d ਵਾਰਤਾਲਾਪ ਮਿਟ ਜਾਣਗੇ।"
 msgid "IDS_MSG_POP_NO_TEMPLATES_IN_LIST"
 msgstr "ਸੂਚੀ ਵਿੱਚ ਕੋਈ ਟੈਂਪਲੇਟਸ ਨਹੀਂ"
 
-msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
-msgstr "ਸਿਰਫ ਇਨਕਮਿੰਗ ਸੰਦੇਸ਼"
-
 msgid "IDS_MSG_POP_INCLUDE_ORIGINAL_TEXT_IN_OUTGOING_MESSAGE"
 msgstr "ਆਉਟਗੋਇੰਗ ਸੰਦੇਸ਼ ਵਿੱਚ ਮੂਲ ਟੈਕਸਟ ਸ਼ਾਮਲ ਕਰੋ"
 
 msgid "IDS_MSG_POP_DURATION_MUST_BE_SHORTER_THAN_PD_SECONDS"
 msgstr "ਅਵਧੀ %d ਸਕਿੰਟਾਂ ਤੋਂ ਘੱਟ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।"
-
-msgid "IDS_MSG_POP_DELETED"
-msgstr "ਮਿਟਾਇਆ ਗਿਆ।"
 
 msgid "IDS_MSG_POP_1_MESSAGE_WILL_BE_DELETED"
 msgstr "1 ਸੰਦੇਸ਼ ਮਿਟ ਜਾਵੇਗਾ।"
@@ -571,26 +466,14 @@ msgstr "ਸੰਪਰਕ ਵੇਰਵੇ ਦੇਖੋ"
 msgid "IDS_MSG_OPT_VIEW_AS_SLIDESHOW_ABB"
 msgstr "ਸਲਾਈਡਸ਼ੋਅ ਵਜੋਂ ਦੇਖੋ"
 
-msgid "IDS_MSG_OPT_VIDEOS"
-msgstr "ਵੀਡਿਓਜ਼"
-
 msgid "IDS_MSG_OPT_UPDATE_CONTACT"
 msgstr "ਸੰਪਰਕ ਅਪਡੇਟ ਕਰੋ"
 
 msgid "IDS_MSG_OPT_UNICODE"
 msgstr "ਯੂਨੀਕੋਡ"
 
-msgid "IDS_MSG_OPT_TEXT"
-msgstr "ਟੈਕਸਟ"
-
 msgid "IDS_MSG_OPT_TAKE_PICTURE_ABB"
 msgstr "ਤਸਵੀਰ ਲਉ"
-
-msgid "IDS_MSG_OPT_SETTINGS"
-msgstr "ਸੈੱਟਿੰਗਸ"
-
-msgid "IDS_MSG_OPT_SEARCH"
-msgstr "ਖੋਜੋ"
 
 msgid "IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"
 msgstr "ਅਟੈਚਮੈਂਟਸ ਸੁਰੱਖਿਅਤ ਕਰੋ"
@@ -604,23 +487,14 @@ msgstr "ਉੱਤਰ ਦਿਉ"
 msgid "IDS_MSG_OPT_REMOVE_FROM_BLOCK_LIST_ABB"
 msgstr "ਬਲੌਕ ਸੂਚੀ ਤੋਂ ਹਟਾਉ"
 
-msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
-msgstr "ਵੀਡਿਓ ਰਿਕਾਰਡ ਕਰੋ"
-
 msgid "IDS_MSG_OPT_RECORD_AUDIO_FILE_ABB"
 msgstr "ਆਡੀਓ ਫਾਈਲ ਰਿਕਾਰਡ ਕਰੋ"
 
 msgid "IDS_MSG_OPT_QUICK_RESPONSE_ABB"
 msgstr "ਤੁਰੰਤ ਪ੍ਰਤੀਕਿਰਿਆ"
 
-msgid "IDS_MSG_OPT_NONE"
-msgstr "ਕੋਈ ਨਹੀਂ"
-
 msgid "IDS_MSG_OPT_MAKE_VOICE_CALL"
 msgstr "ਵਾੱਇਸ ਕਾੱਲ ਕਰੋ"
-
-msgid "IDS_MSG_OPT_IMAGES"
-msgstr "ਚਿੱਤਰ"
 
 msgid "IDS_MSG_OPT_GSM_ALPHABET_ABB"
 msgstr "GSM ਵਰਣਮਾਲਾ"
@@ -628,20 +502,11 @@ msgstr "GSM ਵਰਣਮਾਲਾ"
 msgid "IDS_MSG_OPT_EXPORT_TO_DEVICE_MEMORY"
 msgstr "ਡਿਵਾਈਸ ਮੈਮਰੀ ਤੇ ਨਿਰਯਾਤ ਕਰੋ"
 
-msgid "IDS_MSG_OPT_EDIT"
-msgstr "ਸੰਪਾਦਿਤ ਕਰੋ"
-
 msgid "IDS_MSG_OPT_DELETE_MESSAGE"
 msgstr "ਸੰਦੇਸ਼ ਮਿਟਾਓ"
 
 msgid "IDS_MSG_OPT_DELETE_CONVERSATION_ABB"
 msgstr "ਵਾਰਤਾਲਾਪ ਮਿਟਾਓ"
-
-msgid "IDS_MSG_OPT_DELETE"
-msgstr "ਮਿਟਾਓ"
-
-msgid "IDS_MSG_OPT_DEFAULT"
-msgstr "ਡਿਫਾੱਲਟ"
 
 msgid "IDS_MSG_OPT_CREATE_CONTACT_ABB"
 msgstr "ਸੰਪਰਕ ਬਣਾਉ"
@@ -709,15 +574,6 @@ msgstr "ਅਗਿਆਤ ਨੰਬਰ"
 msgid "IDS_MSG_MBODY_TEXT_MESSAGE_CENTRE_NUMBER_ABB"
 msgstr "ਟੈਕਸਟ ਸੰਦੇਸ਼ ਕੇਂਦਰ ਨੰਬਰ"
 
-msgid "IDS_MSG_MBODY_SELECT_ALL"
-msgstr "ਸਭ ਚੁਣੋ"
-
-msgid "IDS_MSG_MBODY_ALERTS"
-msgstr "ਅਲਰਟ"
-
-msgid "IDS_MSG_HEADER_TRANSLATE"
-msgstr "ਅਨੁਵਾਦ ਕਰੋ"
-
 msgid "IDS_MSG_HEADER_TEXT_MESSAGES_ABB"
 msgstr "ਟੈਕਸਟ ਸੰਦੇਸ਼"
 
@@ -727,9 +583,6 @@ msgstr "ਮੋਬਾਈਲ ਨੈੱਟਵਰਕ ਸਵਿੱਚ ਕਰੋ"
 msgid "IDS_MSG_HEADER_SMS_CENTRE_ABB2"
 msgstr "SMS ਕੇਂਦਰ"
 
-msgid "IDS_MSG_HEADER_SETTINGS"
-msgstr "ਸੈੱਟਿੰਗਸ"
-
 msgid "IDS_MSG_HEADER_SELECT_RECIPIENT"
 msgstr "ਪ੍ਰਾਪਤਕਰਤਾ ਚੁਣੋ"
 
@@ -738,9 +591,6 @@ msgstr "%d ਚੁਣੇ ਗਏ"
 
 msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
 msgstr "SIM ਕਾਰਡ ਤੇ ਸੰਦੇਸ਼"
-
-msgid "IDS_MSG_HEADER_MESSAGES"
-msgstr "ਸੰਦੇਸ਼"
 
 msgid "IDS_MSG_HEADER_INPUT_MODE_ABB"
 msgstr "ਇਨਪੁਟ ਮੋਡ"
@@ -754,14 +604,8 @@ msgstr "ਸੰਦੇਸ਼ ਭੇਜਣ ਵਿੱਚ ਅਸਫਲ"
 msgid "IDS_MSG_HEADER_DISCARD_MESSAGE_M_CLOSE_ABB"
 msgstr "ਸੰਦੇਸ਼ ਖਾਰਿਜ ਕਰੋ"
 
-msgid "IDS_MSG_HEADER_DELETE"
-msgstr "ਮਿਟਾਓ"
-
 msgid "IDS_MSG_HEADER_CREATE"
 msgstr "ਬਣਾਉ"
-
-msgid "IDS_MSG_HEADER_ATTENTION"
-msgstr "ਧਿਆਨ ਦਿਉ"
 
 msgid "IDS_MSG_HEADER_ADD_CONTENT_ABB"
 msgstr "ਸਮੱਗਰੀ ਜੋੜੋ"
@@ -775,15 +619,6 @@ msgstr "ਸੁਰੱਖਿਅਤ ਕਰੋ"
 msgid "IDS_MSG_BUTTON_RESEND_ABB"
 msgstr "ਦੁਬਾਰਾ ਭੇਜੋ"
 
-msgid "IDS_MSG_BUTTON_REMOVE_ABB"
-msgstr "ਹਟਾਉ"
-
-msgid "IDS_MSG_BUTTON_OK_ABB"
-msgstr "ਓਕੇ"
-
-msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
-msgstr "ਡਾਉਨਲੋਡ ਕਰੋ"
-
 msgid "IDS_MSG_BUTTON_DISCARD_ABB"
 msgstr "ਖਾਰਿਜ ਕਰੋ"
 
@@ -793,17 +628,11 @@ msgstr "ਮਿਟਾਓ"
 msgid "IDS_MSG_BUTTON_CANCEL_ABB2"
 msgstr "ਰੱਦ ਕਰੋ"
 
-msgid "IDS_MSG_BUTTON_CANCEL_ABB"
-msgstr "ਰੱਦ ਕਰੋ"
-
 msgid "IDS_MSG_BUTTON2_CONTACTS_ABB_M_APPLICATION_NAME"
 msgstr "ਸੰਪਰਕ"
 
 msgid "IDS_MSG_BODY_YOU_HAVE_SELECTED_A_SOUND_N_SHOT_FILE_SOUND_DATA_IS_NOT_SUPPORTED_FOR_MMS_SO_ONLY_THE_PICTURE_WILL_BE_ATTACHED"
 msgstr "ਤੁਸੀਂ ਇੱਕ ਸਾਉਂਡ ਅਤੇ ਸ਼ੌਟ ਫਾਈਲ ਦੀ ਚੋਣ ਕੀਤੀ ਹੈ। MMS ਦੇ ਲਈ ਸਾਉਂਡ ਡੈਟਾ ਸਮਰੱਥਿਤ ਨਹੀਂ ਹੈ ਇਸ ਲਈ ਸਿਰਫ ਤਸਵੀਰ ਨੂੰ ਹੀ ਅਟੈਚ ਕੀਤਾ ਜਾਵੇਗਾ।"
-
-msgid "IDS_MSG_BODY_YES"
-msgstr "ਹਾਂ"
 
 msgid "IDS_MSG_BODY_WAITING_TO_SEND_ING_M_STATUS"
 msgstr "ਭੇਜਣ ਲਈ ਉਡੀਕ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ..."
@@ -823,9 +652,6 @@ msgstr "ਭੇਜਣ ਦਾ ਸਮਾਂ:"
 msgid "IDS_MSG_BODY_TIME_RECEIVED_C"
 msgstr "ਪ੍ਰਾਪਤ ਹੋਣ ਦਾ ਸਮਾਂ:"
 
-msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
-msgstr "ਟਿਕ ਬਾੱਕਸ"
-
 msgid "IDS_MSG_BODY_STATUS_C"
 msgstr "ਸਥਿਤੀ:"
 
@@ -838,9 +664,6 @@ msgstr "ਭੇਜ ਰਿਹਾ ਹੈ..."
 msgid "IDS_MSG_BODY_SENDING_FAILED_M_STATUS"
 msgstr "ਭੇਜਣਾ ਅਸਫਲ"
 
-msgid "IDS_MSG_BODY_SEC"
-msgstr "ਸਕਿ"
-
 msgid "IDS_MSG_BODY_RETRIEVE_MESSAGES_AUTOMATICALLY_WHILE_ROAMING"
 msgstr "ਰੋਮਿੰਗ ਦੌਰਾਨ ਸੰਦੇਸ਼ ਸਵੈਚਲਿਤ ਪ੍ਰਾਪਤ ਕਰੋ।"
 
@@ -852,9 +675,6 @@ msgstr "ਪੜ੍ਹੇ ਜਾਣ ਦੀ ਰਿਪੋਰਟ: %s"
 
 msgid "IDS_MSG_BODY_OTHER_PERSON"
 msgstr "ਦੂਜਾ ਵਿਅਕਤੀ"
-
-msgid "IDS_MSG_BODY_MESSAGE"
-msgstr "ਸੰਦੇਸ਼"
 
 msgid "IDS_MSG_BODY_MEMO_T_MAINMENU"
 msgstr "ਮੈਮੋ"
@@ -895,14 +715,197 @@ msgstr "ਤੁਹਾਡੇ ਵੱਲੋਂ ਸੰਦੇਸ਼ ਬਲੌਕ ਸੂ�
 msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
 msgstr "ਮਿਟਾਓ"
 
-msgid "IDS_ST_BODY_LOADING_ING"
-msgstr "ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ..."
+msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
+msgstr "ਅਸਮਰਥਿਤ ਮੀਡਿਆ ਪ੍ਰਕਾਰ।"
 
-msgid "IDS_MSGS_BODY_NOTIFICATIONS"
-msgstr "ਸੂਚਨਾਵਾਂ"
+msgid "IDS_MSGC_POP_LOW_BATTERY"
+msgstr "ਘੱਟ ਬੈਟਰੀ।"
 
-msgid "IDS_MSG_HEADER_ME"
+msgid "IDS_MSGC_POP_CANCELLED"
+msgstr "ਰੱਦ।"
+
+msgid "IDS_MSGC_OPT_EMAIL"
+msgstr "ਈਮੇਲ"
+
+msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
+msgstr "ਦੇਖੋ"
+
+msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
+msgstr "ਹਟਾਉ"
+
+msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
+msgstr "ਪਲੇ ਕਰੋ"
+
+msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
+msgstr "ਨੂੰ"
+
+msgid "IDS_MSGC_HEADER_PREVIEW"
+msgstr "ਪੂਰਵ-ਦਰਸ਼ਨ"
+
+msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
+msgstr "ਵਿਸ਼ਾ ਦਾਖ਼ਲ ਕਰੋ।"
+
+msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
+msgstr "ਸਥਾਨ ਲੱਭਣ 'ਚ ਅਸਮਰੱਥ।"
+
+msgid "IDS_MSGF_POP_REJECTED"
+msgstr "ਅਸਵੀਕਾਰ।"
+
+msgid "IDS_MSGF_POP_DELETING"
+msgstr "ਮਿਟਾ ਰਿਹਾ ਹੈ..."
+
+msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
+msgstr "ਕਲਿਪਬੋਰਡ ਤੇ ਕਾਪੀ ਹੋਇਆ।"
+
+msgid "IDS_MSGF_POP_BLOCK_PS_Q"
+msgstr "ਕੀ %s ਨੂੰ ਬਲੌਕ ਕਰਨਾ ਹੈ?"
+
+msgid "IDS_MSGF_OPT_SUBJECT_COLON"
+msgstr "ਵਿਸ਼ਾ:"
+
+msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
+msgstr "ਈਮੇਲ ਦੁਆਰਾ ਭੇਜੋ"
+
+msgid "IDS_MSGF_OPT_SELECT"
+msgstr "ਚੁਣੋ"
+
+msgid "IDS_MSGF_OPT_SAVE"
+msgstr "ਸੇਵ ਕਰੋ"
+
+msgid "IDS_MSGF_OPT_REMOVE"
+msgstr "ਹਟਾਉ"
+
+msgid "IDS_MSGF_OPT_FORWARD"
+msgstr "ਅੱਗੇ ਭੇਜੋ"
+
+msgid "IDS_MSGF_OPT_DELETE_Q"
+msgstr "ਮਿਟਾਉਣਾ ਹੈ?"
+
+msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
+msgstr "ਉੱਨਤ ਖੋਜ"
+
+msgid "IDS_MSGF_BODY_UNKNOWN"
+msgstr "ਅਗਿਆਤ"
+
+msgid "IDS_MSGF_BODY_SETTINGS"
+msgstr "ਸੈੱਟਿੰਗਸ"
+
+msgid "IDS_MSGF_BODY_RECIPIENTS"
+msgstr "ਪ੍ਰਾਪਤਕਰਤਾ"
+
+msgid "IDS_MSGF_BODY_RECEIVED"
+msgstr "ਪ੍ਰਾਪਤ ਕੀਤਾ।"
+
+msgid "IDS_MSGF_BODY_OTHER"
+msgstr "ਹੋਰ"
+
+msgid "IDS_MSGF_BODY_NO_SUBJECT"
+msgstr "ਕੋਈ ਵਿਸ਼ਾ ਨਹੀਂ"
+
+msgid "IDS_MSGF_BODY_MSGSIZE_KB"
+msgstr "KB"
+
+msgid "IDS_MSGF_BODY_MESSAGE"
+msgstr "ਸੰਦੇਸ਼"
+
+msgid "IDS_MSGF_BODY_ME"
 msgstr "ਮੈਂ"
+
+msgid "IDS_MSGF_BODY_EXPIRED"
+msgstr "ਮਿਆਦ ਸਮਾਪਤ"
+
+msgid "IDS_MSGF_BODY_ALL"
+msgstr "ਸਭ"
+
+msgid "IDS_MSG_SK_NO_ABB"
+msgstr "ਨਹੀਂ"
+
+msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
+msgstr "ਤੁਹਾਡਾ ਸੰਦੇਸ਼ ਰੱਦ ਹੋ ਜਾਵੇਗਾ। ਕਿਸੇ ਪ੍ਰਾਪਤਕਰਤਾ ਦੀ ਚੋਣ ਨਹੀਂ ਕੀਤੀ ਗਈ ਹੈ।"
+
+msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
+msgstr "ਕਾੱਲ ਦੇ ਦੌਰਾਨ ਪਲੇ ਕਰਨ ਵਿੱਚ ਅਸਮਰੱਥ।"
+
+msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
+msgstr "ਸਿਰਫ ਇਨਕਮਿੰਗ ਸੰਦੇਸ਼"
+
+msgid "IDS_MSG_POP_DELETED"
+msgstr "ਮਿਟਾਇਆ ਗਿਆ।"
+
+msgid "IDS_MSG_OPT_VIDEOS"
+msgstr "ਵੀਡਿਓਜ਼"
+
+msgid "IDS_MSG_OPT_TEXT"
+msgstr "ਟੈਕਸਟ"
+
+msgid "IDS_MSG_OPT_SETTINGS"
+msgstr "ਸੈੱਟਿੰਗਸ"
+
+msgid "IDS_MSG_OPT_SEARCH"
+msgstr "ਖੋਜੋ"
+
+msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
+msgstr "ਵੀਡਿਓ ਰਿਕਾਰਡ ਕਰੋ"
+
+msgid "IDS_MSG_OPT_NONE"
+msgstr "ਕੋਈ ਨਹੀਂ"
+
+msgid "IDS_MSG_OPT_IMAGES"
+msgstr "ਚਿੱਤਰ"
+
+msgid "IDS_MSG_OPT_EDIT"
+msgstr "ਸੰਪਾਦਿਤ ਕਰੋ"
+
+msgid "IDS_MSG_OPT_DELETE"
+msgstr "ਮਿਟਾਓ"
+
+msgid "IDS_MSG_OPT_DEFAULT"
+msgstr "ਡਿਫਾੱਲਟ"
+
+msgid "IDS_MSG_MBODY_SELECT_ALL"
+msgstr "ਸਭ ਚੁਣੋ"
+
+msgid "IDS_MSG_MBODY_ALERTS"
+msgstr "ਅਲਰਟ"
+
+msgid "IDS_MSG_HEADER_TRANSLATE"
+msgstr "ਅਨੁਵਾਦ ਕਰੋ"
+
+msgid "IDS_MSG_HEADER_SETTINGS"
+msgstr "ਸੈੱਟਿੰਗਸ"
+
+msgid "IDS_MSG_HEADER_MESSAGES"
+msgstr "ਸੰਦੇਸ਼"
+
+msgid "IDS_MSG_HEADER_DELETE"
+msgstr "ਮਿਟਾਓ"
+
+msgid "IDS_MSG_HEADER_ATTENTION"
+msgstr "ਧਿਆਨ ਦਿਉ"
+
+msgid "IDS_MSG_BUTTON_REMOVE_ABB"
+msgstr "ਹਟਾਉ"
+
+msgid "IDS_MSG_BUTTON_OK_ABB"
+msgstr "ਓਕੇ"
+
+msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
+msgstr "ਡਾਉਨਲੋਡ ਕਰੋ"
+
+msgid "IDS_MSG_BUTTON_CANCEL_ABB"
+msgstr "ਰੱਦ ਕਰੋ"
+
+msgid "IDS_MSG_BODY_YES"
+msgstr "ਹਾਂ"
+
+msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
+msgstr "ਟਿਕ ਬਾੱਕਸ"
+
+msgid "IDS_MSG_BODY_SEC"
+msgstr "ਸਕਿ"
+
+msgid "IDS_MSG_BODY_MESSAGE"
+msgstr "ਸੰਦੇਸ਼"
 
 msgid "IDS_MSG_BUTTON_SEND_ABB5"
 msgstr "ਭੇਜੋ"
@@ -912,4 +915,31 @@ msgstr "ਭੇਜੋ"
 
 msgid "IDS_MSG_ACBUTTON_SEND_ABB3"
 msgstr "ਭੇਜੋ"
+
+msgid "IDS_ST_BODY_LOADING_ING"
+msgstr "ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ..."
+
+msgid "IDS_MSGS_BODY_NOTIFICATIONS"
+msgstr "ਸੂਚਨਾਵਾਂ"
+
+msgid "IDS_MSG_HEADER_ME"
+msgstr "ਮੈਂ"
+
+msgid "IDS_MSG_BODY_UNKNOWN"
+msgstr "ਅਗਿਆਤ"
+
+msgid "IDS_MSG_TMBODY_ADD_OR_REMOVE_RECIPIENTS"
+msgstr "ਪ੍ਰਾਪਤਕਰਤਾ ਜੋੜੋ ਜਾਂ ਹਟਾਉ"
+
+msgid "IDS_MSG_POP_THE_SENDER_HAS_REQUESTED_A_READ_REPORT_TAP_SEND_TO_SEND_ONE"
+msgstr "ਭੇਜਣ ਵਾਲੇ ਨੇ ਪੜ੍ਹੇ ਜਾਣ ਦੀ ਰਿਪੋਰਟ ਲਈ ਬੇਨਤੀ ਕੀਤੀ ਹੈ। ਭੇਜਣ ਲਈ “ਭੇਜੋ” ਤੇ ਟੈਪ ਕਰੋ।"
+
+msgid "IDS_MSGF_OPT_SEND_READ_REPORT"
+msgstr "ਪੜ੍ਹੇ ਜਾਣ ਦੀ ਰਿਪੋਰਟ ਭੇਜੋ"
+
+msgid "IDS_MSG_HEADER_COMPOSE_MESSAGE_ABB"
+msgstr "ਸੰਦੇਸ਼ ਲਿਖੋ"
+
+msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
+msgstr "ਕੋਈ ਵੈਧ ਪ੍ਰਾਪਤਕਰਤਾ ਨਹੀਂ ਜੋੜੇ ਗਏ। ਇਹ ਸੰਦੇਸ਼ ਖਾਰਿਜ ਹੋ ਜਾਵੇਗਾ।"
 

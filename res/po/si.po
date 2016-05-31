@@ -4,14 +4,17 @@ msgstr "නිවස"
 msgid "IDS_MSGC_POP_DATA_ROAMING_IS_DISABLED_ENABLE_DATA_ROAMING_AND_TRY_AGAIN"
 msgstr "දත්ත රෝමිං අක්‍රියයි. දත්ත රෝමිං සක්‍රිය කර නැවත උත්සාහ කරන්න."
 
-msgid "IDS_MSGF_POP_NEW_MESSAGE"
-msgstr "නව පණිවිඩ"
-
 msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
 msgstr "අවලංගු කර."
 
 msgid "IDS_MSG_ACBUTTON_DONE_ABB"
 msgstr "නිමයි"
+
+msgid "IDS_MSGF_POP_NEW_MESSAGE"
+msgstr "නව පණිවිඩ"
+
+msgid "IDS_COM_BUTTON_SHARE"
+msgstr "බෙදා."
 
 msgid "IDS_COM_BODY_UNKNOWN"
 msgstr "නොදන්නා"
@@ -24,9 +27,6 @@ msgstr "ජංගම දත්ත අක්‍රියයි. ජංගම ද�
 
 msgid "IDS_TPLATFORM_ACBUTTON_SEND_ABB"
 msgstr "යවන්න"
-
-msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
-msgstr "සහාය නොදක්වන මාධ්‍ය වර්ගයක්."
 
 msgid "IDS_MSGC_POP_UNABLE_TO_SEND_MESSAGES_WHILE_IN_FLIGHT_MODE_DISABLE_FLIGHT_MODE_AND_TRY_AGAIN"
 msgstr "පියාසර මාදිලියේදී පණිවිඩ යැවිය නොහැක. පියාසර මාදිලිය අක්‍රීය කර නැවත උත්සාහ කරන්න"
@@ -55,9 +55,6 @@ msgstr "පණිවුඩය %s වෙත යැවීමට සැලසුම
 msgid "IDS_MSGC_POP_MAXIMUM_MESSAGE_SIZE_REACHED"
 msgstr "පණිවිඩ ප්‍රමාණයේ උපරිමයට ලඟා විය."
 
-msgid "IDS_MSGC_POP_LOW_BATTERY"
-msgstr "බැටරිය අවමයි."
-
 msgid "IDS_MSGC_POP_DURATION_MUST_BE_AT_LEAST_PD_SECONDS"
 msgstr "කාල සීමාව අවම වශයෙන් තත්පර %d ක්වත් විය යුතුයි."
 
@@ -66,9 +63,6 @@ msgstr "පියාසර මාදිලිය අක්‍රිය කරම
 
 msgid "IDS_MSGC_POP_COPIED_TO_SIM_CARD"
 msgstr "SIM කාඩ්පත වෙත පිටපත් කෙරිණි."
-
-msgid "IDS_MSGC_POP_CANCELLED"
-msgstr "අවලංගු කෙරිණ."
 
 msgid "IDS_MSGC_OPT_USE_OTHER_CONTACT_INFO_ABB"
 msgstr "වෙතන් සබඳතා තොරතුරු භාවිතා කරන්න"
@@ -79,32 +73,14 @@ msgstr "හරහා යවන්න"
 msgid "IDS_MSGC_OPT_IMAGE"
 msgstr "අනුරුව"
 
-msgid "IDS_MSGC_OPT_EMAIL"
-msgstr "ඊමේල්"
-
 msgid "IDS_MSGC_OPT_EDIT_ITEM_REPLACE"
 msgstr "ප්‍රතිස්ථාපනය කරන්න"
-
-msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
-msgstr "පෙන්වන්න"
-
-msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
-msgstr "ඉවත් කරන්න"
-
-msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
-msgstr "වාදනය"
-
-msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
-msgstr "වෙත"
 
 msgid "IDS_MSGC_OPT_CANCEL_MESSAGE"
 msgstr "පණිවිඩය අවලංගු කරන්න"
 
 msgid "IDS_MSGC_HEADER_RECIPIENT_LIST"
 msgstr "ලබන්නන් ලැයිස්තුව"
-
-msgid "IDS_MSGC_HEADER_PREVIEW"
-msgstr "පෙරදසුන"
 
 msgid "IDS_MSGC_HEADER_DURATION_FOR_SLIDE_PD_PD"
 msgstr "%d/%d සලියිඩය සඳහා කාලය"
@@ -127,9 +103,6 @@ msgstr "ඉල්ලා නොමැත"
 msgid "IDS_MSGC_BODY_MAXIMUM_NUMBER_OF_RECIPIENTS_HPD_REACHED"
 msgstr "උපරිම ලබන්නන් (%d) ගණනට ළඟා විය."
 
-msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
-msgstr "මාතෘකාව ඇතුලත් කරන්න."
-
 msgid "IDS_MSGC_BODY_DUPLICATED_RECIPIENT"
 msgstr "අනුපිටපත් වූ ලබන්නෙක්."
 
@@ -138,9 +111,6 @@ msgstr "යොමු"
 
 msgid "IDS_MSGF_POP_UNABLE_TO_SAVE"
 msgstr "සුරැකිය නොහැක."
-
-msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
-msgstr "ස්ථානය සෙවිය නොහැක."
 
 msgid "IDS_MSGF_POP_UNABLE_TO_DELETE"
 msgstr "මකා දැමිය නොහැක."
@@ -168,9 +138,6 @@ msgstr "සීමාකරන ලද අන්තර්ගත වර්ගය. �
 
 msgid "IDS_MSGF_POP_RESTORING_ING"
 msgstr "ප්‍රතිස්ථාපනය කරමින්..."
-
-msgid "IDS_MSGF_POP_REJECTED"
-msgstr "ප්‍රතික්ෂේපයි."
 
 msgid "IDS_MSGF_POP_READ_REPORT"
 msgstr "වාර්තා කියවන්න"
@@ -214,20 +181,11 @@ msgstr "මෙම පණිවිඩය සතුව නොපෙනෙන ඇ�
 msgid "IDS_MSGF_POP_FILE_NAME_ALREADY_EXISTS"
 msgstr "ගොනු නාමය දැනටමත් පවතී."
 
-msgid "IDS_MSGF_POP_DELETING"
-msgstr "මකා දමමින්..."
-
-msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
-msgstr "ක්ලිප්බෝඩ් වෙත පිටපත් විය."
-
 msgid "IDS_MSGF_POP_CONVERTING_TO_TEXT_MESSAGE_ING"
 msgstr "වදන් පණිවිඩ වෙත පරිවර්තනය වෙමින් තිබේ..."
 
 msgid "IDS_MSGF_POP_CONVERTING_TO_MULTIMEDIA_MESSAGE_ING"
 msgstr "බහුමාධ්‍ය පණිවිඩය කරමින්..."
-
-msgid "IDS_MSGF_POP_BLOCK_PS_Q"
-msgstr "%s අවහිර කරන්නද?"
 
 msgid "IDS_MSGF_POP_ABOUT_TO_GO_ONLINE_CONTINUE_Q"
 msgstr "ඔබ අන්තර්ජාලයට (%s) යාමට ආසන්නයි. පවත්වාගෙන යන්නද?"
@@ -235,38 +193,17 @@ msgstr "ඔබ අන්තර්ජාලයට (%s) යාමට ආසන්�
 msgid "IDS_MSGF_OPT_TEXT_MESSAGE"
 msgstr "වදන් පණිවිඩ"
 
-msgid "IDS_MSGF_OPT_SUBJECT_COLON"
-msgstr "විෂයය:"
-
-msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
-msgstr "ඊමේල් හරහා යවන්න"
-
 msgid "IDS_MSGF_OPT_SENDER_ABB"
 msgstr "යවන්නා"
-
-msgid "IDS_MSGF_OPT_SELECT"
-msgstr "තෝරන්න"
 
 msgid "IDS_MSGF_OPT_SAVE_ATTACHMENT"
 msgstr "ඇමුණුම සුරකින්න"
 
-msgid "IDS_MSGF_OPT_SAVE"
-msgstr "සුරකින්න"
-
-msgid "IDS_MSGF_OPT_REMOVE"
-msgstr "ඉවත් කරන්න"
-
 msgid "IDS_MSGF_OPT_INSTALL"
 msgstr "ස්ථාපනය කරන්න"
 
-msgid "IDS_MSGF_OPT_FORWARD"
-msgstr "යොමු කරන්න"
-
 msgid "IDS_MSGF_OPT_EDIT_MESSAGE"
 msgstr "පණිවිඩ එක සංශෝධනය කරන්න"
-
-msgid "IDS_MSGF_OPT_DELETE_Q"
-msgstr "මකන්නද?"
 
 msgid "IDS_MSGF_OPT_DELETE_MESSAGES"
 msgstr "පණිවිඩ මකන්න"
@@ -283,14 +220,8 @@ msgstr "පණිවිඩ විස්තර"
 msgid "IDS_MSGF_HEADER_EXPIRES_C_PS"
 msgstr "කල්ඉකුත්වීම: %s"
 
-msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
-msgstr "උසස් සෙවුම"
-
 msgid "IDS_MSGF_BUTTON_SAVE_ALL_ATTACHMENTS_ABB"
 msgstr "සියලු ඇමුණුම් සුරකින්න"
-
-msgid "IDS_MSGF_BODY_UNKNOWN"
-msgstr "නොදන්නා"
 
 msgid "IDS_MSGF_BODY_TO_C"
 msgstr "වෙත:"
@@ -301,23 +232,14 @@ msgstr "පෙළ පණිවිඩ"
 msgid "IDS_MSGF_BODY_SIM_MEMORY_FULL_DELETE_SOME_ITEMS"
 msgstr "SIM කාඩ්පත මතකය පිරී ඇත. අයිතම කීපයක් මකන්න."
 
-msgid "IDS_MSGF_BODY_SETTINGS"
-msgstr "සැකසුම්"
-
 msgid "IDS_MSGF_BODY_SENT_M_DATE_C"
 msgstr "යවන ලදි:"
 
 msgid "IDS_MSGF_BODY_REQUESTED"
 msgstr "ඉල්ලීම් කරන ලදී."
 
-msgid "IDS_MSGF_BODY_RECIPIENTS"
-msgstr "ලබන්නන්"
-
 msgid "IDS_MSGF_BODY_RECEIVED_M_DATE_C"
 msgstr "ලැබුණි:"
-
-msgid "IDS_MSGF_BODY_RECEIVED"
-msgstr "ලැබුණි."
 
 msgid "IDS_MSGF_BODY_READ_REPORT"
 msgstr "වාර්තා කියවන්න"
@@ -331,12 +253,6 @@ msgstr "පණිවිඩ %d"
 msgid "IDS_MSGF_BODY_PD_CONVERSATIONS"
 msgstr "කතාබස් %d "
 
-msgid "IDS_MSGF_BODY_OTHER"
-msgstr "වෙනත්"
-
-msgid "IDS_MSGF_BODY_NO_SUBJECT"
-msgstr "මාතෘකාවක් නොමැත"
-
 msgid "IDS_MSGF_BODY_NO_NAME"
 msgstr "නමක් නොමැත"
 
@@ -345,9 +261,6 @@ msgstr "බහුමාධ්‍ය පණිවිඩ දැන්වීම"
 
 msgid "IDS_MSGF_BODY_MULTIMEDIA_MESSAGE"
 msgstr "බහුමාධ්‍යය පණිවිඩ"
-
-msgid "IDS_MSGF_BODY_MSGSIZE_KB"
-msgstr "KB"
 
 msgid "IDS_MSGF_BODY_MMSREADREPLYMSGREAD"
 msgstr "කියවන්න"
@@ -367,12 +280,6 @@ msgstr "පණිවිඩ විකල්ප"
 msgid "IDS_MSGF_BODY_MESSAGE_DELIVERED"
 msgstr "පණිවිඩය බාර දෙන ලදි"
 
-msgid "IDS_MSGF_BODY_MESSAGE"
-msgstr "පණිවිඩය"
-
-msgid "IDS_MSGF_BODY_ME"
-msgstr "මා"
-
 msgid "IDS_MSGF_BODY_MAXIMUM_NUMBER_OF_ATTACHMENTS_HP1SS_EXCEEDED_ONLY_FIRST_P2SS_WILL_BE_ADDED"
 msgstr "උපරිම ඇමුණුම් සංඛ්‍යාව (%1$s) ඉක්මවා ඇත. පළමු %2$s පමණක් එක් කෙරෙනු ඇත."
 
@@ -384,9 +291,6 @@ msgstr "යවන්නා"
 
 msgid "IDS_MSGF_BODY_FLFROM"
 msgstr "යවන්නා:"
-
-msgid "IDS_MSGF_BODY_EXPIRED"
-msgstr "කල් ඉකුත් වී ඇත"
 
 msgid "IDS_MSGF_BODY_DETAILSSENDINGFAILED"
 msgstr "යැවීම අසමත්."
@@ -402,9 +306,6 @@ msgstr "පෙළ පිටපත් කරන්න"
 
 msgid "IDS_MSGF_BODY_CB_MESSAGES"
 msgstr "CB පණිවිඩ"
-
-msgid "IDS_MSGF_BODY_ALL"
-msgstr "සියල්ල"
 
 msgid "IDS_MSGF_BODY_1_MESSAGE"
 msgstr "පණිවිඩ 1"
@@ -433,6 +334,9 @@ msgstr "MMS පණිවිඩ ස්වයංක්‍රියව යළි �
 msgid "IDS_MSG_TPOP_UNABLE_TO_PREVIEW_FILE_UNSUPPORTED_FILE_TYPE"
 msgstr "ගොනුව පෙරදසුන් කළ නොහැක. සහාය නොදක්වන ගොනු ආකාරයකි."
 
+msgid "IDS_MSG_TPOP_UNABLE_TO_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "ගොනුව ඇමිණිය නොහැක. ගොනු ආකෘතියට සහාය නොදක්වයි."
+
 msgid "IDS_MSG_TPOP_UNABLE_TO_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
 msgstr "ලබන්නන් කිහිප දෙනෙකු එක්කළ නොහැක. අංක වලංගු නොවේ."
 
@@ -448,6 +352,9 @@ msgstr "ඇමුණුම එක් කළ නොහැක. උපරිම ඇ
 msgid "IDS_MSG_TPOP_THIS_NUMBER_IS_NOT_VALID"
 msgstr "මෙම අංකය වලංගු නොවේ."
 
+msgid "IDS_MSG_TPOP_SOME_RECIPIENTS_ALREADY_ADDED"
+msgstr "ඇතැම් ලබන්නෝ දැනටමත් එක් කර ඇත."
+
 msgid "IDS_MSG_TPOP_SELECTED_MESSAGES_COPIED_TO_MOBILE_DEVICE"
 msgstr "තේරූ පණිවිඩ ජංගම උපාංගයට පිටපත් කෙරිණි."
 
@@ -459,6 +366,9 @@ msgstr "පණිවිඩ අවහිර ලැයිස්තුවෙන් 
 
 msgid "IDS_MSG_TPOP_NUMBER_ADDED_TO_MESSAGE_BLOCK_LIST"
 msgstr "පණිවිඩ අවහිර ලැයිස්තුවට අංකය එක් කෙරිණි."
+
+msgid "IDS_MSG_TPOP_NETWORK_NOT_AVAILABLE_MESSAGE_WILL_BE_SENT_WHEN_CONNECTED_TO_NETWORK"
+msgstr "ජාලය නොපවතී. ජාලයට සබැඳි විට පණිවිඩය යවනු ඇත."
 
 msgid "IDS_MSG_TPOP_MESSAGE_COPIED_TO_PS_SIM_CARD"
 msgstr "පණිවිඩය %s SIM කාඩ්පත වෙත පිටපත් විය."
@@ -502,9 +412,6 @@ msgstr "ස්වයංව යළි ලබා ගන්න"
 msgid "IDS_MSG_SK_SEND_NOW"
 msgstr "දැන් ය."
 
-msgid "IDS_MSG_SK_NO_ABB"
-msgstr "නැත"
-
 msgid "IDS_MSG_SBODY_SELECT_AN_INPUT_MODE_FOR_COMPOSING_MESSAGES"
 msgstr "පණිවිඩ රචනා කිරීමට ආදාන ප්‍රකාරයක් තෝරන්න."
 
@@ -514,14 +421,8 @@ msgstr "කිසිත් නැත"
 msgid "IDS_MSG_SBODY_MANAGE_THE_MESSAGES_STORED_ON_YOUR_SIM_CARD"
 msgstr "ඔබේ SIM කාඩ්පත මත ගබඩා කර ඇති පණිවිඩ කළමනාකරණය කරන්න."
 
-msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
-msgstr "ඔබගේ පණිවුඩය ඉවත ලනු ඇත. ලබන්නන් කිසිවෙක් තෝරාගෙන නැත."
-
 msgid "IDS_MSG_POP_UNABLE_TO_SEND_SCHEDULED_MESSAGE_SET_ANOTHER_TIME"
 msgstr "සැලසුම්ගත පණිවිඩය යැවිය නොහැක. වෙනත් වේලාවක් සකසන්න."
-
-msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
-msgstr "ඇමතුම අතරතුර වාදනය කළ නොහැක."
 
 msgid "IDS_MSG_POP_UNABLE_TO_ATTACH_FILE_FILE_SIZE_TOO_LARGE_TRY_SENDING_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
 msgstr "ගොනුව ඇමිණිය නොහැක. ගොනුවේ ප්‍රමාණය විශාල වැඩිය. ඊමේල්, බ්ලූටූත්, Wi-Fi වැනි ආකාරයක් හරහා යවන්න."
@@ -544,17 +445,11 @@ msgstr "සංවාද %dක් මැකෙනු ඇත."
 msgid "IDS_MSG_POP_NO_TEMPLATES_IN_LIST"
 msgstr "ලැයිස්තුවේ ආදර්ශ නැත"
 
-msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
-msgstr "එන පණිවිඩ පමණි"
-
 msgid "IDS_MSG_POP_INCLUDE_ORIGINAL_TEXT_IN_OUTGOING_MESSAGE"
 msgstr "යන පණිවිඩයේ මුල් පෙළ ඇතුළත් කරන්න"
 
 msgid "IDS_MSG_POP_DURATION_MUST_BE_SHORTER_THAN_PD_SECONDS"
 msgstr "කාලය තත්පර %d කට අඩු විය යුතුය."
-
-msgid "IDS_MSG_POP_DELETED"
-msgstr "මැකිණි."
 
 msgid "IDS_MSG_POP_1_MESSAGE_WILL_BE_DELETED"
 msgstr "1 පණිවිඩයක් මැකෙනු ඇත."
@@ -571,26 +466,14 @@ msgstr "සබඳතා විස්තර බලන්න"
 msgid "IDS_MSG_OPT_VIEW_AS_SLIDESHOW_ABB"
 msgstr "ස්ලයිඩ දැකුමක් ලෙස දක්වන්න"
 
-msgid "IDS_MSG_OPT_VIDEOS"
-msgstr "වීඩියෝ"
-
 msgid "IDS_MSG_OPT_UPDATE_CONTACT"
 msgstr "සබඳතාව යාවත්කාලීන කරන්න"
 
 msgid "IDS_MSG_OPT_UNICODE"
 msgstr "යුනිකෝඩ්"
 
-msgid "IDS_MSG_OPT_TEXT"
-msgstr "පෙළ"
-
 msgid "IDS_MSG_OPT_TAKE_PICTURE_ABB"
 msgstr "ඡායාරූපයක් ලබාගන්න"
-
-msgid "IDS_MSG_OPT_SETTINGS"
-msgstr "සැකසුම්"
-
-msgid "IDS_MSG_OPT_SEARCH"
-msgstr "සොයන්න"
 
 msgid "IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"
 msgstr "ඇමුණුම් සුරකින්න"
@@ -604,23 +487,14 @@ msgstr "පිළිතුරු දෙන්න"
 msgid "IDS_MSG_OPT_REMOVE_FROM_BLOCK_LIST_ABB"
 msgstr "අවහිර ලැයිස්තුවෙන් ඉවත් කරන්න"
 
-msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
-msgstr "වීඩියෝ පටිගත කරන්න"
-
 msgid "IDS_MSG_OPT_RECORD_AUDIO_FILE_ABB"
 msgstr "ශ්‍රව්‍ය ගොනුව පටිගත කරන්න"
 
 msgid "IDS_MSG_OPT_QUICK_RESPONSE_ABB"
 msgstr "යුහු ප්‍රතිචාර"
 
-msgid "IDS_MSG_OPT_NONE"
-msgstr "නොමැත"
-
 msgid "IDS_MSG_OPT_MAKE_VOICE_CALL"
 msgstr "හඬ ඇමතුමක් ගන්න"
-
-msgid "IDS_MSG_OPT_IMAGES"
-msgstr "පින්තූර"
 
 msgid "IDS_MSG_OPT_GSM_ALPHABET_ABB"
 msgstr "GSM අක්ෂරමාලාව"
@@ -628,20 +502,11 @@ msgstr "GSM අක්ෂරමාලාව"
 msgid "IDS_MSG_OPT_EXPORT_TO_DEVICE_MEMORY"
 msgstr "මතක පතට නිර්යාත කරන්න"
 
-msgid "IDS_MSG_OPT_EDIT"
-msgstr "සංස්කරණය කරන්න"
-
 msgid "IDS_MSG_OPT_DELETE_MESSAGE"
 msgstr "පණිවිඩය මකන්න"
 
 msgid "IDS_MSG_OPT_DELETE_CONVERSATION_ABB"
 msgstr "කතාබහ මකන්න"
-
-msgid "IDS_MSG_OPT_DELETE"
-msgstr "මකන්න"
-
-msgid "IDS_MSG_OPT_DEFAULT"
-msgstr "පෙරනිමිය"
 
 msgid "IDS_MSG_OPT_CREATE_CONTACT_ABB"
 msgstr "සබඳතාව තනන්න"
@@ -709,15 +574,6 @@ msgstr "නොදන්නා අංකය"
 msgid "IDS_MSG_MBODY_TEXT_MESSAGE_CENTRE_NUMBER_ABB"
 msgstr "පෙළ පණිවිඩ මධ්‍යස්ථාන අංකය"
 
-msgid "IDS_MSG_MBODY_SELECT_ALL"
-msgstr "සියල්ල තෝරන්න"
-
-msgid "IDS_MSG_MBODY_ALERTS"
-msgstr "නිවේදන"
-
-msgid "IDS_MSG_HEADER_TRANSLATE"
-msgstr "පරිවර්තනය කරන්න"
-
 msgid "IDS_MSG_HEADER_TEXT_MESSAGES_ABB"
 msgstr "පෙළ පණිවිඩ"
 
@@ -727,9 +583,6 @@ msgstr "ජංගම ජාලය මාරුව"
 msgid "IDS_MSG_HEADER_SMS_CENTRE_ABB2"
 msgstr "SMS මධ්‍යස්."
 
-msgid "IDS_MSG_HEADER_SETTINGS"
-msgstr "සැකසුම්"
-
 msgid "IDS_MSG_HEADER_SELECT_RECIPIENT"
 msgstr "ලබන්නා තෝරන්න"
 
@@ -738,9 +591,6 @@ msgstr "%d ක් තෝරා ඇත"
 
 msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
 msgstr "SIM කාඩ්පතෙහි ඇති පණිවිඩ"
-
-msgid "IDS_MSG_HEADER_MESSAGES"
-msgstr "පණිවිඩ"
 
 msgid "IDS_MSG_HEADER_INPUT_MODE_ABB"
 msgstr "ආදාන ආකාරය"
@@ -754,14 +604,8 @@ msgstr "පණිවිඩය යැවීම අසාර්ථකයි"
 msgid "IDS_MSG_HEADER_DISCARD_MESSAGE_M_CLOSE_ABB"
 msgstr "පණිවිඩය ඉවතලන්න"
 
-msgid "IDS_MSG_HEADER_DELETE"
-msgstr "මකන්න"
-
 msgid "IDS_MSG_HEADER_CREATE"
 msgstr "තැනීම"
-
-msgid "IDS_MSG_HEADER_ATTENTION"
-msgstr "අවධානය යොමු කරන්න"
 
 msgid "IDS_MSG_HEADER_ADD_CONTENT_ABB"
 msgstr "අන්තර්ගතය එක් කිරීම"
@@ -775,15 +619,6 @@ msgstr "සුරකින්න"
 msgid "IDS_MSG_BUTTON_RESEND_ABB"
 msgstr "නැවත යවන්න"
 
-msgid "IDS_MSG_BUTTON_REMOVE_ABB"
-msgstr "ඉවත් කරන්න"
-
-msgid "IDS_MSG_BUTTON_OK_ABB"
-msgstr "හරි"
-
-msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
-msgstr "බාගන්න"
-
 msgid "IDS_MSG_BUTTON_DISCARD_ABB"
 msgstr "ඉවතලන්න"
 
@@ -793,17 +628,11 @@ msgstr "මකන්න"
 msgid "IDS_MSG_BUTTON_CANCEL_ABB2"
 msgstr "අවලංගු ක."
 
-msgid "IDS_MSG_BUTTON_CANCEL_ABB"
-msgstr "අවලංගු කරන්න"
-
 msgid "IDS_MSG_BUTTON2_CONTACTS_ABB_M_APPLICATION_NAME"
 msgstr "සබඳතා"
 
 msgid "IDS_MSG_BODY_YOU_HAVE_SELECTED_A_SOUND_N_SHOT_FILE_SOUND_DATA_IS_NOT_SUPPORTED_FOR_MMS_SO_ONLY_THE_PICTURE_WILL_BE_ATTACHED"
 msgstr "ඔබ හඬ සහ පහර ගොනුවක් තෝරා ඇත. MMS සඳහා හඬ දත්ත සහාය නොදක්වන නිසා පින්තූරය පමණක් අමුණනු ඇත."
-
-msgid "IDS_MSG_BODY_YES"
-msgstr "ඔව්"
 
 msgid "IDS_MSG_BODY_WAITING_TO_SEND_ING_M_STATUS"
 msgstr "යැවීමට රැඳී..."
@@ -823,9 +652,6 @@ msgstr "යැවූ වේලාව:"
 msgid "IDS_MSG_BODY_TIME_RECEIVED_C"
 msgstr "ලැබූ වේලාව:"
 
-msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
-msgstr "ලකුණු කරන කොටුව"
-
 msgid "IDS_MSG_BODY_STATUS_C"
 msgstr "තත්ත්වය:"
 
@@ -838,9 +664,6 @@ msgstr "යවමින්..."
 msgid "IDS_MSG_BODY_SENDING_FAILED_M_STATUS"
 msgstr "යැවීම අසාර්ථකයි"
 
-msgid "IDS_MSG_BODY_SEC"
-msgstr "තත්"
-
 msgid "IDS_MSG_BODY_RETRIEVE_MESSAGES_AUTOMATICALLY_WHILE_ROAMING"
 msgstr "රෝමිං අතරතුර ස්වයංක්‍රියව පණිවිඩ යළි ලබා ගන්න."
 
@@ -852,9 +675,6 @@ msgstr "වාර්තාව කියවන්න: %s"
 
 msgid "IDS_MSG_BODY_OTHER_PERSON"
 msgstr "වෙනත් පුද්ගලයෙක්"
-
-msgid "IDS_MSG_BODY_MESSAGE"
-msgstr "පණිවිඩය"
 
 msgid "IDS_MSG_BODY_MEMO_T_MAINMENU"
 msgstr "සිහිපත"
@@ -895,14 +715,197 @@ msgstr "පණිවිඩ අවහිර ලැයිස්තුවට ඔබ
 msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
 msgstr "මකන්න"
 
-msgid "IDS_ST_BODY_LOADING_ING"
-msgstr "ප්‍රෙව්ශනය කරමින්..."
+msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
+msgstr "සහාය නොදක්වන මාධ්‍ය වර්ගයක්."
 
-msgid "IDS_MSGS_BODY_NOTIFICATIONS"
-msgstr "දැනුම්දීම්"
+msgid "IDS_MSGC_POP_LOW_BATTERY"
+msgstr "බැටරිය අවමයි."
 
-msgid "IDS_MSG_HEADER_ME"
+msgid "IDS_MSGC_POP_CANCELLED"
+msgstr "අවලංගු කෙරිණ."
+
+msgid "IDS_MSGC_OPT_EMAIL"
+msgstr "ඊමේල්"
+
+msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
+msgstr "පෙන්වන්න"
+
+msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
+msgstr "ඉවත් කරන්න"
+
+msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
+msgstr "වාදනය"
+
+msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
+msgstr "වෙත"
+
+msgid "IDS_MSGC_HEADER_PREVIEW"
+msgstr "පෙරදසුන"
+
+msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
+msgstr "මාතෘකාව ඇතුලත් කරන්න."
+
+msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
+msgstr "ස්ථානය සෙවිය නොහැක."
+
+msgid "IDS_MSGF_POP_REJECTED"
+msgstr "ප්‍රතික්ෂේපයි."
+
+msgid "IDS_MSGF_POP_DELETING"
+msgstr "මකා දමමින්..."
+
+msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
+msgstr "ක්ලිප්බෝඩ් වෙත පිටපත් විය."
+
+msgid "IDS_MSGF_POP_BLOCK_PS_Q"
+msgstr "%s අවහිර කරන්නද?"
+
+msgid "IDS_MSGF_OPT_SUBJECT_COLON"
+msgstr "විෂයය:"
+
+msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
+msgstr "ඊමේල් හරහා යවන්න"
+
+msgid "IDS_MSGF_OPT_SELECT"
+msgstr "තෝරන්න"
+
+msgid "IDS_MSGF_OPT_SAVE"
+msgstr "සුරකින්න"
+
+msgid "IDS_MSGF_OPT_REMOVE"
+msgstr "ඉවත් කරන්න"
+
+msgid "IDS_MSGF_OPT_FORWARD"
+msgstr "යොමු කරන්න"
+
+msgid "IDS_MSGF_OPT_DELETE_Q"
+msgstr "මකන්නද?"
+
+msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
+msgstr "උසස් සෙවුම"
+
+msgid "IDS_MSGF_BODY_UNKNOWN"
+msgstr "නොදන්නා"
+
+msgid "IDS_MSGF_BODY_SETTINGS"
+msgstr "සැකසුම්"
+
+msgid "IDS_MSGF_BODY_RECIPIENTS"
+msgstr "ලබන්නන්"
+
+msgid "IDS_MSGF_BODY_RECEIVED"
+msgstr "ලැබුණි."
+
+msgid "IDS_MSGF_BODY_OTHER"
+msgstr "වෙනත්"
+
+msgid "IDS_MSGF_BODY_NO_SUBJECT"
+msgstr "මාතෘකාවක් නොමැත"
+
+msgid "IDS_MSGF_BODY_MSGSIZE_KB"
+msgstr "KB"
+
+msgid "IDS_MSGF_BODY_MESSAGE"
+msgstr "පණිවිඩය"
+
+msgid "IDS_MSGF_BODY_ME"
 msgstr "මා"
+
+msgid "IDS_MSGF_BODY_EXPIRED"
+msgstr "කල් ඉකුත් වී ඇත"
+
+msgid "IDS_MSGF_BODY_ALL"
+msgstr "සියල්ල"
+
+msgid "IDS_MSG_SK_NO_ABB"
+msgstr "නැත"
+
+msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
+msgstr "ඔබගේ පණිවුඩය ඉවත ලනු ඇත. ලබන්නන් කිසිවෙක් තෝරාගෙන නැත."
+
+msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
+msgstr "ඇමතුම අතරතුර වාදනය කළ නොහැක."
+
+msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
+msgstr "එන පණිවිඩ පමණි"
+
+msgid "IDS_MSG_POP_DELETED"
+msgstr "මැකිණි."
+
+msgid "IDS_MSG_OPT_VIDEOS"
+msgstr "වීඩියෝ"
+
+msgid "IDS_MSG_OPT_TEXT"
+msgstr "පෙළ"
+
+msgid "IDS_MSG_OPT_SETTINGS"
+msgstr "සැකසුම්"
+
+msgid "IDS_MSG_OPT_SEARCH"
+msgstr "සොයන්න"
+
+msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
+msgstr "වීඩියෝ පටිගත කරන්න"
+
+msgid "IDS_MSG_OPT_NONE"
+msgstr "නොමැත"
+
+msgid "IDS_MSG_OPT_IMAGES"
+msgstr "පින්තූර"
+
+msgid "IDS_MSG_OPT_EDIT"
+msgstr "සංස්කරණය කරන්න"
+
+msgid "IDS_MSG_OPT_DELETE"
+msgstr "මකන්න"
+
+msgid "IDS_MSG_OPT_DEFAULT"
+msgstr "පෙරනිමිය"
+
+msgid "IDS_MSG_MBODY_SELECT_ALL"
+msgstr "සියල්ල තෝරන්න"
+
+msgid "IDS_MSG_MBODY_ALERTS"
+msgstr "නිවේදන"
+
+msgid "IDS_MSG_HEADER_TRANSLATE"
+msgstr "පරිවර්තනය කරන්න"
+
+msgid "IDS_MSG_HEADER_SETTINGS"
+msgstr "සැකසුම්"
+
+msgid "IDS_MSG_HEADER_MESSAGES"
+msgstr "පණිවිඩ"
+
+msgid "IDS_MSG_HEADER_DELETE"
+msgstr "මකන්න"
+
+msgid "IDS_MSG_HEADER_ATTENTION"
+msgstr "අවධානය යොමු කරන්න"
+
+msgid "IDS_MSG_BUTTON_REMOVE_ABB"
+msgstr "ඉවත් කරන්න"
+
+msgid "IDS_MSG_BUTTON_OK_ABB"
+msgstr "හරි"
+
+msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
+msgstr "බාගන්න"
+
+msgid "IDS_MSG_BUTTON_CANCEL_ABB"
+msgstr "අවලංගු කරන්න"
+
+msgid "IDS_MSG_BODY_YES"
+msgstr "ඔව්"
+
+msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
+msgstr "ලකුණු කරන කොටුව"
+
+msgid "IDS_MSG_BODY_SEC"
+msgstr "තත්"
+
+msgid "IDS_MSG_BODY_MESSAGE"
+msgstr "පණිවිඩය"
 
 msgid "IDS_MSG_BUTTON_SEND_ABB5"
 msgstr "යවන්න"
@@ -912,4 +915,31 @@ msgstr "යවන්න"
 
 msgid "IDS_MSG_ACBUTTON_SEND_ABB3"
 msgstr "යවන්න"
+
+msgid "IDS_ST_BODY_LOADING_ING"
+msgstr "ප්‍රෙව්ශනය කරමින්..."
+
+msgid "IDS_MSGS_BODY_NOTIFICATIONS"
+msgstr "දැනුම්දීම්"
+
+msgid "IDS_MSG_HEADER_ME"
+msgstr "මා"
+
+msgid "IDS_MSG_BODY_UNKNOWN"
+msgstr "නොදන්නා"
+
+msgid "IDS_MSG_TMBODY_ADD_OR_REMOVE_RECIPIENTS"
+msgstr "ලබන්නෝ එක් කරන්න හෝ ඉවත් කරන්න"
+
+msgid "IDS_MSG_POP_THE_SENDER_HAS_REQUESTED_A_READ_REPORT_TAP_SEND_TO_SEND_ONE"
+msgstr "එවන්නා කියවීම් වාර්තාවක් ඉල්ලා ඇත. එකක් යැවීමට “යවන්න” තට්ටු කරන්න."
+
+msgid "IDS_MSGF_OPT_SEND_READ_REPORT"
+msgstr "කියවීම් වාර්තාව යවන්න"
+
+msgid "IDS_MSG_HEADER_COMPOSE_MESSAGE_ABB"
+msgstr "පණිවුඩයක් නිමැවීම"
+
+msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
+msgstr "වලංගු ලබන්නෝ කිසිවෙක් එක් කර නැත. මෙම පණිවිඩය ඉවතලනු ඇත."
 

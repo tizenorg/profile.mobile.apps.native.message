@@ -4,14 +4,17 @@ msgstr "गृह"
 msgid "IDS_MSGC_POP_DATA_ROAMING_IS_DISABLED_ENABLE_DATA_ROAMING_AND_TRY_AGAIN"
 msgstr "डाटा रोमिङ असक्षम गरिएको छ‍। डाटा रोमिङ सक्षम गराउनुहोस् र फेरि प्रयास गर्नुहोस्।"
 
-msgid "IDS_MSGF_POP_NEW_MESSAGE"
-msgstr "नयाँ संदेश"
-
 msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
 msgstr "रद्द गर्नुहोस्"
 
 msgid "IDS_MSG_ACBUTTON_DONE_ABB"
 msgstr "भयो"
+
+msgid "IDS_MSGF_POP_NEW_MESSAGE"
+msgstr "नयाँ संदेश"
+
+msgid "IDS_COM_BUTTON_SHARE"
+msgstr "शेयर"
 
 msgid "IDS_COM_BODY_UNKNOWN"
 msgstr "अज्ञात"
@@ -24,9 +27,6 @@ msgstr "मोबाइल डाटा असक्षम गरिएको �
 
 msgid "IDS_TPLATFORM_ACBUTTON_SEND_ABB"
 msgstr "पठाउनुहोस्"
-
-msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
-msgstr "समर्थन नगर्ने मिडिया प्रकार।"
 
 msgid "IDS_MSGC_POP_UNABLE_TO_SEND_MESSAGES_WHILE_IN_FLIGHT_MODE_DISABLE_FLIGHT_MODE_AND_TRY_AGAIN"
 msgstr "उडान मोडमा हुँदा संदेशहरू पठाउन सकिएन। उडान मोड असक्षम गर्नुहोस् र फेरि प्रयास गर्नुहोस्।"
@@ -55,9 +55,6 @@ msgstr "%s लाई पठाउनको लागि संदेश अन�
 msgid "IDS_MSGC_POP_MAXIMUM_MESSAGE_SIZE_REACHED"
 msgstr "अधिकतम संदेश परिमाण पुग्यो।"
 
-msgid "IDS_MSGC_POP_LOW_BATTERY"
-msgstr "न्यून बैटरी।"
-
 msgid "IDS_MSGC_POP_DURATION_MUST_BE_AT_LEAST_PD_SECONDS"
 msgstr "अवधि कम्तिको पनि %d सेकेन्ड हुनुपर्छ।"
 
@@ -66,9 +63,6 @@ msgstr "उडान मोड असक्षम बनाउदैँ..."
 
 msgid "IDS_MSGC_POP_COPIED_TO_SIM_CARD"
 msgstr "SIM कार्डमा कपि गरियो।"
-
-msgid "IDS_MSGC_POP_CANCELLED"
-msgstr "रद्द भयो।"
 
 msgid "IDS_MSGC_OPT_USE_OTHER_CONTACT_INFO_ABB"
 msgstr "अर्को सम्पर्क जानकारी प्रयोग गर्नुहोस्"
@@ -79,32 +73,14 @@ msgstr "यसमार्फत पठाउनु."
 msgid "IDS_MSGC_OPT_IMAGE"
 msgstr "छवि"
 
-msgid "IDS_MSGC_OPT_EMAIL"
-msgstr "ईमेल"
-
 msgid "IDS_MSGC_OPT_EDIT_ITEM_REPLACE"
 msgstr "फेर्नुहोस्"
-
-msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
-msgstr "हेर्नुहोस्"
-
-msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
-msgstr "हटाउने"
-
-msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
-msgstr "चलाउनुहोस्"
-
-msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
-msgstr "लाई"
 
 msgid "IDS_MSGC_OPT_CANCEL_MESSAGE"
 msgstr "संदेश रद्द गर्नुहोस्"
 
 msgid "IDS_MSGC_HEADER_RECIPIENT_LIST"
 msgstr "प्रापक सूची"
-
-msgid "IDS_MSGC_HEADER_PREVIEW"
-msgstr "पूर्वसमीक्षा"
 
 msgid "IDS_MSGC_HEADER_DURATION_FOR_SLIDE_PD_PD"
 msgstr "स्लाइडको अवधि %d/%d"
@@ -127,9 +103,6 @@ msgstr "अनुरोध गरिएको छैन"
 msgid "IDS_MSGC_BODY_MAXIMUM_NUMBER_OF_RECIPIENTS_HPD_REACHED"
 msgstr "प्रापकहरूको अधिकतम संख्या (%d) पुग्यो।"
 
-msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
-msgstr "विषय प्रविष्ट गर्नुहोस्।"
-
 msgid "IDS_MSGC_BODY_DUPLICATED_RECIPIENT"
 msgstr "प्राप्तकर्ता दोहोर्यायो।"
 
@@ -138,9 +111,6 @@ msgstr "अगाडी"
 
 msgid "IDS_MSGF_POP_UNABLE_TO_SAVE"
 msgstr "सेव गर्न सकिएन।"
-
-msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
-msgstr "स्थान भेट्न असक्षम।"
 
 msgid "IDS_MSGF_POP_UNABLE_TO_DELETE"
 msgstr "मेटाउनु सकिएन।"
@@ -168,9 +138,6 @@ msgstr "प्रतिबन्धित सामग्री प्रका�
 
 msgid "IDS_MSGF_POP_RESTORING_ING"
 msgstr "पुनःभण्डार गर्दैछ..."
-
-msgid "IDS_MSGF_POP_REJECTED"
-msgstr "अस्वीकृत।"
 
 msgid "IDS_MSGF_POP_READ_REPORT"
 msgstr "प्रतिवेदन पढ्नुहोस्"
@@ -214,20 +181,11 @@ msgstr "यो संदेश ले संलग्न गरिएका न�
 msgid "IDS_MSGF_POP_FILE_NAME_ALREADY_EXISTS"
 msgstr "फाइल नाम पहिले स्थापित छ।"
 
-msgid "IDS_MSGF_POP_DELETING"
-msgstr "मेटिँदै छ..."
-
-msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
-msgstr "क्लिपबोर्डमा प्रतिलिपि गरियो।"
-
 msgid "IDS_MSGF_POP_CONVERTING_TO_TEXT_MESSAGE_ING"
 msgstr "पाठ संदेश मा रुपान्तरण गर्दैछ..."
 
 msgid "IDS_MSGF_POP_CONVERTING_TO_MULTIMEDIA_MESSAGE_ING"
 msgstr "मल्टिमिडिया संदेशमा परिनत गर्दै..."
-
-msgid "IDS_MSGF_POP_BLOCK_PS_Q"
-msgstr "%s लाई रोक्नुहोस्?"
 
 msgid "IDS_MSGF_POP_ABOUT_TO_GO_ONLINE_CONTINUE_Q"
 msgstr "तपाई अनलाइन जानेवाला हुनुहुन्‍छ (%s)। जारी राखूँ?"
@@ -235,38 +193,17 @@ msgstr "तपाई अनलाइन जानेवाला हुनुह
 msgid "IDS_MSGF_OPT_TEXT_MESSAGE"
 msgstr "पाठ संदेश"
 
-msgid "IDS_MSGF_OPT_SUBJECT_COLON"
-msgstr "विषय:"
-
-msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
-msgstr "ईमेल मार्फत पठाउनुहोस्"
-
 msgid "IDS_MSGF_OPT_SENDER_ABB"
 msgstr "प्रेषक"
-
-msgid "IDS_MSGF_OPT_SELECT"
-msgstr "चयन गर्नुहोस्"
 
 msgid "IDS_MSGF_OPT_SAVE_ATTACHMENT"
 msgstr "अनुलग्‍नकको सेव गर्नुहोस्"
 
-msgid "IDS_MSGF_OPT_SAVE"
-msgstr "सेव"
-
-msgid "IDS_MSGF_OPT_REMOVE"
-msgstr "हटाउने"
-
 msgid "IDS_MSGF_OPT_INSTALL"
 msgstr "स्थापना गर्नुहोस्"
 
-msgid "IDS_MSGF_OPT_FORWARD"
-msgstr "फरवार्ड"
-
 msgid "IDS_MSGF_OPT_EDIT_MESSAGE"
 msgstr "संदेश सम्पादन गर्नुहोस्"
-
-msgid "IDS_MSGF_OPT_DELETE_Q"
-msgstr "मेट्ऊँ?"
 
 msgid "IDS_MSGF_OPT_DELETE_MESSAGES"
 msgstr "संदेश मेटाउ"
@@ -283,14 +220,8 @@ msgstr "संदेश विवरणहरू"
 msgid "IDS_MSGF_HEADER_EXPIRES_C_PS"
 msgstr "समाप्त हुने मिति: %s"
 
-msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
-msgstr "उन्नत खोजी"
-
 msgid "IDS_MSGF_BUTTON_SAVE_ALL_ATTACHMENTS_ABB"
 msgstr "सबै संलग्नताहरू सुरक्षित गर्नुहोस्"
-
-msgid "IDS_MSGF_BODY_UNKNOWN"
-msgstr "अज्ञात"
 
 msgid "IDS_MSGF_BODY_TO_C"
 msgstr "को लागि:"
@@ -301,23 +232,14 @@ msgstr "पाठ संदेशहरु"
 msgid "IDS_MSGF_BODY_SIM_MEMORY_FULL_DELETE_SOME_ITEMS"
 msgstr "SIM मेमोरी पूरा भरिएको छ। केही आइटमहरू मेट्नुहोस्।"
 
-msgid "IDS_MSGF_BODY_SETTINGS"
-msgstr "सेटिङहरु"
-
 msgid "IDS_MSGF_BODY_SENT_M_DATE_C"
 msgstr "पठाइएका:"
 
 msgid "IDS_MSGF_BODY_REQUESTED"
 msgstr "अनुरोधित।"
 
-msgid "IDS_MSGF_BODY_RECIPIENTS"
-msgstr "प्रापकहरु"
-
 msgid "IDS_MSGF_BODY_RECEIVED_M_DATE_C"
 msgstr "प्राप्त भयो:"
-
-msgid "IDS_MSGF_BODY_RECEIVED"
-msgstr "प्राप्त भयो।"
 
 msgid "IDS_MSGF_BODY_READ_REPORT"
 msgstr "प्रतिवेदन पढ्नुहोस्"
@@ -331,12 +253,6 @@ msgstr "%d संदेश"
 msgid "IDS_MSGF_BODY_PD_CONVERSATIONS"
 msgstr "%d कुराकानीहरु"
 
-msgid "IDS_MSGF_BODY_OTHER"
-msgstr "अन्य"
-
-msgid "IDS_MSGF_BODY_NO_SUBJECT"
-msgstr "विषय छैन"
-
 msgid "IDS_MSGF_BODY_NO_NAME"
 msgstr "नाम छैन"
 
@@ -345,9 +261,6 @@ msgstr "मल्टिमिडिया संदेश विज्ञप्�
 
 msgid "IDS_MSGF_BODY_MULTIMEDIA_MESSAGE"
 msgstr "मल्टिमिडिया संदेश"
-
-msgid "IDS_MSGF_BODY_MSGSIZE_KB"
-msgstr "KB"
 
 msgid "IDS_MSGF_BODY_MMSREADREPLYMSGREAD"
 msgstr "पढ़नुहोस्"
@@ -367,12 +280,6 @@ msgstr "संदेश विकल्पहरू"
 msgid "IDS_MSGF_BODY_MESSAGE_DELIVERED"
 msgstr "संदेश वितरण गरियो"
 
-msgid "IDS_MSGF_BODY_MESSAGE"
-msgstr "संदेश"
-
-msgid "IDS_MSGF_BODY_ME"
-msgstr "म"
-
 msgid "IDS_MSGF_BODY_MAXIMUM_NUMBER_OF_ATTACHMENTS_HP1SS_EXCEEDED_ONLY_FIRST_P2SS_WILL_BE_ADDED"
 msgstr "संघ्लनकहरूको अधिकतम संख्या (%1$s) नाघ्यो। मात्र पहिलो%2$s थपिनेछ।"
 
@@ -384,9 +291,6 @@ msgstr "देखि"
 
 msgid "IDS_MSGF_BODY_FLFROM"
 msgstr "बाट:"
-
-msgid "IDS_MSGF_BODY_EXPIRED"
-msgstr "अवधि सकियो"
 
 msgid "IDS_MSGF_BODY_DETAILSSENDINGFAILED"
 msgstr "प्रेषण असफल।"
@@ -402,9 +306,6 @@ msgstr "पाठ कपी गर्नुहोस्"
 
 msgid "IDS_MSGF_BODY_CB_MESSAGES"
 msgstr "CB संदेश"
-
-msgid "IDS_MSGF_BODY_ALL"
-msgstr "सबै"
 
 msgid "IDS_MSGF_BODY_1_MESSAGE"
 msgstr "1 संदेश"
@@ -433,6 +334,9 @@ msgstr "MMS संदेशहरू स्वचालित रूपले �
 msgid "IDS_MSG_TPOP_UNABLE_TO_PREVIEW_FILE_UNSUPPORTED_FILE_TYPE"
 msgstr "फाइल पूर्वावलोकन गर्न सकिएन। असमर्थित फाइल प्रकार।"
 
+msgid "IDS_MSG_TPOP_UNABLE_TO_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "फाइल संलग्न गर्न सकिएन। फाइल स्वरूप समर्थित छैन।"
+
 msgid "IDS_MSG_TPOP_UNABLE_TO_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
 msgstr "केही प्राप्तकर्ताहरू थप्न सकिएन। नम्बरहरू मान्य छैनन्।"
 
@@ -448,6 +352,9 @@ msgstr "संलग्नकहरू थप्न सकिएन। संल
 msgid "IDS_MSG_TPOP_THIS_NUMBER_IS_NOT_VALID"
 msgstr "यो नम्बर मान्य छैन।"
 
+msgid "IDS_MSG_TPOP_SOME_RECIPIENTS_ALREADY_ADDED"
+msgstr "केही प्राप्तकर्ताहरू पहिलेनै थपिएका छन्।"
+
 msgid "IDS_MSG_TPOP_SELECTED_MESSAGES_COPIED_TO_MOBILE_DEVICE"
 msgstr "चयन गरिएका संदेशहरूलाई मोबाइल यन्त्रमा प्रतिलिपि गरियो।"
 
@@ -459,6 +366,9 @@ msgstr "नम्बरलाई कल ब्लक सूचीबाट ह�
 
 msgid "IDS_MSG_TPOP_NUMBER_ADDED_TO_MESSAGE_BLOCK_LIST"
 msgstr "नम्बरलाई कल ब्लक सूचीमा थपियो।"
+
+msgid "IDS_MSG_TPOP_NETWORK_NOT_AVAILABLE_MESSAGE_WILL_BE_SENT_WHEN_CONNECTED_TO_NETWORK"
+msgstr "नेटवर्क उपलब्ध छैन। नेटवर्कमा जडान भएपछि संदेशहरू पठाइनेछ।"
 
 msgid "IDS_MSG_TPOP_MESSAGE_COPIED_TO_PS_SIM_CARD"
 msgstr "संदेशलाई %s SIM कार्डमा प्रतिलिपि गरियो।"
@@ -502,9 +412,6 @@ msgstr "स्वतः पुनः प्राप्ति"
 msgid "IDS_MSG_SK_SEND_NOW"
 msgstr "अब पठाउनु"
 
-msgid "IDS_MSG_SK_NO_ABB"
-msgstr "होइन"
-
 msgid "IDS_MSG_SBODY_SELECT_AN_INPUT_MODE_FOR_COMPOSING_MESSAGES"
 msgstr "संदेशहरूको रचना गर्नको लागि एउटा इन्पुट मोड चयन गर्नुहोस्।"
 
@@ -514,14 +421,8 @@ msgstr "कुनैपनि छैन"
 msgid "IDS_MSG_SBODY_MANAGE_THE_MESSAGES_STORED_ON_YOUR_SIM_CARD"
 msgstr "तपाईको SIM कार्डमा भण्डारण गरिएका संदेशहरूलाई व्यवस्थित गर्नुहोस्।"
 
-msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
-msgstr "तपाईको संदेश छोडिनेछ। प्राप्तकर्ताहरू चयन गरिएका छैनन्।"
-
 msgid "IDS_MSG_POP_UNABLE_TO_SEND_SCHEDULED_MESSAGE_SET_ANOTHER_TIME"
 msgstr "तालिकाबद्ध संदेश पठाउन सकिएन। अर्को समय तय गर्नुहोस्।"
-
-msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
-msgstr "कलको समयमा प्‍ले गर्न असक्षम।"
 
 msgid "IDS_MSG_POP_UNABLE_TO_ATTACH_FILE_FILE_SIZE_TOO_LARGE_TRY_SENDING_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
 msgstr "फाइल संलग्न गर्न असक्षम भयो। फाइलको साइज धेरै ठूलो छ। ईमेल, ब्लुटूथ, Wi-Fi, आदि मार्फत पठाउनको लागि प्रयास गर्दै।"
@@ -544,17 +445,11 @@ msgstr "%d वार्तालापहरू मेटाइनेछन्�
 msgid "IDS_MSG_POP_NO_TEMPLATES_IN_LIST"
 msgstr "सूचीमा टेमप्लेटहरू छैन"
 
-msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
-msgstr "आगमन संदेशहरू मात्र"
-
 msgid "IDS_MSG_POP_INCLUDE_ORIGINAL_TEXT_IN_OUTGOING_MESSAGE"
 msgstr "बाहिर जाने संदेशमा वास्तविक पाठ समावेश गर्नुहोस्"
 
 msgid "IDS_MSG_POP_DURATION_MUST_BE_SHORTER_THAN_PD_SECONDS"
 msgstr "समय %d सेकेन्डभन्‍दा कम्‍ति हुनपर्छ।"
-
-msgid "IDS_MSG_POP_DELETED"
-msgstr "मेटियो।"
 
 msgid "IDS_MSG_POP_1_MESSAGE_WILL_BE_DELETED"
 msgstr "1 संदेश मेटिनेछ।"
@@ -571,26 +466,14 @@ msgstr "सम्पर्क विवरणहरू हेर्नुहो�
 msgid "IDS_MSG_OPT_VIEW_AS_SLIDESHOW_ABB"
 msgstr "स्लाइडशोको रूपमा हेर्नुहोस्"
 
-msgid "IDS_MSG_OPT_VIDEOS"
-msgstr "भिडियोहरु"
-
 msgid "IDS_MSG_OPT_UPDATE_CONTACT"
 msgstr "सम्पर्क अपडेट गर्नुहोस्"
 
 msgid "IDS_MSG_OPT_UNICODE"
 msgstr "यूनीकोड"
 
-msgid "IDS_MSG_OPT_TEXT"
-msgstr "पाठ"
-
 msgid "IDS_MSG_OPT_TAKE_PICTURE_ABB"
 msgstr "तस्वीर लिनुहोस्"
-
-msgid "IDS_MSG_OPT_SETTINGS"
-msgstr "सेटिङहरु"
-
-msgid "IDS_MSG_OPT_SEARCH"
-msgstr "खोज्‍नुहोस्"
 
 msgid "IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"
 msgstr "संलग्नताहरू बचत गर्नुहोस्"
@@ -604,23 +487,14 @@ msgstr "जवाफ दिनुहोस्"
 msgid "IDS_MSG_OPT_REMOVE_FROM_BLOCK_LIST_ABB"
 msgstr "ब्लक सूचीबाट हटाउनुहोस्"
 
-msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
-msgstr "भिडियो रेकर्ड गर्नुहोस्"
-
 msgid "IDS_MSG_OPT_RECORD_AUDIO_FILE_ABB"
 msgstr "अडियो फाइल रेकर्ड गर्नुहोस्"
 
 msgid "IDS_MSG_OPT_QUICK_RESPONSE_ABB"
 msgstr "छिटो प्रतिक्रिया"
 
-msgid "IDS_MSG_OPT_NONE"
-msgstr "शून्‍य"
-
 msgid "IDS_MSG_OPT_MAKE_VOICE_CALL"
 msgstr "भ्वाइस कल गर्नुहोस्"
-
-msgid "IDS_MSG_OPT_IMAGES"
-msgstr "छविहरू"
 
 msgid "IDS_MSG_OPT_GSM_ALPHABET_ABB"
 msgstr "GSM वर्णमाला"
@@ -628,20 +502,11 @@ msgstr "GSM वर्णमाला"
 msgid "IDS_MSG_OPT_EXPORT_TO_DEVICE_MEMORY"
 msgstr "यन्त्रको मेमोरीमा निर्यात गर्नुहोस्"
 
-msgid "IDS_MSG_OPT_EDIT"
-msgstr "सम्‍पादन"
-
 msgid "IDS_MSG_OPT_DELETE_MESSAGE"
 msgstr "संदेश मेटाउनुहोस्"
 
 msgid "IDS_MSG_OPT_DELETE_CONVERSATION_ABB"
 msgstr "वार्तालाप मेटाउनुहोस्"
-
-msgid "IDS_MSG_OPT_DELETE"
-msgstr "मेटाउनु"
-
-msgid "IDS_MSG_OPT_DEFAULT"
-msgstr "पूर्वनिर्धारित"
 
 msgid "IDS_MSG_OPT_CREATE_CONTACT_ABB"
 msgstr "सम्पर्क बनाउनुहोस्"
@@ -709,15 +574,6 @@ msgstr "अज्ञात नम्बर"
 msgid "IDS_MSG_MBODY_TEXT_MESSAGE_CENTRE_NUMBER_ABB"
 msgstr "पाठ संदेश केन्द्र नम्बर"
 
-msgid "IDS_MSG_MBODY_SELECT_ALL"
-msgstr "सबै चयन गर"
-
-msgid "IDS_MSG_MBODY_ALERTS"
-msgstr "सतर्कताहरू"
-
-msgid "IDS_MSG_HEADER_TRANSLATE"
-msgstr "अनुवाद गर्नुहोस्"
-
 msgid "IDS_MSG_HEADER_TEXT_MESSAGES_ABB"
 msgstr "संदेशहरू"
 
@@ -727,9 +583,6 @@ msgstr "मोबाइल नेटवर्क स्विच गर्नु
 msgid "IDS_MSG_HEADER_SMS_CENTRE_ABB2"
 msgstr "SMS केन्द्र"
 
-msgid "IDS_MSG_HEADER_SETTINGS"
-msgstr "सेटिङहरु"
-
 msgid "IDS_MSG_HEADER_SELECT_RECIPIENT"
 msgstr "प्रापक चुन्नुहोस्"
 
@@ -738,9 +591,6 @@ msgstr "%d चयन गरिएको छ"
 
 msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
 msgstr "SIM कार्डमा रहेका संदेशहरू"
-
-msgid "IDS_MSG_HEADER_MESSAGES"
-msgstr "संदेशहरु"
 
 msgid "IDS_MSG_HEADER_INPUT_MODE_ABB"
 msgstr "इन्पुट मोड"
@@ -754,14 +604,8 @@ msgstr "संदेश पठाउन असफल भयो"
 msgid "IDS_MSG_HEADER_DISCARD_MESSAGE_M_CLOSE_ABB"
 msgstr "संदेशलाई नकार्नुहोस्"
 
-msgid "IDS_MSG_HEADER_DELETE"
-msgstr "मेटाउनुहोस्"
-
 msgid "IDS_MSG_HEADER_CREATE"
 msgstr "बनाउनुहोस्"
-
-msgid "IDS_MSG_HEADER_ATTENTION"
-msgstr "ध्‍यान दिनुहोस्"
 
 msgid "IDS_MSG_HEADER_ADD_CONTENT_ABB"
 msgstr "सामग्री थप्नुहोस्"
@@ -775,15 +619,6 @@ msgstr "सेव गर्नुहोस्"
 msgid "IDS_MSG_BUTTON_RESEND_ABB"
 msgstr "पुनः पठाउनुहोस्"
 
-msgid "IDS_MSG_BUTTON_REMOVE_ABB"
-msgstr "हटाउनुहोस्"
-
-msgid "IDS_MSG_BUTTON_OK_ABB"
-msgstr "ठीक छ"
-
-msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
-msgstr "डाउनलोड"
-
 msgid "IDS_MSG_BUTTON_DISCARD_ABB"
 msgstr "छोड्नुहोस्"
 
@@ -793,17 +628,11 @@ msgstr "मेटाउनुहोस्"
 msgid "IDS_MSG_BUTTON_CANCEL_ABB2"
 msgstr "रद्द"
 
-msgid "IDS_MSG_BUTTON_CANCEL_ABB"
-msgstr "रद्द गर्नुहोस्"
-
 msgid "IDS_MSG_BUTTON2_CONTACTS_ABB_M_APPLICATION_NAME"
 msgstr "सम्पर्कहरू"
 
 msgid "IDS_MSG_BODY_YOU_HAVE_SELECTED_A_SOUND_N_SHOT_FILE_SOUND_DATA_IS_NOT_SUPPORTED_FOR_MMS_SO_ONLY_THE_PICTURE_WILL_BE_ATTACHED"
 msgstr "तपाईले साउन्ड & शाट फाइल चयन गर्नुभयो। MMS को लागि ध्‍वनि डाटा समर्थित छैन, त्येसैले तस्वीर मात्र संलग्न गरिनेछ।"
-
-msgid "IDS_MSG_BODY_YES"
-msgstr "हो"
 
 msgid "IDS_MSG_BODY_WAITING_TO_SEND_ING_M_STATUS"
 msgstr "पठाउन पर्खँदै..."
@@ -823,9 +652,6 @@ msgstr "पठाइएको समय:"
 msgid "IDS_MSG_BODY_TIME_RECEIVED_C"
 msgstr "प्राप्त भएको समय:"
 
-msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
-msgstr "टिक बाकस"
-
 msgid "IDS_MSG_BODY_STATUS_C"
 msgstr "हैसियत:"
 
@@ -838,9 +664,6 @@ msgstr "पठाउँदै..."
 msgid "IDS_MSG_BODY_SENDING_FAILED_M_STATUS"
 msgstr "पठाउन असफल भयो"
 
-msgid "IDS_MSG_BODY_SEC"
-msgstr "सेक"
-
 msgid "IDS_MSG_BODY_RETRIEVE_MESSAGES_AUTOMATICALLY_WHILE_ROAMING"
 msgstr "रोमिङको बेलामा संदेशहरूलाई स्वचालित रूपमा पुनः प्राप्त गर्नुहोस्।"
 
@@ -852,9 +675,6 @@ msgstr "रिपोर्ट पढ्नुहोस्: %s"
 
 msgid "IDS_MSG_BODY_OTHER_PERSON"
 msgstr "अन्य संदेश"
-
-msgid "IDS_MSG_BODY_MESSAGE"
-msgstr "संदेश"
 
 msgid "IDS_MSG_BODY_MEMO_T_MAINMENU"
 msgstr "मेमो"
@@ -895,14 +715,197 @@ msgstr "तपाईले नम्बरहरूलाई संदेश ब
 msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
 msgstr "मेटाउनुहोस्"
 
-msgid "IDS_ST_BODY_LOADING_ING"
-msgstr "लोड हुँदै छ..."
+msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
+msgstr "समर्थन नगर्ने मिडिया प्रकार।"
 
-msgid "IDS_MSGS_BODY_NOTIFICATIONS"
-msgstr "सूचनाहरू"
+msgid "IDS_MSGC_POP_LOW_BATTERY"
+msgstr "न्यून बैटरी।"
 
-msgid "IDS_MSG_HEADER_ME"
+msgid "IDS_MSGC_POP_CANCELLED"
+msgstr "रद्द भयो।"
+
+msgid "IDS_MSGC_OPT_EMAIL"
+msgstr "ईमेल"
+
+msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
+msgstr "हेर्नुहोस्"
+
+msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
+msgstr "हटाउने"
+
+msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
+msgstr "चलाउनुहोस्"
+
+msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
+msgstr "लाई"
+
+msgid "IDS_MSGC_HEADER_PREVIEW"
+msgstr "पूर्वसमीक्षा"
+
+msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
+msgstr "विषय प्रविष्ट गर्नुहोस्।"
+
+msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
+msgstr "स्थान भेट्न असक्षम।"
+
+msgid "IDS_MSGF_POP_REJECTED"
+msgstr "अस्वीकृत।"
+
+msgid "IDS_MSGF_POP_DELETING"
+msgstr "मेटिँदै छ..."
+
+msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
+msgstr "क्लिपबोर्डमा प्रतिलिपि गरियो।"
+
+msgid "IDS_MSGF_POP_BLOCK_PS_Q"
+msgstr "%s लाई ब्‍लक गर्ने?"
+
+msgid "IDS_MSGF_OPT_SUBJECT_COLON"
+msgstr "विषय:"
+
+msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
+msgstr "ईमेल मार्फत पठाउनुहोस्"
+
+msgid "IDS_MSGF_OPT_SELECT"
+msgstr "चयन गर्नुहोस्"
+
+msgid "IDS_MSGF_OPT_SAVE"
+msgstr "सेव"
+
+msgid "IDS_MSGF_OPT_REMOVE"
+msgstr "हटाउने"
+
+msgid "IDS_MSGF_OPT_FORWARD"
+msgstr "फरवार्ड"
+
+msgid "IDS_MSGF_OPT_DELETE_Q"
+msgstr "मेट्ऊँ?"
+
+msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
+msgstr "उन्नत खोजी"
+
+msgid "IDS_MSGF_BODY_UNKNOWN"
+msgstr "अज्ञात"
+
+msgid "IDS_MSGF_BODY_SETTINGS"
+msgstr "सेटिङहरु"
+
+msgid "IDS_MSGF_BODY_RECIPIENTS"
+msgstr "प्रापकहरु"
+
+msgid "IDS_MSGF_BODY_RECEIVED"
+msgstr "प्राप्त भयो।"
+
+msgid "IDS_MSGF_BODY_OTHER"
+msgstr "अन्य"
+
+msgid "IDS_MSGF_BODY_NO_SUBJECT"
+msgstr "विषय छैन"
+
+msgid "IDS_MSGF_BODY_MSGSIZE_KB"
+msgstr "KB"
+
+msgid "IDS_MSGF_BODY_MESSAGE"
+msgstr "संदेश"
+
+msgid "IDS_MSGF_BODY_ME"
 msgstr "म"
+
+msgid "IDS_MSGF_BODY_EXPIRED"
+msgstr "अवधि सकियो"
+
+msgid "IDS_MSGF_BODY_ALL"
+msgstr "सबै"
+
+msgid "IDS_MSG_SK_NO_ABB"
+msgstr "होइन"
+
+msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
+msgstr "तपाईको संदेश छोडिनेछ। प्राप्तकर्ताहरू चयन गरिएका छैनन्।"
+
+msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
+msgstr "कलको समयमा प्‍ले गर्न असक्षम।"
+
+msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
+msgstr "आगमन संदेशहरू मात्र"
+
+msgid "IDS_MSG_POP_DELETED"
+msgstr "मेटियो।"
+
+msgid "IDS_MSG_OPT_VIDEOS"
+msgstr "भिडियोहरु"
+
+msgid "IDS_MSG_OPT_TEXT"
+msgstr "पाठ"
+
+msgid "IDS_MSG_OPT_SETTINGS"
+msgstr "सेटिङहरु"
+
+msgid "IDS_MSG_OPT_SEARCH"
+msgstr "खोज्‍नुहोस्"
+
+msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
+msgstr "भिडियो रेकर्ड गर्नुहोस्"
+
+msgid "IDS_MSG_OPT_NONE"
+msgstr "शून्‍य"
+
+msgid "IDS_MSG_OPT_IMAGES"
+msgstr "छविहरू"
+
+msgid "IDS_MSG_OPT_EDIT"
+msgstr "सम्‍पादन"
+
+msgid "IDS_MSG_OPT_DELETE"
+msgstr "मेटाउनु"
+
+msgid "IDS_MSG_OPT_DEFAULT"
+msgstr "पूर्वनिर्धारित"
+
+msgid "IDS_MSG_MBODY_SELECT_ALL"
+msgstr "सबै चयन गर"
+
+msgid "IDS_MSG_MBODY_ALERTS"
+msgstr "सतर्कताहरू"
+
+msgid "IDS_MSG_HEADER_TRANSLATE"
+msgstr "अनुवाद गर्नुहोस्"
+
+msgid "IDS_MSG_HEADER_SETTINGS"
+msgstr "सेटिङहरु"
+
+msgid "IDS_MSG_HEADER_MESSAGES"
+msgstr "संदेशहरु"
+
+msgid "IDS_MSG_HEADER_DELETE"
+msgstr "मेटाउनुहोस्"
+
+msgid "IDS_MSG_HEADER_ATTENTION"
+msgstr "ध्‍यान दिनुहोस्"
+
+msgid "IDS_MSG_BUTTON_REMOVE_ABB"
+msgstr "हटाउनुहोस्"
+
+msgid "IDS_MSG_BUTTON_OK_ABB"
+msgstr "ठीक छ"
+
+msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
+msgstr "डाउनलोड"
+
+msgid "IDS_MSG_BUTTON_CANCEL_ABB"
+msgstr "रद्द गर्नुहोस्"
+
+msgid "IDS_MSG_BODY_YES"
+msgstr "हो"
+
+msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
+msgstr "टिक बाकस"
+
+msgid "IDS_MSG_BODY_SEC"
+msgstr "सेक"
+
+msgid "IDS_MSG_BODY_MESSAGE"
+msgstr "संदेश"
 
 msgid "IDS_MSG_BUTTON_SEND_ABB5"
 msgstr "पठाउनुहोस्"
@@ -912,4 +915,31 @@ msgstr "पठाउ"
 
 msgid "IDS_MSG_ACBUTTON_SEND_ABB3"
 msgstr "पठाउनु"
+
+msgid "IDS_ST_BODY_LOADING_ING"
+msgstr "लोड हुँदै छ..."
+
+msgid "IDS_MSGS_BODY_NOTIFICATIONS"
+msgstr "सूचनाहरू"
+
+msgid "IDS_MSG_HEADER_ME"
+msgstr "म"
+
+msgid "IDS_MSG_BODY_UNKNOWN"
+msgstr "अज्ञात"
+
+msgid "IDS_MSG_TMBODY_ADD_OR_REMOVE_RECIPIENTS"
+msgstr "प्राप्तकर्ताहरू थप्नु वा हटाउनु"
+
+msgid "IDS_MSG_POP_THE_SENDER_HAS_REQUESTED_A_READ_REPORT_TAP_SEND_TO_SEND_ONE"
+msgstr "प्रेषकले पढे-नपढेकोबारे रिपोर्ट अनुरोध गरेको छ। एउटा रिपोर्ट पठाउनका लागि “पठाउनुहोस्” ट्याप गर्नुहोस्।"
+
+msgid "IDS_MSGF_OPT_SEND_READ_REPORT"
+msgstr "पठन प्रतिवेदन पठाउनुहोस्"
+
+msgid "IDS_MSG_HEADER_COMPOSE_MESSAGE_ABB"
+msgstr "संदेश लेख्‍नुहोस्"
+
+msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
+msgstr "कुनै प्राथमिक सम्पर्कहरू थपिएका छैनन्। यो संदेश छाडिने छ।"
 

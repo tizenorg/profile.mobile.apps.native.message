@@ -4,14 +4,17 @@ msgstr "Mājas"
 msgid "IDS_MSGC_POP_DATA_ROAMING_IS_DISABLED_ENABLE_DATA_ROAMING_AND_TRY_AGAIN"
 msgstr "Datu viesabonēšana ir deaktivizēta. Aktivizējiet datu viesabonēšanu un mēģiniet vēlreiz."
 
-msgid "IDS_MSGF_POP_NEW_MESSAGE"
-msgstr "Jauna ziņa"
-
 msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
 msgstr "ATCELT"
 
 msgid "IDS_MSG_ACBUTTON_DONE_ABB"
 msgstr "GATAVS"
+
+msgid "IDS_MSGF_POP_NEW_MESSAGE"
+msgstr "Jauna ziņa"
+
+msgid "IDS_COM_BUTTON_SHARE"
+msgstr "Kopl."
 
 msgid "IDS_COM_BODY_UNKNOWN"
 msgstr "Nezināms"
@@ -24,9 +27,6 @@ msgstr "Mobilie dati ir deaktivizēti. Aktivizējiet mobilos datus un mēģiniet
 
 msgid "IDS_TPLATFORM_ACBUTTON_SEND_ABB"
 msgstr "SŪTĪT"
-
-msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
-msgstr "Neatbalstīts multivides veids."
 
 msgid "IDS_MSGC_POP_UNABLE_TO_SEND_MESSAGES_WHILE_IN_FLIGHT_MODE_DISABLE_FLIGHT_MODE_AND_TRY_AGAIN"
 msgstr "Lidojuma režīmā ziņas nevar nosūtīt. Deaktivizējiet lidojuma režīmu un mēģiniet vēlreiz."
@@ -55,9 +55,6 @@ msgstr "Ziņu plānots nosūtīt adresātam %s. Vai sūtīt tagad?"
 msgid "IDS_MSGC_POP_MAXIMUM_MESSAGE_SIZE_REACHED"
 msgstr "Sasniegts maksimālais ziņas lielums."
 
-msgid "IDS_MSGC_POP_LOW_BATTERY"
-msgstr "Akumulators gandrīz tukšs."
-
 msgid "IDS_MSGC_POP_DURATION_MUST_BE_AT_LEAST_PD_SECONDS"
 msgstr "Ilgumam jābūt vismaz %d sekundes."
 
@@ -66,9 +63,6 @@ msgstr "Deaktivizē lidojuma režīmu..."
 
 msgid "IDS_MSGC_POP_COPIED_TO_SIM_CARD"
 msgstr "Kopēts uz SIM karti."
-
-msgid "IDS_MSGC_POP_CANCELLED"
-msgstr "Atcelts."
 
 msgid "IDS_MSGC_OPT_USE_OTHER_CONTACT_INFO_ABB"
 msgstr "Izm. citu kontaktinf."
@@ -79,32 +73,14 @@ msgstr "Sūtīt, izmantojot"
 msgid "IDS_MSGC_OPT_IMAGE"
 msgstr "Attēls"
 
-msgid "IDS_MSGC_OPT_EMAIL"
-msgstr "E-pasts"
-
 msgid "IDS_MSGC_OPT_EDIT_ITEM_REPLACE"
 msgstr "Aizstāt"
-
-msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
-msgstr "Skatīt"
-
-msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
-msgstr "Noņemt"
-
-msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
-msgstr "Atskaņot"
-
-msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
-msgstr "Kam"
 
 msgid "IDS_MSGC_OPT_CANCEL_MESSAGE"
 msgstr "Atcelt ziņu"
 
 msgid "IDS_MSGC_HEADER_RECIPIENT_LIST"
 msgstr "Adresātu saraksts"
-
-msgid "IDS_MSGC_HEADER_PREVIEW"
-msgstr "Priekšskatījums"
 
 msgid "IDS_MSGC_HEADER_DURATION_FOR_SLIDE_PD_PD"
 msgstr "Slaida ilgums %d/%d"
@@ -127,9 +103,6 @@ msgstr "Nav pieprasīts"
 msgid "IDS_MSGC_BODY_MAXIMUM_NUMBER_OF_RECIPIENTS_HPD_REACHED"
 msgstr "Sasniegts maksimālais adresātu skaits (%d)."
 
-msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
-msgstr "Ievadiet tēmu."
-
 msgid "IDS_MSGC_BODY_DUPLICATED_RECIPIENT"
 msgstr "Adresāta dublikāts."
 
@@ -138,9 +111,6 @@ msgstr "Pārsūt."
 
 msgid "IDS_MSGF_POP_UNABLE_TO_SAVE"
 msgstr "Nevar saglabāt."
-
-msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
-msgstr "Nevar atrast atrašanās vietu."
 
 msgid "IDS_MSGF_POP_UNABLE_TO_DELETE"
 msgstr "Nevar izdzēst."
@@ -168,9 +138,6 @@ msgstr "Ierobežota satura veids. Vai tomēr pievienot?"
 
 msgid "IDS_MSGF_POP_RESTORING_ING"
 msgstr "Atjauno..."
-
-msgid "IDS_MSGF_POP_REJECTED"
-msgstr "Noraidīts."
 
 msgid "IDS_MSGF_POP_READ_REPORT"
 msgstr "Lasīšanas atskaite"
@@ -214,20 +181,11 @@ msgstr "Šajā ziņā ir pievienoti faili, kurus nerāda."
 msgid "IDS_MSGF_POP_FILE_NAME_ALREADY_EXISTS"
 msgstr "Faila nosaukums jau pastāv."
 
-msgid "IDS_MSGF_POP_DELETING"
-msgstr "Dzēš..."
-
-msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
-msgstr "Kopēts starpliktuvē."
-
 msgid "IDS_MSGF_POP_CONVERTING_TO_TEXT_MESSAGE_ING"
 msgstr "Notiek pārvēršana īsziņā..."
 
 msgid "IDS_MSGF_POP_CONVERTING_TO_MULTIMEDIA_MESSAGE_ING"
 msgstr "Notiek pārvēršana multiziņā..."
-
-msgid "IDS_MSGF_POP_BLOCK_PS_Q"
-msgstr "Vai bloķēt %s?"
 
 msgid "IDS_MSGF_POP_ABOUT_TO_GO_ONLINE_CONTINUE_Q"
 msgstr "Jūs grasāties pāriet uz tiešsaistes(%s) režīmu. Vai turpināt?"
@@ -235,38 +193,17 @@ msgstr "Jūs grasāties pāriet uz tiešsaistes(%s) režīmu. Vai turpināt?"
 msgid "IDS_MSGF_OPT_TEXT_MESSAGE"
 msgstr "Īsziņa"
 
-msgid "IDS_MSGF_OPT_SUBJECT_COLON"
-msgstr "Tēma:"
-
-msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
-msgstr "Sūtītājam pa e-pastu"
-
 msgid "IDS_MSGF_OPT_SENDER_ABB"
 msgstr "Sūtītājs"
-
-msgid "IDS_MSGF_OPT_SELECT"
-msgstr "Izvēlēties"
 
 msgid "IDS_MSGF_OPT_SAVE_ATTACHMENT"
 msgstr "Saglabāt pielikumu"
 
-msgid "IDS_MSGF_OPT_SAVE"
-msgstr "Saglabāt"
-
-msgid "IDS_MSGF_OPT_REMOVE"
-msgstr "Noņemt"
-
 msgid "IDS_MSGF_OPT_INSTALL"
 msgstr "Instalēt"
 
-msgid "IDS_MSGF_OPT_FORWARD"
-msgstr "Pārsūtīt"
-
 msgid "IDS_MSGF_OPT_EDIT_MESSAGE"
 msgstr "Rediģēt ziņu"
-
-msgid "IDS_MSGF_OPT_DELETE_Q"
-msgstr "Vai dzēst?"
 
 msgid "IDS_MSGF_OPT_DELETE_MESSAGES"
 msgstr "Dzēst ziņas"
@@ -283,14 +220,8 @@ msgstr "Ziņas dati"
 msgid "IDS_MSGF_HEADER_EXPIRES_C_PS"
 msgstr "Derīguma termiņš beidzas: %s"
 
-msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
-msgstr "Papildu meklēšana"
-
 msgid "IDS_MSGF_BUTTON_SAVE_ALL_ATTACHMENTS_ABB"
 msgstr "Sagl. visus pielik."
-
-msgid "IDS_MSGF_BODY_UNKNOWN"
-msgstr "Nezināms"
 
 msgid "IDS_MSGF_BODY_TO_C"
 msgstr "Kam:"
@@ -301,23 +232,14 @@ msgstr "Īsziņas"
 msgid "IDS_MSGF_BODY_SIM_MEMORY_FULL_DELETE_SOME_ITEMS"
 msgstr "SIM atmiņa ir pilna. Izdzēsiet dažus objektus."
 
-msgid "IDS_MSGF_BODY_SETTINGS"
-msgstr "Iestatījumi"
-
 msgid "IDS_MSGF_BODY_SENT_M_DATE_C"
 msgstr "Nosūtīta:"
 
 msgid "IDS_MSGF_BODY_REQUESTED"
 msgstr "Pieprasīts."
 
-msgid "IDS_MSGF_BODY_RECIPIENTS"
-msgstr "Adresāti"
-
 msgid "IDS_MSGF_BODY_RECEIVED_M_DATE_C"
 msgstr "Saņemta:"
-
-msgid "IDS_MSGF_BODY_RECEIVED"
-msgstr "Saņemts."
 
 msgid "IDS_MSGF_BODY_READ_REPORT"
 msgstr "Lasīšanas atskaite"
@@ -331,12 +253,6 @@ msgstr "%d ziņas"
 msgid "IDS_MSGF_BODY_PD_CONVERSATIONS"
 msgstr "%d sarunas"
 
-msgid "IDS_MSGF_BODY_OTHER"
-msgstr "Cita"
-
-msgid "IDS_MSGF_BODY_NO_SUBJECT"
-msgstr "Nav tēmas"
-
 msgid "IDS_MSGF_BODY_NO_NAME"
 msgstr "Nav vārda"
 
@@ -345,9 +261,6 @@ msgstr "Multiziņas paziņojums"
 
 msgid "IDS_MSGF_BODY_MULTIMEDIA_MESSAGE"
 msgstr "Multiziņa"
-
-msgid "IDS_MSGF_BODY_MSGSIZE_KB"
-msgstr "KB"
 
 msgid "IDS_MSGF_BODY_MMSREADREPLYMSGREAD"
 msgstr "Lasīt"
@@ -367,12 +280,6 @@ msgstr "Ziņas iespējas"
 msgid "IDS_MSGF_BODY_MESSAGE_DELIVERED"
 msgstr "Ziņa piegādāta"
 
-msgid "IDS_MSGF_BODY_MESSAGE"
-msgstr "Ziņa"
-
-msgid "IDS_MSGF_BODY_ME"
-msgstr "Mans"
-
 msgid "IDS_MSGF_BODY_MAXIMUM_NUMBER_OF_ATTACHMENTS_HP1SS_EXCEEDED_ONLY_FIRST_P2SS_WILL_BE_ADDED"
 msgstr "Pārsniegts maksimālais pielikumu skaits (%1$s). Tiks pievienoti tikai pirmie %2$s."
 
@@ -384,9 +291,6 @@ msgstr "No"
 
 msgid "IDS_MSGF_BODY_FLFROM"
 msgstr "No:"
-
-msgid "IDS_MSGF_BODY_EXPIRED"
-msgstr "Beidzies derīgums"
 
 msgid "IDS_MSGF_BODY_DETAILSSENDINGFAILED"
 msgstr "Neizdevās nosūtīt."
@@ -402,9 +306,6 @@ msgstr "Kopēt tekstu"
 
 msgid "IDS_MSGF_BODY_CB_MESSAGES"
 msgstr "Šūnu apraides ziņas"
-
-msgid "IDS_MSGF_BODY_ALL"
-msgstr "Visas"
 
 msgid "IDS_MSGF_BODY_1_MESSAGE"
 msgstr "1 ziņa"
@@ -433,6 +334,9 @@ msgstr "Automātiski izgūt MMS ziņas."
 msgid "IDS_MSG_TPOP_UNABLE_TO_PREVIEW_FILE_UNSUPPORTED_FILE_TYPE"
 msgstr "Nevar priekšskatīt failu. Neatbalstīts faila veids."
 
+msgid "IDS_MSG_TPOP_UNABLE_TO_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Nevar pievienot failu. Neatbalstīts faila formāts."
+
 msgid "IDS_MSG_TPOP_UNABLE_TO_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
 msgstr "Nevar pievienot dažus adresātus. Numuri nav derīgi."
 
@@ -448,6 +352,9 @@ msgstr "Nevar pievienot pielikumu. Sasniegts maksimālais pielikumu skaits (%d).
 msgid "IDS_MSG_TPOP_THIS_NUMBER_IS_NOT_VALID"
 msgstr "Šis numurs nav derīgs."
 
+msgid "IDS_MSG_TPOP_SOME_RECIPIENTS_ALREADY_ADDED"
+msgstr "Daži adresāti jau ir pievienoti."
+
 msgid "IDS_MSG_TPOP_SELECTED_MESSAGES_COPIED_TO_MOBILE_DEVICE"
 msgstr "Izvēlētās ziņas ir kopētas uz mobilo ierīci."
 
@@ -459,6 +366,9 @@ msgstr "Numurs ir noņemts no bloķēto ziņu saraksta."
 
 msgid "IDS_MSG_TPOP_NUMBER_ADDED_TO_MESSAGE_BLOCK_LIST"
 msgstr "Numurs ir pievienots bloķēto ziņu sarakstam."
+
+msgid "IDS_MSG_TPOP_NETWORK_NOT_AVAILABLE_MESSAGE_WILL_BE_SENT_WHEN_CONNECTED_TO_NETWORK"
+msgstr "Tīkls nav pieejams. Ziņa tiks nosūtīta, kad būs izveidots savienojums ar tīklu."
 
 msgid "IDS_MSG_TPOP_MESSAGE_COPIED_TO_PS_SIM_CARD"
 msgstr "Ziņa pārkopēta uz %s SIM karti."
@@ -502,9 +412,6 @@ msgstr "Izgūt automātiski"
 msgid "IDS_MSG_SK_SEND_NOW"
 msgstr "Sūtīt"
 
-msgid "IDS_MSG_SK_NO_ABB"
-msgstr "Nē"
-
 msgid "IDS_MSG_SBODY_SELECT_AN_INPUT_MODE_FOR_COMPOSING_MESSAGES"
 msgstr "Lai rakstītu ziņas, izvēlieties ievades režīmu."
 
@@ -514,14 +421,8 @@ msgstr "Nav"
 msgid "IDS_MSG_SBODY_MANAGE_THE_MESSAGES_STORED_ON_YOUR_SIM_CARD"
 msgstr "Pārvaldīt SIM kartē saglabātās ziņas."
 
-msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
-msgstr "Jūsu ziņa tiks atmesta. Nav izvēlēts neviens adresāts."
-
 msgid "IDS_MSG_POP_UNABLE_TO_SEND_SCHEDULED_MESSAGE_SET_ANOTHER_TIME"
 msgstr "Nevar nosūtīt ieplānoto ziņu. Iestatiet citu laiku."
-
-msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
-msgstr "Sarunas laikā nevar veikt atskaņošanu."
 
 msgid "IDS_MSG_POP_UNABLE_TO_ATTACH_FILE_FILE_SIZE_TOO_LARGE_TRY_SENDING_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
 msgstr "Nevar pievienot failu. Fails ir par lielu. Mēģiniet sūtīt, izmantojot Bluetooth, Wi-Fi utt."
@@ -544,17 +445,11 @@ msgstr "%d sarunas tiks izdzēstas."
 msgid "IDS_MSG_POP_NO_TEMPLATES_IN_LIST"
 msgstr "Sarakstā nav nevienas veidnes"
 
-msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
-msgstr "Tikai ienākošās ziņas"
-
 msgid "IDS_MSG_POP_INCLUDE_ORIGINAL_TEXT_IN_OUTGOING_MESSAGE"
 msgstr "Izejošajā ziņā iekļaut oriģināla tekstu"
 
 msgid "IDS_MSG_POP_DURATION_MUST_BE_SHORTER_THAN_PD_SECONDS"
 msgstr "Ilgumam jābūt mazākam par %d sekundēm."
-
-msgid "IDS_MSG_POP_DELETED"
-msgstr "Izdzēsts."
 
 msgid "IDS_MSG_POP_1_MESSAGE_WILL_BE_DELETED"
 msgstr "Tiks izdzēsta 1 ziņa."
@@ -571,26 +466,14 @@ msgstr "Skatīt kontakta datus"
 msgid "IDS_MSG_OPT_VIEW_AS_SLIDESHOW_ABB"
 msgstr "Skatīt kā slaidrādi"
 
-msgid "IDS_MSG_OPT_VIDEOS"
-msgstr "Video"
-
 msgid "IDS_MSG_OPT_UPDATE_CONTACT"
 msgstr "Atjaunināt kontaktu"
 
 msgid "IDS_MSG_OPT_UNICODE"
 msgstr "Unikods"
 
-msgid "IDS_MSG_OPT_TEXT"
-msgstr "Teksts"
-
 msgid "IDS_MSG_OPT_TAKE_PICTURE_ABB"
 msgstr "Fotografēt"
-
-msgid "IDS_MSG_OPT_SETTINGS"
-msgstr "Iestatījumi"
-
-msgid "IDS_MSG_OPT_SEARCH"
-msgstr "Meklēt"
 
 msgid "IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"
 msgstr "Saglabāt pielikumus"
@@ -604,23 +487,14 @@ msgstr "Atbildēt"
 msgid "IDS_MSG_OPT_REMOVE_FROM_BLOCK_LIST_ABB"
 msgstr "Noņemt no bloķēto saraksta"
 
-msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
-msgstr "Ierakstīt videoklipu"
-
 msgid "IDS_MSG_OPT_RECORD_AUDIO_FILE_ABB"
 msgstr "Ierakstīt audio failu"
 
 msgid "IDS_MSG_OPT_QUICK_RESPONSE_ABB"
 msgstr "Ātrā atbilde"
 
-msgid "IDS_MSG_OPT_NONE"
-msgstr "Nav"
-
 msgid "IDS_MSG_OPT_MAKE_VOICE_CALL"
 msgstr "Veikt balss zvanu"
-
-msgid "IDS_MSG_OPT_IMAGES"
-msgstr "Attēli"
 
 msgid "IDS_MSG_OPT_GSM_ALPHABET_ABB"
 msgstr "GSM alfabēts"
@@ -628,20 +502,11 @@ msgstr "GSM alfabēts"
 msgid "IDS_MSG_OPT_EXPORT_TO_DEVICE_MEMORY"
 msgstr "Eksportēt uz ierīces atmiņu"
 
-msgid "IDS_MSG_OPT_EDIT"
-msgstr "Rediģēt"
-
 msgid "IDS_MSG_OPT_DELETE_MESSAGE"
 msgstr "Dzēst ziņu"
 
 msgid "IDS_MSG_OPT_DELETE_CONVERSATION_ABB"
 msgstr "Dzēst sarunu"
-
-msgid "IDS_MSG_OPT_DELETE"
-msgstr "Dzēst"
-
-msgid "IDS_MSG_OPT_DEFAULT"
-msgstr "Noklusējums"
 
 msgid "IDS_MSG_OPT_CREATE_CONTACT_ABB"
 msgstr "Izveidot kontaktu"
@@ -709,15 +574,6 @@ msgstr "Nezināms numurs"
 msgid "IDS_MSG_MBODY_TEXT_MESSAGE_CENTRE_NUMBER_ABB"
 msgstr "Īsziņu centra numurs"
 
-msgid "IDS_MSG_MBODY_SELECT_ALL"
-msgstr "Izvēlēties visu"
-
-msgid "IDS_MSG_MBODY_ALERTS"
-msgstr "Brīdinājumu signāli"
-
-msgid "IDS_MSG_HEADER_TRANSLATE"
-msgstr "Tulkot"
-
 msgid "IDS_MSG_HEADER_TEXT_MESSAGES_ABB"
 msgstr "Īsziņas"
 
@@ -727,9 +583,6 @@ msgstr "Pārslēgt mobilo tīklu"
 msgid "IDS_MSG_HEADER_SMS_CENTRE_ABB2"
 msgstr "SMS centrs"
 
-msgid "IDS_MSG_HEADER_SETTINGS"
-msgstr "Iestatījumi"
-
 msgid "IDS_MSG_HEADER_SELECT_RECIPIENT"
 msgstr "Adresāta izvēle"
 
@@ -738,9 +591,6 @@ msgstr "Izvēlēti %d"
 
 msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
 msgstr "Ziņas SIM kartē"
-
-msgid "IDS_MSG_HEADER_MESSAGES"
-msgstr "Ziņas"
 
 msgid "IDS_MSG_HEADER_INPUT_MODE_ABB"
 msgstr "Ievades režīms"
@@ -754,14 +604,8 @@ msgstr "Neizdevās nosūtīt ziņu"
 msgid "IDS_MSG_HEADER_DISCARD_MESSAGE_M_CLOSE_ABB"
 msgstr "Atmest ziņu"
 
-msgid "IDS_MSG_HEADER_DELETE"
-msgstr "Dzēst"
-
 msgid "IDS_MSG_HEADER_CREATE"
 msgstr "Izveidot"
-
-msgid "IDS_MSG_HEADER_ATTENTION"
-msgstr "Uzmanību"
 
 msgid "IDS_MSG_HEADER_ADD_CONTENT_ABB"
 msgstr "Pievienot saturu"
@@ -775,15 +619,6 @@ msgstr "Saglabāt"
 msgid "IDS_MSG_BUTTON_RESEND_ABB"
 msgstr "Sūtīt vēlreiz"
 
-msgid "IDS_MSG_BUTTON_REMOVE_ABB"
-msgstr "Noņemt"
-
-msgid "IDS_MSG_BUTTON_OK_ABB"
-msgstr "Labi"
-
-msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
-msgstr "Lejupiel."
-
 msgid "IDS_MSG_BUTTON_DISCARD_ABB"
 msgstr "Atmest"
 
@@ -793,17 +628,11 @@ msgstr "Dzēst"
 msgid "IDS_MSG_BUTTON_CANCEL_ABB2"
 msgstr "Atcelt"
 
-msgid "IDS_MSG_BUTTON_CANCEL_ABB"
-msgstr "Atcelt"
-
 msgid "IDS_MSG_BUTTON2_CONTACTS_ABB_M_APPLICATION_NAME"
 msgstr "Kontakti"
 
 msgid "IDS_MSG_BODY_YOU_HAVE_SELECTED_A_SOUND_N_SHOT_FILE_SOUND_DATA_IS_NOT_SUPPORTED_FOR_MMS_SO_ONLY_THE_PICTURE_WILL_BE_ATTACHED"
 msgstr "Esat izvēlējies skaņas un attēla failu. Skaņas dati multiziņā netiek atbalstīti, tādēļ tiks pievienots tikai attēls."
-
-msgid "IDS_MSG_BODY_YES"
-msgstr "Jā"
 
 msgid "IDS_MSG_BODY_WAITING_TO_SEND_ING_M_STATUS"
 msgstr "Gaida, lai nosūtītu..."
@@ -823,9 +652,6 @@ msgstr "Nosūtīšanas laiks:"
 msgid "IDS_MSG_BODY_TIME_RECEIVED_C"
 msgstr "Saņemšanas laiks:"
 
-msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
-msgstr "Izvēles rūtiņa"
-
 msgid "IDS_MSG_BODY_STATUS_C"
 msgstr "Statuss:"
 
@@ -838,9 +664,6 @@ msgstr "Sūta..."
 msgid "IDS_MSG_BODY_SENDING_FAILED_M_STATUS"
 msgstr "Sūtīšana neizdevās"
 
-msgid "IDS_MSG_BODY_SEC"
-msgstr "sek."
-
 msgid "IDS_MSG_BODY_RETRIEVE_MESSAGES_AUTOMATICALLY_WHILE_ROAMING"
 msgstr "Automātiski izgūstiet ziņas viesabonēšanas laikā."
 
@@ -852,9 +675,6 @@ msgstr "Lasīšanas atskaite: %s"
 
 msgid "IDS_MSG_BODY_OTHER_PERSON"
 msgstr "Cita persona"
-
-msgid "IDS_MSG_BODY_MESSAGE"
-msgstr "Ziņa"
 
 msgid "IDS_MSG_BODY_MEMO_T_MAINMENU"
 msgstr "Piezīme"
@@ -895,14 +715,197 @@ msgstr "Kad būsit pievienojis numurus bloķēto ziņu sarakstam, tie tiks parā
 msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
 msgstr "DZĒST"
 
-msgid "IDS_ST_BODY_LOADING_ING"
-msgstr "Ielādē..."
+msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
+msgstr "Neatbalstīts multivides veids."
 
-msgid "IDS_MSGS_BODY_NOTIFICATIONS"
-msgstr "Paziņojumi"
+msgid "IDS_MSGC_POP_LOW_BATTERY"
+msgstr "Akumulators gandrīz tukšs."
 
-msgid "IDS_MSG_HEADER_ME"
+msgid "IDS_MSGC_POP_CANCELLED"
+msgstr "Atcelts."
+
+msgid "IDS_MSGC_OPT_EMAIL"
+msgstr "E-pasts"
+
+msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
+msgstr "Skatīt"
+
+msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
+msgstr "Noņemt"
+
+msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
+msgstr "Atskaņot"
+
+msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
+msgstr "Kam"
+
+msgid "IDS_MSGC_HEADER_PREVIEW"
+msgstr "Priekšskatījums"
+
+msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
+msgstr "Ievadiet tēmu."
+
+msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
+msgstr "Nevar atrast atrašanās vietu."
+
+msgid "IDS_MSGF_POP_REJECTED"
+msgstr "Noraidīts."
+
+msgid "IDS_MSGF_POP_DELETING"
+msgstr "Dzēš..."
+
+msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
+msgstr "Kopēts starpliktuvē."
+
+msgid "IDS_MSGF_POP_BLOCK_PS_Q"
+msgstr "Vai bloķēt %s?"
+
+msgid "IDS_MSGF_OPT_SUBJECT_COLON"
+msgstr "Tēma:"
+
+msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
+msgstr "Sūtītājam pa e-pastu"
+
+msgid "IDS_MSGF_OPT_SELECT"
+msgstr "Izvēlēties"
+
+msgid "IDS_MSGF_OPT_SAVE"
+msgstr "Saglabāt"
+
+msgid "IDS_MSGF_OPT_REMOVE"
+msgstr "Noņemt"
+
+msgid "IDS_MSGF_OPT_FORWARD"
+msgstr "Pārsūtīt"
+
+msgid "IDS_MSGF_OPT_DELETE_Q"
+msgstr "Vai dzēst?"
+
+msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
+msgstr "Papildu meklēšana"
+
+msgid "IDS_MSGF_BODY_UNKNOWN"
+msgstr "Nezināms"
+
+msgid "IDS_MSGF_BODY_SETTINGS"
+msgstr "Iestatījumi"
+
+msgid "IDS_MSGF_BODY_RECIPIENTS"
+msgstr "Adresāti"
+
+msgid "IDS_MSGF_BODY_RECEIVED"
+msgstr "Saņemts."
+
+msgid "IDS_MSGF_BODY_OTHER"
+msgstr "Cita"
+
+msgid "IDS_MSGF_BODY_NO_SUBJECT"
+msgstr "Nav tēmas"
+
+msgid "IDS_MSGF_BODY_MSGSIZE_KB"
+msgstr "KB"
+
+msgid "IDS_MSGF_BODY_MESSAGE"
+msgstr "Ziņa"
+
+msgid "IDS_MSGF_BODY_ME"
 msgstr "Mans"
+
+msgid "IDS_MSGF_BODY_EXPIRED"
+msgstr "Beidzies derīgums"
+
+msgid "IDS_MSGF_BODY_ALL"
+msgstr "Visas"
+
+msgid "IDS_MSG_SK_NO_ABB"
+msgstr "Nē"
+
+msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
+msgstr "Jūsu ziņa tiks atmesta. Nav izvēlēts neviens adresāts."
+
+msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
+msgstr "Sarunas laikā nevar veikt atskaņošanu."
+
+msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
+msgstr "Tikai ienākošās ziņas"
+
+msgid "IDS_MSG_POP_DELETED"
+msgstr "Izdzēsts."
+
+msgid "IDS_MSG_OPT_VIDEOS"
+msgstr "Video"
+
+msgid "IDS_MSG_OPT_TEXT"
+msgstr "Teksts"
+
+msgid "IDS_MSG_OPT_SETTINGS"
+msgstr "Iestatījumi"
+
+msgid "IDS_MSG_OPT_SEARCH"
+msgstr "Meklēt"
+
+msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
+msgstr "Ierakstīt videoklipu"
+
+msgid "IDS_MSG_OPT_NONE"
+msgstr "Nav"
+
+msgid "IDS_MSG_OPT_IMAGES"
+msgstr "Attēli"
+
+msgid "IDS_MSG_OPT_EDIT"
+msgstr "Rediģēt"
+
+msgid "IDS_MSG_OPT_DELETE"
+msgstr "Dzēst"
+
+msgid "IDS_MSG_OPT_DEFAULT"
+msgstr "Noklusējums"
+
+msgid "IDS_MSG_MBODY_SELECT_ALL"
+msgstr "Izvēlēties visu"
+
+msgid "IDS_MSG_MBODY_ALERTS"
+msgstr "Brīdinājumu signāli"
+
+msgid "IDS_MSG_HEADER_TRANSLATE"
+msgstr "Tulkot"
+
+msgid "IDS_MSG_HEADER_SETTINGS"
+msgstr "Iestatījumi"
+
+msgid "IDS_MSG_HEADER_MESSAGES"
+msgstr "Ziņas"
+
+msgid "IDS_MSG_HEADER_DELETE"
+msgstr "Dzēst"
+
+msgid "IDS_MSG_HEADER_ATTENTION"
+msgstr "Uzmanību"
+
+msgid "IDS_MSG_BUTTON_REMOVE_ABB"
+msgstr "Noņemt"
+
+msgid "IDS_MSG_BUTTON_OK_ABB"
+msgstr "Labi"
+
+msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
+msgstr "Lejupiel."
+
+msgid "IDS_MSG_BUTTON_CANCEL_ABB"
+msgstr "Atcelt"
+
+msgid "IDS_MSG_BODY_YES"
+msgstr "Jā"
+
+msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
+msgstr "Izvēles rūtiņa"
+
+msgid "IDS_MSG_BODY_SEC"
+msgstr "sek."
+
+msgid "IDS_MSG_BODY_MESSAGE"
+msgstr "Ziņa"
 
 msgid "IDS_MSG_BUTTON_SEND_ABB5"
 msgstr "Sūt."
@@ -912,4 +915,31 @@ msgstr "Sūtīt"
 
 msgid "IDS_MSG_ACBUTTON_SEND_ABB3"
 msgstr "SŪT."
+
+msgid "IDS_ST_BODY_LOADING_ING"
+msgstr "Ielādē..."
+
+msgid "IDS_MSGS_BODY_NOTIFICATIONS"
+msgstr "Paziņojumi"
+
+msgid "IDS_MSG_HEADER_ME"
+msgstr "Mans"
+
+msgid "IDS_MSG_BODY_UNKNOWN"
+msgstr "Nezināms"
+
+msgid "IDS_MSG_TMBODY_ADD_OR_REMOVE_RECIPIENTS"
+msgstr "Pievienot vai noņemt adresātus"
+
+msgid "IDS_MSG_POP_THE_SENDER_HAS_REQUESTED_A_READ_REPORT_TAP_SEND_TO_SEND_ONE"
+msgstr "Sūtītājs ir pieprasījis lasīšanas atskaiti. Lai to nosūtītu, pieskarieties pie Sūtīt."
+
+msgid "IDS_MSGF_OPT_SEND_READ_REPORT"
+msgstr "Sūtīt lasīšanas atskaiti"
+
+msgid "IDS_MSG_HEADER_COMPOSE_MESSAGE_ABB"
+msgstr "Rakstīt ziņu"
+
+msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
+msgstr "Nav pievienots neviens derīgs adresāts. Šī ziņa tiks atmesta."
 

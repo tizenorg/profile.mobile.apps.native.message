@@ -4,14 +4,17 @@ msgstr "ഹോം"
 msgid "IDS_MSGC_POP_DATA_ROAMING_IS_DISABLED_ENABLE_DATA_ROAMING_AND_TRY_AGAIN"
 msgstr "ഡാറ്റ റോമിംഗ് അപ്രാപ്തമാക്കി. ഡാറ്റ റോമിംഗ് പ്രാപ്തമാക്കി വീണ്ടും ശ്രമിക്കുക."
 
-msgid "IDS_MSGF_POP_NEW_MESSAGE"
-msgstr "പുതിയ സന്ദേശം"
-
 msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
 msgstr "റദ്ദാക്കുക"
 
 msgid "IDS_MSG_ACBUTTON_DONE_ABB"
 msgstr "ചെയ്‌തു"
+
+msgid "IDS_MSGF_POP_NEW_MESSAGE"
+msgstr "പുതിയ സന്ദേശം"
+
+msgid "IDS_COM_BUTTON_SHARE"
+msgstr "പങ്കിടുക"
 
 msgid "IDS_COM_BODY_UNKNOWN"
 msgstr "അജ്ഞാതം"
@@ -24,9 +27,6 @@ msgstr "മൊബൈല്‍ ഡാറ്റ അപ്രാപ്തമാക�
 
 msgid "IDS_TPLATFORM_ACBUTTON_SEND_ABB"
 msgstr "അയയ്‌ക്കുക"
-
-msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
-msgstr "പിന്തുണയ്ക്കാത്ത മീഡിയ തരം."
 
 msgid "IDS_MSGC_POP_UNABLE_TO_SEND_MESSAGES_WHILE_IN_FLIGHT_MODE_DISABLE_FLIGHT_MODE_AND_TRY_AGAIN"
 msgstr "ഫ്ലൈറ്റ് മോഡിലായിരിക്കുമ്പോള്‍ സന്ദേശങ്ങള്‍ അയയ്ക്കാനാവില്ല. ഫ്ലൈറ്റ് മോഡ് നിഷ്ക്രിയമാക്കി വീണ്ടും ശ്രമിക്കുക"
@@ -55,9 +55,6 @@ msgstr "%s-ലേക്ക് അയയ്ക്കാന്‍ സന്ദേ�
 msgid "IDS_MSGC_POP_MAXIMUM_MESSAGE_SIZE_REACHED"
 msgstr "പരമാവധി സന്ദേശ വലിപ്പം എത്തി."
 
-msgid "IDS_MSGC_POP_LOW_BATTERY"
-msgstr "ലോ ബാറ്ററി."
-
 msgid "IDS_MSGC_POP_DURATION_MUST_BE_AT_LEAST_PD_SECONDS"
 msgstr "ദൈര്‍ഘ്യം കുറഞ്ഞത് %d സെക്കന്‍റ് ഉണ്ടായിരിക്കണം."
 
@@ -66,9 +63,6 @@ msgstr "ഫ്ലൈറ്റ് മോഡ് നിഷ്ക്രിയമാ�
 
 msgid "IDS_MSGC_POP_COPIED_TO_SIM_CARD"
 msgstr "SIM കാര്‍‌ഡിലേക്ക് പകര്‍‌ത്തി."
-
-msgid "IDS_MSGC_POP_CANCELLED"
-msgstr "റദ്ദാക്കി."
 
 msgid "IDS_MSGC_OPT_USE_OTHER_CONTACT_INFO_ABB"
 msgstr "മറ്റ് കോണ്‍‌ടാക്ട് വിവരം ഉപയോഗിക്കുക"
@@ -79,32 +73,14 @@ msgstr "ഇതുവഴി അയ‌യ്‌ക്കുക"
 msgid "IDS_MSGC_OPT_IMAGE"
 msgstr "ഇമേജ്"
 
-msgid "IDS_MSGC_OPT_EMAIL"
-msgstr "ഈമെയില്‍"
-
 msgid "IDS_MSGC_OPT_EDIT_ITEM_REPLACE"
 msgstr "പകരം വയ്‌ക്കുക"
-
-msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
-msgstr "കാണുക"
-
-msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
-msgstr "നീക്കംചെയ്യുക"
-
-msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
-msgstr "പ്ലേ ചെയ്യുക"
-
-msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
-msgstr "ടു"
 
 msgid "IDS_MSGC_OPT_CANCEL_MESSAGE"
 msgstr "സന്ദേശം റദ്ദാക്കുക"
 
 msgid "IDS_MSGC_HEADER_RECIPIENT_LIST"
 msgstr "സ്വീകര്‍ത്തൃ ലിസ്റ്റ്"
-
-msgid "IDS_MSGC_HEADER_PREVIEW"
-msgstr "പ്രിവ്യൂ"
 
 msgid "IDS_MSGC_HEADER_DURATION_FOR_SLIDE_PD_PD"
 msgstr "സ്ലൈഡ് %d/%d നായുള്ള ദൈര്‍ഘ്യം"
@@ -127,9 +103,6 @@ msgstr "അഭ്യര്‍ത്ഥിച്ചിട്ടില്ല"
 msgid "IDS_MSGC_BODY_MAXIMUM_NUMBER_OF_RECIPIENTS_HPD_REACHED"
 msgstr "ആകാവുന്ന സ്വീകര്‍ത്താക്കളുടെ പരമാവധി എണ്ണം (%d) തികഞ്ഞു."
 
-msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
-msgstr "വിഷയം നല്‍കുക."
-
 msgid "IDS_MSGC_BODY_DUPLICATED_RECIPIENT"
 msgstr "സ്വീകര്‍ത്താവ് ആവര്‍ത്തിക്കുന്നു."
 
@@ -138,9 +111,6 @@ msgstr "ഫോര്‍വേ."
 
 msgid "IDS_MSGF_POP_UNABLE_TO_SAVE"
 msgstr "സംരക്ഷിക്കാന്‍ ആവുന്നില്ല."
-
-msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
-msgstr "സ്ഥാനം കണ്ടെത്താന്‍ ആവുന്നില്ല."
 
 msgid "IDS_MSGF_POP_UNABLE_TO_DELETE"
 msgstr "ഇല്ലാതാക്കാന്‍ സാധ്യമല്ല."
@@ -168,9 +138,6 @@ msgstr "നിയന്ത്രിക്കപ്പെട്ട ഉള്ള�
 
 msgid "IDS_MSGF_POP_RESTORING_ING"
 msgstr "പുനസംഭരിക്കുന്നു..."
-
-msgid "IDS_MSGF_POP_REJECTED"
-msgstr "നിരസിച്ചു."
 
 msgid "IDS_MSGF_POP_READ_REPORT"
 msgstr "വായനാ റിപ്പോര്‍ട്ട്"
@@ -214,20 +181,11 @@ msgstr "ഈ സന്ദേശം  ഉള്‍ക്കൊള്ളുന്ന
 msgid "IDS_MSGF_POP_FILE_NAME_ALREADY_EXISTS"
 msgstr "ഫയല്‍ നാമം ഇതിനകം നിലവിലുണ്ട്."
 
-msgid "IDS_MSGF_POP_DELETING"
-msgstr "ഇല്ലാതാക്കുന്നു..."
-
-msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
-msgstr "ക്ലിപ്ബോര്‍ഡിലേക്ക് പകര്‍ത്തി."
-
 msgid "IDS_MSGF_POP_CONVERTING_TO_TEXT_MESSAGE_ING"
 msgstr "ടെക്സ്റ്റ് സന്ദേശമായി പരിവര്‍ത്തനം ചെയ്യുന്നു..."
 
 msgid "IDS_MSGF_POP_CONVERTING_TO_MULTIMEDIA_MESSAGE_ING"
 msgstr "മള്‍ട്ടിമീഡിയാ സന്ദശമായി പരിവര്‍ത്തനം ചെയ്യുന്നു..."
-
-msgid "IDS_MSGF_POP_BLOCK_PS_Q"
-msgstr "%s തടയണമോ?"
 
 msgid "IDS_MSGF_POP_ABOUT_TO_GO_ONLINE_CONTINUE_Q"
 msgstr "നിങ്ങള്‍ ഓണ്‍‌‌ലൈനാകാന്‍‍(%s) പോവുകയാണ്. തുടരണോ?"
@@ -235,38 +193,17 @@ msgstr "നിങ്ങള്‍ ഓണ്‍‌‌ലൈനാകാന്‍�
 msgid "IDS_MSGF_OPT_TEXT_MESSAGE"
 msgstr "ടെക്സ്റ്റ്‌ സന്ദേശം"
 
-msgid "IDS_MSGF_OPT_SUBJECT_COLON"
-msgstr "വിഷയം:"
-
-msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
-msgstr "ഈമെയില്‍ വഴിയുള്ള പ്രേഷിതന്‍"
-
 msgid "IDS_MSGF_OPT_SENDER_ABB"
 msgstr "പ്രേഷിതന്‍"
-
-msgid "IDS_MSGF_OPT_SELECT"
-msgstr "തിരഞ്ഞെടുക്കുക"
 
 msgid "IDS_MSGF_OPT_SAVE_ATTACHMENT"
 msgstr "അറ്റാച്ചുമെന്‍റ് സംരക്ഷിക്കുക"
 
-msgid "IDS_MSGF_OPT_SAVE"
-msgstr "സംരക്ഷിക്കുക"
-
-msgid "IDS_MSGF_OPT_REMOVE"
-msgstr "നീക്കംചെയ്യുക"
-
 msgid "IDS_MSGF_OPT_INSTALL"
 msgstr "ഇന്‍‌സ്റ്റാള്‍"
 
-msgid "IDS_MSGF_OPT_FORWARD"
-msgstr "ഫോര്‍വേഡുചെയ്യുക"
-
 msgid "IDS_MSGF_OPT_EDIT_MESSAGE"
 msgstr "സന്ദേശം എഡിറ്റ്‌ ചെയ്യുക"
-
-msgid "IDS_MSGF_OPT_DELETE_Q"
-msgstr "ഇല്ലാതാക്കണോ?"
 
 msgid "IDS_MSGF_OPT_DELETE_MESSAGES"
 msgstr "സന്ദേശങ്ങള്‍ നീക്കം ചെയ്യുക"
@@ -283,14 +220,8 @@ msgstr "സന്ദേശ വിശദാംശങ്ങള്‍"
 msgid "IDS_MSGF_HEADER_EXPIRES_C_PS"
 msgstr "കാലഹരണപ്പെടുന്നത്: %s"
 
-msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
-msgstr "വിപുലമായ തിരയല്‍"
-
 msgid "IDS_MSGF_BUTTON_SAVE_ALL_ATTACHMENTS_ABB"
 msgstr "എല്ലാ അറ്റാച്ച്മെൻറുകളും സംരക്ഷിക്കുക"
-
-msgid "IDS_MSGF_BODY_UNKNOWN"
-msgstr "അജ്ഞാതം"
 
 msgid "IDS_MSGF_BODY_TO_C"
 msgstr "To:"
@@ -301,23 +232,14 @@ msgstr "ടെക്സ്റ്റ്‌ സന്ദേശങ്ങള്‍"
 msgid "IDS_MSGF_BODY_SIM_MEMORY_FULL_DELETE_SOME_ITEMS"
 msgstr "SIM മെമ്മറി നിറഞ്ഞു. ഏതാനും ഇനങ്ങള്‍ ഇല്ലാതാക്കുക."
 
-msgid "IDS_MSGF_BODY_SETTINGS"
-msgstr "ക്രമീകരണങ്ങൾ"
-
 msgid "IDS_MSGF_BODY_SENT_M_DATE_C"
 msgstr "അയച്ചു:"
 
 msgid "IDS_MSGF_BODY_REQUESTED"
 msgstr "അഭ്യര്‍ത്ഥിച്ചു."
 
-msgid "IDS_MSGF_BODY_RECIPIENTS"
-msgstr "സ്വീകര്‍ത്താക്കള്‍"
-
 msgid "IDS_MSGF_BODY_RECEIVED_M_DATE_C"
 msgstr "സ്വീകരിച്ചു:"
-
-msgid "IDS_MSGF_BODY_RECEIVED"
-msgstr "സ്വീകരിച്ചു."
 
 msgid "IDS_MSGF_BODY_READ_REPORT"
 msgstr "വായനാ റിപ്പോര്‍ട്ട്"
@@ -331,12 +253,6 @@ msgstr "%d  സന്ദേശങ്ങള്‍"
 msgid "IDS_MSGF_BODY_PD_CONVERSATIONS"
 msgstr "%d സംഭാഷണം"
 
-msgid "IDS_MSGF_BODY_OTHER"
-msgstr "മറ്റ്"
-
-msgid "IDS_MSGF_BODY_NO_SUBJECT"
-msgstr "വിഷയമില്ല"
-
 msgid "IDS_MSGF_BODY_NO_NAME"
 msgstr "പേരില്ല"
 
@@ -345,9 +261,6 @@ msgstr "മള്‍ട്ടിമീഡിയ സന്ദേശ അറിയ�
 
 msgid "IDS_MSGF_BODY_MULTIMEDIA_MESSAGE"
 msgstr "മള്‍ട്ടിമീഡിയാ സന്ദേശം"
-
-msgid "IDS_MSGF_BODY_MSGSIZE_KB"
-msgstr "KB"
 
 msgid "IDS_MSGF_BODY_MMSREADREPLYMSGREAD"
 msgstr "വായിക്കുക"
@@ -367,12 +280,6 @@ msgstr "സന്ദേശ ഓപ്‌ഷനുകള്‍‌"
 msgid "IDS_MSGF_BODY_MESSAGE_DELIVERED"
 msgstr "സന്ദേശം   കൈമാറി"
 
-msgid "IDS_MSGF_BODY_MESSAGE"
-msgstr "സന്ദേശം"
-
-msgid "IDS_MSGF_BODY_ME"
-msgstr "ഞാന്‍"
-
 msgid "IDS_MSGF_BODY_MAXIMUM_NUMBER_OF_ATTACHMENTS_HP1SS_EXCEEDED_ONLY_FIRST_P2SS_WILL_BE_ADDED"
 msgstr "അറ്റാച്ച്മെന്‍റുകള്‍ ആകാവുന്നതിന്‍റെ പരമാവധി എണ്ണം (%1$s) അതികരിച്ചു. ആദ്യത്തെ %2$s മാത്രം ചേര്‍ക്കുന്നു."
 
@@ -385,9 +292,6 @@ msgstr "പ്രേഷിതന്‍‌"
 msgid "IDS_MSGF_BODY_FLFROM"
 msgstr "പ്രേഷിതന്‍:"
 
-msgid "IDS_MSGF_BODY_EXPIRED"
-msgstr "കാലഹരണപ്പെട്ടു"
-
 msgid "IDS_MSGF_BODY_DETAILSSENDINGFAILED"
 msgstr "അയയ്ക്കല്‍ പരാജയപ്പെട്ടു."
 
@@ -395,16 +299,13 @@ msgid "IDS_MSGF_BODY_DELIVERY_REPORT"
 msgstr "ഡെലിവറി റിപ്പോര്‍ട്ട്"
 
 msgid "IDS_MSGF_BODY_CP_MESSAGES"
-msgstr "സി പി സന്ദേശങ്ങള്‍"
+msgstr "CP സന്ദേശങ്ങള്‍"
 
 msgid "IDS_MSGF_BODY_COPY_TEXT"
 msgstr "ടെക്സ്റ്റ്‌ പകര്‍‌ത്തുക"
 
 msgid "IDS_MSGF_BODY_CB_MESSAGES"
 msgstr "CB സന്ദേശങ്ങള്‍"
-
-msgid "IDS_MSGF_BODY_ALL"
-msgstr "എല്ലാം"
 
 msgid "IDS_MSGF_BODY_1_MESSAGE"
 msgstr "1 സന്ദേശം"
@@ -433,6 +334,9 @@ msgstr "MMS സന്ദേശങ്ങള്‍ യാന്ത്രികമ�
 msgid "IDS_MSG_TPOP_UNABLE_TO_PREVIEW_FILE_UNSUPPORTED_FILE_TYPE"
 msgstr "ഫയലിന്‍റെ പ്രിവ്യൂ കാണാനാവില്ല. പിന്തുണയ്‌ക്കാത്ത ഫയൽ തരം."
 
+msgid "IDS_MSG_TPOP_UNABLE_TO_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "ഫയൽ അറ്റാച്ച് ചെയ്യാനാവില്ല. ഫയല്‍ ഫോര്‍മാറ്റിന് പിന്തുണയില്ല."
+
 msgid "IDS_MSG_TPOP_UNABLE_TO_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
 msgstr "ഏതാനും സ്വീകർത്താക്കളെ ചേർക്കാനാവില്ല. നമ്പറുകൾക്ക് സാധുതയില്ല."
 
@@ -448,6 +352,9 @@ msgstr "അറ്റാച്ച്മെന്‍റ് ചേർക്കാ�
 msgid "IDS_MSG_TPOP_THIS_NUMBER_IS_NOT_VALID"
 msgstr "ഈ നമ്പറിന് സാധുതയില്ല."
 
+msgid "IDS_MSG_TPOP_SOME_RECIPIENTS_ALREADY_ADDED"
+msgstr "ഏതാനും സ്വീകർത്താക്കളെ നേരത്തേതന്നെ ചേർത്തിട്ടുണ്ട്."
+
 msgid "IDS_MSG_TPOP_SELECTED_MESSAGES_COPIED_TO_MOBILE_DEVICE"
 msgstr "തിരഞ്ഞെടുത്ത സന്ദേശങ്ങളെ മൊബൈൽ ഉപകരണത്തിലേക്ക് പകർത്തി."
 
@@ -459,6 +366,9 @@ msgstr "നമ്പറിനെ സന്ദേശം തടയൽ പട്ട
 
 msgid "IDS_MSG_TPOP_NUMBER_ADDED_TO_MESSAGE_BLOCK_LIST"
 msgstr "നമ്പറിനെ സന്ദേശം തടയൽ പട്ടികയിൽ ചേർത്തു."
+
+msgid "IDS_MSG_TPOP_NETWORK_NOT_AVAILABLE_MESSAGE_WILL_BE_SENT_WHEN_CONNECTED_TO_NETWORK"
+msgstr "നെറ്റ്‌വർക്ക് ലഭ്യമല്ല. നെറ്റ്‌വർക്കിലേക്ക് ബന്ധിപ്പിക്കുമ്പോൾ സന്ദേശം അയയ്ക്കപ്പെടും."
 
 msgid "IDS_MSG_TPOP_MESSAGE_COPIED_TO_PS_SIM_CARD"
 msgstr "%s SIM കാർഡിലേക്ക് സന്ദേശം പകർത്തി."
@@ -502,9 +412,6 @@ msgstr "സ്വയം വീണ്ടെടുക്കൽ"
 msgid "IDS_MSG_SK_SEND_NOW"
 msgstr "ഇപ്പോള്‍ അയക്കുക"
 
-msgid "IDS_MSG_SK_NO_ABB"
-msgstr "ഇല്ല"
-
 msgid "IDS_MSG_SBODY_SELECT_AN_INPUT_MODE_FOR_COMPOSING_MESSAGES"
 msgstr "സന്ദേശങ്ങൾ രചിക്കുന്നതിനായി ഒരു ഇൻപുട്ട് മോഡ് തിരഞ്ഞെടുക്കുക."
 
@@ -514,14 +421,8 @@ msgstr "ഒന്നുമില്ല"
 msgid "IDS_MSG_SBODY_MANAGE_THE_MESSAGES_STORED_ON_YOUR_SIM_CARD"
 msgstr "നിങ്ങളുടെ SIM കാർഡിൽ സംഭരിച്ചിട്ടുള്ള സന്ദേശങ്ങളെ മാനേജ് ചെയ്യുക."
 
-msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
-msgstr "നിങ്ങളുടെ സന്ദേശം ഉപേക്ഷിക്കപ്പെടും. സ്വീകർത്താക്കളെയൊന്നും തിരഞ്ഞെടുത്തിട്ടില്ല."
-
 msgid "IDS_MSG_POP_UNABLE_TO_SEND_SCHEDULED_MESSAGE_SET_ANOTHER_TIME"
 msgstr "ഷെഡ്യൂള്‍ ചെയ്ത മെസ്സേജ് അയക്കാനാവുന്നില്ല. മറ്റൊരു സമയം സജ്ജീകരിക്കുക."
-
-msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
-msgstr "കോളിനിടെ പ്ലേചെയ്യാന്‍ ആവുന്നില്ല."
 
 msgid "IDS_MSG_POP_UNABLE_TO_ATTACH_FILE_FILE_SIZE_TOO_LARGE_TRY_SENDING_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
 msgstr "ഫയല്‍ അറ്റാച്ചുചെയ്യാനാകുന്നില്ല. ഫയല്‍ വലുപ്പം വളരെ വലുതാണ്. ഈമെയില്‍, ബ്ലൂടൂത്ത്, Wi-Fi മുതലായവ വഴി അയയ്ക്കാന്‍ ശ്രമിക്കുക."
@@ -544,17 +445,11 @@ msgstr "%d സംഭാഷണങ്ങൾ ഇല്ലാതാക്കപ്�
 msgid "IDS_MSG_POP_NO_TEMPLATES_IN_LIST"
 msgstr "ലിസ്റ്റില്‍ ടെംപ്ലേറ്റുകള്‍ ഒന്നും ഇല്ല"
 
-msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
-msgstr "ഇങ്ങോട്ടുള്ള സന്ദേശങ്ങള്‍ മാത്രം"
-
 msgid "IDS_MSG_POP_INCLUDE_ORIGINAL_TEXT_IN_OUTGOING_MESSAGE"
 msgstr "പുറത്തേക്കുള്ള സന്ദേശത്തില്‍ അസല്‍ ടെക്സ്റ്റ് ഉള്‍പ്പെടുത്തുക"
 
 msgid "IDS_MSG_POP_DURATION_MUST_BE_SHORTER_THAN_PD_SECONDS"
 msgstr "കാലയളവ് %d സെക്കന്‍റിലും കുറവായിരിക്കണം."
-
-msgid "IDS_MSG_POP_DELETED"
-msgstr "ഇല്ലാതാക്കി."
 
 msgid "IDS_MSG_POP_1_MESSAGE_WILL_BE_DELETED"
 msgstr "1 സന്ദേശം ഇല്ലാതാക്കപ്പെടും."
@@ -571,26 +466,14 @@ msgstr "കോൺടാക്ട് വിശദാംശങ്ങൾ കാണ�
 msgid "IDS_MSG_OPT_VIEW_AS_SLIDESHOW_ABB"
 msgstr "സ്ലൈഡ്‌ഷോ ആയി കാണുക"
 
-msgid "IDS_MSG_OPT_VIDEOS"
-msgstr "വീഡിയോകള്‍"
-
 msgid "IDS_MSG_OPT_UPDATE_CONTACT"
 msgstr "കോൺടാക്ട് അപ്ഡേറ്റ് ചെയ്യുക"
 
 msgid "IDS_MSG_OPT_UNICODE"
 msgstr "യൂണിക്കോഡ്"
 
-msgid "IDS_MSG_OPT_TEXT"
-msgstr "ടെക്സ്റ്റ്‌"
-
 msgid "IDS_MSG_OPT_TAKE_PICTURE_ABB"
 msgstr "ചിത്രമെടുക്കുക"
-
-msgid "IDS_MSG_OPT_SETTINGS"
-msgstr "ക്രമീകരണങ്ങൾ"
-
-msgid "IDS_MSG_OPT_SEARCH"
-msgstr "തിരയുക"
 
 msgid "IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"
 msgstr "അറ്റാച്ച്മെന്റുകള്‍ സംരക്ഷിക്കുക"
@@ -604,23 +487,14 @@ msgstr "മറുപടി"
 msgid "IDS_MSG_OPT_REMOVE_FROM_BLOCK_LIST_ABB"
 msgstr "തടയൽ പട്ടികയിൽ നിന്ന് നീക്കംചെയ്യുക"
 
-msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
-msgstr "വീഡിയോ റെക്കോര്‍ഡ് ചെയ്യുക"
-
 msgid "IDS_MSG_OPT_RECORD_AUDIO_FILE_ABB"
 msgstr "ഓഡിയോ ഫയൽ റെക്കോർഡ് ചെയ്യുക"
 
 msgid "IDS_MSG_OPT_QUICK_RESPONSE_ABB"
 msgstr "ത്വരിത പ്രതികരണം"
 
-msgid "IDS_MSG_OPT_NONE"
-msgstr "ഒന്നുമില്ല"
-
 msgid "IDS_MSG_OPT_MAKE_VOICE_CALL"
 msgstr "ശബ്ദ കോൾ നടത്തുക"
-
-msgid "IDS_MSG_OPT_IMAGES"
-msgstr "ഇമേജുകള്‍"
 
 msgid "IDS_MSG_OPT_GSM_ALPHABET_ABB"
 msgstr "GSM അക്ഷരമാല"
@@ -628,20 +502,11 @@ msgstr "GSM അക്ഷരമാല"
 msgid "IDS_MSG_OPT_EXPORT_TO_DEVICE_MEMORY"
 msgstr "ഉപകരണ മെമ്മറിയിലേക്ക് എക്സ്‌പോര്‍ട്ട് ചെയ്യുക"
 
-msgid "IDS_MSG_OPT_EDIT"
-msgstr "എഡിറ്റുചെയ്യുക"
-
 msgid "IDS_MSG_OPT_DELETE_MESSAGE"
 msgstr "സന്ദേശം ഇല്ലാതാക്കുക"
 
 msgid "IDS_MSG_OPT_DELETE_CONVERSATION_ABB"
 msgstr "സംഭാഷണം ഇല്ലാതാക്കുക"
-
-msgid "IDS_MSG_OPT_DELETE"
-msgstr "ഇല്ലാതാക്കുക"
-
-msgid "IDS_MSG_OPT_DEFAULT"
-msgstr "സ്ഥിരസ്ഥിതി"
 
 msgid "IDS_MSG_OPT_CREATE_CONTACT_ABB"
 msgstr "കോണ്‍‌ടാക്ട് സൃഷ്‌ടിക്കുക"
@@ -709,15 +574,6 @@ msgstr "അജ്ഞാത നമ്പര്‍"
 msgid "IDS_MSG_MBODY_TEXT_MESSAGE_CENTRE_NUMBER_ABB"
 msgstr "ടെക്സ്റ്റ് സന്ദേശ സെന്‍റർ നമ്പർ"
 
-msgid "IDS_MSG_MBODY_SELECT_ALL"
-msgstr "എല്ലാം തിരഞ്ഞെടുക്കുക"
-
-msgid "IDS_MSG_MBODY_ALERTS"
-msgstr "അലേര്‍ട്ടുകള്‍"
-
-msgid "IDS_MSG_HEADER_TRANSLATE"
-msgstr "തര്‍ജ്ജമ ചെയ്യുക"
-
 msgid "IDS_MSG_HEADER_TEXT_MESSAGES_ABB"
 msgstr "ടെക്സ്റ്റ്‌ സന്ദേശങ്ങൾ"
 
@@ -727,9 +583,6 @@ msgstr "മൊബൈൽ നെറ്റ്‌വർക്ക് സ്വിച�
 msgid "IDS_MSG_HEADER_SMS_CENTRE_ABB2"
 msgstr "SMS കേന്ദ്രം"
 
-msgid "IDS_MSG_HEADER_SETTINGS"
-msgstr "ക്രമീകരണങ്ങൾ"
-
 msgid "IDS_MSG_HEADER_SELECT_RECIPIENT"
 msgstr "സ്വീകര്‍ത്താവിനെ തിരഞ്ഞെടുക്കുക"
 
@@ -738,9 +591,6 @@ msgstr "%d തിരഞ്ഞെടുത്തു"
 
 msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
 msgstr "SIM കാർഡിലെ സന്ദേശങ്ങൾ"
-
-msgid "IDS_MSG_HEADER_MESSAGES"
-msgstr "സന്ദേശങ്ങള്‍"
 
 msgid "IDS_MSG_HEADER_INPUT_MODE_ABB"
 msgstr "ഇന്‍പുട്ട് മോഡ്"
@@ -754,14 +604,8 @@ msgstr "സന്ദേശം അയയ്ക്കുന്നത് പരാ�
 msgid "IDS_MSG_HEADER_DISCARD_MESSAGE_M_CLOSE_ABB"
 msgstr "സന്ദേശം ഉപേക്ഷിക്കുക"
 
-msgid "IDS_MSG_HEADER_DELETE"
-msgstr "ഇല്ലാതാക്കുക"
-
 msgid "IDS_MSG_HEADER_CREATE"
 msgstr "സൃഷ്ടിക്കുക"
-
-msgid "IDS_MSG_HEADER_ATTENTION"
-msgstr "ശ്രദ്ധിക്കുക"
 
 msgid "IDS_MSG_HEADER_ADD_CONTENT_ABB"
 msgstr "ഉള്ളടക്കം ചേർക്കുക"
@@ -775,15 +619,6 @@ msgstr "സംരക്ഷിക്കുക"
 msgid "IDS_MSG_BUTTON_RESEND_ABB"
 msgstr "വീണ്ടും അയയ്ക്കുക"
 
-msgid "IDS_MSG_BUTTON_REMOVE_ABB"
-msgstr "നീക്കംചെയ്യുക"
-
-msgid "IDS_MSG_BUTTON_OK_ABB"
-msgstr "ശരി"
-
-msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
-msgstr "ഡൗൺലോഡുചെയ്യുക"
-
 msgid "IDS_MSG_BUTTON_DISCARD_ABB"
 msgstr "ഉപേക്ഷിക്കുക"
 
@@ -793,17 +628,11 @@ msgstr "ഇല്ലാതാക്കുക"
 msgid "IDS_MSG_BUTTON_CANCEL_ABB2"
 msgstr "റദ്ദാക്കുക"
 
-msgid "IDS_MSG_BUTTON_CANCEL_ABB"
-msgstr "റദ്ദ്"
-
 msgid "IDS_MSG_BUTTON2_CONTACTS_ABB_M_APPLICATION_NAME"
 msgstr "കോൺടാക്ടുകള്‍"
 
 msgid "IDS_MSG_BODY_YOU_HAVE_SELECTED_A_SOUND_N_SHOT_FILE_SOUND_DATA_IS_NOT_SUPPORTED_FOR_MMS_SO_ONLY_THE_PICTURE_WILL_BE_ATTACHED"
 msgstr "നിങ്ങള്‍ തിരഞ്ഞെടുത്ത സൗണ്ട് & ഷോട്ട് ഫയല്‍. ശബ്ദ ഡാറ്റ MMS-നെ പിന്തുണക്കുന്നില്ല അതിനാല്‍ ചിത്രം മാത്രം അറ്റാച്ച് ചെയ്യപ്പെടും"
-
-msgid "IDS_MSG_BODY_YES"
-msgstr "അതെ"
 
 msgid "IDS_MSG_BODY_WAITING_TO_SEND_ING_M_STATUS"
 msgstr "അയയ്ക്കാനായി കാത്തിരിക്കുന്നു..."
@@ -823,9 +652,6 @@ msgstr "അയച്ച സമയം:"
 msgid "IDS_MSG_BODY_TIME_RECEIVED_C"
 msgstr "സ്വീകരിച്ച സമയം:"
 
-msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
-msgstr "ടിക്ക് ബോക്സ്‌"
-
 msgid "IDS_MSG_BODY_STATUS_C"
 msgstr "സ്റ്റാറ്റസ്:"
 
@@ -838,9 +664,6 @@ msgstr "അയയ്ക്കുന്നു..."
 msgid "IDS_MSG_BODY_SENDING_FAILED_M_STATUS"
 msgstr "അയയ്ക്കൽ പരാജയപ്പെട്ടു"
 
-msgid "IDS_MSG_BODY_SEC"
-msgstr "സെക്കന്‍റ്"
-
 msgid "IDS_MSG_BODY_RETRIEVE_MESSAGES_AUTOMATICALLY_WHILE_ROAMING"
 msgstr "റോമിംഗിലായിരിക്കുന്ന സമയത്ത് സന്ദേശങ്ങളെ ഓട്ടോമാറ്റിക്കായി വീണ്ടെടുക്കുക."
 
@@ -852,9 +675,6 @@ msgstr "വായനാ റിപ്പോര്‍ട്ട്: %s"
 
 msgid "IDS_MSG_BODY_OTHER_PERSON"
 msgstr "മറ്റൊരു വ്യക്തി"
-
-msgid "IDS_MSG_BODY_MESSAGE"
-msgstr "സന്ദേശം"
 
 msgid "IDS_MSG_BODY_MEMO_T_MAINMENU"
 msgstr "മെമ്മോ"
@@ -895,14 +715,197 @@ msgstr "സന്ദേശം നിരസിക്കൽ പട്ടികയ�
 msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
 msgstr "ഇല്ലാതാക്കുക"
 
-msgid "IDS_ST_BODY_LOADING_ING"
-msgstr "ലോഡ്‌ ചെയ്യുന്നു..."
+msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
+msgstr "പിന്തുണയ്ക്കാത്ത മീഡിയ തരം."
 
-msgid "IDS_MSGS_BODY_NOTIFICATIONS"
-msgstr "അറിയിപ്പുകള്‍"
+msgid "IDS_MSGC_POP_LOW_BATTERY"
+msgstr "ലോ ബാറ്ററി."
 
-msgid "IDS_MSG_HEADER_ME"
+msgid "IDS_MSGC_POP_CANCELLED"
+msgstr "റദ്ദാക്കി."
+
+msgid "IDS_MSGC_OPT_EMAIL"
+msgstr "ഈമെയില്‍"
+
+msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
+msgstr "കാണുക"
+
+msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
+msgstr "നീക്കംചെയ്യുക"
+
+msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
+msgstr "പ്ലേ ചെയ്യുക"
+
+msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
+msgstr "ടു"
+
+msgid "IDS_MSGC_HEADER_PREVIEW"
+msgstr "പ്രിവ്യൂ"
+
+msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
+msgstr "വിഷയം നല്‍കുക."
+
+msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
+msgstr "സ്ഥാനം കണ്ടെത്താന്‍ ആവുന്നില്ല."
+
+msgid "IDS_MSGF_POP_REJECTED"
+msgstr "നിരസിച്ചു."
+
+msgid "IDS_MSGF_POP_DELETING"
+msgstr "ഇല്ലാതാക്കുന്നു..."
+
+msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
+msgstr "ക്ലിപ്ബോര്‍ഡിലേക്ക് പകര്‍ത്തി."
+
+msgid "IDS_MSGF_POP_BLOCK_PS_Q"
+msgstr "%s തടയണമോ?"
+
+msgid "IDS_MSGF_OPT_SUBJECT_COLON"
+msgstr "വിഷയം:"
+
+msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
+msgstr "ഈമെയില്‍ വഴിയുള്ള പ്രേഷിതന്‍"
+
+msgid "IDS_MSGF_OPT_SELECT"
+msgstr "തിരഞ്ഞെടുക്കുക"
+
+msgid "IDS_MSGF_OPT_SAVE"
+msgstr "സംരക്ഷിക്കുക"
+
+msgid "IDS_MSGF_OPT_REMOVE"
+msgstr "നീക്കംചെയ്യുക"
+
+msgid "IDS_MSGF_OPT_FORWARD"
+msgstr "ഫോര്‍വേഡുചെയ്യുക"
+
+msgid "IDS_MSGF_OPT_DELETE_Q"
+msgstr "ഇല്ലാതാക്കണോ?"
+
+msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
+msgstr "വിപുലമായ തിരയല്‍"
+
+msgid "IDS_MSGF_BODY_UNKNOWN"
+msgstr "അജ്ഞാതം"
+
+msgid "IDS_MSGF_BODY_SETTINGS"
+msgstr "ക്രമീകരണങ്ങൾ"
+
+msgid "IDS_MSGF_BODY_RECIPIENTS"
+msgstr "സ്വീകര്‍ത്താക്കള്‍"
+
+msgid "IDS_MSGF_BODY_RECEIVED"
+msgstr "സ്വീകരിച്ചു."
+
+msgid "IDS_MSGF_BODY_OTHER"
+msgstr "മറ്റ്"
+
+msgid "IDS_MSGF_BODY_NO_SUBJECT"
+msgstr "വിഷയമില്ല"
+
+msgid "IDS_MSGF_BODY_MSGSIZE_KB"
+msgstr "KB"
+
+msgid "IDS_MSGF_BODY_MESSAGE"
+msgstr "സന്ദേശം"
+
+msgid "IDS_MSGF_BODY_ME"
 msgstr "ഞാന്‍"
+
+msgid "IDS_MSGF_BODY_EXPIRED"
+msgstr "കാലഹരണപ്പെട്ടു"
+
+msgid "IDS_MSGF_BODY_ALL"
+msgstr "എല്ലാം"
+
+msgid "IDS_MSG_SK_NO_ABB"
+msgstr "ഇല്ല"
+
+msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
+msgstr "നിങ്ങളുടെ സന്ദേശം ഉപേക്ഷിക്കപ്പെടും. സ്വീകർത്താക്കളെയൊന്നും തിരഞ്ഞെടുത്തിട്ടില്ല."
+
+msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
+msgstr "കോളിനിടെ പ്ലേചെയ്യാന്‍ ആവുന്നില്ല."
+
+msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
+msgstr "ഇങ്ങോട്ടുള്ള സന്ദേശങ്ങള്‍ മാത്രം"
+
+msgid "IDS_MSG_POP_DELETED"
+msgstr "ഇല്ലാതാക്കി."
+
+msgid "IDS_MSG_OPT_VIDEOS"
+msgstr "വീഡിയോകള്‍"
+
+msgid "IDS_MSG_OPT_TEXT"
+msgstr "ടെക്സ്റ്റ്‌"
+
+msgid "IDS_MSG_OPT_SETTINGS"
+msgstr "ക്രമീകരണങ്ങൾ"
+
+msgid "IDS_MSG_OPT_SEARCH"
+msgstr "തിരയുക"
+
+msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
+msgstr "വീഡിയോ റെക്കോര്‍ഡ് ചെയ്യുക"
+
+msgid "IDS_MSG_OPT_NONE"
+msgstr "ഒന്നുമില്ല"
+
+msgid "IDS_MSG_OPT_IMAGES"
+msgstr "ഇമേജുകള്‍"
+
+msgid "IDS_MSG_OPT_EDIT"
+msgstr "എഡിറ്റുചെയ്യുക"
+
+msgid "IDS_MSG_OPT_DELETE"
+msgstr "ഇല്ലാതാക്കുക"
+
+msgid "IDS_MSG_OPT_DEFAULT"
+msgstr "സ്ഥിരസ്ഥിതി"
+
+msgid "IDS_MSG_MBODY_SELECT_ALL"
+msgstr "എല്ലാം തിരഞ്ഞെടുക്കുക"
+
+msgid "IDS_MSG_MBODY_ALERTS"
+msgstr "അലേര്‍ട്ടുകള്‍"
+
+msgid "IDS_MSG_HEADER_TRANSLATE"
+msgstr "തര്‍ജ്ജമ ചെയ്യുക"
+
+msgid "IDS_MSG_HEADER_SETTINGS"
+msgstr "ക്രമീകരണങ്ങൾ"
+
+msgid "IDS_MSG_HEADER_MESSAGES"
+msgstr "സന്ദേശങ്ങള്‍"
+
+msgid "IDS_MSG_HEADER_DELETE"
+msgstr "ഇല്ലാതാക്കുക"
+
+msgid "IDS_MSG_HEADER_ATTENTION"
+msgstr "ശ്രദ്ധിക്കുക"
+
+msgid "IDS_MSG_BUTTON_REMOVE_ABB"
+msgstr "നീക്കംചെയ്യുക"
+
+msgid "IDS_MSG_BUTTON_OK_ABB"
+msgstr "ശരി"
+
+msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
+msgstr "ഡൗൺലോഡുചെയ്യുക"
+
+msgid "IDS_MSG_BUTTON_CANCEL_ABB"
+msgstr "റദ്ദ്"
+
+msgid "IDS_MSG_BODY_YES"
+msgstr "അതെ"
+
+msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
+msgstr "ടിക്ക് ബോക്സ്‌"
+
+msgid "IDS_MSG_BODY_SEC"
+msgstr "സെക്കന്‍റ്"
+
+msgid "IDS_MSG_BODY_MESSAGE"
+msgstr "സന്ദേശം"
 
 msgid "IDS_MSG_BUTTON_SEND_ABB5"
 msgstr "അയയ്‌."
@@ -912,4 +915,31 @@ msgstr "അയയ്‌ക്കുക"
 
 msgid "IDS_MSG_ACBUTTON_SEND_ABB3"
 msgstr "അയയ്‌."
+
+msgid "IDS_ST_BODY_LOADING_ING"
+msgstr "ലോഡ്‌ ചെയ്യുന്നു..."
+
+msgid "IDS_MSGS_BODY_NOTIFICATIONS"
+msgstr "അറിയിപ്പുകള്‍"
+
+msgid "IDS_MSG_HEADER_ME"
+msgstr "ഞാന്‍"
+
+msgid "IDS_MSG_BODY_UNKNOWN"
+msgstr "അജ്ഞാതം"
+
+msgid "IDS_MSG_TMBODY_ADD_OR_REMOVE_RECIPIENTS"
+msgstr "സ്വീകർത്താക്കളെ ചേർക്കുക അല്ലെങ്കിൽ നീക്കംചെയ്യുക"
+
+msgid "IDS_MSG_POP_THE_SENDER_HAS_REQUESTED_A_READ_REPORT_TAP_SEND_TO_SEND_ONE"
+msgstr "അയച്ചയാൾ ഒരു വായനാ റിപ്പോർട്ടിന് അപേക്ഷിച്ചിട്ടുണ്ട്. ഒരെണ്ണം അയയ്ക്കുന്നതിന് “അയയ്ക്കുക” എന്നതിൽ സ്പർശിക്കുക."
+
+msgid "IDS_MSGF_OPT_SEND_READ_REPORT"
+msgstr "വായനാ റിപ്പോര്‍ട്ട് അയ‌യ്ക്കുക"
+
+msgid "IDS_MSG_HEADER_COMPOSE_MESSAGE_ABB"
+msgstr "സന്ദേശം രചിക്കുക"
+
+msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
+msgstr "സാധുതയുള്ള സ്വീകർത്താക്കളൊന്നും ചേർക്കപ്പെട്ടില്ല. ഈ സന്ദേശം ഒഴിവാക്കപ്പെടും."
 

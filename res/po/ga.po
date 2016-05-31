@@ -4,14 +4,17 @@ msgstr "Baile"
 msgid "IDS_MSGC_POP_DATA_ROAMING_IS_DISABLED_ENABLE_DATA_ROAMING_AND_TRY_AGAIN"
 msgstr "Tá fánaíocht sonraí díchumasaithe. Cumasaigh fánaíocht sonraí agus triail arís é."
 
-msgid "IDS_MSGF_POP_NEW_MESSAGE"
-msgstr "Teachtaireacht nua"
-
 msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
 msgstr "CUIR AR CEAL"
 
 msgid "IDS_MSG_ACBUTTON_DONE_ABB"
 msgstr "DÉANTA"
+
+msgid "IDS_MSGF_POP_NEW_MESSAGE"
+msgstr "Teachtaireacht nua"
+
+msgid "IDS_COM_BUTTON_SHARE"
+msgstr "C.roinn"
 
 msgid "IDS_COM_BODY_UNKNOWN"
 msgstr "Anaithnid"
@@ -24,9 +27,6 @@ msgstr "Tá sonraí móibíleacha díchumasaithe. Cumasaigh sonraí móibíleach
 
 msgid "IDS_TPLATFORM_ACBUTTON_SEND_ABB"
 msgstr "SEOL"
-
-msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
-msgstr "Cineál meán gan tacú."
 
 msgid "IDS_MSGC_POP_UNABLE_TO_SEND_MESSAGES_WHILE_IN_FLIGHT_MODE_DISABLE_FLIGHT_MODE_AND_TRY_AGAIN"
 msgstr "Ní féidir teachtaireachtaí a sheoladh nuair atá tú i mód Eitilte. Díchumasaigh mód Eitilte agus triail arís é."
@@ -55,9 +55,6 @@ msgstr "Tá an teachtaireacht sceidealta le seoladh chuig %s. Seol anois?"
 msgid "IDS_MSGC_POP_MAXIMUM_MESSAGE_SIZE_REACHED"
 msgstr "Uasmhéid na teachtaireachta bainte amach."
 
-msgid "IDS_MSGC_POP_LOW_BATTERY"
-msgstr "Ceallra lag."
-
 msgid "IDS_MSGC_POP_DURATION_MUST_BE_AT_LEAST_PD_SECONDS"
 msgstr "Ní mór fad ama a bheith %d soicind ar a laghad"
 
@@ -66,9 +63,6 @@ msgstr "Mód eitilte á dhíchumasú..."
 
 msgid "IDS_MSGC_POP_COPIED_TO_SIM_CARD"
 msgstr "Cóipeáilte chuig cárta SIM."
-
-msgid "IDS_MSGC_POP_CANCELLED"
-msgstr "Curtha ar ceal."
 
 msgid "IDS_MSGC_OPT_USE_OTHER_CONTACT_INFO_ABB"
 msgstr "Úsáid fais. teag. eile"
@@ -79,32 +73,14 @@ msgstr "Seol le"
 msgid "IDS_MSGC_OPT_IMAGE"
 msgstr "Íomhá"
 
-msgid "IDS_MSGC_OPT_EMAIL"
-msgstr "R-phost"
-
 msgid "IDS_MSGC_OPT_EDIT_ITEM_REPLACE"
 msgstr "Ionadaigh"
-
-msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
-msgstr "Amharc air"
-
-msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
-msgstr "Bain"
-
-msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
-msgstr "Seinn"
-
-msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
-msgstr "Chuig"
 
 msgid "IDS_MSGC_OPT_CANCEL_MESSAGE"
 msgstr "Cuir teachtaireacht ar ceal"
 
 msgid "IDS_MSGC_HEADER_RECIPIENT_LIST"
 msgstr "Liosta faighteoirí"
-
-msgid "IDS_MSGC_HEADER_PREVIEW"
-msgstr "Réamhamharc"
 
 msgid "IDS_MSGC_HEADER_DURATION_FOR_SLIDE_PD_PD"
 msgstr "Fad ama don sleamhnán %d/%d"
@@ -127,9 +103,6 @@ msgstr "Neamhiarrtha"
 msgid "IDS_MSGC_BODY_MAXIMUM_NUMBER_OF_RECIPIENTS_HPD_REACHED"
 msgstr "Uaslíon na bhfaighteoirí (%d) bainte amach."
 
-msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
-msgstr "Iontráil ábhar"
-
 msgid "IDS_MSGC_BODY_DUPLICATED_RECIPIENT"
 msgstr "Faighteoir dúbláilte."
 
@@ -138,9 +111,6 @@ msgstr "Ar agh."
 
 msgid "IDS_MSGF_POP_UNABLE_TO_SAVE"
 msgstr "Ní féidir sábháil."
-
-msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
-msgstr "Ní féidir an suíomh a aimsiú."
 
 msgid "IDS_MSGF_POP_UNABLE_TO_DELETE"
 msgstr "Ní féidir scriosadh."
@@ -168,9 +138,6 @@ msgstr "Cineál inneachair atá srianta. Ceangail ar aon nós?"
 
 msgid "IDS_MSGF_POP_RESTORING_ING"
 msgstr "Ag cur ar ais..."
-
-msgid "IDS_MSGF_POP_REJECTED"
-msgstr "Diúltaithe."
 
 msgid "IDS_MSGF_POP_READ_REPORT"
 msgstr "Admháil léite"
@@ -214,20 +181,11 @@ msgstr "Leis an teachtaireacht seo tá comhaid cheangailte nach bhfuil ar taispe
 msgid "IDS_MSGF_POP_FILE_NAME_ALREADY_EXISTS"
 msgstr "Comhadainm ann cheana"
 
-msgid "IDS_MSGF_POP_DELETING"
-msgstr "Ag scriosadh..."
-
-msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
-msgstr "Cóipeáilte chuig gearrthaisce."
-
 msgid "IDS_MSGF_POP_CONVERTING_TO_TEXT_MESSAGE_ING"
 msgstr "Ag tiontú chuig teachtaireacht téacs..."
 
 msgid "IDS_MSGF_POP_CONVERTING_TO_MULTIMEDIA_MESSAGE_ING"
 msgstr "Ag tiontú chuig teachtaireacht ilmheán..."
-
-msgid "IDS_MSGF_POP_BLOCK_PS_Q"
-msgstr "Cuir bac ar %s?"
 
 msgid "IDS_MSGF_POP_ABOUT_TO_GO_ONLINE_CONTINUE_Q"
 msgstr "Tá tú ar tí dul ar líne(%s). Ar aghaidh?"
@@ -235,38 +193,17 @@ msgstr "Tá tú ar tí dul ar líne(%s). Ar aghaidh?"
 msgid "IDS_MSGF_OPT_TEXT_MESSAGE"
 msgstr "Teachtaireacht téacs"
 
-msgid "IDS_MSGF_OPT_SUBJECT_COLON"
-msgstr "Ábhar:"
-
-msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
-msgstr "Seoltóir le R-phost"
-
 msgid "IDS_MSGF_OPT_SENDER_ABB"
 msgstr "Seoltóir"
-
-msgid "IDS_MSGF_OPT_SELECT"
-msgstr "Roghnaigh"
 
 msgid "IDS_MSGF_OPT_SAVE_ATTACHMENT"
 msgstr "Sábháil ceangaltán"
 
-msgid "IDS_MSGF_OPT_SAVE"
-msgstr "Sábháil"
-
-msgid "IDS_MSGF_OPT_REMOVE"
-msgstr "Bain"
-
 msgid "IDS_MSGF_OPT_INSTALL"
 msgstr "Suiteáil"
 
-msgid "IDS_MSGF_OPT_FORWARD"
-msgstr "Seol ar aghaidh"
-
 msgid "IDS_MSGF_OPT_EDIT_MESSAGE"
 msgstr "Cuir teachtaireacht in eagar"
-
-msgid "IDS_MSGF_OPT_DELETE_Q"
-msgstr "Scrios?"
 
 msgid "IDS_MSGF_OPT_DELETE_MESSAGES"
 msgstr "Scrios teachtaireachtaí"
@@ -283,14 +220,8 @@ msgstr "Sonraí na teachtaireachta"
 msgid "IDS_MSGF_HEADER_EXPIRES_C_PS"
 msgstr "As feidhm: %s"
 
-msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
-msgstr "Cuardach casta"
-
 msgid "IDS_MSGF_BUTTON_SAVE_ALL_ATTACHMENTS_ABB"
 msgstr "Sábh. gach ceangaltán"
-
-msgid "IDS_MSGF_BODY_UNKNOWN"
-msgstr "Anaithnid"
 
 msgid "IDS_MSGF_BODY_TO_C"
 msgstr "Chuig:"
@@ -301,23 +232,14 @@ msgstr "Teachtaireachtaí téacs"
 msgid "IDS_MSGF_BODY_SIM_MEMORY_FULL_DELETE_SOME_ITEMS"
 msgstr "Cuimhne SIM lán. Scrios roinnt míreanna."
 
-msgid "IDS_MSGF_BODY_SETTINGS"
-msgstr "Socruithe"
-
 msgid "IDS_MSGF_BODY_SENT_M_DATE_C"
 msgstr "A seoladh:"
 
 msgid "IDS_MSGF_BODY_REQUESTED"
 msgstr "Iarrtha."
 
-msgid "IDS_MSGF_BODY_RECIPIENTS"
-msgstr "Faighteoirí"
-
 msgid "IDS_MSGF_BODY_RECEIVED_M_DATE_C"
 msgstr "A fuarthas:"
-
-msgid "IDS_MSGF_BODY_RECEIVED"
-msgstr "Faighte."
 
 msgid "IDS_MSGF_BODY_READ_REPORT"
 msgstr "Admháil léite"
@@ -331,12 +253,6 @@ msgstr "%d teachtaireacht"
 msgid "IDS_MSGF_BODY_PD_CONVERSATIONS"
 msgstr "%d comhrá"
 
-msgid "IDS_MSGF_BODY_OTHER"
-msgstr "Eile"
-
-msgid "IDS_MSGF_BODY_NO_SUBJECT"
-msgstr "Níl ábhar ann"
-
 msgid "IDS_MSGF_BODY_NO_NAME"
 msgstr "Níl ainm ann"
 
@@ -345,9 +261,6 @@ msgstr "Fógra faoi theachtaireacht ilmheán"
 
 msgid "IDS_MSGF_BODY_MULTIMEDIA_MESSAGE"
 msgstr "Teachtaireacht ilmheán"
-
-msgid "IDS_MSGF_BODY_MSGSIZE_KB"
-msgstr "KB"
 
 msgid "IDS_MSGF_BODY_MMSREADREPLYMSGREAD"
 msgstr "Léigh"
@@ -367,12 +280,6 @@ msgstr "Roghanna teachtaireachta"
 msgid "IDS_MSGF_BODY_MESSAGE_DELIVERED"
 msgstr "Teachtaireacht seachadta"
 
-msgid "IDS_MSGF_BODY_MESSAGE"
-msgstr "Teachtaireacht"
-
-msgid "IDS_MSGF_BODY_ME"
-msgstr "Mise"
-
 msgid "IDS_MSGF_BODY_MAXIMUM_NUMBER_OF_ATTACHMENTS_HP1SS_EXCEEDED_ONLY_FIRST_P2SS_WILL_BE_ADDED"
 msgstr "Uaslíon na gceangaltán (%1$s) sáraithe. Ní chuirfear leis ach an chéad %2$s."
 
@@ -384,9 +291,6 @@ msgstr "Ó"
 
 msgid "IDS_MSGF_BODY_FLFROM"
 msgstr "Ó:"
-
-msgid "IDS_MSGF_BODY_EXPIRED"
-msgstr "Imithe as feidhm"
 
 msgid "IDS_MSGF_BODY_DETAILSSENDINGFAILED"
 msgstr "Theip ar sheoladh."
@@ -402,9 +306,6 @@ msgstr "Cóipeáil téacs"
 
 msgid "IDS_MSGF_BODY_CB_MESSAGES"
 msgstr "Teachtaireachtaí CB"
-
-msgid "IDS_MSGF_BODY_ALL"
-msgstr "Gach"
 
 msgid "IDS_MSGF_BODY_1_MESSAGE"
 msgstr "1 teachtaireacht"
@@ -433,6 +334,9 @@ msgstr "Aimsigh teachtaireachtaí MMS go huathoibríoch"
 msgid "IDS_MSG_TPOP_UNABLE_TO_PREVIEW_FILE_UNSUPPORTED_FILE_TYPE"
 msgstr "Réamhamharc ar an gcomhad dodhéanta. Cineál comhaid gan tacú."
 
+msgid "IDS_MSG_TPOP_UNABLE_TO_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Ní féidir an comhad a chur i gceangal. Níl tacú ann don fhormáid comhaid."
+
 msgid "IDS_MSG_TPOP_UNABLE_TO_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
 msgstr "Ní féidir roinnt faighteoirí a chur leis. Níl na huimhreacha bailí."
 
@@ -448,6 +352,9 @@ msgstr "Ní féidir ceangaltán a chur leis. Uaslíon na gceangaltán (%d) baint
 msgid "IDS_MSG_TPOP_THIS_NUMBER_IS_NOT_VALID"
 msgstr "Níl an uimhir seo bailí."
 
+msgid "IDS_MSG_TPOP_SOME_RECIPIENTS_ALREADY_ADDED"
+msgstr "Roinnt faighteoirí curtha leis cheana."
+
 msgid "IDS_MSG_TPOP_SELECTED_MESSAGES_COPIED_TO_MOBILE_DEVICE"
 msgstr "Teachtaireachtaí roghnaithe cóipeáilte chuig an ngléas móibíleach."
 
@@ -459,6 +366,9 @@ msgstr "Uimhir bainte ón liosta bactha teachtaireachtaí."
 
 msgid "IDS_MSG_TPOP_NUMBER_ADDED_TO_MESSAGE_BLOCK_LIST"
 msgstr "Uimhir curtha leis an liosta bactha teachtaireachtaí."
+
+msgid "IDS_MSG_TPOP_NETWORK_NOT_AVAILABLE_MESSAGE_WILL_BE_SENT_WHEN_CONNECTED_TO_NETWORK"
+msgstr "Níl líonra ar fáil. Seolfar an teachtaireacht nuair a bheidh nasc le líonra ann."
 
 msgid "IDS_MSG_TPOP_MESSAGE_COPIED_TO_PS_SIM_CARD"
 msgstr "Teachtaireacht cóipeáilte chuig cárta SIM %s."
@@ -502,9 +412,6 @@ msgstr "Uath-aisghabháil"
 msgid "IDS_MSG_SK_SEND_NOW"
 msgstr "Seol anois"
 
-msgid "IDS_MSG_SK_NO_ABB"
-msgstr "Ná déan"
-
 msgid "IDS_MSG_SBODY_SELECT_AN_INPUT_MODE_FOR_COMPOSING_MESSAGES"
 msgstr "Roghnaigh mód ionchuir le teachtaireachtaí a chumadh."
 
@@ -514,14 +421,8 @@ msgstr "Dada"
 msgid "IDS_MSG_SBODY_MANAGE_THE_MESSAGES_STORED_ON_YOUR_SIM_CARD"
 msgstr "Bainistigh na teachtaireachtaí atá stóráilte ar do chárta SIM."
 
-msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
-msgstr "Cuileálfar do theachtaireacht. Níor roghnaíodh faighteoir."
-
 msgid "IDS_MSG_POP_UNABLE_TO_SEND_SCHEDULED_MESSAGE_SET_ANOTHER_TIME"
 msgstr "Ní féidir teachtaireacht sceidealta a sheoladh. Socraigh am eile."
-
-msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
-msgstr "Ní féidir seinm le linn glao."
 
 msgid "IDS_MSG_POP_UNABLE_TO_ATTACH_FILE_FILE_SIZE_TOO_LARGE_TRY_SENDING_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
 msgstr "Ní féidir an comhad a chur i gceangal. Tá méid an chomhaid rómhór. Triail é a sheoladh le r-phost, Bluetooth, Wi-Fi, srl."
@@ -544,17 +445,11 @@ msgstr "Scriosfar %d comhrá."
 msgid "IDS_MSG_POP_NO_TEMPLATES_IN_LIST"
 msgstr "Liosta teimpléad folamh"
 
-msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
-msgstr "Teachtaireachtaí isteach amháin"
-
 msgid "IDS_MSG_POP_INCLUDE_ORIGINAL_TEXT_IN_OUTGOING_MESSAGE"
 msgstr "Áirigh an téacs bunaidh i dteachtaireachtaí amach"
 
 msgid "IDS_MSG_POP_DURATION_MUST_BE_SHORTER_THAN_PD_SECONDS"
 msgstr "Ní mór fad ama bheith níos giorra ná %d soicind"
-
-msgid "IDS_MSG_POP_DELETED"
-msgstr "Scriosta."
 
 msgid "IDS_MSG_POP_1_MESSAGE_WILL_BE_DELETED"
 msgstr "Scriosfar 1 teachtaireacht"
@@ -571,26 +466,14 @@ msgstr "Amharc ar shonraí teagmhála"
 msgid "IDS_MSG_OPT_VIEW_AS_SLIDESHOW_ABB"
 msgstr "Amh. air mar thais. sleamhnán"
 
-msgid "IDS_MSG_OPT_VIDEOS"
-msgstr "Físeáin"
-
 msgid "IDS_MSG_OPT_UPDATE_CONTACT"
 msgstr "Nuashonraigh teagmhálaí"
 
 msgid "IDS_MSG_OPT_UNICODE"
 msgstr "Unicode"
 
-msgid "IDS_MSG_OPT_TEXT"
-msgstr "Téacs"
-
 msgid "IDS_MSG_OPT_TAKE_PICTURE_ABB"
 msgstr "Glac pictiúr"
-
-msgid "IDS_MSG_OPT_SETTINGS"
-msgstr "Socruithe"
-
-msgid "IDS_MSG_OPT_SEARCH"
-msgstr "Cuardaigh"
 
 msgid "IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"
 msgstr "Sábháil ceangaltáin"
@@ -604,23 +487,14 @@ msgstr "Freagair"
 msgid "IDS_MSG_OPT_REMOVE_FROM_BLOCK_LIST_ABB"
 msgstr "Bain ón liosta bactha"
 
-msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
-msgstr "Taifead físeán"
-
 msgid "IDS_MSG_OPT_RECORD_AUDIO_FILE_ABB"
 msgstr "Taifead comhad fuaime"
 
 msgid "IDS_MSG_OPT_QUICK_RESPONSE_ABB"
 msgstr "Mearfhreagairt"
 
-msgid "IDS_MSG_OPT_NONE"
-msgstr "Dada"
-
 msgid "IDS_MSG_OPT_MAKE_VOICE_CALL"
 msgstr "Cuir glao gutha"
-
-msgid "IDS_MSG_OPT_IMAGES"
-msgstr "Íomhánna"
 
 msgid "IDS_MSG_OPT_GSM_ALPHABET_ABB"
 msgstr "Aibítir GSM"
@@ -628,20 +502,11 @@ msgstr "Aibítir GSM"
 msgid "IDS_MSG_OPT_EXPORT_TO_DEVICE_MEMORY"
 msgstr "Easpórtáil chuig cuimhne an ghléis"
 
-msgid "IDS_MSG_OPT_EDIT"
-msgstr "Cuir in eagar"
-
 msgid "IDS_MSG_OPT_DELETE_MESSAGE"
 msgstr "Scrios teachtaireacht"
 
 msgid "IDS_MSG_OPT_DELETE_CONVERSATION_ABB"
 msgstr "Scrios comhrá"
-
-msgid "IDS_MSG_OPT_DELETE"
-msgstr "Scrios"
-
-msgid "IDS_MSG_OPT_DEFAULT"
-msgstr "Réamhshocrú"
 
 msgid "IDS_MSG_OPT_CREATE_CONTACT_ABB"
 msgstr "Cruthaigh teagmhálaí"
@@ -709,15 +574,6 @@ msgstr "Uimhir anaithnid"
 msgid "IDS_MSG_MBODY_TEXT_MESSAGE_CENTRE_NUMBER_ABB"
 msgstr "Uimhir an ionaid tchtaí. téacs"
 
-msgid "IDS_MSG_MBODY_SELECT_ALL"
-msgstr "Roghnaigh gach"
-
-msgid "IDS_MSG_MBODY_ALERTS"
-msgstr "Foláirimh"
-
-msgid "IDS_MSG_HEADER_TRANSLATE"
-msgstr "Cuir aistriúchán air"
-
 msgid "IDS_MSG_HEADER_TEXT_MESSAGES_ABB"
 msgstr "Teachtaireachtaí téacs"
 
@@ -727,9 +583,6 @@ msgstr "Aistrigh líonra móibíleach"
 msgid "IDS_MSG_HEADER_SMS_CENTRE_ABB2"
 msgstr "Ionad SMS"
 
-msgid "IDS_MSG_HEADER_SETTINGS"
-msgstr "Socruithe"
-
 msgid "IDS_MSG_HEADER_SELECT_RECIPIENT"
 msgstr "Roghnaigh faighteoir"
 
@@ -738,9 +591,6 @@ msgstr "%d roghnaithe"
 
 msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
 msgstr "Tchtaí ar an gcárta SIM"
-
-msgid "IDS_MSG_HEADER_MESSAGES"
-msgstr "Teachtaireachtaí"
 
 msgid "IDS_MSG_HEADER_INPUT_MODE_ABB"
 msgstr "Mód ionchuir"
@@ -754,14 +604,8 @@ msgstr "Theip ar sheoladh na tchta."
 msgid "IDS_MSG_HEADER_DISCARD_MESSAGE_M_CLOSE_ABB"
 msgstr "Cuileáil teachtaireacht"
 
-msgid "IDS_MSG_HEADER_DELETE"
-msgstr "Scrios"
-
 msgid "IDS_MSG_HEADER_CREATE"
 msgstr "Cruthaigh"
-
-msgid "IDS_MSG_HEADER_ATTENTION"
-msgstr "Aire"
 
 msgid "IDS_MSG_HEADER_ADD_CONTENT_ABB"
 msgstr "Cuir inneachar leis"
@@ -775,15 +619,6 @@ msgstr "Sábháil"
 msgid "IDS_MSG_BUTTON_RESEND_ABB"
 msgstr "Seol arís"
 
-msgid "IDS_MSG_BUTTON_REMOVE_ABB"
-msgstr "Bain"
-
-msgid "IDS_MSG_BUTTON_OK_ABB"
-msgstr "OK"
-
-msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
-msgstr "Íoslódáil"
-
 msgid "IDS_MSG_BUTTON_DISCARD_ABB"
 msgstr "Cuileáil"
 
@@ -793,17 +628,11 @@ msgstr "Scrios"
 msgid "IDS_MSG_BUTTON_CANCEL_ABB2"
 msgstr "Cuir ar ceal"
 
-msgid "IDS_MSG_BUTTON_CANCEL_ABB"
-msgstr "Cuir ar ceal"
-
 msgid "IDS_MSG_BUTTON2_CONTACTS_ABB_M_APPLICATION_NAME"
 msgstr "Teag\nmhálaithe"
 
 msgid "IDS_MSG_BODY_YOU_HAVE_SELECTED_A_SOUND_N_SHOT_FILE_SOUND_DATA_IS_NOT_SUPPORTED_FOR_MMS_SO_ONLY_THE_PICTURE_WILL_BE_ATTACHED"
 msgstr "Roghnaigh tú comhad fuaime & seat. Níl tacú ann do shonraí fuaime in MMS, mar sin ní cheanglófar ach an pictiúr."
-
-msgid "IDS_MSG_BODY_YES"
-msgstr "Déan é"
 
 msgid "IDS_MSG_BODY_WAITING_TO_SEND_ING_M_STATUS"
 msgstr "Fanacht le seoladh..."
@@ -823,9 +652,6 @@ msgstr "Am seolta:"
 msgid "IDS_MSG_BODY_TIME_RECEIVED_C"
 msgstr "Am fála:"
 
-msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
-msgstr "Ticbhosca"
-
 msgid "IDS_MSG_BODY_STATUS_C"
 msgstr "Stádas:"
 
@@ -838,9 +664,6 @@ msgstr "Seoladh..."
 msgid "IDS_MSG_BODY_SENDING_FAILED_M_STATUS"
 msgstr "Theip ar sheoladh"
 
-msgid "IDS_MSG_BODY_SEC"
-msgstr "soic"
-
 msgid "IDS_MSG_BODY_RETRIEVE_MESSAGES_AUTOMATICALLY_WHILE_ROAMING"
 msgstr "Aisghabh teachtaireachtaí go huathoibríoch le linn fánaíocht."
 
@@ -852,9 +675,6 @@ msgstr "Tuairisc léite: %s"
 
 msgid "IDS_MSG_BODY_OTHER_PERSON"
 msgstr "Duine eile"
-
-msgid "IDS_MSG_BODY_MESSAGE"
-msgstr "Teachtaireacht"
 
 msgid "IDS_MSG_BODY_MEMO_T_MAINMENU"
 msgstr "Meabhrán"
@@ -895,14 +715,197 @@ msgstr "Tar éis duit uimhreacha a chur leis an liosta bactha teachtaireachtaí,
 msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
 msgstr "SCRIOS"
 
-msgid "IDS_ST_BODY_LOADING_ING"
-msgstr "Ag lódáil..."
+msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
+msgstr "Cineál meán gan tacú."
 
-msgid "IDS_MSGS_BODY_NOTIFICATIONS"
-msgstr "Fógraí"
+msgid "IDS_MSGC_POP_LOW_BATTERY"
+msgstr "Ceallra lag."
 
-msgid "IDS_MSG_HEADER_ME"
+msgid "IDS_MSGC_POP_CANCELLED"
+msgstr "Curtha ar ceal."
+
+msgid "IDS_MSGC_OPT_EMAIL"
+msgstr "R-phost"
+
+msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
+msgstr "Amharc air"
+
+msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
+msgstr "Bain"
+
+msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
+msgstr "Seinn"
+
+msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
+msgstr "Chuig"
+
+msgid "IDS_MSGC_HEADER_PREVIEW"
+msgstr "Réamhamharc"
+
+msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
+msgstr "Iontráil ábhar"
+
+msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
+msgstr "Ní féidir an suíomh a aimsiú."
+
+msgid "IDS_MSGF_POP_REJECTED"
+msgstr "Diúltaithe."
+
+msgid "IDS_MSGF_POP_DELETING"
+msgstr "Ag scriosadh..."
+
+msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
+msgstr "Cóipeáilte chuig gearrthaisce."
+
+msgid "IDS_MSGF_POP_BLOCK_PS_Q"
+msgstr "Cuir bac ar %s?"
+
+msgid "IDS_MSGF_OPT_SUBJECT_COLON"
+msgstr "Ábhar:"
+
+msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
+msgstr "Seoltóir le R-phost"
+
+msgid "IDS_MSGF_OPT_SELECT"
+msgstr "Roghnaigh"
+
+msgid "IDS_MSGF_OPT_SAVE"
+msgstr "Sábháil"
+
+msgid "IDS_MSGF_OPT_REMOVE"
+msgstr "Bain"
+
+msgid "IDS_MSGF_OPT_FORWARD"
+msgstr "Seol ar aghaidh"
+
+msgid "IDS_MSGF_OPT_DELETE_Q"
+msgstr "Scrios?"
+
+msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
+msgstr "Cuardach casta"
+
+msgid "IDS_MSGF_BODY_UNKNOWN"
+msgstr "Anaithnid"
+
+msgid "IDS_MSGF_BODY_SETTINGS"
+msgstr "Socruithe"
+
+msgid "IDS_MSGF_BODY_RECIPIENTS"
+msgstr "Faighteoirí"
+
+msgid "IDS_MSGF_BODY_RECEIVED"
+msgstr "Faighte."
+
+msgid "IDS_MSGF_BODY_OTHER"
+msgstr "Eile"
+
+msgid "IDS_MSGF_BODY_NO_SUBJECT"
+msgstr "Níl ábhar ann"
+
+msgid "IDS_MSGF_BODY_MSGSIZE_KB"
+msgstr "KB"
+
+msgid "IDS_MSGF_BODY_MESSAGE"
+msgstr "Teachtaireacht"
+
+msgid "IDS_MSGF_BODY_ME"
 msgstr "Mise"
+
+msgid "IDS_MSGF_BODY_EXPIRED"
+msgstr "Imithe as feidhm"
+
+msgid "IDS_MSGF_BODY_ALL"
+msgstr "Gach"
+
+msgid "IDS_MSG_SK_NO_ABB"
+msgstr "Ná déan"
+
+msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
+msgstr "Cuileálfar do theachtaireacht. Níor roghnaíodh faighteoir."
+
+msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
+msgstr "Ní féidir seinm le linn glao."
+
+msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
+msgstr "Teachtaireachtaí isteach amháin"
+
+msgid "IDS_MSG_POP_DELETED"
+msgstr "Scriosta."
+
+msgid "IDS_MSG_OPT_VIDEOS"
+msgstr "Físeáin"
+
+msgid "IDS_MSG_OPT_TEXT"
+msgstr "Téacs"
+
+msgid "IDS_MSG_OPT_SETTINGS"
+msgstr "Socruithe"
+
+msgid "IDS_MSG_OPT_SEARCH"
+msgstr "Cuardaigh"
+
+msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
+msgstr "Taifead físeán"
+
+msgid "IDS_MSG_OPT_NONE"
+msgstr "Dada"
+
+msgid "IDS_MSG_OPT_IMAGES"
+msgstr "Íomhánna"
+
+msgid "IDS_MSG_OPT_EDIT"
+msgstr "Cuir in eagar"
+
+msgid "IDS_MSG_OPT_DELETE"
+msgstr "Scrios"
+
+msgid "IDS_MSG_OPT_DEFAULT"
+msgstr "Réamhshocrú"
+
+msgid "IDS_MSG_MBODY_SELECT_ALL"
+msgstr "Roghnaigh gach"
+
+msgid "IDS_MSG_MBODY_ALERTS"
+msgstr "Foláirimh"
+
+msgid "IDS_MSG_HEADER_TRANSLATE"
+msgstr "Cuir aistriúchán air"
+
+msgid "IDS_MSG_HEADER_SETTINGS"
+msgstr "Socruithe"
+
+msgid "IDS_MSG_HEADER_MESSAGES"
+msgstr "Teachtaireachtaí"
+
+msgid "IDS_MSG_HEADER_DELETE"
+msgstr "Scrios"
+
+msgid "IDS_MSG_HEADER_ATTENTION"
+msgstr "Aire"
+
+msgid "IDS_MSG_BUTTON_REMOVE_ABB"
+msgstr "Bain"
+
+msgid "IDS_MSG_BUTTON_OK_ABB"
+msgstr "OK"
+
+msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
+msgstr "Íoslódáil"
+
+msgid "IDS_MSG_BUTTON_CANCEL_ABB"
+msgstr "Cuir ar ceal"
+
+msgid "IDS_MSG_BODY_YES"
+msgstr "Déan é"
+
+msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
+msgstr "Ticbhosca"
+
+msgid "IDS_MSG_BODY_SEC"
+msgstr "soic"
+
+msgid "IDS_MSG_BODY_MESSAGE"
+msgstr "Teachtaireacht"
 
 msgid "IDS_MSG_BUTTON_SEND_ABB5"
 msgstr "Seol"
@@ -912,4 +915,31 @@ msgstr "Seol"
 
 msgid "IDS_MSG_ACBUTTON_SEND_ABB3"
 msgstr "SEOL"
+
+msgid "IDS_ST_BODY_LOADING_ING"
+msgstr "Ag lódáil..."
+
+msgid "IDS_MSGS_BODY_NOTIFICATIONS"
+msgstr "Fógraí"
+
+msgid "IDS_MSG_HEADER_ME"
+msgstr "Mise"
+
+msgid "IDS_MSG_BODY_UNKNOWN"
+msgstr "Anaithnid"
+
+msgid "IDS_MSG_TMBODY_ADD_OR_REMOVE_RECIPIENTS"
+msgstr "C. faighteoirí leis nó bain iad"
+
+msgid "IDS_MSG_POP_THE_SENDER_HAS_REQUESTED_A_READ_REPORT_TAP_SEND_TO_SEND_ONE"
+msgstr "D'iarr an seoltóir admháil léite. Tapáil Seol le ceann a sheoladh."
+
+msgid "IDS_MSGF_OPT_SEND_READ_REPORT"
+msgstr "Seol admháil léite?"
+
+msgid "IDS_MSG_HEADER_COMPOSE_MESSAGE_ABB"
+msgstr "Cum teachtaireacht"
+
+msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
+msgstr "Níl aon fhaighteoirí bailí curtha leis. Cuileálfar an teachtaireacht seo."
 

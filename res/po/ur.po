@@ -4,14 +4,17 @@ msgstr "ہوم"
 msgid "IDS_MSGC_POP_DATA_ROAMING_IS_DISABLED_ENABLE_DATA_ROAMING_AND_TRY_AGAIN"
 msgstr "ڈیٹا کا گشت نااہل بنا دیا گیا ہے۔ ڈیٹا کا گشت اہل بنائیں اور دوبارہ کوشش کریں۔"
 
-msgid "IDS_MSGF_POP_NEW_MESSAGE"
-msgstr "نیا پیغام"
-
 msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
 msgstr "منسوخ کریں"
 
 msgid "IDS_MSG_ACBUTTON_DONE_ABB"
 msgstr "مکمل ہوگیا"
+
+msgid "IDS_MSGF_POP_NEW_MESSAGE"
+msgstr "نیا پیغام"
+
+msgid "IDS_COM_BUTTON_SHARE"
+msgstr "شراکت"
 
 msgid "IDS_COM_BODY_UNKNOWN"
 msgstr "نامعلوم"
@@ -25,9 +28,6 @@ msgstr "موبائل ڈیٹا نا اہل بنا دیا گیا ہے۔ موبائ
 msgid "IDS_TPLATFORM_ACBUTTON_SEND_ABB"
 msgstr "بھیجیں"
 
-msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
-msgstr "میڈیا کی قسم سپورٹڈ نہیں۔"
-
 msgid "IDS_MSGC_POP_UNABLE_TO_SEND_MESSAGES_WHILE_IN_FLIGHT_MODE_DISABLE_FLIGHT_MODE_AND_TRY_AGAIN"
 msgstr "فلائٹ موڈ کے دوران پیغامات بھیجنے سے قاصر۔ فلائٹ موڈ نا اہل بنائیں اور دوبارہ کوشش کریں۔"
 
@@ -38,10 +38,10 @@ msgid "IDS_MSGC_POP_THERE_IS_NOT_ENOUGH_SPACE_IN_YOUR_DEVICE_STORAGE_GO_TO_SETTI
 msgstr "آپ کے آلے کا ذخیرہ میں کافی جگہ نہیں ہے۔ سیٹنگز > پاور اور اسٹوریج > اسٹوریج پر جائیں، پھر کچھ فائلوں کو حذف کریں اور دوبارہ کوشش کریں۔"
 
 msgid "IDS_MSGC_POP_TEXT_AT_TOP"
-msgstr "ٹیکسٹ اوپر"
+msgstr "سب سے اوپر متن"
 
 msgid "IDS_MSGC_POP_TEXT_AT_BOTTOM"
-msgstr "سب سے نیچے درج متن"
+msgstr "نچلے حصے میں متن"
 
 msgid "IDS_MSGC_POP_SELECT_LAYOUT"
 msgstr "لے آؤٹ منتخب کریں"
@@ -55,9 +55,6 @@ msgstr "پیغام %s کو بھیجنے کے لئے شیڈول کیا گيا ہ�
 msgid "IDS_MSGC_POP_MAXIMUM_MESSAGE_SIZE_REACHED"
 msgstr "پیغام کا انتہائی سائز آن پہنچا۔"
 
-msgid "IDS_MSGC_POP_LOW_BATTERY"
-msgstr "بیٹری لو۔"
-
 msgid "IDS_MSGC_POP_DURATION_MUST_BE_AT_LEAST_PD_SECONDS"
 msgstr "دورانیہ کم سے کم %d سیکنڈ ہونا ضروری ہے"
 
@@ -66,9 +63,6 @@ msgstr "فلائٹ موڈ نا اہل بنا رہا ہے..."
 
 msgid "IDS_MSGC_POP_COPIED_TO_SIM_CARD"
 msgstr "سم کارڈ پر نقل ہوگیا۔"
-
-msgid "IDS_MSGC_POP_CANCELLED"
-msgstr "منسوخ ہوا۔"
 
 msgid "IDS_MSGC_OPT_USE_OTHER_CONTACT_INFO_ABB"
 msgstr "رابطہ معلومات استعمال"
@@ -79,32 +73,14 @@ msgstr "کے زریعے بھیجیں"
 msgid "IDS_MSGC_OPT_IMAGE"
 msgstr "امیج"
 
-msgid "IDS_MSGC_OPT_EMAIL"
-msgstr "ای میل"
-
 msgid "IDS_MSGC_OPT_EDIT_ITEM_REPLACE"
 msgstr "تبدیل"
-
-msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
-msgstr "نظارہ"
-
-msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
-msgstr "ہٹانا"
-
-msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
-msgstr "چلائیں"
-
-msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
-msgstr "کسے"
 
 msgid "IDS_MSGC_OPT_CANCEL_MESSAGE"
 msgstr "پیغام منسوخ کریں"
 
 msgid "IDS_MSGC_HEADER_RECIPIENT_LIST"
 msgstr "وصول کرنے والو کی فہرست"
-
-msgid "IDS_MSGC_HEADER_PREVIEW"
-msgstr "نظارہ"
 
 msgid "IDS_MSGC_HEADER_DURATION_FOR_SLIDE_PD_PD"
 msgstr "سلائڈ %d/%d کے لئے دورانیہ"
@@ -127,9 +103,6 @@ msgstr "درخواست نہیں کی"
 msgid "IDS_MSGC_BODY_MAXIMUM_NUMBER_OF_RECIPIENTS_HPD_REACHED"
 msgstr "وصول کنندگان کی انتہائی تعداد (%d) آن پہنچی۔"
 
-msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
-msgstr "مضمون درج کریں"
-
 msgid "IDS_MSGC_BODY_DUPLICATED_RECIPIENT"
 msgstr "ڈپلیکیٹ کردہ وصول کنندہ۔"
 
@@ -138,9 +111,6 @@ msgstr "آگے"
 
 msgid "IDS_MSGF_POP_UNABLE_TO_SAVE"
 msgstr "محفوظ نہیں کر سکتا۔"
-
-msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
-msgstr "محل وقوع ڈھونڈنے سے قاصر۔"
 
 msgid "IDS_MSGF_POP_UNABLE_TO_DELETE"
 msgstr "مٹا نہیں سکا۔"
@@ -167,10 +137,7 @@ msgid "IDS_MSGF_POP_RESTRICTED_CONTENT_TYPE_ATTACH_ANYWAY_Q"
 msgstr "بندش زدہ مشمول قسم۔ بہرحال منسلک کریں؟"
 
 msgid "IDS_MSGF_POP_RESTORING_ING"
-msgstr "دوباہ سٹور کر رہا ہے۔۔۔"
-
-msgid "IDS_MSGF_POP_REJECTED"
-msgstr "مسترد ہوا۔"
+msgstr "دوبارہ سٹور کر رہا ہے۔۔۔"
 
 msgid "IDS_MSGF_POP_READ_REPORT"
 msgstr "پڑھنے کی رپورٹ"
@@ -214,20 +181,11 @@ msgstr "اس پیغام میں اٹیج فائیلیں ہیں جو دکھائی 
 msgid "IDS_MSGF_POP_FILE_NAME_ALREADY_EXISTS"
 msgstr "فائل کا نام پہلے سے موجود ہے"
 
-msgid "IDS_MSGF_POP_DELETING"
-msgstr "مٹ رہا ہے..."
-
-msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
-msgstr "کلپ بورڈ پر نقل ہوگیا۔"
-
 msgid "IDS_MSGF_POP_CONVERTING_TO_TEXT_MESSAGE_ING"
 msgstr "متن پیغام میں تبدیل کررہا ہے..."
 
 msgid "IDS_MSGF_POP_CONVERTING_TO_MULTIMEDIA_MESSAGE_ING"
 msgstr "ملٹی میڈیا پیغام میں تبدیل کررہا ہے..."
-
-msgid "IDS_MSGF_POP_BLOCK_PS_Q"
-msgstr "%s بلاک کریں؟"
 
 msgid "IDS_MSGF_POP_ABOUT_TO_GO_ONLINE_CONTINUE_Q"
 msgstr "آپ آن لائن جانے والے ہیں (%s) جاری؟"
@@ -235,38 +193,17 @@ msgstr "آپ آن لائن جانے والے ہیں (%s) جاری؟"
 msgid "IDS_MSGF_OPT_TEXT_MESSAGE"
 msgstr "ٹیکسٹ پیغام"
 
-msgid "IDS_MSGF_OPT_SUBJECT_COLON"
-msgstr "سبجکٹ:"
-
-msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
-msgstr "مرسل بذریعہ ای میل"
-
 msgid "IDS_MSGF_OPT_SENDER_ABB"
 msgstr "مرسل"
-
-msgid "IDS_MSGF_OPT_SELECT"
-msgstr "انتخاب"
 
 msgid "IDS_MSGF_OPT_SAVE_ATTACHMENT"
 msgstr "منسلکہ محفوظ کریں"
 
-msgid "IDS_MSGF_OPT_SAVE"
-msgstr "محفوظ"
-
-msgid "IDS_MSGF_OPT_REMOVE"
-msgstr "ہٹانا"
-
 msgid "IDS_MSGF_OPT_INSTALL"
 msgstr "انسٹال کریں"
 
-msgid "IDS_MSGF_OPT_FORWARD"
-msgstr "آگے بھیجیں"
-
 msgid "IDS_MSGF_OPT_EDIT_MESSAGE"
 msgstr "پیغام تبدیل کریں"
-
-msgid "IDS_MSGF_OPT_DELETE_Q"
-msgstr "مٹانا؟"
 
 msgid "IDS_MSGF_OPT_DELETE_MESSAGES"
 msgstr "پیغامات حذف کریں"
@@ -283,14 +220,8 @@ msgstr "تفصیلات پیغام"
 msgid "IDS_MSGF_HEADER_EXPIRES_C_PS"
 msgstr "تاریخ اختتام: %s"
 
-msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
-msgstr "اعلی تلاش"
-
 msgid "IDS_MSGF_BUTTON_SAVE_ALL_ATTACHMENTS_ABB"
 msgstr "منسلکات محفوظ کریں"
-
-msgid "IDS_MSGF_BODY_UNKNOWN"
-msgstr "نامعلوم"
 
 msgid "IDS_MSGF_BODY_TO_C"
 msgstr "تک:"
@@ -299,10 +230,7 @@ msgid "IDS_MSGF_BODY_TEXT_MESSAGES"
 msgstr "ٹیکسٹ پیغامات"
 
 msgid "IDS_MSGF_BODY_SIM_MEMORY_FULL_DELETE_SOME_ITEMS"
-msgstr "SIM میموری بھر چکی ہے۔ کچھ اشیا حذف کریں۔"
-
-msgid "IDS_MSGF_BODY_SETTINGS"
-msgstr "سیٹنگز"
+msgstr "میموری بھر چکی ہے۔ کچھ اشیا حذف کریں۔ SIM"
 
 msgid "IDS_MSGF_BODY_SENT_M_DATE_C"
 msgstr "بھیجا گیا:"
@@ -310,14 +238,8 @@ msgstr "بھیجا گیا:"
 msgid "IDS_MSGF_BODY_REQUESTED"
 msgstr "درخواست کي گئي۔"
 
-msgid "IDS_MSGF_BODY_RECIPIENTS"
-msgstr "وصول کرنے والے"
-
 msgid "IDS_MSGF_BODY_RECEIVED_M_DATE_C"
 msgstr "وصول:"
-
-msgid "IDS_MSGF_BODY_RECEIVED"
-msgstr "موصولہ۔"
 
 msgid "IDS_MSGF_BODY_READ_REPORT"
 msgstr "پڑھنے کی رپورٹ"
@@ -331,12 +253,6 @@ msgstr "%d پیغامات"
 msgid "IDS_MSGF_BODY_PD_CONVERSATIONS"
 msgstr "%d تبادلہ خیالات"
 
-msgid "IDS_MSGF_BODY_OTHER"
-msgstr "مزید"
-
-msgid "IDS_MSGF_BODY_NO_SUBJECT"
-msgstr "مضمون کوئی نہیں"
-
 msgid "IDS_MSGF_BODY_NO_NAME"
 msgstr "نام نہیں"
 
@@ -345,9 +261,6 @@ msgstr "ملٹی میڈیا پیغام اعلامیہ"
 
 msgid "IDS_MSGF_BODY_MULTIMEDIA_MESSAGE"
 msgstr "ملٹی میڈیا پیغام"
-
-msgid "IDS_MSGF_BODY_MSGSIZE_KB"
-msgstr "کیلوبائٹ"
 
 msgid "IDS_MSGF_BODY_MMSREADREPLYMSGREAD"
 msgstr "پڑھنا"
@@ -367,12 +280,6 @@ msgstr "پیغام کے اختیار"
 msgid "IDS_MSGF_BODY_MESSAGE_DELIVERED"
 msgstr "پیغام ڈیلیورڈ ہوگیا تھا"
 
-msgid "IDS_MSGF_BODY_MESSAGE"
-msgstr "پیغام"
-
-msgid "IDS_MSGF_BODY_ME"
-msgstr "میں"
-
 msgid "IDS_MSGF_BODY_MAXIMUM_NUMBER_OF_ATTACHMENTS_HP1SS_EXCEEDED_ONLY_FIRST_P2SS_WILL_BE_ADDED"
 msgstr "منسلکات کی انتہائی تعداد (%1$s) بڑھ گئی ہے۔ صرف پہلی %2$s کا اضافہ کیا جائے گا۔"
 
@@ -384,9 +291,6 @@ msgstr "سے"
 
 msgid "IDS_MSGF_BODY_FLFROM"
 msgstr "سے:"
-
-msgid "IDS_MSGF_BODY_EXPIRED"
-msgstr "معیاد ختم"
 
 msgid "IDS_MSGF_BODY_DETAILSSENDINGFAILED"
 msgstr "بھیجنے میں ناکامی۔"
@@ -402,9 +306,6 @@ msgstr "ٹیکسٹ کاپی"
 
 msgid "IDS_MSGF_BODY_CB_MESSAGES"
 msgstr "CB پیغامات"
-
-msgid "IDS_MSGF_BODY_ALL"
-msgstr "تمام"
 
 msgid "IDS_MSGF_BODY_1_MESSAGE"
 msgstr "1 پیغام"
@@ -433,6 +334,9 @@ msgstr "MMS پیغامات خودکار طور پر بازگیر کریں"
 msgid "IDS_MSG_TPOP_UNABLE_TO_PREVIEW_FILE_UNSUPPORTED_FILE_TYPE"
 msgstr "فائل کا پیش منظر دیکھنے سے قاصر۔ غیر تائید کردہ فائل قسم۔"
 
+msgid "IDS_MSG_TPOP_UNABLE_TO_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "فائل منسلک کرنے سے قاصر۔ فائل فارمیٹ تائید یافتہ نہیں ہے۔"
+
 msgid "IDS_MSG_TPOP_UNABLE_TO_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
 msgstr "کچھ وصول کنندگان کو شامل کرنے سے قاصر۔ نمبرز مجاز نہیں ہیں۔"
 
@@ -448,6 +352,9 @@ msgstr "منسلکہ شامل کرنے سے قاصر۔ منسلکات کی ان�
 msgid "IDS_MSG_TPOP_THIS_NUMBER_IS_NOT_VALID"
 msgstr "وصول کنندہ نمبر مجاز نہیں ہے۔"
 
+msgid "IDS_MSG_TPOP_SOME_RECIPIENTS_ALREADY_ADDED"
+msgstr "کچھ وصول کنندگان پہلے سے ہی شامل کیے گئے۔"
+
 msgid "IDS_MSG_TPOP_SELECTED_MESSAGES_COPIED_TO_MOBILE_DEVICE"
 msgstr "منتخب پیغامات موبائل آلے پر کاپی کردی گئی۔"
 
@@ -460,8 +367,11 @@ msgstr "نمبر کو پیغام بلاک فہرست سے ہٹا دیا گیا۔
 msgid "IDS_MSG_TPOP_NUMBER_ADDED_TO_MESSAGE_BLOCK_LIST"
 msgstr "نمبر کو پیغام بلاک فہرست میں شامل کیا گیا۔"
 
+msgid "IDS_MSG_TPOP_NETWORK_NOT_AVAILABLE_MESSAGE_WILL_BE_SENT_WHEN_CONNECTED_TO_NETWORK"
+msgstr "نیٹ ورک دستیاب نہیں۔ نیٹ ورک سے مربوط ہونے پر پیغام بھیج دیا جائے گا۔"
+
 msgid "IDS_MSG_TPOP_MESSAGE_COPIED_TO_PS_SIM_CARD"
-msgstr "پیغام s% سم کارڈ میں نقل ہوگیا۔"
+msgstr "پیغام %s سم کارڈ میں نقل ہوگیا۔"
 
 msgid "IDS_MSG_TPOP_MAXIMUM_NUMBER_OF_CHARACTERS_EXCEEDED"
 msgstr "حروف کی زیادہ سے زیادہ تعداد سے بڑھگیا۔"
@@ -488,7 +398,7 @@ msgid "IDS_MSG_TMBODY_MULTIMEDIA_MESSAGES"
 msgstr "ملٹی میڈیا پیغامات"
 
 msgid "IDS_MSG_TMBODY_MESSAGES_ON_SIM_CARD"
-msgstr "SIM کارڈ پر پیغامات"
+msgstr "کارڈ پر پیغامات SIM"
 
 msgid "IDS_MSG_TMBODY_INPUT_MODE"
 msgstr "ان پٹ موڈ"
@@ -502,9 +412,6 @@ msgstr "خودکار وصول کریں"
 msgid "IDS_MSG_SK_SEND_NOW"
 msgstr "اب بھیجیں"
 
-msgid "IDS_MSG_SK_NO_ABB"
-msgstr "نہیں"
-
 msgid "IDS_MSG_SBODY_SELECT_AN_INPUT_MODE_FOR_COMPOSING_MESSAGES"
 msgstr "پیغامات کمپوز کرنے کے لیے ان پٹ موڈ منتخب کریں۔"
 
@@ -514,14 +421,8 @@ msgstr "کوئی نہیں"
 msgid "IDS_MSG_SBODY_MANAGE_THE_MESSAGES_STORED_ON_YOUR_SIM_CARD"
 msgstr "اپنے SIM کارڈ پر ذخیرہ شدہ پیغامات کا بندوبست کریں۔"
 
-msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
-msgstr "آپ کے پیغام کو مسترد کر دیا جائے گا۔ کوئی وصول کنندگان منتخب نہیں کئے گئے۔"
-
 msgid "IDS_MSG_POP_UNABLE_TO_SEND_SCHEDULED_MESSAGE_SET_ANOTHER_TIME"
 msgstr "شیڈول کردہ پیغام بھیجنے سے قاصر۔ دوسرا وقت سیٹ کریں۔"
-
-msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
-msgstr "کال کے دوران چلانے سے قاصر۔"
 
 msgid "IDS_MSG_POP_UNABLE_TO_ATTACH_FILE_FILE_SIZE_TOO_LARGE_TRY_SENDING_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
 msgstr "فائل منسلک کرنے سے قاصر۔ فائل کا سائز بہت بڑا ہے۔ براستہ ای میل، بلیو ٹوتھ، Wi-Fi، وغیرہ بھیجنے کی کوشش کریں"
@@ -542,19 +443,13 @@ msgid "IDS_MSG_POP_PD_CONVERSATIONS_WILL_BE_DELETED"
 msgstr "%d مکالمات مٹا دئے جائیں گے۔"
 
 msgid "IDS_MSG_POP_NO_TEMPLATES_IN_LIST"
-msgstr "فہرست میں کوئی سانچے نہیں ہیں"
-
-msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
-msgstr "صرف موصولہ پیغامات"
+msgstr "فہرست میں کوئی ٹیمپلیٹس نہیں ہیں"
 
 msgid "IDS_MSG_POP_INCLUDE_ORIGINAL_TEXT_IN_OUTGOING_MESSAGE"
 msgstr "خارجی پیغام میں حقیقی متن شامل کریں"
 
 msgid "IDS_MSG_POP_DURATION_MUST_BE_SHORTER_THAN_PD_SECONDS"
 msgstr "دورانیہ %d سیکنڈ سے کمتر ہونا چاہئے"
-
-msgid "IDS_MSG_POP_DELETED"
-msgstr "مٹ گیا۔"
 
 msgid "IDS_MSG_POP_1_MESSAGE_WILL_BE_DELETED"
 msgstr "1 پیغام حذف کردیا جائے گا"
@@ -571,26 +466,14 @@ msgstr "رابطہ کی تفصیلات دیکھیں"
 msgid "IDS_MSG_OPT_VIEW_AS_SLIDESHOW_ABB"
 msgstr "بطور سلائیڈ شو دیکھیں"
 
-msgid "IDS_MSG_OPT_VIDEOS"
-msgstr "ویڈیوز"
-
 msgid "IDS_MSG_OPT_UPDATE_CONTACT"
 msgstr "رابطہ کو تازہ کریں"
 
 msgid "IDS_MSG_OPT_UNICODE"
 msgstr "یونی کوڈ"
 
-msgid "IDS_MSG_OPT_TEXT"
-msgstr "ٹیکسٹ"
-
 msgid "IDS_MSG_OPT_TAKE_PICTURE_ABB"
 msgstr "تصویر لیں"
-
-msgid "IDS_MSG_OPT_SETTINGS"
-msgstr "سیٹنگز"
-
-msgid "IDS_MSG_OPT_SEARCH"
-msgstr "تلاش کریں"
 
 msgid "IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"
 msgstr "منسلکات محفوظ کریں"
@@ -604,32 +487,20 @@ msgstr "جواب"
 msgid "IDS_MSG_OPT_REMOVE_FROM_BLOCK_LIST_ABB"
 msgstr "بلاک فہرست سے ہٹائیں"
 
-msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
-msgstr "ویڈیو ریکارڈ کریں"
-
 msgid "IDS_MSG_OPT_RECORD_AUDIO_FILE_ABB"
 msgstr "آڈیو فائل ریکارڈ کریں"
 
 msgid "IDS_MSG_OPT_QUICK_RESPONSE_ABB"
 msgstr "فوری رد عمل"
 
-msgid "IDS_MSG_OPT_NONE"
-msgstr "نہیں"
-
 msgid "IDS_MSG_OPT_MAKE_VOICE_CALL"
 msgstr "صوتی کال کریں"
 
-msgid "IDS_MSG_OPT_IMAGES"
-msgstr "تصویر"
-
 msgid "IDS_MSG_OPT_GSM_ALPHABET_ABB"
-msgstr "GSM حروف تہجی"
+msgstr "حروف تہجی GSM"
 
 msgid "IDS_MSG_OPT_EXPORT_TO_DEVICE_MEMORY"
 msgstr "آلہ کی میموری پر برآمد کریں"
-
-msgid "IDS_MSG_OPT_EDIT"
-msgstr "تبدیلی"
 
 msgid "IDS_MSG_OPT_DELETE_MESSAGE"
 msgstr "پیغام حذف کریں"
@@ -637,17 +508,11 @@ msgstr "پیغام حذف کریں"
 msgid "IDS_MSG_OPT_DELETE_CONVERSATION_ABB"
 msgstr "گفتگو حذف کریں"
 
-msgid "IDS_MSG_OPT_DELETE"
-msgstr "مٹانا"
-
-msgid "IDS_MSG_OPT_DEFAULT"
-msgstr "ڈیفالٹ"
-
 msgid "IDS_MSG_OPT_CREATE_CONTACT_ABB"
 msgstr "رابطہ بنائیں"
 
 msgid "IDS_MSG_OPT_COPY_TO_SIM_CARD_ABB"
-msgstr "SIM کارڈ میں نقل کریں"
+msgstr "کارڈ میں نقل کریں SIM"
 
 msgid "IDS_MSG_OPT_COPY_TO_DEVICE_ABB"
 msgstr "آلہ پر نقل بنائیں"
@@ -692,13 +557,13 @@ msgid "IDS_MSG_NPBODY_NO_PHRASES_BLOCKED"
 msgstr "کوئی جملے بلاک نہیں ہیں"
 
 msgid "IDS_MSG_NPBODY_NO_MESSAGES_ON_SIM_CARD"
-msgstr "SIM کارڈ پر کوئی پیغامات نہیں ہیں"
+msgstr "کارڈ پر کوئی پیغامات نہیں ہیں SIM"
 
 msgid "IDS_MSG_NPBODY_NO_MESSAGES"
 msgstr "کوئی پیغامات نہیں"
 
 msgid "IDS_MSG_NPBODY_NO_BLOCKED_NUMBERS"
-msgstr "کوئی مسدود نمبرز نہیں ہیں"
+msgstr "کوئی بلاک شدہ نمبرز نہیں ہیں"
 
 msgid "IDS_MSG_MBODY_VIBRATION"
 msgstr "تھرتھراہٹ"
@@ -709,15 +574,6 @@ msgstr "نامعلوم نمبر"
 msgid "IDS_MSG_MBODY_TEXT_MESSAGE_CENTRE_NUMBER_ABB"
 msgstr "متنی پیغام سنٹر نمبر"
 
-msgid "IDS_MSG_MBODY_SELECT_ALL"
-msgstr "سب منتخب کریں"
-
-msgid "IDS_MSG_MBODY_ALERTS"
-msgstr "انتباہات"
-
-msgid "IDS_MSG_HEADER_TRANSLATE"
-msgstr "ترجمہ کریں"
-
 msgid "IDS_MSG_HEADER_TEXT_MESSAGES_ABB"
 msgstr "متنی پیغامات"
 
@@ -725,10 +581,7 @@ msgid "IDS_MSG_HEADER_SWITCH_MOBILE_NETWORK_ABB2"
 msgstr "موبائل نیٹ ورک تبدیل کریں"
 
 msgid "IDS_MSG_HEADER_SMS_CENTRE_ABB2"
-msgstr "SMS سنٹر"
-
-msgid "IDS_MSG_HEADER_SETTINGS"
-msgstr "سیٹنگز"
+msgstr "سنٹر SMS"
 
 msgid "IDS_MSG_HEADER_SELECT_RECIPIENT"
 msgstr "وصول کنندہ منتخب"
@@ -737,10 +590,7 @@ msgid "IDS_MSG_HEADER_PD_SELECTED_ABB3"
 msgstr "%d منتخب"
 
 msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
-msgstr "SIM کارڈ پر پیغامات"
-
-msgid "IDS_MSG_HEADER_MESSAGES"
-msgstr "پیغامات"
+msgstr "کارڈ پر پیغامات SIM"
 
 msgid "IDS_MSG_HEADER_INPUT_MODE_ABB"
 msgstr "ان پٹ موڈ"
@@ -754,14 +604,8 @@ msgstr "پیغام بھیجنے سے قاصر"
 msgid "IDS_MSG_HEADER_DISCARD_MESSAGE_M_CLOSE_ABB"
 msgstr "پیغام کو مسترد کریں"
 
-msgid "IDS_MSG_HEADER_DELETE"
-msgstr "حذف کریں"
-
 msgid "IDS_MSG_HEADER_CREATE"
 msgstr "تخلیق کریں"
-
-msgid "IDS_MSG_HEADER_ATTENTION"
-msgstr "توجہ"
 
 msgid "IDS_MSG_HEADER_ADD_CONTENT_ABB"
 msgstr "مشمول شامل کریں"
@@ -775,15 +619,6 @@ msgstr "محفوظ کریں"
 msgid "IDS_MSG_BUTTON_RESEND_ABB"
 msgstr "پھر سے بھیجیں"
 
-msgid "IDS_MSG_BUTTON_REMOVE_ABB"
-msgstr "ہٹائیں"
-
-msgid "IDS_MSG_BUTTON_OK_ABB"
-msgstr "ٹھیک ہے"
-
-msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
-msgstr "ڈاؤن لوڈ"
-
 msgid "IDS_MSG_BUTTON_DISCARD_ABB"
 msgstr "مسترد کریں"
 
@@ -793,17 +628,11 @@ msgstr "حذف کریں"
 msgid "IDS_MSG_BUTTON_CANCEL_ABB2"
 msgstr "منسوخ"
 
-msgid "IDS_MSG_BUTTON_CANCEL_ABB"
-msgstr "منسوخ کریں"
-
 msgid "IDS_MSG_BUTTON2_CONTACTS_ABB_M_APPLICATION_NAME"
 msgstr "رابطے"
 
 msgid "IDS_MSG_BODY_YOU_HAVE_SELECTED_A_SOUND_N_SHOT_FILE_SOUND_DATA_IS_NOT_SUPPORTED_FOR_MMS_SO_ONLY_THE_PICTURE_WILL_BE_ATTACHED"
 msgstr "آپ نے ایک آواز اور شاٹ فائل منتخب کی ہے۔ MMS کے لئے آواز کے کوائف کی سہولت نہیں ہے اس لئے صرف تصویر منسلک کی جائے گی۔"
-
-msgid "IDS_MSG_BODY_YES"
-msgstr "ہاں"
 
 msgid "IDS_MSG_BODY_WAITING_TO_SEND_ING_M_STATUS"
 msgstr "بھیجنے کا منتظر ہے..."
@@ -823,9 +652,6 @@ msgstr "مرسلہ وقت:"
 msgid "IDS_MSG_BODY_TIME_RECEIVED_C"
 msgstr "موصول وقت:"
 
-msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
-msgstr "نشان لگانے کا خاکہ"
-
 msgid "IDS_MSG_BODY_STATUS_C"
 msgstr "کیفیت:"
 
@@ -838,9 +664,6 @@ msgstr "بھیجا جا رہا ہے..."
 msgid "IDS_MSG_BODY_SENDING_FAILED_M_STATUS"
 msgstr "ارسال ناکام ہو گیا"
 
-msgid "IDS_MSG_BODY_SEC"
-msgstr "سیکنڈ"
-
 msgid "IDS_MSG_BODY_RETRIEVE_MESSAGES_AUTOMATICALLY_WHILE_ROAMING"
 msgstr "گشت کے وقت پیغامات خود بخود بازیافت کریں۔"
 
@@ -852,9 +675,6 @@ msgstr "رپورٹ پڑھیں: %s"
 
 msgid "IDS_MSG_BODY_OTHER_PERSON"
 msgstr "دوسرا شخص"
-
-msgid "IDS_MSG_BODY_MESSAGE"
-msgstr "پیغام"
 
 msgid "IDS_MSG_BODY_MEMO_T_MAINMENU"
 msgstr "میمو"
@@ -895,14 +715,197 @@ msgstr "آپ کے پیغام بلاک فہرست میں نمبرز شامل کر
 msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
 msgstr "حذف کریں"
 
-msgid "IDS_ST_BODY_LOADING_ING"
-msgstr "لوڈنگ..."
+msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
+msgstr "میڈیا کی قسم سپورٹڈ نہیں۔"
 
-msgid "IDS_MSGS_BODY_NOTIFICATIONS"
-msgstr "اعلانات"
+msgid "IDS_MSGC_POP_LOW_BATTERY"
+msgstr "بیٹری لو۔"
 
-msgid "IDS_MSG_HEADER_ME"
+msgid "IDS_MSGC_POP_CANCELLED"
+msgstr "منسوخ ہوا۔"
+
+msgid "IDS_MSGC_OPT_EMAIL"
+msgstr "ای میل"
+
+msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
+msgstr "نظارہ"
+
+msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
+msgstr "ہٹانا"
+
+msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
+msgstr "چلائیں"
+
+msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
+msgstr "کسے"
+
+msgid "IDS_MSGC_HEADER_PREVIEW"
+msgstr "نظارہ"
+
+msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
+msgstr "مضمون درج کریں"
+
+msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
+msgstr "محل وقوع ڈھونڈنے سے قاصر۔"
+
+msgid "IDS_MSGF_POP_REJECTED"
+msgstr "مسترد ہوا۔"
+
+msgid "IDS_MSGF_POP_DELETING"
+msgstr "مٹ رہا ہے..."
+
+msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
+msgstr "کلپ بورڈ پر نقل ہوگیا۔"
+
+msgid "IDS_MSGF_POP_BLOCK_PS_Q"
+msgstr "%s بلاک کریں؟"
+
+msgid "IDS_MSGF_OPT_SUBJECT_COLON"
+msgstr "سبجکٹ:"
+
+msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
+msgstr "مرسل بذریعہ ای میل"
+
+msgid "IDS_MSGF_OPT_SELECT"
+msgstr "انتخاب"
+
+msgid "IDS_MSGF_OPT_SAVE"
+msgstr "محفوظ"
+
+msgid "IDS_MSGF_OPT_REMOVE"
+msgstr "ہٹانا"
+
+msgid "IDS_MSGF_OPT_FORWARD"
+msgstr "آگے بھیجیں"
+
+msgid "IDS_MSGF_OPT_DELETE_Q"
+msgstr "مٹانا؟"
+
+msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
+msgstr "اعلی تلاش"
+
+msgid "IDS_MSGF_BODY_UNKNOWN"
+msgstr "نامعلوم"
+
+msgid "IDS_MSGF_BODY_SETTINGS"
+msgstr "سیٹنگز"
+
+msgid "IDS_MSGF_BODY_RECIPIENTS"
+msgstr "وصول کرنے والے"
+
+msgid "IDS_MSGF_BODY_RECEIVED"
+msgstr "موصولہ۔"
+
+msgid "IDS_MSGF_BODY_OTHER"
+msgstr "مزید"
+
+msgid "IDS_MSGF_BODY_NO_SUBJECT"
+msgstr "مضمون کوئی نہیں"
+
+msgid "IDS_MSGF_BODY_MSGSIZE_KB"
+msgstr "کیلوبائٹ"
+
+msgid "IDS_MSGF_BODY_MESSAGE"
+msgstr "پیغام"
+
+msgid "IDS_MSGF_BODY_ME"
 msgstr "میں"
+
+msgid "IDS_MSGF_BODY_EXPIRED"
+msgstr "معیاد ختم"
+
+msgid "IDS_MSGF_BODY_ALL"
+msgstr "تمام"
+
+msgid "IDS_MSG_SK_NO_ABB"
+msgstr "نہیں"
+
+msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
+msgstr "آپ کے پیغام کو مسترد کر دیا جائے گا۔ کوئی وصول کنندگان منتخب نہیں کئے گئے۔"
+
+msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
+msgstr "کال کے دوران چلانے سے قاصر۔"
+
+msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
+msgstr "صرف موصولہ پیغامات"
+
+msgid "IDS_MSG_POP_DELETED"
+msgstr "مٹ گیا۔"
+
+msgid "IDS_MSG_OPT_VIDEOS"
+msgstr "ویڈیوز"
+
+msgid "IDS_MSG_OPT_TEXT"
+msgstr "ٹیکسٹ"
+
+msgid "IDS_MSG_OPT_SETTINGS"
+msgstr "سیٹنگز"
+
+msgid "IDS_MSG_OPT_SEARCH"
+msgstr "تلاش کریں"
+
+msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
+msgstr "ویڈیو ریکارڈ کریں"
+
+msgid "IDS_MSG_OPT_NONE"
+msgstr "نہیں"
+
+msgid "IDS_MSG_OPT_IMAGES"
+msgstr "تصویر"
+
+msgid "IDS_MSG_OPT_EDIT"
+msgstr "تبدیلی"
+
+msgid "IDS_MSG_OPT_DELETE"
+msgstr "مٹانا"
+
+msgid "IDS_MSG_OPT_DEFAULT"
+msgstr "ڈیفالٹ"
+
+msgid "IDS_MSG_MBODY_SELECT_ALL"
+msgstr "سب منتخب کریں"
+
+msgid "IDS_MSG_MBODY_ALERTS"
+msgstr "انتباہات"
+
+msgid "IDS_MSG_HEADER_TRANSLATE"
+msgstr "ترجمہ کریں"
+
+msgid "IDS_MSG_HEADER_SETTINGS"
+msgstr "سیٹنگز"
+
+msgid "IDS_MSG_HEADER_MESSAGES"
+msgstr "پیغامات"
+
+msgid "IDS_MSG_HEADER_DELETE"
+msgstr "حذف کریں"
+
+msgid "IDS_MSG_HEADER_ATTENTION"
+msgstr "توجہ"
+
+msgid "IDS_MSG_BUTTON_REMOVE_ABB"
+msgstr "ہٹائیں"
+
+msgid "IDS_MSG_BUTTON_OK_ABB"
+msgstr "ٹھیک ہے"
+
+msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
+msgstr "ڈاؤن لوڈ"
+
+msgid "IDS_MSG_BUTTON_CANCEL_ABB"
+msgstr "منسوخ کریں"
+
+msgid "IDS_MSG_BODY_YES"
+msgstr "ہاں"
+
+msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
+msgstr "نشان لگانے کا خاکہ"
+
+msgid "IDS_MSG_BODY_SEC"
+msgstr "سیکنڈ"
+
+msgid "IDS_MSG_BODY_MESSAGE"
+msgstr "پیغام"
 
 msgid "IDS_MSG_BUTTON_SEND_ABB5"
 msgstr "بھیجیں"
@@ -912,4 +915,31 @@ msgstr "بھیجیں"
 
 msgid "IDS_MSG_ACBUTTON_SEND_ABB3"
 msgstr "بھیجیں"
+
+msgid "IDS_ST_BODY_LOADING_ING"
+msgstr "لوڈنگ..."
+
+msgid "IDS_MSGS_BODY_NOTIFICATIONS"
+msgstr "اعلانات"
+
+msgid "IDS_MSG_HEADER_ME"
+msgstr "میں"
+
+msgid "IDS_MSG_BODY_UNKNOWN"
+msgstr "نامعلوم"
+
+msgid "IDS_MSG_TMBODY_ADD_OR_REMOVE_RECIPIENTS"
+msgstr "وصول کنندگان شامل یا ہٹائیں"
+
+msgid "IDS_MSG_POP_THE_SENDER_HAS_REQUESTED_A_READ_REPORT_TAP_SEND_TO_SEND_ONE"
+msgstr "ارسال کنندہ نے ایک پڑھی ہوئی رپورٹ کی درخواست کی ہے۔ اسے بھیجنے کے لیے [بھیجیں] پر تھپکی دیں۔"
+
+msgid "IDS_MSGF_OPT_SEND_READ_REPORT"
+msgstr "پڑھنے کی رپورٹ بھیجیں"
+
+msgid "IDS_MSG_HEADER_COMPOSE_MESSAGE_ABB"
+msgstr "پیغام کمپوز کریں"
+
+msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
+msgstr "کوئی درست وصول کنندگان شامل نہیں کیے گئے۔ یہ پیغام رد ہو جائے گا۔"
 

@@ -4,14 +4,17 @@ msgstr "บ้าน"
 msgid "IDS_MSGC_POP_DATA_ROAMING_IS_DISABLED_ENABLE_DATA_ROAMING_AND_TRY_AGAIN"
 msgstr "ปิดการโรมมิ่งข้อมูล เปิดใช้งานการโรมมิ่งข้อมูลแล้วลองอีกครั้ง"
 
-msgid "IDS_MSGF_POP_NEW_MESSAGE"
-msgstr "ข้อ​ความ​ใหม่"
-
 msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
 msgstr "ยกเลิก"
 
 msgid "IDS_MSG_ACBUTTON_DONE_ABB"
 msgstr "เรียบร้อย"
+
+msgid "IDS_MSGF_POP_NEW_MESSAGE"
+msgstr "ข้อ​ความ​ใหม่"
+
+msgid "IDS_COM_BUTTON_SHARE"
+msgstr "แชร์"
 
 msgid "IDS_COM_BODY_UNKNOWN"
 msgstr "ไม่​รู้จัก"
@@ -24,9 +27,6 @@ msgstr "ปิดใช้งานข้อมูลมือถือ เป�
 
 msgid "IDS_TPLATFORM_ACBUTTON_SEND_ABB"
 msgstr "ส่ง"
-
-msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
-msgstr "ชนิด​มี​เดีย​ไม่​รอง​รับ"
 
 msgid "IDS_MSGC_POP_UNABLE_TO_SEND_MESSAGES_WHILE_IN_FLIGHT_MODE_DISABLE_FLIGHT_MODE_AND_TRY_AGAIN"
 msgstr "ไม่สามารถส่งข้อความ ขณะอยู่ในโหมดการบิน ปิดใช้งานโหมดการบิน และลองอีกครั้ง"
@@ -55,9 +55,6 @@ msgstr "วางกำหนดการข้อความไว้เพื
 msgid "IDS_MSGC_POP_MAXIMUM_MESSAGE_SIZE_REACHED"
 msgstr "ถึง​ขนาด​ข้อ​ความ​สูง​สุด"
 
-msgid "IDS_MSGC_POP_LOW_BATTERY"
-msgstr "แบตเตอรี่​ต่ำ"
-
 msgid "IDS_MSGC_POP_DURATION_MUST_BE_AT_LEAST_PD_SECONDS"
 msgstr "ระยะ​เวลา​ต้องอย่าง​น้อย %d ​วินาที"
 
@@ -66,9 +63,6 @@ msgstr "ปิด​ใช้​งาน​โหมด​การ​บิน
 
 msgid "IDS_MSGC_POP_COPIED_TO_SIM_CARD"
 msgstr "คัด​ลอก​ไป​ยัง SIM ​การ์ด"
-
-msgid "IDS_MSGC_POP_CANCELLED"
-msgstr "ยกเลิกแล้ว"
 
 msgid "IDS_MSGC_OPT_USE_OTHER_CONTACT_INFO_ABB"
 msgstr "ใช้ข้อมูลรายชื่ออื่น"
@@ -79,32 +73,14 @@ msgstr "ส่ง​ผ่าน"
 msgid "IDS_MSGC_OPT_IMAGE"
 msgstr "รูป​ภาพ"
 
-msgid "IDS_MSGC_OPT_EMAIL"
-msgstr "อีเมล"
-
 msgid "IDS_MSGC_OPT_EDIT_ITEM_REPLACE"
 msgstr "แทน​ที่"
-
-msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
-msgstr "แสดง"
-
-msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
-msgstr "ลบ"
-
-msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
-msgstr "แสดง"
-
-msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
-msgstr "ถึง"
 
 msgid "IDS_MSGC_OPT_CANCEL_MESSAGE"
 msgstr "ยกเลิกข้อความ"
 
 msgid "IDS_MSGC_HEADER_RECIPIENT_LIST"
 msgstr "รายการ​ผู้​รับ"
-
-msgid "IDS_MSGC_HEADER_PREVIEW"
-msgstr "ตัวอย่าง"
 
 msgid "IDS_MSGC_HEADER_DURATION_FOR_SLIDE_PD_PD"
 msgstr "ช่วง​เวลา​ของ​สไลด์ %d/%d"
@@ -127,9 +103,6 @@ msgstr "ไม่​ได้​ขอ"
 msgid "IDS_MSGC_BODY_MAXIMUM_NUMBER_OF_RECIPIENTS_HPD_REACHED"
 msgstr "ถึง​จำนวน​ผู้​รับ​สูง​สุด (%d) ​แล้ว"
 
-msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
-msgstr "ใส่​เรื่อง​ใหม่"
-
 msgid "IDS_MSGC_BODY_DUPLICATED_RECIPIENT"
 msgstr "ผู้​รับ​ซ้ำ"
 
@@ -138,9 +111,6 @@ msgstr "ส่ง​ต่อ"
 
 msgid "IDS_MSGF_POP_UNABLE_TO_SAVE"
 msgstr "ไม่​สามารถ​บันทึก​ได้"
-
-msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
-msgstr "ไม่​สามารถ​ค้น​หา​ตำแหน่ง"
 
 msgid "IDS_MSGF_POP_UNABLE_TO_DELETE"
 msgstr "ลบ​ไม่​ได้"
@@ -168,9 +138,6 @@ msgstr "ชนิด​คอน​เทนท์​ที่​จำกัด
 
 msgid "IDS_MSGF_POP_RESTORING_ING"
 msgstr "กำลัง​เรียก​คืน..."
-
-msgid "IDS_MSGF_POP_REJECTED"
-msgstr "ปฏิเสธ"
 
 msgid "IDS_MSGF_POP_READ_REPORT"
 msgstr "รายงาน​การ​อ่าน"
@@ -214,20 +181,11 @@ msgstr "ข้อ​ความ​นี้​รวม​ไฟล์​แน
 msgid "IDS_MSGF_POP_FILE_NAME_ALREADY_EXISTS"
 msgstr "มี​ชื่อ​ไฟล์​อยู่​แล้ว"
 
-msgid "IDS_MSGF_POP_DELETING"
-msgstr "ลบ..."
-
-msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
-msgstr "คัด​ลอก​ลง​คลิ​ป​บอร์ด"
-
 msgid "IDS_MSGF_POP_CONVERTING_TO_TEXT_MESSAGE_ING"
 msgstr "กำลัง​แปลง​ข้อ​ความ​ปกติ..."
 
 msgid "IDS_MSGF_POP_CONVERTING_TO_MULTIMEDIA_MESSAGE_ING"
 msgstr "กำลังแปลงข้อความ MMS…"
-
-msgid "IDS_MSGF_POP_BLOCK_PS_Q"
-msgstr "บล็อก %s?"
 
 msgid "IDS_MSGF_POP_ABOUT_TO_GO_ONLINE_CONTINUE_Q"
 msgstr "คุณ​กำลัง​จะ​ออ​น​ไลน์(%s) ​ทำ​ต่อ?"
@@ -235,38 +193,17 @@ msgstr "คุณ​กำลัง​จะ​ออ​น​ไลน์(%s) �
 msgid "IDS_MSGF_OPT_TEXT_MESSAGE"
 msgstr "ข้อ​ความ​ปกติ"
 
-msgid "IDS_MSGF_OPT_SUBJECT_COLON"
-msgstr "เรื่อง:"
-
-msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
-msgstr "ผู้​ส่ง​ผ่าน​อี​เมล"
-
 msgid "IDS_MSGF_OPT_SENDER_ABB"
 msgstr "ผู้​ส่ง"
-
-msgid "IDS_MSGF_OPT_SELECT"
-msgstr "เลือก"
 
 msgid "IDS_MSGF_OPT_SAVE_ATTACHMENT"
 msgstr "บันทึก​ไฟล์​แนบ"
 
-msgid "IDS_MSGF_OPT_SAVE"
-msgstr "บันทึก"
-
-msgid "IDS_MSGF_OPT_REMOVE"
-msgstr "ลบ"
-
 msgid "IDS_MSGF_OPT_INSTALL"
 msgstr "ติด​ตั้ง"
 
-msgid "IDS_MSGF_OPT_FORWARD"
-msgstr "ส่ง​ต่อ"
-
 msgid "IDS_MSGF_OPT_EDIT_MESSAGE"
 msgstr "แก้ไข​ข้อ​ความ"
-
-msgid "IDS_MSGF_OPT_DELETE_Q"
-msgstr "ลบ?"
 
 msgid "IDS_MSGF_OPT_DELETE_MESSAGES"
 msgstr "ลบ​ข้อ​ความ"
@@ -283,14 +220,8 @@ msgstr "รายละเอียดข้อความ"
 msgid "IDS_MSGF_HEADER_EXPIRES_C_PS"
 msgstr "​​​หมด​อายุ: ​​​%s"
 
-msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
-msgstr "การค้นหาขั้นสูง"
-
 msgid "IDS_MSGF_BUTTON_SAVE_ALL_ATTACHMENTS_ABB"
 msgstr "บันทึกเอกสารแนบทั้งหมด"
-
-msgid "IDS_MSGF_BODY_UNKNOWN"
-msgstr "ไม่​รู้จัก"
 
 msgid "IDS_MSGF_BODY_TO_C"
 msgstr "ถึง:"
@@ -301,23 +232,14 @@ msgstr "ข้อ​ความ"
 msgid "IDS_MSGF_BODY_SIM_MEMORY_FULL_DELETE_SOME_ITEMS"
 msgstr "ความ​จำ SIM ​เต็ม ลบ​บาง​รายการ"
 
-msgid "IDS_MSGF_BODY_SETTINGS"
-msgstr "การตั้งค่า"
-
 msgid "IDS_MSGF_BODY_SENT_M_DATE_C"
 msgstr "ส่ง​แล้ว:"
 
 msgid "IDS_MSGF_BODY_REQUESTED"
 msgstr "ขอ​แล้ว"
 
-msgid "IDS_MSGF_BODY_RECIPIENTS"
-msgstr "ผู้​รับ"
-
 msgid "IDS_MSGF_BODY_RECEIVED_M_DATE_C"
 msgstr "ได้​รับ:"
-
-msgid "IDS_MSGF_BODY_RECEIVED"
-msgstr "ได้​รับ​แล้ว"
 
 msgid "IDS_MSGF_BODY_READ_REPORT"
 msgstr "รายงาน​การ​อ่าน"
@@ -331,12 +253,6 @@ msgstr "%d ​ข้อ​ความ"
 msgid "IDS_MSGF_BODY_PD_CONVERSATIONS"
 msgstr "%d ​การส​นท​นา"
 
-msgid "IDS_MSGF_BODY_OTHER"
-msgstr "อื่นๆ"
-
-msgid "IDS_MSGF_BODY_NO_SUBJECT"
-msgstr "ไม่​มี​ชื่อ​เรื่อง"
-
 msgid "IDS_MSGF_BODY_NO_NAME"
 msgstr "ไม่​มี​ชื่อ"
 
@@ -345,9 +261,6 @@ msgstr "การ​แจ้ง​เตือน​ข้อ​ความ​
 
 msgid "IDS_MSGF_BODY_MULTIMEDIA_MESSAGE"
 msgstr "ข้อ​ความ​มัลติ​มี​เดีย"
-
-msgid "IDS_MSGF_BODY_MSGSIZE_KB"
-msgstr "KB"
 
 msgid "IDS_MSGF_BODY_MMSREADREPLYMSGREAD"
 msgstr "อ่าน"
@@ -367,12 +280,6 @@ msgstr "ทางเลือกข้อความ"
 msgid "IDS_MSGF_BODY_MESSAGE_DELIVERED"
 msgstr "ข้อ​ความ​ถูก​นำ​ส่ง​แล้ว"
 
-msgid "IDS_MSGF_BODY_MESSAGE"
-msgstr "ข้อ​ความ"
-
-msgid "IDS_MSGF_BODY_ME"
-msgstr "ฉัน"
-
 msgid "IDS_MSGF_BODY_MAXIMUM_NUMBER_OF_ATTACHMENTS_HP1SS_EXCEEDED_ONLY_FIRST_P2SS_WILL_BE_ADDED"
 msgstr "เกิน​จำนวน​ไฟล์​แนบ​สูง​สุด (%1$s) ​เฉพาะ %2$s ​แรก​เท่า​นั้น​ที่​จะ​ถูก​เพิ่ม"
 
@@ -384,9 +291,6 @@ msgstr "จาก"
 
 msgid "IDS_MSGF_BODY_FLFROM"
 msgstr "จาก:"
-
-msgid "IDS_MSGF_BODY_EXPIRED"
-msgstr "หมด​อายุ"
 
 msgid "IDS_MSGF_BODY_DETAILSSENDINGFAILED"
 msgstr "การ​ส่ง​ผิด​พลาด"
@@ -402,9 +306,6 @@ msgstr "คัด​ลอก​ข้อ​ความ"
 
 msgid "IDS_MSGF_BODY_CB_MESSAGES"
 msgstr "ข้อ​ความ CB"
-
-msgid "IDS_MSGF_BODY_ALL"
-msgstr "ทั้ง​หมด"
 
 msgid "IDS_MSGF_BODY_1_MESSAGE"
 msgstr "1 message"
@@ -433,6 +334,9 @@ msgstr "เรียกข้อความ MMS อัตโนมัติ"
 msgid "IDS_MSG_TPOP_UNABLE_TO_PREVIEW_FILE_UNSUPPORTED_FILE_TYPE"
 msgstr "ไม่สามารถดูตัวอย่างไฟล์ได้ ไม่​รอง​รับ​ชนิด​ไฟล์"
 
+msgid "IDS_MSG_TPOP_UNABLE_TO_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "ไม่สามารถแนบไฟล์ได้ ไม่รองรับรูปแบบไฟล์นี้"
+
 msgid "IDS_MSG_TPOP_UNABLE_TO_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
 msgstr "ไม่สามารถเพิ่มผู้รับบางรายได้ หมายเลขไม่ถูกต้อง"
 
@@ -448,6 +352,9 @@ msgstr "ไม่สามารถเพิ่มไฟล์แนบ ถึ�
 msgid "IDS_MSG_TPOP_THIS_NUMBER_IS_NOT_VALID"
 msgstr "หมายเลขนี้ไม่ถูกต้อง"
 
+msgid "IDS_MSG_TPOP_SOME_RECIPIENTS_ALREADY_ADDED"
+msgstr "เพิ่มผู้รับบางคนแล้ว"
+
 msgid "IDS_MSG_TPOP_SELECTED_MESSAGES_COPIED_TO_MOBILE_DEVICE"
 msgstr "คัดลอกข้อความที่เลือกไปยังอุปกรณ์มือถือ"
 
@@ -459,6 +366,9 @@ msgstr "ลบหมายเลขออกจาก รายการบล�
 
 msgid "IDS_MSG_TPOP_NUMBER_ADDED_TO_MESSAGE_BLOCK_LIST"
 msgstr "เพิ่มหมายเลขไปยัง รายการบล็อคข้อความแล้ว"
+
+msgid "IDS_MSG_TPOP_NETWORK_NOT_AVAILABLE_MESSAGE_WILL_BE_SENT_WHEN_CONNECTED_TO_NETWORK"
+msgstr "เครือข่ายไม่พร้อมใช้งาน ข้อความจะถูกส่ง เมื่อเชื่อมต่อกับเครือข่าย"
 
 msgid "IDS_MSG_TPOP_MESSAGE_COPIED_TO_PS_SIM_CARD"
 msgstr "คัดลอกข้อความไปยัง %s SIM การ์ดแล้ว"
@@ -502,9 +412,6 @@ msgstr "เรียกอัตโนมัติ"
 msgid "IDS_MSG_SK_SEND_NOW"
 msgstr "ส่ง​ตอน​นี้"
 
-msgid "IDS_MSG_SK_NO_ABB"
-msgstr "ไม่"
-
 msgid "IDS_MSG_SBODY_SELECT_AN_INPUT_MODE_FOR_COMPOSING_MESSAGES"
 msgstr "เลือกโหมดการเขียนสำหรับการเขียนข้อความ"
 
@@ -514,14 +421,8 @@ msgstr "ไม่มี"
 msgid "IDS_MSG_SBODY_MANAGE_THE_MESSAGES_STORED_ON_YOUR_SIM_CARD"
 msgstr "จัดการข้อความที่เก็บอยู่ใน SIM การ์ด"
 
-msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
-msgstr "ข้อความของคุณจะถูกละทิ้ง ไม่ได้เลือกผู้​รับใด"
-
 msgid "IDS_MSG_POP_UNABLE_TO_SEND_SCHEDULED_MESSAGE_SET_ANOTHER_TIME"
 msgstr "ไม่​สามารถ​ส่ง​ข้อ​ความ​ที่​วาง​กำหนด​การ​ไว้ ตั้ง​ค่า​เวลา​อื่น"
-
-msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
-msgstr "เล่น​ไม่​ได้ ขณะ​โทร"
 
 msgid "IDS_MSG_POP_UNABLE_TO_ATTACH_FILE_FILE_SIZE_TOO_LARGE_TRY_SENDING_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
 msgstr "แนบไฟล์ไม่ได้ ขนาดไฟล์ใหญ่เกินไป ลองส่งผ่านอีเมล, Bluetooth, Wi-Fi และอื่นๆ"
@@ -544,17 +445,11 @@ msgstr "%d การสนทนาจะถูกลบ"
 msgid "IDS_MSG_POP_NO_TEMPLATES_IN_LIST"
 msgstr "ไม่​มี​ข้อ​ความ​ที่​ตั้ง​ไว้​ใน​รายการ"
 
-msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
-msgstr "ข้อความเข้าเท่านั้น"
-
 msgid "IDS_MSG_POP_INCLUDE_ORIGINAL_TEXT_IN_OUTGOING_MESSAGE"
 msgstr "รวมข้อความต้นฉบับในข้อความส่งออกด้วย"
 
 msgid "IDS_MSG_POP_DURATION_MUST_BE_SHORTER_THAN_PD_SECONDS"
 msgstr "ระยะเวลาต้องสั้นกว่า %d วินาที"
-
-msgid "IDS_MSG_POP_DELETED"
-msgstr "ลบ​แล้ว"
 
 msgid "IDS_MSG_POP_1_MESSAGE_WILL_BE_DELETED"
 msgstr "ข้อความจะถูกลบ 1 ข้อความ"
@@ -571,26 +466,14 @@ msgstr "ดูรายละเอียดรายชื่อ"
 msgid "IDS_MSG_OPT_VIEW_AS_SLIDESHOW_ABB"
 msgstr "แสดงเป็นสไลด์โชว์"
 
-msgid "IDS_MSG_OPT_VIDEOS"
-msgstr "วี​ดี​โอ"
-
 msgid "IDS_MSG_OPT_UPDATE_CONTACT"
 msgstr "อัพเดทรายชื่อ"
 
 msgid "IDS_MSG_OPT_UNICODE"
 msgstr "ยู​นิ​โค้ด"
 
-msgid "IDS_MSG_OPT_TEXT"
-msgstr "ตัว​อักษร"
-
 msgid "IDS_MSG_OPT_TAKE_PICTURE_ABB"
 msgstr "ถ่ายภาพ"
-
-msgid "IDS_MSG_OPT_SETTINGS"
-msgstr "การตั้งค่า"
-
-msgid "IDS_MSG_OPT_SEARCH"
-msgstr "ค้นหา"
 
 msgid "IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"
 msgstr "บันทึกเอกสารแนบ"
@@ -604,23 +487,14 @@ msgstr "ตอบ"
 msgid "IDS_MSG_OPT_REMOVE_FROM_BLOCK_LIST_ABB"
 msgstr "ลบจากรายการบล็อค"
 
-msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
-msgstr "บันทึก​วี​ดี​โอ"
-
 msgid "IDS_MSG_OPT_RECORD_AUDIO_FILE_ABB"
 msgstr "บันทึกไฟล์เสียง"
 
 msgid "IDS_MSG_OPT_QUICK_RESPONSE_ABB"
 msgstr "การ​ตอบกลับ​ด่วน"
 
-msgid "IDS_MSG_OPT_NONE"
-msgstr "ไม่​มี"
-
 msgid "IDS_MSG_OPT_MAKE_VOICE_CALL"
 msgstr "โทรปกติ"
-
-msgid "IDS_MSG_OPT_IMAGES"
-msgstr "รูป​ภาพ"
 
 msgid "IDS_MSG_OPT_GSM_ALPHABET_ABB"
 msgstr "ชุดตัวอักษร GSM"
@@ -628,20 +502,11 @@ msgstr "ชุดตัวอักษร GSM"
 msgid "IDS_MSG_OPT_EXPORT_TO_DEVICE_MEMORY"
 msgstr "นำ​ออก​ไป​ยัง​หน่วย​ความ​จำ​อุปกรณ์"
 
-msgid "IDS_MSG_OPT_EDIT"
-msgstr "แก้ไข"
-
 msgid "IDS_MSG_OPT_DELETE_MESSAGE"
 msgstr "ลบข้อความ"
 
 msgid "IDS_MSG_OPT_DELETE_CONVERSATION_ABB"
 msgstr "ลบการสนทนา"
-
-msgid "IDS_MSG_OPT_DELETE"
-msgstr "ลบ"
-
-msgid "IDS_MSG_OPT_DEFAULT"
-msgstr "พื้นฐาน"
 
 msgid "IDS_MSG_OPT_CREATE_CONTACT_ABB"
 msgstr "สร้างรายชื่อ"
@@ -709,15 +574,6 @@ msgstr "หมาย​เลข​ที่​ไม่​รู้จัก"
 msgid "IDS_MSG_MBODY_TEXT_MESSAGE_CENTRE_NUMBER_ABB"
 msgstr "หมายเลขศูนย์ข้อความ"
 
-msgid "IDS_MSG_MBODY_SELECT_ALL"
-msgstr "เลือกทั้งหมด"
-
-msgid "IDS_MSG_MBODY_ALERTS"
-msgstr "การเตือน"
-
-msgid "IDS_MSG_HEADER_TRANSLATE"
-msgstr "แปล"
-
 msgid "IDS_MSG_HEADER_TEXT_MESSAGES_ABB"
 msgstr "ข้อความปกติ"
 
@@ -727,9 +583,6 @@ msgstr "สลับเครือข่ายมือถือ"
 msgid "IDS_MSG_HEADER_SMS_CENTRE_ABB2"
 msgstr "ศูนย์ SMS"
 
-msgid "IDS_MSG_HEADER_SETTINGS"
-msgstr "การตั้งค่า"
-
 msgid "IDS_MSG_HEADER_SELECT_RECIPIENT"
 msgstr "เลือก​ผู้​รับ"
 
@@ -738,9 +591,6 @@ msgstr "%d ถูกเลือกแล้ว"
 
 msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
 msgstr "ข้อความใน SIM การ์ด"
-
-msgid "IDS_MSG_HEADER_MESSAGES"
-msgstr "ข้อความ"
 
 msgid "IDS_MSG_HEADER_INPUT_MODE_ABB"
 msgstr "โหมด​การเขียน"
@@ -754,14 +604,8 @@ msgstr "การส่งข้อความล้มเหลว"
 msgid "IDS_MSG_HEADER_DISCARD_MESSAGE_M_CLOSE_ABB"
 msgstr "ละทิ้ง​ข้อ​ความ"
 
-msgid "IDS_MSG_HEADER_DELETE"
-msgstr "ลบ"
-
 msgid "IDS_MSG_HEADER_CREATE"
 msgstr "สร้าง"
-
-msgid "IDS_MSG_HEADER_ATTENTION"
-msgstr "โปรดทราบ"
 
 msgid "IDS_MSG_HEADER_ADD_CONTENT_ABB"
 msgstr "เพิ่มคอนเทนท์"
@@ -775,15 +619,6 @@ msgstr "บันทึก"
 msgid "IDS_MSG_BUTTON_RESEND_ABB"
 msgstr "ส่งใหม่"
 
-msgid "IDS_MSG_BUTTON_REMOVE_ABB"
-msgstr "ลบ"
-
-msgid "IDS_MSG_BUTTON_OK_ABB"
-msgstr "ตกลง"
-
-msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
-msgstr "ดาวน์โหลด"
-
 msgid "IDS_MSG_BUTTON_DISCARD_ABB"
 msgstr "ละทิ้ง"
 
@@ -793,17 +628,11 @@ msgstr "ลบ"
 msgid "IDS_MSG_BUTTON_CANCEL_ABB2"
 msgstr "ยกเลิก"
 
-msgid "IDS_MSG_BUTTON_CANCEL_ABB"
-msgstr "ยกเลิก"
-
 msgid "IDS_MSG_BUTTON2_CONTACTS_ABB_M_APPLICATION_NAME"
 msgstr "รายชื่อ"
 
 msgid "IDS_MSG_BODY_YOU_HAVE_SELECTED_A_SOUND_N_SHOT_FILE_SOUND_DATA_IS_NOT_SUPPORTED_FOR_MMS_SO_ONLY_THE_PICTURE_WILL_BE_ATTACHED"
 msgstr "คุณได้เลือกไฟล์ เสียงและช็อต MMS ไม่รองรับข้อมูลเสียง ดังนั้นจะมีเพียงภาพที่ถูกแนบไป"
-
-msgid "IDS_MSG_BODY_YES"
-msgstr "ใช่"
 
 msgid "IDS_MSG_BODY_WAITING_TO_SEND_ING_M_STATUS"
 msgstr "กำลังรอส่ง..."
@@ -823,9 +652,6 @@ msgstr "เวลาที่ส่ง:"
 msgid "IDS_MSG_BODY_TIME_RECEIVED_C"
 msgstr "เวลาที่รับ:"
 
-msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
-msgstr "กล่องทำเครื่องหมาย"
-
 msgid "IDS_MSG_BODY_STATUS_C"
 msgstr "สถานะ:"
 
@@ -838,9 +664,6 @@ msgstr "กำลังส่ง..."
 msgid "IDS_MSG_BODY_SENDING_FAILED_M_STATUS"
 msgstr "การส่งผิดพลาด"
 
-msgid "IDS_MSG_BODY_SEC"
-msgstr "วินาที"
-
 msgid "IDS_MSG_BODY_RETRIEVE_MESSAGES_AUTOMATICALLY_WHILE_ROAMING"
 msgstr "เรียกข้อความอัตโนมัติขณะโรมมิ่ง"
 
@@ -852,9 +675,6 @@ msgstr "รายงานการอ่าน: %s"
 
 msgid "IDS_MSG_BODY_OTHER_PERSON"
 msgstr "บุคคลอื่น"
-
-msgid "IDS_MSG_BODY_MESSAGE"
-msgstr "ข้อ​ความ"
 
 msgid "IDS_MSG_BODY_MEMO_T_MAINMENU"
 msgstr "สมุด​บันทึก"
@@ -890,19 +710,202 @@ msgid "IDS_MSG_BODY_AFTER_YOU_ADD_PHRASES_THEY_WILL_BE_SHOWN_HERE"
 msgstr "หลังจากคุณเพิ่มวลีแล้ว วลีจะปรากฏที่นี่"
 
 msgid "IDS_MSG_BODY_AFTER_YOU_ADD_NUMBERS_TO_THE_MESSAGE_BLOCK_LIST_THEY_WILL_BE_SHOWN_HERE"
-msgstr "หลังจากเพิ่มหมายเลขไปยังรายการห้ามใช้ข้อความแล้ว หมายเลขจะปรากฏที่นี่"
+msgstr "หลังจากเพิ่มหมายเลขไปยังรายการบล็อคข้อความแล้ว หมายเลขจะปรากฏที่นี่"
 
 msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
 msgstr "ลบ"
 
-msgid "IDS_ST_BODY_LOADING_ING"
-msgstr "โหลด..."
+msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
+msgstr "ชนิด​มี​เดีย​ไม่​รอง​รับ"
 
-msgid "IDS_MSGS_BODY_NOTIFICATIONS"
-msgstr "การแจ้งเตือน"
+msgid "IDS_MSGC_POP_LOW_BATTERY"
+msgstr "แบตเตอรี่​ต่ำ"
 
-msgid "IDS_MSG_HEADER_ME"
+msgid "IDS_MSGC_POP_CANCELLED"
+msgstr "ยกเลิกแล้ว"
+
+msgid "IDS_MSGC_OPT_EMAIL"
+msgstr "อีเมล"
+
+msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
+msgstr "แสดง"
+
+msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
+msgstr "ลบ"
+
+msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
+msgstr "แสดง"
+
+msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
+msgstr "ถึง"
+
+msgid "IDS_MSGC_HEADER_PREVIEW"
+msgstr "ตัวอย่าง"
+
+msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
+msgstr "ใส่​เรื่อง​ใหม่"
+
+msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
+msgstr "ไม่​สามารถ​ค้น​หา​ตำแหน่ง"
+
+msgid "IDS_MSGF_POP_REJECTED"
+msgstr "ปฏิเสธ"
+
+msgid "IDS_MSGF_POP_DELETING"
+msgstr "ลบ..."
+
+msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
+msgstr "คัด​ลอก​ลง​คลิ​ป​บอร์ด"
+
+msgid "IDS_MSGF_POP_BLOCK_PS_Q"
+msgstr "บล็อค %s?"
+
+msgid "IDS_MSGF_OPT_SUBJECT_COLON"
+msgstr "เรื่อง:"
+
+msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
+msgstr "ผู้​ส่ง​ผ่าน​อี​เมล"
+
+msgid "IDS_MSGF_OPT_SELECT"
+msgstr "เลือก"
+
+msgid "IDS_MSGF_OPT_SAVE"
+msgstr "บันทึก"
+
+msgid "IDS_MSGF_OPT_REMOVE"
+msgstr "ลบ"
+
+msgid "IDS_MSGF_OPT_FORWARD"
+msgstr "ส่ง​ต่อ"
+
+msgid "IDS_MSGF_OPT_DELETE_Q"
+msgstr "ลบ?"
+
+msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
+msgstr "การค้นหาขั้นสูง"
+
+msgid "IDS_MSGF_BODY_UNKNOWN"
+msgstr "ไม่​รู้จัก"
+
+msgid "IDS_MSGF_BODY_SETTINGS"
+msgstr "การตั้งค่า"
+
+msgid "IDS_MSGF_BODY_RECIPIENTS"
+msgstr "ผู้​รับ"
+
+msgid "IDS_MSGF_BODY_RECEIVED"
+msgstr "ได้​รับ​แล้ว"
+
+msgid "IDS_MSGF_BODY_OTHER"
+msgstr "อื่นๆ"
+
+msgid "IDS_MSGF_BODY_NO_SUBJECT"
+msgstr "ไม่​มี​ชื่อ​เรื่อง"
+
+msgid "IDS_MSGF_BODY_MSGSIZE_KB"
+msgstr "KB"
+
+msgid "IDS_MSGF_BODY_MESSAGE"
+msgstr "ข้อ​ความ"
+
+msgid "IDS_MSGF_BODY_ME"
 msgstr "ฉัน"
+
+msgid "IDS_MSGF_BODY_EXPIRED"
+msgstr "หมด​อายุ"
+
+msgid "IDS_MSGF_BODY_ALL"
+msgstr "ทั้ง​หมด"
+
+msgid "IDS_MSG_SK_NO_ABB"
+msgstr "ไม่"
+
+msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
+msgstr "ข้อความของคุณจะถูกละทิ้ง ไม่ได้เลือกผู้​รับใด"
+
+msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
+msgstr "เล่น​ไม่​ได้ ขณะ​โทร"
+
+msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
+msgstr "ข้อความเข้าเท่านั้น"
+
+msgid "IDS_MSG_POP_DELETED"
+msgstr "ลบ​แล้ว"
+
+msgid "IDS_MSG_OPT_VIDEOS"
+msgstr "วี​ดี​โอ"
+
+msgid "IDS_MSG_OPT_TEXT"
+msgstr "ตัว​อักษร"
+
+msgid "IDS_MSG_OPT_SETTINGS"
+msgstr "การตั้งค่า"
+
+msgid "IDS_MSG_OPT_SEARCH"
+msgstr "ค้นหา"
+
+msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
+msgstr "บันทึก​วี​ดี​โอ"
+
+msgid "IDS_MSG_OPT_NONE"
+msgstr "ไม่​มี"
+
+msgid "IDS_MSG_OPT_IMAGES"
+msgstr "รูป​ภาพ"
+
+msgid "IDS_MSG_OPT_EDIT"
+msgstr "แก้ไข"
+
+msgid "IDS_MSG_OPT_DELETE"
+msgstr "ลบ"
+
+msgid "IDS_MSG_OPT_DEFAULT"
+msgstr "พื้นฐาน"
+
+msgid "IDS_MSG_MBODY_SELECT_ALL"
+msgstr "เลือกทั้งหมด"
+
+msgid "IDS_MSG_MBODY_ALERTS"
+msgstr "การเตือน"
+
+msgid "IDS_MSG_HEADER_TRANSLATE"
+msgstr "แปล"
+
+msgid "IDS_MSG_HEADER_SETTINGS"
+msgstr "การตั้งค่า"
+
+msgid "IDS_MSG_HEADER_MESSAGES"
+msgstr "ข้อความ"
+
+msgid "IDS_MSG_HEADER_DELETE"
+msgstr "ลบ"
+
+msgid "IDS_MSG_HEADER_ATTENTION"
+msgstr "โปรดทราบ"
+
+msgid "IDS_MSG_BUTTON_REMOVE_ABB"
+msgstr "ลบ"
+
+msgid "IDS_MSG_BUTTON_OK_ABB"
+msgstr "ตกลง"
+
+msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
+msgstr "ดาวน์โหลด"
+
+msgid "IDS_MSG_BUTTON_CANCEL_ABB"
+msgstr "ยกเลิก"
+
+msgid "IDS_MSG_BODY_YES"
+msgstr "ใช่"
+
+msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
+msgstr "กล่องทำเครื่องหมาย"
+
+msgid "IDS_MSG_BODY_SEC"
+msgstr "วินาที"
+
+msgid "IDS_MSG_BODY_MESSAGE"
+msgstr "ข้อ​ความ"
 
 msgid "IDS_MSG_BUTTON_SEND_ABB5"
 msgstr "ส่ง"
@@ -912,4 +915,31 @@ msgstr "ส่ง"
 
 msgid "IDS_MSG_ACBUTTON_SEND_ABB3"
 msgstr "ส่ง"
+
+msgid "IDS_ST_BODY_LOADING_ING"
+msgstr "กำลังประมวลผล..."
+
+msgid "IDS_MSGS_BODY_NOTIFICATIONS"
+msgstr "การแจ้งเตือน"
+
+msgid "IDS_MSG_HEADER_ME"
+msgstr "ฉัน"
+
+msgid "IDS_MSG_BODY_UNKNOWN"
+msgstr "ไม่​รู้จัก"
+
+msgid "IDS_MSG_TMBODY_ADD_OR_REMOVE_RECIPIENTS"
+msgstr "เพิ่มหรือลบผู้เข้าร่วม"
+
+msgid "IDS_MSG_POP_THE_SENDER_HAS_REQUESTED_A_READ_REPORT_TAP_SEND_TO_SEND_ONE"
+msgstr "ผู้ส่งขอรายงานการอ่าน สัมผัส “ส่ง” เพื่อส่งรายงาน"
+
+msgid "IDS_MSGF_OPT_SEND_READ_REPORT"
+msgstr "ส่ง​รายงาน​การ​อ่าน"
+
+msgid "IDS_MSG_HEADER_COMPOSE_MESSAGE_ABB"
+msgstr "เขียนข้อความ"
+
+msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
+msgstr "ไม่มีการเพิ่มผู้รับที่ถูกต้อง ข้อ​ความ​นี้จะถูก​ละทิ้ง"
 

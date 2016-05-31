@@ -4,14 +4,17 @@ msgstr "Privé"
 msgid "IDS_MSGC_POP_DATA_ROAMING_IS_DISABLED_ENABLE_DATA_ROAMING_AND_TRY_AGAIN"
 msgstr "Gegevensroaming is uitgeschakeld. Schakel gegevensroaming in en probeer het opnieuw."
 
-msgid "IDS_MSGF_POP_NEW_MESSAGE"
-msgstr "Nieuw bericht"
-
 msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
 msgstr "ANNULEREN"
 
 msgid "IDS_MSG_ACBUTTON_DONE_ABB"
 msgstr "GEREED"
+
+msgid "IDS_MSGF_POP_NEW_MESSAGE"
+msgstr "Nieuw bericht"
+
+msgid "IDS_COM_BUTTON_SHARE"
+msgstr "Delen"
 
 msgid "IDS_COM_BODY_UNKNOWN"
 msgstr "Onbekend"
@@ -24,9 +27,6 @@ msgstr "Mobiele gegevens is uitgeschakeld. Schakel mobiele gegevens in en probee
 
 msgid "IDS_TPLATFORM_ACBUTTON_SEND_ABB"
 msgstr "VERZENDEN"
-
-msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
-msgstr "Niet-ondersteund mediatype."
 
 msgid "IDS_MSGC_POP_UNABLE_TO_SEND_MESSAGES_WHILE_IN_FLIGHT_MODE_DISABLE_FLIGHT_MODE_AND_TRY_AGAIN"
 msgstr "Kan geen berichten verzenden als de vliegtuigstand is ingeschakeld. Schakel de vliegtuigstand uit en probeer het opnieuw."
@@ -55,9 +55,6 @@ msgstr "Bericht gepland om te verzenden aan %s. Nu verzenden?"
 msgid "IDS_MSGC_POP_MAXIMUM_MESSAGE_SIZE_REACHED"
 msgstr "Maximale grootte bericht bereikt."
 
-msgid "IDS_MSGC_POP_LOW_BATTERY"
-msgstr "Batterij bijna leeg."
-
 msgid "IDS_MSGC_POP_DURATION_MUST_BE_AT_LEAST_PD_SECONDS"
 msgstr "Duur moet ten minste %d seconden zijn."
 
@@ -66,9 +63,6 @@ msgstr "Vliegtuigstand uitschakelen..."
 
 msgid "IDS_MSGC_POP_COPIED_TO_SIM_CARD"
 msgstr "Gekopieerd naar SIM-kaart."
-
-msgid "IDS_MSGC_POP_CANCELLED"
-msgstr "Geannuleerd."
 
 msgid "IDS_MSGC_OPT_USE_OTHER_CONTACT_INFO_ABB"
 msgstr "Andere contactgegevens"
@@ -79,32 +73,14 @@ msgstr "Verzenden via"
 msgid "IDS_MSGC_OPT_IMAGE"
 msgstr "Afbeelding"
 
-msgid "IDS_MSGC_OPT_EMAIL"
-msgstr "E-mail"
-
 msgid "IDS_MSGC_OPT_EDIT_ITEM_REPLACE"
 msgstr "Vervangen"
-
-msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
-msgstr "Tonen"
-
-msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
-msgstr "Verwijderen"
-
-msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
-msgstr "Afspelen"
-
-msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
-msgstr "Aan"
 
 msgid "IDS_MSGC_OPT_CANCEL_MESSAGE"
 msgstr "Bericht annuleren"
 
 msgid "IDS_MSGC_HEADER_RECIPIENT_LIST"
 msgstr "Lijst met ontvangers"
-
-msgid "IDS_MSGC_HEADER_PREVIEW"
-msgstr "Voorbeeld"
 
 msgid "IDS_MSGC_HEADER_DURATION_FOR_SLIDE_PD_PD"
 msgstr "Duur voor dia %d/%d"
@@ -127,9 +103,6 @@ msgstr "Niet aangevraagd"
 msgid "IDS_MSGC_BODY_MAXIMUM_NUMBER_OF_RECIPIENTS_HPD_REACHED"
 msgstr "Maximumaantal ontvangers (%d) bereikt."
 
-msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
-msgstr "Onderwerp invoeren."
-
 msgid "IDS_MSGC_BODY_DUPLICATED_RECIPIENT"
 msgstr "Dubbele ontvanger."
 
@@ -138,9 +111,6 @@ msgstr "Doorst."
 
 msgid "IDS_MSGF_POP_UNABLE_TO_SAVE"
 msgstr "Opslaan niet mogelijk."
-
-msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
-msgstr "Kan locatie niet vinden."
 
 msgid "IDS_MSGF_POP_UNABLE_TO_DELETE"
 msgstr "Kan niet verwijderen."
@@ -168,9 +138,6 @@ msgstr "Beperkt inhoudstype. Toch bijvoegen?"
 
 msgid "IDS_MSGF_POP_RESTORING_ING"
 msgstr "Herstellen..."
-
-msgid "IDS_MSGF_POP_REJECTED"
-msgstr "Geweigerd."
 
 msgid "IDS_MSGF_POP_READ_REPORT"
 msgstr "Leesbevestiging"
@@ -214,20 +181,11 @@ msgstr "Dit bericht bevat niet getoonde bijlagen."
 msgid "IDS_MSGF_POP_FILE_NAME_ALREADY_EXISTS"
 msgstr "Bestandsnaam bestaat al."
 
-msgid "IDS_MSGF_POP_DELETING"
-msgstr "Verwijderen..."
-
-msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
-msgstr "Gekopieerd naar klembord."
-
 msgid "IDS_MSGF_POP_CONVERTING_TO_TEXT_MESSAGE_ING"
 msgstr "Converteren naar sms-bericht..."
 
 msgid "IDS_MSGF_POP_CONVERTING_TO_MULTIMEDIA_MESSAGE_ING"
 msgstr "Converteren naar MMS-bericht..."
-
-msgid "IDS_MSGF_POP_BLOCK_PS_Q"
-msgstr "%s blokkeren?"
 
 msgid "IDS_MSGF_POP_ABOUT_TO_GO_ONLINE_CONTINUE_Q"
 msgstr "U gaat bijna online (%s). Doorgaan?"
@@ -235,38 +193,17 @@ msgstr "U gaat bijna online (%s). Doorgaan?"
 msgid "IDS_MSGF_OPT_TEXT_MESSAGE"
 msgstr "Sms-bericht"
 
-msgid "IDS_MSGF_OPT_SUBJECT_COLON"
-msgstr "Onderwerp:"
-
-msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
-msgstr "Afzender via e-mail"
-
 msgid "IDS_MSGF_OPT_SENDER_ABB"
 msgstr "Afzender"
-
-msgid "IDS_MSGF_OPT_SELECT"
-msgstr "Selecteren"
 
 msgid "IDS_MSGF_OPT_SAVE_ATTACHMENT"
 msgstr "Bijlage opslaan"
 
-msgid "IDS_MSGF_OPT_SAVE"
-msgstr "Opslaan"
-
-msgid "IDS_MSGF_OPT_REMOVE"
-msgstr "Verwijderen"
-
 msgid "IDS_MSGF_OPT_INSTALL"
 msgstr "Installeren"
 
-msgid "IDS_MSGF_OPT_FORWARD"
-msgstr "Doorsturen"
-
 msgid "IDS_MSGF_OPT_EDIT_MESSAGE"
 msgstr "Bericht bewerken"
-
-msgid "IDS_MSGF_OPT_DELETE_Q"
-msgstr "Verwijderen?"
 
 msgid "IDS_MSGF_OPT_DELETE_MESSAGES"
 msgstr "Berichten verwijderen"
@@ -283,14 +220,8 @@ msgstr "Berichtdetails"
 msgid "IDS_MSGF_HEADER_EXPIRES_C_PS"
 msgstr "Verloopt: %s"
 
-msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
-msgstr "Geavanceerde zoekopdracht"
-
 msgid "IDS_MSGF_BUTTON_SAVE_ALL_ATTACHMENTS_ABB"
 msgstr "Alle bijlagen opsl."
-
-msgid "IDS_MSGF_BODY_UNKNOWN"
-msgstr "Onbekend"
 
 msgid "IDS_MSGF_BODY_TO_C"
 msgstr "Aan:"
@@ -301,23 +232,14 @@ msgstr "Sms-berichten"
 msgid "IDS_MSGF_BODY_SIM_MEMORY_FULL_DELETE_SOME_ITEMS"
 msgstr "SIM-geheugen vol. Verwijder een aantal items."
 
-msgid "IDS_MSGF_BODY_SETTINGS"
-msgstr "Instellingen"
-
 msgid "IDS_MSGF_BODY_SENT_M_DATE_C"
 msgstr "Verzonden:"
 
 msgid "IDS_MSGF_BODY_REQUESTED"
 msgstr "Aangevraagd."
 
-msgid "IDS_MSGF_BODY_RECIPIENTS"
-msgstr "Ontvangers"
-
 msgid "IDS_MSGF_BODY_RECEIVED_M_DATE_C"
 msgstr "Ontvangen:"
-
-msgid "IDS_MSGF_BODY_RECEIVED"
-msgstr "Ontvangen."
 
 msgid "IDS_MSGF_BODY_READ_REPORT"
 msgstr "Leesbevestiging"
@@ -331,12 +253,6 @@ msgstr "%d berichten"
 msgid "IDS_MSGF_BODY_PD_CONVERSATIONS"
 msgstr "%d gesprekken"
 
-msgid "IDS_MSGF_BODY_OTHER"
-msgstr "Overig"
-
-msgid "IDS_MSGF_BODY_NO_SUBJECT"
-msgstr "Geen onderwerp"
-
 msgid "IDS_MSGF_BODY_NO_NAME"
 msgstr "Geen naam"
 
@@ -345,9 +261,6 @@ msgstr "Melding MMS-bericht"
 
 msgid "IDS_MSGF_BODY_MULTIMEDIA_MESSAGE"
 msgstr "MMS-bericht"
-
-msgid "IDS_MSGF_BODY_MSGSIZE_KB"
-msgstr "KB"
 
 msgid "IDS_MSGF_BODY_MMSREADREPLYMSGREAD"
 msgstr "Lezen"
@@ -367,12 +280,6 @@ msgstr "Berichtopties"
 msgid "IDS_MSGF_BODY_MESSAGE_DELIVERED"
 msgstr "Bericht afgeleverd"
 
-msgid "IDS_MSGF_BODY_MESSAGE"
-msgstr "Bericht"
-
-msgid "IDS_MSGF_BODY_ME"
-msgstr "Ik"
-
 msgid "IDS_MSGF_BODY_MAXIMUM_NUMBER_OF_ATTACHMENTS_HP1SS_EXCEEDED_ONLY_FIRST_P2SS_WILL_BE_ADDED"
 msgstr "Maximumaantal bijlagen (%1$s) overschreden. Alleen de eerste %2$s worden toegevoegd."
 
@@ -384,9 +291,6 @@ msgstr "Van"
 
 msgid "IDS_MSGF_BODY_FLFROM"
 msgstr "Van:"
-
-msgid "IDS_MSGF_BODY_EXPIRED"
-msgstr "Verlopen"
 
 msgid "IDS_MSGF_BODY_DETAILSSENDINGFAILED"
 msgstr "Verzenden mislukt."
@@ -402,9 +306,6 @@ msgstr "Tekst kopiëren"
 
 msgid "IDS_MSGF_BODY_CB_MESSAGES"
 msgstr "Infoberichten"
-
-msgid "IDS_MSGF_BODY_ALL"
-msgstr "Alles"
 
 msgid "IDS_MSGF_BODY_1_MESSAGE"
 msgstr "1 bericht"
@@ -433,6 +334,9 @@ msgstr "MMS-berichten automatisch ophalen."
 msgid "IDS_MSG_TPOP_UNABLE_TO_PREVIEW_FILE_UNSUPPORTED_FILE_TYPE"
 msgstr "Kan bestand niet weergeven. Niet-ondersteund bestandstype."
 
+msgid "IDS_MSG_TPOP_UNABLE_TO_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Kan bestand niet bijvoegen. Bestandsindeling niet ondersteund."
+
 msgid "IDS_MSG_TPOP_UNABLE_TO_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
 msgstr "Kan bepaalde ontvangers niet toevoegen. Nummers niet geldig."
 
@@ -448,6 +352,9 @@ msgstr "Kan bijlage niet toevoegen. Maximumaantal bijlagen (%d) bereikt."
 msgid "IDS_MSG_TPOP_THIS_NUMBER_IS_NOT_VALID"
 msgstr "Dit nummer is niet geldig."
 
+msgid "IDS_MSG_TPOP_SOME_RECIPIENTS_ALREADY_ADDED"
+msgstr "Sommige ontvangers al toegevoegd."
+
 msgid "IDS_MSG_TPOP_SELECTED_MESSAGES_COPIED_TO_MOBILE_DEVICE"
 msgstr "Geselecteerde berichten gekopieerd naar mobiel apparaat."
 
@@ -459,6 +366,9 @@ msgstr "Nummer verwijderd uit blokkeerlijst voor berichten."
 
 msgid "IDS_MSG_TPOP_NUMBER_ADDED_TO_MESSAGE_BLOCK_LIST"
 msgstr "Nummer toegevoegd aan blokkeerlijst voor berichten."
+
+msgid "IDS_MSG_TPOP_NETWORK_NOT_AVAILABLE_MESSAGE_WILL_BE_SENT_WHEN_CONNECTED_TO_NETWORK"
+msgstr "Netwerk niet beschikbaar. Bericht wordt verzonden bij verbinding met netwerk."
 
 msgid "IDS_MSG_TPOP_MESSAGE_COPIED_TO_PS_SIM_CARD"
 msgstr "Bericht gekopieerd naar SIM-kaart %s."
@@ -502,9 +412,6 @@ msgstr "Automatisch ophalen"
 msgid "IDS_MSG_SK_SEND_NOW"
 msgstr "Nu verz."
 
-msgid "IDS_MSG_SK_NO_ABB"
-msgstr "Nee"
-
 msgid "IDS_MSG_SBODY_SELECT_AN_INPUT_MODE_FOR_COMPOSING_MESSAGES"
 msgstr "Selecteer een invoerstand voor het samenstellen van berichten."
 
@@ -514,14 +421,8 @@ msgstr "Geen"
 msgid "IDS_MSG_SBODY_MANAGE_THE_MESSAGES_STORED_ON_YOUR_SIM_CARD"
 msgstr "Beheer de berichten die zijn opgeslagen op de SIM-kaart."
 
-msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
-msgstr "Uw bericht wordt verwijderd. Er zijn geen ontvangers geselecteerd."
-
 msgid "IDS_MSG_POP_UNABLE_TO_SEND_SCHEDULED_MESSAGE_SET_ANOTHER_TIME"
 msgstr "Kan gepland bericht niet verzenden. Stel een andere tijd in."
-
-msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
-msgstr "Niet mogelijk tijdens gesprek."
 
 msgid "IDS_MSG_POP_UNABLE_TO_ATTACH_FILE_FILE_SIZE_TOO_LARGE_TRY_SENDING_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
 msgstr "Kan bestand niet bijvoegen. Bestand is te groot. Probeer te verzenden via E-mail, Bluetooth, Wi-Fi, enz."
@@ -544,17 +445,11 @@ msgstr "%d gesprekken worden verwijderd."
 msgid "IDS_MSG_POP_NO_TEMPLATES_IN_LIST"
 msgstr "Geen standaardberichten in lijst"
 
-msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
-msgstr "Alleen inkomende berichten"
-
 msgid "IDS_MSG_POP_INCLUDE_ORIGINAL_TEXT_IN_OUTGOING_MESSAGE"
 msgstr "Oorspronkelijke tekst opnemen in uitgaand bericht"
 
 msgid "IDS_MSG_POP_DURATION_MUST_BE_SHORTER_THAN_PD_SECONDS"
 msgstr "Duur moet korter zijn dan %d seconden."
-
-msgid "IDS_MSG_POP_DELETED"
-msgstr "Verwijderd."
 
 msgid "IDS_MSG_POP_1_MESSAGE_WILL_BE_DELETED"
 msgstr "1 bericht wordt verwijderd."
@@ -571,26 +466,14 @@ msgstr "Contactdetails weergeven"
 msgid "IDS_MSG_OPT_VIEW_AS_SLIDESHOW_ABB"
 msgstr "Als diashow weergeven"
 
-msgid "IDS_MSG_OPT_VIDEOS"
-msgstr "Video's"
-
 msgid "IDS_MSG_OPT_UPDATE_CONTACT"
 msgstr "Contact bijwerken"
 
 msgid "IDS_MSG_OPT_UNICODE"
 msgstr "Unicode"
 
-msgid "IDS_MSG_OPT_TEXT"
-msgstr "Tekst"
-
 msgid "IDS_MSG_OPT_TAKE_PICTURE_ABB"
 msgstr "Foto maken"
-
-msgid "IDS_MSG_OPT_SETTINGS"
-msgstr "Instellingen"
-
-msgid "IDS_MSG_OPT_SEARCH"
-msgstr "Zoeken"
 
 msgid "IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"
 msgstr "Bijlagen opslaan"
@@ -604,23 +487,14 @@ msgstr "Antwoorden"
 msgid "IDS_MSG_OPT_REMOVE_FROM_BLOCK_LIST_ABB"
 msgstr "Verwijderen uit blokkeerlijst"
 
-msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
-msgstr "Video opnemen"
-
 msgid "IDS_MSG_OPT_RECORD_AUDIO_FILE_ABB"
 msgstr "Audiobestand opnemen"
 
 msgid "IDS_MSG_OPT_QUICK_RESPONSE_ABB"
 msgstr "Snelle reactie"
 
-msgid "IDS_MSG_OPT_NONE"
-msgstr "Geen"
-
 msgid "IDS_MSG_OPT_MAKE_VOICE_CALL"
 msgstr "Spraakoproep doen"
-
-msgid "IDS_MSG_OPT_IMAGES"
-msgstr "Afbeeldingen"
 
 msgid "IDS_MSG_OPT_GSM_ALPHABET_ABB"
 msgstr "GSM-alfabet"
@@ -628,20 +502,11 @@ msgstr "GSM-alfabet"
 msgid "IDS_MSG_OPT_EXPORT_TO_DEVICE_MEMORY"
 msgstr "Exporteren naar apparaatgeheugen"
 
-msgid "IDS_MSG_OPT_EDIT"
-msgstr "Bewerken"
-
 msgid "IDS_MSG_OPT_DELETE_MESSAGE"
 msgstr "Bericht wissen"
 
 msgid "IDS_MSG_OPT_DELETE_CONVERSATION_ABB"
 msgstr "Gesprek verwijderen"
-
-msgid "IDS_MSG_OPT_DELETE"
-msgstr "Verwijderen"
-
-msgid "IDS_MSG_OPT_DEFAULT"
-msgstr "Standaard"
 
 msgid "IDS_MSG_OPT_CREATE_CONTACT_ABB"
 msgstr "Contact toevoegen"
@@ -709,15 +574,6 @@ msgstr "Onbekend nummer"
 msgid "IDS_MSG_MBODY_TEXT_MESSAGE_CENTRE_NUMBER_ABB"
 msgstr "Nummer sms-centrale"
 
-msgid "IDS_MSG_MBODY_SELECT_ALL"
-msgstr "Alles selecteren"
-
-msgid "IDS_MSG_MBODY_ALERTS"
-msgstr "Waarschuwingen"
-
-msgid "IDS_MSG_HEADER_TRANSLATE"
-msgstr "Vertalen"
-
 msgid "IDS_MSG_HEADER_TEXT_MESSAGES_ABB"
 msgstr "Sms-berichten"
 
@@ -727,9 +583,6 @@ msgstr "Ander mobiel netwerk"
 msgid "IDS_MSG_HEADER_SMS_CENTRE_ABB2"
 msgstr "Sms-centr."
 
-msgid "IDS_MSG_HEADER_SETTINGS"
-msgstr "Instellingen"
-
 msgid "IDS_MSG_HEADER_SELECT_RECIPIENT"
 msgstr "Ontvanger selecteren"
 
@@ -738,9 +591,6 @@ msgstr "%d geselecteerd"
 
 msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
 msgstr "Berichten op SIM-kaart"
-
-msgid "IDS_MSG_HEADER_MESSAGES"
-msgstr "Berichten"
 
 msgid "IDS_MSG_HEADER_INPUT_MODE_ABB"
 msgstr "Invoerstand"
@@ -754,14 +604,8 @@ msgstr "Bericht niet verzonden"
 msgid "IDS_MSG_HEADER_DISCARD_MESSAGE_M_CLOSE_ABB"
 msgstr "Bericht verwijderen"
 
-msgid "IDS_MSG_HEADER_DELETE"
-msgstr "Verwijderen"
-
 msgid "IDS_MSG_HEADER_CREATE"
 msgstr "Maken"
-
-msgid "IDS_MSG_HEADER_ATTENTION"
-msgstr "Let op"
 
 msgid "IDS_MSG_HEADER_ADD_CONTENT_ABB"
 msgstr "Inhoud toevoegen"
@@ -775,15 +619,6 @@ msgstr "Opslaan"
 msgid "IDS_MSG_BUTTON_RESEND_ABB"
 msgstr "Opn. verzenden"
 
-msgid "IDS_MSG_BUTTON_REMOVE_ABB"
-msgstr "Wissen"
-
-msgid "IDS_MSG_BUTTON_OK_ABB"
-msgstr "OK"
-
-msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
-msgstr "Downloaden"
-
 msgid "IDS_MSG_BUTTON_DISCARD_ABB"
 msgstr "Verwijder"
 
@@ -793,17 +628,11 @@ msgstr "Verwijderen"
 msgid "IDS_MSG_BUTTON_CANCEL_ABB2"
 msgstr "Annul."
 
-msgid "IDS_MSG_BUTTON_CANCEL_ABB"
-msgstr "Annuleren"
-
 msgid "IDS_MSG_BUTTON2_CONTACTS_ABB_M_APPLICATION_NAME"
 msgstr "Contacten"
 
 msgid "IDS_MSG_BODY_YOU_HAVE_SELECTED_A_SOUND_N_SHOT_FILE_SOUND_DATA_IS_NOT_SUPPORTED_FOR_MMS_SO_ONLY_THE_PICTURE_WILL_BE_ATTACHED"
 msgstr "U hebt een Geluid & opname-bestand geselecteerd. Omdat geluidsgegevens worden niet ondersteund voor MMS, wordt alleen de foto bijgevoegd."
-
-msgid "IDS_MSG_BODY_YES"
-msgstr "Ja"
 
 msgid "IDS_MSG_BODY_WAITING_TO_SEND_ING_M_STATUS"
 msgstr "Wachten met verzenden..."
@@ -823,9 +652,6 @@ msgstr "Tijd verzonden:"
 msgid "IDS_MSG_BODY_TIME_RECEIVED_C"
 msgstr "Tijd ontvangen:"
 
-msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
-msgstr "Selectievakje"
-
 msgid "IDS_MSG_BODY_STATUS_C"
 msgstr "Status:"
 
@@ -837,9 +663,6 @@ msgstr "Verzenden..."
 
 msgid "IDS_MSG_BODY_SENDING_FAILED_M_STATUS"
 msgstr "Verzenden mislukt"
-
-msgid "IDS_MSG_BODY_SEC"
-msgstr "sec."
 
 msgid "IDS_MSG_BODY_RETRIEVE_MESSAGES_AUTOMATICALLY_WHILE_ROAMING"
 msgstr "Haal berichten automatisch op bij roaming."
@@ -853,11 +676,8 @@ msgstr "Leesbevestiging: %s"
 msgid "IDS_MSG_BODY_OTHER_PERSON"
 msgstr "Andere persoon"
 
-msgid "IDS_MSG_BODY_MESSAGE"
-msgstr "Bericht"
-
 msgid "IDS_MSG_BODY_MEMO_T_MAINMENU"
-msgstr "Notities"
+msgstr "Notitie"
 
 msgid "IDS_MSG_BODY_FAILED_M_STATUS_ABB2"
 msgstr "Mislukt"
@@ -895,14 +715,197 @@ msgstr "Nadat u nummers aan uw de blokkeerlijst voor berichten hebt toegevoegd, 
 msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
 msgstr "VERWIJDEREN"
 
-msgid "IDS_ST_BODY_LOADING_ING"
-msgstr "Laden..."
+msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
+msgstr "Niet-ondersteund mediatype."
 
-msgid "IDS_MSGS_BODY_NOTIFICATIONS"
-msgstr "Meldingen"
+msgid "IDS_MSGC_POP_LOW_BATTERY"
+msgstr "Batterij bijna leeg."
 
-msgid "IDS_MSG_HEADER_ME"
+msgid "IDS_MSGC_POP_CANCELLED"
+msgstr "Geannuleerd."
+
+msgid "IDS_MSGC_OPT_EMAIL"
+msgstr "E-mail"
+
+msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
+msgstr "Tonen"
+
+msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
+msgstr "Verwijderen"
+
+msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
+msgstr "Afspelen"
+
+msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
+msgstr "Aan"
+
+msgid "IDS_MSGC_HEADER_PREVIEW"
+msgstr "Voorbeeld"
+
+msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
+msgstr "Onderwerp invoeren."
+
+msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
+msgstr "Kan locatie niet vinden."
+
+msgid "IDS_MSGF_POP_REJECTED"
+msgstr "Geweigerd."
+
+msgid "IDS_MSGF_POP_DELETING"
+msgstr "Verwijderen..."
+
+msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
+msgstr "Gekopieerd naar klembord."
+
+msgid "IDS_MSGF_POP_BLOCK_PS_Q"
+msgstr "%s blokkeren?"
+
+msgid "IDS_MSGF_OPT_SUBJECT_COLON"
+msgstr "Onderwerp:"
+
+msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
+msgstr "Afzender via e-mail"
+
+msgid "IDS_MSGF_OPT_SELECT"
+msgstr "Selecteren"
+
+msgid "IDS_MSGF_OPT_SAVE"
+msgstr "Opslaan"
+
+msgid "IDS_MSGF_OPT_REMOVE"
+msgstr "Verwijderen"
+
+msgid "IDS_MSGF_OPT_FORWARD"
+msgstr "Doorsturen"
+
+msgid "IDS_MSGF_OPT_DELETE_Q"
+msgstr "Verwijderen?"
+
+msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
+msgstr "Geavanceerde zoekopdracht"
+
+msgid "IDS_MSGF_BODY_UNKNOWN"
+msgstr "Onbekend"
+
+msgid "IDS_MSGF_BODY_SETTINGS"
+msgstr "Instellingen"
+
+msgid "IDS_MSGF_BODY_RECIPIENTS"
+msgstr "Ontvangers"
+
+msgid "IDS_MSGF_BODY_RECEIVED"
+msgstr "Ontvangen."
+
+msgid "IDS_MSGF_BODY_OTHER"
+msgstr "Overig"
+
+msgid "IDS_MSGF_BODY_NO_SUBJECT"
+msgstr "Geen onderwerp"
+
+msgid "IDS_MSGF_BODY_MSGSIZE_KB"
+msgstr "KB"
+
+msgid "IDS_MSGF_BODY_MESSAGE"
+msgstr "Bericht"
+
+msgid "IDS_MSGF_BODY_ME"
 msgstr "Ik"
+
+msgid "IDS_MSGF_BODY_EXPIRED"
+msgstr "Verlopen"
+
+msgid "IDS_MSGF_BODY_ALL"
+msgstr "Alles"
+
+msgid "IDS_MSG_SK_NO_ABB"
+msgstr "Nee"
+
+msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
+msgstr "Uw bericht wordt verwijderd. Er zijn geen ontvangers geselecteerd."
+
+msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
+msgstr "Niet mogelijk tijdens gesprek."
+
+msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
+msgstr "Alleen inkomende berichten"
+
+msgid "IDS_MSG_POP_DELETED"
+msgstr "Verwijderd."
+
+msgid "IDS_MSG_OPT_VIDEOS"
+msgstr "Video's"
+
+msgid "IDS_MSG_OPT_TEXT"
+msgstr "Tekst"
+
+msgid "IDS_MSG_OPT_SETTINGS"
+msgstr "Instellingen"
+
+msgid "IDS_MSG_OPT_SEARCH"
+msgstr "Zoeken"
+
+msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
+msgstr "Video opnemen"
+
+msgid "IDS_MSG_OPT_NONE"
+msgstr "Geen"
+
+msgid "IDS_MSG_OPT_IMAGES"
+msgstr "Afbeeldingen"
+
+msgid "IDS_MSG_OPT_EDIT"
+msgstr "Bewerken"
+
+msgid "IDS_MSG_OPT_DELETE"
+msgstr "Verwijderen"
+
+msgid "IDS_MSG_OPT_DEFAULT"
+msgstr "Standaard"
+
+msgid "IDS_MSG_MBODY_SELECT_ALL"
+msgstr "Alles selecteren"
+
+msgid "IDS_MSG_MBODY_ALERTS"
+msgstr "Waarschuwingen"
+
+msgid "IDS_MSG_HEADER_TRANSLATE"
+msgstr "Vertalen"
+
+msgid "IDS_MSG_HEADER_SETTINGS"
+msgstr "Instellingen"
+
+msgid "IDS_MSG_HEADER_MESSAGES"
+msgstr "Berichten"
+
+msgid "IDS_MSG_HEADER_DELETE"
+msgstr "Verwijderen"
+
+msgid "IDS_MSG_HEADER_ATTENTION"
+msgstr "Let op"
+
+msgid "IDS_MSG_BUTTON_REMOVE_ABB"
+msgstr "Wissen"
+
+msgid "IDS_MSG_BUTTON_OK_ABB"
+msgstr "OK"
+
+msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
+msgstr "Downloaden"
+
+msgid "IDS_MSG_BUTTON_CANCEL_ABB"
+msgstr "Annuleren"
+
+msgid "IDS_MSG_BODY_YES"
+msgstr "Ja"
+
+msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
+msgstr "Selectievakje"
+
+msgid "IDS_MSG_BODY_SEC"
+msgstr "sec."
+
+msgid "IDS_MSG_BODY_MESSAGE"
+msgstr "Bericht"
 
 msgid "IDS_MSG_BUTTON_SEND_ABB5"
 msgstr "Verz."
@@ -912,4 +915,31 @@ msgstr "Verz."
 
 msgid "IDS_MSG_ACBUTTON_SEND_ABB3"
 msgstr "VERZ."
+
+msgid "IDS_ST_BODY_LOADING_ING"
+msgstr "Laden..."
+
+msgid "IDS_MSGS_BODY_NOTIFICATIONS"
+msgstr "Meldingen"
+
+msgid "IDS_MSG_HEADER_ME"
+msgstr "Ik"
+
+msgid "IDS_MSG_BODY_UNKNOWN"
+msgstr "Onbekend"
+
+msgid "IDS_MSG_TMBODY_ADD_OR_REMOVE_RECIPIENTS"
+msgstr "Ontv. toevoegen of verwijderen"
+
+msgid "IDS_MSG_POP_THE_SENDER_HAS_REQUESTED_A_READ_REPORT_TAP_SEND_TO_SEND_ONE"
+msgstr "De afzender heeft een leesbevestiging gevraagd. Tik op Verzenden om deze te verzenden."
+
+msgid "IDS_MSGF_OPT_SEND_READ_REPORT"
+msgstr "Leesbevestiging verzenden"
+
+msgid "IDS_MSG_HEADER_COMPOSE_MESSAGE_ABB"
+msgstr "Bericht opstellen"
+
+msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
+msgstr "Geen geldige ontvangers toegevoegd. Dit bericht wordt verwijderd."
 

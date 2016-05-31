@@ -4,14 +4,17 @@ msgstr "హోమ్"
 msgid "IDS_MSGC_POP_DATA_ROAMING_IS_DISABLED_ENABLE_DATA_ROAMING_AND_TRY_AGAIN"
 msgstr "డేటా రోమింగ్ నిలిపివేయబడింది. డేటా రోమింగ్‌ను ప్రారంభించి, మళ్లీ ప్రయత్నించండి."
 
-msgid "IDS_MSGF_POP_NEW_MESSAGE"
-msgstr "కొత్త సందేశం"
-
 msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
 msgstr "రద్దు చేయి"
 
 msgid "IDS_MSG_ACBUTTON_DONE_ABB"
 msgstr "పూర్తయింది"
+
+msgid "IDS_MSGF_POP_NEW_MESSAGE"
+msgstr "కొత్త సందేశం"
+
+msgid "IDS_COM_BUTTON_SHARE"
+msgstr "పంచుకో"
 
 msgid "IDS_COM_BODY_UNKNOWN"
 msgstr "తెలియని"
@@ -24,9 +27,6 @@ msgstr "మొబైల్ డేటా నిలిపివేయబడిం�
 
 msgid "IDS_TPLATFORM_ACBUTTON_SEND_ABB"
 msgstr "పంపు"
-
-msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
-msgstr "మద్దతులేని మీడియా రకం."
 
 msgid "IDS_MSGC_POP_UNABLE_TO_SEND_MESSAGES_WHILE_IN_FLIGHT_MODE_DISABLE_FLIGHT_MODE_AND_TRY_AGAIN"
 msgstr "విమానం మోడ్‌లో సందేశాలను పంపడం సాధ్యం కాదు. విమానం మోడ్‌ను నిలిపివేసి, మళ్లీ ప్రయత్నించండి"
@@ -55,9 +55,6 @@ msgstr "సందేశం %s కు పంపాలని నిర్ణయమ
 msgid "IDS_MSGC_POP_MAXIMUM_MESSAGE_SIZE_REACHED"
 msgstr "గరిష్ట సందేశ సైజ్‌కు చేరింది."
 
-msgid "IDS_MSGC_POP_LOW_BATTERY"
-msgstr "బ్యాటరీ తక్కువగా ఉంది."
-
 msgid "IDS_MSGC_POP_DURATION_MUST_BE_AT_LEAST_PD_SECONDS"
 msgstr "వ్యవధి తప్పనిసరిగా కనీసం %d సేకండ్లు."
 
@@ -66,9 +63,6 @@ msgstr "విమానం మోడ్‌ను నిలిపివేయబ�
 
 msgid "IDS_MSGC_POP_COPIED_TO_SIM_CARD"
 msgstr "SIM కార్డ్ కు కాపీ అయింది."
-
-msgid "IDS_MSGC_POP_CANCELLED"
-msgstr "రద్దు అయింది."
 
 msgid "IDS_MSGC_OPT_USE_OTHER_CONTACT_INFO_ABB"
 msgstr "ఇతర పరిచయ సమాచారాన్ని ఉపయోగించండి"
@@ -79,32 +73,14 @@ msgstr "దీని ద్వారా పంపు"
 msgid "IDS_MSGC_OPT_IMAGE"
 msgstr "చిత్రం"
 
-msgid "IDS_MSGC_OPT_EMAIL"
-msgstr "ఈమెయిల్"
-
 msgid "IDS_MSGC_OPT_EDIT_ITEM_REPLACE"
 msgstr "భర్తీ"
-
-msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
-msgstr "వీక్షణ"
-
-msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
-msgstr "తొలగించు"
-
-msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
-msgstr "ప్లే"
-
-msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
-msgstr "స్వీకర్త"
 
 msgid "IDS_MSGC_OPT_CANCEL_MESSAGE"
 msgstr "సందేశం రద్దు చేయి"
 
 msgid "IDS_MSGC_HEADER_RECIPIENT_LIST"
 msgstr "స్వీకర్త జాబితా"
-
-msgid "IDS_MSGC_HEADER_PREVIEW"
-msgstr "ప్రివ్యూ"
 
 msgid "IDS_MSGC_HEADER_DURATION_FOR_SLIDE_PD_PD"
 msgstr "స్లైడ్ %d/%d కొరకు వ్యవధి"
@@ -127,9 +103,6 @@ msgstr "అభ్యర్థించలేదు"
 msgid "IDS_MSGC_BODY_MAXIMUM_NUMBER_OF_RECIPIENTS_HPD_REACHED"
 msgstr "స్వీకర్తల యొక్క (%d) గరిష్ట సంఖ్యను చేరుకున్నారు."
 
-msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
-msgstr "విషయాన్ని నమోదు చేయండి."
-
 msgid "IDS_MSGC_BODY_DUPLICATED_RECIPIENT"
 msgstr "నకిలీ అయిన స్వీకర్త."
 
@@ -138,9 +111,6 @@ msgstr "ఫార్వ."
 
 msgid "IDS_MSGF_POP_UNABLE_TO_SAVE"
 msgstr "సేవ్ చేయడం సాధ్యం కాదు."
-
-msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
-msgstr "స్థానం వెతుకడానికి సాధ్యం కాదు."
 
 msgid "IDS_MSGF_POP_UNABLE_TO_DELETE"
 msgstr "తొలగించలేకపోతున్నాము."
@@ -168,9 +138,6 @@ msgstr "నిరోధిత కంటెంట్ రకం. ఏమైన�
 
 msgid "IDS_MSGF_POP_RESTORING_ING"
 msgstr "పునరుద్ధరిస్తోంది..."
-
-msgid "IDS_MSGF_POP_REJECTED"
-msgstr "తిరస్కరించబడింది."
 
 msgid "IDS_MSGF_POP_READ_REPORT"
 msgstr "రిపోర్ట్ చదువు"
@@ -214,20 +181,11 @@ msgstr "ఈ సందేశం చూపని జోడించబడిన �
 msgid "IDS_MSGF_POP_FILE_NAME_ALREADY_EXISTS"
 msgstr "ఫైల్ పేరు ఇప్పటికే ఉంది."
 
-msgid "IDS_MSGF_POP_DELETING"
-msgstr "తొలగిస్తోంది..."
-
-msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
-msgstr "క్లిప్ బోర్డుకు కాపీ అయింది."
-
 msgid "IDS_MSGF_POP_CONVERTING_TO_TEXT_MESSAGE_ING"
 msgstr "టెక్స్ట్ సందేశానికి మార్చుతోంది..."
 
 msgid "IDS_MSGF_POP_CONVERTING_TO_MULTIMEDIA_MESSAGE_ING"
 msgstr "మల్టీమీడియా సందేశంకు మార్చుతోంది..."
-
-msgid "IDS_MSGF_POP_BLOCK_PS_Q"
-msgstr "%sను బ్లాక్ చెయ్యాలా?"
 
 msgid "IDS_MSGF_POP_ABOUT_TO_GO_ONLINE_CONTINUE_Q"
 msgstr "మీరు ఆన్‌లైన్‌కు వెళ్లబోతున్నారు(%s). కొనసాగాలా?"
@@ -235,38 +193,17 @@ msgstr "మీరు ఆన్‌లైన్‌కు వెళ్లబోత�
 msgid "IDS_MSGF_OPT_TEXT_MESSAGE"
 msgstr "టెక్స్ట్ సందేశం"
 
-msgid "IDS_MSGF_OPT_SUBJECT_COLON"
-msgstr "విషయము:"
-
-msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
-msgstr "ఈమెయిల్ ద్వారా పంపేవారు"
-
 msgid "IDS_MSGF_OPT_SENDER_ABB"
 msgstr "పంపేవారు"
-
-msgid "IDS_MSGF_OPT_SELECT"
-msgstr "ఎంచుకోండి"
 
 msgid "IDS_MSGF_OPT_SAVE_ATTACHMENT"
 msgstr "జోడింపును సేవ్ చేయి"
 
-msgid "IDS_MSGF_OPT_SAVE"
-msgstr "సేవ్ చేయి"
-
-msgid "IDS_MSGF_OPT_REMOVE"
-msgstr "తొలగించు"
-
 msgid "IDS_MSGF_OPT_INSTALL"
 msgstr "స్థాపించు"
 
-msgid "IDS_MSGF_OPT_FORWARD"
-msgstr "ఫార్వార్డ్"
-
 msgid "IDS_MSGF_OPT_EDIT_MESSAGE"
 msgstr "సందేశంను సవరించు"
-
-msgid "IDS_MSGF_OPT_DELETE_Q"
-msgstr "తొలగించాలా?"
 
 msgid "IDS_MSGF_OPT_DELETE_MESSAGES"
 msgstr "సందేశాలను తొలగించండి"
@@ -283,14 +220,8 @@ msgstr "సందేశ వివరాలు"
 msgid "IDS_MSGF_HEADER_EXPIRES_C_PS"
 msgstr "గడువు ముగిసిన: %s"
 
-msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
-msgstr "ఆధునిక శోధన"
-
 msgid "IDS_MSGF_BUTTON_SAVE_ALL_ATTACHMENTS_ABB"
 msgstr "అన్ని జోడింపులను సేవ్ చేయి"
-
-msgid "IDS_MSGF_BODY_UNKNOWN"
-msgstr "తెలియని"
 
 msgid "IDS_MSGF_BODY_TO_C"
 msgstr "స్వీకర్త:"
@@ -301,23 +232,14 @@ msgstr "టెక్స్ట్ సందేశాలు"
 msgid "IDS_MSGF_BODY_SIM_MEMORY_FULL_DELETE_SOME_ITEMS"
 msgstr "SIM మెమరీ నిండింది. కొన్ని ఐటెమ్‌లను తొలగించండి."
 
-msgid "IDS_MSGF_BODY_SETTINGS"
-msgstr "సెట్టింగులు"
-
 msgid "IDS_MSGF_BODY_SENT_M_DATE_C"
 msgstr "పంపబడినవి:"
 
 msgid "IDS_MSGF_BODY_REQUESTED"
 msgstr "అభ్యర్థించిన."
 
-msgid "IDS_MSGF_BODY_RECIPIENTS"
-msgstr "స్వీకర్తలు"
-
 msgid "IDS_MSGF_BODY_RECEIVED_M_DATE_C"
 msgstr "స్వీకరించబడింది:"
-
-msgid "IDS_MSGF_BODY_RECEIVED"
-msgstr "స్వీకరించబడింది."
 
 msgid "IDS_MSGF_BODY_READ_REPORT"
 msgstr "రిపోర్ట్ చదువు"
@@ -331,12 +253,6 @@ msgstr "%d సందేశాలు"
 msgid "IDS_MSGF_BODY_PD_CONVERSATIONS"
 msgstr "%d సంభాషణలు"
 
-msgid "IDS_MSGF_BODY_OTHER"
-msgstr "ఇతర"
-
-msgid "IDS_MSGF_BODY_NO_SUBJECT"
-msgstr "విషయం లేదు"
-
 msgid "IDS_MSGF_BODY_NO_NAME"
 msgstr "పేరు లేదు"
 
@@ -345,9 +261,6 @@ msgstr "మల్టీమీడియా సందేశ నోటిఫిక�
 
 msgid "IDS_MSGF_BODY_MULTIMEDIA_MESSAGE"
 msgstr "మల్టీమీడియా సందేశం"
-
-msgid "IDS_MSGF_BODY_MSGSIZE_KB"
-msgstr "KB"
 
 msgid "IDS_MSGF_BODY_MMSREADREPLYMSGREAD"
 msgstr "చదువు"
@@ -367,12 +280,6 @@ msgstr "సందేశ ఎంపికలు"
 msgid "IDS_MSGF_BODY_MESSAGE_DELIVERED"
 msgstr "సందేశం బదిలీ చేయబడింది"
 
-msgid "IDS_MSGF_BODY_MESSAGE"
-msgstr "సందేశం"
-
-msgid "IDS_MSGF_BODY_ME"
-msgstr "నేను"
-
 msgid "IDS_MSGF_BODY_MAXIMUM_NUMBER_OF_ATTACHMENTS_HP1SS_EXCEEDED_ONLY_FIRST_P2SS_WILL_BE_ADDED"
 msgstr "జోడింపుల (%1$s) అత్యధిక సంఖ్య మించిపోయింది. మొదటి %2$s మాత్రమే జోడించబడుతుంది."
 
@@ -384,9 +291,6 @@ msgstr "నుండి"
 
 msgid "IDS_MSGF_BODY_FLFROM"
 msgstr "నుండి:"
-
-msgid "IDS_MSGF_BODY_EXPIRED"
-msgstr "గడువు ముగిసింది"
 
 msgid "IDS_MSGF_BODY_DETAILSSENDINGFAILED"
 msgstr "పంపడం విఫలమైనది."
@@ -402,9 +306,6 @@ msgstr "టెక్స్ట్ కాపీ చేయి"
 
 msgid "IDS_MSGF_BODY_CB_MESSAGES"
 msgstr "CB సందేశాలు"
-
-msgid "IDS_MSGF_BODY_ALL"
-msgstr "అన్ని"
 
 msgid "IDS_MSGF_BODY_1_MESSAGE"
 msgstr "1 సందేశం"
@@ -433,6 +334,9 @@ msgstr "స్వయంచాలకంగా MMS సందేశాలను త
 msgid "IDS_MSG_TPOP_UNABLE_TO_PREVIEW_FILE_UNSUPPORTED_FILE_TYPE"
 msgstr "ఫైల్‌ను పరిదృశ్యం చేయడం సాధ్యం కాదు. మద్దతు లేని ఫైల్ రకం."
 
+msgid "IDS_MSG_TPOP_UNABLE_TO_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "ఫైల్‌ను జోడించడం సాధ్యం కాదు. ఫైల్ ఫార్మాట్‌కు మద్దతు లేదు."
+
 msgid "IDS_MSG_TPOP_UNABLE_TO_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
 msgstr "కొంత మంది గ్రహీతలను జోడించడం సాధ్యం కాదు. నంబర్‌లు చెల్లవు."
 
@@ -448,6 +352,9 @@ msgstr "జోడింపుని జోడించడం సాధ్యం 
 msgid "IDS_MSG_TPOP_THIS_NUMBER_IS_NOT_VALID"
 msgstr "ఈ నంబర్ చెల్లదు."
 
+msgid "IDS_MSG_TPOP_SOME_RECIPIENTS_ALREADY_ADDED"
+msgstr "కొందరు గ్రహీతలు ఇప్పటికే జోడించబడ్డారు."
+
 msgid "IDS_MSG_TPOP_SELECTED_MESSAGES_COPIED_TO_MOBILE_DEVICE"
 msgstr "ఎంచుకున్న సందేశాలు మొబైల్ పరికరానికి కాపీ చేయబడ్డాయి."
 
@@ -459,6 +366,9 @@ msgstr "సందేశ నిరోధ జాబితా నుండి న�
 
 msgid "IDS_MSG_TPOP_NUMBER_ADDED_TO_MESSAGE_BLOCK_LIST"
 msgstr "సందేశ నిరోధ జాబితాకు నంబర్ జోడించబడింది."
+
+msgid "IDS_MSG_TPOP_NETWORK_NOT_AVAILABLE_MESSAGE_WILL_BE_SENT_WHEN_CONNECTED_TO_NETWORK"
+msgstr "నెట్‌వర్క్ అందుబాటులో లేదు. నెట్‌వర్క్‌కు కనెక్ట్ చేయబడినప్పుడు సందేశం పంపబడుతుంది."
 
 msgid "IDS_MSG_TPOP_MESSAGE_COPIED_TO_PS_SIM_CARD"
 msgstr "%s SIM కార్డ్‌కు సందేశం కాపీ చేయబడింది."
@@ -502,9 +412,6 @@ msgstr "స్వీయ పునరుద్ధరణ"
 msgid "IDS_MSG_SK_SEND_NOW"
 msgstr "ఇప్పుడు పంపు"
 
-msgid "IDS_MSG_SK_NO_ABB"
-msgstr "కాదు"
-
 msgid "IDS_MSG_SBODY_SELECT_AN_INPUT_MODE_FOR_COMPOSING_MESSAGES"
 msgstr "సందేశాలను కంపోజ్ చేయడం కోసం ఇన్‌పుట్ మోడ్‌ను ఎంచుకోండి."
 
@@ -514,14 +421,8 @@ msgstr "ఏదీకాదు"
 msgid "IDS_MSG_SBODY_MANAGE_THE_MESSAGES_STORED_ON_YOUR_SIM_CARD"
 msgstr "మీ SIM కార్డ్‌లో నిల్వ చేసిన సందేశాలను నిర్వహించండి."
 
-msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
-msgstr "మీ సందేశం విస్మరించబడుతుంది. స్వీకర్తలు ఎంచుకోలేదు."
-
 msgid "IDS_MSG_POP_UNABLE_TO_SEND_SCHEDULED_MESSAGE_SET_ANOTHER_TIME"
 msgstr "షెడ్యూల్ చేసిన సందేశాన్ని పంపడం సాధ్యం కాదు. మరొక సమయాన్ని సెట్ చేయి."
-
-msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
-msgstr "కాల్ సమయంలో ప్లే చేయడం సాధ్యం కాదు."
 
 msgid "IDS_MSG_POP_UNABLE_TO_ATTACH_FILE_FILE_SIZE_TOO_LARGE_TRY_SENDING_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
 msgstr "ఫైల్‌ను జోడించడం సాధ్యం కాదు. ఫైల్ పరిమాణం చాలా పెద్దగా ఉంది. ఇమెయిల్, బ్లూటూత్, Wi-Fi మొదలైన వాటి ద్వారా పంపడానికి ప్రయత్నించండి."
@@ -544,17 +445,11 @@ msgstr "%d సంభాషణలు తొలగించబడతాయి."
 msgid "IDS_MSG_POP_NO_TEMPLATES_IN_LIST"
 msgstr "జాబితాలో ఏ టెంప్లేట్‌లు లేవు"
 
-msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
-msgstr "ఇన్కమింగ్ సందేశాలు మాత్రమే"
-
 msgid "IDS_MSG_POP_INCLUDE_ORIGINAL_TEXT_IN_OUTGOING_MESSAGE"
 msgstr "అవుట్‌గోయింగ్ సందేశంలో వాస్తవ టెక్స్ట్‌ని చేర్చండి"
 
 msgid "IDS_MSG_POP_DURATION_MUST_BE_SHORTER_THAN_PD_SECONDS"
 msgstr "వ్యవధి తప్పక %d సెకన్ల కంటే తక్కువ ఉండాలి."
-
-msgid "IDS_MSG_POP_DELETED"
-msgstr "తొలగించబడింది."
 
 msgid "IDS_MSG_POP_1_MESSAGE_WILL_BE_DELETED"
 msgstr "1 సందేశం తొలగించబడుతుంది."
@@ -571,26 +466,14 @@ msgstr "పరిచయ వివరాలను వీక్షించండ�
 msgid "IDS_MSG_OPT_VIEW_AS_SLIDESHOW_ABB"
 msgstr "స్లయిడ్‌షో వలె వీక్షించండి"
 
-msgid "IDS_MSG_OPT_VIDEOS"
-msgstr "వీడియోలు"
-
 msgid "IDS_MSG_OPT_UPDATE_CONTACT"
 msgstr "పరిచయాన్ని అప్‌డేట్ చేయండి"
 
 msgid "IDS_MSG_OPT_UNICODE"
 msgstr "యునీకోడ్"
 
-msgid "IDS_MSG_OPT_TEXT"
-msgstr "టెక్స్ట్"
-
 msgid "IDS_MSG_OPT_TAKE_PICTURE_ABB"
 msgstr "చిత్రాన్ని తీయండి"
-
-msgid "IDS_MSG_OPT_SETTINGS"
-msgstr "సెట్టింగులు"
-
-msgid "IDS_MSG_OPT_SEARCH"
-msgstr "శోధన"
 
 msgid "IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"
 msgstr "జోడింపులను సేవ్ చేయి"
@@ -604,23 +487,14 @@ msgstr "ప్రత్యుత్తరం పంపు"
 msgid "IDS_MSG_OPT_REMOVE_FROM_BLOCK_LIST_ABB"
 msgstr "నిరోధిత జాబితా నుండి తీసివేయి"
 
-msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
-msgstr "వీడియోని రికార్డ్ చేయండి"
-
 msgid "IDS_MSG_OPT_RECORD_AUDIO_FILE_ABB"
 msgstr "ఆడియో ఫైల్‌ని రికార్డ్ చేయి"
 
 msgid "IDS_MSG_OPT_QUICK_RESPONSE_ABB"
 msgstr "త్వరిత ప్రతిస్పందన"
 
-msgid "IDS_MSG_OPT_NONE"
-msgstr "ఏదీకాదు"
-
 msgid "IDS_MSG_OPT_MAKE_VOICE_CALL"
 msgstr "వాయిస్ కాల్ చేయి"
-
-msgid "IDS_MSG_OPT_IMAGES"
-msgstr "చిత్రాలు"
 
 msgid "IDS_MSG_OPT_GSM_ALPHABET_ABB"
 msgstr "GSM ఆల్ఫాబేట్"
@@ -628,20 +502,11 @@ msgstr "GSM ఆల్ఫాబేట్"
 msgid "IDS_MSG_OPT_EXPORT_TO_DEVICE_MEMORY"
 msgstr "పరికరం మెమరీకి ఎగుమతి చేయి"
 
-msgid "IDS_MSG_OPT_EDIT"
-msgstr "సవరించు"
-
 msgid "IDS_MSG_OPT_DELETE_MESSAGE"
 msgstr "సందేశాన్ని తొలగించు"
 
 msgid "IDS_MSG_OPT_DELETE_CONVERSATION_ABB"
 msgstr "సంభాషణను తొలగించు"
-
-msgid "IDS_MSG_OPT_DELETE"
-msgstr "తొలగించు"
-
-msgid "IDS_MSG_OPT_DEFAULT"
-msgstr "డీఫాల్ట్"
 
 msgid "IDS_MSG_OPT_CREATE_CONTACT_ABB"
 msgstr "పరిచయాన్ని సృష్టించండి"
@@ -689,7 +554,7 @@ msgid "IDS_MSG_NPBODY_NO_QUICK_RESPONSES"
 msgstr "శీఘ్ర ప్రతిస్పందనలు లేవు"
 
 msgid "IDS_MSG_NPBODY_NO_PHRASES_BLOCKED"
-msgstr "పదబంధాలు నిరోధించబడలేదు"
+msgstr "ఏ పదబంధాలు నిరోధించబడలేదు"
 
 msgid "IDS_MSG_NPBODY_NO_MESSAGES_ON_SIM_CARD"
 msgstr "SIM కార్డ్‌లో సందేశాలు లేవు"
@@ -709,15 +574,6 @@ msgstr "తెలియని నంబర్"
 msgid "IDS_MSG_MBODY_TEXT_MESSAGE_CENTRE_NUMBER_ABB"
 msgstr "టెక్స్ట్ సందేశ కేంద్రం నంబర్"
 
-msgid "IDS_MSG_MBODY_SELECT_ALL"
-msgstr "అన్నింటినీ ఎన్నుకోండి"
-
-msgid "IDS_MSG_MBODY_ALERTS"
-msgstr "హెచ్చరికలు"
-
-msgid "IDS_MSG_HEADER_TRANSLATE"
-msgstr "అనువాదించండి"
-
 msgid "IDS_MSG_HEADER_TEXT_MESSAGES_ABB"
 msgstr "టెక్స్ట్ సందేశాలు"
 
@@ -727,9 +583,6 @@ msgstr "మొబైల్ నెట్‌వర్క్‌కు మారం�
 msgid "IDS_MSG_HEADER_SMS_CENTRE_ABB2"
 msgstr "SMS కేంద్రం"
 
-msgid "IDS_MSG_HEADER_SETTINGS"
-msgstr "సెట్టింగులు"
-
 msgid "IDS_MSG_HEADER_SELECT_RECIPIENT"
 msgstr "స్వీకర్తను ఎన్నుకోండి"
 
@@ -738,9 +591,6 @@ msgstr "%d ఎంచుకోబడ్డారు"
 
 msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
 msgstr "SIM కార్డ్‌లోని సందేశాలు"
-
-msgid "IDS_MSG_HEADER_MESSAGES"
-msgstr "సందేశాలు"
 
 msgid "IDS_MSG_HEADER_INPUT_MODE_ABB"
 msgstr "ఇన్‌పుట్ మోడ్"
@@ -754,14 +604,8 @@ msgstr "సందేశాన్ని పంపడం విఫలమైంద�
 msgid "IDS_MSG_HEADER_DISCARD_MESSAGE_M_CLOSE_ABB"
 msgstr "సందేశాన్ని విస్మరించు"
 
-msgid "IDS_MSG_HEADER_DELETE"
-msgstr "తొలగించు"
-
 msgid "IDS_MSG_HEADER_CREATE"
 msgstr "సృష్టించండి"
-
-msgid "IDS_MSG_HEADER_ATTENTION"
-msgstr "అటెన్షన్"
 
 msgid "IDS_MSG_HEADER_ADD_CONTENT_ABB"
 msgstr "కంటెంట్‌ను జోడించండి"
@@ -775,15 +619,6 @@ msgstr "సేవ్ చేయి"
 msgid "IDS_MSG_BUTTON_RESEND_ABB"
 msgstr "మళ్లీ పంపండి"
 
-msgid "IDS_MSG_BUTTON_REMOVE_ABB"
-msgstr "తీసివేయి"
-
-msgid "IDS_MSG_BUTTON_OK_ABB"
-msgstr "సరే"
-
-msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
-msgstr "డౌన్‌లోడ్ చేయి"
-
 msgid "IDS_MSG_BUTTON_DISCARD_ABB"
 msgstr "విస్మరించు"
 
@@ -793,17 +628,11 @@ msgstr "తొలగించు"
 msgid "IDS_MSG_BUTTON_CANCEL_ABB2"
 msgstr "రద్దు చేయి"
 
-msgid "IDS_MSG_BUTTON_CANCEL_ABB"
-msgstr "రద్దు"
-
 msgid "IDS_MSG_BUTTON2_CONTACTS_ABB_M_APPLICATION_NAME"
 msgstr "పరిచయాలు"
 
 msgid "IDS_MSG_BODY_YOU_HAVE_SELECTED_A_SOUND_N_SHOT_FILE_SOUND_DATA_IS_NOT_SUPPORTED_FOR_MMS_SO_ONLY_THE_PICTURE_WILL_BE_ATTACHED"
 msgstr "మీరు సౌండ్ & షాట్ ఫైల్‌ని ఎంచుకున్నారు. MMS కి ధ్వని డేటా మద్దతు లేదు, కాబట్టి చిత్రం మాత్రమే జోడించబడుతుంది."
-
-msgid "IDS_MSG_BODY_YES"
-msgstr "అవును"
 
 msgid "IDS_MSG_BODY_WAITING_TO_SEND_ING_M_STATUS"
 msgstr "పంపడానికి వేచి ఉంది..."
@@ -823,9 +652,6 @@ msgstr "పంపిన సమయం:"
 msgid "IDS_MSG_BODY_TIME_RECEIVED_C"
 msgstr "స్వీకరించిన సమయం:"
 
-msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
-msgstr "ఎంపిక పెట్టె"
-
 msgid "IDS_MSG_BODY_STATUS_C"
 msgstr "స్థితి:"
 
@@ -838,9 +664,6 @@ msgstr "పంపుతోంది..."
 msgid "IDS_MSG_BODY_SENDING_FAILED_M_STATUS"
 msgstr "పంపడం విఫలమైంది"
 
-msgid "IDS_MSG_BODY_SEC"
-msgstr "సెకన్లు"
-
 msgid "IDS_MSG_BODY_RETRIEVE_MESSAGES_AUTOMATICALLY_WHILE_ROAMING"
 msgstr "రోమింగ్‌లో ఉన్నప్పుడు సందేశాలను స్వయంచాలకంగా తిరిగి పొందండి."
 
@@ -852,9 +675,6 @@ msgstr "చదివిన నివేదిక: %s"
 
 msgid "IDS_MSG_BODY_OTHER_PERSON"
 msgstr "ఇతర వ్యక్తి"
-
-msgid "IDS_MSG_BODY_MESSAGE"
-msgstr "సందేశం"
 
 msgid "IDS_MSG_BODY_MEMO_T_MAINMENU"
 msgstr "మెమో"
@@ -895,14 +715,197 @@ msgstr "మీరు సందేశ నిరోధిత జాబితాక
 msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
 msgstr "తొలగించు"
 
-msgid "IDS_ST_BODY_LOADING_ING"
-msgstr "లోడ్ అవుతోంది..."
+msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
+msgstr "మద్దతులేని మీడియా రకం."
 
-msgid "IDS_MSGS_BODY_NOTIFICATIONS"
-msgstr "నోటిఫికేషన్లు"
+msgid "IDS_MSGC_POP_LOW_BATTERY"
+msgstr "బ్యాటరీ తక్కువగా ఉంది."
 
-msgid "IDS_MSG_HEADER_ME"
+msgid "IDS_MSGC_POP_CANCELLED"
+msgstr "రద్దు అయింది."
+
+msgid "IDS_MSGC_OPT_EMAIL"
+msgstr "ఈమెయిల్"
+
+msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
+msgstr "వీక్షణ"
+
+msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
+msgstr "తొలగించు"
+
+msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
+msgstr "ప్లే"
+
+msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
+msgstr "స్వీకర్త"
+
+msgid "IDS_MSGC_HEADER_PREVIEW"
+msgstr "ప్రివ్యూ"
+
+msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
+msgstr "విషయాన్ని నమోదు చేయండి."
+
+msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
+msgstr "స్థానం వెతుకడానికి సాధ్యం కాదు."
+
+msgid "IDS_MSGF_POP_REJECTED"
+msgstr "తిరస్కరించబడింది."
+
+msgid "IDS_MSGF_POP_DELETING"
+msgstr "తొలగిస్తోంది..."
+
+msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
+msgstr "క్లిప్ బోర్డుకు కాపీ అయింది."
+
+msgid "IDS_MSGF_POP_BLOCK_PS_Q"
+msgstr "%sను నిరోధించాలా?"
+
+msgid "IDS_MSGF_OPT_SUBJECT_COLON"
+msgstr "విషయము:"
+
+msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
+msgstr "ఈమెయిల్ ద్వారా పంపేవారు"
+
+msgid "IDS_MSGF_OPT_SELECT"
+msgstr "ఎంచుకోండి"
+
+msgid "IDS_MSGF_OPT_SAVE"
+msgstr "సేవ్ చేయి"
+
+msgid "IDS_MSGF_OPT_REMOVE"
+msgstr "తొలగించు"
+
+msgid "IDS_MSGF_OPT_FORWARD"
+msgstr "ఫార్వార్డ్"
+
+msgid "IDS_MSGF_OPT_DELETE_Q"
+msgstr "తొలగించాలా?"
+
+msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
+msgstr "ఆధునిక శోధన"
+
+msgid "IDS_MSGF_BODY_UNKNOWN"
+msgstr "తెలియని"
+
+msgid "IDS_MSGF_BODY_SETTINGS"
+msgstr "సెట్టింగులు"
+
+msgid "IDS_MSGF_BODY_RECIPIENTS"
+msgstr "స్వీకర్తలు"
+
+msgid "IDS_MSGF_BODY_RECEIVED"
+msgstr "స్వీకరించబడింది."
+
+msgid "IDS_MSGF_BODY_OTHER"
+msgstr "ఇతర"
+
+msgid "IDS_MSGF_BODY_NO_SUBJECT"
+msgstr "విషయం లేదు"
+
+msgid "IDS_MSGF_BODY_MSGSIZE_KB"
+msgstr "KB"
+
+msgid "IDS_MSGF_BODY_MESSAGE"
+msgstr "సందేశం"
+
+msgid "IDS_MSGF_BODY_ME"
 msgstr "నేను"
+
+msgid "IDS_MSGF_BODY_EXPIRED"
+msgstr "గడువు ముగిసింది"
+
+msgid "IDS_MSGF_BODY_ALL"
+msgstr "అన్ని"
+
+msgid "IDS_MSG_SK_NO_ABB"
+msgstr "కాదు"
+
+msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
+msgstr "మీ సందేశం విస్మరించబడుతుంది. స్వీకర్తలు ఎంచుకోలేదు."
+
+msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
+msgstr "కాల్ సమయంలో ప్లే చేయడం సాధ్యం కాదు."
+
+msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
+msgstr "ఇన్కమింగ్ సందేశాలు మాత్రమే"
+
+msgid "IDS_MSG_POP_DELETED"
+msgstr "తొలగించబడింది."
+
+msgid "IDS_MSG_OPT_VIDEOS"
+msgstr "వీడియోలు"
+
+msgid "IDS_MSG_OPT_TEXT"
+msgstr "టెక్స్ట్"
+
+msgid "IDS_MSG_OPT_SETTINGS"
+msgstr "సెట్టింగులు"
+
+msgid "IDS_MSG_OPT_SEARCH"
+msgstr "శోధన"
+
+msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
+msgstr "వీడియోని రికార్డ్ చేయండి"
+
+msgid "IDS_MSG_OPT_NONE"
+msgstr "ఏదీకాదు"
+
+msgid "IDS_MSG_OPT_IMAGES"
+msgstr "చిత్రాలు"
+
+msgid "IDS_MSG_OPT_EDIT"
+msgstr "సవరించు"
+
+msgid "IDS_MSG_OPT_DELETE"
+msgstr "తొలగించు"
+
+msgid "IDS_MSG_OPT_DEFAULT"
+msgstr "డీఫాల్ట్"
+
+msgid "IDS_MSG_MBODY_SELECT_ALL"
+msgstr "అన్నింటినీ ఎన్నుకోండి"
+
+msgid "IDS_MSG_MBODY_ALERTS"
+msgstr "హెచ్చరికలు"
+
+msgid "IDS_MSG_HEADER_TRANSLATE"
+msgstr "అనువాదించండి"
+
+msgid "IDS_MSG_HEADER_SETTINGS"
+msgstr "సెట్టింగులు"
+
+msgid "IDS_MSG_HEADER_MESSAGES"
+msgstr "సందేశాలు"
+
+msgid "IDS_MSG_HEADER_DELETE"
+msgstr "తొలగించు"
+
+msgid "IDS_MSG_HEADER_ATTENTION"
+msgstr "అటెన్షన్"
+
+msgid "IDS_MSG_BUTTON_REMOVE_ABB"
+msgstr "తీసివేయి"
+
+msgid "IDS_MSG_BUTTON_OK_ABB"
+msgstr "సరే"
+
+msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
+msgstr "డౌన్‌లోడ్ చేయి"
+
+msgid "IDS_MSG_BUTTON_CANCEL_ABB"
+msgstr "రద్దు"
+
+msgid "IDS_MSG_BODY_YES"
+msgstr "అవును"
+
+msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
+msgstr "ఎంపిక పెట్టె"
+
+msgid "IDS_MSG_BODY_SEC"
+msgstr "సెకన్లు"
+
+msgid "IDS_MSG_BODY_MESSAGE"
+msgstr "సందేశం"
 
 msgid "IDS_MSG_BUTTON_SEND_ABB5"
 msgstr "పంపు"
@@ -912,4 +915,31 @@ msgstr "పంపు"
 
 msgid "IDS_MSG_ACBUTTON_SEND_ABB3"
 msgstr "పంపు"
+
+msgid "IDS_ST_BODY_LOADING_ING"
+msgstr "లోడ్ అవుతోంది..."
+
+msgid "IDS_MSGS_BODY_NOTIFICATIONS"
+msgstr "నోటిఫికేషన్లు"
+
+msgid "IDS_MSG_HEADER_ME"
+msgstr "నేను"
+
+msgid "IDS_MSG_BODY_UNKNOWN"
+msgstr "తెలియని"
+
+msgid "IDS_MSG_TMBODY_ADD_OR_REMOVE_RECIPIENTS"
+msgstr "గ్రహీతలను జోడించు లేదా తీసివేయి"
+
+msgid "IDS_MSG_POP_THE_SENDER_HAS_REQUESTED_A_READ_REPORT_TAP_SEND_TO_SEND_ONE"
+msgstr "పంపినవారు చదివిన నివేదికను అభ్యర్థించారు. ఒకదాన్ని పంపడానికి “పంపు” ట్యాప్ చేయి."
+
+msgid "IDS_MSGF_OPT_SEND_READ_REPORT"
+msgstr "చదవబడిన రిపోర్టును పంపు"
+
+msgid "IDS_MSG_HEADER_COMPOSE_MESSAGE_ABB"
+msgstr "సందేశాన్ని కూర్చండి"
+
+msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
+msgstr "చెల్లుబాటు అయ్యే గ్రహీతలను జోడించలేదు. ఈ సందేశం విస్మరించబడుతుంది."
 

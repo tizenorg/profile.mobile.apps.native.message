@@ -4,14 +4,17 @@ msgstr "Nhà"
 msgid "IDS_MSGC_POP_DATA_ROAMING_IS_DISABLED_ENABLE_DATA_ROAMING_AND_TRY_AGAIN"
 msgstr "Chuyển vùng dữ liệu bị tắt. Bật chuyển vùng dữ liệu và thử lại."
 
-msgid "IDS_MSGF_POP_NEW_MESSAGE"
-msgstr "Tin nhắn mới"
-
 msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
 msgstr "THOÁT"
 
 msgid "IDS_MSG_ACBUTTON_DONE_ABB"
 msgstr "HOÀN TẤT"
+
+msgid "IDS_MSGF_POP_NEW_MESSAGE"
+msgstr "Tin nhắn mới"
+
+msgid "IDS_COM_BUTTON_SHARE"
+msgstr "Chia sẻ"
 
 msgid "IDS_COM_BODY_UNKNOWN"
 msgstr "Không rõ"
@@ -24,9 +27,6 @@ msgstr "Dữ liệu di động bị tắt. Bật dữ liệu di động và th�
 
 msgid "IDS_TPLATFORM_ACBUTTON_SEND_ABB"
 msgstr "GỬI"
-
-msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
-msgstr "Loại file không được hỗ trợ."
 
 msgid "IDS_MSGC_POP_UNABLE_TO_SEND_MESSAGES_WHILE_IN_FLIGHT_MODE_DISABLE_FLIGHT_MODE_AND_TRY_AGAIN"
 msgstr "Không thể gửi tin nhắn ở chế độ Máy bay. Tắt chế độ Máy bay và thử lại."
@@ -55,9 +55,6 @@ msgstr "Tin nhắn được lên lịch gửi đến %s. Gửi bây giờ?"
 msgid "IDS_MSGC_POP_MAXIMUM_MESSAGE_SIZE_REACHED"
 msgstr "Đã đạt kích cỡ tin nhắn tối đa."
 
-msgid "IDS_MSGC_POP_LOW_BATTERY"
-msgstr "Pin yếu."
-
 msgid "IDS_MSGC_POP_DURATION_MUST_BE_AT_LEAST_PD_SECONDS"
 msgstr "Thời đoạn phải là ít nhất %d giây."
 
@@ -66,9 +63,6 @@ msgstr "Đang tắt chế độ Máy bay..."
 
 msgid "IDS_MSGC_POP_COPIED_TO_SIM_CARD"
 msgstr "Đã chép vào thẻ SIM."
-
-msgid "IDS_MSGC_POP_CANCELLED"
-msgstr "Đã hủy."
 
 msgid "IDS_MSGC_OPT_USE_OTHER_CONTACT_INFO_ABB"
 msgstr "Sử dụng thông tin danh bạ khác"
@@ -79,32 +73,14 @@ msgstr "Gửi qua"
 msgid "IDS_MSGC_OPT_IMAGE"
 msgstr "Hình ảnh"
 
-msgid "IDS_MSGC_OPT_EMAIL"
-msgstr "Email"
-
 msgid "IDS_MSGC_OPT_EDIT_ITEM_REPLACE"
 msgstr "Thay thế"
-
-msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
-msgstr "Xem"
-
-msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
-msgstr "Xóa"
-
-msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
-msgstr "Phát"
-
-msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
-msgstr "Đến"
 
 msgid "IDS_MSGC_OPT_CANCEL_MESSAGE"
 msgstr "Hủy tin nhắn"
 
 msgid "IDS_MSGC_HEADER_RECIPIENT_LIST"
 msgstr "Danh sách người nhận"
-
-msgid "IDS_MSGC_HEADER_PREVIEW"
-msgstr "Xem trước"
 
 msgid "IDS_MSGC_HEADER_DURATION_FOR_SLIDE_PD_PD"
 msgstr "Thời lượng của bản trình chiếu %d/%d"
@@ -127,9 +103,6 @@ msgstr "Chưa yêu cầu"
 msgid "IDS_MSGC_BODY_MAXIMUM_NUMBER_OF_RECIPIENTS_HPD_REACHED"
 msgstr "Đã đạt số danh bạ tối đa (%d)."
 
-msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
-msgstr "Nhập chủ đề."
-
 msgid "IDS_MSGC_BODY_DUPLICATED_RECIPIENT"
 msgstr "Người nhận trùng lặp."
 
@@ -138,9 +111,6 @@ msgstr "Ch.tiếp"
 
 msgid "IDS_MSGF_POP_UNABLE_TO_SAVE"
 msgstr "Không thể lưu."
-
-msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
-msgstr "Không tìm thấy vị trí."
 
 msgid "IDS_MSGF_POP_UNABLE_TO_DELETE"
 msgstr "Không xóa được."
@@ -168,9 +138,6 @@ msgstr "Đã hạn chế kiểu nội dung. Tiếp tục đính kèm?"
 
 msgid "IDS_MSGF_POP_RESTORING_ING"
 msgstr "Đang khôi phục..."
-
-msgid "IDS_MSGF_POP_REJECTED"
-msgstr "Đã từ chối."
 
 msgid "IDS_MSGF_POP_READ_REPORT"
 msgstr "Báo cáo đọc"
@@ -214,20 +181,11 @@ msgstr "Tin nhắn này bao gồm các file đính kèm không được hiện l
 msgid "IDS_MSGF_POP_FILE_NAME_ALREADY_EXISTS"
 msgstr "Tên File đã tồn tại."
 
-msgid "IDS_MSGF_POP_DELETING"
-msgstr "Đang xóa…"
-
-msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
-msgstr "Đã chép vào bộ nhớ tạm."
-
 msgid "IDS_MSGF_POP_CONVERTING_TO_TEXT_MESSAGE_ING"
 msgstr "Đang chuyển đổi sang tin nhắn văn bản..."
 
 msgid "IDS_MSGF_POP_CONVERTING_TO_MULTIMEDIA_MESSAGE_ING"
 msgstr "Đang chuyển đổi sang tin nhắn MMS..."
-
-msgid "IDS_MSGF_POP_BLOCK_PS_Q"
-msgstr "Chặn %s?"
 
 msgid "IDS_MSGF_POP_ABOUT_TO_GO_ONLINE_CONTINUE_Q"
 msgstr "Bạn đang định online(%s). Tiếp tục?"
@@ -235,38 +193,17 @@ msgstr "Bạn đang định online(%s). Tiếp tục?"
 msgid "IDS_MSGF_OPT_TEXT_MESSAGE"
 msgstr "Tin nhắn văn bản"
 
-msgid "IDS_MSGF_OPT_SUBJECT_COLON"
-msgstr "Chủ đề:"
-
-msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
-msgstr "Người gửi qua Email"
-
 msgid "IDS_MSGF_OPT_SENDER_ABB"
 msgstr "Người gửi"
-
-msgid "IDS_MSGF_OPT_SELECT"
-msgstr "Chọn"
 
 msgid "IDS_MSGF_OPT_SAVE_ATTACHMENT"
 msgstr "Lưu phần đính kèm"
 
-msgid "IDS_MSGF_OPT_SAVE"
-msgstr "Lưu"
-
-msgid "IDS_MSGF_OPT_REMOVE"
-msgstr "Xóa"
-
 msgid "IDS_MSGF_OPT_INSTALL"
 msgstr "Cài đặt"
 
-msgid "IDS_MSGF_OPT_FORWARD"
-msgstr "Chuyển tiếp"
-
 msgid "IDS_MSGF_OPT_EDIT_MESSAGE"
 msgstr "Sửa tin nhắn"
-
-msgid "IDS_MSGF_OPT_DELETE_Q"
-msgstr "Xóa?"
 
 msgid "IDS_MSGF_OPT_DELETE_MESSAGES"
 msgstr "Xóa tin nhắn"
@@ -283,14 +220,8 @@ msgstr "Chi tiết tin nhắn"
 msgid "IDS_MSGF_HEADER_EXPIRES_C_PS"
 msgstr "Hết hạn: %s"
 
-msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
-msgstr "Tìm kiếm nâng cao"
-
 msgid "IDS_MSGF_BUTTON_SAVE_ALL_ATTACHMENTS_ABB"
 msgstr "Lưu tất cả đính kèm"
-
-msgid "IDS_MSGF_BODY_UNKNOWN"
-msgstr "Không rõ"
 
 msgid "IDS_MSGF_BODY_TO_C"
 msgstr "Đến:"
@@ -301,23 +232,14 @@ msgstr "Tin nhắn SMS"
 msgid "IDS_MSGF_BODY_SIM_MEMORY_FULL_DELETE_SOME_ITEMS"
 msgstr "Bộ nhớ SIM đầy. Xóa bớt."
 
-msgid "IDS_MSGF_BODY_SETTINGS"
-msgstr "Cài đặt"
-
 msgid "IDS_MSGF_BODY_SENT_M_DATE_C"
 msgstr "Đã gửi:"
 
 msgid "IDS_MSGF_BODY_REQUESTED"
 msgstr "Đã yêu cầu."
 
-msgid "IDS_MSGF_BODY_RECIPIENTS"
-msgstr "Người nhận"
-
 msgid "IDS_MSGF_BODY_RECEIVED_M_DATE_C"
 msgstr "Đã nhận:"
-
-msgid "IDS_MSGF_BODY_RECEIVED"
-msgstr "Đã nhận."
 
 msgid "IDS_MSGF_BODY_READ_REPORT"
 msgstr "Báo cáo đọc"
@@ -331,12 +253,6 @@ msgstr "%d tin nhắn"
 msgid "IDS_MSGF_BODY_PD_CONVERSATIONS"
 msgstr "%d hội thoại"
 
-msgid "IDS_MSGF_BODY_OTHER"
-msgstr "Khác"
-
-msgid "IDS_MSGF_BODY_NO_SUBJECT"
-msgstr "Không có chủ đề"
-
 msgid "IDS_MSGF_BODY_NO_NAME"
 msgstr "Không có tên"
 
@@ -345,9 +261,6 @@ msgstr "Thông báo tin nhắn MMS"
 
 msgid "IDS_MSGF_BODY_MULTIMEDIA_MESSAGE"
 msgstr "Tin nhắn MMS"
-
-msgid "IDS_MSGF_BODY_MSGSIZE_KB"
-msgstr "KB"
 
 msgid "IDS_MSGF_BODY_MMSREADREPLYMSGREAD"
 msgstr "Đọc"
@@ -367,12 +280,6 @@ msgstr "Tùy chọn tin nhắn"
 msgid "IDS_MSGF_BODY_MESSAGE_DELIVERED"
 msgstr "Tin nhắn được gửi"
 
-msgid "IDS_MSGF_BODY_MESSAGE"
-msgstr "Tin nhắn"
-
-msgid "IDS_MSGF_BODY_ME"
-msgstr "Tôi"
-
 msgid "IDS_MSGF_BODY_MAXIMUM_NUMBER_OF_ATTACHMENTS_HP1SS_EXCEEDED_ONLY_FIRST_P2SS_WILL_BE_ADDED"
 msgstr "Đã vượt quá số lượng file đính kèm tối đa (%1$s). Chỉ %2$s file đầu tiên được thêm vào."
 
@@ -384,9 +291,6 @@ msgstr "Từ"
 
 msgid "IDS_MSGF_BODY_FLFROM"
 msgstr "Từ:"
-
-msgid "IDS_MSGF_BODY_EXPIRED"
-msgstr "Đã hết hạn"
 
 msgid "IDS_MSGF_BODY_DETAILSSENDINGFAILED"
 msgstr "Không gửi được."
@@ -402,9 +306,6 @@ msgstr "Chép văn bản"
 
 msgid "IDS_MSGF_BODY_CB_MESSAGES"
 msgstr "Tin nhắn CB"
-
-msgid "IDS_MSGF_BODY_ALL"
-msgstr "Tất cả"
 
 msgid "IDS_MSGF_BODY_1_MESSAGE"
 msgstr "1 message"
@@ -433,6 +334,9 @@ msgstr "Tự động truy xuất tin nhắn MMS."
 msgid "IDS_MSG_TPOP_UNABLE_TO_PREVIEW_FILE_UNSUPPORTED_FILE_TYPE"
 msgstr "Không thể xem trước file. Loại file không được hỗ trợ."
 
+msgid "IDS_MSG_TPOP_UNABLE_TO_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Không thể đính kèm file. Định dạng file không được hỗ trợ."
+
 msgid "IDS_MSG_TPOP_UNABLE_TO_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
 msgstr "Không thể thêm một số người nhận. Số không hợp lệ."
 
@@ -448,6 +352,9 @@ msgstr "Không thể thêm mục đính kèm. Đã đạt số mục đính kèm
 msgid "IDS_MSG_TPOP_THIS_NUMBER_IS_NOT_VALID"
 msgstr "Số này không hợp lệ."
 
+msgid "IDS_MSG_TPOP_SOME_RECIPIENTS_ALREADY_ADDED"
+msgstr "Một số người nhận đã được thêm."
+
 msgid "IDS_MSG_TPOP_SELECTED_MESSAGES_COPIED_TO_MOBILE_DEVICE"
 msgstr "Đã sao chép các tin nhắn đã chọn vào thiết bị di động."
 
@@ -459,6 +366,9 @@ msgstr "Số đã bị xóa khỏi danh sách chặn tin nhắn."
 
 msgid "IDS_MSG_TPOP_NUMBER_ADDED_TO_MESSAGE_BLOCK_LIST"
 msgstr "Số đã được thêm vào danh sách chặn tin nhắn."
+
+msgid "IDS_MSG_TPOP_NETWORK_NOT_AVAILABLE_MESSAGE_WILL_BE_SENT_WHEN_CONNECTED_TO_NETWORK"
+msgstr "Không có mạng. Tin nhắn sẽ được gửi khi kết nối vào mạng."
 
 msgid "IDS_MSG_TPOP_MESSAGE_COPIED_TO_PS_SIM_CARD"
 msgstr "Tin nhắn được sao chép vào thẻ SIM %s."
@@ -502,9 +412,6 @@ msgstr "Tự nhận"
 msgid "IDS_MSG_SK_SEND_NOW"
 msgstr "Gửi ngay"
 
-msgid "IDS_MSG_SK_NO_ABB"
-msgstr "Không"
-
 msgid "IDS_MSG_SBODY_SELECT_AN_INPUT_MODE_FOR_COMPOSING_MESSAGES"
 msgstr "Chọn chế độ nhập để soạn tin nhắn."
 
@@ -514,14 +421,8 @@ msgstr "Trống"
 msgid "IDS_MSG_SBODY_MANAGE_THE_MESSAGES_STORED_ON_YOUR_SIM_CARD"
 msgstr "Quản lý tin nhắn lưu trên thẻ SIM của bạn."
 
-msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
-msgstr "Tin nhắn của bạn sẽ bị hủy. Không có người nhận nào được chọn."
-
 msgid "IDS_MSG_POP_UNABLE_TO_SEND_SCHEDULED_MESSAGE_SET_ANOTHER_TIME"
 msgstr "Không thể gửi tin nhắn hẹn giờ. Đặt thời gian khác."
-
-msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
-msgstr "Không thể phát khi đang gọi."
 
 msgid "IDS_MSG_POP_UNABLE_TO_ATTACH_FILE_FILE_SIZE_TOO_LARGE_TRY_SENDING_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
 msgstr "Không thể đính kèm file. Kích cỡ file quá lớn. Thử gửi qua Email, Bluetooth, Wi-Fi,..."
@@ -544,17 +445,11 @@ msgstr "%d hội thoại sẽ bị xóa."
 msgid "IDS_MSG_POP_NO_TEMPLATES_IN_LIST"
 msgstr "Không có mẫu trong danh sách"
 
-msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
-msgstr "Chỉ tin nhắn đến"
-
 msgid "IDS_MSG_POP_INCLUDE_ORIGINAL_TEXT_IN_OUTGOING_MESSAGE"
 msgstr "Kèm văn bản gốc trong tin gửi đi"
 
 msgid "IDS_MSG_POP_DURATION_MUST_BE_SHORTER_THAN_PD_SECONDS"
 msgstr "Thời lượng phải ngắn hơn %d giây."
-
-msgid "IDS_MSG_POP_DELETED"
-msgstr "Đã xóa."
 
 msgid "IDS_MSG_POP_1_MESSAGE_WILL_BE_DELETED"
 msgstr "1 tin nhắn sẽ bị xóa."
@@ -571,26 +466,14 @@ msgstr "Xem chi tiết danh bạ"
 msgid "IDS_MSG_OPT_VIEW_AS_SLIDESHOW_ABB"
 msgstr "Xem dạng trình chiếu"
 
-msgid "IDS_MSG_OPT_VIDEOS"
-msgstr "Video"
-
 msgid "IDS_MSG_OPT_UPDATE_CONTACT"
 msgstr "Cập nhật danh bạ"
 
 msgid "IDS_MSG_OPT_UNICODE"
 msgstr "Unicode"
 
-msgid "IDS_MSG_OPT_TEXT"
-msgstr "Văn bản"
-
 msgid "IDS_MSG_OPT_TAKE_PICTURE_ABB"
 msgstr "Chụp ảnh"
-
-msgid "IDS_MSG_OPT_SETTINGS"
-msgstr "Cài đặt"
-
-msgid "IDS_MSG_OPT_SEARCH"
-msgstr "Tìm kiếm"
 
 msgid "IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"
 msgstr "Lưu phần đính kèm"
@@ -604,23 +487,14 @@ msgstr "Trả lời"
 msgid "IDS_MSG_OPT_REMOVE_FROM_BLOCK_LIST_ABB"
 msgstr "Xóa khỏi danh sách chặn"
 
-msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
-msgstr "Quay video"
-
 msgid "IDS_MSG_OPT_RECORD_AUDIO_FILE_ABB"
 msgstr "Ghi file âm thanh"
 
 msgid "IDS_MSG_OPT_QUICK_RESPONSE_ABB"
 msgstr "Trả lời nhanh"
 
-msgid "IDS_MSG_OPT_NONE"
-msgstr "Không dùng"
-
 msgid "IDS_MSG_OPT_MAKE_VOICE_CALL"
 msgstr "Thực hiện cuộc gọi thoại"
-
-msgid "IDS_MSG_OPT_IMAGES"
-msgstr "Hình ảnh"
 
 msgid "IDS_MSG_OPT_GSM_ALPHABET_ABB"
 msgstr "Bảng chữ cái GSM"
@@ -628,20 +502,11 @@ msgstr "Bảng chữ cái GSM"
 msgid "IDS_MSG_OPT_EXPORT_TO_DEVICE_MEMORY"
 msgstr "Xuất ra bộ nhớ thiết bị"
 
-msgid "IDS_MSG_OPT_EDIT"
-msgstr "Sửa"
-
 msgid "IDS_MSG_OPT_DELETE_MESSAGE"
 msgstr "Xóa tin nhắn"
 
 msgid "IDS_MSG_OPT_DELETE_CONVERSATION_ABB"
 msgstr "Xóa hội thoại"
-
-msgid "IDS_MSG_OPT_DELETE"
-msgstr "Xóa"
-
-msgid "IDS_MSG_OPT_DEFAULT"
-msgstr "Mặc định"
 
 msgid "IDS_MSG_OPT_CREATE_CONTACT_ABB"
 msgstr "Tạo danh bạ"
@@ -709,15 +574,6 @@ msgstr "Số không rõ"
 msgid "IDS_MSG_MBODY_TEXT_MESSAGE_CENTRE_NUMBER_ABB"
 msgstr "Số trung tâm tin nhắn SMS"
 
-msgid "IDS_MSG_MBODY_SELECT_ALL"
-msgstr "Chọn tất cả"
-
-msgid "IDS_MSG_MBODY_ALERTS"
-msgstr "Thông báo"
-
-msgid "IDS_MSG_HEADER_TRANSLATE"
-msgstr "Dịch"
-
 msgid "IDS_MSG_HEADER_TEXT_MESSAGES_ABB"
 msgstr "Tin nhắn SMS"
 
@@ -727,9 +583,6 @@ msgstr "Chuyển mạng di động"
 msgid "IDS_MSG_HEADER_SMS_CENTRE_ABB2"
 msgstr "Trung tâm SMS"
 
-msgid "IDS_MSG_HEADER_SETTINGS"
-msgstr "Cài đặt"
-
 msgid "IDS_MSG_HEADER_SELECT_RECIPIENT"
 msgstr "Select recipient"
 
@@ -738,9 +591,6 @@ msgstr "Đã chọn %d"
 
 msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
 msgstr "Tin nhắn trên thẻ SIM"
-
-msgid "IDS_MSG_HEADER_MESSAGES"
-msgstr "Tin nhắn"
 
 msgid "IDS_MSG_HEADER_INPUT_MODE_ABB"
 msgstr "Chế độ nhập"
@@ -754,14 +604,8 @@ msgstr "Có lỗi khi gửi tin nhắn"
 msgid "IDS_MSG_HEADER_DISCARD_MESSAGE_M_CLOSE_ABB"
 msgstr "Hủy tin nhắn"
 
-msgid "IDS_MSG_HEADER_DELETE"
-msgstr "Xóa"
-
 msgid "IDS_MSG_HEADER_CREATE"
 msgstr "Tạo"
-
-msgid "IDS_MSG_HEADER_ATTENTION"
-msgstr "Chú ý"
 
 msgid "IDS_MSG_HEADER_ADD_CONTENT_ABB"
 msgstr "Thêm nội dung"
@@ -775,15 +619,6 @@ msgstr "Lưu"
 msgid "IDS_MSG_BUTTON_RESEND_ABB"
 msgstr "Gửi lại"
 
-msgid "IDS_MSG_BUTTON_REMOVE_ABB"
-msgstr "Gỡ bỏ"
-
-msgid "IDS_MSG_BUTTON_OK_ABB"
-msgstr "OK"
-
-msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
-msgstr "Tải về"
-
 msgid "IDS_MSG_BUTTON_DISCARD_ABB"
 msgstr "Hủy bỏ"
 
@@ -793,17 +628,11 @@ msgstr "Xóa"
 msgid "IDS_MSG_BUTTON_CANCEL_ABB2"
 msgstr "Thoát"
 
-msgid "IDS_MSG_BUTTON_CANCEL_ABB"
-msgstr "Thoát"
-
 msgid "IDS_MSG_BUTTON2_CONTACTS_ABB_M_APPLICATION_NAME"
 msgstr "Danh bạ"
 
 msgid "IDS_MSG_BODY_YOU_HAVE_SELECTED_A_SOUND_N_SHOT_FILE_SOUND_DATA_IS_NOT_SUPPORTED_FOR_MMS_SO_ONLY_THE_PICTURE_WILL_BE_ATTACHED"
 msgstr "Bạn đã chọn file âm thanh & hình ảnh. MMS không hỗ trợ dữ liệu âm thanh nên sẽ chỉ đính kèm ảnh."
-
-msgid "IDS_MSG_BODY_YES"
-msgstr "OK"
 
 msgid "IDS_MSG_BODY_WAITING_TO_SEND_ING_M_STATUS"
 msgstr "Đang chờ gửi..."
@@ -823,9 +652,6 @@ msgstr "Thời gian gửi:"
 msgid "IDS_MSG_BODY_TIME_RECEIVED_C"
 msgstr "Thời gian nhận:"
 
-msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
-msgstr "Hộp đánh dấu"
-
 msgid "IDS_MSG_BODY_STATUS_C"
 msgstr "Trạng thái:"
 
@@ -838,9 +664,6 @@ msgstr "Đang gửi..."
 msgid "IDS_MSG_BODY_SENDING_FAILED_M_STATUS"
 msgstr "Có lỗi khi gửi"
 
-msgid "IDS_MSG_BODY_SEC"
-msgstr "giây"
-
 msgid "IDS_MSG_BODY_RETRIEVE_MESSAGES_AUTOMATICALLY_WHILE_ROAMING"
 msgstr "Tự động truy cập tin nhắn khi chuyển vùng."
 
@@ -852,9 +675,6 @@ msgstr "Báo cáo đã đọc: %s"
 
 msgid "IDS_MSG_BODY_OTHER_PERSON"
 msgstr "Người khác"
-
-msgid "IDS_MSG_BODY_MESSAGE"
-msgstr "Tin nhắn"
 
 msgid "IDS_MSG_BODY_MEMO_T_MAINMENU"
 msgstr "Ghi nhớ"
@@ -895,14 +715,197 @@ msgstr "Sau khi bạn thêm số điện thoại vào danh sách chặn tin nh�
 msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
 msgstr "XÓA"
 
-msgid "IDS_ST_BODY_LOADING_ING"
-msgstr "Đang tải…"
+msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
+msgstr "Loại file không được hỗ trợ."
 
-msgid "IDS_MSGS_BODY_NOTIFICATIONS"
+msgid "IDS_MSGC_POP_LOW_BATTERY"
+msgstr "Pin yếu."
+
+msgid "IDS_MSGC_POP_CANCELLED"
+msgstr "Đã hủy."
+
+msgid "IDS_MSGC_OPT_EMAIL"
+msgstr "Email"
+
+msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
+msgstr "Xem"
+
+msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
+msgstr "Xóa"
+
+msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
+msgstr "Phát"
+
+msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
+msgstr "Đến"
+
+msgid "IDS_MSGC_HEADER_PREVIEW"
+msgstr "Xem trước"
+
+msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
+msgstr "Nhập chủ đề."
+
+msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
+msgstr "Không tìm thấy vị trí."
+
+msgid "IDS_MSGF_POP_REJECTED"
+msgstr "Đã từ chối."
+
+msgid "IDS_MSGF_POP_DELETING"
+msgstr "Đang xóa…"
+
+msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
+msgstr "Đã chép vào bộ nhớ tạm."
+
+msgid "IDS_MSGF_POP_BLOCK_PS_Q"
+msgstr "Chặn %s?"
+
+msgid "IDS_MSGF_OPT_SUBJECT_COLON"
+msgstr "Chủ đề:"
+
+msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
+msgstr "Người gửi qua Email"
+
+msgid "IDS_MSGF_OPT_SELECT"
+msgstr "Chọn"
+
+msgid "IDS_MSGF_OPT_SAVE"
+msgstr "Lưu"
+
+msgid "IDS_MSGF_OPT_REMOVE"
+msgstr "Xóa"
+
+msgid "IDS_MSGF_OPT_FORWARD"
+msgstr "Chuyển tiếp"
+
+msgid "IDS_MSGF_OPT_DELETE_Q"
+msgstr "Xóa?"
+
+msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
+msgstr "Tìm kiếm nâng cao"
+
+msgid "IDS_MSGF_BODY_UNKNOWN"
+msgstr "Không rõ"
+
+msgid "IDS_MSGF_BODY_SETTINGS"
+msgstr "Cài đặt"
+
+msgid "IDS_MSGF_BODY_RECIPIENTS"
+msgstr "Người nhận"
+
+msgid "IDS_MSGF_BODY_RECEIVED"
+msgstr "Đã nhận."
+
+msgid "IDS_MSGF_BODY_OTHER"
+msgstr "Khác"
+
+msgid "IDS_MSGF_BODY_NO_SUBJECT"
+msgstr "Không có chủ đề"
+
+msgid "IDS_MSGF_BODY_MSGSIZE_KB"
+msgstr "KB"
+
+msgid "IDS_MSGF_BODY_MESSAGE"
+msgstr "Tin nhắn"
+
+msgid "IDS_MSGF_BODY_ME"
+msgstr "Tôi"
+
+msgid "IDS_MSGF_BODY_EXPIRED"
+msgstr "Đã hết hạn"
+
+msgid "IDS_MSGF_BODY_ALL"
+msgstr "Tất cả"
+
+msgid "IDS_MSG_SK_NO_ABB"
+msgstr "Không"
+
+msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
+msgstr "Tin nhắn của bạn sẽ bị hủy. Không có người nhận nào được chọn."
+
+msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
+msgstr "Không thể phát khi đang gọi."
+
+msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
+msgstr "Chỉ tin nhắn đến"
+
+msgid "IDS_MSG_POP_DELETED"
+msgstr "Đã xóa."
+
+msgid "IDS_MSG_OPT_VIDEOS"
+msgstr "Video"
+
+msgid "IDS_MSG_OPT_TEXT"
+msgstr "Văn bản"
+
+msgid "IDS_MSG_OPT_SETTINGS"
+msgstr "Cài đặt"
+
+msgid "IDS_MSG_OPT_SEARCH"
+msgstr "Tìm kiếm"
+
+msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
+msgstr "Quay video"
+
+msgid "IDS_MSG_OPT_NONE"
+msgstr "Không dùng"
+
+msgid "IDS_MSG_OPT_IMAGES"
+msgstr "Hình ảnh"
+
+msgid "IDS_MSG_OPT_EDIT"
+msgstr "Sửa"
+
+msgid "IDS_MSG_OPT_DELETE"
+msgstr "Xóa"
+
+msgid "IDS_MSG_OPT_DEFAULT"
+msgstr "Mặc định"
+
+msgid "IDS_MSG_MBODY_SELECT_ALL"
+msgstr "Chọn tất cả"
+
+msgid "IDS_MSG_MBODY_ALERTS"
 msgstr "Thông báo"
 
-msgid "IDS_MSG_HEADER_ME"
-msgstr "Tôi"
+msgid "IDS_MSG_HEADER_TRANSLATE"
+msgstr "Dịch"
+
+msgid "IDS_MSG_HEADER_SETTINGS"
+msgstr "Cài đặt"
+
+msgid "IDS_MSG_HEADER_MESSAGES"
+msgstr "Tin nhắn"
+
+msgid "IDS_MSG_HEADER_DELETE"
+msgstr "Xóa"
+
+msgid "IDS_MSG_HEADER_ATTENTION"
+msgstr "Chú ý"
+
+msgid "IDS_MSG_BUTTON_REMOVE_ABB"
+msgstr "Gỡ bỏ"
+
+msgid "IDS_MSG_BUTTON_OK_ABB"
+msgstr "OK"
+
+msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
+msgstr "Tải về"
+
+msgid "IDS_MSG_BUTTON_CANCEL_ABB"
+msgstr "Thoát"
+
+msgid "IDS_MSG_BODY_YES"
+msgstr "OK"
+
+msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
+msgstr "Hộp đánh dấu"
+
+msgid "IDS_MSG_BODY_SEC"
+msgstr "giây"
+
+msgid "IDS_MSG_BODY_MESSAGE"
+msgstr "Tin nhắn"
 
 msgid "IDS_MSG_BUTTON_SEND_ABB5"
 msgstr "Gửi"
@@ -912,4 +915,31 @@ msgstr "Gửi"
 
 msgid "IDS_MSG_ACBUTTON_SEND_ABB3"
 msgstr "GỬI"
+
+msgid "IDS_ST_BODY_LOADING_ING"
+msgstr "Đang tải…"
+
+msgid "IDS_MSGS_BODY_NOTIFICATIONS"
+msgstr "Thông báo"
+
+msgid "IDS_MSG_HEADER_ME"
+msgstr "Tôi"
+
+msgid "IDS_MSG_BODY_UNKNOWN"
+msgstr "Không rõ"
+
+msgid "IDS_MSG_TMBODY_ADD_OR_REMOVE_RECIPIENTS"
+msgstr "Thêm hoặc xóa người nhận"
+
+msgid "IDS_MSG_POP_THE_SENDER_HAS_REQUESTED_A_READ_REPORT_TAP_SEND_TO_SEND_ONE"
+msgstr "Người gửi đã yêu cầu báo cáo đã đọc. Chạm Gửi để gửi báo cáo này."
+
+msgid "IDS_MSGF_OPT_SEND_READ_REPORT"
+msgstr "Gửi thông báo đọc tin"
+
+msgid "IDS_MSG_HEADER_COMPOSE_MESSAGE_ABB"
+msgstr "Soạn tin nhắn"
+
+msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
+msgstr "Chưa thêm người nhận hợp lệ nào. Tin nhắn này sẽ bị hủy."
 

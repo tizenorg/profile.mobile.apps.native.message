@@ -4,14 +4,17 @@ msgstr "ບ້ານ"
 msgid "IDS_MSGC_POP_DATA_ROAMING_IS_DISABLED_ENABLE_DATA_ROAMING_AND_TRY_AGAIN"
 msgstr "ການໂຣມມິງຂໍ້ມູນຖືກປິດ. ເປີດໃຊ້ການໂຣມມິງຂໍ້ມູນ ແລະລອງໃໝ່ອີກ."
 
-msgid "IDS_MSGF_POP_NEW_MESSAGE"
-msgstr "ຂໍ້ຄວາມໃໝ່"
-
 msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
 msgstr "ຍົກເລີກ"
 
 msgid "IDS_MSG_ACBUTTON_DONE_ABB"
 msgstr "ສໍາເລັດ"
+
+msgid "IDS_MSGF_POP_NEW_MESSAGE"
+msgstr "ຂໍ້ຄວາມໃໝ່"
+
+msgid "IDS_COM_BUTTON_SHARE"
+msgstr "ແບ່ງປັນ"
 
 msgid "IDS_COM_BODY_UNKNOWN"
 msgstr "ບໍ່ຮູ້"
@@ -24,9 +27,6 @@ msgstr "ຂໍ້ມູນໂທລະສັບມືຖືຖືກປິດໃ
 
 msgid "IDS_TPLATFORM_ACBUTTON_SEND_ABB"
 msgstr "ສົ່ງ"
-
-msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
-msgstr "ປະເພດຂອງສື່ບໍ່ເຂົ້າກັນໄດ້."
 
 msgid "IDS_MSGC_POP_UNABLE_TO_SEND_MESSAGES_WHILE_IN_FLIGHT_MODE_DISABLE_FLIGHT_MODE_AND_TRY_AGAIN"
 msgstr "ບໍ່ສາມາດສົ່ງຂໍ້ຄວາມໃນຂະນະທີ່ຢູ່ໃນໂໝດການບິນ. ປິດໃຊ້ໂໝດການບິນ ແລະລອງໃໝ່ອີກ."
@@ -55,20 +55,14 @@ msgstr "ຂໍ້ຄວາມຖືກກໍານົດໃຫ້ສົ່ງຫ
 msgid "IDS_MSGC_POP_MAXIMUM_MESSAGE_SIZE_REACHED"
 msgstr "ຮອດຂະໜາດຂໍ້ຄວາມສູງສຸດແລ້ວ."
 
-msgid "IDS_MSGC_POP_LOW_BATTERY"
-msgstr "ແບັດເຕີຣີອ່ອນ."
-
 msgid "IDS_MSGC_POP_DURATION_MUST_BE_AT_LEAST_PD_SECONDS"
-msgstr "Duration must be at least %d seconds."
+msgstr "ໄລຍະເວລາຈະຕ້ອງມີຢ່າງໜ້ອຍ %d ວິນາທີ."
 
 msgid "IDS_MSGC_POP_DISABLING_FLIGHT_MODE_ING"
 msgstr "ກໍາລັງປິດໃຊ້ງານໂໝດການບິນ..."
 
 msgid "IDS_MSGC_POP_COPIED_TO_SIM_CARD"
 msgstr "ກັອບປີ້ໃສ່ແຜ່ນ SIM ແລ້ວ."
-
-msgid "IDS_MSGC_POP_CANCELLED"
-msgstr "ຍົກເລີກແລ້ວ."
 
 msgid "IDS_MSGC_OPT_USE_OTHER_CONTACT_INFO_ABB"
 msgstr "ໃຊ້ຂໍ້ມູນຜູ້ຕິດຕໍ່ອື່ນ"
@@ -79,23 +73,8 @@ msgstr "ສົ່ງຜ່ານ"
 msgid "IDS_MSGC_OPT_IMAGE"
 msgstr "ຮູບ"
 
-msgid "IDS_MSGC_OPT_EMAIL"
-msgstr "ອີ​ເມ​ວ"
-
 msgid "IDS_MSGC_OPT_EDIT_ITEM_REPLACE"
 msgstr "ແທນທີ່"
-
-msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
-msgstr "ເບິ່ງ"
-
-msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
-msgstr "ເອົາອອກ"
-
-msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
-msgstr "ຫຼິ້ນ"
-
-msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
-msgstr "ຫາ"
 
 msgid "IDS_MSGC_OPT_CANCEL_MESSAGE"
 msgstr "ຍົກເລີກຂໍ້ຄວາມ"
@@ -103,11 +82,8 @@ msgstr "ຍົກເລີກຂໍ້ຄວາມ"
 msgid "IDS_MSGC_HEADER_RECIPIENT_LIST"
 msgstr "ລາຍການຜູ້ຮັບ"
 
-msgid "IDS_MSGC_HEADER_PREVIEW"
-msgstr "ເບິ່ງກ່ອນ"
-
 msgid "IDS_MSGC_HEADER_DURATION_FOR_SLIDE_PD_PD"
-msgstr "Duration for slide %d/%d"
+msgstr "ໄລຍະເວລາສຳລັບສະໄລດ໌ %d/%d"
 
 msgid "IDS_MSGC_BODY_WAIT_WHILE_ITEMS_ARE_ADDED_TO_SLIDESHOW"
 msgstr "ລໍຖ້າໃນຂະນະທີ່ລາຍການຕ່າງໆກໍາລັງຖືກເພີ່ມເຂົ້າໃສ່ໃນການເປີດສະໄລ້ໂຊ."
@@ -127,20 +103,14 @@ msgstr "ບໍ່ໄດ້ຂໍ"
 msgid "IDS_MSGC_BODY_MAXIMUM_NUMBER_OF_RECIPIENTS_HPD_REACHED"
 msgstr "ຮອດຂີດສູງສຸດຂອງຈໍານວນຜູ້ຮັບ (%d) ແລ້ວ."
 
-msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
-msgstr "ໃສ່ຫົວຂໍ້ເຂົ້າໄປ."
-
 msgid "IDS_MSGC_BODY_DUPLICATED_RECIPIENT"
 msgstr "ຊື່ຜູ້ຮັບຊໍ້າກັນ."
 
 msgid "IDS_MSGF_SK_FORWARD_LITE"
-msgstr "Fwd"
+msgstr "ສົ່ງຕໍ່"
 
 msgid "IDS_MSGF_POP_UNABLE_TO_SAVE"
 msgstr "ບໍ່ສາມາດບັນທຶກໄດ້."
-
-msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
-msgstr "ບໍ່ສາມາດພົບສະຖານທີ່."
 
 msgid "IDS_MSGF_POP_UNABLE_TO_DELETE"
 msgstr "ບໍ່ສາມາດລຶບໄດ້."
@@ -152,7 +122,7 @@ msgid "IDS_MSGF_POP_SOME_CHARACTERS_MAY_BE_LOST_CONTINUE_Q"
 msgstr "ອາດຈະເສຍຕົວອັກສອນບາງຕົວ. ດໍາເນີນການຕໍ່ບໍ?"
 
 msgid "IDS_MSGF_POP_SIM_NOT_INSERTED"
-msgstr "SIM not inserted."
+msgstr "ບໍ່ໄດ້ແຊກ SIM ໃສ່."
 
 msgid "IDS_MSGF_POP_SAVING_FAILED"
 msgstr "ການບັນທຶກບໍ່ສໍາເລັດ."
@@ -168,9 +138,6 @@ msgstr "ປະເພດເນື້ອໃນຖືກຈໍາກັດ. ແນ�
 
 msgid "IDS_MSGF_POP_RESTORING_ING"
 msgstr "ກໍາລັງເອົາກັບມາ..."
-
-msgid "IDS_MSGF_POP_REJECTED"
-msgstr "ປະຕິ​ເສດ​ແລ້ວ."
 
 msgid "IDS_MSGF_POP_READ_REPORT"
 msgstr "ອ່ານລາຍງານ"
@@ -188,7 +155,7 @@ msgid "IDS_MSGF_POP_MESSAGE_COPIED_FROM_SIM_CARD"
 msgstr "ຂໍ້ຄວາມກັອບປີ້ມາຈາກແຜ່ນ SIM."
 
 msgid "IDS_MSGF_POP_MAXIMUM_NUMBER_OF_RECIPIENTS_IS_PD_SOME_RECIPIENTS_MAY_BE_LOST"
-msgstr "Maximum number of recipients is %d. Some recipients may be lost."
+msgstr "ຈໍານວນຜູ້ຮັບສູງສຸດແມ່ນ %d. ອາດຈະສູນເສຍຜູ້ຮັບບາງລາຍ."
 
 msgid "IDS_MSGF_POP_MAXIMUM_NUMBER_OF_ATTACHMENTS_HPS_EXCEEDED"
 msgstr "ເກີນຈໍານວນໄຟລ໌ຄັດຕິດສູງສຸດ (%s) ແລ້ວ."
@@ -203,7 +170,7 @@ msgid "IDS_MSGF_POP_INTIALISING"
 msgstr "ກໍາລັງລິເລີ່ມ..."
 
 msgid "IDS_MSGF_POP_IF_YOU_DONT_WANT_TO_REPLACE_THE_FILE_RENAME_IT"
-msgstr "If you don't want to replace the file, rename it."
+msgstr "ຖ້າທ່ານບໍ່ຕ້ອງການປ່ຽນແທນໄຟລ໌, ປ່ຽນຊື່ມັນໃໝ່."
 
 msgid "IDS_MSGF_POP_HELP_PAGE_MESSAGE_FOR_ONE_FILE"
 msgstr "ຂໍ້ຄວາມນີ້ລວມມີໄຟລ໌ຄັດຕິດທີ່ບໍ່ໄດ້ສະແດງອອກ."
@@ -214,20 +181,11 @@ msgstr "ຂໍ້ຄວາມນີ້ລວມທັງໄຟລ໌ທີ່ໄ
 msgid "IDS_MSGF_POP_FILE_NAME_ALREADY_EXISTS"
 msgstr "ຊື່​ໄຟ​ລມີ​ຢູ່​ແລ້ວ."
 
-msgid "IDS_MSGF_POP_DELETING"
-msgstr "ກຳລັງລຶບ..."
-
-msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
-msgstr "ກັອບປີ້ໃສ່ຄລິບບອດແລ້ວ."
-
 msgid "IDS_MSGF_POP_CONVERTING_TO_TEXT_MESSAGE_ING"
 msgstr "ກໍາລັງແປງເປັນຂໍ້ຄວາມຕົວໜັງສື..."
 
 msgid "IDS_MSGF_POP_CONVERTING_TO_MULTIMEDIA_MESSAGE_ING"
 msgstr "ກໍາລັງແປງເປັນຂໍ້ຄວາມສາລະພັດສື່..."
-
-msgid "IDS_MSGF_POP_BLOCK_PS_Q"
-msgstr "ບລັອກ %s ບໍ?"
 
 msgid "IDS_MSGF_POP_ABOUT_TO_GO_ONLINE_CONTINUE_Q"
 msgstr "ທ່ານຈະເຂົ້າໄປອອນໄລນ໌(%s). ດໍາເນີນການຕໍ່ບໍ?"
@@ -235,38 +193,17 @@ msgstr "ທ່ານຈະເຂົ້າໄປອອນໄລນ໌(%s). ດໍ
 msgid "IDS_MSGF_OPT_TEXT_MESSAGE"
 msgstr "ຂໍ້ຄວາມ"
 
-msgid "IDS_MSGF_OPT_SUBJECT_COLON"
-msgstr "ເລື່ອງ:"
-
-msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
-msgstr "ສົ່ງຜ່ານທາງອີແມວ"
-
 msgid "IDS_MSGF_OPT_SENDER_ABB"
 msgstr "ຜູ້ສົ່ງ"
-
-msgid "IDS_MSGF_OPT_SELECT"
-msgstr "​ເລື​ອກ"
 
 msgid "IDS_MSGF_OPT_SAVE_ATTACHMENT"
 msgstr "ເກັບສິ່ງທີ່ແນບມາ"
 
-msgid "IDS_MSGF_OPT_SAVE"
-msgstr "ບັນທຶກ"
-
-msgid "IDS_MSGF_OPT_REMOVE"
-msgstr "ເອົາອອກ"
-
 msgid "IDS_MSGF_OPT_INSTALL"
 msgstr "ຕິດຕັ້ງ"
 
-msgid "IDS_MSGF_OPT_FORWARD"
-msgstr "ສົ່ງຕໍ່"
-
 msgid "IDS_MSGF_OPT_EDIT_MESSAGE"
 msgstr "​ແກ້​ໄຂ​ຂໍ້​ຄວາມ"
-
-msgid "IDS_MSGF_OPT_DELETE_Q"
-msgstr "ລຶບບໍ?"
 
 msgid "IDS_MSGF_OPT_DELETE_MESSAGES"
 msgstr "ລຶບຂໍ້ຄວາມ"
@@ -283,14 +220,8 @@ msgstr "ລາຍລະອຽດຂອງຂໍ້ຄວາມ"
 msgid "IDS_MSGF_HEADER_EXPIRES_C_PS"
 msgstr "ໝົດອາຍຸ: %s"
 
-msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
-msgstr "ການຄົ້ນຫາຂັ້ນສູງ"
-
 msgid "IDS_MSGF_BUTTON_SAVE_ALL_ATTACHMENTS_ABB"
 msgstr "ບັນທຶກທຸກການຄັດຕິດ"
-
-msgid "IDS_MSGF_BODY_UNKNOWN"
-msgstr "ບໍ່ຮູ້"
 
 msgid "IDS_MSGF_BODY_TO_C"
 msgstr "ເຖິງ:"
@@ -301,23 +232,14 @@ msgstr "ຂໍ້ຄວາມ"
 msgid "IDS_MSGF_BODY_SIM_MEMORY_FULL_DELETE_SOME_ITEMS"
 msgstr "ຄວາມຈໍາຂອງ SIM ເຕັມ. ລຶບບາງລາຍການອອກໄປ."
 
-msgid "IDS_MSGF_BODY_SETTINGS"
-msgstr "ຕັ້ງຄ່າ"
-
 msgid "IDS_MSGF_BODY_SENT_M_DATE_C"
 msgstr "ສົ່ງແລ້ວ:"
 
 msgid "IDS_MSGF_BODY_REQUESTED"
 msgstr "ໄດ້ສະເໜີຂໍ."
 
-msgid "IDS_MSGF_BODY_RECIPIENTS"
-msgstr "ຜູ້ຮັບ"
-
 msgid "IDS_MSGF_BODY_RECEIVED_M_DATE_C"
 msgstr "ໄດ້ຮັບແລ້ວ:"
-
-msgid "IDS_MSGF_BODY_RECEIVED"
-msgstr "ຮັບແລ້ວ"
 
 msgid "IDS_MSGF_BODY_READ_REPORT"
 msgstr "ອ່ານລາຍງານ"
@@ -331,12 +253,6 @@ msgstr "%d ຂໍ້ຄວາມ"
 msgid "IDS_MSGF_BODY_PD_CONVERSATIONS"
 msgstr "%d ການສົນທະນາ"
 
-msgid "IDS_MSGF_BODY_OTHER"
-msgstr "ອື່ນໆ"
-
-msgid "IDS_MSGF_BODY_NO_SUBJECT"
-msgstr "ບໍ່ມີຫົວຂໍ້"
-
 msgid "IDS_MSGF_BODY_NO_NAME"
 msgstr "ບໍ່ມີຊື່"
 
@@ -345,9 +261,6 @@ msgstr "ແຈ້ງເຈືອນຂໍ້ຄວາມມັລຕິມີເ
 
 msgid "IDS_MSGF_BODY_MULTIMEDIA_MESSAGE"
 msgstr "ຂໍ້ຄວາມມັລຕິມີເດຍ"
-
-msgid "IDS_MSGF_BODY_MSGSIZE_KB"
-msgstr "KB"
 
 msgid "IDS_MSGF_BODY_MMSREADREPLYMSGREAD"
 msgstr "ອ່ານ"
@@ -367,12 +280,6 @@ msgstr "ຕົວເລືອກຂໍ້ຄວາມ"
 msgid "IDS_MSGF_BODY_MESSAGE_DELIVERED"
 msgstr "ຂໍ້ຄວາມໄດ້ສົ່ງແລ້ວ"
 
-msgid "IDS_MSGF_BODY_MESSAGE"
-msgstr "ຂໍ້ຄວາມ"
-
-msgid "IDS_MSGF_BODY_ME"
-msgstr "ຂ້ອຍ"
-
 msgid "IDS_MSGF_BODY_MAXIMUM_NUMBER_OF_ATTACHMENTS_HP1SS_EXCEEDED_ONLY_FIRST_P2SS_WILL_BE_ADDED"
 msgstr "ຈໍານວນໄຟລ໌ຄັດຕິດສູງສຸດ (%1$s) ເກີນຂະໜາດແລ້ວ. ພຽງແຕ່ %2$s ທໍາອິດຈະຖືກເພີ່ມເຂົ້າ."
 
@@ -384,9 +291,6 @@ msgstr "ຈາກ"
 
 msgid "IDS_MSGF_BODY_FLFROM"
 msgstr "ຈາກ:"
-
-msgid "IDS_MSGF_BODY_EXPIRED"
-msgstr "ໝົດອາຍຸ"
 
 msgid "IDS_MSGF_BODY_DETAILSSENDINGFAILED"
 msgstr "ການສົ່ງ​ລົ້ມ​ເຫຼວ."
@@ -402,9 +306,6 @@ msgstr "ກັອບປີ້ຂໍ້ຄວາມ"
 
 msgid "IDS_MSGF_BODY_CB_MESSAGES"
 msgstr "ຂໍ້ຄວາມ CB"
-
-msgid "IDS_MSGF_BODY_ALL"
-msgstr "ທັງໝົດ"
 
 msgid "IDS_MSGF_BODY_1_MESSAGE"
 msgstr "1 ຂໍ້ຄວາມ"
@@ -433,6 +334,9 @@ msgstr "ກູ້ເອົາຂໍ້ຄວາມ MMS ຄືນອັດຕະ�
 msgid "IDS_MSG_TPOP_UNABLE_TO_PREVIEW_FILE_UNSUPPORTED_FILE_TYPE"
 msgstr "ເບິ່ງສາມາດເບິ່ງໄຟລ໌ຕົວຢ່າງໄດ້. ປະເພດໄຟລ໌ບໍ່ຮອງຮັບ."
 
+msgid "IDS_MSG_TPOP_UNABLE_TO_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "ບໍ່ສາມາດຄັດຕິດໄຟລ໌ໄດ້. ຮູບແບບໄຟລ໌ບໍ່ຮອງຮັບ."
+
 msgid "IDS_MSG_TPOP_UNABLE_TO_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
 msgstr "ບໍ່ສາມາດເພີ່ມຜູ້ສົ່ງບາງຄົນໄດ້. ໝາຍເລກໃຊ້ບໍ່ໄດ້."
 
@@ -448,6 +352,9 @@ msgstr "ບໍ່ສາມາດເພີ່ມໄຟລ໌ຄັດຕິດໄ
 msgid "IDS_MSG_TPOP_THIS_NUMBER_IS_NOT_VALID"
 msgstr "ບໍ່ມີເລກໝາຍນີ້ຢູ່."
 
+msgid "IDS_MSG_TPOP_SOME_RECIPIENTS_ALREADY_ADDED"
+msgstr "ບາງຜູ້​ຮັບ​ໄດ້​ຖືກ​ເພີ່ມ​ເຂົ້າ​ຮຽບຮ້ອຍແລ້ວ."
+
 msgid "IDS_MSG_TPOP_SELECTED_MESSAGES_COPIED_TO_MOBILE_DEVICE"
 msgstr "ກັອບປີ້ອຸປະກອນທີ່ເລືອກໄວ້ໄປໃສ່ອຸປະກອນມືຖືແລ້ວ."
 
@@ -459,6 +366,9 @@ msgstr "ເອົາໝາຍເລກອອກຈາກລາຍການບລ
 
 msgid "IDS_MSG_TPOP_NUMBER_ADDED_TO_MESSAGE_BLOCK_LIST"
 msgstr "ເພີ່ມໝາຍເລກໃສ່ລາຍການບລັອກຂໍ້ຄວາມແລ້ວ."
+
+msgid "IDS_MSG_TPOP_NETWORK_NOT_AVAILABLE_MESSAGE_WILL_BE_SENT_WHEN_CONNECTED_TO_NETWORK"
+msgstr "ບໍ່ມີເຄືອຂ່າຍ. ຈະຖືກສົ່ງຂໍ້ຄວາມອອກໄປ ເມື່ອເຊື່ອມຕໍ່ກັບເຄືອຂ່າຍແລ້ວ."
 
 msgid "IDS_MSG_TPOP_MESSAGE_COPIED_TO_PS_SIM_CARD"
 msgstr "ກັອບປີ້ຂໍ້ຄວາມໄປໃສ່ແຜ່ນ SIM %s ແລ້ວ."
@@ -502,9 +412,6 @@ msgstr "ເອົາກັບມາອັດຕະໂນມັດ"
 msgid "IDS_MSG_SK_SEND_NOW"
 msgstr "ສົ່ງດຽວນີ້"
 
-msgid "IDS_MSG_SK_NO_ABB"
-msgstr "ບໍ່"
-
 msgid "IDS_MSG_SBODY_SELECT_AN_INPUT_MODE_FOR_COMPOSING_MESSAGES"
 msgstr "ເລືອກໂໝດປ້ອນເຂົ້າສໍາລັບການຂຽນຂໍ້ຄວາມໃໝ່."
 
@@ -514,14 +421,8 @@ msgstr "ບໍ່ມີ"
 msgid "IDS_MSG_SBODY_MANAGE_THE_MESSAGES_STORED_ON_YOUR_SIM_CARD"
 msgstr "ຈັດການຂໍ້ຄວາມທີ່ໄດ້ເກັບໄວ້ຢູ່ໃນແຜ່ນ SIM ຂອງທ່ານ."
 
-msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
-msgstr "ຂໍ້ຄວາມຂອງທ່ານຈະຖືກໂລະຖິ້ມ. ບໍ່ໄດ້ເລືອກຜູ້ຮັບໃດໄວ້."
-
 msgid "IDS_MSG_POP_UNABLE_TO_SEND_SCHEDULED_MESSAGE_SET_ANOTHER_TIME"
 msgstr "ບໍ່ສາມາດສົ່ງຂໍ້ຄວາມທີ່ກໍານົດໄວ້. ຕັ້ງເວລາອື່ນ."
-
-msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
-msgstr "ບໍ່ສາມາດຫຼິ້ນລະຫວ່າງການໂທໄດ້."
 
 msgid "IDS_MSG_POP_UNABLE_TO_ATTACH_FILE_FILE_SIZE_TOO_LARGE_TRY_SENDING_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
 msgstr "ບໍ່ສາມາດແນບໄຟລ໌ໄດ້.ຂະໜາດໄຟລ໌ໃຫຍ່ເກີນໄປ. ລອງສົ່ງຜ່ານອີເມລ໌, ບລູທູດ, Wi-Fi, ອື່ນໆ."
@@ -544,17 +445,11 @@ msgstr "ການສົນທະນາ %d ບົດຈະຖືກລຶບ."
 msgid "IDS_MSG_POP_NO_TEMPLATES_IN_LIST"
 msgstr "ບໍ່ມີເທັມເພຣດຢູ່ໃນລາຍການ"
 
-msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
-msgstr "ຂໍ້ຄວາມເຂົ້າມາເທົ່ານັ້ນ"
-
 msgid "IDS_MSG_POP_INCLUDE_ORIGINAL_TEXT_IN_OUTGOING_MESSAGE"
 msgstr "ລວມຂໍ້ຄວາມເດີມໃສ່ໃນຂໍ້ຄວາມທີ່ອອກໄປ"
 
 msgid "IDS_MSG_POP_DURATION_MUST_BE_SHORTER_THAN_PD_SECONDS"
 msgstr "ໄລຍະເວລາຈະຕ້ອງສັ້ນກວ່າ %d ວິນາທີ."
-
-msgid "IDS_MSG_POP_DELETED"
-msgstr "ລຶບແລ້ວ"
 
 msgid "IDS_MSG_POP_1_MESSAGE_WILL_BE_DELETED"
 msgstr "1 ຂໍ້ຄວາມຈະຖືກລຶບຖິ້ມ."
@@ -571,26 +466,14 @@ msgstr "ເບິ່ງລາຍລະອຽດລາຍຜູ້ຕິດຕໍ
 msgid "IDS_MSG_OPT_VIEW_AS_SLIDESHOW_ABB"
 msgstr "ເບິ່ງເປັນສະໄລດ໌ໂຊ"
 
-msgid "IDS_MSG_OPT_VIDEOS"
-msgstr "ວິດີໂອ"
-
 msgid "IDS_MSG_OPT_UPDATE_CONTACT"
 msgstr "ອັບເດດຜູ້ຕິດຕໍ່"
 
 msgid "IDS_MSG_OPT_UNICODE"
 msgstr "ຢູນີໂຄດ"
 
-msgid "IDS_MSG_OPT_TEXT"
-msgstr "ຂໍ້ຄວາມ"
-
 msgid "IDS_MSG_OPT_TAKE_PICTURE_ABB"
 msgstr "ຖ່າຍຮູບ"
-
-msgid "IDS_MSG_OPT_SETTINGS"
-msgstr "ຕັ້ງຄ່າ"
-
-msgid "IDS_MSG_OPT_SEARCH"
-msgstr "ຄົ້ນຫາ"
 
 msgid "IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"
 msgstr "ບັນທຶກໄຟລ໌ຄັດຕິດ"
@@ -604,23 +487,14 @@ msgstr "ຕອບກັບ"
 msgid "IDS_MSG_OPT_REMOVE_FROM_BLOCK_LIST_ABB"
 msgstr "ເອົາອອກໄປຈາກລາຍການບລັອກ"
 
-msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
-msgstr "ບັນທຶກວິດີໂອ"
-
 msgid "IDS_MSG_OPT_RECORD_AUDIO_FILE_ABB"
 msgstr "ບັນທຶກໄຟລ໌ສຽງ"
 
 msgid "IDS_MSG_OPT_QUICK_RESPONSE_ABB"
 msgstr "ການສະໜອງຕອບດ່ວນ"
 
-msgid "IDS_MSG_OPT_NONE"
-msgstr "ບໍ່ມີ"
-
 msgid "IDS_MSG_OPT_MAKE_VOICE_CALL"
 msgstr "ໂທດ້ວຍສຽງ"
-
-msgid "IDS_MSG_OPT_IMAGES"
-msgstr "ຮູບພາບ"
 
 msgid "IDS_MSG_OPT_GSM_ALPHABET_ABB"
 msgstr "​ຕົວ​ອັກສອນ​ GSM"
@@ -628,20 +502,11 @@ msgstr "​ຕົວ​ອັກສອນ​ GSM"
 msgid "IDS_MSG_OPT_EXPORT_TO_DEVICE_MEMORY"
 msgstr "ສົ່ງອອກໄປຫາຄວາມຈໍາເຄື່ອງ"
 
-msgid "IDS_MSG_OPT_EDIT"
-msgstr "​ແກ້​ໄຂ"
-
 msgid "IDS_MSG_OPT_DELETE_MESSAGE"
 msgstr "ລຶບຂໍ້ຄວາມ"
 
 msgid "IDS_MSG_OPT_DELETE_CONVERSATION_ABB"
 msgstr "ລຶບການສົນທະນາ"
-
-msgid "IDS_MSG_OPT_DELETE"
-msgstr "ລຶບ"
-
-msgid "IDS_MSG_OPT_DEFAULT"
-msgstr "ຄ່າເລີ່ມຕົ້ນ"
 
 msgid "IDS_MSG_OPT_CREATE_CONTACT_ABB"
 msgstr "ສ້າງຜູ້ຕິດຕໍ່"
@@ -709,15 +574,6 @@ msgstr "ບໍ່ຮູ້ເລກໝາຍ"
 msgid "IDS_MSG_MBODY_TEXT_MESSAGE_CENTRE_NUMBER_ABB"
 msgstr "ເບີສູນຂໍ້ຄວາມ"
 
-msgid "IDS_MSG_MBODY_SELECT_ALL"
-msgstr "ເລືອກທັງໝົດ"
-
-msgid "IDS_MSG_MBODY_ALERTS"
-msgstr "ການເຕືອນ"
-
-msgid "IDS_MSG_HEADER_TRANSLATE"
-msgstr "ແປພາສາ"
-
 msgid "IDS_MSG_HEADER_TEXT_MESSAGES_ABB"
 msgstr "ຂໍ້ຄວາມໜັງສື"
 
@@ -727,9 +583,6 @@ msgstr "ປ່ຽນເຄືອຂ່າຍມືຖື"
 msgid "IDS_MSG_HEADER_SMS_CENTRE_ABB2"
 msgstr "ສູນ SMS"
 
-msgid "IDS_MSG_HEADER_SETTINGS"
-msgstr "ຕັ້ງຄ່າ"
-
 msgid "IDS_MSG_HEADER_SELECT_RECIPIENT"
 msgstr "ເລືອກຜູ້ຮັບ"
 
@@ -738,9 +591,6 @@ msgstr "ເລືອກ %d ແລ້ວ"
 
 msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
 msgstr "ຂໍ້ຄວາມຢູ່ເທິງແຜ່ນ SIM"
-
-msgid "IDS_MSG_HEADER_MESSAGES"
-msgstr "ຂໍ້ຄວາມ"
 
 msgid "IDS_MSG_HEADER_INPUT_MODE_ABB"
 msgstr "​ໂໝດປ້ອນ​ຂໍ້ຄວາມ"
@@ -754,14 +604,8 @@ msgstr "ສົງຂໍ້ຄວາມບໍ່ສໍາເລັດ"
 msgid "IDS_MSG_HEADER_DISCARD_MESSAGE_M_CLOSE_ABB"
 msgstr "ໂລະຂໍ້ຄວາມຖິ້ມ"
 
-msgid "IDS_MSG_HEADER_DELETE"
-msgstr "ລຶບອອກ"
-
 msgid "IDS_MSG_HEADER_CREATE"
 msgstr "ສ້າງ"
-
-msgid "IDS_MSG_HEADER_ATTENTION"
-msgstr "ຂໍ້ຄວນຄຳນຶງ"
 
 msgid "IDS_MSG_HEADER_ADD_CONTENT_ABB"
 msgstr "ເພີ່ມເນື້ອໃນ"
@@ -775,15 +619,6 @@ msgstr "ບັນທຶກ"
 msgid "IDS_MSG_BUTTON_RESEND_ABB"
 msgstr "ສົ່ງໃໝ່"
 
-msgid "IDS_MSG_BUTTON_REMOVE_ABB"
-msgstr "ເອົາອອກໄປ"
-
-msgid "IDS_MSG_BUTTON_OK_ABB"
-msgstr "ຕົກລົງ"
-
-msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
-msgstr "ດາວໂຫຼດ"
-
 msgid "IDS_MSG_BUTTON_DISCARD_ABB"
 msgstr "ເອົາຖິ້ມ"
 
@@ -793,17 +628,11 @@ msgstr "ລຶບ"
 msgid "IDS_MSG_BUTTON_CANCEL_ABB2"
 msgstr "ຍົກເລີກ"
 
-msgid "IDS_MSG_BUTTON_CANCEL_ABB"
-msgstr "ຍົກເລີກ"
-
 msgid "IDS_MSG_BUTTON2_CONTACTS_ABB_M_APPLICATION_NAME"
 msgstr "ຜູ້ຕິດຕໍ່"
 
 msgid "IDS_MSG_BODY_YOU_HAVE_SELECTED_A_SOUND_N_SHOT_FILE_SOUND_DATA_IS_NOT_SUPPORTED_FOR_MMS_SO_ONLY_THE_PICTURE_WILL_BE_ATTACHED"
 msgstr "ທ່ານໄດ້ເລືອກໄຟລ໌ sound & shot. ຂໍ້ມູນສຽງບໍ່ໄດ້ຮັບການສະໜັບສະໜູນສໍາລັບ MMS ດັ່ງນັ້ນ ຈະມີພຽງແຕ່ຮູບທີ່ຈະຖືກຄັດຕິດໃສ່."
-
-msgid "IDS_MSG_BODY_YES"
-msgstr "ແມ່ນ"
 
 msgid "IDS_MSG_BODY_WAITING_TO_SEND_ING_M_STATUS"
 msgstr "ກໍາລັງລໍຖ້າສົ່ງ..."
@@ -823,9 +652,6 @@ msgstr "ເວລາທີ່ສົ່ງໄປ:"
 msgid "IDS_MSG_BODY_TIME_RECEIVED_C"
 msgstr "ເວລາທີ່ໄດ້ຮັບ:"
 
-msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
-msgstr "ກ່ອງໃຫ້ໝາຍຕິກ"
-
 msgid "IDS_MSG_BODY_STATUS_C"
 msgstr "ສະຖານະ:"
 
@@ -838,9 +664,6 @@ msgstr "ກຳລັງສົ່ງ..."
 msgid "IDS_MSG_BODY_SENDING_FAILED_M_STATUS"
 msgstr "ການສົ່ງບໍ່ສໍາເລັດ"
 
-msgid "IDS_MSG_BODY_SEC"
-msgstr "ວິນາທີ"
-
 msgid "IDS_MSG_BODY_RETRIEVE_MESSAGES_AUTOMATICALLY_WHILE_ROAMING"
 msgstr "ເອົາຂໍ້ຄວາມກັບມາໂດຍອັດຕະໂນມັດ ໃນຂະນະໂຣມມິງ."
 
@@ -852,9 +675,6 @@ msgstr "ລາຍງານການອ່ານ: %s"
 
 msgid "IDS_MSG_BODY_OTHER_PERSON"
 msgstr "ຄົນອື່ນ"
-
-msgid "IDS_MSG_BODY_MESSAGE"
-msgstr "ຂໍ້ຄວາມ"
 
 msgid "IDS_MSG_BODY_MEMO_T_MAINMENU"
 msgstr "ບັນທຶກຄວາມຈໍາ"
@@ -895,14 +715,197 @@ msgstr "ຫຼັງຈາກທ່ານເພີ່ມເບີໃສ່ລາ
 msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
 msgstr "ລຶບ"
 
-msgid "IDS_ST_BODY_LOADING_ING"
-msgstr "ກຳລັງໂຫຼດ..."
+msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
+msgstr "ປະເພດຂອງສື່ບໍ່ເຂົ້າກັນໄດ້."
 
-msgid "IDS_MSGS_BODY_NOTIFICATIONS"
-msgstr "ແຈ້ງເຕືອນ"
+msgid "IDS_MSGC_POP_LOW_BATTERY"
+msgstr "ແບັດເຕີຣີອ່ອນ."
 
-msgid "IDS_MSG_HEADER_ME"
+msgid "IDS_MSGC_POP_CANCELLED"
+msgstr "ຍົກເລີກແລ້ວ."
+
+msgid "IDS_MSGC_OPT_EMAIL"
+msgstr "ອີ​ເມ​ວ"
+
+msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
+msgstr "ເບິ່ງ"
+
+msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
+msgstr "ເອົາອອກ"
+
+msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
+msgstr "ຫຼິ້ນ"
+
+msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
+msgstr "ຫາ"
+
+msgid "IDS_MSGC_HEADER_PREVIEW"
+msgstr "ເບິ່ງກ່ອນ"
+
+msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
+msgstr "ໃສ່ຫົວຂໍ້ເຂົ້າໄປ."
+
+msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
+msgstr "ບໍ່ສາມາດພົບສະຖານທີ່."
+
+msgid "IDS_MSGF_POP_REJECTED"
+msgstr "ປະຕິ​ເສດ​ແລ້ວ."
+
+msgid "IDS_MSGF_POP_DELETING"
+msgstr "ກຳລັງລຶບ..."
+
+msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
+msgstr "ກັອບປີ້ໃສ່ຄລິບບອດແລ້ວ."
+
+msgid "IDS_MSGF_POP_BLOCK_PS_Q"
+msgstr "ບລັອກ %s ບໍ?"
+
+msgid "IDS_MSGF_OPT_SUBJECT_COLON"
+msgstr "ເລື່ອງ:"
+
+msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
+msgstr "ສົ່ງຜ່ານທາງອີແມວ"
+
+msgid "IDS_MSGF_OPT_SELECT"
+msgstr "​ເລື​ອກ"
+
+msgid "IDS_MSGF_OPT_SAVE"
+msgstr "ບັນທຶກ"
+
+msgid "IDS_MSGF_OPT_REMOVE"
+msgstr "ເອົາອອກ"
+
+msgid "IDS_MSGF_OPT_FORWARD"
+msgstr "ສົ່ງຕໍ່"
+
+msgid "IDS_MSGF_OPT_DELETE_Q"
+msgstr "ລຶບບໍ?"
+
+msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
+msgstr "ການຄົ້ນຫາຂັ້ນສູງ"
+
+msgid "IDS_MSGF_BODY_UNKNOWN"
+msgstr "ບໍ່ຮູ້"
+
+msgid "IDS_MSGF_BODY_SETTINGS"
+msgstr "ຕັ້ງຄ່າ"
+
+msgid "IDS_MSGF_BODY_RECIPIENTS"
+msgstr "ຜູ້ຮັບ"
+
+msgid "IDS_MSGF_BODY_RECEIVED"
+msgstr "ຮັບແລ້ວ"
+
+msgid "IDS_MSGF_BODY_OTHER"
+msgstr "ອື່ນໆ"
+
+msgid "IDS_MSGF_BODY_NO_SUBJECT"
+msgstr "ບໍ່ມີຫົວຂໍ້"
+
+msgid "IDS_MSGF_BODY_MSGSIZE_KB"
+msgstr "KB"
+
+msgid "IDS_MSGF_BODY_MESSAGE"
+msgstr "ຂໍ້ຄວາມ"
+
+msgid "IDS_MSGF_BODY_ME"
 msgstr "ຂ້ອຍ"
+
+msgid "IDS_MSGF_BODY_EXPIRED"
+msgstr "ໝົດອາຍຸ"
+
+msgid "IDS_MSGF_BODY_ALL"
+msgstr "ທັງໝົດ"
+
+msgid "IDS_MSG_SK_NO_ABB"
+msgstr "ບໍ່"
+
+msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
+msgstr "ຂໍ້ຄວາມຂອງທ່ານຈະຖືກໂລະຖິ້ມ. ບໍ່ໄດ້ເລືອກຜູ້ຮັບໃດໄວ້."
+
+msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
+msgstr "ບໍ່ສາມາດຫຼິ້ນລະຫວ່າງການໂທໄດ້."
+
+msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
+msgstr "ຂໍ້ຄວາມເຂົ້າມາເທົ່ານັ້ນ"
+
+msgid "IDS_MSG_POP_DELETED"
+msgstr "ລຶບແລ້ວ"
+
+msgid "IDS_MSG_OPT_VIDEOS"
+msgstr "ວິດີໂອ"
+
+msgid "IDS_MSG_OPT_TEXT"
+msgstr "ຂໍ້ຄວາມ"
+
+msgid "IDS_MSG_OPT_SETTINGS"
+msgstr "ຕັ້ງຄ່າ"
+
+msgid "IDS_MSG_OPT_SEARCH"
+msgstr "ຄົ້ນຫາ"
+
+msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
+msgstr "ບັນທຶກວິດີໂອ"
+
+msgid "IDS_MSG_OPT_NONE"
+msgstr "ບໍ່ມີ"
+
+msgid "IDS_MSG_OPT_IMAGES"
+msgstr "ຮູບພາບ"
+
+msgid "IDS_MSG_OPT_EDIT"
+msgstr "​ແກ້​ໄຂ"
+
+msgid "IDS_MSG_OPT_DELETE"
+msgstr "ລຶບ"
+
+msgid "IDS_MSG_OPT_DEFAULT"
+msgstr "ຄ່າເລີ່ມຕົ້ນ"
+
+msgid "IDS_MSG_MBODY_SELECT_ALL"
+msgstr "ເລືອກທັງໝົດ"
+
+msgid "IDS_MSG_MBODY_ALERTS"
+msgstr "ການເຕືອນ"
+
+msgid "IDS_MSG_HEADER_TRANSLATE"
+msgstr "ແປພາສາ"
+
+msgid "IDS_MSG_HEADER_SETTINGS"
+msgstr "ຕັ້ງຄ່າ"
+
+msgid "IDS_MSG_HEADER_MESSAGES"
+msgstr "ຂໍ້ຄວາມ"
+
+msgid "IDS_MSG_HEADER_DELETE"
+msgstr "ລຶບອອກ"
+
+msgid "IDS_MSG_HEADER_ATTENTION"
+msgstr "ຂໍ້ຄວນຄຳນຶງ"
+
+msgid "IDS_MSG_BUTTON_REMOVE_ABB"
+msgstr "ເອົາອອກໄປ"
+
+msgid "IDS_MSG_BUTTON_OK_ABB"
+msgstr "ຕົກລົງ"
+
+msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
+msgstr "ດາວໂຫຼດ"
+
+msgid "IDS_MSG_BUTTON_CANCEL_ABB"
+msgstr "ຍົກເລີກ"
+
+msgid "IDS_MSG_BODY_YES"
+msgstr "ແມ່ນ"
+
+msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
+msgstr "ກ່ອງໃຫ້ໝາຍຕິກ"
+
+msgid "IDS_MSG_BODY_SEC"
+msgstr "ວິນາທີ"
+
+msgid "IDS_MSG_BODY_MESSAGE"
+msgstr "ຂໍ້ຄວາມ"
 
 msgid "IDS_MSG_BUTTON_SEND_ABB5"
 msgstr "ສົ່ງ"
@@ -912,4 +915,31 @@ msgstr "ສົ່ງ"
 
 msgid "IDS_MSG_ACBUTTON_SEND_ABB3"
 msgstr "ສົ່ງ"
+
+msgid "IDS_ST_BODY_LOADING_ING"
+msgstr "ກຳລັງໂຫຼດ..."
+
+msgid "IDS_MSGS_BODY_NOTIFICATIONS"
+msgstr "ແຈ້ງເຕືອນ"
+
+msgid "IDS_MSG_HEADER_ME"
+msgstr "ຂ້ອຍ"
+
+msgid "IDS_MSG_BODY_UNKNOWN"
+msgstr "ບໍ່ຮູ້"
+
+msgid "IDS_MSG_TMBODY_ADD_OR_REMOVE_RECIPIENTS"
+msgstr "ເພີ່ມຫຼືເອົາຜູ້ຮັບອອກໄປ"
+
+msgid "IDS_MSG_POP_THE_SENDER_HAS_REQUESTED_A_READ_REPORT_TAP_SEND_TO_SEND_ONE"
+msgstr "ຜູ້ສົ່ງໄດ້ຂໍລາຍງານການອ່ານ. ແຕະ [ສົ່ງ] ເພື່ອສົ່ງລາຍງານ."
+
+msgid "IDS_MSGF_OPT_SEND_READ_REPORT"
+msgstr "ສົ່ງລາຍງານວ່າອ່ານແລ້ວ"
+
+msgid "IDS_MSG_HEADER_COMPOSE_MESSAGE_ABB"
+msgstr "ຂຽນຂໍ້ຄວາມ"
+
+msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
+msgstr "ບໍ່ໄດ້ເພີ່ມຜູ້ຮັບທີ່ຖືກຕ້ອງ. ຂໍ້ຄວາມນີ້ຈະຖືກເອົາຖິ້ມ."
 

@@ -4,14 +4,17 @@ msgstr "ផ្ទះ"
 msgid "IDS_MSGC_POP_DATA_ROAMING_IS_DISABLED_ENABLE_DATA_ROAMING_AND_TRY_AGAIN"
 msgstr "បាន​បិទ​ទិន្នន័យ​រ៉ូមីង។ បើកប្រើ​ទិន្នន័យ​រ៉ូមីង ហើយ​សាកល្បង​ម្ដងទៀត។"
 
-msgid "IDS_MSGF_POP_NEW_MESSAGE"
-msgstr "សារ​ថ្មី"
-
 msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
 msgstr "បោះបង់"
 
 msgid "IDS_MSG_ACBUTTON_DONE_ABB"
 msgstr "រួចរាល់"
+
+msgid "IDS_MSGF_POP_NEW_MESSAGE"
+msgstr "សារ​ថ្មី"
+
+msgid "IDS_COM_BUTTON_SHARE"
+msgstr "ចែករំលែក"
 
 msgid "IDS_COM_BODY_UNKNOWN"
 msgstr "មិន​ស្គាល់"
@@ -24,9 +27,6 @@ msgstr "បាន​បិទ​ទិន្នន័យ​ចល័ត។ ប�
 
 msgid "IDS_TPLATFORM_ACBUTTON_SEND_ABB"
 msgstr "ផ្ញើ"
-
-msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
-msgstr "ប្រភេទ​មេឌៀ​មិន​ទទួល​ការគាំទ្រ។"
 
 msgid "IDS_MSGC_POP_UNABLE_TO_SEND_MESSAGES_WHILE_IN_FLIGHT_MODE_DISABLE_FLIGHT_MODE_AND_TRY_AGAIN"
 msgstr "មិន​អាច​ផ្ញើ​សារ​បាន ខណៈពេល​កំពុង​ស្ថិត​ក្នុង​ទម្រង់​យន្តហោះ។ បិទ​ទម្រង់​យន្តហោះ ហើយ​សាកល្បង​ម្ដងទៀត។"
@@ -55,20 +55,14 @@ msgstr "បាន​ដាក់​កាលវិភាគ​ផ្ញើ​ស
 msgid "IDS_MSGC_POP_MAXIMUM_MESSAGE_SIZE_REACHED"
 msgstr "បាន​ដល់​ទំហំ​សារ​អតិបរមា។"
 
-msgid "IDS_MSGC_POP_LOW_BATTERY"
-msgstr "ថ្ម​ខ្សោយ។"
-
 msgid "IDS_MSGC_POP_DURATION_MUST_BE_AT_LEAST_PD_SECONDS"
-msgstr "Duration must be at least %d seconds."
+msgstr "ថិរវេលា​ត្រូវតែ​យ៉ាង​តិច %d វិនាទី។"
 
 msgid "IDS_MSGC_POP_DISABLING_FLIGHT_MODE_ING"
 msgstr "កំពុង​បិទ​ទម្រង់​យន្តហោះ..."
 
 msgid "IDS_MSGC_POP_COPIED_TO_SIM_CARD"
 msgstr "បាន​ចម្លង​ទៅ​កាត SIM។"
-
-msgid "IDS_MSGC_POP_CANCELLED"
-msgstr "បាន​បោះបង់។"
 
 msgid "IDS_MSGC_OPT_USE_OTHER_CONTACT_INFO_ABB"
 msgstr "ប្រើព័ត៌មានទំនាក់ទំនងផ្សេងៗទៀត"
@@ -79,32 +73,14 @@ msgstr "ផ្ញើ​តាម"
 msgid "IDS_MSGC_OPT_IMAGE"
 msgstr "រូប"
 
-msgid "IDS_MSGC_OPT_EMAIL"
-msgstr "អ៊ីមែល"
-
 msgid "IDS_MSGC_OPT_EDIT_ITEM_REPLACE"
 msgstr "ជំនួស"
-
-msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
-msgstr "បង្ហាញ"
-
-msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
-msgstr "លុប"
-
-msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
-msgstr "ចាក់"
-
-msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
-msgstr "ទៅ"
 
 msgid "IDS_MSGC_OPT_CANCEL_MESSAGE"
 msgstr "បោះបង់​សារ"
 
 msgid "IDS_MSGC_HEADER_RECIPIENT_LIST"
 msgstr "បញ្ជី​អ្នកទទួល"
-
-msgid "IDS_MSGC_HEADER_PREVIEW"
-msgstr "មើលសាក"
 
 msgid "IDS_MSGC_HEADER_DURATION_FOR_SLIDE_PD_PD"
 msgstr "ថិរវេលា​សម្រាប់​ស្លាយដ៍"
@@ -127,9 +103,6 @@ msgstr "មិន​បាន​ស្នើ"
 msgid "IDS_MSGC_BODY_MAXIMUM_NUMBER_OF_RECIPIENTS_HPD_REACHED"
 msgstr "បាន​ដល់​ចំនួន​អ្នកទទួល​អតិបរមា (%d)។"
 
-msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
-msgstr "វាយបញ្ចូល​ប្រធានបទ។"
-
 msgid "IDS_MSGC_BODY_DUPLICATED_RECIPIENT"
 msgstr "អ្នកទទួល​ស្ទួន។"
 
@@ -138,9 +111,6 @@ msgstr "ប.ត"
 
 msgid "IDS_MSGF_POP_UNABLE_TO_SAVE"
 msgstr "មិន​អាច​រក្សាទុក។"
-
-msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
-msgstr "មិន​អាច​រក​ទីកន្លែង។"
 
 msgid "IDS_MSGF_POP_UNABLE_TO_DELETE"
 msgstr "មិន​អាច​លុប។"
@@ -168,9 +138,6 @@ msgstr "ប្រភេទ​ខ្លឹមព័ត៌មាន​ដែល​
 
 msgid "IDS_MSGF_POP_RESTORING_ING"
 msgstr "កំពុង​ស្ដារ..."
-
-msgid "IDS_MSGF_POP_REJECTED"
-msgstr "បាន​ច្រានចោល។"
 
 msgid "IDS_MSGF_POP_READ_REPORT"
 msgstr "របាយការណ៍​អាន"
@@ -214,20 +181,11 @@ msgstr "សារ​នេះ​មាន​ឯកសារ​ភ្ជាប់
 msgid "IDS_MSGF_POP_FILE_NAME_ALREADY_EXISTS"
 msgstr "ឈ្មោះ​ឯកសារ​មាន​ហើយ។"
 
-msgid "IDS_MSGF_POP_DELETING"
-msgstr "កំពុង​លុប..."
-
-msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
-msgstr "បាន​ចម្លង​ទៅ​ក្តារ​តម្បៀត​ខ្ទាស់។"
-
 msgid "IDS_MSGF_POP_CONVERTING_TO_TEXT_MESSAGE_ING"
 msgstr "កំពុង​បំលែង​ទៅ​សារ​អត្ថបទ..."
 
 msgid "IDS_MSGF_POP_CONVERTING_TO_MULTIMEDIA_MESSAGE_ING"
 msgstr "កំពុង​បំលែង​ទៅ​ជា​សារ​ពហុព័ត៌មាន..."
-
-msgid "IDS_MSGF_POP_BLOCK_PS_Q"
-msgstr "ខ្ទប់ %s?"
 
 msgid "IDS_MSGF_POP_ABOUT_TO_GO_ONLINE_CONTINUE_Q"
 msgstr "អ្នក​ហៀប​ទៅ​លើ​បណ្តាញ (%s)។ បន្ត?"
@@ -235,38 +193,17 @@ msgstr "អ្នក​ហៀប​ទៅ​លើ​បណ្តាញ (%s)។ 
 msgid "IDS_MSGF_OPT_TEXT_MESSAGE"
 msgstr "សារ​អត្ថបទ"
 
-msgid "IDS_MSGF_OPT_SUBJECT_COLON"
-msgstr "ប្រធាន​បទ៖"
-
-msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
-msgstr "អ្នកផ្ញើ​តាម​អ៊ីមែល"
-
 msgid "IDS_MSGF_OPT_SENDER_ABB"
 msgstr "អ្នកផ្ញើ"
-
-msgid "IDS_MSGF_OPT_SELECT"
-msgstr "ជ្រើស"
 
 msgid "IDS_MSGF_OPT_SAVE_ATTACHMENT"
 msgstr "រក្សា​ទុក​ឯកសារ​ភ្ជាប់"
 
-msgid "IDS_MSGF_OPT_SAVE"
-msgstr "រក្សា​ទុក"
-
-msgid "IDS_MSGF_OPT_REMOVE"
-msgstr "លុប"
-
 msgid "IDS_MSGF_OPT_INSTALL"
 msgstr "ដំឡើង"
 
-msgid "IDS_MSGF_OPT_FORWARD"
-msgstr "បញ្ជូន​បន្ត"
-
 msgid "IDS_MSGF_OPT_EDIT_MESSAGE"
 msgstr "កែ​សារ"
-
-msgid "IDS_MSGF_OPT_DELETE_Q"
-msgstr "លុប?"
 
 msgid "IDS_MSGF_OPT_DELETE_MESSAGES"
 msgstr "លុប​សារ"
@@ -283,14 +220,8 @@ msgstr "លម្អិតអំពីសារ"
 msgid "IDS_MSGF_HEADER_EXPIRES_C_PS"
 msgstr "“ផុត​កំណត់៖ %s”"
 
-msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
-msgstr "ការស្វែងរកកម្រិតខ្ពស់"
-
 msgid "IDS_MSGF_BUTTON_SAVE_ALL_ATTACHMENTS_ABB"
 msgstr "រក្សាទុក​ឯកសារភ្ជាប់​ទាំងអស់"
-
-msgid "IDS_MSGF_BODY_UNKNOWN"
-msgstr "មិន​ស្គាល់"
 
 msgid "IDS_MSGF_BODY_TO_C"
 msgstr "ទៅ៖"
@@ -301,23 +232,14 @@ msgstr "សារ​អត្ថបទ"
 msgid "IDS_MSGF_BODY_SIM_MEMORY_FULL_DELETE_SOME_ITEMS"
 msgstr "មេម៉ូរីរបស់ SIM ពេញ។ លុប​ធាតុ​ខ្លះ។"
 
-msgid "IDS_MSGF_BODY_SETTINGS"
-msgstr "ការកំណត់"
-
 msgid "IDS_MSGF_BODY_SENT_M_DATE_C"
 msgstr "បាន​ផ្ញើ៖"
 
 msgid "IDS_MSGF_BODY_REQUESTED"
 msgstr "បាន​ស្នើ។"
 
-msgid "IDS_MSGF_BODY_RECIPIENTS"
-msgstr "អ្នកទទួល"
-
 msgid "IDS_MSGF_BODY_RECEIVED_M_DATE_C"
 msgstr "បាន​ទទួល៖"
-
-msgid "IDS_MSGF_BODY_RECEIVED"
-msgstr "បាន​ទទួល។"
 
 msgid "IDS_MSGF_BODY_READ_REPORT"
 msgstr "របាយការណ៍​អាន"
@@ -331,12 +253,6 @@ msgstr "%d សារ"
 msgid "IDS_MSGF_BODY_PD_CONVERSATIONS"
 msgstr "%d សន្ទនា"
 
-msgid "IDS_MSGF_BODY_OTHER"
-msgstr "ដទៃ"
-
-msgid "IDS_MSGF_BODY_NO_SUBJECT"
-msgstr "គ្មាន​ប្រធាន​បទ"
-
 msgid "IDS_MSGF_BODY_NO_NAME"
 msgstr "គ្មាន​ឈ្មោះ"
 
@@ -345,9 +261,6 @@ msgstr "ការជូន​ដំណឹង​សារ​ពហុព័ត៌
 
 msgid "IDS_MSGF_BODY_MULTIMEDIA_MESSAGE"
 msgstr "សារ​ពហុ​ព័ត៌មាន"
-
-msgid "IDS_MSGF_BODY_MSGSIZE_KB"
-msgstr "KB"
 
 msgid "IDS_MSGF_BODY_MMSREADREPLYMSGREAD"
 msgstr "អាន"
@@ -367,12 +280,6 @@ msgstr "ជម្រើស​សារ"
 msgid "IDS_MSGF_BODY_MESSAGE_DELIVERED"
 msgstr "បាន​ចែក​ចែក​សារ"
 
-msgid "IDS_MSGF_BODY_MESSAGE"
-msgstr "សារ"
-
-msgid "IDS_MSGF_BODY_ME"
-msgstr "ខ្ញុំ"
-
 msgid "IDS_MSGF_BODY_MAXIMUM_NUMBER_OF_ATTACHMENTS_HP1SS_EXCEEDED_ONLY_FIRST_P2SS_WILL_BE_ADDED"
 msgstr "បាន​លើស​ចំនួន​ឯកសារ​ភ្ជាប់​អតិបរមា (%1$s)។ នឹង​ថែម​តែ %2$s ដំបូង​ប៉ុណ្ណោះ។"
 
@@ -384,9 +291,6 @@ msgstr "ពី"
 
 msgid "IDS_MSGF_BODY_FLFROM"
 msgstr "ពី៖"
-
-msgid "IDS_MSGF_BODY_EXPIRED"
-msgstr "បាន​ផុត​កំណត់"
 
 msgid "IDS_MSGF_BODY_DETAILSSENDINGFAILED"
 msgstr "ការផ្ញើ​បាន​បរាជ័យ។"
@@ -402,9 +306,6 @@ msgstr "ចម្លង​អត្ថបទ"
 
 msgid "IDS_MSGF_BODY_CB_MESSAGES"
 msgstr "សារ CB"
-
-msgid "IDS_MSGF_BODY_ALL"
-msgstr "ទាំង​អស់"
 
 msgid "IDS_MSGF_BODY_1_MESSAGE"
 msgstr "1 message"
@@ -433,6 +334,9 @@ msgstr "ទៅយក​សារ MMS ដោយ​ស្វ័យប្រវត�
 msgid "IDS_MSG_TPOP_UNABLE_TO_PREVIEW_FILE_UNSUPPORTED_FILE_TYPE"
 msgstr "មិន​អាច​បង្ហាញ​ឯកសារ។ ប្រភេទ​ឯកសារ​មិន​ទទួល​ការគាំទ្រ។"
 
+msgid "IDS_MSG_TPOP_UNABLE_TO_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "មិន​អាច​ភ្ជាប់​ឯកសារ។ ទ្រង់ទ្រាយ​ឯកសារ​មិន​ទទួល​ការគាំទ្រ។"
+
 msgid "IDS_MSG_TPOP_UNABLE_TO_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
 msgstr "មិន​អាច​ថែម​អ្នកទទួល​ខ្លះ។ លេខ​អសុពលភាព។"
 
@@ -448,6 +352,9 @@ msgstr "មិន​អាច​ថែម​ឯកសារភ្ជាប់។
 msgid "IDS_MSG_TPOP_THIS_NUMBER_IS_NOT_VALID"
 msgstr "លេខ​នេះ​អសុពលភាព។"
 
+msgid "IDS_MSG_TPOP_SOME_RECIPIENTS_ALREADY_ADDED"
+msgstr "បាន​ថែម​អ្នកទទួល​ខ្លះ​ហើយ។"
+
 msgid "IDS_MSG_TPOP_SELECTED_MESSAGES_COPIED_TO_MOBILE_DEVICE"
 msgstr "បាន​ចម្លង​សារ​ដែល​បាន​ជ្រើស​ទៅ​ឧបករណ៍​ចល័ត។"
 
@@ -459,6 +366,9 @@ msgstr "បាន​លុប​លេខ​ពី​បញ្ជី​ខ្ទ
 
 msgid "IDS_MSG_TPOP_NUMBER_ADDED_TO_MESSAGE_BLOCK_LIST"
 msgstr "បាន​ថែម​លេខ​ទៅ​បញ្ជី​ខ្ទប់​សារ។"
+
+msgid "IDS_MSG_TPOP_NETWORK_NOT_AVAILABLE_MESSAGE_WILL_BE_SENT_WHEN_CONNECTED_TO_NETWORK"
+msgstr "មិនមាន​បណ្ដាញ។ នឹង​ផ្ញើ​សារ នៅពេល​បាន​ភ្ជាប់​ទៅ​បណ្ដាញ។"
 
 msgid "IDS_MSG_TPOP_MESSAGE_COPIED_TO_PS_SIM_CARD"
 msgstr "បាន​ចម្លង​សារ​ទៅ​កាត SIM %s។"
@@ -502,9 +412,6 @@ msgstr "ស្វ័យ​ទៅយក"
 msgid "IDS_MSG_SK_SEND_NOW"
 msgstr "ផ្ញើ​ឥឡូវ"
 
-msgid "IDS_MSG_SK_NO_ABB"
-msgstr "ទេ"
-
 msgid "IDS_MSG_SBODY_SELECT_AN_INPUT_MODE_FOR_COMPOSING_MESSAGES"
 msgstr "ជ្រើស​ទម្រង់​បញ្ចូល​សម្រាប់​ការតែង​សារ។"
 
@@ -514,14 +421,8 @@ msgstr "គ្មាន"
 msgid "IDS_MSG_SBODY_MANAGE_THE_MESSAGES_STORED_ON_YOUR_SIM_CARD"
 msgstr "គ្រប់គ្រង​សារ​ដែល​បាន​រក្សាទុក​លើ​កាត SIM របស់​អ្នក។"
 
-msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
-msgstr "នឹង​ចោល​សារ​របស់​អ្នក។ មិន​បាន​ជ្រើស​អ្នកទទួល​ណា​ម្នាក់។"
-
 msgid "IDS_MSG_POP_UNABLE_TO_SEND_SCHEDULED_MESSAGE_SET_ANOTHER_TIME"
 msgstr "មិន​អាច​ផ្ញើ​សារ​ដែល​បាន​កំណត់​កាលវិភាគ។ កំណត់​ពេល​ផ្សេង។"
-
-msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
-msgstr "មិន​អាច​ចាក់​ក្នុង​អំឡុងពេល​ហៅ។"
 
 msgid "IDS_MSG_POP_UNABLE_TO_ATTACH_FILE_FILE_SIZE_TOO_LARGE_TRY_SENDING_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
 msgstr "មិន​អាច​ភ្ជាប់​ឯកសារ​បាន​ទេ។ ទំហំ​ឯកសារ​ធំ​ពេក។ សាកល្បង​ផ្ញើ​តាម​រយៈ​អ៊ីមែល, Bluetooth, Wi-Fi ។ល។"
@@ -544,17 +445,11 @@ msgstr "នឹង​លុប​សន្ទនា %d។"
 msgid "IDS_MSG_POP_NO_TEMPLATES_IN_LIST"
 msgstr "គ្មាន​ពុម្ព​គំរូ​ក្នុង​បញ្ជី"
 
-msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
-msgstr "សារ​ចូល​ប៉ុណ្ណោះ"
-
 msgid "IDS_MSG_POP_INCLUDE_ORIGINAL_TEXT_IN_OUTGOING_MESSAGE"
 msgstr "រួម​បញ្ចូល​អត្ថបទ​ដើម​ក្នុង​សារ​ចេញ"
 
 msgid "IDS_MSG_POP_DURATION_MUST_BE_SHORTER_THAN_PD_SECONDS"
 msgstr "ថិរវេលា​ត្រូវតែ​ខ្លី​ជាង %d វិនាទី។"
-
-msgid "IDS_MSG_POP_DELETED"
-msgstr "បាន​លុប។"
 
 msgid "IDS_MSG_POP_1_MESSAGE_WILL_BE_DELETED"
 msgstr "សារ 1 ច្បាប់នឹងត្រូវគេ​លុបចោល។"
@@ -571,26 +466,14 @@ msgstr "បង្ហាញ​ព័ត៌មាន​លម្អិត​ទំ
 msgid "IDS_MSG_OPT_VIEW_AS_SLIDESHOW_ABB"
 msgstr "បង្ហាញ​ជា​ការបញ្ចាំង​ស្លាយដ៍"
 
-msgid "IDS_MSG_OPT_VIDEOS"
-msgstr "វីដេអូ"
-
 msgid "IDS_MSG_OPT_UPDATE_CONTACT"
 msgstr "អាប់ដេត​ទំនាក់ទំនង"
 
 msgid "IDS_MSG_OPT_UNICODE"
 msgstr "យូនីកូដ"
 
-msgid "IDS_MSG_OPT_TEXT"
-msgstr "អត្ថបទ"
-
 msgid "IDS_MSG_OPT_TAKE_PICTURE_ABB"
 msgstr "ថត​រូបភាព"
-
-msgid "IDS_MSG_OPT_SETTINGS"
-msgstr "ការកំណត់"
-
-msgid "IDS_MSG_OPT_SEARCH"
-msgstr "ស្វែងរក"
 
 msgid "IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"
 msgstr "រក្សាទុក​ឯកសារ​ភ្ជាប់"
@@ -604,23 +487,14 @@ msgstr "ឆ្លើយតប"
 msgid "IDS_MSG_OPT_REMOVE_FROM_BLOCK_LIST_ABB"
 msgstr "លុប​ពី​បញ្ជី​ខ្ទប់"
 
-msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
-msgstr "ថតវីដេអូ"
-
 msgid "IDS_MSG_OPT_RECORD_AUDIO_FILE_ABB"
 msgstr "ថត​ឯកសារ​អូឌីយ៉ូ"
 
 msgid "IDS_MSG_OPT_QUICK_RESPONSE_ABB"
 msgstr "ការឆ្លើយតប​រហ័ស"
 
-msgid "IDS_MSG_OPT_NONE"
-msgstr "គ្មាន"
-
 msgid "IDS_MSG_OPT_MAKE_VOICE_CALL"
 msgstr "ធ្វើ​ការហៅ​សំឡេង"
-
-msgid "IDS_MSG_OPT_IMAGES"
-msgstr "រូប"
 
 msgid "IDS_MSG_OPT_GSM_ALPHABET_ABB"
 msgstr "អក្សរក្រម GSM"
@@ -628,20 +502,11 @@ msgstr "អក្សរក្រម GSM"
 msgid "IDS_MSG_OPT_EXPORT_TO_DEVICE_MEMORY"
 msgstr "នាំ​ចេញ​ទៅ​មេម៉ូរី​ឧបករណ៍"
 
-msgid "IDS_MSG_OPT_EDIT"
-msgstr "កែ"
-
 msgid "IDS_MSG_OPT_DELETE_MESSAGE"
 msgstr "លុប​សារ"
 
 msgid "IDS_MSG_OPT_DELETE_CONVERSATION_ABB"
 msgstr "លុប​សន្ទនា"
-
-msgid "IDS_MSG_OPT_DELETE"
-msgstr "លុប"
-
-msgid "IDS_MSG_OPT_DEFAULT"
-msgstr "លំនាំ​ដើម"
 
 msgid "IDS_MSG_OPT_CREATE_CONTACT_ABB"
 msgstr "បង្កើត​ទំនាក់ទំនង"
@@ -709,15 +574,6 @@ msgstr "លេខ​មិន​ស្គាល់"
 msgid "IDS_MSG_MBODY_TEXT_MESSAGE_CENTRE_NUMBER_ABB"
 msgstr "លេខ​មជ្ឈមណ្ឌល​សារ​អត្ថបទ"
 
-msgid "IDS_MSG_MBODY_SELECT_ALL"
-msgstr "ជ្រើស​ទាំងអស់"
-
-msgid "IDS_MSG_MBODY_ALERTS"
-msgstr "ការប្រាប់ដំណឹង"
-
-msgid "IDS_MSG_HEADER_TRANSLATE"
-msgstr "បកប្រែ"
-
 msgid "IDS_MSG_HEADER_TEXT_MESSAGES_ABB"
 msgstr "សារ​អត្ថបទ"
 
@@ -727,9 +583,6 @@ msgstr "ប្ដូរ​បណ្ដាញ​ចល័ត"
 msgid "IDS_MSG_HEADER_SMS_CENTRE_ABB2"
 msgstr "មជ្ឈមណ្ឌល SMS"
 
-msgid "IDS_MSG_HEADER_SETTINGS"
-msgstr "ការកំណត់"
-
 msgid "IDS_MSG_HEADER_SELECT_RECIPIENT"
 msgstr "ជ្រើស​អ្នកទទួល"
 
@@ -738,9 +591,6 @@ msgstr "បាន​ជ្រើស %d"
 
 msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
 msgstr "សារ​លើ​កាត SIM"
-
-msgid "IDS_MSG_HEADER_MESSAGES"
-msgstr "សារ"
 
 msgid "IDS_MSG_HEADER_INPUT_MODE_ABB"
 msgstr "ទម្រង់​បញ្ចូល"
@@ -754,14 +604,8 @@ msgstr "បាន​បរាជ័យ​ក្នុង​ការ​ផ្ញ
 msgid "IDS_MSG_HEADER_DISCARD_MESSAGE_M_CLOSE_ABB"
 msgstr "ចោល​សារ"
 
-msgid "IDS_MSG_HEADER_DELETE"
-msgstr "លុប"
-
 msgid "IDS_MSG_HEADER_CREATE"
 msgstr "បង្កើត"
-
-msgid "IDS_MSG_HEADER_ATTENTION"
-msgstr "ប្រុងប្រយ័ត្ន"
 
 msgid "IDS_MSG_HEADER_ADD_CONTENT_ABB"
 msgstr "ថែម​ខ្លឹមព័ត៌មាន"
@@ -775,15 +619,6 @@ msgstr "រក្សាទុក"
 msgid "IDS_MSG_BUTTON_RESEND_ABB"
 msgstr "ផ្ញើ​ម្ដងទៀត"
 
-msgid "IDS_MSG_BUTTON_REMOVE_ABB"
-msgstr "លុបចេញ"
-
-msgid "IDS_MSG_BUTTON_OK_ABB"
-msgstr "ព្រម"
-
-msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
-msgstr "ទាញយក"
-
 msgid "IDS_MSG_BUTTON_DISCARD_ABB"
 msgstr "ចោល"
 
@@ -793,17 +628,11 @@ msgstr "លុប"
 msgid "IDS_MSG_BUTTON_CANCEL_ABB2"
 msgstr "បោះបង់"
 
-msgid "IDS_MSG_BUTTON_CANCEL_ABB"
-msgstr "បោះ​បង់"
-
 msgid "IDS_MSG_BUTTON2_CONTACTS_ABB_M_APPLICATION_NAME"
 msgstr "ទំនាក់ទំនង"
 
 msgid "IDS_MSG_BODY_YOU_HAVE_SELECTED_A_SOUND_N_SHOT_FILE_SOUND_DATA_IS_NOT_SUPPORTED_FOR_MMS_SO_ONLY_THE_PICTURE_WILL_BE_ATTACHED"
 msgstr "អ្នក​បាន​ជ្រើស​ឯកសារ​សំឡេង & រូបថត មួយ។ ទិន្នន័យ​សំឡេង​មិន​ទទួល​ការគាំទ្រ​សម្រាប់ MMS ដូច្នេះ​វា​នឹង​ភ្ជាប់​តែ​រូបភាព​ប៉ុណ្ណោះ។"
-
-msgid "IDS_MSG_BODY_YES"
-msgstr "បាទ/ចាស"
 
 msgid "IDS_MSG_BODY_WAITING_TO_SEND_ING_M_STATUS"
 msgstr "កំពុង​រង់ចាំ​ផ្ញើ..."
@@ -823,9 +652,6 @@ msgstr "ម៉ោង​បាន​ផ្ញើ៖"
 msgid "IDS_MSG_BODY_TIME_RECEIVED_C"
 msgstr "ម៉ោង​បាន​ទទួល៖"
 
-msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
-msgstr "ប្រអប់​ធីក"
-
 msgid "IDS_MSG_BODY_STATUS_C"
 msgstr "ស្ថានភាព៖"
 
@@ -838,9 +664,6 @@ msgstr "កំពុង​ផ្ញើ..."
 msgid "IDS_MSG_BODY_SENDING_FAILED_M_STATUS"
 msgstr "ការផ្ញើ​បាន​បរាជ័យ"
 
-msgid "IDS_MSG_BODY_SEC"
-msgstr "វិនាទី"
-
 msgid "IDS_MSG_BODY_RETRIEVE_MESSAGES_AUTOMATICALLY_WHILE_ROAMING"
 msgstr "ទៅយក​សារ​ដោយ​ស្វ័យប្រវត្តិ ខណៈពេល​រ៉ូមីង។"
 
@@ -852,9 +675,6 @@ msgstr "របាយការណ៍​អាន៖ %s"
 
 msgid "IDS_MSG_BODY_OTHER_PERSON"
 msgstr "មនុស្ស​ផ្សេង"
-
-msgid "IDS_MSG_BODY_MESSAGE"
-msgstr "សារ"
 
 msgid "IDS_MSG_BODY_MEMO_T_MAINMENU"
 msgstr "មេម៉ូ"
@@ -895,14 +715,197 @@ msgstr "បន្ទាប់​ពី​អ្នក​ថែម​លេខ​
 msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
 msgstr "លុប"
 
-msgid "IDS_ST_BODY_LOADING_ING"
-msgstr "កំពុង​ផ្ទុក..."
+msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
+msgstr "ប្រភេទ​មេឌៀ​មិន​ទទួល​ការគាំទ្រ។"
 
-msgid "IDS_MSGS_BODY_NOTIFICATIONS"
-msgstr "ការជូន​ដំណឹង"
+msgid "IDS_MSGC_POP_LOW_BATTERY"
+msgstr "ថ្ម​ខ្សោយ។"
 
-msgid "IDS_MSG_HEADER_ME"
+msgid "IDS_MSGC_POP_CANCELLED"
+msgstr "បាន​បោះបង់។"
+
+msgid "IDS_MSGC_OPT_EMAIL"
+msgstr "អ៊ីមែល"
+
+msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
+msgstr "បង្ហាញ"
+
+msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
+msgstr "លុប"
+
+msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
+msgstr "ចាក់"
+
+msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
+msgstr "ទៅ"
+
+msgid "IDS_MSGC_HEADER_PREVIEW"
+msgstr "មើលសាក"
+
+msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
+msgstr "វាយបញ្ចូល​ប្រធានបទ។"
+
+msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
+msgstr "មិន​អាច​រក​ទីកន្លែង។"
+
+msgid "IDS_MSGF_POP_REJECTED"
+msgstr "បាន​ច្រានចោល។"
+
+msgid "IDS_MSGF_POP_DELETING"
+msgstr "កំពុង​លុប..."
+
+msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
+msgstr "បាន​ចម្លង​ទៅ​ក្តារ​តម្បៀត​ខ្ទាស់។"
+
+msgid "IDS_MSGF_POP_BLOCK_PS_Q"
+msgstr "ខ្ទប់ %s?"
+
+msgid "IDS_MSGF_OPT_SUBJECT_COLON"
+msgstr "ប្រធាន​បទ៖"
+
+msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
+msgstr "អ្នកផ្ញើ​តាម​អ៊ីមែល"
+
+msgid "IDS_MSGF_OPT_SELECT"
+msgstr "ជ្រើស"
+
+msgid "IDS_MSGF_OPT_SAVE"
+msgstr "រក្សា​ទុក"
+
+msgid "IDS_MSGF_OPT_REMOVE"
+msgstr "លុប"
+
+msgid "IDS_MSGF_OPT_FORWARD"
+msgstr "បញ្ជូន​បន្ត"
+
+msgid "IDS_MSGF_OPT_DELETE_Q"
+msgstr "លុប?"
+
+msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
+msgstr "ការស្វែងរកកម្រិតខ្ពស់"
+
+msgid "IDS_MSGF_BODY_UNKNOWN"
+msgstr "មិន​ស្គាល់"
+
+msgid "IDS_MSGF_BODY_SETTINGS"
+msgstr "ការកំណត់"
+
+msgid "IDS_MSGF_BODY_RECIPIENTS"
+msgstr "អ្នកទទួល"
+
+msgid "IDS_MSGF_BODY_RECEIVED"
+msgstr "បាន​ទទួល។"
+
+msgid "IDS_MSGF_BODY_OTHER"
+msgstr "ដទៃ"
+
+msgid "IDS_MSGF_BODY_NO_SUBJECT"
+msgstr "គ្មាន​ប្រធាន​បទ"
+
+msgid "IDS_MSGF_BODY_MSGSIZE_KB"
+msgstr "KB"
+
+msgid "IDS_MSGF_BODY_MESSAGE"
+msgstr "សារ"
+
+msgid "IDS_MSGF_BODY_ME"
 msgstr "ខ្ញុំ"
+
+msgid "IDS_MSGF_BODY_EXPIRED"
+msgstr "បាន​ផុត​កំណត់"
+
+msgid "IDS_MSGF_BODY_ALL"
+msgstr "ទាំង​អស់"
+
+msgid "IDS_MSG_SK_NO_ABB"
+msgstr "ទេ"
+
+msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
+msgstr "នឹង​ចោល​សារ​របស់​អ្នក។ មិន​បាន​ជ្រើស​អ្នកទទួល​ណា​ម្នាក់។"
+
+msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
+msgstr "មិន​អាច​ចាក់​ក្នុង​អំឡុងពេល​ហៅ។"
+
+msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
+msgstr "សារ​ចូល​ប៉ុណ្ណោះ"
+
+msgid "IDS_MSG_POP_DELETED"
+msgstr "បាន​លុប។"
+
+msgid "IDS_MSG_OPT_VIDEOS"
+msgstr "វីដេអូ"
+
+msgid "IDS_MSG_OPT_TEXT"
+msgstr "អត្ថបទ"
+
+msgid "IDS_MSG_OPT_SETTINGS"
+msgstr "ការកំណត់"
+
+msgid "IDS_MSG_OPT_SEARCH"
+msgstr "ស្វែងរក"
+
+msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
+msgstr "ថតវីដេអូ"
+
+msgid "IDS_MSG_OPT_NONE"
+msgstr "គ្មាន"
+
+msgid "IDS_MSG_OPT_IMAGES"
+msgstr "រូប"
+
+msgid "IDS_MSG_OPT_EDIT"
+msgstr "កែ"
+
+msgid "IDS_MSG_OPT_DELETE"
+msgstr "លុប"
+
+msgid "IDS_MSG_OPT_DEFAULT"
+msgstr "លំនាំ​ដើម"
+
+msgid "IDS_MSG_MBODY_SELECT_ALL"
+msgstr "ជ្រើស​ទាំងអស់"
+
+msgid "IDS_MSG_MBODY_ALERTS"
+msgstr "ការប្រាប់ដំណឹង"
+
+msgid "IDS_MSG_HEADER_TRANSLATE"
+msgstr "បកប្រែ"
+
+msgid "IDS_MSG_HEADER_SETTINGS"
+msgstr "ការកំណត់"
+
+msgid "IDS_MSG_HEADER_MESSAGES"
+msgstr "សារ"
+
+msgid "IDS_MSG_HEADER_DELETE"
+msgstr "លុប"
+
+msgid "IDS_MSG_HEADER_ATTENTION"
+msgstr "ប្រុងប្រយ័ត្ន"
+
+msgid "IDS_MSG_BUTTON_REMOVE_ABB"
+msgstr "លុបចេញ"
+
+msgid "IDS_MSG_BUTTON_OK_ABB"
+msgstr "ព្រម"
+
+msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
+msgstr "ទាញយក"
+
+msgid "IDS_MSG_BUTTON_CANCEL_ABB"
+msgstr "បោះ​បង់"
+
+msgid "IDS_MSG_BODY_YES"
+msgstr "បាទ/ចាស"
+
+msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
+msgstr "ប្រអប់​ធីក"
+
+msgid "IDS_MSG_BODY_SEC"
+msgstr "វិនាទី"
+
+msgid "IDS_MSG_BODY_MESSAGE"
+msgstr "សារ"
 
 msgid "IDS_MSG_BUTTON_SEND_ABB5"
 msgstr "ផ្ញើ"
@@ -912,4 +915,31 @@ msgstr "ផ្ញើ"
 
 msgid "IDS_MSG_ACBUTTON_SEND_ABB3"
 msgstr "ផ្ញើ"
+
+msgid "IDS_ST_BODY_LOADING_ING"
+msgstr "កំពុង​ផ្ទុក..."
+
+msgid "IDS_MSGS_BODY_NOTIFICATIONS"
+msgstr "ការជូន​ដំណឹង"
+
+msgid "IDS_MSG_HEADER_ME"
+msgstr "ខ្ញុំ"
+
+msgid "IDS_MSG_BODY_UNKNOWN"
+msgstr "មិន​ស្គាល់"
+
+msgid "IDS_MSG_TMBODY_ADD_OR_REMOVE_RECIPIENTS"
+msgstr "ថែម ឬ លុប​អ្នកទទួល"
+
+msgid "IDS_MSG_POP_THE_SENDER_HAS_REQUESTED_A_READ_REPORT_TAP_SEND_TO_SEND_ONE"
+msgstr "អ្នកផ្ញើ​បាន​ស្នើ​របាយការណ៍​អាន។ ប៉ះ ផ្ញើ ដើម្បី​ផ្ញើ​មួយ។"
+
+msgid "IDS_MSGF_OPT_SEND_READ_REPORT"
+msgstr "ផ្ញើ​របាយការណ៍​បាន​អាន"
+
+msgid "IDS_MSG_HEADER_COMPOSE_MESSAGE_ABB"
+msgstr "តែង​សារ"
+
+msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
+msgstr "មិន​បាន​ថែម​អ្នកទទួល​ដែល​មាន​សុពលភាព​ណា​មួយ។ នឹង​ចោល​សារ​នេះ។"
 

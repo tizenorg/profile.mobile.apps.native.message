@@ -4,14 +4,17 @@ msgstr "Koti"
 msgid "IDS_MSGC_POP_DATA_ROAMING_IS_DISABLED_ENABLE_DATA_ROAMING_AND_TRY_AGAIN"
 msgstr "Dataverkkovierailu on poistettu käytöstä. Ota dataverkkovierailu käyttöön ja yritä uudelleen."
 
-msgid "IDS_MSGF_POP_NEW_MESSAGE"
-msgstr "Uusi viesti"
-
 msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
 msgstr "PERUUTA"
 
 msgid "IDS_MSG_ACBUTTON_DONE_ABB"
 msgstr "VALMIS"
+
+msgid "IDS_MSGF_POP_NEW_MESSAGE"
+msgstr "Uusi viesti"
+
+msgid "IDS_COM_BUTTON_SHARE"
+msgstr "Jaa"
 
 msgid "IDS_COM_BODY_UNKNOWN"
 msgstr "Tuntematon"
@@ -24,9 +27,6 @@ msgstr "Mobiilidata on poistettu käytöstä. Ota mobiilidata käyttöön ja yri
 
 msgid "IDS_TPLATFORM_ACBUTTON_SEND_ABB"
 msgstr "LÄHETÄ"
-
-msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
-msgstr "Mediatyyppiä ei tueta."
 
 msgid "IDS_MSGC_POP_UNABLE_TO_SEND_MESSAGES_WHILE_IN_FLIGHT_MODE_DISABLE_FLIGHT_MODE_AND_TRY_AGAIN"
 msgstr "Viestejä ei voi lähettää lentotilassa. Poista lentotila käytöstä ja yritä uudelleen."
@@ -55,9 +55,6 @@ msgstr "Viesti on ajoitettu lähetettäväksi vastaanottajalle %s. Lähetetään
 msgid "IDS_MSGC_POP_MAXIMUM_MESSAGE_SIZE_REACHED"
 msgstr "Viestin enimmäiskoko on saavutettu."
 
-msgid "IDS_MSGC_POP_LOW_BATTERY"
-msgstr "Akku on loppumassa."
-
 msgid "IDS_MSGC_POP_DURATION_MUST_BE_AT_LEAST_PD_SECONDS"
 msgstr "Keston on oltava vähintään %d sekuntia."
 
@@ -66,9 +63,6 @@ msgstr "Lentotila poistetaan käytöstä..."
 
 msgid "IDS_MSGC_POP_COPIED_TO_SIM_CARD"
 msgstr "Kopioitu SIM-kortille."
-
-msgid "IDS_MSGC_POP_CANCELLED"
-msgstr "Peruutettu."
 
 msgid "IDS_MSGC_OPT_USE_OTHER_CONTACT_INFO_ABB"
 msgstr "Käytä muita yht.tiet."
@@ -79,32 +73,14 @@ msgstr "Lähetä käyttäen"
 msgid "IDS_MSGC_OPT_IMAGE"
 msgstr "Kuva"
 
-msgid "IDS_MSGC_OPT_EMAIL"
-msgstr "Sähköposti"
-
 msgid "IDS_MSGC_OPT_EDIT_ITEM_REPLACE"
 msgstr "Korvaa"
-
-msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
-msgstr "Näytä"
-
-msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
-msgstr "Poista"
-
-msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
-msgstr "Toista"
-
-msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
-msgstr "Vastaanottaja"
 
 msgid "IDS_MSGC_OPT_CANCEL_MESSAGE"
 msgstr "Peruuta viesti"
 
 msgid "IDS_MSGC_HEADER_RECIPIENT_LIST"
 msgstr "Vastaanottajalista"
-
-msgid "IDS_MSGC_HEADER_PREVIEW"
-msgstr "Esikatselu"
 
 msgid "IDS_MSGC_HEADER_DURATION_FOR_SLIDE_PD_PD"
 msgstr "Dian %d/%d kesto"
@@ -127,9 +103,6 @@ msgstr "Ei pyydetty"
 msgid "IDS_MSGC_BODY_MAXIMUM_NUMBER_OF_RECIPIENTS_HPD_REACHED"
 msgstr "Vastaanottajien enimmäismäärä (%d) on saavutettu."
 
-msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
-msgstr "Anna aihe."
-
 msgid "IDS_MSGC_BODY_DUPLICATED_RECIPIENT"
 msgstr "Vastaanottaja esiintyy kahdesti."
 
@@ -138,9 +111,6 @@ msgstr "Siir."
 
 msgid "IDS_MSGF_POP_UNABLE_TO_SAVE"
 msgstr "Tallennus epäonnistui."
-
-msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
-msgstr "Sijaintia ei löydy."
 
 msgid "IDS_MSGF_POP_UNABLE_TO_DELETE"
 msgstr "Ei voi poistaa."
@@ -168,9 +138,6 @@ msgstr "Rajoitettu sisältötyyppi. Liitetäänkö silti?"
 
 msgid "IDS_MSGF_POP_RESTORING_ING"
 msgstr "Palautetaan..."
-
-msgid "IDS_MSGF_POP_REJECTED"
-msgstr "Hylätty."
 
 msgid "IDS_MSGF_POP_READ_REPORT"
 msgstr "Lukuraportti"
@@ -214,20 +181,11 @@ msgstr "Tähän viestiin sisältyy liitetiedostoja, joita ei näytetä."
 msgid "IDS_MSGF_POP_FILE_NAME_ALREADY_EXISTS"
 msgstr "Tiedostonimi on jo käytössä."
 
-msgid "IDS_MSGF_POP_DELETING"
-msgstr "Poistetaan..."
-
-msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
-msgstr "Kopioitu leikepöydälle."
-
 msgid "IDS_MSGF_POP_CONVERTING_TO_TEXT_MESSAGE_ING"
 msgstr "Muunnetaan tekstiviestiksi..."
 
 msgid "IDS_MSGF_POP_CONVERTING_TO_MULTIMEDIA_MESSAGE_ING"
 msgstr "Muunnetaan multimediaviestiksi..."
-
-msgid "IDS_MSGF_POP_BLOCK_PS_Q"
-msgstr "Estetäänkö %s?"
 
 msgid "IDS_MSGF_POP_ABOUT_TO_GO_ONLINE_CONTINUE_Q"
 msgstr "Olet siirtymässä online-tilaan (%s). Jatketaanko?"
@@ -235,38 +193,17 @@ msgstr "Olet siirtymässä online-tilaan (%s). Jatketaanko?"
 msgid "IDS_MSGF_OPT_TEXT_MESSAGE"
 msgstr "Tekstiviesti"
 
-msgid "IDS_MSGF_OPT_SUBJECT_COLON"
-msgstr "Aihe:"
-
-msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
-msgstr "Lähettäjä sähköpostiviestinä"
-
 msgid "IDS_MSGF_OPT_SENDER_ABB"
 msgstr "Lähettäjä"
-
-msgid "IDS_MSGF_OPT_SELECT"
-msgstr "Valitse"
 
 msgid "IDS_MSGF_OPT_SAVE_ATTACHMENT"
 msgstr "Tallenna liite"
 
-msgid "IDS_MSGF_OPT_SAVE"
-msgstr "Tallenna"
-
-msgid "IDS_MSGF_OPT_REMOVE"
-msgstr "Poista"
-
 msgid "IDS_MSGF_OPT_INSTALL"
 msgstr "Asenna"
 
-msgid "IDS_MSGF_OPT_FORWARD"
-msgstr "Lähetä edelleen"
-
 msgid "IDS_MSGF_OPT_EDIT_MESSAGE"
 msgstr "Muokkaa viestiä"
-
-msgid "IDS_MSGF_OPT_DELETE_Q"
-msgstr "Poistetaanko?"
 
 msgid "IDS_MSGF_OPT_DELETE_MESSAGES"
 msgstr "Poista viestit"
@@ -283,14 +220,8 @@ msgstr "Viestin tiedot"
 msgid "IDS_MSGF_HEADER_EXPIRES_C_PS"
 msgstr "Vanhentuu: %s"
 
-msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
-msgstr "Tarkennettu haku"
-
 msgid "IDS_MSGF_BUTTON_SAVE_ALL_ATTACHMENTS_ABB"
 msgstr "Tall. kaikki liitt."
-
-msgid "IDS_MSGF_BODY_UNKNOWN"
-msgstr "Tuntematon"
 
 msgid "IDS_MSGF_BODY_TO_C"
 msgstr "Saaja:"
@@ -301,23 +232,14 @@ msgstr "Tekstiviestit"
 msgid "IDS_MSGF_BODY_SIM_MEMORY_FULL_DELETE_SOME_ITEMS"
 msgstr "SIM-muisti täynnä. Poista joitain kohteita."
 
-msgid "IDS_MSGF_BODY_SETTINGS"
-msgstr "Asetukset"
-
 msgid "IDS_MSGF_BODY_SENT_M_DATE_C"
 msgstr "Lähetetty:"
 
 msgid "IDS_MSGF_BODY_REQUESTED"
 msgstr "Pyydetty."
 
-msgid "IDS_MSGF_BODY_RECIPIENTS"
-msgstr "Vastaanottajat"
-
 msgid "IDS_MSGF_BODY_RECEIVED_M_DATE_C"
 msgstr "Vastaanotettu:"
-
-msgid "IDS_MSGF_BODY_RECEIVED"
-msgstr "Vastaanotettu."
 
 msgid "IDS_MSGF_BODY_READ_REPORT"
 msgstr "Lukuraportti"
@@ -331,12 +253,6 @@ msgstr "%d viestiä"
 msgid "IDS_MSGF_BODY_PD_CONVERSATIONS"
 msgstr "%d keskustelua"
 
-msgid "IDS_MSGF_BODY_OTHER"
-msgstr "Muu"
-
-msgid "IDS_MSGF_BODY_NO_SUBJECT"
-msgstr "Ei aihetta"
-
 msgid "IDS_MSGF_BODY_NO_NAME"
 msgstr "Ei nimeä"
 
@@ -345,9 +261,6 @@ msgstr "Multimediaviesti-ilmoitus"
 
 msgid "IDS_MSGF_BODY_MULTIMEDIA_MESSAGE"
 msgstr "Multimediaviesti"
-
-msgid "IDS_MSGF_BODY_MSGSIZE_KB"
-msgstr "kt"
 
 msgid "IDS_MSGF_BODY_MMSREADREPLYMSGREAD"
 msgstr "Lue"
@@ -367,12 +280,6 @@ msgstr "Viestivaihtoehdot"
 msgid "IDS_MSGF_BODY_MESSAGE_DELIVERED"
 msgstr "Viesti toimitettu"
 
-msgid "IDS_MSGF_BODY_MESSAGE"
-msgstr "Viesti"
-
-msgid "IDS_MSGF_BODY_ME"
-msgstr "Minä"
-
 msgid "IDS_MSGF_BODY_MAXIMUM_NUMBER_OF_ATTACHMENTS_HP1SS_EXCEEDED_ONLY_FIRST_P2SS_WILL_BE_ADDED"
 msgstr "Liitteiden enimmäismäärä (%1$s) on ylitetty. Vain ensimmäiset %2$s liitettä lisätään."
 
@@ -384,9 +291,6 @@ msgstr "Lähettäjä"
 
 msgid "IDS_MSGF_BODY_FLFROM"
 msgstr "Lähettäjä:"
-
-msgid "IDS_MSGF_BODY_EXPIRED"
-msgstr "Vanhentunut"
 
 msgid "IDS_MSGF_BODY_DETAILSSENDINGFAILED"
 msgstr "Lähetys epäonnistui."
@@ -402,9 +306,6 @@ msgstr "Kopioi teksti"
 
 msgid "IDS_MSGF_BODY_CB_MESSAGES"
 msgstr "CB-viestit"
-
-msgid "IDS_MSGF_BODY_ALL"
-msgstr "Kaikki"
 
 msgid "IDS_MSGF_BODY_1_MESSAGE"
 msgstr "1 viesti"
@@ -433,6 +334,9 @@ msgstr "Hae multimediaviestit automaattisesti."
 msgid "IDS_MSG_TPOP_UNABLE_TO_PREVIEW_FILE_UNSUPPORTED_FILE_TYPE"
 msgstr "Tiedostoa ei voi esikatsella. Tiedostotyyppiä ei tueta."
 
+msgid "IDS_MSG_TPOP_UNABLE_TO_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Tiedostoa ei voi liittää. Tiedostomuotoa ei tueta."
+
 msgid "IDS_MSG_TPOP_UNABLE_TO_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
 msgstr "Joitakin vastaanottajia ei voi lisätä. Numerot eivät kelpaa."
 
@@ -448,6 +352,9 @@ msgstr "Liitettä ei voi lisätä. Liitteiden enimmäismäärä (%d) on saavutet
 msgid "IDS_MSG_TPOP_THIS_NUMBER_IS_NOT_VALID"
 msgstr "Tämä numero ei kelpaa."
 
+msgid "IDS_MSG_TPOP_SOME_RECIPIENTS_ALREADY_ADDED"
+msgstr "Jotkin vastaanottajat on jo lisätty."
+
 msgid "IDS_MSG_TPOP_SELECTED_MESSAGES_COPIED_TO_MOBILE_DEVICE"
 msgstr "Valitut viestit kopioidaan mobiililaitteeseen."
 
@@ -459,6 +366,9 @@ msgstr "Numero poistettu viestien estoluettelosta."
 
 msgid "IDS_MSG_TPOP_NUMBER_ADDED_TO_MESSAGE_BLOCK_LIST"
 msgstr "Numero lisätty viestien estoluetteloon."
+
+msgid "IDS_MSG_TPOP_NETWORK_NOT_AVAILABLE_MESSAGE_WILL_BE_SENT_WHEN_CONNECTED_TO_NETWORK"
+msgstr "Verkko ei ole käytettävissä. Viesti lähetetään, kun olet yhteydessä verkkoon."
 
 msgid "IDS_MSG_TPOP_MESSAGE_COPIED_TO_PS_SIM_CARD"
 msgstr "Viesti kopioitu SIM-kortille %s."
@@ -502,9 +412,6 @@ msgstr "Hae automaattisesti"
 msgid "IDS_MSG_SK_SEND_NOW"
 msgstr "Läh. nyt"
 
-msgid "IDS_MSG_SK_NO_ABB"
-msgstr "Ei"
-
 msgid "IDS_MSG_SBODY_SELECT_AN_INPUT_MODE_FOR_COMPOSING_MESSAGES"
 msgstr "Valitse syöttötila viestien kirjoittamista varten."
 
@@ -514,14 +421,8 @@ msgstr "Ei mitään"
 msgid "IDS_MSG_SBODY_MANAGE_THE_MESSAGES_STORED_ON_YOUR_SIM_CARD"
 msgstr "Hallitse SIM-kortille tallennettuja viestejä."
 
-msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
-msgstr "Viesti hylätään. Vastaanottajia ei ole valittu."
-
 msgid "IDS_MSG_POP_UNABLE_TO_SEND_SCHEDULED_MESSAGE_SET_ANOTHER_TIME"
 msgstr "Ajoitettua viestiä ei voi lähettää. Määritä toinen aika."
-
-msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
-msgstr "Puhelun aikana ei voi toistaa."
 
 msgid "IDS_MSG_POP_UNABLE_TO_ATTACH_FILE_FILE_SIZE_TOO_LARGE_TRY_SENDING_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
 msgstr "Tiedostoa ei voi liittää. Tiedostokoko on liian iso. Yritä lähettää esimerkiksi sähköpostitse, Bluetoothilla tai Wi-Fi-yhteyden välityksellä."
@@ -544,17 +445,11 @@ msgstr "%d keskustelua poistetaan."
 msgid "IDS_MSG_POP_NO_TEMPLATES_IN_LIST"
 msgstr "Luettelossa ei ole malleja"
 
-msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
-msgstr "Vain saapuvat viestit"
-
 msgid "IDS_MSG_POP_INCLUDE_ORIGINAL_TEXT_IN_OUTGOING_MESSAGE"
 msgstr "Sisällytä alkuperäinen teksti lähtevään viestiin"
 
 msgid "IDS_MSG_POP_DURATION_MUST_BE_SHORTER_THAN_PD_SECONDS"
 msgstr "Keston on oltava vähemmän kuin %d sekuntia."
-
-msgid "IDS_MSG_POP_DELETED"
-msgstr "Poistettu."
 
 msgid "IDS_MSG_POP_1_MESSAGE_WILL_BE_DELETED"
 msgstr "1 viesti poistetaan."
@@ -571,26 +466,14 @@ msgstr "Näytä yhteystiedot"
 msgid "IDS_MSG_OPT_VIEW_AS_SLIDESHOW_ABB"
 msgstr "Näytä diaesityksenä"
 
-msgid "IDS_MSG_OPT_VIDEOS"
-msgstr "Videot"
-
 msgid "IDS_MSG_OPT_UPDATE_CONTACT"
 msgstr "Päivitä yhteystieto"
 
 msgid "IDS_MSG_OPT_UNICODE"
 msgstr "Unicode-merkistö"
 
-msgid "IDS_MSG_OPT_TEXT"
-msgstr "Teksti"
-
 msgid "IDS_MSG_OPT_TAKE_PICTURE_ABB"
 msgstr "Ota kuva"
-
-msgid "IDS_MSG_OPT_SETTINGS"
-msgstr "Asetukset"
-
-msgid "IDS_MSG_OPT_SEARCH"
-msgstr "Hae"
 
 msgid "IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"
 msgstr "Tallenna liitteet"
@@ -604,23 +487,14 @@ msgstr "Vastaa"
 msgid "IDS_MSG_OPT_REMOVE_FROM_BLOCK_LIST_ABB"
 msgstr "Poista estoluettelosta"
 
-msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
-msgstr "Tallenna video"
-
 msgid "IDS_MSG_OPT_RECORD_AUDIO_FILE_ABB"
 msgstr "Tallenna äänitiedosto"
 
 msgid "IDS_MSG_OPT_QUICK_RESPONSE_ABB"
 msgstr "Pikavastaus"
 
-msgid "IDS_MSG_OPT_NONE"
-msgstr "Ei mitään"
-
 msgid "IDS_MSG_OPT_MAKE_VOICE_CALL"
 msgstr "Soita äänipuhelu"
-
-msgid "IDS_MSG_OPT_IMAGES"
-msgstr "Kuvat"
 
 msgid "IDS_MSG_OPT_GSM_ALPHABET_ABB"
 msgstr "GSM-merkistö"
@@ -628,20 +502,11 @@ msgstr "GSM-merkistö"
 msgid "IDS_MSG_OPT_EXPORT_TO_DEVICE_MEMORY"
 msgstr "Vie laitteen muistiin"
 
-msgid "IDS_MSG_OPT_EDIT"
-msgstr "Muokkaa"
-
 msgid "IDS_MSG_OPT_DELETE_MESSAGE"
 msgstr "Poista viesti"
 
 msgid "IDS_MSG_OPT_DELETE_CONVERSATION_ABB"
 msgstr "Poista keskustelu"
-
-msgid "IDS_MSG_OPT_DELETE"
-msgstr "Poista"
-
-msgid "IDS_MSG_OPT_DEFAULT"
-msgstr "Oletus"
 
 msgid "IDS_MSG_OPT_CREATE_CONTACT_ABB"
 msgstr "Luo yhteystieto"
@@ -709,15 +574,6 @@ msgstr "Tuntematon numero"
 msgid "IDS_MSG_MBODY_TEXT_MESSAGE_CENTRE_NUMBER_ABB"
 msgstr "Tekstiviestikeskuksen numero"
 
-msgid "IDS_MSG_MBODY_SELECT_ALL"
-msgstr "Valitse kaikki"
-
-msgid "IDS_MSG_MBODY_ALERTS"
-msgstr "Hälytykset"
-
-msgid "IDS_MSG_HEADER_TRANSLATE"
-msgstr "Käännä"
-
 msgid "IDS_MSG_HEADER_TEXT_MESSAGES_ABB"
 msgstr "Tekstiviestit"
 
@@ -727,9 +583,6 @@ msgstr "Vaihda matkapuhelinverkko"
 msgid "IDS_MSG_HEADER_SMS_CENTRE_ABB2"
 msgstr "Tekstiv.keskus"
 
-msgid "IDS_MSG_HEADER_SETTINGS"
-msgstr "Asetukset"
-
 msgid "IDS_MSG_HEADER_SELECT_RECIPIENT"
 msgstr "Valitse vastaanottaja"
 
@@ -738,9 +591,6 @@ msgstr "%d valittu"
 
 msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
 msgstr "SIM-kortilla olevat viestit"
-
-msgid "IDS_MSG_HEADER_MESSAGES"
-msgstr "Viestit"
 
 msgid "IDS_MSG_HEADER_INPUT_MODE_ABB"
 msgstr "Syöttötila"
@@ -754,14 +604,8 @@ msgstr "Viestin lähetys epäonnistui"
 msgid "IDS_MSG_HEADER_DISCARD_MESSAGE_M_CLOSE_ABB"
 msgstr "Hylkää viesti"
 
-msgid "IDS_MSG_HEADER_DELETE"
-msgstr "Poista"
-
 msgid "IDS_MSG_HEADER_CREATE"
 msgstr "Luo"
-
-msgid "IDS_MSG_HEADER_ATTENTION"
-msgstr "Huomio"
 
 msgid "IDS_MSG_HEADER_ADD_CONTENT_ABB"
 msgstr "Lisää sisältöä"
@@ -775,15 +619,6 @@ msgstr "Tallenna"
 msgid "IDS_MSG_BUTTON_RESEND_ABB"
 msgstr "Lähetä uud."
 
-msgid "IDS_MSG_BUTTON_REMOVE_ABB"
-msgstr "Poista"
-
-msgid "IDS_MSG_BUTTON_OK_ABB"
-msgstr "OK"
-
-msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
-msgstr "Lataa"
-
 msgid "IDS_MSG_BUTTON_DISCARD_ABB"
 msgstr "Hylkää"
 
@@ -793,17 +628,11 @@ msgstr "Poista"
 msgid "IDS_MSG_BUTTON_CANCEL_ABB2"
 msgstr "Peruuta"
 
-msgid "IDS_MSG_BUTTON_CANCEL_ABB"
-msgstr "Peruuta"
-
 msgid "IDS_MSG_BUTTON2_CONTACTS_ABB_M_APPLICATION_NAME"
 msgstr "Yhteys-\ntiedot"
 
 msgid "IDS_MSG_BODY_YOU_HAVE_SELECTED_A_SOUND_N_SHOT_FILE_SOUND_DATA_IS_NOT_SUPPORTED_FOR_MMS_SO_ONLY_THE_PICTURE_WILL_BE_ATTACHED"
 msgstr "Olet valinnut ääni ja kuva -tiedoston. Multimediaviestit eivät tue äänitietoja, joten vain kuva lisätään."
-
-msgid "IDS_MSG_BODY_YES"
-msgstr "Kyllä"
 
 msgid "IDS_MSG_BODY_WAITING_TO_SEND_ING_M_STATUS"
 msgstr "Odotetaan lähettämistä..."
@@ -823,9 +652,6 @@ msgstr "Lähetysaika:"
 msgid "IDS_MSG_BODY_TIME_RECEIVED_C"
 msgstr "Vastaanottoaika:"
 
-msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
-msgstr "Valintaruutu"
-
 msgid "IDS_MSG_BODY_STATUS_C"
 msgstr "Tila:"
 
@@ -838,9 +664,6 @@ msgstr "Lähetys..."
 msgid "IDS_MSG_BODY_SENDING_FAILED_M_STATUS"
 msgstr "Lähetys epäonnistui"
 
-msgid "IDS_MSG_BODY_SEC"
-msgstr "s"
-
 msgid "IDS_MSG_BODY_RETRIEVE_MESSAGES_AUTOMATICALLY_WHILE_ROAMING"
 msgstr "Hae viestit automaattisesti verkkovierailun aikana."
 
@@ -852,9 +675,6 @@ msgstr "Lukuraportti: %s"
 
 msgid "IDS_MSG_BODY_OTHER_PERSON"
 msgstr "Muu henkilö"
-
-msgid "IDS_MSG_BODY_MESSAGE"
-msgstr "Viesti"
 
 msgid "IDS_MSG_BODY_MEMO_T_MAINMENU"
 msgstr "Muistio"
@@ -895,14 +715,197 @@ msgstr "Kun olet lisännyt numeroita viestien estoluetteloon, ne näytetään t�
 msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
 msgstr "POISTA"
 
-msgid "IDS_ST_BODY_LOADING_ING"
-msgstr "Ladataan..."
+msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
+msgstr "Mediatyyppiä ei tueta."
 
-msgid "IDS_MSGS_BODY_NOTIFICATIONS"
-msgstr "Ilmoitukset"
+msgid "IDS_MSGC_POP_LOW_BATTERY"
+msgstr "Akku on loppumassa."
 
-msgid "IDS_MSG_HEADER_ME"
+msgid "IDS_MSGC_POP_CANCELLED"
+msgstr "Peruutettu."
+
+msgid "IDS_MSGC_OPT_EMAIL"
+msgstr "Sähköposti"
+
+msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
+msgstr "Näytä"
+
+msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
+msgstr "Poista"
+
+msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
+msgstr "Toista"
+
+msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
+msgstr "Vastaanottaja"
+
+msgid "IDS_MSGC_HEADER_PREVIEW"
+msgstr "Esikatselu"
+
+msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
+msgstr "Anna aihe."
+
+msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
+msgstr "Sijaintia ei löydy."
+
+msgid "IDS_MSGF_POP_REJECTED"
+msgstr "Hylätty."
+
+msgid "IDS_MSGF_POP_DELETING"
+msgstr "Poistetaan..."
+
+msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
+msgstr "Kopioitu leikepöydälle."
+
+msgid "IDS_MSGF_POP_BLOCK_PS_Q"
+msgstr "Estetäänkö %s?"
+
+msgid "IDS_MSGF_OPT_SUBJECT_COLON"
+msgstr "Aihe:"
+
+msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
+msgstr "Lähettäjä sähköpostiviestinä"
+
+msgid "IDS_MSGF_OPT_SELECT"
+msgstr "Valitse"
+
+msgid "IDS_MSGF_OPT_SAVE"
+msgstr "Tallenna"
+
+msgid "IDS_MSGF_OPT_REMOVE"
+msgstr "Poista"
+
+msgid "IDS_MSGF_OPT_FORWARD"
+msgstr "Lähetä edelleen"
+
+msgid "IDS_MSGF_OPT_DELETE_Q"
+msgstr "Poistetaanko?"
+
+msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
+msgstr "Tarkennettu haku"
+
+msgid "IDS_MSGF_BODY_UNKNOWN"
+msgstr "Tuntematon"
+
+msgid "IDS_MSGF_BODY_SETTINGS"
+msgstr "Asetukset"
+
+msgid "IDS_MSGF_BODY_RECIPIENTS"
+msgstr "Vastaanottajat"
+
+msgid "IDS_MSGF_BODY_RECEIVED"
+msgstr "Vastaanotettu."
+
+msgid "IDS_MSGF_BODY_OTHER"
+msgstr "Muu"
+
+msgid "IDS_MSGF_BODY_NO_SUBJECT"
+msgstr "Ei aihetta"
+
+msgid "IDS_MSGF_BODY_MSGSIZE_KB"
+msgstr "kt"
+
+msgid "IDS_MSGF_BODY_MESSAGE"
+msgstr "Viesti"
+
+msgid "IDS_MSGF_BODY_ME"
 msgstr "Minä"
+
+msgid "IDS_MSGF_BODY_EXPIRED"
+msgstr "Vanhentunut"
+
+msgid "IDS_MSGF_BODY_ALL"
+msgstr "Kaikki"
+
+msgid "IDS_MSG_SK_NO_ABB"
+msgstr "Ei"
+
+msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
+msgstr "Viesti hylätään. Vastaanottajia ei ole valittu."
+
+msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
+msgstr "Puhelun aikana ei voi toistaa."
+
+msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
+msgstr "Vain saapuvat viestit"
+
+msgid "IDS_MSG_POP_DELETED"
+msgstr "Poistettu."
+
+msgid "IDS_MSG_OPT_VIDEOS"
+msgstr "Videot"
+
+msgid "IDS_MSG_OPT_TEXT"
+msgstr "Teksti"
+
+msgid "IDS_MSG_OPT_SETTINGS"
+msgstr "Asetukset"
+
+msgid "IDS_MSG_OPT_SEARCH"
+msgstr "Hae"
+
+msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
+msgstr "Tallenna video"
+
+msgid "IDS_MSG_OPT_NONE"
+msgstr "Ei mitään"
+
+msgid "IDS_MSG_OPT_IMAGES"
+msgstr "Kuvat"
+
+msgid "IDS_MSG_OPT_EDIT"
+msgstr "Muokkaa"
+
+msgid "IDS_MSG_OPT_DELETE"
+msgstr "Poista"
+
+msgid "IDS_MSG_OPT_DEFAULT"
+msgstr "Oletus"
+
+msgid "IDS_MSG_MBODY_SELECT_ALL"
+msgstr "Valitse kaikki"
+
+msgid "IDS_MSG_MBODY_ALERTS"
+msgstr "Hälytykset"
+
+msgid "IDS_MSG_HEADER_TRANSLATE"
+msgstr "Käännä"
+
+msgid "IDS_MSG_HEADER_SETTINGS"
+msgstr "Asetukset"
+
+msgid "IDS_MSG_HEADER_MESSAGES"
+msgstr "Viestit"
+
+msgid "IDS_MSG_HEADER_DELETE"
+msgstr "Poista"
+
+msgid "IDS_MSG_HEADER_ATTENTION"
+msgstr "Huomio"
+
+msgid "IDS_MSG_BUTTON_REMOVE_ABB"
+msgstr "Poista"
+
+msgid "IDS_MSG_BUTTON_OK_ABB"
+msgstr "OK"
+
+msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
+msgstr "Lataa"
+
+msgid "IDS_MSG_BUTTON_CANCEL_ABB"
+msgstr "Peruuta"
+
+msgid "IDS_MSG_BODY_YES"
+msgstr "Kyllä"
+
+msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
+msgstr "Valintaruutu"
+
+msgid "IDS_MSG_BODY_SEC"
+msgstr "s"
+
+msgid "IDS_MSG_BODY_MESSAGE"
+msgstr "Viesti"
 
 msgid "IDS_MSG_BUTTON_SEND_ABB5"
 msgstr "Läh."
@@ -912,4 +915,31 @@ msgstr "Lähetä"
 
 msgid "IDS_MSG_ACBUTTON_SEND_ABB3"
 msgstr "LÄHETÄ"
+
+msgid "IDS_ST_BODY_LOADING_ING"
+msgstr "Ladataan..."
+
+msgid "IDS_MSGS_BODY_NOTIFICATIONS"
+msgstr "Ilmoitukset"
+
+msgid "IDS_MSG_HEADER_ME"
+msgstr "Minä"
+
+msgid "IDS_MSG_BODY_UNKNOWN"
+msgstr "Tuntematon"
+
+msgid "IDS_MSG_TMBODY_ADD_OR_REMOVE_RECIPIENTS"
+msgstr "Lisää tai poista vastaanottajia"
+
+msgid "IDS_MSG_POP_THE_SENDER_HAS_REQUESTED_A_READ_REPORT_TAP_SEND_TO_SEND_ONE"
+msgstr "Lähettäjä on pyytänyt lukuraporttia. Lähetä se napauttamalla Lähetä."
+
+msgid "IDS_MSGF_OPT_SEND_READ_REPORT"
+msgstr "Lähetä lukuraportti"
+
+msgid "IDS_MSG_HEADER_COMPOSE_MESSAGE_ABB"
+msgstr "Luo viesti"
+
+msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
+msgstr "Kelvollisia vastaanottajia ei ole lisätty. Tämä viesti hylätään."
 
