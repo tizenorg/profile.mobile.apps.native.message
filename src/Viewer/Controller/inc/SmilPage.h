@@ -22,6 +22,8 @@
 #include "MsgPage.h"
 #include "MsgAttachment.h"
 
+#include <list>
+
 namespace Msg
 {
     class SmilImageItemView;
@@ -42,6 +44,7 @@ namespace Msg
             void playAnimation(bool play);
             Evas_Object *getVideoSink() const;
             std::string getMediaPath() const;
+            const std::list<std::string> &getAttachments() const;
 
         private:
             const MsgMedia *getMedia(const MsgPage &page, MsgMedia::Type type) const;
@@ -60,6 +63,7 @@ namespace Msg
             Evas_Object *m_pVideoSink;
             bool m_HasAudio;
             SmilImageItemView *m_pImageItem;
+            std::list<std::string> m_Attachments;
     };
 }
 
