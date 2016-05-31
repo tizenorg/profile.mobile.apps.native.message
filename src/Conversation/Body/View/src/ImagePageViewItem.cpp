@@ -33,9 +33,7 @@ namespace
     const char *showPlayIconSig = "play_icon_show";
 
     const int thumbOriginHeight = 75;
-    const int thumbLandscapeWidth = 128;
     const int thumbLandscapeHeight = 102;
-    const int thumbPortraitWidth = 102;
     const int thumbPortraitHeight = 128;
     const int thumbEqual = 106;
 }
@@ -124,11 +122,13 @@ Evas_Object *ImagePageViewItem::createImage(Evas_Object *parent)
 
     int width = 0;
     int height = 0;
+    float ratio = 0.0;
     evas_object_image_size_get(img, &width, &height);
     evas_object_del(img);
 
     MSG_LOG("Image: width = ", width, " height = ", height);
-
+    if(height > 0)
+        ratio = width / (float)height;
     // Set orientation  of media layout and icon dimension:
     int iconWidth = 0;
     int iconHeight = 0;
@@ -136,13 +136,13 @@ Evas_Object *ImagePageViewItem::createImage(Evas_Object *parent)
 
     if(width > height) // Landscape
     {
-        iconWidth = (int)ELM_SCALE_SIZE(thumbLandscapeWidth);
+        iconWidth = (int)ELM_SCALE_SIZE(ratio * thumbLandscapeHeight);
         iconHeight = (int)ELM_SCALE_SIZE(thumbLandscapeHeight);
         sig = mediaImageLandscapeSig;
     }
     else if(height > width) // Portrait
     {
-        iconWidth = (int)ELM_SCALE_SIZE(thumbPortraitWidth);
+        iconWidth = (int)ELM_SCALE_SIZE(ratio * thumbPortraitHeight);
         iconHeight = (int)ELM_SCALE_SIZE(thumbPortraitHeight);
         sig = mediaImagePortraitSig;
     }
@@ -157,8 +157,9 @@ Evas_Object *ImagePageViewItem::createImage(Evas_Object *parent)
     // Create and load icon image:
     Evas_Object *icon = elm_icon_add(parent);
     elm_image_file_set(icon, m_ImagePath.c_str(), NULL);
+    evas_object_size_hint_align_set(icon, 0.0, EVAS_HINT_FILL);
     evas_object_size_hint_min_set(icon, iconWidth, iconHeight);
-    elm_image_aspect_fixed_set(icon, EINA_FALSE);
+    elm_image_aspect_fixed_set(icon, EINA_TRUE);
     evas_object_show(icon);
 
     return icon;
