@@ -660,7 +660,7 @@ void Conversation::showMainPopup()
 {
     PopupList &popup = getApp().getPopupManager().getPopupList();
     popup.appendItem(msg("IDS_MSG_OPT_DELETE"), POPUPLIST_ITEM_PRESSED_CB(Conversation, onDeleteItemPressed), this);
-    popup.appendItem(msg("IDS_MSG_OPT_ADD_RECIPIENTS_ABB"), POPUPLIST_ITEM_PRESSED_CB(Conversation, onAddRecipientsItemPressed), this);
+    popup.appendItem(msg("IDS_MSG_TMBODY_ADD_OR_REMOVE_RECIPIENTS"), POPUPLIST_ITEM_PRESSED_CB(Conversation, onAddRecipientsItemPressed), this);
     popup.show();
 }
 
@@ -733,7 +733,7 @@ void Conversation::updateNavibar()
 
     if(m_Mode == NewMessageMode)
     {
-        naviBar.setTitle(msgt("IDS_MSGF_POP_NEW_MESSAGE"));
+        naviBar.setTitle(msgt("IDS_MSG_HEADER_COMPOSE_MESSAGE_ABB"));
         naviBar.showButton(NaviPrevButtonId, true);
     }
     else if(m_Mode == ConversationMode)
