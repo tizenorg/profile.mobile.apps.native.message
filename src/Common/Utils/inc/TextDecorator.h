@@ -34,6 +34,7 @@ namespace Msg
     {
         public:
             static const std::string defaultColor;
+            static const std::string whiteColor;
             static const int defaultFontSize;
 
         public:

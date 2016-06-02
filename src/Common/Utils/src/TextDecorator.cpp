@@ -23,6 +23,7 @@
 using namespace Msg;
 
 const std::string TextStyle::defaultColor = "#000000FF";
+const std::string TextStyle::whiteColor = "#FFFFFFFF";
 const int TextStyle::defaultFontSize = 28;
 
 #define OPEN_TAG(name, val) "<" name "=" << (val) << ">"
