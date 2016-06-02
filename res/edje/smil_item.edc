@@ -365,202 +365,22 @@ collections {
     group {
         name: "smil_attachment_item_layout";
         parts {
-            part {
-                name: "pad_left";
-                type: SPACER;
-                scale: 1;
-                description {
-                    state: "default" 0.0;
-                    fixed: 1 0;
-                    min: 7 0;
-                    max: 7 0;
-                    align: 0 0.5;
-                    rel1.relative: 0 0;
-                    rel2.relative: 0 1;
-                }
-                description {
-                    state: "landscape" 0.0;
-                    inherit: "default" 0.0;
-                    min: 170 0;
-                    max: 170 0;
-                }
-            }
+            PADDING_LEFT("pad.left", 32);
+            PADDING_RIGHT("pad.right", 32);
+            PADDING_TOP("pad.top", 15);
+            PADDING_BOTTOM("pad.bottom", 15);
             part {
                 name: "swallow.content";
                 type: SWALLOW;
                 scale: 1;
-                mouse_events: 1;
-                repeat_events: 1;
-                description {
-                    state: "default" 0.0;
-                    min: 1 0;
-                    align: 0 0.5;
-                    rel1.relative: 1.0 0.0;
-                    rel2.relative: 0.0 0.0;
-                    rel1.to: "pad_left";
-                    rel2.to: "pad_right";
-                }
-            }
-            part {
-                name: "pad_right";
-                type: SPACER;
-                scale: 1;
-                description {
-                    state: "default" 0.0;
-                    fixed: 1 0;
-                    min: 7 0;
-                    max: 7 0;
-                    align: 1 0.5;
-                    rel1.relative: 1 0;
-                    rel2.relative: 1 1;
-                }
-                description {
-                    state: "landscape" 0.0;
-                    inherit: "default" 0.0;
-                    min: 170 0;
-                    max: 170 0;
-                }
-            }
-        }
-        programs {
-            program {
-                name: "show_landscape";
-                signal: "show,landscape";
-                source: "*";
-                action: STATE_SET "landscape" 0.0;
-                target: "pad_right";
-                target: "pad_left";
-            }
-                program {
-                name: "show_portrait";
-                signal: "show,portrait";
-                source: "*";
-                action: STATE_SET "default" 0.0;
-                target: "pad_right";
-                target: "pad_left";
-            }
-        }
-    }
-    group {
-        name: "smil_attachment_item";
-        parts {
-            part {
-                name: "bg";
-                type: RECT;
-                scale: 1;
-                description {
-                    state: "default" 0.0;
-                    min: 0 100;
-                    max: -1 100;
-                    color_class: "WO21L1";
-                }
-                description {
-                    state: "pressed" 0.0;
-                    inherit: "default" 0.0;
-                    color_class: "B0211P";
-                }
-            }
-
-            PART_PADDING_LEFT("pad.left", 16, "bg");
-            PART_PADDING_RIGHT("pad.right", 16, "bg");
-
-            part {
-                name: "item.thumbnail.rect";
-                type: RECT;
-                scale: 1;
-                mouse_events: 0;
                 description {
                     state: "default" 0.0;
                     visible: 1;
-                    fixed: 1 1;
-                    min: 74 74;
-                    max: 74 74;
-                    rel1 { relative: 1.0 0.0; to_x: "pad.left"; to_y: "bg"; }
-                    rel2 { relative: 1.0 1.0; to_x: "pad.left"; to_y: "bg"; }
-                    align: 0.0 0.5;
-                    color: 0 0 0 0;
+                    fixed: 0 0;
+                    align: 0 0;
+                    rel1 {to_x: "pad.left"; to_y: "pad.top"; relative: 1.0 1.0;}
+                    rel2 {to_x: "pad.right"; to_y: "pad.bottom"; relative: 0.0 0.0;}
                 }
-            }
-
-            PART_PADDING_TOP("thumbnail.icon.line.top", 1, "item.thumbnail.rect")
-            PART_PADDING_LEFT("thumbnail.icon.line.left", 1, "item.thumbnail.rect")
-            PART_PADDING_RIGHT("thumbnail.icon.line.right", 1, "item.thumbnail.rect")
-            PART_PADDING_BOTTOM("thumbnail.icon.line.bottom", 1, "item.thumbnail.rect")
-
-            PART_SWALLOW("item.thumbnail.icon", "item.thumbnail.rect")
-            PART_H_PIXEL_RECT("pad.thumbnail.icon.right", 10, 0.0, 1.0, "item.thumbnail.icon")
-
-            part {
-                name: "item.filename.rect";
-                type: RECT;
-                mouse_events: 0;
-                scale: 1;
-                description {
-                    state: "default" 0.0;
-                    align: 0.0 0.5;
-                    rel1 { relative: 1.0 0.0; to_x: "pad.thumbnail.icon.right"; to_y: "bg"; }
-                    rel2 { relative: 0.0 1.0; to_x: "pad.filename.right"; to_y: "bg"; }
-                    color: 0 0 0 0;
-                }
-            }
-            PART_TEXT("item.filename.text", "item.filename.rect", 0.0, 0.5)
-            PART_H_PIXEL_RECT("pad.filename.right", 10, 1.0, 0.0, "item.filesize.rect")
-
-            part {
-                name: "item.filesize.rect";
-                type: RECT;
-                mouse_events: 0;
-                scale: 1;
-                description {
-                    state: "default" 0.0;
-                    min: 80 0;
-                    align: 1.0 0.5;
-                    rel1 { relative: 0.0 0.0; to_x: "pad.right"; to_y: "pad.right"; }
-                    rel2 { relative: 0.0 1.0; to_x: "pad.right"; to_y: "pad.right"; }
-                    color: 0 0 0 0;
-                }
-            }
-            PART_TEXT("item.filesize.text", "item.filesize.rect", 1.0, 0.5)
-
-            PART_RECT("over", 0.0, 0.0, "bg", "bg", 0.0, 1.0, "item.filesize.rect", "item.filesize.rect")
-            PART_EVENT_RECT("over_event", "over")
-
-            PART_TOP_LINE("line.top", "bg")
-            PART_BOTTOM_LINE("line.bottom", "bg")
-            PART_LEFT_LINE("line.left", "bg")
-            PART_RIGHT_LINE("line.right", "bg")
-        }
-
-        programs {
-            program {
-                name: "mouse_clicked";
-                signal: "mouse,clicked,1";
-                source: "over_event";
-                action: SIGNAL_EMIT "clicked" "";
-            }
-            program {
-                name: "item.pressed";
-                signal: "pressed";
-                source: "over_event";
-                action: STATE_SET "pressed" 0.0;
-                target: "bg";
-                target: "item.filename.text";
-                target: "item.filesize.text";
-            }
-            program {
-                name: "item.unpressed";
-                signal: "unpressed";
-                source: "over_event";
-                action: STATE_SET "default" 0.0;
-                target: "bg";
-                target: "item.filename.text";
-                target: "item.filesize.text";
-            }
-            program {
-                name: "item_press";
-                signal: "play,press,sound";
-                source: "*";
-                action: RUN_PLUGIN "touch_sound";
             }
         }
     }

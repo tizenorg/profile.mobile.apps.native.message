@@ -18,14 +18,20 @@
 #include "FileViewer.h"
 #include "Logger.h"
 #include "FileUtils.h"
+#include "PathUtils.h"
 
 #include <app_control.h>
 
 using namespace Msg;
 
-FileViewer::FileViewer(WorkingDirRef workingDir)
-    : m_WorkingDir(workingDir)
+FileViewer::FileViewer()
 {
+}
+
+FileViewer::~FileViewer()
+{
+    if(!m_FilePath.empty())
+        FileUtils::remove(m_FilePath);
 }
 
 bool FileViewer::launch(const std::string &file)
@@ -56,19 +62,40 @@ bool FileViewer::launch(const std::string &file)
     return res;
 }
 
+std::string FileViewer::addFile(const std::string &path)
+{
+    std::string newPath;
+
+    if(FileUtils::isExists(path))
+    {
+        std::string dataPath = PathUtils::getDataPath("");
+
+        if(path.find(dataPath) != std::string::npos)
+        {
+            newPath = path;
+            MSG_LOG("File is already exists: ", newPath);
+        }
+        else
+        {
+            newPath = FileUtils::genUniqueFilePath(dataPath, path);
+            if(!FileUtils::copy(path, newPath))
+                newPath.clear();
+        }
+    }
+
+    return newPath;
+}
+
 bool FileViewer::launchWithCopy(const std::string &file)
 {
     bool res = false;
-    if(m_WorkingDir)
-    {
         // Remove previous file (correct only for APP_CONTROL_LAUNCH_MODE_GROUP)
-        if(!m_FilePath.empty())
-            m_WorkingDir->removeFile(m_FilePath);
+    if(!m_FilePath.empty())
+        FileUtils::remove(m_FilePath);
 
-        m_FilePath = m_WorkingDir->addFile(file);
-        if(!m_FilePath.empty())
-            res = launch(m_FilePath);
-    }
+    m_FilePath = addFile(file);
+    if(!m_FilePath.empty())
+        res = launch(m_FilePath);
 
     return res;
 }

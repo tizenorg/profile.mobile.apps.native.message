@@ -25,10 +25,10 @@
 #include "Message.h"
 #include "ContextPopup.h"
 #include "App.h"
-#include <string>
 #include "MessageDetailContent.h"
 #include "FileViewer.h"
 #include "MsgUtils.h"
+#include "WorkingDir.h"
 
 namespace Msg
 {

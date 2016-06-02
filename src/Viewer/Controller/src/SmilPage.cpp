@@ -21,16 +21,15 @@
 #include "SmilTextItemView.h"
 #include "SmilAudioItemView.h"
 #include "SmilVideoItemView.h"
-#include "SmilAttachmentItemView.h"
 #include "Logger.h"
 #include "FileUtils.h"
 #include "MediaPlayer.h"
 #include "MediaUtils.h"
+#include <notification.h>
 
 using namespace Msg;
 
 const int defaultPageDuration = 5; // sec;
-std::string makeKbStr(long long bytes);
 
 SmilPage::SmilPage(Evas_Object *parent, const MsgPage &page)
     : SmilPageLayout(parent)
@@ -165,6 +164,7 @@ void SmilPage::build(const MsgAttachmentList &list)
         return;
 
     buildAttachmentInfo(list.getLength());
+    buildSaveAllItem(list.getLength());
     for(int i = 0; i < list.getLength(); ++i)
     {
         buildAttachment(list[i]);
@@ -226,6 +226,13 @@ void SmilPage::buildVideo(const MsgMedia& media)
     appendItem(*item);
 }
 
+void SmilPage::buildSaveAllItem(int attachmentCount)
+{
+    SmilSaveAllItemView *item = new SmilSaveAllItemView(getBox(), attachmentCount);
+    item->setListener(this);
+    appendItem(*item);
+}
+
 void SmilPage::buildAttachmentInfo(int attachmentCount)
 {
     SmilAttachmentInfoItemView *item = new SmilAttachmentInfoItemView(getBox(), attachmentCount > 1);
@@ -236,9 +243,32 @@ void SmilPage::buildAttachmentInfo(int attachmentCount)
 void SmilPage::buildAttachment(const MsgAttachment& attachment)
 {
     SmilAttachmentItemView *item = new SmilAttachmentItemView(getBox());
+    item->setListener(this);
     item->setFilePath(attachment.getFilePath());
     item->setFileName(attachment.getFileName());
-    item->setFileSize(makeKbStr(attachment.getFileSize()));
     item->show();
     appendItem(*item);
+}
+
+void SmilPage::onItemClicked(SmilAttachmentItemView &item)
+{
+    MSG_LOG("");
+    m_FileViewer.launchWithCopy(item.getFilePath());
+}
+
+void SmilPage::onSaveButtonClicked(SmilAttachmentItemView &item)
+{
+    MSG_LOG("");
+    if(FileUtils::saveFileToStorage(item.getFilePath()))
+        notification_status_message_post(msg("IDS_MSGF_POP_SAVED_IN_MY_FILES").cStr());
+    // TODO: else
+}
+
+void SmilPage::onItemClicked(SmilSaveAllItemView &item)
+{
+    MSG_LOG("");
+    if(!m_Attachments.empty() && FileUtils::saveFilesToStorage(m_Attachments))
+        notification_status_message_post(msg("IDS_MSGF_POP_SAVED_IN_MY_FILES").cStr());
+    // TODO: else
+
 }
