@@ -1,4 +1,4 @@
-#define BASE_SCALE 1.8
+#define BASE_SCALE base_scale: 2.6;
 
 #define PADDING_LEFT(param_padding_name, param_padding_size) \
 	part \

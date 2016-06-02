@@ -33,7 +33,8 @@ namespace Msg
     class TextStyle
     {
         public:
-            static const std::string defaultColor;
+            static const char *defaultColor;
+            static const char *whiteColor;
             static const int defaultFontSize;
 
         public:

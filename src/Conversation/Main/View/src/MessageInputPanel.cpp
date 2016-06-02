@@ -19,18 +19,22 @@
 #include "PathUtils.h"
 #include "CallbackAssist.h"
 #include "Logger.h"
+#include "LangUtils.h"
+#include "TextDecorator.h"
+
+using namespace Msg;
 
 namespace
 {
     const char *buttonIdKey = "id";
+    const TextStyle sendTextStyle(32, TextStyle::whiteColor, TextAlign::Right);
 }
-
-using namespace Msg;
 
 MessageInputPanel::MessageInputPanel(Evas_Object *parent)
     : m_pListener(nullptr)
     , m_pLayout(nullptr)
     , m_pSendButton(nullptr)
+    , m_pSendLabel(nullptr)
     , m_pAddButton(nullptr)
 {
     create(parent);
@@ -50,8 +54,8 @@ void MessageInputPanel::create(Evas_Object *parent)
     std::string edjPath = PathUtils::getResourcePath(MSG_INPUT_PANEL_EDJ_PATH);
     elm_layout_file_set(m_pLayout, edjPath.c_str(), "conversation/msg_input_panel");
 
-    m_pSendButton = createButton(m_pLayout, CONV_SEND_IMG, "send_custom", SendButtonId);
-    m_pAddButton = createButton(m_pLayout, CONV_ADD_IMG, "body_button", AddButtonId);
+    m_pSendButton = createSendButton(m_pLayout);
+    m_pAddButton = createAddButton(m_pLayout);
 
     elm_object_part_content_set(m_pLayout, "swl.send_button", m_pSendButton);
     elm_object_part_content_set(m_pLayout, "swl.add_button", m_pAddButton);
@@ -64,7 +68,7 @@ void MessageInputPanel::setEntry(Evas_Object *obj)
 
 Evas_Object *MessageInputPanel::getIcon(Evas_Object *button)
 {
-    return elm_object_part_content_get(button, "button_center_part");
+    return elm_object_content_get(button);
 }
 
 void MessageInputPanel::setNormalColor(Evas_Object *button)
@@ -102,26 +106,50 @@ Evas_Object *MessageInputPanel::getButton(ButtonId id)
     return nullptr;
 }
 
-Evas_Object *MessageInputPanel::createButton(Evas_Object *parent, const char *iconRes, const char *style, ButtonId buttonId)
+Evas_Object *MessageInputPanel::createButton(Evas_Object *parent, ButtonId buttonId)
 {
     Evas_Object *button = elm_button_add(parent);
-    elm_object_style_set(button, style);
+    elm_object_style_set(button, "transparent");
     evas_object_data_set(button, buttonIdKey, (void*)buttonId);
     evas_object_size_hint_weight_set(button, 0.0, 0.0);
-    evas_object_size_hint_align_set(button, EVAS_HINT_FILL, EVAS_HINT_FILL);
+    evas_object_smart_callback_add(button, "clicked", SMART_CALLBACK(MessageInputPanel, onButtonClicked), this);
+    evas_object_smart_callback_add(button, "pressed", SMART_CALLBACK(MessageInputPanel, onButtonPressed), this);
+    evas_object_smart_callback_add(button, "unpressed", SMART_CALLBACK(MessageInputPanel, onButtonUnpressed), this);
     evas_object_show(button);
+    return button;
+}
+
+void MessageInputPanel::updateSendButtonTitle()
+{
+    //TODO: on language changed cb
+    std::string text = TextDecorator::make(msg("IDS_MSG_BUTTON_SEND_ABB3"), sendTextStyle);
+    elm_object_text_set(m_pSendLabel, text.c_str());
+}
+
+Evas_Object *MessageInputPanel::createSendButton(Evas_Object *parent)
+{
+    Evas_Object *button = createButton(parent, SendButtonId);
+
+    m_pSendLabel = elm_label_add(button);
+    updateSendButtonTitle();
+    elm_object_content_set(button, m_pSendLabel);
+    evas_object_show(m_pSendLabel);
+    evas_object_color_set(m_pSendLabel, BUTTON_COLOR);
+
+    return button;
+}
+
+Evas_Object *MessageInputPanel::createAddButton(Evas_Object *parent)
+{
+    Evas_Object *button = createButton(parent, AddButtonId);
 
     Evas_Object *icon = elm_icon_add(button);
     std::string resPath = PathUtils::getResourcePath(IMAGES_EDJ_PATH);
     evas_object_show(icon);
-    elm_image_file_set(icon, resPath.c_str(), iconRes);
+    elm_image_file_set(icon, resPath.c_str(), CONV_ADD_IMG);
     evas_object_color_set(icon, BUTTON_COLOR);
 
-    elm_object_part_content_set(button, "button_center_part", icon);
-
-    evas_object_smart_callback_add(button, "clicked", SMART_CALLBACK(MessageInputPanel, onButtonClicked), this);
-    evas_object_smart_callback_add(button, "pressed", SMART_CALLBACK(MessageInputPanel, onButtonPressed), this);
-    evas_object_smart_callback_add(button, "unpressed", SMART_CALLBACK(MessageInputPanel, onButtonUnpressed), this);
+    elm_object_content_set(button, icon);
 
     return button;
 }
