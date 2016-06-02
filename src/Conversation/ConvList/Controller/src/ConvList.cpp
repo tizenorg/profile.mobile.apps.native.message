@@ -40,7 +40,7 @@ ConvList::ConvList(Evas_Object *parent, App &app, WorkingDirRef workingDir)
     , m_pListner(nullptr)
     , m_App(app)
     , m_WorkingDir(workingDir)
-    , m_FileViewer(workingDir)
+    , m_FileViewer()
     , m_RecipThumbId(m_App.getThumbnailMaker().getThumbId(ThumbnailMaker::SingleThumb))
     , m_SearchWord()
 {

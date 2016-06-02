@@ -32,11 +32,13 @@ const std::string textFileName = "mms.txt";
 
 WorkingDir::WorkingDir()
 {
+    MSG_LOG("");
     createWorkingDir();
 }
 
 WorkingDir::~WorkingDir()
 {
+    MSG_LOG("");
     removeWorkingDir();
 }
 
@@ -108,6 +110,11 @@ std::string WorkingDir::addFile(const std::string &path)
             if(FileUtils::copy(path, newPath))
             {
                 MSG_LOG("File added: ", newPath);
+            }
+            else
+            {
+                MSG_LOG_ERROR("Can't copy to working dir: ", path);
+                newPath.clear();
             }
         }
     }

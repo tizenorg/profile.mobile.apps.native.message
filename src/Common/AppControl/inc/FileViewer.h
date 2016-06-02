@@ -19,14 +19,14 @@
 #define FileViewer_h_
 
 #include "AppControlUtils.h"
-#include "WorkingDir.h"
 
 namespace Msg
 {
     class FileViewer
     {
         public:
-            FileViewer(WorkingDirRef workingDir);
+            FileViewer();
+            ~FileViewer();
 
             static bool launch(const std::string &file);
             bool launchWithCopy(const std::string &file);
@@ -35,8 +35,9 @@ namespace Msg
             FileViewer(const FileViewer&) = delete;
             FileViewer& operator=(const FileViewer&) = delete;
 
+            std::string addFile(const std::string &path);
+
         private:
-            WorkingDirRef m_WorkingDir;
             std::string m_FilePath;
     };
 }

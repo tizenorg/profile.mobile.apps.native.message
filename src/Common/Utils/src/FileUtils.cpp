@@ -16,6 +16,7 @@
  */
 
 #include "FileUtils.h"
+#include "PathUtils.h"
 
 #include <unistd.h>
 #include <sys/stat.h>
@@ -27,6 +28,7 @@
 #include <ctype.h>
 #include <fstream>
 #include <mime_type.h>
+#include <media_content.h>
 
 using namespace Msg;
 
@@ -52,6 +54,7 @@ bool FileUtils::isExists(const std::string &file)
     return res;
 }
 
+#include "Logger.h"
 bool FileUtils::copy(const std::string &src, const std::string &dst)
 {
     FILE *f1 = nullptr;
@@ -59,17 +62,9 @@ bool FileUtils::copy(const std::string &src, const std::string &dst)
 
     const size_t bufSize  = 4 * 1024;
     char buf[bufSize];
-    char realPath1[PATH_MAX];
-    char realPath2[PATH_MAX];
 
     size_t num = 0;
     bool ret = true;
-
-    if(!realpath(src.c_str(), realPath1))
-        return false;
-
-    if(realpath(dst.c_str(), realPath2) && !strcmp(realPath1, realPath2))
-        return false;
 
     f1 = fopen(src.c_str(), "rb");
     if(!f1)
@@ -251,3 +246,43 @@ std::string FileUtils::getMimeType(const std::string &filePath)
     }
     return res;
 }
+
+static bool saveFileToStoragePrivate(const std::string &file)
+{
+    bool res = false;
+
+    std::string dowloadPath = PathUtils::getDownloadPath();
+    std::string filePathDst = FileUtils::genUniqueFilePath(dowloadPath, file);
+
+    if(FileUtils::copy(file, filePathDst))
+        res = media_content_scan_file(filePathDst.c_str()) == MEDIA_CONTENT_ERROR_NONE;
+
+    return res;
+}
+
+bool FileUtils::saveFilesToStorage(const std::list<std::string> &files)
+{
+    bool res = true;
+    if(media_content_connect() != 0)
+        return false;
+
+    for(const std::string &file : files)
+    {
+        res &= saveFileToStoragePrivate(file);
+    }
+    media_content_disconnect();
+    return res;
+}
+
+bool FileUtils::saveFileToStorage(const std::string &file)
+{
+    if(media_content_connect() != 0)
+        return false;
+
+    bool res = saveFileToStoragePrivate(file);
+
+    media_content_disconnect();
+    return res;
+}
+
+

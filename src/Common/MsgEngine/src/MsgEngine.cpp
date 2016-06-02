@@ -56,7 +56,7 @@ int MsgEngine::openService()
 
 #ifdef TIZEN_PRIVATE_API
     int res = msg_open_msg_handle(&m_MsgHandle);
-    MSG_LOG_ERROR("handle open error = ", res);
+    MSG_LOG("handle open error = ", res);
 
     m_Storage.reset(new MsgStoragePrivate(m_MsgHandle));
     m_Transport.reset(new MsgTransportPrivate(m_MsgHandle));

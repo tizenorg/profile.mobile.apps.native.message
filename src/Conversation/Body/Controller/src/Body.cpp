@@ -556,8 +556,7 @@ void Body::onFileReady(const std::string &filePath)
     MSG_LOG("Media type: ", mediaType.mime);
 
     Page *page = nullptr;
-    if(mediaType.type != MsgMedia::UnknownType &&
-            mediaType.type != MsgMedia::TextType)
+    if(mediaType.type != MsgMedia::UnknownType && mediaType.type != MsgMedia::TextType)
     {
         page = static_cast<Page*>(getPageForMedia(msgMediaTypeToPageItemType(mediaType.type)));
         if(!page)

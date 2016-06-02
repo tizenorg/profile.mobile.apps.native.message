@@ -23,31 +23,29 @@
 namespace Msg
 {
     class ISmilAttachmentItemViewListener;
+    class ISmilSaveAllItemViewListener;
 
+    // SmilAttachmentItemView:
     class SmilAttachmentItemView
         : public View
     {
         public:
-            SmilAttachmentItemView(Evas_Object *parent, const std::string &thumbFilePath = "");
+            SmilAttachmentItemView(Evas_Object *parent);
             virtual ~SmilAttachmentItemView();
 
             void setListener(ISmilAttachmentItemViewListener *l);
             void setFileName(const std::string &name);
-            void setFileSize(const std::string &size);
             void setFilePath(const std::string &filePath);
             const std::string &getFilePath() const; // Return reference to file path
 
         private:
-            void onClickedCb(Evas_Object *obj, const char *emission, const char *source);
-            Evas_Object *createItem(Evas_Object *parent, const std::string &thumbFilePath);
-            Evas_Object *createIcon(Evas_Object *parent, const std::string &thumbFilePath);
-
-        private:
-            Evas_Object *m_pItem;
             ISmilAttachmentItemViewListener *m_pListener;
             std::string m_FilePath;
+            Evas_Object *m_pFileButton;
+            Evas_Object *m_pSaveButton;
     };
 
+    // SmilAttachmentInfoItemView :
     class SmilAttachmentInfoItemView
         : public View
     {
@@ -56,11 +54,39 @@ namespace Msg
             virtual ~SmilAttachmentInfoItemView();
     };
 
+    // SmilSaveAllItemView :
+    class SmilSaveAllItemView
+        : public View
+    {
+        public:
+            SmilSaveAllItemView(Evas_Object *parent, int count);
+            virtual ~SmilSaveAllItemView();
+
+            void setListener(ISmilSaveAllItemViewListener *l);
+
+        private:
+            void onLanguageChanged(Evas_Object *obj, void *eventInfo);
+            void updateTitle();
+
+        private:
+            Evas_Object *m_pButton;
+            ISmilSaveAllItemViewListener *m_pListener;
+            const int m_Count;
+    };
+
     class ISmilAttachmentItemViewListener
     {
         public:
             virtual ~ISmilAttachmentItemViewListener() {}
             virtual void onItemClicked(SmilAttachmentItemView &item) {};
+            virtual void onSaveButtonClicked(SmilAttachmentItemView &item) {};
+    };
+
+    class ISmilSaveAllItemViewListener
+    {
+        public:
+            virtual ~ISmilSaveAllItemViewListener() {}
+            virtual void onItemClicked(SmilSaveAllItemView &item) {};
     };
 }
 
