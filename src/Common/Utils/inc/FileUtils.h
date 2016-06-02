@@ -19,6 +19,7 @@
 #define __MSG_FILE_UTIL_H__
 
 #include <string>
+#include <list>
 
 namespace Msg
 {
@@ -123,6 +124,20 @@ namespace Msg
              *         the given file extension is not associated with specific file formats
              */
             static std::string getMimeType(const std::string &filePath);
+
+            /**
+             * @brief Save files to default storage directory
+             * @param[in] file list of file path
+             * @return Returns true if all ok, false otherwise
+             */
+            static bool saveFilesToStorage(const std::list<std::string> &files);
+
+            /**
+             * @brief Save file to default storage directory
+             * @param[in] file path
+             * @return Returns true if all ok, false otherwise
+             */
+            static bool saveFileToStorage(const std::string &file);
     };
 }
 

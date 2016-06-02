@@ -17,25 +17,76 @@
 
 #include "SmilAttachmentItemView.h"
 #include "Resource.h"
+#include "FileUtils.h"
+#include "LangUtils.h"
+#include "Logger.h"
 
 using namespace Msg;
 
 namespace
 {
-    const char *attachmentGroup = "smil_attachment_item";
-    const char * attachmentLayoutGroup = "smil_attachment_item_layout";
-    const char *iconPart = "item.thumbnail.icon";
-    const char *fileNamePart = "item.filename.text";
-    const char *fileSizePart = "item.filesize.text";
-    const char *attachmentLayoutContentPart = "swallow.content";
+    const float fileButtonWeight = 2.0 / 3.0;
+    const float saveButtonWeight = 1.0 / 3.0;
+    const char *layoutGroupName = "smil_attachment_item_layout";
+    const char *layoutSwallowContent = "swallow.content";
+    #define paddingBetweenButton ELM_SCALE_SIZE(16)
 }
 
-SmilAttachmentItemView::SmilAttachmentItemView(Evas_Object *parent, const std::string &thumbFilePath)
-    : m_pItem(nullptr)
-    , m_pListener(nullptr)
+SmilAttachmentItemView::SmilAttachmentItemView(Evas_Object *parent)
+    : m_pListener(nullptr)
+    , m_pFileButton(nullptr)
+    , m_pSaveButton(nullptr)
 {
-    setEo(addLayout(parent, SMIL_ITEM_EDJ_PATH, attachmentLayoutGroup));
-    setContent(createItem(getEo(), thumbFilePath), attachmentLayoutContentPart);
+    setEo(addLayout(parent, SMIL_ITEM_EDJ_PATH, layoutGroupName));
+
+    // Box:
+    Evas_Object *box = elm_box_add(getEo());
+    elm_box_horizontal_set(box, true);
+    elm_box_homogeneous_set(box, false);
+    elm_box_padding_set(box, paddingBetweenButton, 0);
+    evas_object_show(box);
+
+    setContent(box, layoutSwallowContent);
+
+    // File button:
+    m_pFileButton = elm_button_add(box);
+    evas_object_size_hint_weight_set(m_pFileButton, fileButtonWeight, EVAS_HINT_EXPAND);
+    evas_object_size_hint_align_set(m_pFileButton, EVAS_HINT_FILL, EVAS_HINT_FILL);
+    evas_object_smart_callback_add
+    (
+        m_pFileButton,
+        "clicked",
+        [] (void *data, Evas_Object *obj, void *event_info)
+        {
+            auto *self = (SmilAttachmentItemView*)data;
+            if(self->m_pListener)
+                self->m_pListener->onItemClicked(*self);
+        },
+        this
+    );
+    evas_object_show(m_pFileButton);
+
+    // Save button:
+    m_pSaveButton = elm_button_add(box);
+    evas_object_size_hint_weight_set(m_pSaveButton, saveButtonWeight, EVAS_HINT_EXPAND);
+    evas_object_size_hint_align_set(m_pSaveButton, EVAS_HINT_FILL, EVAS_HINT_FILL);
+    setText(m_pSaveButton, msgt("IDS_MSG_BUTTON_SAVE_ABB2"));
+    evas_object_smart_callback_add
+    (
+        m_pSaveButton,
+        "clicked",
+        [] (void *data, Evas_Object *obj, void *event_info)
+        {
+            auto *self = (SmilAttachmentItemView*)data;
+            if(self->m_pListener)
+                self->m_pListener->onSaveButtonClicked(*self);
+        },
+        this
+    );
+    evas_object_show(m_pSaveButton);
+
+    elm_box_pack_end(box, m_pFileButton);
+    elm_box_pack_end(box, m_pSaveButton);
 }
 
 SmilAttachmentItemView::~SmilAttachmentItemView()
@@ -48,14 +99,14 @@ void SmilAttachmentItemView::setListener(ISmilAttachmentItemViewListener *l)
     m_pListener = l;
 }
 
-void SmilAttachmentItemView::setFileName(const std::string &name)
+const std::string &SmilAttachmentItemView::getFilePath() const
 {
-    elm_object_part_text_set(m_pItem, fileNamePart, name.c_str());
+    return m_FilePath;
 }
 
-void SmilAttachmentItemView::setFileSize(const std::string &size)
+void SmilAttachmentItemView::setFileName(const std::string &name)
 {
-    elm_object_part_text_set(m_pItem, fileSizePart, size.c_str());
+    elm_object_text_set(m_pFileButton, name.c_str());
 }
 
 void SmilAttachmentItemView::setFilePath(const std::string &filePath)
@@ -63,60 +114,72 @@ void SmilAttachmentItemView::setFilePath(const std::string &filePath)
     m_FilePath = filePath;
 }
 
-const std::string &SmilAttachmentItemView::getFilePath() const
-{
-    return m_FilePath;
-}
-
-Evas_Object *SmilAttachmentItemView::createItem(Evas_Object *parent, const std::string &thumbFilePath)
-{
-    m_pItem = addLayout(parent, SMIL_ITEM_EDJ_PATH, attachmentGroup);
-    elm_object_signal_callback_add(m_pItem, "clicked", "*", EDJE_SIGNAL_CALLBACK(SmilAttachmentItemView, onClickedCb), this);
-
-    Evas_Object *icon = createIcon(m_pItem, thumbFilePath);
-    elm_object_part_content_set(m_pItem, iconPart, icon);
-
-    evas_object_show(m_pItem);
-    return m_pItem;
-}
-
-Evas_Object *SmilAttachmentItemView::createIcon(Evas_Object *parent, const std::string &thumbFilePath)
-{
-    Evas_Object *thumbnail = elm_icon_add(parent);
-    if(thumbFilePath.empty())
-    {
-        std::string imageEdjePath = PathUtils::getResourcePath(IMAGES_EDJ_PATH);
-        elm_image_file_set(thumbnail, imageEdjePath.c_str(), ATTACH_IMG);
-    }
-    else
-    {
-        // TODO: impl. if needed
-    }
-    evas_object_size_hint_aspect_set(thumbnail, EVAS_ASPECT_CONTROL_VERTICAL, 1, 1);
-    evas_object_color_set(thumbnail, ICON_COLOR);
-    evas_object_show(thumbnail);
-    return thumbnail;
-}
-
-void SmilAttachmentItemView::onClickedCb(Evas_Object *obj, const char *emission, const char *source)
-{
-    if(m_pListener)
-        m_pListener->onItemClicked(*this);
-}
-
 // SmilAttachmentInfoItemView:
-
 SmilAttachmentInfoItemView::SmilAttachmentInfoItemView(Evas_Object *parent, bool manyAttachments)
 {
-    setEo(elm_entry_add(parent));
-    elm_entry_editable_set(getEo(), false);
+    setEo(addLayout(parent, SMIL_ITEM_EDJ_PATH, layoutGroupName));
+
+    Evas_Object *entry = elm_entry_add(getEo());
+    elm_entry_editable_set(entry, false);
+    evas_object_show(entry);
+
+    setContent(entry, layoutSwallowContent);
 
     if(manyAttachments)
-        setText(msgt("IDS_MSGF_POP_HELP_PAGE_MESSAGE"));
+        setText(entry, msgt("IDS_MSGF_POP_HELP_PAGE_MESSAGE"));
     else
-        setText(msgt("IDS_MSGF_POP_HELP_PAGE_MESSAGE_FOR_ONE_FILE"));
+        setText(entry, msgt("IDS_MSGF_POP_HELP_PAGE_MESSAGE_FOR_ONE_FILE"));
 }
 
 SmilAttachmentInfoItemView::~SmilAttachmentInfoItemView()
 {
+}
+
+// SmilSaveAllItemView:
+SmilSaveAllItemView::SmilSaveAllItemView(Evas_Object *parent, int count)
+    : m_pButton(nullptr)
+    , m_pListener(nullptr)
+    , m_Count(count)
+{
+    setEo(addLayout(parent, SMIL_ITEM_EDJ_PATH, layoutGroupName));
+    m_pButton = elm_button_add(getEo());
+    updateTitle();
+    evas_object_smart_callback_add(m_pButton, "language,changed", SMART_CALLBACK(SmilSaveAllItemView, onLanguageChanged), this);
+    evas_object_smart_callback_add
+    (
+        m_pButton,
+        "clicked",
+        [] (void *data, Evas_Object *obj, void *event_info)
+        {
+            auto *self = (SmilSaveAllItemView*)data;
+            if(self->m_pListener)
+                self->m_pListener->onItemClicked(*self);
+        },
+        this
+    );
+    evas_object_show(m_pButton);
+    setContent(m_pButton, layoutSwallowContent);
+}
+
+SmilSaveAllItemView::~SmilSaveAllItemView()
+{
+
+}
+
+void SmilSaveAllItemView::setListener(ISmilSaveAllItemViewListener *l)
+{
+    m_pListener = l;
+}
+
+void SmilSaveAllItemView::updateTitle()
+{
+    std::string title = msg("IDS_MSGF_BUTTON_SAVE_ALL_ATTACHMENTS_ABB");
+    title += " (" + std::to_string(m_Count) + ")";
+    elm_object_text_set(m_pButton, title.c_str());
+}
+
+void SmilSaveAllItemView::onLanguageChanged(Evas_Object *obj, void *eventInfo)
+{
+    MSG_LOG("");
+    updateTitle();
 }
