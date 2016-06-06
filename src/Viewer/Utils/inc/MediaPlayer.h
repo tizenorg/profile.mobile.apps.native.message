@@ -44,7 +44,7 @@ namespace Msg
             int getDuration() const; // msec
             void setPosition(int msec);
             static int getDuration(const std::string &uri);
-            bool isSoundFocusAcquired() const;
+            bool getFocus() const;
 
         private:
             static void on_completed_cb(void *user_data);
@@ -59,7 +59,7 @@ namespace Msg
         private:
             player_h m_Player;
             IMediaPlayerListener *m_pListener;
-            bool m_IsSoundFocusAcquired;
+            bool m_Focus;
     };
 
     class IMediaPlayerListener
