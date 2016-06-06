@@ -47,6 +47,12 @@ namespace Msg
             static std::string getResourcePath();
 
             /**
+             * @brief Gets absolute path to application's shared resource-directory
+             * @return absolute path in case of success, or empty string otherwise
+             */
+            static std::string getSharedResourcePath();
+
+            /**
              * @brief Gets absolute path to application's locale-directory
              * @return absolute path in case of success, or empty string otherwise
              */

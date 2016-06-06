@@ -79,11 +79,12 @@ message lite application.
 %define ICONDIR          %{TZ_SYS_RO_ICONS}/default/small
 %endif
 %define RESDIR           %{PREFIX}/res
+%define SHRESDIR         %{PREFIX}/shared/res
 %define EDJDIR           %{RESDIR}/edje
 %define IMGDIR           %{RESDIR}/images
 %define BINDIR           %{PREFIX}/bin
 %define LIBDIR           %{PREFIX}/lib
-%define LOCALEDIR        %{RESDIR}/locale
+%define LOCALEDIR        %{SHRESDIR}/locale
 
 %prep
 %setup -q
@@ -145,5 +146,6 @@ fi
 %{LIBDIR}
 %{BINDIR}/*
 %{RESDIR}/*
+%{SHRESDIR}/*
 %{MANIFESTDIR}/*.xml
 %{ICONDIR}/*

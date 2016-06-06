@@ -61,9 +61,22 @@ std::string PathUtils::getResourcePath()
     return res;
 }
 
+std::string PathUtils::getSharedResourcePath()
+{
+    std::string res;
+    char* sharedResPath = app_get_shared_resource_path();
+    if(sharedResPath)
+    {
+        res = sharedResPath;
+        free(sharedResPath);
+    }
+
+    return res;
+}
+
 std::string PathUtils::getLocalePath()
 {
-    std::string resPath(getResourcePath());
+    std::string resPath(getSharedResourcePath());
     if(!resPath.empty())
     {
         resPath.append("locale");
