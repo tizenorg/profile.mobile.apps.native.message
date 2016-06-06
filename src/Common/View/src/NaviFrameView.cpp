@@ -22,6 +22,8 @@
 
 using namespace Msg;
 
+const char *naviTitleStyleEmpty = "empty";
+
 NaviFrameView::NaviFrameView(Evas_Object *parent)
     : View()
 {
@@ -90,7 +92,7 @@ bool NaviFrameView::isEmpty() const
 
 void NaviFrameView::push(NaviFrameItem &item, Evas_Object *content)
 {
-    Elm_Object_Item *it = elm_naviframe_item_push(getEo(), nullptr, nullptr, nullptr, content, nullptr);
+    Elm_Object_Item *it = elm_naviframe_item_push(getEo(), nullptr, nullptr, nullptr, content, naviTitleStyleEmpty);
     item.setElmObjItem(it);
 }
 
@@ -110,9 +112,9 @@ void NaviFrameView::insertToBottom(NaviFrameItem &item)
     Elm_Object_Item *insert = nullptr;
 
     if(before)
-        insert = elm_naviframe_item_insert_before(getEo(), before, nullptr, nullptr, nullptr, nullptr, nullptr);
+        insert = elm_naviframe_item_insert_before(getEo(), before, nullptr, nullptr, nullptr, nullptr, naviTitleStyleEmpty);
     else
-        insert = elm_naviframe_item_push(getEo(), nullptr, nullptr, nullptr, nullptr, nullptr);
+        insert = elm_naviframe_item_push(getEo(), nullptr, nullptr, nullptr, nullptr, naviTitleStyleEmpty);
 
     item.setElmObjItem(insert);
 }

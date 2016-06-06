@@ -44,7 +44,6 @@ namespace
     const char *textColorWhiteTitleButtons = "#3db9cc";
     const char *textColorBlueTitleButtons = "#fafafa";
     const int textSizeTitleButtons = 32;
-    const char *naviTitleStyleEmpty = "empty";
 }
 
 NaviFrameItem::NaviFrameItem(NaviFrameView &owner)
@@ -259,7 +258,6 @@ void NaviFrameItem::NaviBar::on_button_clicked(void *data, Evas_Object *obj, voi
 void NaviFrameItem::onAttached(ViewItem &item)
 {
     ViewItem::onAttached(item);
-    elm_naviframe_item_style_set(getElmObjItem(), naviTitleStyleEmpty);
     setContent(*m_pNaviBar, naviTitlePart);
 }
 
