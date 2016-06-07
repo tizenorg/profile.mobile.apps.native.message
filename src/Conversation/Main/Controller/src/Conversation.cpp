@@ -740,7 +740,7 @@ void Conversation::updateNavibar()
     {
         if(m_pConvList->getMode() == ConvList::SelectMode)
         {
-            naviBar.setTitle(msgt("IDS_MSG_OPT_DELETE"));
+            updateSelectMsgTitle();
             naviBar.showButton(NaviCancelButtonId, true);
             naviBar.showButton(NaviOkButtonId, true);
             naviBar.disabledButton(NaviOkButtonId, true);
@@ -755,6 +755,18 @@ void Conversation::updateNavibar()
                 FrameController::setNaviBarTitle(*addressList);
             }
         }
+    }
+}
+
+void Conversation::updateSelectMsgTitle()
+{
+    if(m_pConvList && m_pConvList->getMode() == ConvList::SelectMode)
+    {
+        int checked = m_pConvList->getMessageCheckedCount();
+        if(checked > 0)
+            getNaviBar().setTitle(msgArgs("IDS_MSG_HEADER_PD_SELECTED_ABB3", checked));
+        else
+            getNaviBar().setTitle(msgt("IDS_MSGF_HEADER_SELECT_MESSAGES"));
     }
 }
 
@@ -1044,6 +1056,7 @@ void Conversation::onSlideShow(MsgId id)
 void Conversation::onConvListItemChecked()
 {
     getNaviBar().disabledButton(NaviOkButtonId, m_pConvList->getMessageCheckedCount() == 0);
+    updateSelectMsgTitle();
 }
 
 void Conversation::onFileSelected(AttachPanel &panel, const AttachPanel::FileList &files)
@@ -1062,4 +1075,5 @@ void Conversation::onLanguageChanged()
 {
     MSG_LOG("");
     updateMsgInputPanel();
+    updateSelectMsgTitle();
 }

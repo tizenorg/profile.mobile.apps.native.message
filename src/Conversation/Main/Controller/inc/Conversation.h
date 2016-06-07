@@ -150,6 +150,7 @@ namespace Msg
             void createMsgInputPanel(Evas_Object *parent);
             void updateMsgInputPanel();
             void updateNavibar();
+            void updateSelectMsgTitle();
             void createMainLayout(Evas_Object *parent);
             void createConvList(Evas_Object *parent);
             void destroyConvList();
