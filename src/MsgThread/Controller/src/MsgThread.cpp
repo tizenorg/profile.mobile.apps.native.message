@@ -57,11 +57,13 @@ MsgThread::MsgThread(NaviFrameController &parent)
     m_pLayout->setList(*m_pThreadList);
     m_pLayout->setSearchList(*m_pSearchList);
 
+    getApp().getSysSettingsManager().addListener(*this);
     setMode(NormalMode);
 }
 
 MsgThread::~MsgThread()
 {
+    getApp().getSysSettingsManager().removeListener(*this);
 }
 
 Evas_Object *MsgThread::createSearchPanel(Evas_Object *parent)
@@ -75,7 +77,6 @@ Evas_Object *MsgThread::createSearchPanel(Evas_Object *parent)
 void MsgThread::onAttached(ViewItem &item)
 {
     FrameController::onAttached(item);
-    getNaviBar().setTitle(msgt("IDS_MSG_HEADER_MESSAGES"));
     getNaviBar().setColor(NaviBar::NaviBlueColorId);
     getNaviBar().setSearch(createSearchPanel(getNaviBar()));
     setHwButtonListener(*m_pLayout, this);
@@ -123,12 +124,10 @@ void MsgThread::setMode(Mode mode)
     if(m_Mode == mode)
         return;
 
-    if(mode == SearchMode)
-        getNaviBar().setColor(NaviBar::NaviWhiteColorId);
-    else
-        getNaviBar().setColor(NaviBar::NaviBlueColorId);
-
+    NaviColorId colorId = mode == SearchMode ? NaviBar::NaviWhiteColorId : NaviBar::NaviBlueColorId;
+    getNaviBar().setColor(colorId);
     setNormalMode();
+
     switch(mode)
     {
         case NormalMode:
@@ -168,6 +167,7 @@ void MsgThread::setNormalMode()
             break;
     }
 
+    getNaviBar().setTitle(msgt("IDS_MSG_HEADER_MESSAGES"));
     m_pNoContent->setText(msgt("IDS_MSG_NPBODY_NO_MESSAGES"));
     m_pNoContent->setHelpText(msgt("IDS_MSG_BODY_AFTER_YOU_SEND_OR_RECEIVE_MESSAGES_THEY_WILL_BE_SHOWN_HERE"));
     m_Mode = NormalMode;
@@ -181,10 +181,16 @@ void MsgThread::setDeleteMode(bool value)
     if(value)
         m_Mode = DeleteMode;
 
-    getNaviBar().showButton(NaviOkButtonId, value);
+    NaviBar &naviBar = getNaviBar();
+
+    naviBar.showButton(NaviOkButtonId, value);
     if(value)
-        getNaviBar().disabledButton(NaviOkButtonId, value);
-    getNaviBar().showButton(NaviCancelButtonId, value);
+    {
+        // TODO: localization
+        naviBar.setTitle("Select items");
+        naviBar.disabledButton(NaviOkButtonId, value);
+    }
+    naviBar.showButton(NaviCancelButtonId, value);
     m_pThreadList->setDeleteMode(value);
 }
 
@@ -234,6 +240,15 @@ void MsgThread::update()
         m_pLayout->showThreadList(showThread);
         m_pLayout->showNoContent(!showThread);
         m_pLayout->showSearchList(false);
+    }
+}
+
+void MsgThread::updateTitle()
+{
+    if(m_Mode == DeleteMode)
+    {
+        int checked = m_pThreadList->getThreadsCheckedCount();
+        getNaviBar().setTitle(msgArgs("IDS_MSG_HEADER_PD_SELECTED_ABB3", checked));
     }
 }
 
@@ -301,7 +316,9 @@ void MsgThread::onThreadListChanged()
 
 void MsgThread::onThreadListItemChecked()
 {
-    getNaviBar().disabledButton(NaviOkButtonId, m_pThreadList->getThreadsCheckedCount() == 0);
+    int checked = m_pThreadList->getThreadsCheckedCount();
+    getNaviBar().disabledButton(NaviOkButtonId, checked == 0);
+    updateTitle();
 }
 
 void MsgThread::onSearchListChanged()
@@ -339,4 +356,10 @@ void MsgThread::onEntryChanged(MsgThreadSearchPanel &obj)
 {
     MSG_LOG("");
     search(obj.getEntryText());
+}
+
+void MsgThread::onLanguageChanged()
+{
+    MSG_LOG("");
+    updateTitle();
 }
