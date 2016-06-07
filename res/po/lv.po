@@ -943,3 +943,6 @@ msgstr "Rakstīt ziņu"
 msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
 msgstr "Nav pievienots neviens derīgs adresāts. Šī ziņa tiks atmesta."
 
+msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
+msgstr "Izvēl. objektus"
+

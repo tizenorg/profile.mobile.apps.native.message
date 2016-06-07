@@ -943,3 +943,6 @@ msgstr "メッセージを作成"
 msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
 msgstr "有効な宛先が追加されていません。このメッセージを破棄します。"
 
+msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
+msgstr "アイテムを選択"
+

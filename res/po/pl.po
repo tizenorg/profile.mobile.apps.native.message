@@ -943,3 +943,6 @@ msgstr "Tworzenie wiadomości"
 msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
 msgstr "Nie dodano prawidłowych odbiorców. Wiadomość zostanie odrzucona."
 
+msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
+msgstr "Wybór elementów"
+

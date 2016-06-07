@@ -943,3 +943,6 @@ msgstr "메시지 작성"
 msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
 msgstr "올바른 받는 사람이 없습니다. 이 메시지를 저장하지 않고 작성을 종료합니다."
 
+msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
+msgstr "항목 선택"
+

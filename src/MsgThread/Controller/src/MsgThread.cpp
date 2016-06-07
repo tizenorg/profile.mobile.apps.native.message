@@ -250,7 +250,7 @@ void MsgThread::updateSelectItemsTitle()
         if(checked > 0)
             getNaviBar().setTitle(msgArgs("IDS_MSG_HEADER_PD_SELECTED_ABB3", checked));
         else
-            getNaviBar().setTitle("Select items"); // TODO: localization
+            getNaviBar().setTitle(msgt("IDS_MSG_HEADER_SELECT_ITEMS_ABB3"));
     }
 }
 

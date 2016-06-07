@@ -943,3 +943,6 @@ msgstr "Napíšte správu"
 msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
 msgstr "Nie sú pridaní žiadni platní príjemcovia. Táto správa sa zahodí."
 
+msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
+msgstr "Vyberte položky"
+

@@ -943,3 +943,6 @@ msgstr "Compose message"
 msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
 msgstr "No valid recipients have been added. This message will be discarded."
 
+msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
+msgstr "Select items"
+

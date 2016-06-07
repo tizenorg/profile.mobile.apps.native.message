@@ -943,3 +943,6 @@ msgstr "إنشاء رسالة"
 msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
 msgstr "لم تتم إضافة أي مستلم صالح. سيتم تجاهل هذه الرسالة."
 
+msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
+msgstr "تحديد عناصر"
+

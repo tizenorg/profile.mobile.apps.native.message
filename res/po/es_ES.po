@@ -152,7 +152,7 @@ msgid "IDS_MSGF_POP_NEW_MESSAGES"
 msgstr "Mensajes nuevos"
 
 msgid "IDS_MSGF_POP_MESSAGE_COPIED_FROM_SIM_CARD"
-msgstr "Mensaje copiado desde la tarjeta SIM"
+msgstr "Mensaje copiado desde la tarjeta SIM."
 
 msgid "IDS_MSGF_POP_MAXIMUM_NUMBER_OF_RECIPIENTS_IS_PD_SOME_RECIPIENTS_MAY_BE_LOST"
 msgstr "El número máximo de destinatarios es %d. Podrían perderse algunos destinatarios."
@@ -161,7 +161,7 @@ msgid "IDS_MSGF_POP_MAXIMUM_NUMBER_OF_ATTACHMENTS_HPS_EXCEEDED"
 msgstr "Se ha superado el número máximo de adjuntos (%s)"
 
 msgid "IDS_MSGF_POP_MAXIMUM_CHARACTERS"
-msgstr "Alcanzado el número máximo de caracteres"
+msgstr "Alcanzado el número máximo de caracteres."
 
 msgid "IDS_MSGF_POP_IN_PROGRESS_ING"
 msgstr "En curso..."
@@ -179,7 +179,7 @@ msgid "IDS_MSGF_POP_HELP_PAGE_MESSAGE"
 msgstr "Este mensaje incluye archivos adjuntos que no se muestran"
 
 msgid "IDS_MSGF_POP_FILE_NAME_ALREADY_EXISTS"
-msgstr "El nombre del archivo ya existe"
+msgstr "El nombre del archivo ya existe."
 
 msgid "IDS_MSGF_POP_CONVERTING_TO_TEXT_MESSAGE_ING"
 msgstr "Convirtiendo a mensaje de texto..."
@@ -942,4 +942,7 @@ msgstr "Crear mensaje"
 
 msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
 msgstr "No se han añadido destinatarios válidos. El mensaje se descartará."
+
+msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
+msgstr "Elegir elementos"
 

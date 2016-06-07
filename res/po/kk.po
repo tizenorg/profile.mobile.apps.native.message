@@ -943,3 +943,6 @@ msgstr "Хабар жазу"
 msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
 msgstr "Жарамды алушылар қосылмады. Бұл хабар алынып тасталынады."
 
+msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
+msgstr "Элемент таңдау"
+

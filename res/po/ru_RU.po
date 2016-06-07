@@ -943,3 +943,6 @@ msgstr "Создание сообщения"
 msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
 msgstr "Действительные получатели не выбраны. Данное сообщение будет удалено."
 
+msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
+msgstr "Выбор элементов"
+

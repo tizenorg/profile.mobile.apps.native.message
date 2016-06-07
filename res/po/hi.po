@@ -943,3 +943,6 @@ msgstr "सन्देश लिखें"
 msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
 msgstr "कोई मान्य प्राप्तकर्ता नहीं जोड़े गए। यह सन्देश निरस्त किया जाएगा।"
 
+msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
+msgstr "मदें चुनें"
+

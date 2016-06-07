@@ -943,3 +943,6 @@ msgstr "Skriv melding"
 msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
 msgstr "Ingen gyldige mottakere er lagt til. Denne meldingen blir forkastet."
 
+msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
+msgstr "Velg elementer"
+

@@ -943,3 +943,6 @@ msgstr "撰寫訊息"
 msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
 msgstr "未新增有效收件人。將捨棄此訊息。"
 
+msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
+msgstr "選擇項目"
+
