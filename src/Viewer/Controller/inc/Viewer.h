@@ -87,7 +87,6 @@ namespace Msg
             void onDeleteButtonClicked(Popup &popup, int buttonId);
             void onCopyTextItemPressed(PopupListItem &item);
             void onForwardItemPressed(PopupListItem &item);
-            void onShareItemPressed(PopupListItem &item);
             void onSaveAttachmentsItemPressed(PopupListItem &item);
 
             // MbeRecipients:
