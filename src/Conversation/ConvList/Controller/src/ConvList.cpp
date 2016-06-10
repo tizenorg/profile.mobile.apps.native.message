@@ -183,7 +183,8 @@ ConvListItem *ConvList::getItem(MsgId msgId) const
 
 void ConvList::appendItem(const MsgConversationItem &item)
 {
-    const ThumbnailMaker::ThumbId &thumbId = item.getDirection() == Message::MD_Received ? m_RecipThumbId : -1;
+    static const ThumbnailMaker::ThumbId invalidId = -1;
+    const ThumbnailMaker::ThumbId &thumbId = item.getDirection() == Message::MD_Received ? m_RecipThumbId : invalidId;
     appendItem(new ConvListItem(item, m_App, m_FileViewer, m_WorkingDir, m_SearchWord, thumbId));
 }
 
