@@ -93,18 +93,18 @@ namespace Msg
             void addAttachedFileItem(const MsgConvMedia &media);
 
             // Create Popup when message is clicked
-            void showMainCtxPopup();
-            void showDraftCtxPopup();
-            void onDownloadItemPressed(ContextPopupItem &item);
-            void onDeleteItemPressed(ContextPopupItem &item);
-            void onCopyTextItemPressed(ContextPopupItem &item);
-            void onForwardItemPressed(ContextPopupItem &item);
-            void onResendItemPressed(ContextPopupItem &item);
-            void onSlideShowItemPressed(ContextPopupItem &item);
-            void onEditItemPressed(ContextPopupItem &item);
-            void onSaveAttachmentsItemPressed(ContextPopupItem &item);
-            void onCopyToSimCardItemPressed(ContextPopupItem &item);
-            void onViewDetailsItemPressed(ContextPopupItem &item);
+            void showMainListPopup();
+            void showDraftListPopup();
+            void onDownloadItemPressed(PopupListItem &item);
+            void onDeleteItemPressed(PopupListItem &item);
+            void onCopyTextItemPressed(PopupListItem &item);
+            void onForwardItemPressed(PopupListItem &item);
+            void onResendItemPressed(PopupListItem &item);
+            void onSlideShowItemPressed(PopupListItem &item);
+            void onEditItemPressed(PopupListItem &item);
+            void onSaveAttachmentsItemPressed(PopupListItem &item);
+            void onCopyToSimCardItemPressed(PopupListItem &item);
+            void onViewDetailsItemPressed(PopupListItem &item);
             std::string getAllMsgText() const;
 
             // Create popup when failed button is clicked
