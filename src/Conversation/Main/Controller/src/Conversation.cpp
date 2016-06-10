@@ -744,6 +744,9 @@ void Conversation::updateNavibar()
             naviBar.showButton(NaviCancelButtonId, true);
             naviBar.showButton(NaviOkButtonId, true);
             naviBar.disabledButton(NaviOkButtonId, true);
+            naviBar.setDownButtonState(false);
+            if(m_pRecipPanel)
+                m_pRecipPanel->showMbe(false, false);
         }
         else
         {

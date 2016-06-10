@@ -116,10 +116,15 @@ void ConvRecipientsPanelView::clear()
     clearMbe();
 }
 
-void ConvRecipientsPanelView::showMbe(bool show)
+void ConvRecipientsPanelView::showMbe(bool show, bool animation)
 {
     m_IsMbeVisible = show;
-    const char *sig = show ? "show_to_mbe" : "hide_to_mbe";
+    const char *sig = nullptr;
+    if(animation)
+        sig = show ? "show_to_mbe_anim" : "hide_to_mbe_anim";
+    else
+        sig = show ? "show_to_mbe" : "hide_to_mbe";
+
     elm_object_signal_emit(m_pLayout, sig, "*");
 }
 
