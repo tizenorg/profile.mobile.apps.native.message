@@ -503,7 +503,6 @@ void Conversation::sendMessage()
         m_pConvList->setThreadId(m_ThreadId);
         m_IsMms = false;
         m_pBody->clear();
-        m_pBody->setFocus(true);
     }
     else
     {

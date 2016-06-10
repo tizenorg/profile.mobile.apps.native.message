@@ -129,6 +129,7 @@ void MessageInputPanel::updateSendButtonTitle()
 Evas_Object *MessageInputPanel::createSendButton(Evas_Object *parent)
 {
     Evas_Object *button = createButton(parent, SendButtonId);
+    elm_object_focus_allow_set(button, false);
 
     m_pSendLabel = elm_label_add(button);
     updateSendButtonTitle();
