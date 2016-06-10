@@ -275,51 +275,51 @@ void ConvListItem::showPopup()
 
 void ConvListItem::showMainCtxPopup()
 {
-    auto &ctxPopup = m_App.getPopupManager().getCtxPopup();
+    auto &listPopup = m_App.getPopupManager().getPopupList();
+    listPopup.setTitle(msg("IDS_MSGF_BODY_MESSAGE_OPTIONS"));
 
     std::string msgText = getAllMsgText();
 
     if(m_NetworkStatus == Message::NS_Send_Fail)
-        ctxPopup.appendItem(msg("IDS_MSG_OPT_RESEND"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onResendItemPressed), this);
+        listPopup.appendItem(msg("IDS_MSG_OPT_RESEND"), POPUPLIST_ITEM_PRESSED_CB(ConvListItem, onResendItemPressed), this);
 
-    ctxPopup.appendItem(msg("IDS_MSG_OPT_DELETE"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onDeleteItemPressed), this);
+    listPopup.appendItem(msg("IDS_MSG_OPT_DELETE"), POPUPLIST_ITEM_PRESSED_CB(ConvListItem, onDeleteItemPressed), this);
 
     if(m_Type == Message::MT_MMS)
-        ctxPopup.appendItem(msg("IDS_MSG_OPT_VIEW_AS_SLIDESHOW_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onSlideShowItemPressed), this);
+        listPopup.appendItem(msg("IDS_MSG_OPT_VIEW_AS_SLIDESHOW_ABB"), POPUPLIST_ITEM_PRESSED_CB(ConvListItem, onSlideShowItemPressed), this);
     if(m_Type == Message::MT_MMS_Noti)
-        ctxPopup.appendItem(msg("IDS_MSG_BUTTON_DOWNLOAD_ABB3"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onDownloadItemPressed), this);
+        listPopup.appendItem(msg("IDS_MSG_BUTTON_DOWNLOAD_ABB3"), POPUPLIST_ITEM_PRESSED_CB(ConvListItem, onDownloadItemPressed), this);
 
     if(!msgText.empty())
-        ctxPopup.appendItem(msg("IDS_MSG_OPT_COPY_TEXT"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onCopyTextItemPressed), this);
+        listPopup.appendItem(msg("IDS_MSG_OPT_COPY_TEXT"), POPUPLIST_ITEM_PRESSED_CB(ConvListItem, onCopyTextItemPressed), this);
 
-    ctxPopup.appendItem(msg("IDS_MSGF_OPT_FORWARD"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onForwardItemPressed), this);
+    listPopup.appendItem(msg("IDS_MSGF_OPT_FORWARD"), POPUPLIST_ITEM_PRESSED_CB(ConvListItem, onForwardItemPressed), this);
 
     if(m_NetworkStatus == Message::NS_Send_Fail)
-        ctxPopup.appendItem(msg("IDS_MSG_OPT_EDIT"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onEditItemPressed), this);
+        listPopup.appendItem(msg("IDS_MSG_OPT_EDIT"), POPUPLIST_ITEM_PRESSED_CB(ConvListItem, onEditItemPressed), this);
 
     if(m_Type == Message::MT_MMS)
     {
         MessageMmsRef mms = std::dynamic_pointer_cast<MessageMms>(m_App.getMsgEngine().getStorage().getMessage(m_MsgId));
         if(mms && (!mms->getAttachmentList().isEmpty() || mms->getMediaCount() > 0))
-            ctxPopup.appendItem(msg("IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onSaveAttachmentsItemPressed), this);
+            listPopup.appendItem(msg("IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"), POPUPLIST_ITEM_PRESSED_CB(ConvListItem, onSaveAttachmentsItemPressed), this);
     }
 
     if(m_NetworkStatus != Message::NS_Sending && !msgText.empty() && m_Type == Message::MT_SMS)
-        ctxPopup.appendItem(msg("IDS_MSG_OPT_COPY_TO_SIM_CARD_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onCopyToSimCardItemPressed), this);
+        listPopup.appendItem(msg("IDS_MSG_OPT_COPY_TO_SIM_CARD_ABB"), POPUPLIST_ITEM_PRESSED_CB(ConvListItem, onCopyToSimCardItemPressed), this);
 
-    ctxPopup.appendItem(msg("IDS_MSG_OPT_VIEW_DETAILS_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onViewDetailsItemPressed), this);
+    listPopup.appendItem(msg("IDS_MSG_OPT_VIEW_DETAILS_ABB"), POPUPLIST_ITEM_PRESSED_CB(ConvListItem, onViewDetailsItemPressed), this);
 
-    ctxPopup.align(m_App.getWindow());
-    ctxPopup.show();
+    listPopup.show();
 }
 
 void ConvListItem::showDraftCtxPopup()
 {
-    auto &ctxPopup = m_App.getPopupManager().getCtxPopup();
-    ctxPopup.appendItem(msg("IDS_MSGF_OPT_EDIT_MESSAGE"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onEditItemPressed), this);
-    ctxPopup.appendItem(msg("IDS_MSG_OPT_DELETE"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(ConvListItem, onDeleteItemPressed), this);
-    ctxPopup.align(m_App.getWindow());
-    ctxPopup.show();
+    auto &listPopup = m_App.getPopupManager().getPopupList();
+    listPopup.setTitle(msg("IDS_MSGF_BODY_MESSAGE_OPTIONS"));
+    listPopup.appendItem(msg("IDS_MSGF_OPT_EDIT_MESSAGE"), POPUPLIST_ITEM_PRESSED_CB(ConvListItem, onEditItemPressed), this);
+    listPopup.appendItem(msg("IDS_MSG_OPT_DELETE"), POPUPLIST_ITEM_PRESSED_CB(ConvListItem, onDeleteItemPressed), this);
+    listPopup.show();
 }
 
 void ConvListItem::showFailedToSendPopup()
@@ -333,7 +333,7 @@ void ConvListItem::showFailedToSendPopup()
     popup.show();
 }
 
-void ConvListItem::onDeleteItemPressed(ContextPopupItem &item)
+void ConvListItem::onDeleteItemPressed(PopupListItem &item)
 {
     item.getParent().destroy();
     Popup &popup = m_App.getPopupManager().getPopup();
@@ -345,7 +345,7 @@ void ConvListItem::onDeleteItemPressed(ContextPopupItem &item)
     popup.show();
 }
 
-void ConvListItem::onDownloadItemPressed(ContextPopupItem &item)
+void ConvListItem::onDownloadItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
     item.getParent().destroy();
@@ -364,7 +364,7 @@ void ConvListItem::onItemClicked(BubbleEntity::Item &item)
     m_FileViewer.launchWithCopy(item.value2);
 }
 
-void ConvListItem::onCopyTextItemPressed(ContextPopupItem &item)
+void ConvListItem::onCopyTextItemPressed(PopupListItem &item)
 {
     item.getParent().destroy();
     std::string text = getAllMsgText();
@@ -379,7 +379,7 @@ std::string ConvListItem::getAllMsgText() const
     return msg ? msg->getText() : "";
 }
 
-void ConvListItem::onForwardItemPressed(ContextPopupItem &item)
+void ConvListItem::onForwardItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
     item.getParent().destroy();
@@ -387,13 +387,13 @@ void ConvListItem::onForwardItemPressed(ContextPopupItem &item)
         m_pListener->onForwardMsg(*this);
 }
 
-void ConvListItem::onResendItemPressed(ContextPopupItem &item)
+void ConvListItem::onResendItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
     showFailedToSendPopup();
 }
 
-void ConvListItem::onSlideShowItemPressed(ContextPopupItem &item)
+void ConvListItem::onSlideShowItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
     item.getParent().destroy();
@@ -401,7 +401,7 @@ void ConvListItem::onSlideShowItemPressed(ContextPopupItem &item)
         m_pListener->onSlideShow(*this);
 }
 
-void ConvListItem::onEditItemPressed(ContextPopupItem &item)
+void ConvListItem::onEditItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
     item.getParent().destroy();
@@ -409,7 +409,7 @@ void ConvListItem::onEditItemPressed(ContextPopupItem &item)
         m_pListener->onEditDraftMsg(*this);
 }
 
-void ConvListItem::onSaveAttachmentsItemPressed(ContextPopupItem &item)
+void ConvListItem::onSaveAttachmentsItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
     MessageMmsRef mms = std::dynamic_pointer_cast<MessageMms>(m_App.getMsgEngine().getStorage().getMessage(m_MsgId));
@@ -421,7 +421,7 @@ void ConvListItem::onSaveAttachmentsItemPressed(ContextPopupItem &item)
     }
 }
 
-void ConvListItem::onCopyToSimCardItemPressed(ContextPopupItem &item)
+void ConvListItem::onCopyToSimCardItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
     item.getParent().destroy();
@@ -435,7 +435,7 @@ void ConvListItem::onCopyToSimCardItemPressed(ContextPopupItem &item)
     notification_status_message_post(msg("IDS_MSGC_POP_COPIED_TO_SIM_CARD").cStr());
 }
 
-void ConvListItem::onViewDetailsItemPressed(ContextPopupItem &item)
+void ConvListItem::onViewDetailsItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
     Popup &popup = m_App.getPopupManager().getPopup();
