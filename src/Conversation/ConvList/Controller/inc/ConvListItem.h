@@ -130,7 +130,7 @@ namespace Msg
             time_t m_Time;
             std::string m_TimeStr;
             BubbleEntity m_BubbleEntity;
-            const ThumbnailMaker::ThumbId &m_ThumbId;
+            const ThumbnailMaker::ThumbId m_ThumbId;
     };
 
     class IConvListItemListener
