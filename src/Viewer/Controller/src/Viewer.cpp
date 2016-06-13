@@ -269,6 +269,8 @@ void Viewer::onHwBackButtonClicked()
 
 void Viewer::onHwMoreButtonClicked()
 {
+    m_pSmilPlayer->stop();
+
     PopupList &popup = getApp().getPopupManager().getPopupList();
     popup.setAutoDismissBlockClickedFlag(true);
     popup.appendItem(msg("IDS_MSG_OPT_DELETE"), POPUPLIST_ITEM_PRESSED_CB(Viewer, onDeleteItemPressed), this);
@@ -278,8 +280,10 @@ void Viewer::onHwMoreButtonClicked()
 
     popup.appendItem(msg("IDS_MSGF_OPT_FORWARD"), POPUPLIST_ITEM_PRESSED_CB(Viewer, onForwardItemPressed), this);
 
-    if(!m_Msg->getAttachmentList().isEmpty() || m_Msg->getMediaCount() > 0)
+    bool hasAttachment = !m_Msg->getAttachmentList().isEmpty() || m_Msg->getMediaCount() > 0;
+    if(hasAttachment)
         popup.appendItem(msg("IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"), POPUPLIST_ITEM_PRESSED_CB(Viewer, onSaveAttachmentsItemPressed), this);
+
     popup.show();
 }
 

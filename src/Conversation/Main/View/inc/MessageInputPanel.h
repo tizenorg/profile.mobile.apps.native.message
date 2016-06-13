@@ -47,9 +47,13 @@ namespace Msg
 
         private:
             void create(Evas_Object *parent);
-            Evas_Object *createButton(Evas_Object *parent, const char *iconRes, const char *style, ButtonId buttonId);
+            Evas_Object *createButton(Evas_Object *parent, ButtonId buttonId);
+            Evas_Object *createAddButton(Evas_Object *parent);
+            Evas_Object *createSendButton(Evas_Object *parent);
             Evas_Object *getIcon(Evas_Object *button);
             Evas_Object *getButton(ButtonId id);
+
+            void updateSendButtonTitle();
 
             void setNormalColor(Evas_Object *button);
             void setPressedColor(Evas_Object *button);
@@ -63,6 +67,7 @@ namespace Msg
             IMessageInputPanelListener * m_pListener;
             Evas_Object *m_pLayout;
             Evas_Object *m_pSendButton;
+            Evas_Object *m_pSendLabel;
             Evas_Object *m_pAddButton;
     };
 

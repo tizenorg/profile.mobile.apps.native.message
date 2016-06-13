@@ -503,7 +503,6 @@ void Conversation::sendMessage()
         m_pConvList->setThreadId(m_ThreadId);
         m_IsMms = false;
         m_pBody->clear();
-        m_pBody->setFocus(true);
     }
     else
     {
@@ -619,7 +618,7 @@ void Conversation::showNoRecipPopup()
     popup.addButton(msgt("IDS_MSG_BUTTON_CANCEL_ABB"), Popup::CancelButtonId, POPUP_BUTTON_CB(Conversation, onNoRecipCancelButtonClicked), this);
     popup.addButton(msgt("IDS_MSG_BUTTON_DISCARD_ABB"), Popup::OkButtonId, POPUP_BUTTON_CB(Conversation, onNoRecipDiscardButtonClicked), this);
     popup.setTitle(msgt("IDS_MSG_HEADER_DISCARD_MESSAGE_M_CLOSE_ABB"));
-    popup.setContent(msgt("IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"));
+    popup.setContent(msgt("IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"));
     popup.show();
 }
 
@@ -660,7 +659,7 @@ void Conversation::showMainPopup()
 {
     PopupList &popup = getApp().getPopupManager().getPopupList();
     popup.appendItem(msg("IDS_MSG_OPT_DELETE"), POPUPLIST_ITEM_PRESSED_CB(Conversation, onDeleteItemPressed), this);
-    popup.appendItem(msg("IDS_MSG_OPT_ADD_RECIPIENTS_ABB"), POPUPLIST_ITEM_PRESSED_CB(Conversation, onAddRecipientsItemPressed), this);
+    popup.appendItem(msg("IDS_MSG_TMBODY_ADD_OR_REMOVE_RECIPIENTS"), POPUPLIST_ITEM_PRESSED_CB(Conversation, onAddRecipientsItemPressed), this);
     popup.show();
 }
 
@@ -733,17 +732,20 @@ void Conversation::updateNavibar()
 
     if(m_Mode == NewMessageMode)
     {
-        naviBar.setTitle(msgt("IDS_MSGF_POP_NEW_MESSAGE"));
+        naviBar.setTitle(msgt("IDS_MSG_HEADER_COMPOSE_MESSAGE_ABB"));
         naviBar.showButton(NaviPrevButtonId, true);
     }
     else if(m_Mode == ConversationMode)
     {
         if(m_pConvList->getMode() == ConvList::SelectMode)
         {
-            naviBar.setTitle(msgt("IDS_MSG_OPT_DELETE"));
+            updateSelectMsgTitle();
             naviBar.showButton(NaviCancelButtonId, true);
             naviBar.showButton(NaviOkButtonId, true);
             naviBar.disabledButton(NaviOkButtonId, true);
+            naviBar.setDownButtonState(false);
+            if(m_pRecipPanel)
+                m_pRecipPanel->showMbe(false, false);
         }
         else
         {
@@ -755,6 +757,18 @@ void Conversation::updateNavibar()
                 FrameController::setNaviBarTitle(*addressList);
             }
         }
+    }
+}
+
+void Conversation::updateSelectMsgTitle()
+{
+    if(m_pConvList && m_pConvList->getMode() == ConvList::SelectMode)
+    {
+        int checked = m_pConvList->getMessageCheckedCount();
+        if(checked > 0)
+            getNaviBar().setTitle(msgArgs("IDS_MSG_HEADER_PD_SELECTED_ABB3", checked));
+        else
+            getNaviBar().setTitle(msgt("IDS_MSGF_HEADER_SELECT_MESSAGES"));
     }
 }
 
@@ -1044,6 +1058,7 @@ void Conversation::onSlideShow(MsgId id)
 void Conversation::onConvListItemChecked()
 {
     getNaviBar().disabledButton(NaviOkButtonId, m_pConvList->getMessageCheckedCount() == 0);
+    updateSelectMsgTitle();
 }
 
 void Conversation::onFileSelected(AttachPanel &panel, const AttachPanel::FileList &files)
@@ -1062,4 +1077,5 @@ void Conversation::onLanguageChanged()
 {
     MSG_LOG("");
     updateMsgInputPanel();
+    updateSelectMsgTitle();
 }

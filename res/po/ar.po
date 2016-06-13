@@ -4,14 +4,17 @@ msgstr "منزل"
 msgid "IDS_MSGC_POP_DATA_ROAMING_IS_DISABLED_ENABLE_DATA_ROAMING_AND_TRY_AGAIN"
 msgstr "تم إلغاء تفعيل تجوال البيانات. قم بتفعيل بيانات التجوال، ثم أعد المحاولة."
 
-msgid "IDS_MSGF_POP_NEW_MESSAGE"
-msgstr "رسالة جديدة"
-
 msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
 msgstr "إلغاء"
 
 msgid "IDS_MSG_ACBUTTON_DONE_ABB"
 msgstr "تم"
+
+msgid "IDS_MSGF_POP_NEW_MESSAGE"
+msgstr "رسالة جديدة"
+
+msgid "IDS_COM_BUTTON_SHARE"
+msgstr "مشاركة"
 
 msgid "IDS_COM_BODY_UNKNOWN"
 msgstr "غير معروف"
@@ -24,9 +27,6 @@ msgstr "تم إلغاء تفعيل بيانات الهاتف المحمول. ق�
 
 msgid "IDS_TPLATFORM_ACBUTTON_SEND_ABB"
 msgstr "إرسال"
-
-msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
-msgstr "نوع الوسائط غير مدعوم."
 
 msgid "IDS_MSGC_POP_UNABLE_TO_SEND_MESSAGES_WHILE_IN_FLIGHT_MODE_DISABLE_FLIGHT_MODE_AND_TRY_AGAIN"
 msgstr "يتعذر إرسال الرسائل أثناء استخدام وضع الطيران. قم بإلغاء تفعيل وضع الطيران، ثم أعد المحاولة."
@@ -55,9 +55,6 @@ msgstr "تمت جدولة الرسالة المطلوب إرسالها إلى %s
 msgid "IDS_MSGC_POP_MAXIMUM_MESSAGE_SIZE_REACHED"
 msgstr "تم الوصول إلى الحد الأقصى لحجم الرسائل."
 
-msgid "IDS_MSGC_POP_LOW_BATTERY"
-msgstr "البطارية ضعيفة."
-
 msgid "IDS_MSGC_POP_DURATION_MUST_BE_AT_LEAST_PD_SECONDS"
 msgstr "‏‫يجب أن تكون المدة %d ثوان على الأقل‬."
 
@@ -66,9 +63,6 @@ msgstr "جار إلغاء تفعيل وضع الطيران..."
 
 msgid "IDS_MSGC_POP_COPIED_TO_SIM_CARD"
 msgstr "تم النسخ إلى بطاقة SIM."
-
-msgid "IDS_MSGC_POP_CANCELLED"
-msgstr "تم الإلغاء."
 
 msgid "IDS_MSGC_OPT_USE_OTHER_CONTACT_INFO_ABB"
 msgstr "استخدام معلومات جهة اتصال أخرى"
@@ -79,32 +73,14 @@ msgstr "إرسال عبر"
 msgid "IDS_MSGC_OPT_IMAGE"
 msgstr "صورة"
 
-msgid "IDS_MSGC_OPT_EMAIL"
-msgstr "البريد الإلكتروني"
-
 msgid "IDS_MSGC_OPT_EDIT_ITEM_REPLACE"
 msgstr "استبدال"
-
-msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
-msgstr "عرض"
-
-msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
-msgstr "حذف"
-
-msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
-msgstr "تشغيل"
-
-msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
-msgstr "إلى"
 
 msgid "IDS_MSGC_OPT_CANCEL_MESSAGE"
 msgstr "إلغاء الرسالة"
 
 msgid "IDS_MSGC_HEADER_RECIPIENT_LIST"
 msgstr "لائحة المستقبلون"
-
-msgid "IDS_MSGC_HEADER_PREVIEW"
-msgstr "معاينة"
 
 msgid "IDS_MSGC_HEADER_DURATION_FOR_SLIDE_PD_PD"
 msgstr "مدة الشريحة %d/%d"
@@ -127,9 +103,6 @@ msgstr "غير مطلوب"
 msgid "IDS_MSGC_BODY_MAXIMUM_NUMBER_OF_RECIPIENTS_HPD_REACHED"
 msgstr "تم بلوغ الحد الأقصى لعدد المستلمين (%d)."
 
-msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
-msgstr "أدخل الموضوع."
-
 msgid "IDS_MSGC_BODY_DUPLICATED_RECIPIENT"
 msgstr "مستلم مكرر."
 
@@ -139,11 +112,8 @@ msgstr "تحويل"
 msgid "IDS_MSGF_POP_UNABLE_TO_SAVE"
 msgstr "يتعذر الحفظ."
 
-msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
-msgstr "يتعذر البحث عن الموقع."
-
 msgid "IDS_MSGF_POP_UNABLE_TO_DELETE"
-msgstr "لا يمكن المسح."
+msgstr "لا يمكن الحذف."
 
 msgid "IDS_MSGF_POP_UNABLE_TO_COPY"
 msgstr "يتعذر النسخ."
@@ -168,9 +138,6 @@ msgstr "نوع المحتوى مقيد. إرفاق على أية حال؟"
 
 msgid "IDS_MSGF_POP_RESTORING_ING"
 msgstr "قيد الاستعادة..."
-
-msgid "IDS_MSGF_POP_REJECTED"
-msgstr "تم رفضها."
 
 msgid "IDS_MSGF_POP_READ_REPORT"
 msgstr "تقرير القراءة"
@@ -214,20 +181,11 @@ msgstr "تحتوي هذه الرسالة على ملفات ملحقة غير ظ�
 msgid "IDS_MSGF_POP_FILE_NAME_ALREADY_EXISTS"
 msgstr "اسم الملف موجود مسبقا."
 
-msgid "IDS_MSGF_POP_DELETING"
-msgstr "جاري المسح..."
-
-msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
-msgstr "تم النسخ إلى الحافظة."
-
 msgid "IDS_MSGF_POP_CONVERTING_TO_TEXT_MESSAGE_ING"
 msgstr "التحويل إلى رسالة نصية..."
 
 msgid "IDS_MSGF_POP_CONVERTING_TO_MULTIMEDIA_MESSAGE_ING"
 msgstr "التحويل إلى رسالة الوسائط المتعددة..."
-
-msgid "IDS_MSGF_POP_BLOCK_PS_Q"
-msgstr "حظر %s؟"
 
 msgid "IDS_MSGF_POP_ABOUT_TO_GO_ONLINE_CONTINUE_Q"
 msgstr "أنت على وشك تسجيل الدخول (%s). متابعة"
@@ -235,38 +193,17 @@ msgstr "أنت على وشك تسجيل الدخول (%s). متابعة"
 msgid "IDS_MSGF_OPT_TEXT_MESSAGE"
 msgstr "رسالة نصية"
 
-msgid "IDS_MSGF_OPT_SUBJECT_COLON"
-msgstr "الموضوع:"
-
-msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
-msgstr "المرسل عبر البريد الالكتروني"
-
 msgid "IDS_MSGF_OPT_SENDER_ABB"
 msgstr "مرسل"
-
-msgid "IDS_MSGF_OPT_SELECT"
-msgstr "اختيار"
 
 msgid "IDS_MSGF_OPT_SAVE_ATTACHMENT"
 msgstr "حفظ الملحقات"
 
-msgid "IDS_MSGF_OPT_SAVE"
-msgstr "حفظ"
-
-msgid "IDS_MSGF_OPT_REMOVE"
-msgstr "حذف"
-
 msgid "IDS_MSGF_OPT_INSTALL"
 msgstr "تثبيت"
 
-msgid "IDS_MSGF_OPT_FORWARD"
-msgstr "تحويل"
-
 msgid "IDS_MSGF_OPT_EDIT_MESSAGE"
 msgstr "تعديل الرسالة"
-
-msgid "IDS_MSGF_OPT_DELETE_Q"
-msgstr "مسح؟"
 
 msgid "IDS_MSGF_OPT_DELETE_MESSAGES"
 msgstr "حذف الرسائل"
@@ -283,14 +220,8 @@ msgstr "تفاصيل الرسالة"
 msgid "IDS_MSGF_HEADER_EXPIRES_C_PS"
 msgstr "تنتهي الصلاحية في: %s"
 
-msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
-msgstr "بحث متقدم"
-
 msgid "IDS_MSGF_BUTTON_SAVE_ALL_ATTACHMENTS_ABB"
 msgstr "حفظ جميع المرفقات"
-
-msgid "IDS_MSGF_BODY_UNKNOWN"
-msgstr "غير معروف"
 
 msgid "IDS_MSGF_BODY_TO_C"
 msgstr "إلى:"
@@ -301,23 +232,14 @@ msgstr "رسائل نصية"
 msgid "IDS_MSGF_BODY_SIM_MEMORY_FULL_DELETE_SOME_ITEMS"
 msgstr "ذاكرة SIM ممتلئة. احذف بعض العناصر."
 
-msgid "IDS_MSGF_BODY_SETTINGS"
-msgstr "الضبط"
-
 msgid "IDS_MSGF_BODY_SENT_M_DATE_C"
 msgstr "مرسلة:"
 
 msgid "IDS_MSGF_BODY_REQUESTED"
 msgstr "تم الطلب."
 
-msgid "IDS_MSGF_BODY_RECIPIENTS"
-msgstr "المستقبلون"
-
 msgid "IDS_MSGF_BODY_RECEIVED_M_DATE_C"
 msgstr "مستقبلة:"
-
-msgid "IDS_MSGF_BODY_RECEIVED"
-msgstr "تم الاستلام."
 
 msgid "IDS_MSGF_BODY_READ_REPORT"
 msgstr "تقرير القراءة"
@@ -331,12 +253,6 @@ msgstr "%d رسالة (رسائل)"
 msgid "IDS_MSGF_BODY_PD_CONVERSATIONS"
 msgstr "%d محادثة (محادثات)"
 
-msgid "IDS_MSGF_BODY_OTHER"
-msgstr "آخر"
-
-msgid "IDS_MSGF_BODY_NO_SUBJECT"
-msgstr "لا يوجد موضوع"
-
 msgid "IDS_MSGF_BODY_NO_NAME"
 msgstr "لا يوجد اسم"
 
@@ -345,9 +261,6 @@ msgstr "إعلام برسالة وسائط متعددة"
 
 msgid "IDS_MSGF_BODY_MULTIMEDIA_MESSAGE"
 msgstr "رسالة وسائط"
-
-msgid "IDS_MSGF_BODY_MSGSIZE_KB"
-msgstr "ك.ب"
 
 msgid "IDS_MSGF_BODY_MMSREADREPLYMSGREAD"
 msgstr "المقروءة"
@@ -367,26 +280,17 @@ msgstr "خيارات الرسائل"
 msgid "IDS_MSGF_BODY_MESSAGE_DELIVERED"
 msgstr "تم توصيل الرسالة"
 
-msgid "IDS_MSGF_BODY_MESSAGE"
-msgstr "رسالة"
-
-msgid "IDS_MSGF_BODY_ME"
-msgstr "أنا"
-
 msgid "IDS_MSGF_BODY_MAXIMUM_NUMBER_OF_ATTACHMENTS_HP1SS_EXCEEDED_ONLY_FIRST_P2SS_WILL_BE_ADDED"
 msgstr "تم تجاوز الحد الأقصى لعدد المرفقات (%1$s). ستتم إضافة أول %2$s فقط."
 
 msgid "IDS_MSGF_BODY_INVALID_RECIPIENT"
-msgstr "ليس مستلمًا صالحًا."
+msgstr "المستلم غير صالح."
 
 msgid "IDS_MSGF_BODY_FROM"
 msgstr "من"
 
 msgid "IDS_MSGF_BODY_FLFROM"
 msgstr "من:"
-
-msgid "IDS_MSGF_BODY_EXPIRED"
-msgstr "انتهت المدة"
 
 msgid "IDS_MSGF_BODY_DETAILSSENDINGFAILED"
 msgstr "فشل الإرسال."
@@ -402,9 +306,6 @@ msgstr "نسخ النص"
 
 msgid "IDS_MSGF_BODY_CB_MESSAGES"
 msgstr "رسائل CB"
-
-msgid "IDS_MSGF_BODY_ALL"
-msgstr "الكل"
 
 msgid "IDS_MSGF_BODY_1_MESSAGE"
 msgstr "رسالة واحدة"
@@ -433,6 +334,9 @@ msgstr "استرداد رسائل MMS بشكل تلقائي"
 msgid "IDS_MSG_TPOP_UNABLE_TO_PREVIEW_FILE_UNSUPPORTED_FILE_TYPE"
 msgstr "تتعذّر معاينة الملف. إن نوع الملف غير مدعوم."
 
+msgid "IDS_MSG_TPOP_UNABLE_TO_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "يتعذّر إرفاق الملف. إن تنسيق الملف غير مدعوم."
+
 msgid "IDS_MSG_TPOP_UNABLE_TO_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
 msgstr "تتعذر إضافة بعض المستلمين. أعداد غير صالحة."
 
@@ -448,6 +352,9 @@ msgstr "تتعذّر إضافة المرفق. تم بلوغ الحد الأقص�
 msgid "IDS_MSG_TPOP_THIS_NUMBER_IS_NOT_VALID"
 msgstr "هذا الرقم غير صالح."
 
+msgid "IDS_MSG_TPOP_SOME_RECIPIENTS_ALREADY_ADDED"
+msgstr "تمت إضافة بعض المستلمين مسبقاً."
+
 msgid "IDS_MSG_TPOP_SELECTED_MESSAGES_COPIED_TO_MOBILE_DEVICE"
 msgstr "تم نسخ الرسائل المحددة إلى الجهاز المحمول."
 
@@ -459,6 +366,9 @@ msgstr "العدد الذي تمت إزالته من قائمة حظر‬‬‬ 
 
 msgid "IDS_MSG_TPOP_NUMBER_ADDED_TO_MESSAGE_BLOCK_LIST"
 msgstr "العدد الذي تمت إضافته إلى قائمة حظر الرسائل."
+
+msgid "IDS_MSG_TPOP_NETWORK_NOT_AVAILABLE_MESSAGE_WILL_BE_SENT_WHEN_CONNECTED_TO_NETWORK"
+msgstr "إن الشبكة غير متوفرة. سيتم إرسال الرسالة عند الاتصال بالشبكة."
 
 msgid "IDS_MSG_TPOP_MESSAGE_COPIED_TO_PS_SIM_CARD"
 msgstr "تم نسخ الرسالة إلى بطاقة SIM ‏%s."
@@ -502,9 +412,6 @@ msgstr "استرداد تلقائي"
 msgid "IDS_MSG_SK_SEND_NOW"
 msgstr "إرسال الآن"
 
-msgid "IDS_MSG_SK_NO_ABB"
-msgstr "لا"
-
 msgid "IDS_MSG_SBODY_SELECT_AN_INPUT_MODE_FOR_COMPOSING_MESSAGES"
 msgstr "حدد وضع إدخال لإنشاء الرسائل."
 
@@ -514,14 +421,8 @@ msgstr "لا شيء"
 msgid "IDS_MSG_SBODY_MANAGE_THE_MESSAGES_STORED_ON_YOUR_SIM_CARD"
 msgstr "قم بإدارة الرسائل المخزنة على بطاقة SIM."
 
-msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
-msgstr "سيتم تجاهل رسالتك. لم يتم تحديد أي مستلم."
-
 msgid "IDS_MSG_POP_UNABLE_TO_SEND_SCHEDULED_MESSAGE_SET_ANOTHER_TIME"
 msgstr "يتعذر إرسال رسالة مجدولة. حدد موعدا آخر."
-
-msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
-msgstr "يتعذر التشغيل أثناء المكالمة."
 
 msgid "IDS_MSG_POP_UNABLE_TO_ATTACH_FILE_FILE_SIZE_TOO_LARGE_TRY_SENDING_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
 msgstr "يتعذر إرفاق ملف. حجم الملف كبير للغاية. حاول الإرسال عبر البريد الإلكتروني أو البلوتوث أو Wi-Fi، أو ما إلى ذلك"
@@ -536,7 +437,7 @@ msgid "IDS_MSG_POP_THIS_MESSAGE_WILL_BE_RESENT"
 msgstr "ستتم إعادة إرسال هذه الرسالة."
 
 msgid "IDS_MSG_POP_PD_MESSAGES_WILL_BE_DELETED"
-msgstr "سيتم حذف %d رسائل."
+msgstr "سيتم حذف %d من الرسائل."
 
 msgid "IDS_MSG_POP_PD_CONVERSATIONS_WILL_BE_DELETED"
 msgstr "سيتم حذف %d من المحادثات."
@@ -544,17 +445,11 @@ msgstr "سيتم حذف %d من المحادثات."
 msgid "IDS_MSG_POP_NO_TEMPLATES_IN_LIST"
 msgstr "لا توجد قوالب بهذه القائمة"
 
-msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
-msgstr "الرسائل الواردة فقط"
-
 msgid "IDS_MSG_POP_INCLUDE_ORIGINAL_TEXT_IN_OUTGOING_MESSAGE"
 msgstr "تضمين النص الأصلي في الرسالة الصادرة"
 
 msgid "IDS_MSG_POP_DURATION_MUST_BE_SHORTER_THAN_PD_SECONDS"
 msgstr "يجب أن تكون المدة أقل من %d ثوان."
-
-msgid "IDS_MSG_POP_DELETED"
-msgstr "تم المسح."
 
 msgid "IDS_MSG_POP_1_MESSAGE_WILL_BE_DELETED"
 msgstr "سيتم حذف رسالة واحدة."
@@ -571,26 +466,14 @@ msgstr "عرض تفاصيل جهة الاتصال"
 msgid "IDS_MSG_OPT_VIEW_AS_SLIDESHOW_ABB"
 msgstr "عرض كعرض شرائح"
 
-msgid "IDS_MSG_OPT_VIDEOS"
-msgstr "الفيديو"
-
 msgid "IDS_MSG_OPT_UPDATE_CONTACT"
 msgstr "تحديث جهة الاتصال"
 
 msgid "IDS_MSG_OPT_UNICODE"
 msgstr "الرمز الموحد"
 
-msgid "IDS_MSG_OPT_TEXT"
-msgstr "نص"
-
 msgid "IDS_MSG_OPT_TAKE_PICTURE_ABB"
 msgstr "التقاط صورة"
-
-msgid "IDS_MSG_OPT_SETTINGS"
-msgstr "الضبط"
-
-msgid "IDS_MSG_OPT_SEARCH"
-msgstr "البحث"
 
 msgid "IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"
 msgstr "حفظ المرفقات"
@@ -604,23 +487,14 @@ msgstr "رد"
 msgid "IDS_MSG_OPT_REMOVE_FROM_BLOCK_LIST_ABB"
 msgstr "إزالة من قائمة الحظر"
 
-msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
-msgstr "تسجيل فيديو"
-
 msgid "IDS_MSG_OPT_RECORD_AUDIO_FILE_ABB"
 msgstr "تسجيل ملف الصوت"
 
 msgid "IDS_MSG_OPT_QUICK_RESPONSE_ABB"
 msgstr "رد سريع"
 
-msgid "IDS_MSG_OPT_NONE"
-msgstr "لاشيء"
-
 msgid "IDS_MSG_OPT_MAKE_VOICE_CALL"
 msgstr "إجراء مكالمة صوتية"
-
-msgid "IDS_MSG_OPT_IMAGES"
-msgstr "الصور"
 
 msgid "IDS_MSG_OPT_GSM_ALPHABET_ABB"
 msgstr "أبجدية GSM"
@@ -628,20 +502,11 @@ msgstr "أبجدية GSM"
 msgid "IDS_MSG_OPT_EXPORT_TO_DEVICE_MEMORY"
 msgstr "تصدير إلى ذاكرة الجهاز"
 
-msgid "IDS_MSG_OPT_EDIT"
-msgstr "تعديل"
-
 msgid "IDS_MSG_OPT_DELETE_MESSAGE"
 msgstr "حذف الرسالة"
 
 msgid "IDS_MSG_OPT_DELETE_CONVERSATION_ABB"
 msgstr "حذف المحادثة"
-
-msgid "IDS_MSG_OPT_DELETE"
-msgstr "مسح"
-
-msgid "IDS_MSG_OPT_DEFAULT"
-msgstr "إفتراضي"
 
 msgid "IDS_MSG_OPT_CREATE_CONTACT_ABB"
 msgstr "إنشاء جهة اتصال"
@@ -709,15 +574,6 @@ msgstr "رقم غير معروف"
 msgid "IDS_MSG_MBODY_TEXT_MESSAGE_CENTRE_NUMBER_ABB"
 msgstr "رقم هاتف مركز الرسائل النصية"
 
-msgid "IDS_MSG_MBODY_SELECT_ALL"
-msgstr "تحديد الكل"
-
-msgid "IDS_MSG_MBODY_ALERTS"
-msgstr "التنبيهات"
-
-msgid "IDS_MSG_HEADER_TRANSLATE"
-msgstr "ترجمة"
-
 msgid "IDS_MSG_HEADER_TEXT_MESSAGES_ABB"
 msgstr "الرسائل النصية"
 
@@ -727,9 +583,6 @@ msgstr "تبديل شبكة المحمول"
 msgid "IDS_MSG_HEADER_SMS_CENTRE_ABB2"
 msgstr "مركز الرسائل النصية"
 
-msgid "IDS_MSG_HEADER_SETTINGS"
-msgstr "الضبط"
-
 msgid "IDS_MSG_HEADER_SELECT_RECIPIENT"
 msgstr "تحديد مستلم"
 
@@ -738,9 +591,6 @@ msgstr "تم تحديد %d"
 
 msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
 msgstr "ما من رسائل على بطاقة SIM"
-
-msgid "IDS_MSG_HEADER_MESSAGES"
-msgstr "الرسائل"
 
 msgid "IDS_MSG_HEADER_INPUT_MODE_ABB"
 msgstr "وضع الإدخال"
@@ -754,14 +604,8 @@ msgstr "فشل إرسال الرسالة"
 msgid "IDS_MSG_HEADER_DISCARD_MESSAGE_M_CLOSE_ABB"
 msgstr "تجاهل الرسالة"
 
-msgid "IDS_MSG_HEADER_DELETE"
-msgstr "حذف"
-
 msgid "IDS_MSG_HEADER_CREATE"
 msgstr "إنشاء"
-
-msgid "IDS_MSG_HEADER_ATTENTION"
-msgstr "انتباه"
 
 msgid "IDS_MSG_HEADER_ADD_CONTENT_ABB"
 msgstr "إضافة محتوى"
@@ -775,15 +619,6 @@ msgstr "حفظ"
 msgid "IDS_MSG_BUTTON_RESEND_ABB"
 msgstr "إعادة الإرسال"
 
-msgid "IDS_MSG_BUTTON_REMOVE_ABB"
-msgstr "حذف"
-
-msgid "IDS_MSG_BUTTON_OK_ABB"
-msgstr "موافق"
-
-msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
-msgstr "تنزيل"
-
 msgid "IDS_MSG_BUTTON_DISCARD_ABB"
 msgstr "تجاهل"
 
@@ -793,17 +628,11 @@ msgstr "حذف"
 msgid "IDS_MSG_BUTTON_CANCEL_ABB2"
 msgstr "إلغاء"
 
-msgid "IDS_MSG_BUTTON_CANCEL_ABB"
-msgstr "إلغاء"
-
 msgid "IDS_MSG_BUTTON2_CONTACTS_ABB_M_APPLICATION_NAME"
 msgstr "جهات الاتصال"
 
 msgid "IDS_MSG_BODY_YOU_HAVE_SELECTED_A_SOUND_N_SHOT_FILE_SOUND_DATA_IS_NOT_SUPPORTED_FOR_MMS_SO_ONLY_THE_PICTURE_WILL_BE_ATTACHED"
 msgstr "لقد حددت ملف صوت ولقطة. بيانات الصوت غير معتمدة لرسائل MMS؛ وبالتالي فسيتم إرفاق الصورة فقط."
-
-msgid "IDS_MSG_BODY_YES"
-msgstr "نعم"
 
 msgid "IDS_MSG_BODY_WAITING_TO_SEND_ING_M_STATUS"
 msgstr "جارٍ انتظار الإرسال..."
@@ -823,9 +652,6 @@ msgstr "وقت الإرسال:"
 msgid "IDS_MSG_BODY_TIME_RECEIVED_C"
 msgstr "وقت التلقي:"
 
-msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
-msgstr "مربع التحديد"
-
 msgid "IDS_MSG_BODY_STATUS_C"
 msgstr "الحالة:"
 
@@ -838,9 +664,6 @@ msgstr "جارٍ الإرسال..."
 msgid "IDS_MSG_BODY_SENDING_FAILED_M_STATUS"
 msgstr "فشل الإرسال"
 
-msgid "IDS_MSG_BODY_SEC"
-msgstr "ثواني"
-
 msgid "IDS_MSG_BODY_RETRIEVE_MESSAGES_AUTOMATICALLY_WHILE_ROAMING"
 msgstr "قم باسترداد الرسائل تلقائياً أثناء التجوال."
 
@@ -852,9 +675,6 @@ msgstr "تقرير بالقراءة: %s"
 
 msgid "IDS_MSG_BODY_OTHER_PERSON"
 msgstr "شخص آخر"
-
-msgid "IDS_MSG_BODY_MESSAGE"
-msgstr "رسالة"
 
 msgid "IDS_MSG_BODY_MEMO_T_MAINMENU"
 msgstr "مذكرة"
@@ -895,14 +715,197 @@ msgstr "ستظهر الأرقام هنا بعد إضافتها إلى قائمة
 msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
 msgstr "حذف"
 
-msgid "IDS_ST_BODY_LOADING_ING"
-msgstr "جاري التحميل ..."
+msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
+msgstr "نوع الوسائط غير مدعوم."
 
-msgid "IDS_MSGS_BODY_NOTIFICATIONS"
-msgstr "إشعارات"
+msgid "IDS_MSGC_POP_LOW_BATTERY"
+msgstr "البطارية ضعيفة."
 
-msgid "IDS_MSG_HEADER_ME"
+msgid "IDS_MSGC_POP_CANCELLED"
+msgstr "تم الإلغاء."
+
+msgid "IDS_MSGC_OPT_EMAIL"
+msgstr "البريد الإلكتروني"
+
+msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
+msgstr "عرض"
+
+msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
+msgstr "حذف"
+
+msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
+msgstr "تشغيل"
+
+msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
+msgstr "إلى"
+
+msgid "IDS_MSGC_HEADER_PREVIEW"
+msgstr "معاينة"
+
+msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
+msgstr "أدخل الموضوع."
+
+msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
+msgstr "يتعذر البحث عن الموقع."
+
+msgid "IDS_MSGF_POP_REJECTED"
+msgstr "تم رفضها."
+
+msgid "IDS_MSGF_POP_DELETING"
+msgstr "جاري المسح..."
+
+msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
+msgstr "تم النسخ إلى الحافظة."
+
+msgid "IDS_MSGF_POP_BLOCK_PS_Q"
+msgstr "حظر %s؟"
+
+msgid "IDS_MSGF_OPT_SUBJECT_COLON"
+msgstr "الموضوع:"
+
+msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
+msgstr "المرسل عبر البريد الالكتروني"
+
+msgid "IDS_MSGF_OPT_SELECT"
+msgstr "اختيار"
+
+msgid "IDS_MSGF_OPT_SAVE"
+msgstr "حفظ"
+
+msgid "IDS_MSGF_OPT_REMOVE"
+msgstr "حذف"
+
+msgid "IDS_MSGF_OPT_FORWARD"
+msgstr "تحويل"
+
+msgid "IDS_MSGF_OPT_DELETE_Q"
+msgstr "مسح؟"
+
+msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
+msgstr "بحث متقدم"
+
+msgid "IDS_MSGF_BODY_UNKNOWN"
+msgstr "غير معروف"
+
+msgid "IDS_MSGF_BODY_SETTINGS"
+msgstr "الضبط"
+
+msgid "IDS_MSGF_BODY_RECIPIENTS"
+msgstr "المستقبلون"
+
+msgid "IDS_MSGF_BODY_RECEIVED"
+msgstr "تم الاستلام."
+
+msgid "IDS_MSGF_BODY_OTHER"
+msgstr "آخر"
+
+msgid "IDS_MSGF_BODY_NO_SUBJECT"
+msgstr "لا يوجد موضوع"
+
+msgid "IDS_MSGF_BODY_MSGSIZE_KB"
+msgstr "ك.ب"
+
+msgid "IDS_MSGF_BODY_MESSAGE"
+msgstr "رسالة"
+
+msgid "IDS_MSGF_BODY_ME"
 msgstr "أنا"
+
+msgid "IDS_MSGF_BODY_EXPIRED"
+msgstr "انتهت المدة"
+
+msgid "IDS_MSGF_BODY_ALL"
+msgstr "الكل"
+
+msgid "IDS_MSG_SK_NO_ABB"
+msgstr "لا"
+
+msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
+msgstr "سيتم تجاهل رسالتك. لم يتم تحديد أي مستلم."
+
+msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
+msgstr "يتعذر التشغيل أثناء المكالمة."
+
+msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
+msgstr "الرسائل الواردة فقط"
+
+msgid "IDS_MSG_POP_DELETED"
+msgstr "تم الحذف."
+
+msgid "IDS_MSG_OPT_VIDEOS"
+msgstr "الفيديو"
+
+msgid "IDS_MSG_OPT_TEXT"
+msgstr "نص"
+
+msgid "IDS_MSG_OPT_SETTINGS"
+msgstr "الضبط"
+
+msgid "IDS_MSG_OPT_SEARCH"
+msgstr "البحث"
+
+msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
+msgstr "تسجيل فيديو"
+
+msgid "IDS_MSG_OPT_NONE"
+msgstr "لاشيء"
+
+msgid "IDS_MSG_OPT_IMAGES"
+msgstr "الصور"
+
+msgid "IDS_MSG_OPT_EDIT"
+msgstr "تعديل"
+
+msgid "IDS_MSG_OPT_DELETE"
+msgstr "حذف"
+
+msgid "IDS_MSG_OPT_DEFAULT"
+msgstr "إفتراضي"
+
+msgid "IDS_MSG_MBODY_SELECT_ALL"
+msgstr "تحديد الكل"
+
+msgid "IDS_MSG_MBODY_ALERTS"
+msgstr "التنبيهات"
+
+msgid "IDS_MSG_HEADER_TRANSLATE"
+msgstr "ترجمة"
+
+msgid "IDS_MSG_HEADER_SETTINGS"
+msgstr "الضبط"
+
+msgid "IDS_MSG_HEADER_MESSAGES"
+msgstr "الرسائل"
+
+msgid "IDS_MSG_HEADER_DELETE"
+msgstr "حذف"
+
+msgid "IDS_MSG_HEADER_ATTENTION"
+msgstr "انتباه"
+
+msgid "IDS_MSG_BUTTON_REMOVE_ABB"
+msgstr "حذف"
+
+msgid "IDS_MSG_BUTTON_OK_ABB"
+msgstr "موافق"
+
+msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
+msgstr "تنزيل"
+
+msgid "IDS_MSG_BUTTON_CANCEL_ABB"
+msgstr "إلغاء"
+
+msgid "IDS_MSG_BODY_YES"
+msgstr "نعم"
+
+msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
+msgstr "مربع التحديد"
+
+msgid "IDS_MSG_BODY_SEC"
+msgstr "ثواني"
+
+msgid "IDS_MSG_BODY_MESSAGE"
+msgstr "رسالة"
 
 msgid "IDS_MSG_BUTTON_SEND_ABB5"
 msgstr "إرسال"
@@ -912,4 +915,34 @@ msgstr "إرسال"
 
 msgid "IDS_MSG_ACBUTTON_SEND_ABB3"
 msgstr "إرسال"
+
+msgid "IDS_ST_BODY_LOADING_ING"
+msgstr "جاري التحميل ..."
+
+msgid "IDS_MSGS_BODY_NOTIFICATIONS"
+msgstr "إشعارات"
+
+msgid "IDS_MSG_HEADER_ME"
+msgstr "أنا"
+
+msgid "IDS_MSG_BODY_UNKNOWN"
+msgstr "غير معروف"
+
+msgid "IDS_MSG_TMBODY_ADD_OR_REMOVE_RECIPIENTS"
+msgstr "إضافة مستلمين أو إزالتهم"
+
+msgid "IDS_MSG_POP_THE_SENDER_HAS_REQUESTED_A_READ_REPORT_TAP_SEND_TO_SEND_ONE"
+msgstr "طلب المرسل تقريراً بالقراءة. انقر فوق ”إرسال“ لإرسال تقرير."
+
+msgid "IDS_MSGF_OPT_SEND_READ_REPORT"
+msgstr "إرسال تقرير قراءة الرسالة"
+
+msgid "IDS_MSG_HEADER_COMPOSE_MESSAGE_ABB"
+msgstr "إنشاء رسالة"
+
+msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
+msgstr "لم تتم إضافة أي مستلم صالح. سيتم تجاهل هذه الرسالة."
+
+msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
+msgstr "تحديد عناصر"
 

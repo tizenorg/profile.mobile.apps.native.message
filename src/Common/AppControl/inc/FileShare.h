@@ -15,31 +15,23 @@
  *
  */
 
-#ifndef FileViewer_h_
-#define FileViewer_h_
+#ifndef FileShare_h_
+#define FileShare_h_
 
-#include "AppControlUtils.h"
+#include <list>
+#include <string>
+
 
 namespace Msg
 {
-    class FileViewer
+    class FileShare
     {
         public:
-            FileViewer();
-            ~FileViewer();
+            static bool launch(const std::list<std::string> &files);
 
-            static bool launch(const std::string &file);
-            bool launchWithCopy(const std::string &file);
-
-        private:
-            FileViewer(const FileViewer&) = delete;
-            FileViewer& operator=(const FileViewer&) = delete;
-
-            std::string addFile(const std::string &path);
-
-        private:
-            std::string m_FilePath;
+            FileShare(const FileShare&) = delete;
+            FileShare& operator=(const FileShare&) = delete;
     };
 }
 
-#endif /* FileViewer_h_ */
+#endif /* FileShare_h_ */

@@ -34,7 +34,7 @@ namespace Msg
             virtual ~ConvRecipientsPanelView();
 
             Evas_Object *getAreaRect() const;
-            void showMbe(bool show);
+            void showMbe(bool show, bool animation = true);
             void showEntry(bool show);
             std::string getEntryText() const;
             void setEntryText(const std::string &utf8);

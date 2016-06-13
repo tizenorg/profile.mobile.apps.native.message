@@ -2,16 +2,19 @@ msgid "IDS_COM_BODY_HOME"
 msgstr "Hjem"
 
 msgid "IDS_MSGC_POP_DATA_ROAMING_IS_DISABLED_ENABLE_DATA_ROAMING_AND_TRY_AGAIN"
-msgstr "Dataroaming er deaktiveret. Aktivér dataroaming, og prøv igen."
-
-msgid "IDS_MSGF_POP_NEW_MESSAGE"
-msgstr "Ny meddelelse"
+msgstr "Dataroaming er deaktiveret. Aktiver dataroaming, og prøv igen."
 
 msgid "IDS_MSG_ACBUTTON_CANCEL_ABB"
 msgstr "ANNULLER"
 
 msgid "IDS_MSG_ACBUTTON_DONE_ABB"
 msgstr "UDFØRT"
+
+msgid "IDS_MSGF_POP_NEW_MESSAGE"
+msgstr "Ny meddelelse"
+
+msgid "IDS_COM_BUTTON_SHARE"
+msgstr "Del"
 
 msgid "IDS_COM_BODY_UNKNOWN"
 msgstr "Ukendt"
@@ -20,13 +23,10 @@ msgid "IDS_COM_BODY_MOBILE"
 msgstr "Mobil"
 
 msgid "IDS_MSGC_POP_MOBILE_DATA_IS_DISABLED_ENABLE_MOBILE_DATA_AND_TRY_AGAIN"
-msgstr "Mobile data er deaktiveret. Aktivér mobile data, og prøv igen."
+msgstr "Mobile data er deaktiveret. Aktiver mobile data, og prøv igen."
 
 msgid "IDS_TPLATFORM_ACBUTTON_SEND_ABB"
 msgstr "SEND"
-
-msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
-msgstr "Medietype understøttes ikke."
 
 msgid "IDS_MSGC_POP_UNABLE_TO_SEND_MESSAGES_WHILE_IN_FLIGHT_MODE_DISABLE_FLIGHT_MODE_AND_TRY_AGAIN"
 msgstr "Kan sende beskeder under Flytilstand. Deaktiver Flytilstand, og prøv igen."
@@ -55,9 +55,6 @@ msgstr "Besked planlagt til afsendelse til %s. Send nu?"
 msgid "IDS_MSGC_POP_MAXIMUM_MESSAGE_SIZE_REACHED"
 msgstr "Maksimal meddelelsesstørrelse nået."
 
-msgid "IDS_MSGC_POP_LOW_BATTERY"
-msgstr "Lavt batteriniveau."
-
 msgid "IDS_MSGC_POP_DURATION_MUST_BE_AT_LEAST_PD_SECONDS"
 msgstr "Varigheden skal være på mindst %d sekunder."
 
@@ -66,9 +63,6 @@ msgstr "Deaktiverer Flytilstand ..."
 
 msgid "IDS_MSGC_POP_COPIED_TO_SIM_CARD"
 msgstr "Kopieret til SIM-kort."
-
-msgid "IDS_MSGC_POP_CANCELLED"
-msgstr "Annulleret."
 
 msgid "IDS_MSGC_OPT_USE_OTHER_CONTACT_INFO_ABB"
 msgstr "Brug andre kontaktopl."
@@ -79,32 +73,14 @@ msgstr "Send via"
 msgid "IDS_MSGC_OPT_IMAGE"
 msgstr "Billede"
 
-msgid "IDS_MSGC_OPT_EMAIL"
-msgstr "E-mail"
-
 msgid "IDS_MSGC_OPT_EDIT_ITEM_REPLACE"
 msgstr "Erstat"
 
-msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
-msgstr "Vis"
-
-msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
-msgstr "Fjern"
-
-msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
-msgstr "Afspil"
-
-msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
-msgstr "Til"
-
 msgid "IDS_MSGC_OPT_CANCEL_MESSAGE"
-msgstr "Annullér meddelelse"
+msgstr "Annuller besked"
 
 msgid "IDS_MSGC_HEADER_RECIPIENT_LIST"
 msgstr "Modtagerliste"
-
-msgid "IDS_MSGC_HEADER_PREVIEW"
-msgstr "Forhåndsvisning"
 
 msgid "IDS_MSGC_HEADER_DURATION_FOR_SLIDE_PD_PD"
 msgstr "Varighed for dias %d/%d"
@@ -127,9 +103,6 @@ msgstr "Ikke anmodet"
 msgid "IDS_MSGC_BODY_MAXIMUM_NUMBER_OF_RECIPIENTS_HPD_REACHED"
 msgstr "Det maksimale antal modtagere (%d) er nået."
 
-msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
-msgstr "Angiv emne."
-
 msgid "IDS_MSGC_BODY_DUPLICATED_RECIPIENT"
 msgstr "Kopierede modtagere."
 
@@ -138,9 +111,6 @@ msgstr "Vid.send"
 
 msgid "IDS_MSGF_POP_UNABLE_TO_SAVE"
 msgstr "Kan ikke gemme."
-
-msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
-msgstr "Kan ikke finde placering."
 
 msgid "IDS_MSGF_POP_UNABLE_TO_DELETE"
 msgstr "Kunne ikke slette."
@@ -168,9 +138,6 @@ msgstr "Begrænset indholdstype. Vedhæft alligevel?"
 
 msgid "IDS_MSGF_POP_RESTORING_ING"
 msgstr "Gendanner..."
-
-msgid "IDS_MSGF_POP_REJECTED"
-msgstr "Afvist."
 
 msgid "IDS_MSGF_POP_READ_REPORT"
 msgstr "Læsningsrapport"
@@ -214,20 +181,11 @@ msgstr "Denne besked indeholder vedhæftede filer, der ikke vises."
 msgid "IDS_MSGF_POP_FILE_NAME_ALREADY_EXISTS"
 msgstr "Filnavnet findes allerede."
 
-msgid "IDS_MSGF_POP_DELETING"
-msgstr "Sletter ..."
-
-msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
-msgstr "Kopieret til udklipsholder."
-
 msgid "IDS_MSGF_POP_CONVERTING_TO_TEXT_MESSAGE_ING"
 msgstr "Konverterer til sms..."
 
 msgid "IDS_MSGF_POP_CONVERTING_TO_MULTIMEDIA_MESSAGE_ING"
 msgstr "Konverterer til mms-besked ..."
-
-msgid "IDS_MSGF_POP_BLOCK_PS_Q"
-msgstr "Blokér %s?"
 
 msgid "IDS_MSGF_POP_ABOUT_TO_GO_ONLINE_CONTINUE_Q"
 msgstr "Du er ved at gå online (%s). Vil du fortsætte?"
@@ -235,38 +193,17 @@ msgstr "Du er ved at gå online (%s). Vil du fortsætte?"
 msgid "IDS_MSGF_OPT_TEXT_MESSAGE"
 msgstr "Sms"
 
-msgid "IDS_MSGF_OPT_SUBJECT_COLON"
-msgstr "Emne:"
-
-msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
-msgstr "Afsender via e-mail"
-
 msgid "IDS_MSGF_OPT_SENDER_ABB"
 msgstr "Afsender"
-
-msgid "IDS_MSGF_OPT_SELECT"
-msgstr "Vælg"
 
 msgid "IDS_MSGF_OPT_SAVE_ATTACHMENT"
 msgstr "Gem vedhæftning"
 
-msgid "IDS_MSGF_OPT_SAVE"
-msgstr "Gem"
-
-msgid "IDS_MSGF_OPT_REMOVE"
-msgstr "Fjern"
-
 msgid "IDS_MSGF_OPT_INSTALL"
-msgstr "Installér"
-
-msgid "IDS_MSGF_OPT_FORWARD"
-msgstr "Videresend"
+msgstr "Installer"
 
 msgid "IDS_MSGF_OPT_EDIT_MESSAGE"
 msgstr "Redigér meddelelse"
-
-msgid "IDS_MSGF_OPT_DELETE_Q"
-msgstr "Slet?"
 
 msgid "IDS_MSGF_OPT_DELETE_MESSAGES"
 msgstr "Slet meddelelser"
@@ -283,26 +220,17 @@ msgstr "Beskeddetaljer"
 msgid "IDS_MSGF_HEADER_EXPIRES_C_PS"
 msgstr "Udløber: %s"
 
-msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
-msgstr "Avanceret søgning"
-
 msgid "IDS_MSGF_BUTTON_SAVE_ALL_ATTACHMENTS_ABB"
 msgstr "Gem alle vedhæftnin."
-
-msgid "IDS_MSGF_BODY_UNKNOWN"
-msgstr "Ukendt"
 
 msgid "IDS_MSGF_BODY_TO_C"
 msgstr "Til:"
 
 msgid "IDS_MSGF_BODY_TEXT_MESSAGES"
-msgstr "Sms-beskeder"
+msgstr "Sms'er"
 
 msgid "IDS_MSGF_BODY_SIM_MEMORY_FULL_DELETE_SOME_ITEMS"
 msgstr "SIM-hukommelse fyldt. Slet nogle elementer."
-
-msgid "IDS_MSGF_BODY_SETTINGS"
-msgstr "Indstillinger"
 
 msgid "IDS_MSGF_BODY_SENT_M_DATE_C"
 msgstr "Sendt:"
@@ -310,14 +238,8 @@ msgstr "Sendt:"
 msgid "IDS_MSGF_BODY_REQUESTED"
 msgstr "Anmodet."
 
-msgid "IDS_MSGF_BODY_RECIPIENTS"
-msgstr "Modtagere"
-
 msgid "IDS_MSGF_BODY_RECEIVED_M_DATE_C"
 msgstr "Modtaget:"
-
-msgid "IDS_MSGF_BODY_RECEIVED"
-msgstr "Modtaget."
 
 msgid "IDS_MSGF_BODY_READ_REPORT"
 msgstr "Læsningsrapport"
@@ -331,12 +253,6 @@ msgstr "%d meddelelser"
 msgid "IDS_MSGF_BODY_PD_CONVERSATIONS"
 msgstr "%d samtaler"
 
-msgid "IDS_MSGF_BODY_OTHER"
-msgstr "Anden"
-
-msgid "IDS_MSGF_BODY_NO_SUBJECT"
-msgstr "Intet emne"
-
 msgid "IDS_MSGF_BODY_NO_NAME"
 msgstr "Intet navn"
 
@@ -345,9 +261,6 @@ msgstr "Besked om multimediemeddelelse"
 
 msgid "IDS_MSGF_BODY_MULTIMEDIA_MESSAGE"
 msgstr "Multimediemeddelelse"
-
-msgid "IDS_MSGF_BODY_MSGSIZE_KB"
-msgstr "KB"
 
 msgid "IDS_MSGF_BODY_MMSREADREPLYMSGREAD"
 msgstr "Læs"
@@ -367,12 +280,6 @@ msgstr "Beskedindstillinger"
 msgid "IDS_MSGF_BODY_MESSAGE_DELIVERED"
 msgstr "Meddelelsen er leveret"
 
-msgid "IDS_MSGF_BODY_MESSAGE"
-msgstr "Besked"
-
-msgid "IDS_MSGF_BODY_ME"
-msgstr "Mig"
-
 msgid "IDS_MSGF_BODY_MAXIMUM_NUMBER_OF_ATTACHMENTS_HP1SS_EXCEEDED_ONLY_FIRST_P2SS_WILL_BE_ADDED"
 msgstr "Maks. antal vedhæftninger (%1$s) overskredet. Kun de første %2$s bliver tilføjet."
 
@@ -384,9 +291,6 @@ msgstr "Fra"
 
 msgid "IDS_MSGF_BODY_FLFROM"
 msgstr "Fra:"
-
-msgid "IDS_MSGF_BODY_EXPIRED"
-msgstr "Udløbet"
 
 msgid "IDS_MSGF_BODY_DETAILSSENDINGFAILED"
 msgstr "Afsendelse mislykkedes."
@@ -403,9 +307,6 @@ msgstr "Kopiér tekst"
 msgid "IDS_MSGF_BODY_CB_MESSAGES"
 msgstr "Gruppemeddelelser"
 
-msgid "IDS_MSGF_BODY_ALL"
-msgstr "Alle"
-
 msgid "IDS_MSGF_BODY_1_MESSAGE"
 msgstr "1 besked"
 
@@ -419,7 +320,7 @@ msgid "IDS_MSGS_BODY_REQUEST_A_DELIVERY_REPORT_FOR_EACH_MESSAGE_YOU_SEND"
 msgstr "Anmod om en leveringsrapport for hver besked, du sender."
 
 msgid "IDS_MSGS_BODY_RADIO_BUTTON"
-msgstr "Radioknap"
+msgstr "Alternativknap"
 
 msgid "IDS_MSGS_BODY_ON_OFF_BUTTON_T_TTS"
 msgstr "Tænd/sluk-knap"
@@ -432,6 +333,9 @@ msgstr "Henter mms-beskeder automatisk."
 
 msgid "IDS_MSG_TPOP_UNABLE_TO_PREVIEW_FILE_UNSUPPORTED_FILE_TYPE"
 msgstr "Kan ikke vise filen. Filtypen understøttes ikke."
+
+msgid "IDS_MSG_TPOP_UNABLE_TO_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Kan ikke vedhæfte fil. Filformatet understøttes ikke."
 
 msgid "IDS_MSG_TPOP_UNABLE_TO_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
 msgstr "Kan ikke tilføje visse modtagere. Numrene er ikke gyldige."
@@ -448,6 +352,9 @@ msgstr "Kan ikke tilføje vedhæftet fil. Det maksimale antal vedhæftede filer 
 msgid "IDS_MSG_TPOP_THIS_NUMBER_IS_NOT_VALID"
 msgstr "Dette nummer er ugyldigt."
 
+msgid "IDS_MSG_TPOP_SOME_RECIPIENTS_ALREADY_ADDED"
+msgstr "Nogle modtagere er allerede blevet tilføjet."
+
 msgid "IDS_MSG_TPOP_SELECTED_MESSAGES_COPIED_TO_MOBILE_DEVICE"
 msgstr "Valgte beskeder er kopieret til mobilenhed."
 
@@ -459,6 +366,9 @@ msgstr "Nummer fjernet fra listen over blokerede beskeder."
 
 msgid "IDS_MSG_TPOP_NUMBER_ADDED_TO_MESSAGE_BLOCK_LIST"
 msgstr "Nummeret blev føjet til listen over blokerede beskeder."
+
+msgid "IDS_MSG_TPOP_NETWORK_NOT_AVAILABLE_MESSAGE_WILL_BE_SENT_WHEN_CONNECTED_TO_NETWORK"
+msgstr "Netværket er ikke tilgængeligt. Beskeden sendes, når der er forbindelse til netværket."
 
 msgid "IDS_MSG_TPOP_MESSAGE_COPIED_TO_PS_SIM_CARD"
 msgstr "Beskeden er kopieret til SIM-kortet %s."
@@ -479,7 +389,7 @@ msgid "IDS_MSG_TPOP_1_MESSAGE_MOVED_TO_MESSAGE_LIST"
 msgstr "1 besked er blevet flyttet til beskedlisten."
 
 msgid "IDS_MSG_TMBODY_TEXT_MESSAGES"
-msgstr "Sms-beskeder"
+msgstr "Sms'er"
 
 msgid "IDS_MSG_TMBODY_SOUND"
 msgstr "Lyd"
@@ -502,9 +412,6 @@ msgstr "Automatisk hentning"
 msgid "IDS_MSG_SK_SEND_NOW"
 msgstr "Send nu"
 
-msgid "IDS_MSG_SK_NO_ABB"
-msgstr "Nej"
-
 msgid "IDS_MSG_SBODY_SELECT_AN_INPUT_MODE_FOR_COMPOSING_MESSAGES"
 msgstr "Vælg en indtastningstilstand til skrivning af beskeder."
 
@@ -514,14 +421,8 @@ msgstr "Ingen"
 msgid "IDS_MSG_SBODY_MANAGE_THE_MESSAGES_STORED_ON_YOUR_SIM_CARD"
 msgstr "Administrer de beskeder, som er gemt på dit SIM-kort."
 
-msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
-msgstr "Din besked bliver kasseret. Der er ikke valgt nogen modtagere."
-
 msgid "IDS_MSG_POP_UNABLE_TO_SEND_SCHEDULED_MESSAGE_SET_ANOTHER_TIME"
 msgstr "Planlagt meddelelse blev ikke sendt. Indstil et andet tidspunkt."
-
-msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
-msgstr "Kunne ikke afspille under samtale."
 
 msgid "IDS_MSG_POP_UNABLE_TO_ATTACH_FILE_FILE_SIZE_TOO_LARGE_TRY_SENDING_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
 msgstr "Kunne ikke vedhæfte filen. Filstørrelsen er for stor. Prøv at sende via e-mail, Bluetooth, Wi-Fi, osv."
@@ -544,17 +445,11 @@ msgstr "%d samtaler vil blive slettet."
 msgid "IDS_MSG_POP_NO_TEMPLATES_IN_LIST"
 msgstr "Ingen skabeloner på liste"
 
-msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
-msgstr "Kun indgående meddelelser"
-
 msgid "IDS_MSG_POP_INCLUDE_ORIGINAL_TEXT_IN_OUTGOING_MESSAGE"
 msgstr "Medtag oprindelig tekst i udgående meddelelse"
 
 msgid "IDS_MSG_POP_DURATION_MUST_BE_SHORTER_THAN_PD_SECONDS"
 msgstr "Varighed skal være kortere end %d sekunder."
-
-msgid "IDS_MSG_POP_DELETED"
-msgstr "Slettet."
 
 msgid "IDS_MSG_POP_1_MESSAGE_WILL_BE_DELETED"
 msgstr "1 besked vil blive slettet."
@@ -571,26 +466,14 @@ msgstr "Se kontaktdetaljer"
 msgid "IDS_MSG_OPT_VIEW_AS_SLIDESHOW_ABB"
 msgstr "Se som diasshow"
 
-msgid "IDS_MSG_OPT_VIDEOS"
-msgstr "Video"
-
 msgid "IDS_MSG_OPT_UPDATE_CONTACT"
 msgstr "Opdater kontakt"
 
 msgid "IDS_MSG_OPT_UNICODE"
 msgstr "Unicode"
 
-msgid "IDS_MSG_OPT_TEXT"
-msgstr "Tekst"
-
 msgid "IDS_MSG_OPT_TAKE_PICTURE_ABB"
 msgstr "Tag billede"
-
-msgid "IDS_MSG_OPT_SETTINGS"
-msgstr "Indstillinger"
-
-msgid "IDS_MSG_OPT_SEARCH"
-msgstr "Søg"
 
 msgid "IDS_MSG_OPT_SAVE_ATTACHMENTS_ABB"
 msgstr "Gem vedhæftninger"
@@ -604,44 +487,26 @@ msgstr "Svar"
 msgid "IDS_MSG_OPT_REMOVE_FROM_BLOCK_LIST_ABB"
 msgstr "Fjern fra blokeringsliste"
 
-msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
-msgstr "Optag video"
-
 msgid "IDS_MSG_OPT_RECORD_AUDIO_FILE_ABB"
 msgstr "Optag lydfil"
 
 msgid "IDS_MSG_OPT_QUICK_RESPONSE_ABB"
 msgstr "Hurtigt svar"
 
-msgid "IDS_MSG_OPT_NONE"
-msgstr "Ingen"
-
 msgid "IDS_MSG_OPT_MAKE_VOICE_CALL"
 msgstr "Foretag stemmeopkald"
-
-msgid "IDS_MSG_OPT_IMAGES"
-msgstr "Billeder"
 
 msgid "IDS_MSG_OPT_GSM_ALPHABET_ABB"
 msgstr "GSM-alfabet"
 
 msgid "IDS_MSG_OPT_EXPORT_TO_DEVICE_MEMORY"
-msgstr "Eksportér til enhedshukommelse"
-
-msgid "IDS_MSG_OPT_EDIT"
-msgstr "Redigér"
+msgstr "Eksporter til enhedshukommelse"
 
 msgid "IDS_MSG_OPT_DELETE_MESSAGE"
 msgstr "Slet meddelelse"
 
 msgid "IDS_MSG_OPT_DELETE_CONVERSATION_ABB"
 msgstr "Slet samtale"
-
-msgid "IDS_MSG_OPT_DELETE"
-msgstr "Slet"
-
-msgid "IDS_MSG_OPT_DEFAULT"
-msgstr "Standard"
 
 msgid "IDS_MSG_OPT_CREATE_CONTACT_ABB"
 msgstr "Opret kontakt"
@@ -659,7 +524,7 @@ msgid "IDS_MSG_OPT_COPY"
 msgstr "Kopiér"
 
 msgid "IDS_MSG_OPT_BACK_UP"
-msgstr "Sikkerhedskopiér"
+msgstr "Sikkerhedskopier"
 
 msgid "IDS_MSG_OPT_AUTOMATIC"
 msgstr "Automatisk"
@@ -709,26 +574,14 @@ msgstr "Ukendt nummer"
 msgid "IDS_MSG_MBODY_TEXT_MESSAGE_CENTRE_NUMBER_ABB"
 msgstr "Nummer til sms-center"
 
-msgid "IDS_MSG_MBODY_SELECT_ALL"
-msgstr "Vælg alle"
-
-msgid "IDS_MSG_MBODY_ALERTS"
-msgstr "Varsler"
-
-msgid "IDS_MSG_HEADER_TRANSLATE"
-msgstr "Oversæt"
-
 msgid "IDS_MSG_HEADER_TEXT_MESSAGES_ABB"
-msgstr "Sms-beskeder"
+msgstr "Sms'er"
 
 msgid "IDS_MSG_HEADER_SWITCH_MOBILE_NETWORK_ABB2"
 msgstr "Skift mobilt netværk"
 
 msgid "IDS_MSG_HEADER_SMS_CENTRE_ABB2"
 msgstr "Sms-center"
-
-msgid "IDS_MSG_HEADER_SETTINGS"
-msgstr "Indstillinger"
 
 msgid "IDS_MSG_HEADER_SELECT_RECIPIENT"
 msgstr "Vælg modtagere"
@@ -738,9 +591,6 @@ msgstr "%d valgt"
 
 msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
 msgstr "Beskeder på SIM-kort"
-
-msgid "IDS_MSG_HEADER_MESSAGES"
-msgstr "Beskeder"
 
 msgid "IDS_MSG_HEADER_INPUT_MODE_ABB"
 msgstr "Indtastningsmetode"
@@ -752,16 +602,10 @@ msgid "IDS_MSG_HEADER_FAILED_TO_SEND_MESSAGE_ABB"
 msgstr "Kunne ikke sende beskeden"
 
 msgid "IDS_MSG_HEADER_DISCARD_MESSAGE_M_CLOSE_ABB"
-msgstr "Annullér besked"
-
-msgid "IDS_MSG_HEADER_DELETE"
-msgstr "Slet"
+msgstr "Kasser besked"
 
 msgid "IDS_MSG_HEADER_CREATE"
 msgstr "Opret"
-
-msgid "IDS_MSG_HEADER_ATTENTION"
-msgstr "Bemærk!"
 
 msgid "IDS_MSG_HEADER_ADD_CONTENT_ABB"
 msgstr "Tilføj indhold"
@@ -775,35 +619,20 @@ msgstr "Gem"
 msgid "IDS_MSG_BUTTON_RESEND_ABB"
 msgstr "Send igen"
 
-msgid "IDS_MSG_BUTTON_REMOVE_ABB"
-msgstr "Fjern"
-
-msgid "IDS_MSG_BUTTON_OK_ABB"
-msgstr "OK"
-
-msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
-msgstr "Overfør"
-
 msgid "IDS_MSG_BUTTON_DISCARD_ABB"
-msgstr "Fjern"
+msgstr "Kasser"
 
 msgid "IDS_MSG_BUTTON_DELETE_ABB4"
 msgstr "Slet"
 
 msgid "IDS_MSG_BUTTON_CANCEL_ABB2"
-msgstr "Annullér"
-
-msgid "IDS_MSG_BUTTON_CANCEL_ABB"
-msgstr "Annullér"
+msgstr "Annuller"
 
 msgid "IDS_MSG_BUTTON2_CONTACTS_ABB_M_APPLICATION_NAME"
 msgstr "Kontakter"
 
 msgid "IDS_MSG_BODY_YOU_HAVE_SELECTED_A_SOUND_N_SHOT_FILE_SOUND_DATA_IS_NOT_SUPPORTED_FOR_MMS_SO_ONLY_THE_PICTURE_WILL_BE_ATTACHED"
-msgstr "Du har valgt en Lyd & billede-fil. Lyddata understøttes ikke for mms, så kun billedet vedhæftes."
-
-msgid "IDS_MSG_BODY_YES"
-msgstr "Ja"
+msgstr "Du har valgt en Lyd og foto-fil. Lyddata understøttes ikke for mms, så kun billedet vedhæftes."
 
 msgid "IDS_MSG_BODY_WAITING_TO_SEND_ING_M_STATUS"
 msgstr "Venter på at sende ..."
@@ -823,9 +652,6 @@ msgstr "Tidspunkt for afsendelse:"
 msgid "IDS_MSG_BODY_TIME_RECEIVED_C"
 msgstr "Tidspunkt for modtagelse:"
 
-msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
-msgstr "Afkrydsningsfelt"
-
 msgid "IDS_MSG_BODY_STATUS_C"
 msgstr "Status:"
 
@@ -837,9 +663,6 @@ msgstr "Sender ..."
 
 msgid "IDS_MSG_BODY_SENDING_FAILED_M_STATUS"
 msgstr "Afsendelsen mislykkedes"
-
-msgid "IDS_MSG_BODY_SEC"
-msgstr "sek."
 
 msgid "IDS_MSG_BODY_RETRIEVE_MESSAGES_AUTOMATICALLY_WHILE_ROAMING"
 msgstr "Hent beskeder automatisk under brug af roaming."
@@ -853,9 +676,6 @@ msgstr "Læserapport: %s"
 msgid "IDS_MSG_BODY_OTHER_PERSON"
 msgstr "Anden person"
 
-msgid "IDS_MSG_BODY_MESSAGE"
-msgstr "Besked"
-
 msgid "IDS_MSG_BODY_MEMO_T_MAINMENU"
 msgstr "Notat"
 
@@ -866,7 +686,7 @@ msgid "IDS_MSG_BODY_ENTER_TEXT_M_NOUN"
 msgstr "Indtast tekst"
 
 msgid "IDS_MSG_BODY_DRAFT_M_STATUS_ABB"
-msgstr "Kladde"
+msgstr "Udkast"
 
 msgid "IDS_MSG_BODY_DELIVERY_REPORT_C_PS"
 msgstr "Leveringsrapport: %s"
@@ -895,14 +715,197 @@ msgstr "Når du føjer numre til din liste over blokerede beskeder, vises de her
 msgid "IDS_MSG_ACBUTTON_DELETE_ABB"
 msgstr "SLET"
 
-msgid "IDS_ST_BODY_LOADING_ING"
-msgstr "Indlæser data ..."
+msgid "IDS_MSGC_POP_UNSUPPORTED_MEDIA_TYPE"
+msgstr "Medietype understøttes ikke."
 
-msgid "IDS_MSGS_BODY_NOTIFICATIONS"
-msgstr "Meddelelser"
+msgid "IDS_MSGC_POP_LOW_BATTERY"
+msgstr "Lavt batteriniveau."
 
-msgid "IDS_MSG_HEADER_ME"
+msgid "IDS_MSGC_POP_CANCELLED"
+msgstr "Annulleret."
+
+msgid "IDS_MSGC_OPT_EMAIL"
+msgstr "E-mail"
+
+msgid "IDS_MSGC_OPT_EDITITEM_VIEW"
+msgstr "Vis"
+
+msgid "IDS_MSGC_OPT_EDITITEM_REMOVE"
+msgstr "Fjern"
+
+msgid "IDS_MSGC_OPT_EDITITEM_PLAY"
+msgstr "Afspil"
+
+msgid "IDS_MSGC_OPT_CHANGE_RECIPIENTS_TO"
+msgstr "Til"
+
+msgid "IDS_MSGC_HEADER_PREVIEW"
+msgstr "Forhåndsvisning"
+
+msgid "IDS_MSGC_BODY_ENTER_SUBJECT"
+msgstr "Angiv emne."
+
+msgid "IDS_MSGF_POP_UNABLE_TO_FIND_LOCATION"
+msgstr "Kan ikke finde placering."
+
+msgid "IDS_MSGF_POP_REJECTED"
+msgstr "Afvist."
+
+msgid "IDS_MSGF_POP_DELETING"
+msgstr "Sletter ..."
+
+msgid "IDS_MSGF_POP_COPIED_TO_CLIPBOARD"
+msgstr "Kopieret til udklipsholder."
+
+msgid "IDS_MSGF_POP_BLOCK_PS_Q"
+msgstr "Bloker %s?"
+
+msgid "IDS_MSGF_OPT_SUBJECT_COLON"
+msgstr "Emne:"
+
+msgid "IDS_MSGF_OPT_SENDER_VIA_EMAIL"
+msgstr "Afsender via e-mail"
+
+msgid "IDS_MSGF_OPT_SELECT"
+msgstr "Vælg"
+
+msgid "IDS_MSGF_OPT_SAVE"
+msgstr "Gem"
+
+msgid "IDS_MSGF_OPT_REMOVE"
+msgstr "Fjern"
+
+msgid "IDS_MSGF_OPT_FORWARD"
+msgstr "Videresend"
+
+msgid "IDS_MSGF_OPT_DELETE_Q"
+msgstr "Slet?"
+
+msgid "IDS_MSGF_HEADER_ADVANCED_SEARCH"
+msgstr "Avanceret søgning"
+
+msgid "IDS_MSGF_BODY_UNKNOWN"
+msgstr "Ukendt"
+
+msgid "IDS_MSGF_BODY_SETTINGS"
+msgstr "Indstillinger"
+
+msgid "IDS_MSGF_BODY_RECIPIENTS"
+msgstr "Modtagere"
+
+msgid "IDS_MSGF_BODY_RECEIVED"
+msgstr "Modtaget."
+
+msgid "IDS_MSGF_BODY_OTHER"
+msgstr "Anden"
+
+msgid "IDS_MSGF_BODY_NO_SUBJECT"
+msgstr "Intet emne"
+
+msgid "IDS_MSGF_BODY_MSGSIZE_KB"
+msgstr "KB"
+
+msgid "IDS_MSGF_BODY_MESSAGE"
+msgstr "Besked"
+
+msgid "IDS_MSGF_BODY_ME"
 msgstr "Mig"
+
+msgid "IDS_MSGF_BODY_EXPIRED"
+msgstr "Udløbet"
+
+msgid "IDS_MSGF_BODY_ALL"
+msgstr "Alle"
+
+msgid "IDS_MSG_SK_NO_ABB"
+msgstr "Nej"
+
+msgid "IDS_MSG_POP_YOUR_MESSAGE_WILL_BE_DISCARDED_NO_RECIPIENTS_HAVE_BEEN_SELECTED"
+msgstr "Din besked bliver kasseret. Der er ikke valgt nogen modtagere."
+
+msgid "IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL"
+msgstr "Kunne ikke afspille under samtale."
+
+msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
+msgstr "Kun indgående meddelelser"
+
+msgid "IDS_MSG_POP_DELETED"
+msgstr "Slettet."
+
+msgid "IDS_MSG_OPT_VIDEOS"
+msgstr "Video"
+
+msgid "IDS_MSG_OPT_TEXT"
+msgstr "Tekst"
+
+msgid "IDS_MSG_OPT_SETTINGS"
+msgstr "Indstillinger"
+
+msgid "IDS_MSG_OPT_SEARCH"
+msgstr "Søg"
+
+msgid "IDS_MSG_OPT_RECORD_VIDEO_ABB"
+msgstr "Optag video"
+
+msgid "IDS_MSG_OPT_NONE"
+msgstr "Ingen"
+
+msgid "IDS_MSG_OPT_IMAGES"
+msgstr "Billeder"
+
+msgid "IDS_MSG_OPT_EDIT"
+msgstr "Rediger"
+
+msgid "IDS_MSG_OPT_DELETE"
+msgstr "Slet"
+
+msgid "IDS_MSG_OPT_DEFAULT"
+msgstr "Standard"
+
+msgid "IDS_MSG_MBODY_SELECT_ALL"
+msgstr "Vælg alle"
+
+msgid "IDS_MSG_MBODY_ALERTS"
+msgstr "Varsler"
+
+msgid "IDS_MSG_HEADER_TRANSLATE"
+msgstr "Oversæt"
+
+msgid "IDS_MSG_HEADER_SETTINGS"
+msgstr "Indstillinger"
+
+msgid "IDS_MSG_HEADER_MESSAGES"
+msgstr "Beskeder"
+
+msgid "IDS_MSG_HEADER_DELETE"
+msgstr "Slet"
+
+msgid "IDS_MSG_HEADER_ATTENTION"
+msgstr "Bemærk!"
+
+msgid "IDS_MSG_BUTTON_REMOVE_ABB"
+msgstr "Fjern"
+
+msgid "IDS_MSG_BUTTON_OK_ABB"
+msgstr "OK"
+
+msgid "IDS_MSG_BUTTON_DOWNLOAD_ABB3"
+msgstr "Overfør"
+
+msgid "IDS_MSG_BUTTON_CANCEL_ABB"
+msgstr "Annuller"
+
+msgid "IDS_MSG_BODY_YES"
+msgstr "Ja"
+
+msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
+msgstr "Afkrydsningsfelt"
+
+msgid "IDS_MSG_BODY_SEC"
+msgstr "sek."
+
+msgid "IDS_MSG_BODY_MESSAGE"
+msgstr "Besked"
 
 msgid "IDS_MSG_BUTTON_SEND_ABB5"
 msgstr "Send"
@@ -912,4 +915,34 @@ msgstr "Send"
 
 msgid "IDS_MSG_ACBUTTON_SEND_ABB3"
 msgstr "SEND"
+
+msgid "IDS_ST_BODY_LOADING_ING"
+msgstr "Indlæser data ..."
+
+msgid "IDS_MSGS_BODY_NOTIFICATIONS"
+msgstr "Meddelelser"
+
+msgid "IDS_MSG_HEADER_ME"
+msgstr "Mig"
+
+msgid "IDS_MSG_BODY_UNKNOWN"
+msgstr "Ukendt"
+
+msgid "IDS_MSG_TMBODY_ADD_OR_REMOVE_RECIPIENTS"
+msgstr "Tilføj eller fjern modtagere"
+
+msgid "IDS_MSG_POP_THE_SENDER_HAS_REQUESTED_A_READ_REPORT_TAP_SEND_TO_SEND_ONE"
+msgstr "Afsender har anmodet om en læserapport. Tryk på Send for sende en."
+
+msgid "IDS_MSGF_OPT_SEND_READ_REPORT"
+msgstr "Send læsningsrapport"
+
+msgid "IDS_MSG_HEADER_COMPOSE_MESSAGE_ABB"
+msgstr "Skriv besked"
+
+msgid "IDS_MSG_POP_NO_VALID_RECIPIENTS_HAVE_BEEN_ADDED_THIS_MESSAGE_WILL_BE_DISCARDED"
+msgstr "Der er ikke tilføjet gyldige modtagere. Denne besked vil blive kasseret."
+
+msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
+msgstr "Vælg elementer"
 

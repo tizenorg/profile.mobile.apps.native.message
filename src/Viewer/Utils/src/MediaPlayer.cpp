@@ -27,15 +27,14 @@ using namespace Msg;
 MediaPlayer::MediaPlayer()
     : m_Player()
     , m_pListener(nullptr)
-    , m_IsSoundFocusAcquired(false)
+    , m_Focus(false)
 {
+    sound_manager_set_focus_state_watch_cb(SOUND_STREAM_FOCUS_FOR_PLAYBACK, on_sound_stream_focus_state_watch_cb, this);
     player_create(&m_Player);
     player_set_sound_type(m_Player, SOUND_TYPE_MEDIA);
     player_set_volume(m_Player, 1.0, 1.0);
     player_set_looping(m_Player, false);
     player_set_completed_cb(m_Player, on_completed_cb, this);
-
-    sound_manager_set_focus_state_watch_cb(SOUND_STREAM_FOCUS_FOR_PLAYBACK, on_sound_stream_focus_state_watch_cb, this);
 }
 
 MediaPlayer::~MediaPlayer()
@@ -61,9 +60,9 @@ player_state_e MediaPlayer::getState() const
     return state;
 }
 
-bool MediaPlayer::isSoundFocusAcquired() const
+bool MediaPlayer::getFocus() const
 {
-    return m_IsSoundFocusAcquired;
+    return m_Focus;
 }
 
 void MediaPlayer::start()
@@ -154,21 +153,19 @@ void MediaPlayer::on_sound_stream_focus_state_watch_cb(sound_stream_focus_mask_e
     MSG_LOG("Interrupted focus state = ", focus_state);
     MSG_LOG("Interrupted focus change reason = ", reason);
 
-    if(reason == SOUND_STREAM_FOCUS_CHANGED_BY_CALL)
-    {
-        MediaPlayer *self = static_cast<MediaPlayer*>(user_data);
-        self->m_IsSoundFocusAcquired = focus_state == SOUND_STREAM_FOCUS_STATE_ACQUIRED;
-        ecore_main_loop_thread_safe_call_sync
-        (
-            [](void *data)->void*
-            {
-                MSG_LOG("");
-                auto *self = (MediaPlayer*)data;
-                if(self->m_pListener)
-                    self->m_pListener->onMediaPlayerSoundFocusChanged();
-                return nullptr;
-            },
-            self
-        );
-    }
+    auto *self = static_cast<MediaPlayer*>(user_data);
+    self->m_Focus = focus_state == SOUND_STREAM_FOCUS_STATE_RELEASED;
+
+    ecore_main_loop_thread_safe_call_sync
+    (
+        [](void *data)->void*
+        {
+            auto *self = (MediaPlayer*)data;
+            if(self->m_pListener)
+                self->m_pListener->onMediaPlayerSoundFocusChanged();
+            return nullptr;
+        },
+        self
+    );
+
 }

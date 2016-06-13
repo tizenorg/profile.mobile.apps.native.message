@@ -293,7 +293,7 @@ void ConvRecipientsPanel::showInvalidRecipientsPopup()
 
 void ConvRecipientsPanel::showDuplicatedRecipientNotif()
 {
-    notification_status_message_post(msg("IDS_MSGC_BODY_DUPLICATED_RECIPIENT").cStr());
+    notification_status_message_post(msg("IDS_MSG_TPOP_SOME_RECIPIENTS_ALREADY_ADDED").cStr());
 }
 
 void ConvRecipientsPanel::showTooManyRecipientsNotif()

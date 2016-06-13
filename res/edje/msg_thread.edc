@@ -2,7 +2,7 @@
 
 collections {
 
-    base_scale: BASE_SCALE;
+    BASE_SCALE;
 
     group { name: "msg_thread_layout";
       parts {

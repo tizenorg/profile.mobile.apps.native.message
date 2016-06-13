@@ -119,7 +119,7 @@ bool Page::isMms()
 
 bool Page::addMedia(const std::string &filePath)
 {
-    MediaTypeData typeData = getMediaType(filePath);
+    MediaTypeData typeData = getMsgMediaTypeByFileExt(filePath);
     MSG_LOG("Media type: ", typeData.mime);
 
    switch(typeData.type)

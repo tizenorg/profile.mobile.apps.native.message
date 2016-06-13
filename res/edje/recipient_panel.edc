@@ -262,12 +262,27 @@ group {
             target: "swl.contact_btn";
         }
         program {
+            name: "show_to_mbe_anim";
+            signal: "show_to_mbe_anim";
+            source: "*";
+            action: STATE_SET "show" 0.0;
+            target: "swl.mbe";
+            transition: LINEAR  0.2;
+        }
+        program {
+            name: "hide_to_mbe_anim";
+            signal: "hide_to_mbe_anim";
+            source: "*";
+            action: STATE_SET "default" 0.0;
+            target: "swl.mbe";
+            transition: LINEAR  0.2;
+        }
+        program {
             name: "show_to_mbe";
             signal: "show_to_mbe";
             source: "*";
             action: STATE_SET "show" 0.0;
             target: "swl.mbe";
-            transition: LINEAR  0.3;
         }
         program {
             name: "hide_to_mbe";
@@ -275,7 +290,6 @@ group {
             source: "*";
             action: STATE_SET "default" 0.0;
             target: "swl.mbe";
-            transition: LINEAR  0.3;
         }
         program {
             name: "show_entry";

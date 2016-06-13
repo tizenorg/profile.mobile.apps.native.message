@@ -125,18 +125,24 @@ int TimeUtils::getTimeFormat()
 
 const std::string &TimeUtils::getDefaultLocale()
 {
-    const char *locale = nullptr;
     static std::string res;
 
-    i18n_ulocale_set_default(getenv("LC_TIME"));
-    i18n_ulocale_get_default(&locale);
+    char *str = nullptr;
+    system_settings_get_value_string(SYSTEM_SETTINGS_KEY_LOCALE_LANGUAGE, &str);
 
-    if(locale)
+    if(str)
     {
-        res = locale;
-        size_t i = res.find(".UTF8");
+        i18n_ulocale_set_default(str);
+        res = str;
+        size_t i = res.find(".");
         if(i != std::string::npos)
             res = res.substr(i);
+
+        free(str);
+    }
+    else
+    {
+        res.clear();
     }
     return res;
 }

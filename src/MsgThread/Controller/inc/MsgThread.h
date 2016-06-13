@@ -29,6 +29,7 @@
 #include "MsgTypes.h"
 #include "ThreadList.h"
 #include "ThreadSearchList.h"
+#include "SystemSettingsManager.h"
 
 #include <string>
 #include <memory>
@@ -47,6 +48,7 @@ namespace Msg
         , private IFloatingButtonListener
         , private IThreadListListener
         , private IThreadSearchListListener
+        , private ISystemSettingsManager
     {
         public:
             MsgThread(NaviFrameController &parent);
@@ -83,6 +85,9 @@ namespace Msg
             virtual void onSearchListItemSelected(ThreadId id);
             virtual void onSearchListItemSelected(MsgId id, const std::string &searchWord);
 
+            // ISystemSettingsManager:
+            virtual void onLanguageChanged();
+
         private:
             enum Mode
             {
@@ -102,6 +107,7 @@ namespace Msg
             void setDeleteMode(bool value);
             void setNormalMode();
             void update();
+            void updateSelectItemsTitle();
             void search(const std::string &searchWord);
 
             // Search:

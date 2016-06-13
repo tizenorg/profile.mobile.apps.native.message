@@ -40,7 +40,7 @@ ConvList::ConvList(Evas_Object *parent, App &app, WorkingDirRef workingDir)
     , m_pListner(nullptr)
     , m_App(app)
     , m_WorkingDir(workingDir)
-    , m_FileViewer(workingDir)
+    , m_FileViewer()
     , m_RecipThumbId(m_App.getThumbnailMaker().getThumbId(ThumbnailMaker::SingleThumb))
     , m_SearchWord()
 {
@@ -183,7 +183,8 @@ ConvListItem *ConvList::getItem(MsgId msgId) const
 
 void ConvList::appendItem(const MsgConversationItem &item)
 {
-    const ThumbnailMaker::ThumbId &thumbId = item.getDirection() == Message::MD_Received ? m_RecipThumbId : -1;
+    static const ThumbnailMaker::ThumbId invalidId = -1;
+    const ThumbnailMaker::ThumbId &thumbId = item.getDirection() == Message::MD_Received ? m_RecipThumbId : invalidId;
     appendItem(new ConvListItem(item, m_App, m_FileViewer, m_WorkingDir, m_SearchWord, thumbId));
 }
 

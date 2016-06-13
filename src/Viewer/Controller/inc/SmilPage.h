@@ -21,6 +21,10 @@
 #include "SmilPageLayout.h"
 #include "MsgPage.h"
 #include "MsgAttachment.h"
+#include "SmilAttachmentItemView.h"
+#include "FileViewer.h"
+
+#include <list>
 
 namespace Msg
 {
@@ -28,6 +32,8 @@ namespace Msg
 
     class SmilPage
         : public SmilPageLayout
+        , private ISmilSaveAllItemViewListener
+        , private ISmilAttachmentItemViewListener
     {
         public:
             SmilPage(Evas_Object *parent, const MsgPage &page);
@@ -42,6 +48,7 @@ namespace Msg
             void playAnimation(bool play);
             Evas_Object *getVideoSink() const;
             std::string getMediaPath() const;
+            const std::list<std::string> &getAttachments() const;
 
         private:
             const MsgMedia *getMedia(const MsgPage &page, MsgMedia::Type type) const;
@@ -51,8 +58,16 @@ namespace Msg
             void buildText(const MsgMedia& media);
             void buildAudio(const MsgMedia& media);
             void buildVideo(const MsgMedia& media);
+            void buildSaveAllItem(int attachmentCount);
             void buildAttachmentInfo(int attachmentCount);
             void buildAttachment(const MsgAttachment& attachment);
+
+            // ISmilAttachmentItemViewListener:
+            virtual void onItemClicked(SmilAttachmentItemView &item);
+            virtual void onSaveButtonClicked(SmilAttachmentItemView &item);
+
+            // ISmilSaveAllItemViewListener:
+            virtual void onItemClicked(SmilSaveAllItemView &item);
 
         private:
             int m_Duration;
@@ -60,6 +75,8 @@ namespace Msg
             Evas_Object *m_pVideoSink;
             bool m_HasAudio;
             SmilImageItemView *m_pImageItem;
+            std::list<std::string> m_Attachments;
+            FileViewer m_FileViewer;
     };
 }
 

@@ -277,13 +277,11 @@ unsigned SmilPlayer::getCurrentPageIndex() const
 
 void SmilPlayer::showUnableToPlayVideoNotif()
 {
-    // TODO: localization "Video" word
     notification_status_message_post(msg("IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL").cStr());
 }
 
 void SmilPlayer::showUnableToPlayAudioNotif()
 {
-    // TODO: localization "Audo" word
     notification_status_message_post(msg("IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL").cStr());
 }
 
@@ -308,8 +306,7 @@ void SmilPlayer::onBeforeDelete(View &view)
 
 void SmilPlayer::onMediaPlayerSoundFocusChanged()
 {
-    MSG_LOG("");
-    if(m_MediaPlayer.isPlaying())
+    if(m_MediaPlayer.isPlaying() && !m_MediaPlayer.getFocus())
     {
         SmilPage *page = getCurrentPage();
         if(page)
