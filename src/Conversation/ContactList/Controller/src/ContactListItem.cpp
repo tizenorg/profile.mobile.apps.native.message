@@ -35,7 +35,7 @@ ContactListItem::ContactListItem(const ContactPersonPhoneLog &rec, App &app, con
     m_MainText = TextDecorator::highlightKeyword(rec.getAddress(), searchWord);
 }
 
-ContactListItem::ContactListItem(const ContactPersonAddress &rec, App &app, const std::string &searchWord)
+ContactListItem::ContactListItem(const ContactAddress &rec, App &app, const std::string &searchWord)
     : ContactListItem(rec.getAddress(), app)
 {
     setStyle(ContactListViewItem::nameOrEmailStyle);

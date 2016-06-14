@@ -108,6 +108,17 @@ std::string MsgUtils::makeNormalizedNumber(const std::string &number)
     return normalizedNumber;
 }
 
+std::string MsgUtils::makeCleanedNumber(const std::string &number)
+{
+    std::string cleanedNumber;
+    for(auto symbol : number)
+    {
+        if(isdigit(symbol))
+            cleanedNumber = symbol;
+    }
+    return cleanedNumber;
+}
+
 bool MsgUtils::isMms(Message::Type type)
 {
     switch(type)

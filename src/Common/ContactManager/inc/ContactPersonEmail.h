@@ -17,7 +17,8 @@
 #ifndef __ContactPersonEmail_h__
 #define __ContactPersonEmail_h__
 
-#include "ContactPersonAddress.h"
+#include "ContactAddress.h"
+#include "ContactRecord.h"
 
 namespace Msg
 {
@@ -25,30 +26,34 @@ namespace Msg
     typedef std::shared_ptr<ContactPersonEmail> ContactPersonEmailRef;
 
     class ContactPersonEmail
-        : public ContactPersonAddress
+        : public ContactAddress
+        , public ContactRecord
     {
         public:
             ContactPersonEmail(bool release, contacts_record_h record = nullptr);
             static const char *getUri();
-            virtual int getId() const;
+            int getEmailId() const;
+
+            // ContactAddress:
+            virtual OwnerType getOwnerType() const;
             virtual AddressType getAddressType() const;
-            virtual int getPersonId() const;
+            virtual int getOwnerId() const;
             virtual std::string getDispName() const;
             virtual std::string getAddress() const;
             virtual std::string getThumbnailPath() const;
     };
 
     inline ContactPersonEmail::ContactPersonEmail(bool release, contacts_record_h record)
-        : ContactPersonAddress(release, record)
+        : ContactRecord(release, record)
     {
     }
 
-    inline int ContactPersonEmail::getId() const
+    inline int ContactPersonEmail::getEmailId() const
     {
         return getInt(_contacts_person_email.email_id);
     }
 
-    inline int ContactPersonEmail::getPersonId() const
+    inline int ContactPersonEmail::getOwnerId() const
     {
         return getInt(_contacts_person_email.person_id);
     }
@@ -71,6 +76,11 @@ namespace Msg
     inline const char *ContactPersonEmail::getUri()
     {
         return _contacts_person_email._uri;
+    }
+
+    inline ContactPersonEmail::OwnerType ContactPersonEmail::getOwnerType() const
+    {
+        return PersonType;
     }
 
     inline ContactPersonEmail::AddressType ContactPersonEmail::getAddressType() const

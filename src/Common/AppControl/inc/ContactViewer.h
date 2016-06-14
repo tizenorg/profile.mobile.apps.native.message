@@ -19,6 +19,7 @@
 #define ContactViewer_h_
 
 #include "AppControlUtils.h"
+#include "ContactAddress.h"
 
 namespace Msg
 {
@@ -27,19 +28,26 @@ namespace Msg
      */
     class ContactViewer
     {
-    public:
-        ContactViewer();
+        public:
+            /**
+             * Launches view-operation.
+             * @param id Contact person id or MyProfile id
+             * @param ownerType PersonType or MyProfileType
+             * @return true in case of success, otherwise returns false.
+             */
+            static bool launch(int id, ContactAddress::OwnerType ownerType);
 
-        /**
-         * Launches view-operation.
-         * @param personId Contact person id
-         * @return true in case of success, otherwise returns false.
-         */
-        static bool launch(int personId);
+            /**
+             * Launches view-operation.
+             * @param id address valid ContactAddress
+             * @return true in case of success, otherwise returns false.
+             */
+            static bool launch(const ContactAddress &address);
 
-    private:
-        ContactViewer(const ContactViewer&) = delete;
-        ContactViewer& operator=(const ContactViewer&) = delete;
+        private:
+            ContactViewer(const ContactViewer&) = delete;
+            ContactViewer& operator=(const ContactViewer&) = delete;
+            static const char *toStr(ContactAddress::OwnerType type);
     };
 }
 
