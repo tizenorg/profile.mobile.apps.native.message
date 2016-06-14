@@ -37,7 +37,7 @@ MbeRecipients::~MbeRecipients()
 std::string MbeRecipients::getDispName(const std::string &address) const
 {
     std::string dispName;
-    ContactPersonAddressRef contactAddress = m_App.getContactManager().getContactPersonAddress(address);
+    ContactAddressRef contactAddress = m_App.getContactManager().getContactAddress(address);
     if(contactAddress)
         dispName = contactAddress->getDispName();
     if(dispName.empty())

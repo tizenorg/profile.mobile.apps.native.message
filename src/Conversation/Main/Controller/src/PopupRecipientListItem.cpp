@@ -19,8 +19,11 @@
 
 using namespace Msg;
 
-PopupAddressListItem::PopupAddressListItem(PopupList &parent, const std::string &text, const std::string &address,
-        PopupListItemPressedCb cb, void *userData)
+PopupAddressListItem::PopupAddressListItem(PopupList &parent,
+                                           const std::string &text,
+                                           const std::string &address,
+                                           PopupListItemPressedCb cb,
+                                           void *userData)
     : PopupTextListItem(parent, text, cb, userData)
     , m_Address(address)
 {
@@ -36,10 +39,15 @@ std::string PopupAddressListItem::getAddress() const
 }
 
 
-PopupPersonIdListItem::PopupPersonIdListItem(PopupList &parent, const std::string &text, int personId,
-        PopupListItemPressedCb cb, void *userData)
+PopupPersonIdListItem::PopupPersonIdListItem(PopupList &parent,
+                                             const std::string &text,
+                                             int contactId,
+                                             ContactAddress::OwnerType ownerType,
+                                             PopupListItemPressedCb cb,
+                                             void *userData)
     : PopupTextListItem(parent, text, cb, userData)
-    , m_PersonId(personId)
+    , m_ContactId(contactId)
+    , m_OwnerType(ownerType)
 {
 }
 
@@ -47,7 +55,12 @@ PopupPersonIdListItem::~PopupPersonIdListItem()
 {
 }
 
-int PopupPersonIdListItem::getPersonId() const
+int PopupPersonIdListItem::getContactId() const
 {
-    return m_PersonId;
+    return m_ContactId;
+}
+
+ContactAddress::OwnerType PopupPersonIdListItem::getContactOwnerType() const
+{
+    return m_OwnerType;
 }

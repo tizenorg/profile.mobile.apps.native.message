@@ -42,6 +42,7 @@ namespace Msg
             static bool isValidEmail(const std::string &address);
             static MsgAddress::AddressType getAddressType(const std::string &address);
             static std::string makeNormalizedNumber(const std::string &number);
+            static std::string makeCleanedNumber(const std::string &number);
             static bool isMms(Message::Type type);
             static bool isSms(Message::Type type);
     };

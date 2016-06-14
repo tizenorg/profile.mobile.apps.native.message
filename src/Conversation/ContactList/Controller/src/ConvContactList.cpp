@@ -25,7 +25,7 @@ using namespace Msg;
 
 namespace
 {
-    inline bool isValid(const ContactPersonAddress &rec)
+    inline bool isValid(const ContactAddress &rec)
     {
         return !rec.getAddress().empty();
     }

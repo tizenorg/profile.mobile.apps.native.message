@@ -14,46 +14,45 @@
  * limitations under the License.
  */
 
-#ifndef ContactOwnerProfile_H_
-#define ContactOwnerProfile_H_
+#ifndef ContactMyProfile_h_
+#define ContactMyProfile_h_
 
 #include "ContactRecord.h"
 
 namespace Msg
 {
-    class ContactOwnerProfile;
-    typedef std::shared_ptr<ContactOwnerProfile> ContactOwnerProfileRef;
+    class ContactMyProfile;
+    typedef std::shared_ptr<ContactMyProfile> ContactMyProfileRef;
 
-    class ContactOwnerProfile
+    class ContactMyProfile
         : public ContactRecord
     {
         public:
-            ContactOwnerProfile(bool release, contacts_record_h record = nullptr);
-
-            virtual int getId() const;
+            ContactMyProfile(bool release, contacts_record_h record = nullptr);
+            int getId() const;
             std::string getThumbnailPath() const;
             std::string getDispName() const;
     };
 
-    inline ContactOwnerProfile::ContactOwnerProfile(bool release, contacts_record_h record)
+    inline ContactMyProfile::ContactMyProfile(bool release, contacts_record_h record)
         : ContactRecord(release, record)
     {
     }
 
-    inline int ContactOwnerProfile::getId() const
+    inline int ContactMyProfile::getId() const
     {
         return getInt(_contacts_my_profile.id);
     }
 
-    inline std::string ContactOwnerProfile::getThumbnailPath() const
+    inline std::string ContactMyProfile::getThumbnailPath() const
     {
         return getStr(_contacts_my_profile.image_thumbnail_path);
     }
 
-    inline std::string ContactOwnerProfile::getDispName() const
+    inline std::string ContactMyProfile::getDispName() const
     {
         return getStr(_contacts_my_profile.display_name);
     }
 }
 
-#endif /* ContactOwnerProfile_H_ */
+#endif /* ContactMyProfile_h_ */

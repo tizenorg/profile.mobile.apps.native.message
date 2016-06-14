@@ -25,14 +25,12 @@ using namespace Msg;
 
 namespace
 {
-    const char* mimeContact = "application/vnd.tizen.contact";
+    const char *mimeContact = "application/vnd.tizen.contact";
+    const char *personContactTypeStr = "person";
+    const char *myProfileTypeStr = "my_profile";
 }
 
-ContactViewer::ContactViewer()
-{
-}
-
-bool ContactViewer::launch(int personId)
+bool ContactViewer::launch(int id, ContactAddress::OwnerType ownerType)
 {
     bool res = false;
     app_control_h svc_handle = nullptr;
@@ -41,7 +39,8 @@ bool ContactViewer::launch(int personId)
     {
         app_control_set_operation(svc_handle, APP_CONTROL_OPERATION_VIEW);
         app_control_set_mime(svc_handle, mimeContact);
-        app_control_add_extra_data(svc_handle, APP_CONTROL_DATA_ID, std::to_string(personId).c_str());
+        app_control_add_extra_data(svc_handle, APP_CONTROL_DATA_TYPE, toStr(ownerType));
+        app_control_add_extra_data(svc_handle, APP_CONTROL_DATA_ID, std::to_string(id).c_str());
         app_control_set_launch_mode(svc_handle, APP_CONTROL_LAUNCH_MODE_GROUP);
         int ret = app_control_send_launch_request(svc_handle, nullptr, nullptr);
         MSG_LOG("Result code: ", ret);
@@ -50,5 +49,24 @@ bool ContactViewer::launch(int personId)
     }
 
     return res;
+}
+
+bool ContactViewer::launch(const ContactAddress &address)
+{
+    return launch(address.getOwnerId(), address.getOwnerType());
+}
+
+const char *ContactViewer::toStr(ContactAddress::OwnerType type)
+{
+    switch(type)
+    {
+        case ContactAddress::PersonType:
+            return personContactTypeStr;
+        case ContactAddress::MyProfileType:
+            return myProfileTypeStr;
+        default:
+            MSG_LOG_ERROR("Unknown ContactType");
+    };
+    return "";
 }
 
