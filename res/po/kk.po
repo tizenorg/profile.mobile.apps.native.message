@@ -946,3 +946,45 @@ msgstr "Жарамды алушылар қосылмады. Бұл хабар а
 msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
 msgstr "Элемент таңдау"
 
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Алушыларды қосу мүмкін емес. Нөмірлері жарамсыз."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Кейбір алушыларды қосу мүмкін емес. Нөмірлері жарамсыз."
+
+msgid "IDS_MSG_HEADER_COULDNT_SEND_MESSAGE_ABB"
+msgstr "Хабар жіберілмеді"
+
+msgid "IDS_MSG_TPOP_CANT_PREVIEW_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Файлды алдын ала қарау мүмкін емес. Файлдың пішіміне қолдау көрсетілмейді."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_VIDEOS_DURING_CALLS"
+msgstr "Қоңыраулар кезінде бейнелерді ойнату мүмкін емес."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_AUDIO_FILES_DURING_CALLS"
+msgstr "Қоңыраулар кезінде аудио файлдарды ойнату мүмкін емес."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS"
+msgstr "%d алушыдан артық қосу мүмкін емес."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS_FOR_MULTIMEDIA_MESSAGES_SOME_RECIPIENTS_REMOVED"
+msgstr "Мультимедиалық хабарлар үшін %d алушыдан артық қосу мүмкін емес. Кейбір алушылар жойылды."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENT_NUMBER_NOT_VALID"
+msgstr "Алушыны қосу мүмкін емес. Нөмірі жарамсыз."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_ATTACHMENTS"
+msgstr "%d тіркемеден артық қосу мүмкін емес."
+
+msgid "IDS_MSG_TPOP_CANT_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Файлды тіркеу мүмкін емес. Файлдың пішіміне қолдау көрсетілмейді."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_P1SS_P2SS_OF_ATTACHMENTS_RESIZING_ATTACHMENTS_ING"
+msgstr "Тіркемелердің %1$s %2$s көлемінен артық қосу мүмкін емес. Тіркемелердің өлшемі өзгертілуде..."
+
+msgid "IDS_MSG_POP_THE_FILE_SIZES_ARE_TOO_LARGE_TRY_SENDING_THEM_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
+msgstr "Файлдардың өлшемдері тым үлкен. Оларды электрондық пошта, Bluetooth, Wi-Fi және т.б. арқылы жіберіп көріңіз."
+
+msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
+msgstr "Хабарландыру дыбысы"
+

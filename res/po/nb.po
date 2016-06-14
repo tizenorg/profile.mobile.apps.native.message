@@ -946,3 +946,45 @@ msgstr "Ingen gyldige mottakere er lagt til. Denne meldingen blir forkastet."
 msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
 msgstr "Velg elementer"
 
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Kan ikke legge til mottakere. Numrene er ikke gyldige."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Kan ikke legge til enkelte mottakere. Numrene er ikke gyldige."
+
+msgid "IDS_MSG_HEADER_COULDNT_SEND_MESSAGE_ABB"
+msgstr "Kunne ikke sende melding"
+
+msgid "IDS_MSG_TPOP_CANT_PREVIEW_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Kan ikke forhåndsvise fil. Filformatet støttes ikke."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_VIDEOS_DURING_CALLS"
+msgstr "Kan ikke spille av videoer under samtaler."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_AUDIO_FILES_DURING_CALLS"
+msgstr "Kan ikke spille av lydfiler under samtaler."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS"
+msgstr "Kan ikke legge til flere enn %d mottakere."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS_FOR_MULTIMEDIA_MESSAGES_SOME_RECIPIENTS_REMOVED"
+msgstr "Kan ikke legge til mer enn %d mottakere for multimediemeldinger. Noen mottakere blir fjernet."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENT_NUMBER_NOT_VALID"
+msgstr "Kan ikke legge til mottaker. Nummeret er ikke gyldig."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_ATTACHMENTS"
+msgstr "Kan ikke legge til mer enn %d vedlegg."
+
+msgid "IDS_MSG_TPOP_CANT_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Kan ikke legge ved fil. Filformatet støttes ikke."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_P1SS_P2SS_OF_ATTACHMENTS_RESIZING_ATTACHMENTS_ING"
+msgstr "Kan ikke legge til mer enn %1$s %2$s med vedlegg. Endrer størrelsen på vedlegg ..."
+
+msgid "IDS_MSG_POP_THE_FILE_SIZES_ARE_TOO_LARGE_TRY_SENDING_THEM_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
+msgstr "Filstørrelsene er for store. Prøv å sende dem via E-post, Bluetooth, Wi-Fi osv."
+
+msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
+msgstr "Varselslyd"
+

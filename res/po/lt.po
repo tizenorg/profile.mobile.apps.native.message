@@ -946,3 +946,45 @@ msgstr "Nepridėta jokių tinkamų gavėjų. Ši žinutė bus panaikinta."
 msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
 msgstr "Pasir. elementų"
 
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Negalima pridėti gavėjų. Numeriai neteisingi."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Daugiau gavėjų pridėti negalima. Numeriai neteisingi."
+
+msgid "IDS_MSG_HEADER_COULDNT_SEND_MESSAGE_ABB"
+msgstr "Nepavyko išsiųsti žinutės"
+
+msgid "IDS_MSG_TPOP_CANT_PREVIEW_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Negalima peržiūrėti failo. Failo formatas nepalaikomas."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_VIDEOS_DURING_CALLS"
+msgstr "Skambučių metu negalima paleisti garso įrašų."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_AUDIO_FILES_DURING_CALLS"
+msgstr "Skambučių metu negalima paleisti garso failų."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS"
+msgstr "Negalima pridėti daugiau nei %d gavėjų."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS_FOR_MULTIMEDIA_MESSAGES_SOME_RECIPIENTS_REMOVED"
+msgstr "Daugialypėms žinutėms negalima pridėti daugiau nei %d gavėjų. Keli gavėjai pašalinti."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENT_NUMBER_NOT_VALID"
+msgstr "Negalima pridėti gavėjo. Neteisingas numeris."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_ATTACHMENTS"
+msgstr "Negalima pridėti daugiau nei %d priedų."
+
+msgid "IDS_MSG_TPOP_CANT_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Negalima pridėti failo. Failo formatas nepalaikomas."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_P1SS_P2SS_OF_ATTACHMENTS_RESIZING_ATTACHMENTS_ING"
+msgstr "Negalima pridėti daugiau nei %1$s %2$s priedų. Keičiamas priedų dydis..."
+
+msgid "IDS_MSG_POP_THE_FILE_SIZES_ARE_TOO_LARGE_TRY_SENDING_THEM_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
+msgstr "Per didelio dydžio failai. Pabandykite juos siųsti el. paštu, per „Bluetooth“, „Wi-Fi“ ir pan."
+
+msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
+msgstr "Pranešimo garsas"
+

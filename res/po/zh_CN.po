@@ -946,3 +946,45 @@ msgstr "没有添加有效收件人，将放弃您的信息。"
 msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
 msgstr "选择项目"
 
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "号码无效，无法添加收件人。"
+
+msgid "IDS_MSG_TPOP_CANT_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "号码无效，无法添加部分收件人。"
+
+msgid "IDS_MSG_HEADER_COULDNT_SEND_MESSAGE_ABB"
+msgstr "无法发送信息"
+
+msgid "IDS_MSG_TPOP_CANT_PREVIEW_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "不支持该文件格式，无法预览文件。"
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_VIDEOS_DURING_CALLS"
+msgstr "通话期间无法播放视频"
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_AUDIO_FILES_DURING_CALLS"
+msgstr "通话期间无法播放音频文件"
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS"
+msgstr "无法添加超过 %d 个收件人"
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS_FOR_MULTIMEDIA_MESSAGES_SOME_RECIPIENTS_REMOVED"
+msgstr "无法为多媒体信息添加超过 %d 个收件人。已移除部分收件人。"
+
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENT_NUMBER_NOT_VALID"
+msgstr "号码无效，无法添加收件人。"
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_ATTACHMENTS"
+msgstr "无法添加超过 %d 个附件"
+
+msgid "IDS_MSG_TPOP_CANT_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "不支持该文件格式，无法附加文件。"
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_P1SS_P2SS_OF_ATTACHMENTS_RESIZING_ATTACHMENTS_ING"
+msgstr "无法添加超过 %1$s %2$s 的附件。正在调整附件大小..."
+
+msgid "IDS_MSG_POP_THE_FILE_SIZES_ARE_TOO_LARGE_TRY_SENDING_THEM_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
+msgstr "文件过大。请尝试通过电子邮件、蓝牙、Wi-Fi 等发送。"
+
+msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
+msgstr "通知声音"
+

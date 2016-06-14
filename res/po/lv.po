@@ -946,3 +946,45 @@ msgstr "Nav pievienots neviens derīgs adresāts. Šī ziņa tiks atmesta."
 msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
 msgstr "Izvēl. objektus"
 
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Nevar pievienot adresātus. Numuri nav derīgi."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Nevar pievienot dažus adresātus. Numuri nav derīgi."
+
+msgid "IDS_MSG_HEADER_COULDNT_SEND_MESSAGE_ABB"
+msgstr "Nevarēja nosūtīt ziņu"
+
+msgid "IDS_MSG_TPOP_CANT_PREVIEW_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Nevar priekšskatīt failu. Faila formāts netiek atbalstīts."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_VIDEOS_DURING_CALLS"
+msgstr "Sarunu laikā nevar demonstrēt videoklipus."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_AUDIO_FILES_DURING_CALLS"
+msgstr "Sarunu laikā nevar atskaņot audio failus."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS"
+msgstr "Nevar pievienot vairāk par %d adresātiem."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS_FOR_MULTIMEDIA_MESSAGES_SOME_RECIPIENTS_REMOVED"
+msgstr "Multiziņām var pievienot ne vairāk kā %d adresātus. Daži adresāti ir noņemti."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENT_NUMBER_NOT_VALID"
+msgstr "Nevar pievienot adresātu. Numurs nav derīgs."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_ATTACHMENTS"
+msgstr "Nevar pievienot vairāk par %d pielikumiem."
+
+msgid "IDS_MSG_TPOP_CANT_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Nevar pievienot failu. Faila formāts netiek atbalstīts."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_P1SS_P2SS_OF_ATTACHMENTS_RESIZING_ATTACHMENTS_ING"
+msgstr "Nevar pievienot vairāk par %1$s %2$s pielikumu. Maina pielikumu lielumu..."
+
+msgid "IDS_MSG_POP_THE_FILE_SIZES_ARE_TOO_LARGE_TRY_SENDING_THEM_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
+msgstr "Faili ir par lielu. Mēģiniet tos sūtīt, izmantojot e-pastu, Bluetooth, Wi-Fi utt."
+
+msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
+msgstr "Paziņojuma skaņa"
+

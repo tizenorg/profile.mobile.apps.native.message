@@ -946,3 +946,45 @@ msgstr "कोई मान्य प्राप्तकर्ता नही
 msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
 msgstr "मदें चुनें"
 
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "प्राप्तकर्ता जोड़े नहीं जा सकते हैं। नंबर्स मान्य नहीं हैं।"
+
+msgid "IDS_MSG_TPOP_CANT_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "कुछ प्राप्तकर्ता जोड़े नहीं जा सकते हैं। नंबर्स मान्य नहीं हैं।"
+
+msgid "IDS_MSG_HEADER_COULDNT_SEND_MESSAGE_ABB"
+msgstr "सन्देश नहीं भेजा जा सका"
+
+msgid "IDS_MSG_TPOP_CANT_PREVIEW_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "फाइल का पूर्वावलोकन नहीं किया जा सकता। फाइल फॉर्मेट समर्थित नहीं है।"
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_VIDEOS_DURING_CALLS"
+msgstr "कॉल्स के दौरान वीडियोज नहीं चलाए जा सकते हैं।"
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_AUDIO_FILES_DURING_CALLS"
+msgstr "कॉल्स के दौरान ऑडियो फाइलें नहीं चलाई जा सकती हैं।"
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS"
+msgstr "%d से अधिक प्राप्तकर्ता नहीं जोड़े जा सकते हैं।"
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS_FOR_MULTIMEDIA_MESSAGES_SOME_RECIPIENTS_REMOVED"
+msgstr "मल्टीमीडिया सन्देशों के लिए %d से अधिक प्राप्तकर्ता नहीं जोड़ सकते हैं। कुछ प्राप्तकर्ता निकाले गए।"
+
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENT_NUMBER_NOT_VALID"
+msgstr "प्राप्तकर्ता जोड़ा नहीं जा सकता। नंबर मान्य नहीं है।"
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_ATTACHMENTS"
+msgstr "%d से अधिक संलग्नक जोड़े नहीं जा सकते हैं।"
+
+msgid "IDS_MSG_TPOP_CANT_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "फाइल संलग्न नहीं की जा सकती। फाइल फॉर्मेट समर्थित नहीं है।"
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_P1SS_P2SS_OF_ATTACHMENTS_RESIZING_ATTACHMENTS_ING"
+msgstr "%1$s %2$s से अधिक संलग्नक जोड़े नहीं जा सकते। संलग्नकों का आकार बदला जा रहा है..."
+
+msgid "IDS_MSG_POP_THE_FILE_SIZES_ARE_TOO_LARGE_TRY_SENDING_THEM_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
+msgstr "फाइल का आकार बहुत बड़ा है। इन्हें ईमेल, ब्लूटूथ, Wi-Fi, आदि के माध्यम से भेजने का प्रयास करें।"
+
+msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
+msgstr "अधिसूचना ध्वनि"
+
