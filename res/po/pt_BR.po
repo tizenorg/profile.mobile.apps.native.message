@@ -815,7 +815,7 @@ msgid "IDS_MSGF_BODY_EXPIRED"
 msgstr "Expirado"
 
 msgid "IDS_MSGF_BODY_ALL"
-msgstr "Todas"
+msgstr "Todos"
 
 msgid "IDS_MSG_SK_NO_ABB"
 msgstr "Não"
@@ -945,4 +945,46 @@ msgstr "Nenhum destinatário válido foi adicionado. Esta mensagem será descart
 
 msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
 msgstr "Selec. itens"
+
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Não é possível adicionar destinatários. Os números são inválidos."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Não é possível adicionar alguns destinatários. Os números são inválidos."
+
+msgid "IDS_MSG_HEADER_COULDNT_SEND_MESSAGE_ABB"
+msgstr "Impossível enviar mensagem"
+
+msgid "IDS_MSG_TPOP_CANT_PREVIEW_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Não é possível visualizar o arquivo. O formato de arquivo é incompatível."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_VIDEOS_DURING_CALLS"
+msgstr "Não é possível reproduzir vídeos durante as chamadas."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_AUDIO_FILES_DURING_CALLS"
+msgstr "Não é possível reproduzir arquivos de áudio durante as chamadas."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS"
+msgstr "Não é possível adicionar mais de %d destinatários."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS_FOR_MULTIMEDIA_MESSAGES_SOME_RECIPIENTS_REMOVED"
+msgstr "Não é possível adicionar mais de %d destinatários para mensagens multimídia. Alguns destinatários foram removidos."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENT_NUMBER_NOT_VALID"
+msgstr "Não é possível adicionar o destinatário. O número é inválido."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_ATTACHMENTS"
+msgstr "Não é possível adicionar mais de %d anexos."
+
+msgid "IDS_MSG_TPOP_CANT_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Não é possível anexar o arquivo. O formato de arquivo é incompatível."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_P1SS_P2SS_OF_ATTACHMENTS_RESIZING_ATTACHMENTS_ING"
+msgstr "Não é possível adicionar mais de %1$s %2$s de anexos. Redimensionando os anexos..."
+
+msgid "IDS_MSG_POP_THE_FILE_SIZES_ARE_TOO_LARGE_TRY_SENDING_THEM_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
+msgstr "Os tamanhos dos arquivos são muito grandes. Tente enviá-los por E-mail, Bluetooth, Wi-Fi etc."
+
+msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
+msgstr "Som de notificação"
 

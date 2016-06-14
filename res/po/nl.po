@@ -946,3 +946,45 @@ msgstr "Geen geldige ontvangers toegevoegd. Dit bericht wordt verwijderd."
 msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
 msgstr "Items selecteren"
 
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Kan ontvangers niet toevoegen. Nummers niet geldig."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Kan bepaalde ontvangers niet toevoegen. Nummers niet geldig."
+
+msgid "IDS_MSG_HEADER_COULDNT_SEND_MESSAGE_ABB"
+msgstr "Kan bericht niet verzenden"
+
+msgid "IDS_MSG_TPOP_CANT_PREVIEW_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Kan geen voorbeeld van het bestand weergeven. Bestandsindeling niet ondersteund."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_VIDEOS_DURING_CALLS"
+msgstr "Kan geen video's afspelen tijdens oproepen."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_AUDIO_FILES_DURING_CALLS"
+msgstr "Kan geen audiobestanden afspelen tijdens oproepen."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS"
+msgstr "Kan niet meer dan %d ontvangers toevoegen."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS_FOR_MULTIMEDIA_MESSAGES_SOME_RECIPIENTS_REMOVED"
+msgstr "Kan niet meer dan %d ontvangers toevoegen voor mms-berichten. Een aantal ontvangers verwijderd."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENT_NUMBER_NOT_VALID"
+msgstr "Kan ontvanger niet toevoegen. Nummer niet geldig."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_ATTACHMENTS"
+msgstr "Kan niet meer dan %d bijlagen toevoegen."
+
+msgid "IDS_MSG_TPOP_CANT_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Kan bestand niet bijvoegen. Bestandsindeling niet ondersteund."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_P1SS_P2SS_OF_ATTACHMENTS_RESIZING_ATTACHMENTS_ING"
+msgstr "Kan niet meer dan %1$s %2$s met bijlagen toevoegen. Omvang bijlagen wijzigen..."
+
+msgid "IDS_MSG_POP_THE_FILE_SIZES_ARE_TOO_LARGE_TRY_SENDING_THEM_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
+msgstr "De bestanden zijn te groot. Probeer ze te verzenden via E-mail, Bluetooth, Wi-Fi, enzovoort."
+
+msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
+msgstr "Meldingsgeluid"
+

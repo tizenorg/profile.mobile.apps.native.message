@@ -946,3 +946,45 @@ msgstr "Δεν έχουν προστεθεί έγκυροι παραλήπτες
 msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
 msgstr "Επιλογή στοιχ."
 
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Δεν είναι δυνατή η προσθήκη των παραληπτών. Οι αριθμοί δεν είναι έγκυροι."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Δεν είναι δυνατή ορισμένων παραληπτών. Οι αριθμοί δεν είναι έγκυροι."
+
+msgid "IDS_MSG_HEADER_COULDNT_SEND_MESSAGE_ABB"
+msgstr "Ήταν αδύν. η αποστ. μηνύμ."
+
+msgid "IDS_MSG_TPOP_CANT_PREVIEW_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Δεν είναι δυνατή η προεπισκόπηση του αρχείου. Η μορφή αρχείου δεν υποστηρίζεται."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_VIDEOS_DURING_CALLS"
+msgstr "Αδύνατη η αναπαραγωγή βίντεο κατά τη διάρκεια κλήσεων."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_AUDIO_FILES_DURING_CALLS"
+msgstr "Δεν είναι δυνατή η αναπαραγωγή αρχείων ήχου κατά τη διάρκεια κλήσεων."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS"
+msgstr "Δεν είναι δυνατή η προσθήκη περισσότερων από %d παραληπτών."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS_FOR_MULTIMEDIA_MESSAGES_SOME_RECIPIENTS_REMOVED"
+msgstr "Δεν είναι δυνατή η προσθήκη περισσότερων από %d παραληπτών στα μηνύματα πολυμέσων. Ορισμένοι παραλήπτες αφαιρέθηκαν."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENT_NUMBER_NOT_VALID"
+msgstr "Δεν είναι δυνατή η προσθήκη του παραλήπτη. Ο αριθμός δεν είναι έγκυρος."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_ATTACHMENTS"
+msgstr "Δεν είναι δυνατή η προσθήκη περισσότερων από %d συνημμένων."
+
+msgid "IDS_MSG_TPOP_CANT_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Δεν είναι δυνατή η επισύναψη του αρχείου. Η μορφή αρχείου δεν υποστηρίζεται."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_P1SS_P2SS_OF_ATTACHMENTS_RESIZING_ATTACHMENTS_ING"
+msgstr "Δεν είναι δυνατή η προσθήκη περισσότερων από %1$s %2$s συνημμένων. Αλλαγή μεγέθους συνημμένων..."
+
+msgid "IDS_MSG_POP_THE_FILE_SIZES_ARE_TOO_LARGE_TRY_SENDING_THEM_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
+msgstr "Το μέγεθος των αρχείων είναι υπερβολικά μεγάλο. Δοκιμάστε να τα στείλετε μέσω email, Bluetooth, Wi-Fi κλπ."
+
+msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
+msgstr "Ήχος ειδοποίησης"
+

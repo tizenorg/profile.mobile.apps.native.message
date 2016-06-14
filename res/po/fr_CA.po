@@ -946,3 +946,45 @@ msgstr "Aucun destinataire valide n'a été ajouté. Ce message va être ignoré
 msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
 msgstr "Sélect. éléments"
 
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Impossible d'ajouter les destinataires. Leurs numéros ne sont pas valides."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Impossible d'ajouter des destinataires. Leurs numéros ne sont pas valides."
+
+msgid "IDS_MSG_HEADER_COULDNT_SEND_MESSAGE_ABB"
+msgstr "Impossible d'envoyer message"
+
+msgid "IDS_MSG_TPOP_CANT_PREVIEW_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Impossible d'afficher l'aperçu du fichier. Le format de fichier n'est pas pris en charge."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_VIDEOS_DURING_CALLS"
+msgstr "Impossible de lire les vidéos pendant les appels."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_AUDIO_FILES_DURING_CALLS"
+msgstr "Impossible de lire les fichiers audios pendant les appels."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS"
+msgstr "Impossible d'ajouter plus de %d destinataires."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS_FOR_MULTIMEDIA_MESSAGES_SOME_RECIPIENTS_REMOVED"
+msgstr "Impossible d'ajouter plus de %d destinataires pour les MMS. Certains destinataires ont été supprimés."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENT_NUMBER_NOT_VALID"
+msgstr "Impossible d'ajouter le destinataire. Son numéro n'est pas valide."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_ATTACHMENTS"
+msgstr "Impossible d'ajouter plus de %d pièces jointes."
+
+msgid "IDS_MSG_TPOP_CANT_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Impossible de joindre le fichier. Le format de fichier n'est pas pris en charge."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_P1SS_P2SS_OF_ATTACHMENTS_RESIZING_ATTACHMENTS_ING"
+msgstr "Impossible d'ajouter plus de %1$s %2$s de pièces jointes. Redimensionnement des pièces jointes..."
+
+msgid "IDS_MSG_POP_THE_FILE_SIZES_ARE_TOO_LARGE_TRY_SENDING_THEM_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
+msgstr "Les fichiers sont trop volumineux. Essayez de les envoyer par courriel, Bluetooth, Wifi, etc."
+
+msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
+msgstr "Son de notification"
+

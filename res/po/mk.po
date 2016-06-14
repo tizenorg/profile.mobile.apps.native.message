@@ -946,3 +946,45 @@ msgstr "Не се додадени важечки приматели. Порак
 msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
 msgstr "Изберете ставки"
 
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Не може да се додадат приматели. Броевите не се важечки."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Не може да се додадат некои приматели. Броевите не се важечки."
+
+msgid "IDS_MSG_HEADER_COULDNT_SEND_MESSAGE_ABB"
+msgstr "Не може да се прати порака"
+
+msgid "IDS_MSG_TPOP_CANT_PREVIEW_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Не може да се прегледа датотеката. Форматот на датотеката не е поддржан."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_VIDEOS_DURING_CALLS"
+msgstr "Не може да се емитуваат видеа за време на повици."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_AUDIO_FILES_DURING_CALLS"
+msgstr "Не може да се емитуваат аудио датотеки за време на повици."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS"
+msgstr "Не може да се додадат повеќе од %d приматели."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS_FOR_MULTIMEDIA_MESSAGES_SOME_RECIPIENTS_REMOVED"
+msgstr "Не може да се додадат повеќе од %d приматели за мултимедијални пораки. Некои приматели се отстранети."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENT_NUMBER_NOT_VALID"
+msgstr "Не може да се додаде примател. Бројот не е важечки."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_ATTACHMENTS"
+msgstr "Не може да се додадат повеќе од %d прилози."
+
+msgid "IDS_MSG_TPOP_CANT_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Не може да се приложи датотека. Форматот на датотеката не е поддржан."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_P1SS_P2SS_OF_ATTACHMENTS_RESIZING_ATTACHMENTS_ING"
+msgstr "Не може да се додадат прилози поголеми од %1$s %2$s. Се менува големината на прилозите..."
+
+msgid "IDS_MSG_POP_THE_FILE_SIZES_ARE_TOO_LARGE_TRY_SENDING_THEM_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
+msgstr "Датотеките се преголеми. Обидете се да ги испраќате преку Е-пошта, Bluetooth, Wi-Fi итн."
+
+msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
+msgstr "Звук за известување"
+

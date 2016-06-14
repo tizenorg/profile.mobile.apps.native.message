@@ -946,3 +946,45 @@ msgstr "Nu au fost adăugați destinatari valabili. Mesajul va fi eliminat."
 msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
 msgstr "Selectare elem."
 
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Nu pot fi adăugați destinatari. Numerele nu sunt valide."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Nu se pot adăuga anumiți destinatari. Numerele nu sunt valide."
+
+msgid "IDS_MSG_HEADER_COULDNT_SEND_MESSAGE_ABB"
+msgstr "Nu s-a putut trimite mesajul"
+
+msgid "IDS_MSG_TPOP_CANT_PREVIEW_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Nu se poate previzualiza fișierul. Formatul de fișier nu este acceptat."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_VIDEOS_DURING_CALLS"
+msgstr "Nu se pot reda videoclipuri în timpul apelurilor."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_AUDIO_FILES_DURING_CALLS"
+msgstr "Nu se pot reda fișiere audio în timpul apelurilor."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS"
+msgstr "Nu se pot adăuga mai mult de %d destinatari."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS_FOR_MULTIMEDIA_MESSAGES_SOME_RECIPIENTS_REMOVED"
+msgstr "Nu se pot adăuga mai mult de %d destinatari ai mesajelor multimedia. Unii dintre aceștia au fost eliminați."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENT_NUMBER_NOT_VALID"
+msgstr "Nu se poate adăuga destinatarul. Numărul nu este valid."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_ATTACHMENTS"
+msgstr "Nu se pot adăuga mai mult de %d atașări."
+
+msgid "IDS_MSG_TPOP_CANT_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Nu se poate atașa fișierul. Format de fișier neacceptat."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_P1SS_P2SS_OF_ATTACHMENTS_RESIZING_ATTACHMENTS_ING"
+msgstr "Imposibil de adăugat mai mult de %1$s %2$s atașări. Se redimensionează atașările..."
+
+msgid "IDS_MSG_POP_THE_FILE_SIZES_ARE_TOO_LARGE_TRY_SENDING_THEM_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
+msgstr "Dimensiunile fișierelor sunt prea mari. Încercați să le trimiteți prin Email, Bluetooth, Wi-Fi etc."
+
+msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
+msgstr "Sunet notificare"
+

@@ -946,3 +946,45 @@ msgstr "Non avete inserito nessun destinatario valido. Il messaggio verrà scart
 msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
 msgstr "Selez. elementi"
 
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Impossibile aggiungere destinatari. Numeri non validi."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Impossibile aggiungere alcuni destinatari. Numeri non validi."
+
+msgid "IDS_MSG_HEADER_COULDNT_SEND_MESSAGE_ABB"
+msgstr "Impossibile inviare messaggio"
+
+msgid "IDS_MSG_TPOP_CANT_PREVIEW_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Impossibile visualizzare il file in anteprima. Formato di file non supportato."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_VIDEOS_DURING_CALLS"
+msgstr "Impossibile riprodurre i video durante le chiamate."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_AUDIO_FILES_DURING_CALLS"
+msgstr "Impossibile riprodurre i file audio durante le chiamate."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS"
+msgstr "Impossibile aggiungere più di %d destinatari."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS_FOR_MULTIMEDIA_MESSAGES_SOME_RECIPIENTS_REMOVED"
+msgstr "Impossibile aggiungere più di %d destinatari per i messaggi multimediali. Alcuni destinatari sono stati rimossi."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENT_NUMBER_NOT_VALID"
+msgstr "Impossibile aggiungere destinatario. Numero non valido."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_ATTACHMENTS"
+msgstr "Impossibile aggiungere più di %d allegati."
+
+msgid "IDS_MSG_TPOP_CANT_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Impossibile allegare il file. Formato di file non supportato."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_P1SS_P2SS_OF_ATTACHMENTS_RESIZING_ATTACHMENTS_ING"
+msgstr "Impossibile aggiungere più di %1$s %2$s di allegati. Ridimensionamento degli allegati in corso..."
+
+msgid "IDS_MSG_POP_THE_FILE_SIZES_ARE_TOO_LARGE_TRY_SENDING_THEM_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
+msgstr "La dimensione dei file è troppo grande. Provate a inviarli con E-mail, Bluetooth, Wi-Fi ecc."
+
+msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
+msgstr "Suono di notifica"
+

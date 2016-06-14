@@ -946,3 +946,45 @@ msgstr "Der er ikke tilføjet gyldige modtagere. Denne besked vil blive kasseret
 msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
 msgstr "Vælg elementer"
 
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Modtagerne kan ikke tilføjes. Numrene er ikke gyldige."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Visse modtagere kan ikke tilføjes. Numrene er ikke gyldige."
+
+msgid "IDS_MSG_HEADER_COULDNT_SEND_MESSAGE_ABB"
+msgstr "Beskeden kunne ikke sendes"
+
+msgid "IDS_MSG_TPOP_CANT_PREVIEW_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Der kan ikke vises et eksempel på filen. Filformatet understøttes ikke."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_VIDEOS_DURING_CALLS"
+msgstr "Der kan ikke afspilles videoer under opkald."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_AUDIO_FILES_DURING_CALLS"
+msgstr "Der kan ikke afspilles lydfiler under opkald."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS"
+msgstr "Det er ikke muligt at tilføje flere end %d modtagere."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS_FOR_MULTIMEDIA_MESSAGES_SOME_RECIPIENTS_REMOVED"
+msgstr "Kan ikke tilføje mere end %d modtagere af mms'er. Nogle modtagere er fjernet."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENT_NUMBER_NOT_VALID"
+msgstr "Modtageren kan ikke tilføjes. Nummeret er ikke gyldigt."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_ATTACHMENTS"
+msgstr "Det er ikke muligt at tilføje mere end %d vedhæftede filer."
+
+msgid "IDS_MSG_TPOP_CANT_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Filen kan ikke vedhæftes. Filformatet understøttes ikke."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_P1SS_P2SS_OF_ATTACHMENTS_RESIZING_ATTACHMENTS_ING"
+msgstr "Der kan ikke tilføjes mere end %1$s %2$s af vedhæftede filer. Størrelsen på de vedhæftede filer ændres ..."
+
+msgid "IDS_MSG_POP_THE_FILE_SIZES_ARE_TOO_LARGE_TRY_SENDING_THEM_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
+msgstr "Filerne er for store. Prøv at sende dem via E-mail, Bluetooth, Wi-Fi, osv."
+
+msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
+msgstr "Meddelelseslyd"
+
