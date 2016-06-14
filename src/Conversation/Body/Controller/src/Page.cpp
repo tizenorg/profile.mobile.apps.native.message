@@ -224,15 +224,11 @@ void Page::read(MsgPage &msgPage)
 void Page::readText(MsgPage &msgPage)
 {
     TextPageViewItem *textItem = static_cast<TextPageViewItem*>(getItem(PageViewItem::TextType));
-    if(textItem)
+    if(textItem && !textItem->isEmpty())
     {
         writeTextToFile(*textItem);
         MsgMedia &media = msgPage.addMedia();
         media.setFilePath(textItem->getResourcePath());
-    }
-    else
-    {
-        MSG_ASSERT(false, "TextPageViewItem is null");
     }
 }
 

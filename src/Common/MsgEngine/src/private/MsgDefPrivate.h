@@ -22,8 +22,8 @@
 namespace Msg
 {
     // SMIL layout:
-    const int smilScreenWidth  = 480;
-    const int smilScreenHeight = 800;
+    const int smilScreenWidthP  = 100;
+    const int smilScreenHeightP = 100;
 
     const int smilPosTop       = 1;
     const int smilPosBottom    = 50;

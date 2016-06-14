@@ -73,10 +73,11 @@ void MsgComposerPrivate::setSmilHeader(msg_struct_t mms, bool isTextTop)
     msg_struct_t imageRegion = NULL;
 
     /************  make rootlayout ***************/
-    msg_set_int_value(mms, MSG_MMS_ROOTLAYOUT_WIDTH_INT, smilScreenWidth);
-    msg_set_int_value(mms, MSG_MMS_ROOTLAYOUT_HEIGHT_INT, smilScreenHeight);
-    msg_set_int_value(mms, MSG_MMS_ROOTLAYOUT_BGCOLOR_INT, smilDefaultBgColor);
+    msg_set_int_value(mms, MSG_MMS_ROOTLAYOUT_WIDTH_INT, smilScreenWidthP);
+    msg_set_int_value(mms, MSG_MMS_ROOTLAYOUT_HEIGHT_INT, smilScreenHeightP);
 
+    msg_set_bool_value(mms, MSG_MMS_ROOTLAYOUT_WIDTH_PERCENT_BOOL, true);
+    msg_set_bool_value(mms, MSG_MMS_ROOTLAYOUT_HEIGHT_PERCENT_BOOL, true);
     /************ make region ********************/
     /* 1. add text region */
     msg_list_add_item(mms, MSG_STRUCT_MMS_REGION, &textRegion);
@@ -95,8 +96,6 @@ void MsgComposerPrivate::setSmilHeader(msg_struct_t mms, bool isTextTop)
     msg_set_int_value(textRegion, MSG_MMS_REGION_LENGTH_HEIGHT_INT, smilRegionHeight);
     msg_set_bool_value(textRegion, MSG_MMS_REGION_LENGTH_HEIGHT_PERCENT_BOOL, true);
 
-    msg_set_int_value(textRegion, MSG_MMS_REGION_BGCOLOR_INT, smilDefaultBgColor);
-
     /* 2. image(video) region */
     msg_list_add_item(mms, MSG_STRUCT_MMS_REGION, &imageRegion);
     MsgUtilsPrivate::setStr(imageRegion, MSG_MMS_REGION_ID_STR, imageRegionId);
@@ -111,5 +110,4 @@ void MsgComposerPrivate::setSmilHeader(msg_struct_t mms, bool isTextTop)
     msg_set_bool_value(imageRegion, MSG_MMS_REGION_LENGTH_WIDTH_PERCENT_BOOL, true);
     msg_set_int_value(imageRegion, MSG_MMS_REGION_LENGTH_HEIGHT_INT, smilRegionHeight);
     msg_set_bool_value(imageRegion, MSG_MMS_REGION_LENGTH_HEIGHT_PERCENT_BOOL, true);
-    msg_set_int_value(imageRegion, MSG_MMS_REGION_BGCOLOR_INT, smilDefaultBgColor);
 }
