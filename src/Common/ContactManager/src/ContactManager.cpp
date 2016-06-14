@@ -17,8 +17,10 @@
 #include "ContactManager.h"
 #include "Logger.h"
 #include "MsgUtils.h"
+#include "PhoneNumberUtils.h"
 
 #include <algorithm>
+#include <string.h>
 
  namespace Msg
  {
@@ -85,7 +87,6 @@
 
         return "Unknown error";
     }
-
 
     template <>
     std::shared_ptr<ContactList<ContactPersonPhoneLog>> ContactManager::search<ContactPersonPhoneLog>(const std::string &keyword)
@@ -157,17 +158,87 @@
     ContactPersonEmailRef ContactManager::getContactPersonEmail(const std::string &email)
     {
         contacts_filter_h filter = nullptr;
-        contacts_filter_create(_contacts_contact_email._uri, &filter);
-        contacts_filter_add_str(filter, _contacts_contact_email.email, CONTACTS_MATCH_EXACTLY, email.c_str());
+        contacts_filter_create(_contacts_person_email._uri, &filter);
+        contacts_filter_add_str(filter, _contacts_person_email.email, CONTACTS_MATCH_EXACTLY, email.c_str());
         return filter ? getContactPersonEmail(filter) : nullptr;
     }
 
-    ContactPersonAddressRef ContactManager::getContactPersonAddress(const std::string &address)
+    ContactMyProfileNumberRef ContactManager::getContactMyProfileNumber(const std::string &number)
+    {
+        auto myProfile = getOwnerProfile();
+        if(!myProfile)
+            return nullptr;
+
+        contacts_record_h rec = myProfile->getRecord();
+
+        int count = 0;
+        contacts_record_get_child_record_count(rec, _contacts_my_profile.number, &count);
+        std::string normalizedNumber = PhoneNumberUtils::getInst().getNormalizedNumber(number);
+
+        for(int i =0; i < count; ++i)
+        {
+            contacts_record_h child = nullptr;
+            contacts_record_get_child_record_at_p(rec, _contacts_my_profile.number, i, &child);
+            if(child)
+            {
+                char *num = nullptr;
+                contacts_record_get_str_p(child, _contacts_number.number, &num);
+                if(num)
+                {
+                    std::string curNum = PhoneNumberUtils::getInst().getNormalizedNumber(num);
+                    if(normalizedNumber == curNum)
+                    {
+                        contacts_record_h clonedRec = nullptr;
+                        contacts_record_clone(child, &clonedRec);
+                        if(clonedRec)
+                            return std::make_shared<ContactMyProfileNumber>(true, *myProfile, clonedRec);
+                    }
+                }
+            }
+        }
+        return  nullptr;
+    }
+
+    ContactMyProfileEmailRef ContactManager::getContactMyProfileEmail(const std::string &email)
+    {
+        auto myProfile = getOwnerProfile();
+        if(!myProfile)
+            return nullptr;
+
+        contacts_record_h rec = myProfile->getRecord();
+
+        int count = 0;
+        contacts_record_get_child_record_count(rec, _contacts_my_profile.email, &count);
+
+        for(int i =0; i < count; ++i)
+        {
+            contacts_record_h child = nullptr;
+            contacts_record_get_child_record_at_p(rec, _contacts_my_profile.email, i, &child);
+            if(child)
+            {
+                char *curEmail = nullptr;
+                contacts_record_get_str_p(child, _contacts_email.email, &curEmail);
+                if(curEmail)
+                {
+                   if(strcasecmp(email.c_str(), curEmail) == 0)
+                   {
+                       contacts_record_h clonedRec = nullptr;
+                       contacts_record_clone(child, &clonedRec);
+                       if(clonedRec)
+                           return std::make_shared<ContactMyProfileEmail>(true, *myProfile, clonedRec);
+                   }
+                }
+            }
+        }
+        return  nullptr;
+    }
+
+    ContactAddressRef ContactManager::getContactAddress(const std::string &address)
     {
         return getAddress(address);
     }
 
-    ContactOwnerProfileRef ContactManager::getOwnerProfile()
+    ContactMyProfileRef ContactManager::getOwnerProfile()
     {
         if(!m_OwnerProfile)
         {
@@ -180,7 +251,7 @@
                 contacts_list_destroy(list, false);
             }
             if(myProfile)
-                m_OwnerProfile.reset(new ContactOwnerProfile(true, myProfile));
+                m_OwnerProfile.reset(new ContactMyProfile(true, myProfile));
         }
         return m_OwnerProfile;
     }
@@ -313,17 +384,32 @@
         return cResValue ? std::make_shared<ContactPersonEmail>(true, cResValue) : nullptr;
     }
 
-    ContactPersonAddressRef ContactManager::getAddress(const std::string &address)
+    ContactAddressRef ContactManager::getAddress(const std::string &address)
     {
         auto it = m_AddressMap.find(address);
         if(m_AddressMap.end() == it)
         {
-            ContactPersonAddressRef personAddress = MsgUtils::isValidNumber(address) ?
-                    std::static_pointer_cast<ContactPersonAddress>(getContactPersonNumber(address)):
-                    std::static_pointer_cast<ContactPersonAddress>(getContactPersonEmail(address));
-            m_AddressMap[address] = personAddress;
+            bool isNumber = MsgUtils::isValidNumber(address);
 
-            return personAddress;
+            // ContactPerson:
+            ContactAddressRef contactAddress;
+            if(isNumber)
+                contactAddress = getContactPersonNumber(address);
+            else
+                contactAddress = getContactPersonEmail(address);
+
+            // MyProfile:
+            if(!contactAddress)
+            {
+                if(isNumber)
+                    contactAddress = getContactMyProfileNumber(address);
+                else
+                    contactAddress = getContactMyProfileEmail(address);
+            }
+
+            m_AddressMap[address] = contactAddress;
+
+            return contactAddress;
         }
         return it->second;
     }

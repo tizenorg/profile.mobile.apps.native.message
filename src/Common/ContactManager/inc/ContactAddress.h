@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2015 Samsung Electronics Co., Ltd All Rights Reserved
+ * Copyright (c) 2009-2016 Samsung Electronics Co., Ltd All Rights Reserved
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,40 +14,41 @@
  * limitations under the License.
  */
 
-#ifndef __ContactPersonAddress_h__
-#define __ContactPersonAddress_h__
+#ifndef __ContactAddress_h__
+#define __ContactAddress_h__
 
-#include "ContactRecord.h"
+#include "MsgUtils.h"
 
 namespace Msg
 {
-    class ContactPersonAddress;
-    typedef std::shared_ptr<ContactPersonAddress> ContactPersonAddressRef;
+    class ContactAddress;
+    typedef std::shared_ptr<ContactAddress> ContactAddressRef;
 
-    class ContactPersonAddress
-        : public ContactRecord
+    class ContactAddress
     {
         public:
             enum AddressType
             {
                 EmailType,
-                NumberType,
+                NumberType
+            };
+
+            enum OwnerType
+            {
+                PersonType,
+                MyProfileType
             };
 
         public:
-            ContactPersonAddress(bool release, contacts_record_h record = nullptr);
-
+            virtual ~ContactAddress() {};
             virtual AddressType getAddressType() const = 0;
-            virtual int getPersonId() const = 0;
+            virtual OwnerType getOwnerType() const = 0;
+            virtual int getOwnerId() const = 0;
             virtual std::string getDispName() const = 0;
-            virtual std::string getAddress() const = 0;
+            virtual std::string getAddress() const = 0; // Email or Number
             virtual std::string getThumbnailPath() const = 0;
     };
 
-    inline ContactPersonAddress::ContactPersonAddress(bool release, contacts_record_h record)
-        : ContactRecord(release, record)
-    {
-    }
 }
 
-#endif /* __ContactPersonAddress_h__ */
+#endif /* __ContactAddress_h__ */

@@ -223,9 +223,9 @@ void Viewer::recipientClickHandler(const std::string &address)
 {
     MSG_LOG("");
     m_SelectedAddress = address;
-    ContactPersonAddressRef contactPersonAddress = getApp().getContactManager().getContactPersonAddress(address);
-    if(contactPersonAddress)
-        ContactViewer::launch(contactPersonAddress->getPersonId());
+    ContactAddressRef contactAddress = getApp().getContactManager().getContactAddress(address);
+    if(contactAddress)
+        ContactViewer::launch(*contactAddress);
     else
         showRecipPopup(address);
 }

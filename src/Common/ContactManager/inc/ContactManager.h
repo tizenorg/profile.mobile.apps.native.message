@@ -28,7 +28,9 @@
 #include "ContactPersonPhoneLog.h"
 #include "ContactPersonNumber.h"
 #include "ContactPersonEmail.h"
-#include "ContactOwnerProfile.h"
+#include "ContactMyProfile.h"
+#include "ContactMyProfileNumber.h"
+#include "ContactMyProfileEmail.h"
 
 namespace Msg
 {
@@ -63,11 +65,11 @@ namespace Msg
             std::shared_ptr<ContactList<T>> search(const std::string &keyword);
 
             /**
-             *@brief        Search by email and phone and return ContactPersonAddress record
+             *@brief        Search by email and phone and return ContactAddress record
              *@param[in]    address - email or number
-             *@return       Reference to ContactPersonAddress
+             *@return       Reference to ContactAddress
              */
-            ContactPersonAddressRef getContactPersonAddress(const std::string &address);
+            ContactAddressRef getContactAddress(const std::string &address);
 
             /**
              *@brief        Search for contacts-id, name, phone-number and thumbnail path based on phone-number id
@@ -77,10 +79,31 @@ namespace Msg
             ContactPersonNumberRef getContactPersonNumber(int phoneId);
 
             /**
+             *@brief        Search by email address ContactPersonEmail record
+             *@param[in]    email - email address
+             *@return       Reference to ContactPersonEmail
+             */
+            ContactPersonEmailRef getContactPersonEmail(const std::string &email);
+
+            /**
+             *@brief        Search by number address ContactMyProfileNumber record
+             *@param[in]    number - phone number
+             *@return       Reference to ContactMyProfileNumber
+             */
+            ContactMyProfileNumberRef getContactMyProfileNumber(const std::string &number);
+
+            /**
+             *@brief        Search by email address ContactMyProfileEmailRef record
+             *@param[in]    email - email address
+             *@return       Reference to ContactMyProfileEmailR
+             */
+            ContactMyProfileEmailRef getContactMyProfileEmail(const std::string &email);
+
+            /**
              *@brief        Return owner's ContactPersonAddress record
              *@return       Reference to ContactPersonAddress
              */
-            ContactOwnerProfileRef getOwnerProfile();
+            ContactMyProfileRef getOwnerProfile();
 
             /**
              *@brief        Add listener on contacts database
@@ -110,7 +133,7 @@ namespace Msg
             std::string makeVcard(const std::list<int> &idList);
 
         private:
-            typedef std::unordered_map<std::string, ContactPersonAddressRef> AddressMap;
+            typedef std::unordered_map<std::string, ContactAddressRef> AddressMap;
 
         private:
             /**
@@ -136,15 +159,9 @@ namespace Msg
              */
             ContactPersonNumberRef getContactPersonNumber(const std::string &number);
 
-            /**
-             *@brief        Search by email address ContactPersonEmail record
-             *@param[in]    email - email address
-             *@return       Reference to ContactPersonEmail
-             */
-            ContactPersonEmailRef getContactPersonEmail(const std::string &email);
 
             void invalidateCache();
-            ContactPersonAddressRef getAddress(const std::string &address);
+            ContactAddressRef getAddress(const std::string &address);
 
             std::string createContactContent(contacts_record_h record, bool myProfile);
             std::string createContentForContactList(int personId);
@@ -152,7 +169,7 @@ namespace Msg
         private:
             std::list<IContactManagerListener *> m_Listeners;
             AddressMap m_AddressMap;
-            ContactOwnerProfileRef m_OwnerProfile;
+            ContactMyProfileRef m_OwnerProfile;
     };
 
     class IContactManagerListener

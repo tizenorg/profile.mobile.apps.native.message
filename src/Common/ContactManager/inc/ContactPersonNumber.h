@@ -17,7 +17,8 @@
 #ifndef __ContactPersonNumber_h__
 #define __ContactPersonNumber_h__
 
-#include "ContactPersonAddress.h"
+#include "ContactAddress.h"
+#include "ContactRecord.h"
 
 namespace Msg
 {
@@ -25,30 +26,34 @@ namespace Msg
     typedef std::shared_ptr<ContactPersonNumber> ContactPersonNumberRef;
 
     class ContactPersonNumber
-        : public ContactPersonAddress
+        : public ContactAddress
+        , public ContactRecord
     {
         public:
             ContactPersonNumber(bool release, contacts_record_h record = nullptr);
             static const char *getUri();
-            virtual int getId() const;
+            int getNumberId() const;
+
+            // ContactAddress:
+            virtual OwnerType getOwnerType() const;
             virtual AddressType getAddressType() const;
-            virtual int getPersonId() const;
+            virtual int getOwnerId() const;
             virtual std::string getDispName() const;
             virtual std::string getAddress() const;
             virtual std::string getThumbnailPath() const;
     };
 
     inline ContactPersonNumber::ContactPersonNumber(bool release, contacts_record_h record)
-        : ContactPersonAddress(release, record)
+        : ContactRecord(release, record)
     {
     }
 
-    inline int ContactPersonNumber::getId() const
+    inline int ContactPersonNumber::getNumberId() const
     {
         return getInt(_contacts_person_number.number_id);
     }
 
-    inline int ContactPersonNumber::getPersonId() const
+    inline int ContactPersonNumber::getOwnerId() const
     {
         return getInt(_contacts_person_number.person_id);
     }
@@ -71,6 +76,11 @@ namespace Msg
     inline const char *ContactPersonNumber::getUri()
     {
         return _contacts_person_number._uri;
+    }
+
+    inline ContactPersonNumber::OwnerType ContactPersonNumber::getOwnerType() const
+    {
+        return PersonType;
     }
 
     inline ContactPersonNumber::AddressType ContactPersonNumber::getAddressType() const

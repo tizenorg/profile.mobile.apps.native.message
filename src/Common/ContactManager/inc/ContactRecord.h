@@ -34,8 +34,8 @@ namespace Msg
             ContactRecord(ContactRecord&) = delete;
             ContactRecord& operator=(ContactRecord&) = delete;
 
-            virtual int getId() const = 0;
             void set(contacts_record_h record);
+            contacts_record_h getRecord() const;
 
         protected:
             std::string getStr(unsigned propertyId) const;
@@ -63,6 +63,11 @@ namespace Msg
         int val = 0;
         contacts_record_get_int(m_Record, propertyId, &val);
         return val;
+    }
+
+    inline contacts_record_h ContactRecord::getRecord() const
+    {
+        return m_Record;
     }
 
 }

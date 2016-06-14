@@ -128,7 +128,7 @@ std::string MessageDetailContent::getContactsInfo(App &app, Message::Direction m
     for(int i = 0; i < addressListLength; ++i)
     {
         std::string address = addrList->at(i).getAddress();
-        ContactPersonAddressRef contact = app.getContactManager().getContactPersonAddress(address);
+        ContactAddressRef contact = app.getContactManager().getContactAddress(address);
         if(contact)
         {
             contactsInfo.append(contact->getDispName().c_str());
