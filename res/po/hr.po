@@ -946,3 +946,45 @@ msgstr "Nisu dodani valjani primatelji. Poruka će se odbaciti."
 msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
 msgstr "Odabir stavki"
 
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Nije moguće dodati primatelje. Brojevi nisu ispravni."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Nije moguće dodati neke primatelje. Brojevi nisu ispravni."
+
+msgid "IDS_MSG_HEADER_COULDNT_SEND_MESSAGE_ABB"
+msgstr "Nemoguće poslati poruku"
+
+msgid "IDS_MSG_TPOP_CANT_PREVIEW_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Nije moguće pretpregledati datoteku. Format datoteke nije podržan."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_VIDEOS_DURING_CALLS"
+msgstr "Nije moguće reproducirati videozapise tijekom poziva."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_AUDIO_FILES_DURING_CALLS"
+msgstr "Nije moguće reproducirati audiodatoteke tijekom poziva."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS"
+msgstr "Nije moguće dodati više od %d primatelja."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS_FOR_MULTIMEDIA_MESSAGES_SOME_RECIPIENTS_REMOVED"
+msgstr "Nije moguće dodati više od %d primatelja multimedijskih poruka. Neki su primatelji uklonjeni."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENT_NUMBER_NOT_VALID"
+msgstr "Nije moguće dodati primatelja. Broj nije ispravan."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_ATTACHMENTS"
+msgstr "Nije moguće dodati više privitaka (više od %d)."
+
+msgid "IDS_MSG_TPOP_CANT_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Nije moguće priložiti datoteku. Format datoteke nije podržan."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_P1SS_P2SS_OF_ATTACHMENTS_RESIZING_ATTACHMENTS_ING"
+msgstr "Nije moguće dodati više od %1$s %2$s privitaka. Promjena veličine privitaka..."
+
+msgid "IDS_MSG_POP_THE_FILE_SIZES_ARE_TOO_LARGE_TRY_SENDING_THEM_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
+msgstr "Datoteke su prevelike. Pokušajte ih poslati putem E-pošte, Bluetootha, Wi-Fi mreže itd."
+
+msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
+msgstr "Zvuk obavijesti"
+

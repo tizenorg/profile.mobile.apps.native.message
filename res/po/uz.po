@@ -946,3 +946,45 @@ msgstr "To‘g‘ri oluvchi kontaktlar kiritilmagan. Ushbu xabar tashlanadi."
 msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
 msgstr "Element tanlash"
 
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Oluvchilar qo‘shilmadi. Raqamlar noto‘g‘ri."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Ayrim oluvchilar qo‘shilmadi. Raqamlar noto‘g‘ri."
+
+msgid "IDS_MSG_HEADER_COULDNT_SEND_MESSAGE_ABB"
+msgstr "Xabar yuborib bo‘lmadi"
+
+msgid "IDS_MSG_TPOP_CANT_PREVIEW_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Faylni dastlabki ko‘rib chiqib bo‘lmaydi. Fayl formati qo‘llab-quvvatlanmaydi."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_VIDEOS_DURING_CALLS"
+msgstr "Qo‘ng‘iroq vaqtida videoni o‘ynatib bo‘lmaydi."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_AUDIO_FILES_DURING_CALLS"
+msgstr "Qo‘ng‘iroq vaqtida audioni o‘ynatib bo‘lmaydi."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS"
+msgstr "%d tadan ortiq oluvchini qo‘shib bo‘lmaydi."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS_FOR_MULTIMEDIA_MESSAGES_SOME_RECIPIENTS_REMOVED"
+msgstr "Multimedia xabarlari uchun %d tadan ortiq oluvchi qo‘shib bo‘lmaydi. Ba’zi oluvchilar olib tashlandi."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENT_NUMBER_NOT_VALID"
+msgstr "Oluvchi qo‘shilmadi. Raqam noto‘g‘ri."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_ATTACHMENTS"
+msgstr "Ko‘pi bilan %d ta biriktirma qo‘shish mumkin."
+
+msgid "IDS_MSG_TPOP_CANT_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Faylni biriktirib bo‘lmadi. Fayl formati qo‘llab-quvvatlanmaydi."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_P1SS_P2SS_OF_ATTACHMENTS_RESIZING_ATTACHMENTS_ING"
+msgstr "Ko‘pi bilan %1$s %2$s ta biriktirma qo‘shish mumkin. Biriktirmalar hajmi o‘zgartirilmoqda..."
+
+msgid "IDS_MSG_POP_THE_FILE_SIZES_ARE_TOO_LARGE_TRY_SENDING_THEM_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
+msgstr "Fayl o‘lchamlari juda katta. Ularni e-pochta, Bluetooth, Wi-Fi va boshq. orqali yuborib ko‘ring."
+
+msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
+msgstr "Bildirishnoma ohangi"
+

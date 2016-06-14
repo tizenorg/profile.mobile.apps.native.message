@@ -946,3 +946,45 @@ msgstr "Kelvollisia vastaanottajia ei ole lisätty. Tämä viesti hylätään."
 msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
 msgstr "Valitse kohteet"
 
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Vastaanottajia ei voi lisätä. Numerot eivät kelpaa."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Joitakin vastaanottajia ei voi lisätä. Numerot eivät kelpaa."
+
+msgid "IDS_MSG_HEADER_COULDNT_SEND_MESSAGE_ABB"
+msgstr "Viestiä ei voi lähettää"
+
+msgid "IDS_MSG_TPOP_CANT_PREVIEW_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Tiedostoa ei voi esikatsella. Tiedostomuotoa ei tueta."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_VIDEOS_DURING_CALLS"
+msgstr "Videoita ei voi toistaa puheluiden aikana."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_AUDIO_FILES_DURING_CALLS"
+msgstr "Äänitiedostoja ei voi toistaa puheluiden aikana."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS"
+msgstr "Yli %d vastaanottajaa ei voi lisätä."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS_FOR_MULTIMEDIA_MESSAGES_SOME_RECIPIENTS_REMOVED"
+msgstr "Multimediaviesteihin ei voi lisätä enempää kuin %d vastaanottajaa. Jotkin vastaanottajat on poistettu."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENT_NUMBER_NOT_VALID"
+msgstr "Vastaanottajaa ei voi lisätä. Numero ei kelpaa."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_ATTACHMENTS"
+msgstr "Yli %d liitettä ei voi lisätä."
+
+msgid "IDS_MSG_TPOP_CANT_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Tiedostoa ei voi liittää. Tiedostomuotoa ei tueta."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_P1SS_P2SS_OF_ATTACHMENTS_RESIZING_ATTACHMENTS_ING"
+msgstr "Enempää kuin %1$s %2$s liitteitä ei voi lisätä. Muutetaan liitteiden kokoa..."
+
+msgid "IDS_MSG_POP_THE_FILE_SIZES_ARE_TOO_LARGE_TRY_SENDING_THEM_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
+msgstr "Tiedostot ovat kooltaan liian suuria. Yritä lähettää ne esimerkiksi sähköpostitse, Bluetoothilla tai Wi-Fi-yhteyden välityksellä."
+
+msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
+msgstr "Ilmoitusääni"
+

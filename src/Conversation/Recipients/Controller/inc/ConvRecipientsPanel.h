@@ -70,7 +70,9 @@ namespace Msg
 
             void appendStatusHandler(MbeRecipients::AppendItemStatus status);
             int getMaxRecipientCount() const;
-            void showInvalidRecipientsPopup();
+            void showInvalidRecipientPopup();
+            void showInvalidSomeRecipientsPopup();
+            void showInvalidAllRecipientsPopup();
             void showTooManyRecipientsNotif();
             void showAddRecipNotif();
             void showDuplicatedRecipientNotif();

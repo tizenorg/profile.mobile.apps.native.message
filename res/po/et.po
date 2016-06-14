@@ -946,3 +946,45 @@ msgstr "Kehtivaid adressaate pole lisatud. Sellest sõnumist loobutakse."
 msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
 msgstr "Üksuste valim."
 
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Ei saa lisada adressaate. Numbrid on kehtetud."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Ei saa lisada mõningaid adressaate. Numbrid on kehtetud."
+
+msgid "IDS_MSG_HEADER_COULDNT_SEND_MESSAGE_ABB"
+msgstr "Sõnumi saatmine nurjus"
+
+msgid "IDS_MSG_TPOP_CANT_PREVIEW_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Ei saa kuvada faili eelvaadet. Failivormingut ei toetata."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_VIDEOS_DURING_CALLS"
+msgstr "Videoid ei saa kõnede ajal esitada."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_AUDIO_FILES_DURING_CALLS"
+msgstr "Helifaile ei saa kõnede ajal esitada."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS"
+msgstr "Ei saa lisada üle %d adressaadi."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS_FOR_MULTIMEDIA_MESSAGES_SOME_RECIPIENTS_REMOVED"
+msgstr "Multimeediumsõnumitele ei saa lisada üle %d adressaadi. Mõned adressaadid eemaldati."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENT_NUMBER_NOT_VALID"
+msgstr "Ei saa lisada adressaati. Number on kehtetu."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_ATTACHMENTS"
+msgstr "Ei saa lisada üle %d manuse."
+
+msgid "IDS_MSG_TPOP_CANT_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Ei saa manusfaili lisada. Failivormingut ei toetata."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_P1SS_P2SS_OF_ATTACHMENTS_RESIZING_ATTACHMENTS_ING"
+msgstr "Manuseid ei saa lisada üle %1$s %2$s. Manusfailide suuruse muutmine..."
+
+msgid "IDS_MSG_POP_THE_FILE_SIZES_ARE_TOO_LARGE_TRY_SENDING_THEM_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
+msgstr "Failid on liiga suured. Proovige neid saata e-kirja, Bluetooth-ühenduse, Wi-Fi jne kaudu."
+
+msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
+msgstr "Teavituse heli"
+

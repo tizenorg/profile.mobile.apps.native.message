@@ -106,7 +106,7 @@ void ConvRecipientsPanel::addRecipientsFromEntry(bool showPopup)
 
     setEntryText(result.invalidResult);
     if(!result.invalidResult.empty() && showPopup)
-        showInvalidRecipientsPopup();
+        showInvalidRecipientPopup();
 }
 
 void ConvRecipientsPanel::update(const MsgAddressList &addressList)
@@ -128,9 +128,7 @@ void ConvRecipientsPanel::update(const ThreadId &threadId)
 MbeRecipients::AppendItemStatus ConvRecipientsPanel::appendItem(const std::string &address,
         const std::string &dispName, MsgAddress::AddressType addressType)
 {
-    auto appendStatus = m_pMbe->appendItem(address, dispName, addressType);
-    appendStatusHandler(appendStatus);
-    return appendStatus;
+    return m_pMbe->appendItem(address, dispName, addressType);
 }
 
 MbeRecipients::AppendItemStatus ConvRecipientsPanel::appendItem(const std::string &address, MsgAddress::AddressType addressType)
@@ -165,7 +163,7 @@ void ConvRecipientsPanel::execCmd(const AppControlComposeRef &cmd)
     m_pMbe->clear();
     for(auto recipStr: cmd->getRecipientList())
     {
-        appendItem(recipStr);
+        appendStatusHandler(appendItem(recipStr));
     }
 }
 
@@ -189,9 +187,15 @@ void ConvRecipientsPanel::appendStatusHandler(MbeRecipients::AppendItemStatus st
         case MbeRecipients::TooManyRecipStatus:
             showTooManyRecipientsNotif();
             break;
+        case MbeRecipients::InvalidAllRecipStatus:
+            showInvalidAllRecipientsPopup();
+            break;
         case MbeRecipients::InvalidRecipStatus:
+            showInvalidRecipientPopup();
+            break;
+        case MbeRecipients::InvalidSomeRecipStatus:
         default:
-            showInvalidRecipientsPopup();
+            showInvalidSomeRecipientsPopup();
             break;
     }
 }
@@ -266,12 +270,25 @@ void ConvRecipientsPanel::onPlusButtonClicked()
 
 void ConvRecipientsPanel::onContactsPicked(const std::list<int> &numberIdList)
 {
+    int numberOfInvalids = 0;
+    int duplicateRecip = 0;
+    int sizeOfList = numberIdList.size();
     for(auto phoneNumId : numberIdList)
     {
         ContactPersonNumberRef num = m_App.getContactManager().getContactPersonNumber(phoneNumId);
         if(num)
-            appendItem(num->getAddress(), num->getDispName(), MsgAddress::UnknownAddressType);
+        {
+            auto apendStatus = appendItem(num->getAddress(), num->getDispName(), MsgAddress::UnknownAddressType);
+            if(apendStatus == MbeRecipients::InvalidRecipStatus)
+                ++numberOfInvalids;
+            if(apendStatus == MbeRecipients::DuplicatedStatus)
+                ++duplicateRecip;
+        }
     }
+    if(numberOfInvalids != 0)
+        appendStatusHandler((numberOfInvalids == sizeOfList) ? MbeRecipients::InvalidAllRecipStatus : MbeRecipients::InvalidSomeRecipStatus);
+    else if(duplicateRecip != 0)
+        appendStatusHandler(MbeRecipients::DuplicatedStatus);
 
     setEntryFocus(true); // TODO: does not work
 }
@@ -286,9 +303,19 @@ void ConvRecipientsPanel::onPopupDel(Evas_Object *popup, void *eventInfo)
     setEntryFocus(true);
 }
 
-void ConvRecipientsPanel::showInvalidRecipientsPopup()
+void ConvRecipientsPanel::showInvalidRecipientPopup()
 {
-    notification_status_message_post(msg("IDS_MSG_TPOP_UNABLE_TO_ADD_RECIPIENT_NUMBER_NOT_VALID").cStr());
+    notification_status_message_post(msg("IDS_MSG_TPOP_CANT_ADD_RECIPIENT_NUMBER_NOT_VALID").cStr());
+}
+
+void ConvRecipientsPanel::showInvalidSomeRecipientsPopup()
+{
+    notification_status_message_post(msg("IDS_MSG_TPOP_CANT_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID").cStr());
+}
+
+void ConvRecipientsPanel::showInvalidAllRecipientsPopup()
+{
+    notification_status_message_post(msg("IDS_MSG_TPOP_CANT_ADD_RECIPIENTS_NUMBERS_NOT_VALID").cStr());
 }
 
 void ConvRecipientsPanel::showDuplicatedRecipientNotif()
@@ -298,7 +325,7 @@ void ConvRecipientsPanel::showDuplicatedRecipientNotif()
 
 void ConvRecipientsPanel::showTooManyRecipientsNotif()
 {
-    notification_status_message_post(msgArgs("IDS_MSGC_BODY_MAXIMUM_NUMBER_OF_RECIPIENTS_HPD_REACHED", getMaxRecipientCount()).cStr());
+    notification_status_message_post(msgArgs("IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS", getMaxRecipientCount()).cStr());
 }
 
 void ConvRecipientsPanel::showAddRecipNotif()

@@ -946,3 +946,45 @@ msgstr "ქმედითი ადრესატები არ არის
 msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
 msgstr "აირჩიე ელემენტ."
 
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "მიმღებთა დამატება შეუძლებელია. ნომრები არასწორია."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "ზოგიერთი მიმღების დამატება შეუძლებელია. ნომრები არასწორია."
+
+msgid "IDS_MSG_HEADER_COULDNT_SEND_MESSAGE_ABB"
+msgstr "შეტყობინება ვერ გაიგზავნა"
+
+msgid "IDS_MSG_TPOP_CANT_PREVIEW_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "ფაილის გადახედვა ვერ ხერხდება. ფაილის ფორმატი არ არის გათვალისწინებული."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_VIDEOS_DURING_CALLS"
+msgstr "ზარების დროს შეუძლებელია ვიდეოს გაშვება."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_AUDIO_FILES_DURING_CALLS"
+msgstr "ზარების დროს შეუძლებელია აუდიოფაილის დაკვრა."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS"
+msgstr "%d-ზე მეტი მიმღების დამატება შეუძლებელია."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS_FOR_MULTIMEDIA_MESSAGES_SOME_RECIPIENTS_REMOVED"
+msgstr "მულტიმედიურ შეტყობინებებზე %d-ზე მეტი მიმღების დამატება შეუძლებელია. ზოგიერთი მიმღები წაიშალა."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENT_NUMBER_NOT_VALID"
+msgstr "მიმღების დამატება შეუძლებელია. ნომერი არასწორია."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_ATTACHMENTS"
+msgstr "%d-ზე მეტი დანართის დამატება შეუძლებელია."
+
+msgid "IDS_MSG_TPOP_CANT_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "ფაილის მიმაგრება შეუძლებელია. ფაილის ფორმატი არ არის გათვალისწინებული."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_P1SS_P2SS_OF_ATTACHMENTS_RESIZING_ATTACHMENTS_ING"
+msgstr "%1$s %2$s-ზე მეტი დანართი ვერ დაემატება. იცვლება დანართების ზომა..."
+
+msgid "IDS_MSG_POP_THE_FILE_SIZES_ARE_TOO_LARGE_TRY_SENDING_THEM_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
+msgstr "ფაილების ზომა ძალიან დიდია. შეეცადეთ გაგზავნოთ ისინი ელფოსტით, Bluetooth-ით, Wi-Fi-ით და ა.შ."
+
+msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
+msgstr "შეტყობინების ხმა"
+

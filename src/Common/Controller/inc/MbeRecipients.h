@@ -36,6 +36,8 @@ namespace Msg
                 SuccessStatus,
                 DuplicatedStatus,
                 InvalidRecipStatus,
+                InvalidSomeRecipStatus,
+                InvalidAllRecipStatus,
                 TooManyRecipStatus
             };
 

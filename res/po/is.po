@@ -946,3 +946,45 @@ msgstr "Engum gildum viðtakendum hefur verið bætt við. Skilaboðunum verður
 msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
 msgstr "Velja atriði"
 
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Ekki er hægt að bæta við viðtakendum. Símanúmerin eru ekki gild."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Ekki er hægt að bæta við einhverjum viðtakendum. Símanúmerin eru ekki gild."
+
+msgid "IDS_MSG_HEADER_COULDNT_SEND_MESSAGE_ABB"
+msgstr "Gat ekki sent skilaboð"
+
+msgid "IDS_MSG_TPOP_CANT_PREVIEW_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Ekki er hægt að forskoða skrá. Skráarsniðið er ekki stutt."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_VIDEOS_DURING_CALLS"
+msgstr "Ekki er hægt að spila myndskeið meðan á símtali stendur."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_AUDIO_FILES_DURING_CALLS"
+msgstr "Ekki er hægt að spila hljóðskrár meðan á símtali stendur."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS"
+msgstr "Ekki er hægt að bæta við fleiri en %d tengiliðum."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS_FOR_MULTIMEDIA_MESSAGES_SOME_RECIPIENTS_REMOVED"
+msgstr "Ekki er hægt að bæta við fleiri en %d viðtakendum margmiðlunarskilaboða. Einhverjir viðtakendur voru fjarlægðir."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENT_NUMBER_NOT_VALID"
+msgstr "Ekki er hægt að bæta við viðtakanda. Símanúmerið er ekki gilt."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_ATTACHMENTS"
+msgstr "Ekki er hægt að bæta við fleiri en %d viðhengjum."
+
+msgid "IDS_MSG_TPOP_CANT_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Ekki er hægt að hengja skrá við. Skráarsniðið er ekki stutt."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_P1SS_P2SS_OF_ATTACHMENTS_RESIZING_ATTACHMENTS_ING"
+msgstr "Ekki er hægt að bæta við meira en %1$s %2$s af viðhengjum. Breyti stærð viðhengja..."
+
+msgid "IDS_MSG_POP_THE_FILE_SIZES_ARE_TOO_LARGE_TRY_SENDING_THEM_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
+msgstr "Skrárnar eru of stórar. Prófaðu að senda þær í tölvupósti, um Bluetooth, Wi-Fi o.s.frv."
+
+msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
+msgstr "Tilkynningahljóð"
+

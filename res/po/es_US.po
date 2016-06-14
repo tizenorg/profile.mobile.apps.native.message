@@ -946,3 +946,45 @@ msgstr "No se han añadido destinatarios válidos. Se descartará el mensaje."
 msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
 msgstr "Elementos"
 
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "No es posible añadir destinatarios. Los números no son válidos."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "No es posible añadir algunos destinatarios. Los números no son válidos."
+
+msgid "IDS_MSG_HEADER_COULDNT_SEND_MESSAGE_ABB"
+msgstr "Error al enviar el mensaje"
+
+msgid "IDS_MSG_TPOP_CANT_PREVIEW_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "No es posible previsualizar el archivo. Formato de archivo incompatible."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_VIDEOS_DURING_CALLS"
+msgstr "No es posible reproducir videos durante una llamada."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_AUDIO_FILES_DURING_CALLS"
+msgstr "No es posible reproducir archivos de audio durante una llamada."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS"
+msgstr "No es posible añadir más de %d destinatarios."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS_FOR_MULTIMEDIA_MESSAGES_SOME_RECIPIENTS_REMOVED"
+msgstr "No es posible añadir más de %d destinatarios de mensajes multimedia. Se eliminaron algunos destinatarios."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENT_NUMBER_NOT_VALID"
+msgstr "No es posible añadir destinatario. El número no es válido."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_ATTACHMENTS"
+msgstr "No es posible añadir más de %d archivos adjuntos."
+
+msgid "IDS_MSG_TPOP_CANT_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "No es posible adjuntar el archivo. Formato de archivo incompatible."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_P1SS_P2SS_OF_ATTACHMENTS_RESIZING_ATTACHMENTS_ING"
+msgstr "No es posible añadir más de %1$s %2$s de archivos adjuntos. Reduciendo el tamaño de los adjuntos..."
+
+msgid "IDS_MSG_POP_THE_FILE_SIZES_ARE_TOO_LARGE_TRY_SENDING_THEM_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
+msgstr "El tamaño de los archivos es demasiado grande. Intente enviarlos vía Correo, Bluetooth, Wi-Fi, etc."
+
+msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
+msgstr "Sonido de notificación"
+

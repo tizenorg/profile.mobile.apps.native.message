@@ -946,3 +946,45 @@ msgstr "لم تتم إضافة أي مستلم صالح. سيتم تجاهل ه�
 msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
 msgstr "تحديد عناصر"
 
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "تتعذر إضافة المستلمين. أعداد غير صالحة."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "تتعذر إضافة بعض المستلمين. أعداد غير صالحة."
+
+msgid "IDS_MSG_HEADER_COULDNT_SEND_MESSAGE_ABB"
+msgstr "تعذر إرسال الرسالة"
+
+msgid "IDS_MSG_TPOP_CANT_PREVIEW_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "تتعذر معاينة الملف. تنسيق الملف غير مدعوم."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_VIDEOS_DURING_CALLS"
+msgstr "يتعذر تشغيل مقاطع الفيديو أثناء المكالمات."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_AUDIO_FILES_DURING_CALLS"
+msgstr "يتعذر تشغيل الملفات الصوتية أثناء المكالمات."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS"
+msgstr "تتعذر إضافة أكثر من %d من المستلمين."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS_FOR_MULTIMEDIA_MESSAGES_SOME_RECIPIENTS_REMOVED"
+msgstr "تتعذر إضافة أكثر من %d من المستلمين لرسائل الوسائط المتعددة. تمت إزالة بعض المستلمين."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENT_NUMBER_NOT_VALID"
+msgstr "تتعذر إضافة المستلم. عدد غير صالح."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_ATTACHMENTS"
+msgstr "تتعذر إضافة أكثر من %d من المرفقات."
+
+msgid "IDS_MSG_TPOP_CANT_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "يتعذر إرفاق الملف. تنسيق الملف غير مدعوم."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_P1SS_P2SS_OF_ATTACHMENTS_RESIZING_ATTACHMENTS_ING"
+msgstr "تتعذر إضافة أكثر من %1$s‏ %2$s من المرفقات. جارِ تغيير حجم المرفقات..."
+
+msgid "IDS_MSG_POP_THE_FILE_SIZES_ARE_TOO_LARGE_TRY_SENDING_THEM_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
+msgstr "أحجام الملفات كبيرة للغاية. حاول إرسالها عبر البريد الإلكتروني والبلوتوث وشبكة Wi-Fi وغيرها."
+
+msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
+msgstr "صوت الإشعار"
+

@@ -946,3 +946,45 @@ msgstr "Ez da balio duen hartzailerik gehitu. Mezu hau baztertuko da."
 msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
 msgstr "Hautatu"
 
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Ezin dira gehitu hartzaileak. Zenbakiak baliogabeak dira."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Ezin dira gehitu hartzaile batzuk. Zenbakiak baliogabeak dira."
+
+msgid "IDS_MSG_HEADER_COULDNT_SEND_MESSAGE_ABB"
+msgstr "Ezin izan da bidali mezua"
+
+msgid "IDS_MSG_TPOP_CANT_PREVIEW_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Ezin da aurreikusi fitxategia. Fitxategi formatua ez da bateragarria."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_VIDEOS_DURING_CALLS"
+msgstr "Ezin dira erreproduzitu bideoak deien bitartean."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_AUDIO_FILES_DURING_CALLS"
+msgstr "Ezin dira erreproduzitu audio-fitxategiak deien bitartean."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS"
+msgstr "Ezin dira gehitu %d parte hartzaile baino gehiago."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS_FOR_MULTIMEDIA_MESSAGES_SOME_RECIPIENTS_REMOVED"
+msgstr "Multimedia mezuetan ezin dira gehitu %d hartzaile baino gehiago. Hartzaile batzuk kendu dira."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENT_NUMBER_NOT_VALID"
+msgstr "Ezin da gehitu hartzailea. Zenbakia baliogabea da."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_ATTACHMENTS"
+msgstr "Ezin dira gehitu %d eranskin baino gehiago."
+
+msgid "IDS_MSG_TPOP_CANT_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Ezin da erantsi fitxategia. Fitxategi formatua ez da bateragarria."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_P1SS_P2SS_OF_ATTACHMENTS_RESIZING_ATTACHMENTS_ING"
+msgstr "Ezin dira gehitu %1$s %2$s eranskin baino gehiago. Eranskinen neurria aldatzen..."
+
+msgid "IDS_MSG_POP_THE_FILE_SIZES_ARE_TOO_LARGE_TRY_SENDING_THEM_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
+msgstr "Fitxategiak handiegiak dira. Saiatu posta elektroniko, Bluetooth, Wi-Fi eta abarren bidez bidaltzen."
+
+msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
+msgstr "Jakinarazpen soinua"
+
