@@ -74,6 +74,7 @@ pkg_check_modules(pkgs REQUIRED
             efl-extension
             storage
             attach-panel
+            phonenumber-utils
 )
 
 ADD_DEFINITIONS("-DAPP_DIR=\"${PKGDIR}\"")

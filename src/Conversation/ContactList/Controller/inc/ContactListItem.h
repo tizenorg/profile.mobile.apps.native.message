@@ -20,7 +20,7 @@
 
 #include "ContactListViewItem.h"
 #include "ContactPersonPhoneLog.h"
-#include "ContactPersonAddress.h"
+#include "ContactAddress.h"
 #include "App.h"
 
 namespace Msg
@@ -30,7 +30,7 @@ namespace Msg
     {
         public:
             ContactListItem(const ContactPersonPhoneLog &rec, App &app, const std::string &searchWord);
-            ContactListItem(const ContactPersonAddress &rec, App &app, const std::string &searchWord);
+            ContactListItem(const ContactAddress &rec, App &app, const std::string &searchWord);
             virtual ~ContactListItem();
 
             const std::string &getRecipient() const;

@@ -50,7 +50,7 @@ void FrameController::setNaviBarTitle(const MsgAddressList &addressList)
     if(!addressList.isEmpty())
     {
         std::string firstAddress = addressList[0].getAddress();
-        ContactPersonAddressRef contactPersonAddress = getApp().getContactManager().getContactPersonAddress(firstAddress);
+        ContactAddressRef contactPersonAddress = getApp().getContactManager().getContactAddress(firstAddress);
         if(contactPersonAddress)
             title = contactPersonAddress->getDispName();
 

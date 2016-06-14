@@ -76,14 +76,14 @@ void BaseThreadListItem::updateThumbnailAndName(const MsgAddressList &addressLis
 
 void BaseThreadListItem::updateName(const MsgAddress &address, int addressesCount, bool decorateName)
 {
-    ContactPersonAddressRef contactAddress = m_App.getContactManager().getContactPersonAddress(address.getAddress());
+    ContactAddressRef contactAddress = m_App.getContactManager().getContactAddress(address.getAddress());
     if(contactAddress)
         updateName(*contactAddress, addressesCount, decorateName);
     else
         updateName(address.getAddress(), addressesCount, decorateName);
 }
 
-void BaseThreadListItem::updateName(const ContactPersonAddress &address, int addressesCount, bool decorateName)
+void BaseThreadListItem::updateName(const ContactAddress &address, int addressesCount, bool decorateName)
 {
     std::string dispName = address.getDispName();
     if(dispName.empty())

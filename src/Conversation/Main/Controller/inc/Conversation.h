@@ -173,7 +173,7 @@ namespace Msg
             void showSendResultPopup(MsgTransport::SendResult result);
             void showMobileDataPopup();
             void showUnsavedRecipientPopup(const std::string &address);
-            void showSavedRecipientPopup(const std::string &title, int personId);
+            void showSavedRecipientPopup(const std::string &title, int contactId, ContactAddress::OwnerType ownerType);
             void sendMessage();
             bool read(Message &msg);
             bool readMsgAddress(Message &msg);
