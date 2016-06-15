@@ -42,6 +42,7 @@ namespace Msg
 
             int getDuration() const;
             bool hasMedia() const;
+            bool hasInvalidMedia() const;
             bool hasVideo() const;
             bool hasAudio() const;
             bool hasAnimation() const;
@@ -77,6 +78,7 @@ namespace Msg
             SmilImageItemView *m_pImageItem;
             std::list<std::string> m_Attachments;
             FileViewer m_FileViewer;
+            bool m_HasInvalidMedia;
     };
 }
 

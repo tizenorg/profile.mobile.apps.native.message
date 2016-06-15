@@ -17,7 +17,7 @@
 
 #include "SmilVideoItemView.h"
 #include "Resource.h"
-
+#include "Logger.h"
 using namespace Msg;
 
 namespace
@@ -93,7 +93,10 @@ SmilVideoItemView::SmilVideoItemView(Evas_Object *parent, int videoWidth, int vi
 {
     int w = 0;
     int h = 0;
-    getResizedSize(videoWidth, videoHeight, w, h);
+
+    if(videoWidth > 0 && videoHeight > 0)
+        getResizedSize(videoWidth, videoHeight, w, h);
+
     setEo(addLayout(parent, SMIL_ITEM_EDJ_PATH, "smil_video_item"));
     Evas_Object *image = createImage(getEo(), w, h);
     setContent(image, "swallow.thumbnail");

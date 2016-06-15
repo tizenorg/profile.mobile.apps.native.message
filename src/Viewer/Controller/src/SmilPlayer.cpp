@@ -178,6 +178,9 @@ void SmilPlayer::playPage()
     m_Finished = false;
     SmilPage *page = getCurrentPage();
     SmilPlayerView::displayPage(*page);
+    if(page->hasInvalidMedia())
+        showNotSupportedFileNotif();
+
     prepareMedia();
     startMedia();
     startTimer(page->getDuration());
@@ -283,6 +286,11 @@ void SmilPlayer::showUnableToPlayVideoNotif()
 void SmilPlayer::showUnableToPlayAudioNotif()
 {
     notification_status_message_post(msg("IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL").cStr());
+}
+
+void SmilPlayer::showNotSupportedFileNotif()
+{
+    notification_status_message_post(msg("IDS_MSG_TPOP_CANT_PREVIEW_FILE_FILE_FORMAT_NOT_SUPPORTED").cStr());
 }
 
 void SmilPlayer::onBeforeDelete(View &view)

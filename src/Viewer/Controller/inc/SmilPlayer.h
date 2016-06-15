@@ -82,6 +82,7 @@ namespace Msg
             void setState(State state);
             void showUnableToPlayVideoNotif();
             void showUnableToPlayAudioNotif();
+            void showNotSupportedFileNotif();
 
         private:
             ISmilPlayerListener *m_pListener;
