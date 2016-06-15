@@ -277,11 +277,13 @@ unsigned SmilPlayer::getCurrentPageIndex() const
 
 void SmilPlayer::showUnableToPlayVideoNotif()
 {
+    // TODO: localization: "Can't play videos during calls."
     notification_status_message_post(msg("IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL").cStr());
 }
 
 void SmilPlayer::showUnableToPlayAudioNotif()
 {
+    // TODO: localization: "Can't play audio files during calls."
     notification_status_message_post(msg("IDS_MSG_POP_UNABLE_TO_PLAY_DURING_CALL").cStr());
 }
 
@@ -306,7 +308,7 @@ void SmilPlayer::onBeforeDelete(View &view)
 
 void SmilPlayer::onMediaPlayerSoundFocusChanged()
 {
-    if(m_MediaPlayer.isPlaying() && !m_MediaPlayer.getFocus())
+    if(m_MediaPlayer.isPlaying() && m_MediaPlayer.isFocusChangedCallReason())
     {
         SmilPage *page = getCurrentPage();
         if(page)
@@ -316,6 +318,8 @@ void SmilPlayer::onMediaPlayerSoundFocusChanged()
                 showUnableToPlayVideoNotif();
             else if(page->hasAudio())
                 showUnableToPlayAudioNotif();
+            if(page->hasMedia())
+                stop();
         }
     }
 }
