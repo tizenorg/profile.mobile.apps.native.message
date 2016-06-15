@@ -45,6 +45,7 @@ namespace Msg
             void setPosition(int msec);
             static int getDuration(const std::string &uri);
             bool getFocus() const;
+            bool isFocusChangedCallReason() const;
 
         private:
             static void on_completed_cb(void *user_data);
@@ -60,6 +61,7 @@ namespace Msg
             player_h m_Player;
             IMediaPlayerListener *m_pListener;
             bool m_Focus;
+            bool m_FocusCallReason;
     };
 
     class IMediaPlayerListener
