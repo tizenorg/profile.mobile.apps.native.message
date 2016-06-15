@@ -28,6 +28,7 @@ MediaPlayer::MediaPlayer()
     : m_Player()
     , m_pListener(nullptr)
     , m_Focus(false)
+    , m_FocusCallReason(false)
 {
     sound_manager_set_focus_state_watch_cb(SOUND_STREAM_FOCUS_FOR_PLAYBACK, on_sound_stream_focus_state_watch_cb, this);
     player_create(&m_Player);
@@ -63,6 +64,11 @@ player_state_e MediaPlayer::getState() const
 bool MediaPlayer::getFocus() const
 {
     return m_Focus;
+}
+
+bool MediaPlayer::isFocusChangedCallReason() const
+{
+    return m_FocusCallReason;
 }
 
 void MediaPlayer::start()
@@ -155,6 +161,9 @@ void MediaPlayer::on_sound_stream_focus_state_watch_cb(sound_stream_focus_mask_e
 
     auto *self = static_cast<MediaPlayer*>(user_data);
     self->m_Focus = focus_state == SOUND_STREAM_FOCUS_STATE_RELEASED;
+    self->m_FocusCallReason = reason == SOUND_STREAM_FOCUS_CHANGED_BY_RINGTONE ||
+                              reason == SOUND_STREAM_FOCUS_CHANGED_BY_VOIP ||
+                              reason == SOUND_STREAM_FOCUS_CHANGED_BY_CALL;
 
     ecore_main_loop_thread_safe_call_sync
     (
