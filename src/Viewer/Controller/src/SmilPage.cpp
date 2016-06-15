@@ -37,6 +37,7 @@ SmilPage::SmilPage(Evas_Object *parent, const MsgPage &page)
     , m_pVideoSink(nullptr)
     , m_HasAudio(false)
     , m_pImageItem(nullptr)
+    , m_HasInvalidMedia(false)
 {
     build(page);
 }
@@ -47,6 +48,7 @@ SmilPage::SmilPage(Evas_Object *parent, const MsgAttachmentList &list)
     , m_pVideoSink(nullptr)
     , m_HasAudio(false)
     , m_pImageItem(nullptr)
+    , m_HasInvalidMedia(false)
 {
     build(list);
 }
@@ -64,6 +66,11 @@ int SmilPage::getDuration() const
 bool SmilPage::hasMedia() const
 {
     return !m_MediaPath.empty();
+}
+
+bool SmilPage::hasInvalidMedia() const
+{
+    return m_HasInvalidMedia;
 }
 
 bool SmilPage::hasVideo() const
@@ -174,6 +181,7 @@ void SmilPage::build(const MsgAttachmentList &list)
 void SmilPage::buildImage(const MsgMedia &media)
 {
     m_pImageItem = new SmilImageItemView(getBox(), media.getFilePath());
+    m_HasInvalidMedia = m_pImageItem->getImage() == nullptr;
     m_pImageItem->show();
     appendItem(*m_pImageItem);
 }
@@ -194,8 +202,15 @@ void SmilPage::buildAudio(const MsgMedia& media)
     m_MediaPath = media.getFilePath();
     m_HasAudio = true;
 
+    int duration = MediaUtils::getDurationSec(m_MediaPath);
+    if(duration == 0)
+    {
+        m_HasInvalidMedia = true;
+        return;
+    }
+
     if(m_Duration == 0)
-        m_Duration = MediaUtils::getDurationSec(m_MediaPath);
+        m_Duration = duration;
 
     SmilAudioItemView *item = new SmilAudioItemView(getBox(), media.getFileName());
     item->show();
@@ -207,8 +222,14 @@ void SmilPage::buildVideo(const MsgMedia& media)
 {
     m_MediaPath = media.getFilePath();
 
+    int duration = MediaUtils::getDurationSec(m_MediaPath);
+    if(duration == 0)
+    {
+        m_HasInvalidMedia = true;
+        return;
+    }
     if(m_Duration == 0)
-        m_Duration = MediaUtils::getDurationSec(m_MediaPath);
+        m_Duration = duration;
 
     int width = 0;
     int height = 0;
@@ -216,10 +237,10 @@ void SmilPage::buildVideo(const MsgMedia& media)
 
     if(width * height == 0)
     {
-        // TODO: What to do in this case?
         MSG_LOG_ERROR("Wrong video dimension");
+        m_HasInvalidMedia = true;
+        return;
     }
-
     SmilVideoItemView *item = new SmilVideoItemView(getBox(), width, height);
     m_pVideoSink = item->getVideoSink();
     item->show();

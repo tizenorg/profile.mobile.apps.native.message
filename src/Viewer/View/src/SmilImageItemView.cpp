@@ -17,7 +17,8 @@
 
 #include "SmilImageItemView.h"
 #include "Resource.h"
-
+#include <notification_status.h>
+#include "Logger.h"
 using namespace Msg;
 
 SmilImageItemView::SmilImageItemView(Evas_Object *parent, const std::string &imagePath)
@@ -31,6 +32,11 @@ SmilImageItemView::SmilImageItemView(Evas_Object *parent, const std::string &ima
 SmilImageItemView::~SmilImageItemView()
 {
 
+}
+
+Evas_Object *SmilImageItemView::getImage() const
+{
+    return m_pImage;
 }
 
 void SmilImageItemView::playAnimation(bool play)
@@ -47,7 +53,13 @@ bool SmilImageItemView::hasAnimation() const
 Evas_Object *SmilImageItemView::createImage(Evas_Object *parent, const std::string &imagePath)
 {
     m_pImage = elm_image_add(parent);
-    elm_image_file_set(m_pImage, imagePath.c_str(), nullptr);
+    if(!elm_image_file_set(m_pImage, imagePath.c_str(), nullptr))
+    {
+        evas_object_del(m_pImage);
+        m_pImage = nullptr;
+        return m_pImage;
+    }
+
     evas_object_show(m_pImage);
 
     int w = 0;

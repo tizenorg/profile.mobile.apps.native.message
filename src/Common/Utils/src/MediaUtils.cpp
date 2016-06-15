@@ -117,10 +117,14 @@ int MediaUtils::getDuration(const std::string &uri)
 int MediaUtils::getDurationSec(const std::string &uri)
 {
     double sec = ceil(getDuration(uri) / 1000.0);
-    int res = sec <= 0 ? 1 : sec;
+
     MSG_LOG("File: ", uri);
-    MSG_LOG("Duration sec: ", res);
-    return res;
+    MSG_LOG("Duration sec: ", sec);
+
+    if(sec < 0)
+        return 0;
+
+    return sec;
 }
 
 bool MediaUtils::getVideoFrame(const std::string &videoFilePath, const std::string &imageFilePath)
