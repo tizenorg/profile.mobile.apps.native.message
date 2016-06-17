@@ -31,6 +31,7 @@
 // Edj:
 #define IMAGES_EDJ_PATH                  EDJ_PATH"/images.edj"
 #define BUTTON_THEME_EDJ_PATH            EDJ_PATH"/button_theme.edj"
+#define THREAD_THEME_EDJ_PATH            EDJ_PATH"/thread_genlist_theme.edj"
 
 #define BUBBLE_THEME_EDJ_PATH            EDJ_PATH"/bubble_theme.edj"
 #define MSG_INPUT_PANEL_EDJ_PATH         EDJ_PATH"/msg_input_panel.edj"
@@ -53,12 +54,11 @@
 
 
 // Images(res):
-#define THUMB_CONTACT_IMG_PATH           IMAGE_PATH"/list_ic_contacts.png"
-#define THUMB_GROUP_IMG_PATH             IMAGE_PATH"/list_ic_group.png"
-#define THUMB_CB_IMG_PATH                IMAGE_PATH"/list_ic_cb_message.png"
-#define THUMB_PUSH_IMG_PATH              IMAGE_PATH"/list_ic_push_message.png"
-#define THUMB_OTA_IMG_PATH               IMAGE_PATH"/list_ic_OTA_message.png"
-#define THUMB_USER_MASK_74x74_IMG_PATH   IMAGE_PATH"/list_ic_user_thumb_masking.png"
+#define THUMB_CONTACT_IMG_PATH           IMAGE_PATH"/messages_conversation_thumb_single.png"
+#define THUMB_GROUP_IMG_PATH             IMAGE_PATH"/messages_conversation_thumb_multi.PNG"
+#define THUMB_CB_IMG_PATH                IMAGE_PATH"/messages_conversation_thumb_cb.png"
+#define THUMB_PUSH_IMG_PATH              IMAGE_PATH"/messages_conversation_thumb_push.png"
+#define THUMB_OTA_IMG_PATH               IMAGE_PATH"/messages_conversation_thumb_OTA.PNG"
 #define MSG_THREAD_FLOATING_BTN_ICON     IMAGE_PATH"/message_floating_button_icon.png"
 #define TEST_IMG_PATH                    IMAGE_PATH"/cat.jpeg"
 

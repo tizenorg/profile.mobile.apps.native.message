@@ -24,7 +24,7 @@
 
 using namespace Msg;
 
-const int defaultThumbSize = 74;
+const int defaultThumbSize = 80;
 const int defaultCache = 512;
 #define COLOR_BLUE 61, 185, 204, 255
 #define RAND (rand() % 220)

@@ -61,6 +61,9 @@ bool App::init()
     std::string buttonThemePath = PathUtils::getResourcePath(BUTTON_THEME_EDJ_PATH);
     elm_theme_extension_add(nullptr, buttonThemePath.c_str());
 
+    std::string threadThemePath = PathUtils::getResourcePath(THREAD_THEME_EDJ_PATH);
+    elm_theme_extension_add(nullptr, threadThemePath.c_str());
+
     return true;
 }
 

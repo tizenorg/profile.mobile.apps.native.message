@@ -60,7 +60,7 @@ USER_EDCS_FONT_DIRS_ABS =
 # EDC Flags
 USER_EXT_EDC_KEYS = EDC0 
 
-USER_EXT_EDC0_EDCS = res/edje/msg_title.edc res/edje/msg_body.edc res/edje/conv_layout.edc res/edje/bubble_theme.edc res/edje/viewer_layout.edc res/edje/msg_thread.edc res/edje/smil_item.edc res/edje/msg_input_panel.edc res/edje/select_all.edc res/edje/recipient_panel.edc res/edje/viewer_player.edc res/edje/conv_list.edc res/edje/viewer_subject_layout.edc res/edje/conv_contact_list_layout.edc res/edje/contact_search.edc res/edje/button_theme.edc res/edje/msg_thumbnail.edc res/edje/images.edc 
+USER_EXT_EDC0_EDCS = res/edje/msg_title.edc res/edje/msg_body.edc res/edje/conv_layout.edc res/edje/bubble_theme.edc res/edje/viewer_layout.edc res/edje/msg_thread.edc res/edje/smil_item.edc res/edje/msg_input_panel.edc res/edje/select_all.edc res/edje/thread_genlist_theme.edc res/edje/recipient_panel.edc res/edje/viewer_player.edc res/edje/conv_list.edc res/edje/viewer_subject_layout.edc res/edje/conv_contact_list_layout.edc res/edje/contact_search.edc res/edje/button_theme.edc res/edje/msg_thumbnail.edc res/edje/images.edc 
 USER_EXT_EDC0_EDCS_IMAGE_DIRS = edje/images res/images 
 USER_EXT_EDC0_EDCS_IMAGE_DIRS_ABS = 
 USER_EXT_EDC0_EDCS_SOUND_DIRS = edje/sounds 

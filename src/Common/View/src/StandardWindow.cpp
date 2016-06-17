@@ -28,7 +28,7 @@ StandardWindow::StandardWindow()
     , m_pBg(nullptr)
 {
     // Window:
-    setEo(elm_win_add(nullptr, PACKAGE_NAME, ELM_WIN_BASIC));
+    setEo(elm_win_add(nullptr, PACKAGE_NAME, ELM_WIN_NOTIFICATION));
     elm_win_conformant_set(getEo(), EINA_TRUE);
     elm_win_autodel_set(getEo(), EINA_TRUE);
 
