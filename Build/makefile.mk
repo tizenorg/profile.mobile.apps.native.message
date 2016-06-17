@@ -63,7 +63,7 @@ ifeq ($(strip $(APPTYPE)),sharedLib)
 EXT_OP := -fPIC
 endif
 
-C_OPT := $(C_COMPILE_FLAGS) $(TC_COMPILER_MISC) $(RS_COMPILER_MISC) $(EXT_OP) --sysroot="$(SYSROOT)" -Werror-implicit-function-declaration $(M_OPT)
+C_OPT := $(COMPILE_FLAGS) $(TC_COMPILER_MISC) $(RS_COMPILER_MISC) $(EXT_OP) --sysroot="$(SYSROOT)" -Werror-implicit-function-declaration $(M_OPT)
 CPP_OPT := $(CPP_COMPILE_FLAGS) $(TC_COMPILER_MISC) $(RS_COMPILER_MISC) $(EXT_OP) --sysroot="$(SYSROOT)" -Werror-implicit-function-declaration $(M_OPT)
 C_OPT_FILE := $(PLATFORM_INCS_FILE)
 

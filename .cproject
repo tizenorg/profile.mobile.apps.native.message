@@ -331,7 +331,7 @@
 								</inputType>
 							</tool>
 							<tool command="arm-linux-gnueabi-as" id="org.tizen.nativeapp.tool.sbi.gnu.assembler.base.178721376" name="Assembler" superClass="org.tizen.nativeapp.tool.sbi.gnu.assembler.base">
-								<option id="gnu.both.asm.option.include.paths.1769479141" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath"/>
+								<option id="gnu.both.asm.option.include.paths.1769479141" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths"/>
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.2052918173" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 							</tool>
 							<tool id="org.tizen.nativecore.tool.fnmapgen.720823930" name="C FN-Map Generator" superClass="org.tizen.nativecore.tool.fnmapgen"/>
