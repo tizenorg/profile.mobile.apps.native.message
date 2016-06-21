@@ -399,6 +399,7 @@
                 contactAddress = getContactPersonEmail(address);
 
             // MyProfile:
+            #if(0)
             if(!contactAddress)
             {
                 if(isNumber)
@@ -406,9 +407,9 @@
                 else
                     contactAddress = getContactMyProfileEmail(address);
             }
+            #endif
 
             m_AddressMap[address] = contactAddress;
-
             return contactAddress;
         }
         return it->second;
