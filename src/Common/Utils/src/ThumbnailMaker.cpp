@@ -24,12 +24,13 @@
 
 using namespace Msg;
 
-const int defaultThumbSize = 80;
 const int defaultCache = 512;
+#define DEFAULT_THUMB_SIZE ELM_SCALE_SIZE(80)
 #define COLOR_BLUE 61, 185, 204, 255
 #define RAND (rand() % 220)
 #define COLOR_RAND RAND, RAND, RAND, 255
 #define MSG_THUMB_STYLE_LIST    "list_ic_user_thumb_masking"
+
 
 ThumbnailMaker::ThumbnailMaker(App &app)
     : m_App(app)
@@ -108,7 +109,7 @@ ThumbnailMaker::ThumbId ThumbnailMaker::getThumbId(DefaultThumbs thumb)
     }
 }
 
-Evas_Object *ThumbnailMaker::getThumbById(Evas_Object *parent, ThumbId id)
+Evas_Object *ThumbnailMaker::getThumbById(Evas_Object *parent, ThumbId id, int thumbSize)
 {
     auto it = m_OriginsMap.find(id);
     if(it == m_OriginsMap.end())
@@ -120,8 +121,9 @@ Evas_Object *ThumbnailMaker::getThumbById(Evas_Object *parent, ThumbId id)
     Evas_Object *origin = it->second;
     Evas_Object *ic = evas_object_image_filled_add(evas_object_evas_get(parent));
     evas_object_image_source_set(ic, origin);
-    evas_object_size_hint_min_set(ic, ELM_SCALE_SIZE(defaultThumbSize), ELM_SCALE_SIZE(defaultThumbSize));
-    evas_object_size_hint_max_set(ic, ELM_SCALE_SIZE(defaultThumbSize), ELM_SCALE_SIZE(defaultThumbSize));
+    int scaledThumbSize = ELM_SCALE_SIZE(thumbSize);
+    evas_object_size_hint_min_set(ic, scaledThumbSize, scaledThumbSize);
+    evas_object_size_hint_max_set(ic, scaledThumbSize, scaledThumbSize);
     View::expand(ic);
     evas_object_show(ic);
     return ic;
@@ -135,8 +137,8 @@ Evas_Object *ThumbnailMaker::makeOriginThumb(Evas_Object *parent, const std::str
 
     Evas_Object *img = makeFace(ic, path);
     elm_object_part_content_set(ic, "content", img);
-    evas_object_resize(ic, ELM_SCALE_SIZE(defaultThumbSize), ELM_SCALE_SIZE(defaultThumbSize));
-    evas_object_move(ic, -ELM_SCALE_SIZE(defaultThumbSize), -ELM_SCALE_SIZE(defaultThumbSize));
+    evas_object_resize(ic, DEFAULT_THUMB_SIZE, DEFAULT_THUMB_SIZE);
+    evas_object_move(ic, -DEFAULT_THUMB_SIZE, -DEFAULT_THUMB_SIZE);
     evas_object_show(ic);
     return ic;
 }
@@ -145,8 +147,8 @@ Evas_Object *ThumbnailMaker::makeDefaultOriginThumb(Evas_Object *parent, const s
 {
     Evas_Object *img = makeFace(parent, path);
     evas_object_color_set(img, COLOR_BLUE);
-    evas_object_resize(img, ELM_SCALE_SIZE(defaultThumbSize), ELM_SCALE_SIZE(defaultThumbSize));
-    evas_object_move(img, -ELM_SCALE_SIZE(defaultThumbSize), -ELM_SCALE_SIZE(defaultThumbSize));
+    evas_object_resize(img, DEFAULT_THUMB_SIZE, DEFAULT_THUMB_SIZE);
+    evas_object_move(img, -DEFAULT_THUMB_SIZE, -DEFAULT_THUMB_SIZE);
     evas_object_show(img);
     return img;
 }
@@ -155,8 +157,8 @@ Evas_Object *ThumbnailMaker::makeFace(Evas_Object *parent, const std::string &pa
 {
     Evas_Object *img = elm_image_add(parent);
     elm_image_file_set(img, path.c_str(), nullptr);
-    evas_object_size_hint_min_set(img, ELM_SCALE_SIZE(defaultThumbSize), ELM_SCALE_SIZE(defaultThumbSize));
-    evas_object_size_hint_max_set(img, ELM_SCALE_SIZE(defaultThumbSize), ELM_SCALE_SIZE(defaultThumbSize));
+    evas_object_size_hint_min_set(img, DEFAULT_THUMB_SIZE, DEFAULT_THUMB_SIZE);
+    evas_object_size_hint_max_set(img, DEFAULT_THUMB_SIZE, DEFAULT_THUMB_SIZE);
     elm_image_aspect_fixed_set(img, EINA_TRUE);
     elm_image_fill_outside_set(img, EINA_TRUE);
     return img;

@@ -227,7 +227,8 @@ Evas_Object *ConvListItem::getBubbleContent()
 
 Evas_Object *ConvListItem::getThumbnail()
 {
-    return m_App.getThumbnailMaker().getThumbById(*getOwner(), m_ThumbId);
+    static const int thumbSize = 80;
+    return m_App.getThumbnailMaker().getThumbById(*getOwner(), m_ThumbId, thumbSize);
 }
 
 Evas_Object *ConvListItem::getProgress()
