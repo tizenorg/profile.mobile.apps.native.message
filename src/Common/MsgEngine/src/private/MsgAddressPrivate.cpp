@@ -41,7 +41,7 @@ std::string MsgAddressPrivate::getAddress() const
 MsgAddressPrivate::AddressType MsgAddressPrivate::getAddressType() const
 {
     int nativeType = MSG_ADDRESS_TYPE_UNKNOWN;
-    msg_get_int_value(m_MsgStruct, MSG_ADDRESS_INFO_ADDRESS_VALUE_STR, &nativeType);
+    msg_get_int_value(m_MsgStruct, MSG_ADDRESS_INFO_ADDRESS_TYPE_INT, &nativeType);
     return MsgUtilsPrivate::nativeToAddressType(nativeType);
 }
 

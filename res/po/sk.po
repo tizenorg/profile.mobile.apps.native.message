@@ -946,3 +946,45 @@ msgstr "Nie sú pridaní žiadni platní príjemcovia. Táto správa sa zahodí.
 msgid "IDS_MSG_HEADER_SELECT_ITEMS_ABB3"
 msgstr "Vyberte položky"
 
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Príjemcovia sa nedajú pridať. Čísla nie sú platné."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
+msgstr "Niektorí príjemcovia sa nedajú pridať. Čísla nie sú platné."
+
+msgid "IDS_MSG_HEADER_COULDNT_SEND_MESSAGE_ABB"
+msgstr "Nepodarilo sa odoslať správu"
+
+msgid "IDS_MSG_TPOP_CANT_PREVIEW_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Ukážka súboru sa nedá zobraziť. Formát súboru sa nepodporuje."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_VIDEOS_DURING_CALLS"
+msgstr "Počas hovorov sa nedajú prehrávať videá."
+
+msgid "IDS_MSG_TPOP_CANT_PLAY_AUDIO_FILES_DURING_CALLS"
+msgstr "Počas hovorov sa nedajú prehrávať zvukové súbory."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS"
+msgstr "Nemôžete pridať viac než %d príjemcov."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS_FOR_MULTIMEDIA_MESSAGES_SOME_RECIPIENTS_REMOVED"
+msgstr "Nemôžete pridať viac než %d príjemcov pre multimediálne správy. Niektorí príjemcovia sa odstránili."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENT_NUMBER_NOT_VALID"
+msgstr "Príjemca sa nedá pridať. Číslo nie je platné."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_ATTACHMENTS"
+msgstr "Nemôžete vykonať pridanie viac než %d príloh."
+
+msgid "IDS_MSG_TPOP_CANT_ATTACH_FILE_FILE_FORMAT_NOT_SUPPORTED"
+msgstr "Súbor sa nedá priložiť. Formát súboru sa nepodporuje."
+
+msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_P1SS_P2SS_OF_ATTACHMENTS_RESIZING_ATTACHMENTS_ING"
+msgstr "Nemôžete pridať viac než %1$s %2$s príloh. Upravuje sa veľkosť príloh..."
+
+msgid "IDS_MSG_POP_THE_FILE_SIZES_ARE_TOO_LARGE_TRY_SENDING_THEM_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
+msgstr "Súbory sú príliš veľké. Skúste ich odoslať cez e-mail, Bluetooth, Wi-Fi atď."
+
+msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
+msgstr "Zvuk oznámenia"
+

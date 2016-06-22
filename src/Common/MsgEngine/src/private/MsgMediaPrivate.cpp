@@ -79,15 +79,6 @@ void MsgMediaPrivate::setType(Type type)
         case TextType:
         {
             MsgUtilsPrivate::setStr(m_MsgStruct, MSG_MMS_MEDIA_REGION_ID_STR, textRegionId);
-
-            // Set font style:
-            msg_struct_t textStyle = msg_create_struct(MSG_STRUCT_MMS_SMIL_TEXT);
-            msg_set_int_value(textStyle, MSG_MMS_SMIL_TEXT_COLOR_INT, smilDefaultFontColor);
-            msg_set_int_value(textStyle, MSG_MMS_SMIL_TEXT_SIZE_INT, smilDefaultFontSize);
-            msg_set_int_value(textStyle, MSG_MMS_SMIL_TEXT_BOLD_BOOL, smilDefaultBold);
-            msg_set_int_value(textStyle, MSG_MMS_SMIL_TEXT_UNDERLINE_BOOL, smilDefaultUnderline);
-            msg_set_struct_handle(m_MsgStruct, MSG_MMS_MEDIA_SMIL_TEXT_HND, textStyle);
-            msg_release_struct(&textStyle);
             break;
         }
 
@@ -105,7 +96,6 @@ void MsgMediaPrivate::setFilePath(const std::string &path)
 {
     MsgUtilsPrivate::setStr(m_MsgStruct, MSG_MMS_MEDIA_FILEPATH_STR, path);
     MediaTypeData mediaData = getMsgMediaTypeByFileExt(path);
-    setMime(mediaData.mime);
     setType(mediaData.type);
 }
 

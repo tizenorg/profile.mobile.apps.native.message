@@ -162,19 +162,18 @@ void Conversation::recipientClickHandler(const std::string &address)
 {
     MSG_LOG("");
     MSG_ASSERT(m_Mode != InitMode, "m_Mode is in initial state");
-    ContactPersonAddressRef contactPersonAddress = getApp().getContactManager().getContactPersonAddress(address);
-    if(contactPersonAddress)
+    ContactAddressRef contactAddress = getApp().getContactManager().getContactAddress(address);
+    if(contactAddress)
     {
-        int selectedPersonId = contactPersonAddress->getPersonId();
         if(m_Mode == NewMessageMode)
         {
             MbeRecipientItem *pItem = m_pRecipPanel->getSelectedItem();
             if(pItem)
-                showSavedRecipientPopup(pItem->getDispName(), selectedPersonId);
+                showSavedRecipientPopup(pItem->getDispName(), contactAddress->getOwnerId(), contactAddress->getOwnerType());
         }
         else if(m_Mode == ConversationMode)
         {
-            ContactViewer::launch(selectedPersonId);
+            ContactViewer::launch(*contactAddress);
         }
     }
     else
@@ -183,12 +182,12 @@ void Conversation::recipientClickHandler(const std::string &address)
     }
 }
 
-void Conversation::showSavedRecipientPopup(const std::string &title, int personId)
+void Conversation::showSavedRecipientPopup(const std::string &title, int contactId, ContactAddress::OwnerType ownerType)
 {
     PopupList &popup = createPopupList(title);
     popup.appendItem(msg("IDS_MSGF_OPT_REMOVE"), POPUPLIST_ITEM_PRESSED_CB(Conversation, onRecipRemoveItemPressed), this);
     popup.appendItem(msg("IDS_MSG_OPT_EDIT"), POPUPLIST_ITEM_PRESSED_CB(Conversation, onEditItemPressed), this);
-    popup.appendItem(*new PopupPersonIdListItem(popup, msg("IDS_MSG_OPT_VIEW_CONTACT_DETAILS_ABB"), personId,
+    popup.appendItem(*new PopupPersonIdListItem(popup, msg("IDS_MSG_OPT_VIEW_CONTACT_DETAILS_ABB"), contactId, ownerType,
             POPUPLIST_ITEM_PRESSED_CB(Conversation, onViewContactDetailsItemPressed), this));
     popup.show();
 }
@@ -1026,9 +1025,10 @@ void Conversation::onEditItemPressed(PopupListItem &item)
 void Conversation::onViewContactDetailsItemPressed(PopupListItem &item)
 {
     MSG_LOG("");
-    int personId = static_cast<PopupPersonIdListItem&>(item).getPersonId();
+    int id = static_cast<PopupPersonIdListItem&>(item).getContactId();
+    auto ownerType = static_cast<PopupPersonIdListItem&>(item).getContactOwnerType();
     item.getParent().destroy();
-    ContactViewer::launch(personId);
+    ContactViewer::launch(id, ownerType);
 }
 
 void Conversation::onAllItemsDeleted(ConvList &list)

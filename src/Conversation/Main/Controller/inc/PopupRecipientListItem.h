@@ -19,6 +19,7 @@
 #define PopupRecipientListItem_h_
 
 #include "PopupListItem.h"
+#include "ContactAddress.h"
 
 namespace Msg
 {
@@ -26,25 +27,38 @@ namespace Msg
         : public PopupTextListItem
     {
     public:
-        PopupAddressListItem(PopupList &parent, const std::string &text, const std::string &address,
-                PopupListItemPressedCb cb, void *userData);
+        PopupAddressListItem(PopupList &parent,
+                            const std::string &text,
+                            const std::string &address,
+                            PopupListItemPressedCb cb,
+                            void *userData);
+
         virtual ~PopupAddressListItem();
         std::string getAddress() const;
+
     private:
         std::string m_Address;
     };
-
 
     class PopupPersonIdListItem
         : public PopupTextListItem
     {
     public:
-        PopupPersonIdListItem(PopupList &parent, const std::string &text, int personId,
-                PopupListItemPressedCb cb, void *userData);
+        PopupPersonIdListItem(PopupList &parent,
+                              const std::string &text,
+                              int contactId,
+                              ContactAddress::OwnerType ownerType,
+                              PopupListItemPressedCb cb,
+                              void *userData);
+
         virtual ~PopupPersonIdListItem();
-        int getPersonId() const;
+
+        int getContactId() const;
+        ContactAddress::OwnerType getContactOwnerType() const;
+
     private:
-        int m_PersonId;
+        int m_ContactId;
+        ContactAddress::OwnerType m_OwnerType;
     };
 }
 

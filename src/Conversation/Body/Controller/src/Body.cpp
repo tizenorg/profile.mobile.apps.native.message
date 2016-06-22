@@ -291,7 +291,6 @@ void Body::readAttachments(MessageMms &msg)
         msgAttach.setFilePath(resPath);
         msgAttach.setFileName(attachView->getFileName());
         msgAttach.setFileSize((int)fileSize);
-        msgAttach.setMime(mime);
     }
 }
 

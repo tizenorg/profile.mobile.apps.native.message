@@ -24,7 +24,7 @@
 
 using namespace Msg;
 
-const int defaultThumbSize = 74;
+const int defaultThumbSize = 80;
 const int defaultCache = 512;
 #define COLOR_BLUE 61, 185, 204, 255
 #define RAND (rand() % 220)
@@ -59,7 +59,7 @@ ThumbnailMaker::ThumbId ThumbnailMaker::getThumbId(const MsgAddress &address)
 
 ThumbnailMaker::ThumbId ThumbnailMaker::getThumbId(const std::string &address)
 {
-    ContactPersonAddressRef contact = m_App.getContactManager().getContactPersonAddress(address);
+    ContactAddressRef contact = m_App.getContactManager().getContactAddress(address);
     return contact ? getThumbIdFromFile(contact->getThumbnailPath()) : getThumbId(SingleThumb);
 }
 
@@ -98,7 +98,7 @@ ThumbnailMaker::ThumbId ThumbnailMaker::getThumbId(DefaultThumbs thumb)
         }
         else
         {
-            ContactOwnerProfileRef ownerProfile = m_App.getContactManager().getOwnerProfile();
+            ContactMyProfileRef ownerProfile = m_App.getContactManager().getOwnerProfile();
             origin = ownerProfile ? makeOriginThumb(m_App.getWindow(), ownerProfile->getThumbnailPath()) :
                                     makeDefaultOriginThumb(m_App.getWindow(), defaultThumbsToPath(SingleThumb));
         }

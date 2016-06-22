@@ -29,7 +29,7 @@ using namespace Msg;
 
 namespace
 {
-    ListItemStyleRef threadItemStyle = ListItemStyle::create("type2");
+    ListItemStyleRef threadItemStyle = ListItemStyle::create("msg_thread");
 
     const char *messagePart = "elm.text";
     const char *namePart = "elm.text.sub";
@@ -39,9 +39,6 @@ namespace
     const char *statusPart = "elm.text.end";
     const char *iconPart = "elm.swallow.icon.1";
 
-    const TextStyle nameTextStyle(44, "#131313FF");
-    const TextStyle msgTextStyle(38, "#969696FF");
-    const TextStyle timeTextStyle(32, "#969696FF");
     const TextStyle unreadTextStyle(34, "#e43d3dFF");
     const TextStyle failedTextStyle(32, "#e43d3dFF");
     const TextStyle draftTextStyle(32, "#e43d3dFF");
@@ -141,17 +138,20 @@ Evas_Object *ThreadListViewItem::getIcon()
 
 std::string ThreadListViewItem::decorateNameText(const std::string &text) const
 {
-    return TextDecorator::make(text, nameTextStyle);
+    // Style set in edc
+    return text;
 }
 
 std::string ThreadListViewItem::decorateMessageText(const std::string &text) const
 {
-    return TextDecorator::make(text, msgTextStyle);
+    // Style set in edc
+    return text;
 }
 
 std::string ThreadListViewItem::decorateTimeText(const std::string &text) const
 {
-    return TextDecorator::make(text, timeTextStyle);
+    // Style set in edc
+    return text;
 }
 
 std::string ThreadListViewItem::decorateUnreadText(const std::string &text) const
