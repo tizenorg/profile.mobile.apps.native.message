@@ -50,7 +50,7 @@ namespace Msg
             MbeRecipients::AppendItemStatus appendItem(const std::string &address, MsgAddress::AddressType addressType = MsgAddress::UnknownAddressType);
             void removeSelectedItem();
             void editSelectedItem();
-            void addRecipientsFromEntry(bool showPopup = true);
+            bool addRecipientsFromEntry(bool showPopup = true);
 
         private:
             // RecipientsPanelView:
