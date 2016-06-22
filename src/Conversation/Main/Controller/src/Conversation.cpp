@@ -471,6 +471,9 @@ bool Conversation::readMsgAddress(Message &msg)
 
 void Conversation::sendMessage()
 {
+    if(m_pRecipPanel->getFocus())
+        m_pRecipPanel->setFocus(false);
+
     if(!getApp().getSysSettingsManager().isSimInserted())
     {
         showSendResultPopup(MsgTransport::SendNoSIM);
