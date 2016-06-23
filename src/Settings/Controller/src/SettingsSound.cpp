@@ -17,6 +17,8 @@
 
 #include "SettingsSound.h"
 #include "MsgEngine.h"
+#include "MediaUtils.h"
+#include "LangUtils.h"
 #include <app.h>
 
 using namespace Msg;
@@ -24,7 +26,7 @@ using namespace Msg;
 namespace
 {
     const char *sRingtoneKeyPath = "path";
-    const char *sRingtoneValuePath = "/opt/usr/share/settings/Alerts";
+    const char *sRingtoneValuePath = "/opt/share/settings/Ringtones";
     const char *sRingtoneKeySelectType = "select_type";
     const char *sRingtoneValueSingleFile = "SINGLE_FILE";
     const char *sRingtoneKeyFileType = "file_type";
@@ -36,6 +38,10 @@ namespace
     const char *sRingtoneValueDefaultShow = "default show";
     const char *sRingtoneAppId = "setting-ringtone-efl";
     const char *sRingtoneKeyResult = "result";
+    const char* sRingtoneKeyDrmType = "drm_type";
+    const char* sRingtoneValueDrmAll = "DRM_ALL";
+    const char* sRingtoneKeyDomain = "domain";
+    const char* sRingtoneKeyTitle = "title";
 }
 
 SettingsSound::SettingsSound(MsgSettings &settingsHandle)
@@ -56,7 +62,9 @@ static void soundPickerCb(app_control_h request, app_control_h reply, app_contro
     {
         return;
     }
-    static_cast<MsgSettings*>(user_data)->setNotiSound(ringtonePath);
+
+    std::string title(MediaUtils::getTitle(ringtonePath));
+    static_cast<MsgSettings*>(user_data)->setNotiSound(title);
     free(ringtonePath);
 }
 
@@ -66,11 +74,15 @@ void SettingsSound::launchSoundPicker()
     app_control_create(&h);
     app_control_set_launch_mode(h, APP_CONTROL_LAUNCH_MODE_GROUP);
     app_control_add_extra_data(h, sRingtoneKeyPath, sRingtoneValuePath);
+    app_control_add_extra_data(h, sRingtoneKeyDomain, PACKAGE_NAME);
     app_control_add_extra_data(h, sRingtoneKeySelectType, sRingtoneValueSingleFile);
     app_control_add_extra_data(h, sRingtoneKeyFileType, sRingtoneValueSound);
     app_control_add_extra_data(h, sRingtoneKeyMarkedMode, m_SettingsHandle.getNotiSound().c_str());
     app_control_add_extra_data(h, sRingtoneKeySilent, sRingtoneValueSilentShow);
     app_control_add_extra_data(h, sRingtoneKeyDefault, sRingtoneValueDefaultShow);
+    app_control_add_extra_data(h, sRingtoneKeyDrmType, sRingtoneValueDrmAll);
+    app_control_add_extra_data(h, sRingtoneKeyTitle, msg("IDS_MSG_HEADER_MESSAGE_TONE_ABB").get());
+
     app_control_set_app_id(h, sRingtoneAppId);
     app_control_send_launch_request(h, soundPickerCb, &m_SettingsHandle);
 

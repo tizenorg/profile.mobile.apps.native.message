@@ -589,6 +589,9 @@ msgstr "Выберите получателя"
 msgid "IDS_MSG_HEADER_PD_SELECTED_ABB3"
 msgstr "Выбрано: %d"
 
+msgid "IDS_MSG_HEADER_MESSAGE_TONE_ABB"
+msgstr "Мелодия сообщения"
+
 msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
 msgstr "Сообщения на SIM-карте"
 

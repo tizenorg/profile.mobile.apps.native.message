@@ -589,6 +589,9 @@ msgstr "Välj mottagare"
 msgid "IDS_MSG_HEADER_PD_SELECTED_ABB3"
 msgstr "%d valda"
 
+msgid "IDS_MSG_HEADER_MESSAGE_TONE_ABB"
+msgstr "Meddelandesignal"
+
 msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
 msgstr "Meddelanden på SIM-kortet"
 

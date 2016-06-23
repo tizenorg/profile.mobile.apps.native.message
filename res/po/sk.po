@@ -589,6 +589,9 @@ msgstr "Vybrať príjemcu"
 msgid "IDS_MSG_HEADER_PD_SELECTED_ABB3"
 msgstr "Vybraté: %d"
 
+msgid "IDS_MSG_HEADER_MESSAGE_TONE_ABB"
+msgstr "Tón správy"
+
 msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
 msgstr "Správy na karte SIM"
 

@@ -589,6 +589,9 @@ msgstr "Ontvanger selecteren"
 msgid "IDS_MSG_HEADER_PD_SELECTED_ABB3"
 msgstr "%d geselecteerd"
 
+msgid "IDS_MSG_HEADER_MESSAGE_TONE_ABB"
+msgstr "Berichttoon"
+
 msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
 msgstr "Berichten op SIM-kaart"
 

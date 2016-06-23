@@ -589,6 +589,9 @@ msgstr "Seleccionar destinatario"
 msgid "IDS_MSG_HEADER_PD_SELECTED_ABB3"
 msgstr "%d seleccionado(s)"
 
+msgid "IDS_MSG_HEADER_MESSAGE_TONE_ABB"
+msgstr "Tono de mensaje"
+
 msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
 msgstr "Mensajes en la tarjeta SIM"
 
@@ -830,7 +833,7 @@ msgid "IDS_MSG_POP_INCOMING_MESSAGES_ONLY"
 msgstr "Solo mensajes entrantes"
 
 msgid "IDS_MSG_POP_DELETED"
-msgstr "Eliminado"
+msgstr "Eliminado."
 
 msgid "IDS_MSG_OPT_VIDEOS"
 msgstr "Vídeos"
