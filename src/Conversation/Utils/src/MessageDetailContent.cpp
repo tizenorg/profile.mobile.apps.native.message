@@ -361,13 +361,15 @@ std::string MessageDetailContent::makeReadReportResult(App &app, MsgId msgId, Th
             readReport.append("<br/>");
             readReport.append(addrList->at(i).getAddress());
             readReport.append(" - ");
-            if(reportList->at(i).getType() == MsgReport::TypeDelivery)
+            if(reportList->at(i).getType() == MsgReport::TypeRead)
             {
                 if(reportList->at(i).getReadStatus() == MsgReport::ReadStatusIsRead)
                 {
                     readReport.append(msg("IDS_MSGF_BODY_MMSREADREPLYMSGREAD"));
+                    readReport.append(" (");
                     time_t time = reportList->at(i).getTime();
                     readReport.append(TimeUtils::makeDateTimeString(time));
+                    readReport.append(")");
                 }
                 else if(reportList->at(i).getReadStatus() == MsgReport::ReadStatusIsDeleted)
                 {
