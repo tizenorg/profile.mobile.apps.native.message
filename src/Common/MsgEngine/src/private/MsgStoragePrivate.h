@@ -77,7 +77,6 @@ namespace Msg
             static void msg_storage_change_cb(msg_handle_t handle, msg_storage_change_type_t storageChangeType, msg_id_list_s *pMsgIdList, void *user_param);
 
             MessageSMS *createSms();
-            bool isSimActive() const;
 
         private:
             msg_handle_t m_ServiceHandle;

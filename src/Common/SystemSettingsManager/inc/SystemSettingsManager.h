@@ -33,6 +33,7 @@ namespace Msg
             void addListener(ISystemSettingsManager &l);
             void removeListener(ISystemSettingsManager&l);
             bool isSimInserted() const;
+            bool isSimActive() const;
             bool isMobileDataEnabled() const;
 
         private:

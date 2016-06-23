@@ -79,28 +79,6 @@ void MsgStoragePrivate::msg_storage_change_cb(msg_handle_t handle, msg_storage_c
     }
 }
 
-bool MsgStoragePrivate::isSimActive() const
-{
-    bool res = false;
-    telephony_handle_list_s tel_handle_list;
-    if(telephony_init(&tel_handle_list) == TELEPHONY_ERROR_NONE)
-    {
-        if(tel_handle_list.count > 0)
-        {
-            telephony_h tel_handle = tel_handle_list.handle[0];
-            telephony_network_service_state_e serv_state;
-            if(telephony_network_get_service_state(tel_handle, &serv_state) == TELEPHONY_ERROR_NONE)
-            {
-                res = (serv_state == TELEPHONY_NETWORK_SERVICE_STATE_IN_SERVICE);
-                MSG_LOG("serv_state = ", serv_state);
-            }
-        }
-        telephony_deinit(&tel_handle_list);
-    }
-
-    return res;
-}
-
 MsgStoragePrivate::~MsgStoragePrivate()
 {
 }
@@ -135,13 +113,6 @@ MessageSMSListRef MsgStoragePrivate::getSimMsgList()
     msg_set_int_value(listCond, MSG_LIST_CONDITION_MSGTYPE_INT, MSG_TYPE_SMS);
     msg_set_int_value(listCond, MSG_LIST_CONDITION_SIM_INDEX_INT, 1);
     msg_set_int_value(listCond, MSG_LIST_CONDITION_STORAGE_ID_INT, MSG_STORAGE_SIM);
-
-    if(!isSimActive())
-    {
-        MSG_LOG_ERROR("SIM_CARD_IS_NOT_ACTIVE!");
-        msg_release_struct(&listCond);
-        return nullptr;
-    }
 
     if(msg_get_message_list2(m_ServiceHandle, listCond, &msgList) == 0)
     {
