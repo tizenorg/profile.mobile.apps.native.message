@@ -73,6 +73,24 @@ bool SystemSettingsManager::isSimInserted() const
     return res;
 }
 
+bool SystemSettingsManager::isSimActive() const
+{
+    bool res = false;
+
+    if(m_TelHandleList.count > 0)
+    {
+        telephony_h telHandle = m_TelHandleList.handle[0];
+        telephony_network_service_state_e servState;
+        if(telephony_network_get_service_state(telHandle, &servState) == TELEPHONY_ERROR_NONE)
+        {
+            res = (servState == TELEPHONY_NETWORK_SERVICE_STATE_IN_SERVICE);
+            MSG_LOG("servState = ", servState);
+        }
+    }
+
+    return res;
+}
+
 bool SystemSettingsManager::isMobileDataEnabled() const
 {
     bool res = false;
