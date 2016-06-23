@@ -589,6 +589,9 @@ msgstr "選擇收件人"
 msgid "IDS_MSG_HEADER_PD_SELECTED_ABB3"
 msgstr "已選擇 %d 個"
 
+msgid "IDS_MSG_HEADER_MESSAGE_TONE_ABB"
+msgstr "訊息提示音"
+
 msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
 msgstr "SIM 卡上的訊息"
 

@@ -589,6 +589,9 @@ msgstr "Velja viðtakanda"
 msgid "IDS_MSG_HEADER_PD_SELECTED_ABB3"
 msgstr "%d valin"
 
+msgid "IDS_MSG_HEADER_MESSAGE_TONE_ABB"
+msgstr "Skilaboðatónn"
+
 msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
 msgstr "Skilaboð á SIM-korti"
 

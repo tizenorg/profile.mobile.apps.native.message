@@ -589,6 +589,9 @@ msgstr "Selectare destinatar"
 msgid "IDS_MSG_HEADER_PD_SELECTED_ABB3"
 msgstr "%d selectate"
 
+msgid "IDS_MSG_HEADER_MESSAGE_TONE_ABB"
+msgstr "Ton de mesaj"
+
 msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
 msgstr "Mesaje de pe cartela SIM"
 
@@ -950,7 +953,7 @@ msgid "IDS_MSG_TPOP_CANT_ADD_RECIPIENTS_NUMBERS_NOT_VALID"
 msgstr "Nu pot fi adăugați destinatari. Numerele nu sunt valide."
 
 msgid "IDS_MSG_TPOP_CANT_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
-msgstr "Nu se pot adăuga anumiți destinatari. Numerele nu sunt valide."
+msgstr "Nu se pot adăuga unii destinatari. Numerele nu sunt valide."
 
 msgid "IDS_MSG_HEADER_COULDNT_SEND_MESSAGE_ABB"
 msgstr "Nu s-a putut trimite mesajul"

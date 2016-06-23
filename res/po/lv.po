@@ -589,6 +589,9 @@ msgstr "Adresāta izvēle"
 msgid "IDS_MSG_HEADER_PD_SELECTED_ABB3"
 msgstr "Izvēlēti %d"
 
+msgid "IDS_MSG_HEADER_MESSAGE_TONE_ABB"
+msgstr "Ziņas signāls"
+
 msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
 msgstr "Ziņas SIM kartē"
 

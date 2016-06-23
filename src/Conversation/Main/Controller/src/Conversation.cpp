@@ -471,6 +471,13 @@ bool Conversation::readMsgAddress(Message &msg)
 
 void Conversation::sendMessage()
 {
+    if(m_pRecipPanel &&
+       m_pRecipPanel->getEntryFocus() &&
+       !m_pRecipPanel->getEntryText().empty() &&
+       !m_pRecipPanel->addRecipientsFromEntry())
+            return;
+
+
     if(!getApp().getSysSettingsManager().isSimInserted())
     {
         showSendResultPopup(MsgTransport::SendNoSIM);
@@ -672,15 +679,18 @@ void Conversation::onKeyDown(ConvRecipientsPanel &panel, Evas_Event_Key_Down &ev
         }
         else
         {
-            m_pContactsList->setSearchWorld(m_pRecipPanel->getEntryText());
-            m_pContactsList->requestSearch();
+            if(m_pContactsList)
+            {
+                m_pContactsList->setSearchWorld(m_pRecipPanel->getEntryText());
+                m_pContactsList->requestSearch();
+            }
         }
     }
 }
 
 void Conversation::onEntryFocusChanged(ConvRecipientsPanel &panel)
 {
-    if(!m_pRecipPanel->getEntryFocus())
+    if(!m_pRecipPanel->getEntryFocus() && m_pContactsList)
         m_pContactsList->clear();
 }
 

@@ -86,7 +86,7 @@ void ConvRecipientsPanel::setListener(IConvRecipientsPanelListener *l)
     m_pListener = l;
 }
 
-void ConvRecipientsPanel::addRecipientsFromEntry(bool showPopup)
+bool ConvRecipientsPanel::addRecipientsFromEntry(bool showPopup)
 {
     MSG_LOG("");
     std::string text = getEntryText();
@@ -102,11 +102,18 @@ void ConvRecipientsPanel::addRecipientsFromEntry(bool showPopup)
     }
 
     if(duplicateFound)
+    {
         showDuplicatedRecipientNotif();
+        return false;
+    }
 
     setEntryText(result.invalidResult);
     if(!result.invalidResult.empty() && showPopup)
+    {
         showInvalidRecipientPopup();
+        return false;
+    }
+    return true;
 }
 
 void ConvRecipientsPanel::update(const MsgAddressList &addressList)
