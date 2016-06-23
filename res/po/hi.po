@@ -589,6 +589,9 @@ msgstr "प्राप्‍तकर्ता चुनें"
 msgid "IDS_MSG_HEADER_PD_SELECTED_ABB3"
 msgstr "%d चयनित"
 
+msgid "IDS_MSG_HEADER_MESSAGE_TONE_ABB"
+msgstr "सन्देश स्वर"
+
 msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
 msgstr "SIM कार्ड के सन्देश"
 

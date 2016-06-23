@@ -589,6 +589,9 @@ msgstr "Aukeratu hartzailea"
 msgid "IDS_MSG_HEADER_PD_SELECTED_ABB3"
 msgstr "%d hautatuta"
 
+msgid "IDS_MSG_HEADER_MESSAGE_TONE_ABB"
+msgstr "Mezu tonua"
+
 msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
 msgstr "SIM txarteleko mezuak"
 
@@ -962,7 +965,7 @@ msgid "IDS_MSG_TPOP_CANT_PLAY_VIDEOS_DURING_CALLS"
 msgstr "Ezin dira erreproduzitu bideoak deien bitartean."
 
 msgid "IDS_MSG_TPOP_CANT_PLAY_AUDIO_FILES_DURING_CALLS"
-msgstr "Ezin dira erreproduzitu audio-fitxategiak deien bitartean."
+msgstr "Ezin dira erreproduzitu audio-fitxategiak deietan zehar."
 
 msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_PD_RECIPIENTS"
 msgstr "Ezin dira gehitu %d parte hartzaile baino gehiago."

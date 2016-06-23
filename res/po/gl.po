@@ -589,6 +589,9 @@ msgstr "Seleccionar destinatario"
 msgid "IDS_MSG_HEADER_PD_SELECTED_ABB3"
 msgstr "%d seleccionado(s)"
 
+msgid "IDS_MSG_HEADER_MESSAGE_TONE_ABB"
+msgstr "Ton de mensaxe"
+
 msgid "IDS_MSG_HEADER_MESSAGES_ON_SIM_CARD_ABB"
 msgstr "Mensaxes na tarxeta SIM"
 
@@ -953,7 +956,7 @@ msgid "IDS_MSG_TPOP_CANT_ADD_SOME_RECIPIENTS_NUMBERS_NOT_VALID"
 msgstr "Non se poden engadir algúns destinatarios. Os números non son válidos."
 
 msgid "IDS_MSG_HEADER_COULDNT_SEND_MESSAGE_ABB"
-msgstr "Non se puido enviar a mensaxe"
+msgstr "Non se puido enviar mensaxe"
 
 msgid "IDS_MSG_TPOP_CANT_PREVIEW_FILE_FILE_FORMAT_NOT_SUPPORTED"
 msgstr "Non se pode previsualizar o arquivo. Non se admite o formato de arquivo."
