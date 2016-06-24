@@ -382,7 +382,7 @@ MsgReportListRef MsgStoragePrivate::getMsgReportList(MsgId msgId)
 bool MsgStoragePrivate::isReadReportChecked(MsgId msgId)
 {
     bool readFlag = false;
-    msg_struct_t mmsSendOpt = NULL;
+    msg_struct_t mmsSendOpt = nullptr;
     msg_struct_t sendOpt = msg_create_struct(MSG_STRUCT_SENDOPT);
     msg_struct_t msgInfo = msg_create_struct(MSG_STRUCT_MESSAGE_INFO);
 
@@ -393,6 +393,20 @@ bool MsgStoragePrivate::isReadReportChecked(MsgId msgId)
     msg_release_struct(&msgInfo);
     msg_release_struct(&sendOpt);
     return readFlag;
+}
+
+bool MsgStoragePrivate::isDeliverReportChecked(MsgId msgId)
+{
+    bool deliverFlag = false;
+    msg_struct_t sendOpt = msg_create_struct(MSG_STRUCT_SENDOPT);
+    msg_struct_t msgInfo = msg_create_struct(MSG_STRUCT_MESSAGE_INFO);
+
+    msg_get_message(m_ServiceHandle, msgId, msgInfo, sendOpt);
+    msg_get_bool_value(sendOpt, MSG_SEND_OPT_DELIVER_REQ_BOOL, &deliverFlag);
+
+    msg_release_struct(&msgInfo);
+    msg_release_struct(&sendOpt);
+    return deliverFlag;
 }
 
 ThreadId MsgStoragePrivate::getThreadId(MsgId id)

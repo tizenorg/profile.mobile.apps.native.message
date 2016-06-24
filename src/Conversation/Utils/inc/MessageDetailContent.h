@@ -35,7 +35,7 @@ namespace Msg
             static std::string getMessageType(Message::Type msgType);
             static std::string getContactsInfo(App &app, Message::Direction m_Direction, ThreadId msgThreadId);
             static std::string getSentReceivedTime(MsgStorage &msgStorage, Message::Direction msgDirection, MsgId msgId);
-            static std::string makeReportResult(App &app, Message::NetworkStatus msgStatus, Message::Type msgType, ThreadId msgThreadId, MsgId msgId);
+            static std::string makeDeliveryReportResult(App &app, Message::NetworkStatus msgStatus, Message::Type msgType, ThreadId msgThreadId, MsgId msgId);
             static std::string getSubscriberNumber();
             static std::string getSmsStatus(Message::NetworkStatus msgStatus);
             static std::string getMmsSubject(App &app, MsgId msgId);

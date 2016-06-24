@@ -48,7 +48,7 @@ std::string MessageDetailContent::createMsgDetailsPopupText(App &app, MsgId msgI
     if(msgDirection == Message::MD_Sent && msgType == Message::MT_SMS)
     {
         msgDetails.append("<br/>");
-        msgDetails += makeReportResult(app, msgStatus, msgType, msgThreadId, msgId);
+        msgDetails += makeDeliveryReportResult(app, msgStatus, msgType, msgThreadId, msgId);
         msgDetails += getSmsStatus(msgStatus);
     }
     else if(msgType == Message::MT_MMS_Noti)
@@ -67,7 +67,7 @@ std::string MessageDetailContent::createMsgDetailsPopupText(App &app, MsgId msgI
         if(msgDirection == Message::MD_Sent)
         {
             msgDetails.append("<br/>");
-            msgDetails += makeReportResult(app, msgStatus, msgType, msgThreadId, msgId);
+            msgDetails += makeDeliveryReportResult(app, msgStatus, msgType, msgThreadId, msgId);
             msgDetails += makeReadReportResult(app, msgId, msgThreadId, msgStatus);
         }
     }
@@ -176,63 +176,61 @@ std::string MessageDetailContent::getSentReceivedTime(MsgStorage &msgStorage, Me
     return msgDetails;
 }
 
-std::string MessageDetailContent::makeReportResult(App &app, Message::NetworkStatus msgStatus, Message::Type msgType, ThreadId msgThreadId, MsgId msgId)
+std::string MessageDetailContent::makeDeliveryReportResult(App &app, Message::NetworkStatus msgStatus, Message::Type msgType, ThreadId msgThreadId, MsgId msgId)
 {
     std::string deliverText;
 
-    if(msgStatus == Message::NS_Send_Success || msgStatus == Message::NS_Deliver_Success)
+    bool deliverFlag = app.getMsgEngine().getStorage().isDeliverReportChecked(msgId);
+    if(deliverFlag)
     {
         MsgReportListRef reportList = app.getMsgEngine().getStorage().getMsgReportList(msgId);
-        MsgAddressListRef addrList = app.getMsgEngine().getStorage().getAddressList(msgThreadId);
+        int size = reportList->getLength();
+        bool isDelivReportExists = false;
 
-        int size = addrList->getLength();
         for(int i = 0; i < size; i++)
         {
-            if(reportList->getLength() != 0)
+            const MsgReport &report = reportList->at(i);
+            if(report.getType() == MsgReport::TypeDelivery)
             {
+                isDelivReportExists = true;
+
                 deliverText.append("<br/>");
-                deliverText.append(addrList->at(i).getAddress());
+                deliverText.append(report.getAddress());
                 deliverText.append(" - ");
-                if(reportList->at(i).getType() == MsgReport::TypeDelivery)
+
+                if(report.getDeliveryStatus() == MsgReport::StatusSuccess)
                 {
-                    if(reportList->at(i).getDeliveryStatus() == MsgReport::StatusSuccess)
-                    {
-                        deliverText.append(msg("IDS_MSGF_BODY_RECEIVED"));
-                        deliverText.append(" (");
+                    deliverText.append(msg("IDS_MSGF_BODY_RECEIVED"));
+                    deliverText.append(" (");
 
-                        time_t time = reportList->at(i).getTime();
-                        if(MsgUtils::isMms(msgType))
-                            deliverText.append(TimeUtils::makeMmsReportTimeString(time));
-                        else
-                            deliverText.append(TimeUtils::makeSmsReportTimeString(time));
-
-                        deliverText.append(")");
-                    }
-                    else if(reportList->at(i).getDeliveryStatus() == MsgReport::StatusExpired)
-                    {
-                        deliverText.append(msg("IDS_MSGF_BODY_EXPIRED"));
-                    }
-                    else if(reportList->at(i).getDeliveryStatus() == MsgReport::StatusRejected)
-                    {
-                        deliverText.append(msg("IDS_MSGF_POP_REJECTED"));
-                    }
+                    time_t time = report.getTime();
+                    if(MsgUtils::isMms(msgType))
+                        deliverText.append(TimeUtils::makeMmsReportTimeString(time));
                     else
-                    {
-                        if(MsgUtils::isMms(msgType))
-                            deliverText.append(msg("IDS_MSGF_BODY_UNKNOWN"));
-                        else
-                            deliverText.append(msg("IDS_MSGF_BODY_REQUESTED"));
-                    }
+                        deliverText.append(TimeUtils::makeSmsReportTimeString(time));
+
+                    deliverText.append(")");
+                }
+                else if(report.getDeliveryStatus() == MsgReport::StatusExpired)
+                {
+                    deliverText.append(msg("IDS_MSGF_BODY_EXPIRED"));
+                }
+                else if(report.getDeliveryStatus() == MsgReport::StatusRejected)
+                {
+                    deliverText.append(msg("IDS_MSGF_POP_REJECTED"));
+                }
+                else if(report.getDeliveryStatus() == MsgReport::StatusNone)
+                {
+                    deliverText.append(msg("IDS_MSGF_BODY_REQUESTED"));
+                }
+                else
+                {
+                    deliverText.append(msg("IDS_MSGF_BODY_UNKNOWN"));
                 }
             }
-            else
-            {
-                deliverText.append("<br/>");
-                deliverText.append(addrList->at(i).getAddress());
-                deliverText.append(" - ");
-                deliverText.append(msg("IDS_MSGC_BODY_NOT_REQUESTED"));
-            }
         }
+        if(!isDelivReportExists)
+            deliverText.append(msg("IDS_MSGF_BODY_UNKNOWN"));
     }
     else
     {
@@ -349,38 +347,49 @@ std::string MessageDetailContent::makeReadReportResult(App &app, MsgId msgId, Th
 {
     std::string readReport;
     bool readFlag = app.getMsgEngine().getStorage().isReadReportChecked(msgId);
-
-    if((msgStatus == Message::NS_Send_Success || msgStatus == Message::NS_Deliver_Success) && readFlag)
+    if(readFlag)
     {
         MsgReportListRef reportList = app.getMsgEngine().getStorage().getMsgReportList(msgId);
-        MsgAddressListRef addrList = app.getMsgEngine().getStorage().getAddressList(msgThreadId);
 
-        int size = addrList->getLength();
+        int size = reportList->getLength();
+        bool isReadReportExists = false;
+
         for(int i = 0; i < size; i++)
         {
-            readReport.append("<br/>");
-            readReport.append(addrList->at(i).getAddress());
-            readReport.append(" - ");
-            if(reportList->at(i).getType() == MsgReport::TypeRead)
+            const MsgReport &report = reportList->at(i);
+            if(report.getType() == MsgReport::TypeRead)
             {
-                if(reportList->at(i).getReadStatus() == MsgReport::ReadStatusIsRead)
+                isReadReportExists = true;
+
+                readReport.append("<br/>");
+                readReport.append(report.getAddress());
+                readReport.append(" - ");
+
+                if(report.getReadStatus() == MsgReport::ReadStatusIsRead)
                 {
                     readReport.append(msg("IDS_MSGF_BODY_MMSREADREPLYMSGREAD"));
                     readReport.append(" (");
-                    time_t time = reportList->at(i).getTime();
+                    time_t time = report.getTime();
                     readReport.append(TimeUtils::makeDateTimeString(time));
                     readReport.append(")");
                 }
-                else if(reportList->at(i).getReadStatus() == MsgReport::ReadStatusIsDeleted)
+                else if(report.getReadStatus() == MsgReport::ReadStatusIsDeleted)
                 {
                     readReport.append(msg("IDS_MSG_POP_DELETED"));
                 }
-                else if(reportList->at(i).getReadStatus() == MsgReport::ReadStatusNone)
+                else if(report.getReadStatus() == MsgReport::ReadStatusNone)
                 {
                     readReport.append(msg("IDS_MSGF_BODY_REQUESTED"));
                 }
+                else
+                {
+                    readReport.append(msg("IDS_MSGF_BODY_UNKNOWN"));
+                }
             }
         }
+
+        if(!isReadReportExists)
+            readReport.append(msg("IDS_MSGF_BODY_UNKNOWN"));
     }
     else
     {

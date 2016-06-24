@@ -64,6 +64,7 @@ namespace Msg
             virtual void setReadStatus(MsgId id, bool status);
             virtual MsgReportListRef getMsgReportList(MsgId msgId);
             virtual bool isReadReportChecked(MsgId msgId);
+            virtual bool isDeliverReportChecked(MsgId msgId);
 
             // Conversation:
             virtual MsgConversationListRef getConversationList(ThreadId id);
