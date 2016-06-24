@@ -128,21 +128,7 @@ std::string MessageDetailContent::getContactsInfo(App &app, Message::Direction m
     for(int i = 0; i < addressListLength; ++i)
     {
         std::string address = addrList->at(i).getAddress();
-        ContactAddressRef contact = app.getContactManager().getContactAddress(address);
-        if(contact)
-        {
-            contactsInfo.append(contact->getDispName().c_str());
-            contactsInfo.append(" (");
-            contactsInfo.append(address);
-            contactsInfo.append(")");
-        }
-        else
-        {
-            if(address.empty())
-                contactsInfo.append(msg("IDS_MSGF_BODY_UNKNOWN"));
-            else
-                contactsInfo.append(address);
-        }
+        contactsInfo.append(makeDispAddress(app, address));
         if(i != addressListLength - 1)
             contactsInfo.append(", ");
     }
@@ -193,39 +179,46 @@ std::string MessageDetailContent::makeDeliveryReportResult(App &app, Message::Ne
             if(report.getType() == MsgReport::TypeDelivery)
             {
                 isDelivReportExists = true;
-
                 deliverText.append("<br/>");
-                deliverText.append(report.getAddress());
+                deliverText.append(makeDispAddress(app, report.getAddress()));
                 deliverText.append(" - ");
+                MsgReport::DeliveryStatus deliveryStatus = report.getDeliveryStatus();
 
-                if(report.getDeliveryStatus() == MsgReport::StatusSuccess)
+                switch(deliveryStatus)
                 {
-                    deliverText.append(msg("IDS_MSGF_BODY_RECEIVED"));
-                    deliverText.append(" (");
+                    case MsgReport::StatusSuccess:
+                    {
+                        deliverText.append(msg("IDS_MSGF_BODY_RECEIVED"));
+                        deliverText.append(" (");
 
-                    time_t time = report.getTime();
-                    if(MsgUtils::isMms(msgType))
-                        deliverText.append(TimeUtils::makeMmsReportTimeString(time));
-                    else
-                        deliverText.append(TimeUtils::makeSmsReportTimeString(time));
+                        time_t time = report.getTime();
+                        if(MsgUtils::isMms(msgType))
+                            deliverText.append(TimeUtils::makeMmsReportTimeString(time));
+                        else
+                            deliverText.append(TimeUtils::makeSmsReportTimeString(time));
 
-                    deliverText.append(")");
-                }
-                else if(report.getDeliveryStatus() == MsgReport::StatusExpired)
-                {
-                    deliverText.append(msg("IDS_MSGF_BODY_EXPIRED"));
-                }
-                else if(report.getDeliveryStatus() == MsgReport::StatusRejected)
-                {
-                    deliverText.append(msg("IDS_MSGF_POP_REJECTED"));
-                }
-                else if(report.getDeliveryStatus() == MsgReport::StatusNone)
-                {
-                    deliverText.append(msg("IDS_MSGF_BODY_REQUESTED"));
-                }
-                else
-                {
-                    deliverText.append(msg("IDS_MSGF_BODY_UNKNOWN"));
+                        deliverText.append(")");
+                        break;
+                    }
+                    case MsgReport::StatusExpired:
+                    {
+                        deliverText.append(msg("IDS_MSGF_BODY_EXPIRED"));
+                        break;
+                    }
+                    case MsgReport::StatusRejected:
+                    {
+                        deliverText.append(msg("IDS_MSGF_POP_REJECTED"));
+                        break;
+                    }
+                    case MsgReport::StatusNone:
+                    {
+                        deliverText.append(msg("IDS_MSGF_BODY_REQUESTED"));
+                        break;
+                    }
+                    default:
+                    {
+                        deliverText.append(msg("IDS_MSGF_BODY_UNKNOWN"));
+                    }
                 }
             }
         }
@@ -360,30 +353,36 @@ std::string MessageDetailContent::makeReadReportResult(App &app, MsgId msgId, Th
             if(report.getType() == MsgReport::TypeRead)
             {
                 isReadReportExists = true;
-
                 readReport.append("<br/>");
-                readReport.append(report.getAddress());
+                readReport.append(makeDispAddress(app, report.getAddress()));
                 readReport.append(" - ");
+                MsgReport::ReadStatus readStatus = report.getReadStatus();
 
-                if(report.getReadStatus() == MsgReport::ReadStatusIsRead)
+                switch(readStatus)
                 {
-                    readReport.append(msg("IDS_MSGF_BODY_MMSREADREPLYMSGREAD"));
-                    readReport.append(" (");
-                    time_t time = report.getTime();
-                    readReport.append(TimeUtils::makeDateTimeString(time));
-                    readReport.append(")");
-                }
-                else if(report.getReadStatus() == MsgReport::ReadStatusIsDeleted)
-                {
-                    readReport.append(msg("IDS_MSG_POP_DELETED"));
-                }
-                else if(report.getReadStatus() == MsgReport::ReadStatusNone)
-                {
-                    readReport.append(msg("IDS_MSGF_BODY_REQUESTED"));
-                }
-                else
-                {
-                    readReport.append(msg("IDS_MSGF_BODY_UNKNOWN"));
+                    case MsgReport::ReadStatusIsRead:
+                    {
+                        readReport.append(msg("IDS_MSGF_BODY_MMSREADREPLYMSGREAD"));
+                        readReport.append(" (");
+                        time_t time = report.getTime();
+                        readReport.append(TimeUtils::makeDateTimeString(time));
+                        readReport.append(")");
+                        break;
+                    }
+                    case MsgReport::ReadStatusIsDeleted:
+                    {
+                        readReport.append(msg("IDS_MSG_POP_DELETED"));
+                        break;
+                    }
+                    case MsgReport::ReadStatusNone:
+                    {
+                        readReport.append(msg("IDS_MSGF_BODY_REQUESTED"));
+                        break;
+                    }
+                    default:
+                    {
+                        readReport.append(msg("IDS_MSGF_BODY_UNKNOWN"));
+                    }
                 }
             }
         }
@@ -397,4 +396,28 @@ std::string MessageDetailContent::makeReadReportResult(App &app, MsgId msgId, Th
     }
 
     return msgArgs("IDS_MSG_BODY_READ_REPORT_C_PS", readReport.c_str());
+}
+
+std::string MessageDetailContent::makeDispAddress(App &app, const std::string &address)
+{
+    std::string res;
+    ContactAddressRef rec = app.getContactManager().getContactAddress(address);
+
+    std::string dispName;
+    if(rec)
+        dispName = rec->getDispName();
+
+    res = dispName;
+
+    if(!res.empty())
+        res += " (";
+
+    res += address;
+    if(!dispName.empty())
+        res += ')';
+
+    if(res.empty())
+        res += msg("IDS_MSGF_BODY_UNKNOWN");
+
+    return res;
 }
