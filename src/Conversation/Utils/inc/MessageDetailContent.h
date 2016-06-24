@@ -42,6 +42,8 @@ namespace Msg
             static std::string getMmsMessageSize(App &app, MsgId msgId);
             static std::string getMmsMessageExpired(App &app, MsgId msgId);
             static std::string makeReadReportResult(App &app, MsgId msgId, ThreadId msgThreadId, Message::NetworkStatus msgStatus);
+            static std::string makeDispAddress(App &app, const std::string &address);
+
     };
 }
 

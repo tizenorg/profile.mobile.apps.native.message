@@ -128,21 +128,7 @@ std::string MessageDetailContent::getContactsInfo(App &app, Message::Direction m
     for(int i = 0; i < addressListLength; ++i)
     {
         std::string address = addrList->at(i).getAddress();
-        ContactAddressRef contact = app.getContactManager().getContactAddress(address);
-        if(contact)
-        {
-            contactsInfo.append(contact->getDispName().c_str());
-            contactsInfo.append(" (");
-            contactsInfo.append(address);
-            contactsInfo.append(")");
-        }
-        else
-        {
-            if(address.empty())
-                contactsInfo.append(msg("IDS_MSGF_BODY_UNKNOWN"));
-            else
-                contactsInfo.append(address);
-        }
+        contactsInfo.append(makeDispAddress(app, address));
         if(i != addressListLength - 1)
             contactsInfo.append(", ");
     }
@@ -195,7 +181,7 @@ std::string MessageDetailContent::makeDeliveryReportResult(App &app, Message::Ne
                 isDelivReportExists = true;
 
                 deliverText.append("<br/>");
-                deliverText.append(report.getAddress());
+                deliverText.append(makeDispAddress(app, report.getAddress()));
                 deliverText.append(" - ");
 
                 if(report.getDeliveryStatus() == MsgReport::StatusSuccess)
@@ -362,7 +348,7 @@ std::string MessageDetailContent::makeReadReportResult(App &app, MsgId msgId, Th
                 isReadReportExists = true;
 
                 readReport.append("<br/>");
-                readReport.append(report.getAddress());
+                readReport.append(makeDispAddress(app, report.getAddress()));
                 readReport.append(" - ");
 
                 if(report.getReadStatus() == MsgReport::ReadStatusIsRead)
@@ -397,4 +383,28 @@ std::string MessageDetailContent::makeReadReportResult(App &app, MsgId msgId, Th
     }
 
     return msgArgs("IDS_MSG_BODY_READ_REPORT_C_PS", readReport.c_str());
+}
+
+std::string MessageDetailContent::makeDispAddress(App &app, const std::string &address)
+{
+    std::string res;
+    ContactAddressRef rec = app.getContactManager().getContactAddress(address);
+
+    std::string dispName;
+    if(rec)
+        dispName = rec->getDispName();
+
+    res = dispName;
+
+    if(!res.empty())
+        res += " (";
+
+    res += address;
+    if(!dispName.empty())
+        res += ')';
+
+    if(res.empty())
+        res += msg("IDS_MSGF_BODY_UNKNOWN");
+
+    return res;
 }
