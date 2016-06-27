@@ -50,6 +50,7 @@ namespace Msg
             void create(Evas_Object *parent);
             void setListener(IBodyListener *listener);
 
+            void enableAutoFocusForAttachments(bool focus);
             void addMedia(const std::list<std::string> &fileList);
             void addMedia(const std::string &filePath);
 
@@ -120,6 +121,7 @@ namespace Msg
             bool m_MmsRecipFlag;
             AttachmentHandler m_AttachmentHandler;
             std::queue<std::string> m_SelectedFiles;
+            bool m_AutoFocusForAttachments;
     };
 
     class IBodyListener
