@@ -105,6 +105,7 @@ collections {
        alias: "elm/genlist/item_compress/msg_thread/default";
        alias: "elm/genlist/tree/msg_thread/default";
        alias: "elm/genlist/tree_compress/msg_thread/default";
+       data.item: "banded_bg_area" "elm.swallow.bg";
        data.item: "texts" "elm.text elm.text.end elm.text.sub elm.text.sub.end";
        data.item: "contents" "elm.swallow.icon elm.swallow.icon.0 elm.swallow.icon.1 elm.swallow.icon.2 elm.swallow.end";
        script {
