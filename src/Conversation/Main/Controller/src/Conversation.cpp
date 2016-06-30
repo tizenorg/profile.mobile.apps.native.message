@@ -111,7 +111,10 @@ void Conversation::execCmd(const AppControlComposeRef &cmd)
     }
 
     if(isRecipExists())
-        m_pBody->setFocus(true);
+    {
+    	if (m_pBody)
+    		m_pBody->setFocus(true);
+    }
     else if(m_pRecipPanel)
         m_pRecipPanel->setEntryFocus(true);
 }
