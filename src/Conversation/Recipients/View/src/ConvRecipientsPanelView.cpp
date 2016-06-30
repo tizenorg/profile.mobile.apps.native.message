@@ -132,6 +132,7 @@ void ConvRecipientsPanelView::showEntry(bool show)
 {
     const char *sig = show ? "show_entry" : "hide_entry";
     elm_object_signal_emit(m_pLayout, sig, "*");
+    show ? evas_object_show(m_pEntry) : evas_object_hide(m_pEntry);
 }
 
 bool ConvRecipientsPanelView::isMbeEmpty() const
