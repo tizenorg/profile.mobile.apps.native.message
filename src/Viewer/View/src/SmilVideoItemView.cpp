@@ -62,11 +62,6 @@ namespace
             w = contentW * canvasHeight / contentH;
             h = canvasHeight;
         }
-        else
-        {
-            w = contentW;
-            h = contentH;
-        }
 
         // Uncomment if needed:
         #if 0

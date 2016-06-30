@@ -220,7 +220,7 @@ void ConvList::dateLineDelIfNec(ConvListItem *item)
         needDelDateLine = nextItem ? dynamic_cast<DateLineItem*>(nextItem) != nullptr : true;
     }
 
-    if(needDelDateLine)
+    if(needDelDateLine && prev)
     {
         m_DateLineItemSet.erase(prev->getDateLine());
         m_pList->deleteItem(*prev);
