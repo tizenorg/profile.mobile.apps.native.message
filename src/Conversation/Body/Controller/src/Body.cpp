@@ -449,7 +449,9 @@ void Body::showResizingPopup()
         Popup &popup = m_App.getPopupManager().getPopup();
         popup.addEventCb(EVAS_CALLBACK_DEL, EVAS_EVENT_CALLBACK(Body, onResizingPopupDel), this);
         int maxSize = m_App.getMsgEngine().getSettings().getMaxMmsSize();
-        std::string content(msgArgs("IDS_MSG_TPOP_MAXIMUM_MESSAGE_SIZE_HPS_EXCEEDED_RESIZING_ATTACHMENTS_ING", std::to_string(maxSize).c_str()));
+
+        std::string content(msgArgs("IDS_MSG_TPOP_CANT_ADD_MORE_THAN_P1SS_P2SS_OF_ATTACHMENTS_RESIZING_ATTACHMENTS_ING",
+                std::to_string(maxSize / 1024).c_str(), msg("IDS_MSGF_BODY_MSGSIZE_KB").get()));
         popup.setContent(content);
         popup.setAutoDismissBlockClickedFlag(true);
         popup.show();
