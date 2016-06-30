@@ -100,18 +100,22 @@ void Conversation::execCmd(const AppControlComposeRef &cmd)
     }
 
     setThreadId(ThreadId());
+
     if(m_pRecipPanel)
-    {
         m_pRecipPanel->execCmd(cmd);
-        if(!isRecipExists())
-            m_pRecipPanel->setEntryFocus(true);
-    }
+
     if(m_pBody)
     {
+        m_pBody->enableAutoFocusForAttachments(isRecipExists());
         m_pBody->execCmd(cmd);
-        if(isRecipExists())
-            m_pBody->setFocus(true);
     }
+
+    if(isRecipExists() && m_pBody)
+    {
+        m_pBody->setFocus(true);
+    }
+    else if(m_pRecipPanel)
+        m_pRecipPanel->setEntryFocus(true);
 }
 
 void Conversation::execCmd(const AppControlDefaultRef &cmd)
@@ -1074,6 +1078,7 @@ void Conversation::onConvListItemChecked()
 void Conversation::onFileSelected(AttachPanel &panel, const AttachPanel::FileList &files)
 {
     MSG_LOG("");
+    m_pBody->enableAutoFocusForAttachments(true);
     m_pBody->addMedia(files);
 }
 

@@ -132,23 +132,24 @@ void SmilPage::build(const MsgPage &page)
 
     // TODO: image/video, text order
 
-    bool hasVideo = getMedia(page, MsgMedia::VideoType) != nullptr;
-
-    if(hasVideo)
-        buildVideo(*getMedia(page, MsgMedia::VideoType));
-
-    if(!hasVideo)
+    const MsgMedia *video = getMedia(page, MsgMedia::VideoType);
+    if(video)
+        buildVideo(*video);
+    else
     {
-        if(const MsgMedia *image = getMedia(page, MsgMedia::ImageType))
+        const MsgMedia *image = getMedia(page, MsgMedia::ImageType);
+        if(image)
             buildImage(*image);
     }
 
-    if(const MsgMedia *text = getMedia(page, MsgMedia::TextType))
+    const MsgMedia *text = getMedia(page, MsgMedia::TextType);
+    if(text)
         buildText(*text);
 
-    if(!hasVideo)
+    if(!video)
     {
-        if(const MsgMedia *audio = getMedia(page, MsgMedia::AudioType))
+        const MsgMedia *audio = getMedia(page, MsgMedia::AudioType);
+        if(audio)
             buildAudio(*audio);
     }
 

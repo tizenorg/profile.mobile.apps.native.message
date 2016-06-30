@@ -74,6 +74,7 @@ Body::Body(App &app, WorkingDirRef workingDir)
     , m_ResizingPopupShow(false)
     , m_MmsRecipFlag(false)
     , m_AttachmentHandler(workingDir)
+    , m_AutoFocusForAttachments(true)
 {
     m_AttachmentHandler.setListener(this);
 }
@@ -108,6 +109,11 @@ Page &Body::createPage()
 void Body::setListener(IBodyListener *listener)
 {
     m_pListener = listener;
+}
+
+void Body::enableAutoFocusForAttachments(bool focus)
+{
+    m_AutoFocusForAttachments = focus;
 }
 
 void Body::addMedia(const std::list<std::string> &fileList)
@@ -570,8 +576,9 @@ void Body::onFileReady(const std::string &filePath)
         page = &getDefaultPage();
     }
 
-    if(page)
+    if(page && m_AutoFocusForAttachments)
         BodyView::setFocus(*page, true); // TODO: check for multi insertion
+
     m_SelectedFiles.pop();
     if(!m_SelectedFiles.empty())
     {
