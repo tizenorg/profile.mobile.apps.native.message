@@ -130,7 +130,11 @@ void Viewer::createSubjectLayout()
     if(!m_pSubjectLayout)
     {
         m_pSubjectLayout = new SubjectLayout(*m_pLayout);
-        m_pSubjectLayout->setNumberOfPages(m_Msg->getPageList().getLength());
+
+        int numberOfPages = m_Msg->getPageList().getLength();
+        numberOfPages += m_Msg->getAttachmentList().isEmpty() ? 0 : 1;
+
+        m_pSubjectLayout->setNumberOfPages(numberOfPages);
         m_pSubjectLayout->show();
         m_pLayout->setSubject(*m_pSubjectLayout);
         updateSubject();
