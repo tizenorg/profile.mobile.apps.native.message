@@ -57,6 +57,7 @@ namespace Msg
         private:
             StandardWindow *m_pWindow;
             NaviFrameController *m_pRootController;
+            bool m_NeedToCloseApp;
     };
 }
 
