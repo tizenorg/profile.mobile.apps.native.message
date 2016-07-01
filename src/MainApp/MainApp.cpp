@@ -35,6 +35,7 @@ using namespace Msg;
 MainApp::MainApp()
     : m_pWindow(nullptr)
     , m_pRootController(nullptr)
+    , m_NeedToCloseApp(false)
 {
 
 }
@@ -96,12 +97,16 @@ const Window &MainApp::getWindow() const
 
 void MainApp::terminate()
 {
-    // Minimize window:
-    if(m_pWindow)
+    if(m_NeedToCloseApp)
+    {
+        // Close app completely
+        ui_app_exit();
+    }
+    else if(m_pWindow)
+    {
+        // Minimize window:
         m_pWindow->lower();
-
-   // Exit from application:
-   // ui_app_exit();
+    }
 }
 
 bool MainApp::onAppCreate()
@@ -147,6 +152,9 @@ void MainApp::onAppResume()
 void MainApp::onAppControl(app_control_h app_control)
 {
     TRACE;
+    app_control_launch_mode_e mode = APP_CONTROL_LAUNCH_MODE_SINGLE;
+    app_control_get_launch_mode(app_control, &mode);
+    m_NeedToCloseApp = (mode == APP_CONTROL_LAUNCH_MODE_GROUP);
 
     AppControlCommandRef cmd = AppControlParser::parse(app_control);
     if(!cmd)
