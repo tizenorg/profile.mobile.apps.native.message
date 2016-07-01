@@ -659,8 +659,10 @@ void Conversation::showMobileDataPopup()
 {
     auto &popupMngr = getApp().getPopupManager();
     Popup &popup = popupMngr.getPopup();
+    popup.setTitle(msgt("IDS_MSG_HEADER_COULDNT_SEND_MESSAGE_ABB"));
     popup.addEventCb(EVAS_CALLBACK_DEL, EVAS_EVENT_CALLBACK(Conversation, onPopupDel), this);
-    popup.addButton(msgt("IDS_MSG_BUTTON_OK_ABB"), Popup::OkButtonId, POPUP_BUTTON_CB(Conversation, onMsgSendErrorButtonClicked), this);
+    popup.addButton(msgt("IDS_MSG_BUTTON_CANCEL_ABB2"), Popup::CancelButtonId, POPUP_BUTTON_CB(Conversation, onMsgSendErrorButtonClicked), this);
+    popup.addButton(msgt("IDS_MSGF_BODY_SETTINGS"), Popup::OkButtonId, POPUP_BUTTON_CB(Conversation, onMsgSettingsButtonClicked), this);
     popup.setContent(msgt("IDS_MSGC_POP_MOBILE_DATA_IS_DISABLED_ENABLE_MOBILE_DATA_AND_TRY_AGAIN"));
     popup.show();
 }
@@ -934,6 +936,20 @@ void Conversation::onPopupDel(Evas_Object *popup, void *eventInfo)
 void Conversation::onMsgSendErrorButtonClicked(Popup &popup, int buttonId)
 {
     MSG_LOG("");
+    m_pBody->setFocus(true);
+    popup.destroy();
+}
+
+void Conversation::onMsgSettingsButtonClicked(Popup &popup, int buttonId)
+{
+    MSG_LOG("");
+    app_control_h h;
+    app_control_create(&h);
+    app_control_set_operation(h, APP_CONTROL_OPERATION_SETTING);
+    app_control_set_app_id(h, "org.tizen.setting");
+    app_control_send_launch_request(h, NULL, NULL);
+    app_control_destroy(h);
+
     m_pBody->setFocus(true);
     popup.destroy();
 }
