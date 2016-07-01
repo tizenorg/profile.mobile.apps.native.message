@@ -329,7 +329,7 @@ void ConvListItem::showFailedToSendPopup()
     popup.addEventCb(EVAS_CALLBACK_DEL, EVAS_EVENT_CALLBACK(ConvListItem, onPopupDel), this);
     popup.addButton(msgt("IDS_MSG_BUTTON_CANCEL_ABB"), Popup::CancelButtonId, POPUP_BUTTON_CB(ConvListItem, onCancelButtonClicked), this);
     popup.addButton(msgt("IDS_MSG_BUTTON_RESEND_ABB"), Popup::OkButtonId, POPUP_BUTTON_CB(ConvListItem, onFailedResendButtonClicked), this);
-    popup.setTitle(msgt("IDS_MSG_HEADER_FAILED_TO_SEND_MESSAGE_ABB"));
+    popup.setTitle(msgt("IDS_MSG_HEADER_COULDNT_SEND_MESSAGE_ABB"));
     popup.setContent(msgt("IDS_MSG_POP_THIS_MESSAGE_WILL_BE_RESENT"));
     popup.show();
 }
