@@ -110,6 +110,7 @@ namespace Msg
              // Popup callbacks:
             void onPopupDel(Evas_Object *popup, void *eventInfo);
             void onMsgSendErrorButtonClicked(Popup &popup, int buttonId);
+            void onMsgSettingsButtonClicked(Popup &popup, int buttonId);
             void onNoRecipCancelButtonClicked(Popup &popup, int buttonId);
             void onNoRecipDiscardButtonClicked(Popup &popup, int buttonId);
             void onDeleteItemPressed(PopupListItem &item);
