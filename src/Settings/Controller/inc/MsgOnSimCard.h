@@ -29,6 +29,7 @@
 #include "SimMsgLayout.h"
 #include "NoContentLayout.h"
 #include "SystemSettingsManager.h"
+#include "PopupList.h"
 
 namespace Msg
 {
@@ -68,8 +69,8 @@ namespace Msg
             virtual void onHwBackButtonClicked();
 
             // ContextPopup callbacks:
-            void onCopyToDeviceItemPressed(ContextPopupItem &item);
-            void onDeleteItemPressed(ContextPopupItem &item);
+            void onCopyToDeviceItemPressed(PopupListItem &item);
+            void onDeleteItemPressed(PopupListItem &item);
 
             // IMsgStorageListener
             virtual void onMsgStorageDelete(const MsgIdList &msgIdList);
