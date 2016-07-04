@@ -241,8 +241,11 @@ void Conversation::setThreadId(ThreadId id, const std::string &searchWord)
     m_ThreadId = id;
     setMode(m_ThreadId.isValid() ? ConversationMode : NewMessageMode);
 
-    m_pBody->clear();
-    m_pBody->setMmsRecipFlag( getMsgEngine().getStorage().hasEmail(m_ThreadId));
+    if(m_pBody)
+    {
+        m_pBody->clear();
+        m_pBody->setMmsRecipFlag(getMsgEngine().getStorage().hasEmail(m_ThreadId));
+    }
 
     if(m_pRecipPanel)
     {
@@ -573,7 +576,7 @@ void Conversation::convertMsgTypeHandler()
 void Conversation::checkAndSetMsgType()
 {
     // Body:
-    bool isMms = m_pBody->isMms();
+    bool isMms = m_pBody ? m_pBody->isMms() : false;
 
     // Recipients:
     if(!isMms && m_pRecipPanel && !m_pRecipPanel->isMbeEmpty())
@@ -719,6 +722,9 @@ void Conversation::onChanged(Body &body)
 
 void Conversation::updateMsgInputPanel()
 {
+    if (!m_pBody)
+        return;
+
     if(m_pBody->isMms())
     {
         // Mms:
