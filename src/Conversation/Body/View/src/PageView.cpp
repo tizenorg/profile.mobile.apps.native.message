@@ -29,7 +29,7 @@ using namespace Msg;
 namespace
 {
     const char *pageGroup = "conv/body/page";
-    const char *itemLayoutGroup = "conv/body/item_lyaout";
+    const char *itemLayoutGroup = "conv/body/item_layout";
 }
 
 PageView::PageView(BodyView &parent)

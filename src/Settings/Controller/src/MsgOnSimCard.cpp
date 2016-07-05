@@ -162,21 +162,20 @@ void MsgOnSimCard::showCopyDeletePopup()
 {
     if(!m_pList->isEmpty())
     {
-        ContextPopup &popup = getApp().getPopupManager().getCtxPopup();
-        popup.appendItem(msg("IDS_MSG_OPT_COPY_TO_DEVICE_ABB"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(MsgOnSimCard, onCopyToDeviceItemPressed), this);
-        popup.appendItem(msg("IDS_MSG_OPT_DELETE"), nullptr, CTXPOPUP_ITEM_PRESSED_CB(MsgOnSimCard, onDeleteItemPressed), this);
-        popup.align(getApp().getWindow());
-        popup.show();
+        PopupList &listPopup = getApp().getPopupManager().getPopupList();
+        listPopup.appendItem(msg("IDS_MSG_OPT_COPY_TO_DEVICE_ABB"), POPUPLIST_ITEM_PRESSED_CB(MsgOnSimCard, onCopyToDeviceItemPressed), this);
+        listPopup.appendItem(msg("IDS_MSG_OPT_DELETE"), POPUPLIST_ITEM_PRESSED_CB(MsgOnSimCard, onDeleteItemPressed), this);
+        listPopup.show();
     }
 }
 
-void MsgOnSimCard::onCopyToDeviceItemPressed(ContextPopupItem &item)
+void MsgOnSimCard::onCopyToDeviceItemPressed(PopupListItem &item)
 {
     item.getParent().destroy();
     setMode(CopyToDeviceMode);
 }
 
-void MsgOnSimCard::onDeleteItemPressed(ContextPopupItem &item)
+void MsgOnSimCard::onDeleteItemPressed(PopupListItem &item)
 {
     item.getParent().destroy();
     setMode(DeleteMode);

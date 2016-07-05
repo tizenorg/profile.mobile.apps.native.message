@@ -23,7 +23,7 @@ using namespace Msg;
 namespace
 {
     const char *pageSeparatorGroup = "conv/body/page_divider";
-    const char *itemLayoutGroup = "conv/body/item_lyaout";
+    const char *itemLayoutGroup = "conv/body/item_layout";
 }
 
 PageSeparator::PageSeparator(BodyView &parent)
