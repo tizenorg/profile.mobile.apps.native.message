@@ -230,6 +230,10 @@ bool AppControlCompose::parseUriShare(app_control_h handle)
                 }
                 res = true;
             }
+            else
+            {
+                m_FileList.push_back(uriToParse); // no prefix, uri is a path to file itself
+            }
         }
         free(uri);
     }
