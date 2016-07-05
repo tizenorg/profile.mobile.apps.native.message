@@ -35,7 +35,7 @@ collections {
          }
          PADDING_LEFT("padding_left", 5);
          // this is modified to stand in line with bottom line of entry
-         PADDING_RIGHT("padding_right", 0);
+         PADDING_RIGHT("padding_right", 15);
          part {
             name: "line";
             type: IMAGE;
@@ -146,7 +146,7 @@ collections {
       }
    }
    group {
-      name: "conv/body/item_lyaout";
+      name: "conv/body/item_layout";
       parts {
          part {
             name: "rect";
