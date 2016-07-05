@@ -620,10 +620,6 @@ collections {
                   to: "rect.thumbnail";
                   relative: 0.0 0.0;
                }
-               rel2 {
-                  to: "rect.thumbnail";
-                  relative: 0.0 0.0;
-               }
                align: 0.0 0.0;
             }
          }
