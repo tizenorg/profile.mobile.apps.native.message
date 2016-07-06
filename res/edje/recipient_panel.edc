@@ -27,13 +27,6 @@ group {
                 rel2.to: "entry.main.bg";
             }
         }
-        part {
-            name: "clipper";
-            type: RECT;
-            description {
-                state: "default" 0.0;
-            }
-        }
 
         PADDING_TOP("padding_top", 0);
         PADDING_LEFT("padding_left", 0);
@@ -53,7 +46,6 @@ group {
             name: "swl.mbe";
             type: SWALLOW;
             scale: 1;
-            clip_to: "clipper";
             description {
                 state: "default" 0.0;   //when TO mbe is hidden
                 fixed: 1 0;
