@@ -312,6 +312,12 @@ PageView *BodyView::addPage()
     }
 
     append(page);
+
+    //scroll to the end
+    Evas_Coord_Point pt{0, 0};
+    Evas_Coord_Size sz{0, 0};
+    elm_scroller_region_get(m_pScroller, &pt.x, &pt.y, &sz.w, &sz.h);
+    elm_scroller_region_show(m_pScroller, 0, sz.h + pt.y, 0, sz.h + pt.y);
     return &page;
 }
 
