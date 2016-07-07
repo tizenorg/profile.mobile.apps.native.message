@@ -1080,7 +1080,8 @@ void Conversation::onViewContactDetailsItemPressed(PopupListItem &item)
 void Conversation::onAllItemsDeleted(ConvList &list)
 {
     MSG_LOG("");
-    onHwBackButtonClicked();
+    if(m_Mode != NewMessageMode)
+        onHwBackButtonClicked();
 }
 
 void Conversation::onEditDraftMsg(MsgId id)
