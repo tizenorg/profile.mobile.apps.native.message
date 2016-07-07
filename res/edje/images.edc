@@ -77,6 +77,8 @@ collections {
 	RESOURCE_IMAGE("icon_soft_search_back.png");
 	RESOURCE_IMAGE("list_ic_user_thumb_masking.png");
 
+	RESOURCE_IMAGE_COLOR("messages_attach_ic_music.png", 250 250 250 255);
+
 	RESOURCE_OVERLAP_IMAGE("title/thumb/contact", "title_thumbnail_image_bg.png", 255, 255, 255, 255, "title_thumbnail_image.png", 2, 61, 132, 255);
 	RESOURCE_OVERLAP_IMAGE("title/thumb/group", "title_thumbnail_image_bg.png", 255, 255, 255, 255, "title_thumbnail_image_group.png", 2, 61, 132, 255);
 }

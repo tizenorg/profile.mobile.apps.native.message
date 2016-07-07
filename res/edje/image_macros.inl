@@ -14,6 +14,23 @@
       } \
    }
 
+#define RESOURCE_IMAGE_COLOR( FILE_NAME, COLOR ) \
+   group { \
+      name: FILE_NAME; \
+      images.image: FILE_NAME COMP; \
+      parts { \
+         part { name: "image"; \
+            description { \
+               state: "default" 0.0; \
+               color: COLOR; \
+               image.normal: FILE_NAME; \
+               aspect: 1 1; \
+               aspect_preference: BOTH; \
+            } \
+         } \
+      } \
+   }
+
 #define RESOURCE_IMAGE_NO_ASPECT( FILE_NAME ) \
    group { \
       name: FILE_NAME; \

@@ -1,0 +1,98 @@
+#include "macros.inl"
+
+#define COLOR_BLUE_EDC  2 61 132 255
+
+collections {
+    BASE_SCALE;
+    #define MAX_TEXT_LEN 300
+    styles {
+        style {
+            name: "main_text_style";
+            base: "font=Tizen:style=Roman font_size="32" color=#000000 left_margin=1 right_margin=2 wrap=mixed ellipsis=1 align=left";
+            tag:  "tab" "\t";
+            tag:  "em" "+ font=Tizen:style=Oblique";
+            tag:  "b" "+ font=Tizen:style=Bold";
+            tag:  "link" "+ color=#800 underline=on underline_color=#8008";
+            tag:  "hilight" "+ font=Tizen:style=Bold";
+            tag:  "match" "+ color=#FFFFFF color_class=T1067";
+        }
+        style {
+            name: "sub_text_style";
+            base: "font=Tizen:style=Roman font_size="30" color=#000000 left_margin=1 right_margin=2 wrap=mixed ellipsis=1 align=left";
+            tag:  "tab" "\t";
+            tag:  "em" "+ font=Tizen:style=Oblique";
+            tag:  "b" "+ font=Tizen:style=Bold";
+            tag:  "link" "+ color=#800 underline=on underline_color=#8008";
+            tag:  "hilight" "+ font=Tizen:style=Bold";
+            tag:  "match" "+ color=#FFFFFF color_class=T1067";
+        }
+    }
+    group {
+        name: "conv/list/icon_text_attachment";
+        parts {
+            PADDING_TOP("padding.top", 10);
+            PADDING_BOTTOM("padding.bottom", 16);
+            part {
+                name: "padding.left";
+                type: SPACER;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    min: 6 0;
+                    max: 6 -1;
+                    align: 0.0 0.5;
+                    rel1 { to_x: "icon"; relative: 1.0 0.0; }
+                    rel2 { relative: 1.0 1.0; }
+                }
+            }
+            part {
+                name: "main.text";
+                type: TEXTBLOCK;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    visible: 1;
+                    align: 0.0 0.0;
+                    rel1 { to_x : "padding.left"; to_y: "padding.top"; relative: 1.0 1.0; }
+                    max: MAX_TEXT_LEN 48;
+                    text{
+                        style: "main_text_style";
+                        min: 1 1;
+                        align: 0.0 0.5;
+                    }
+                }
+            }
+            part {
+                name: "sub.text";
+                type: TEXTBLOCK;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    visible: 1;
+                    align: 0.0 0.0;
+                    rel1 { to : "padding.left"; to_y: "main.text"; relative: 1.0 1.0; }
+                    max: MAX_TEXT_LEN 43;
+                    text{
+                        style: "sub_text_style";
+                        min: 1 1;
+                        align: 0.0 0.5;
+                    }
+                }
+            }
+            part {
+                name: "icon";
+                type: SWALLOW;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    min: 50 50;
+                    max: 50 50;
+                    align: 0.0 0.5;
+                    visible: 1;
+                    rel1 { relative: 0.0 0.0; }
+                    rel2 { relative: 1.0 1.0; }
+                }
+            }
+        }
+    }
+}
