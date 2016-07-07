@@ -27,6 +27,7 @@
 #define SOFT_SEARCH_BACK_IMG            "icon_soft_search_back.png"
 #define ATTACH_IMG                      "attach_icon.png"
 #define ADD_PLUS_ICON                   "core_button_add.png"
+#define ATTACH_MUSIC_ICON               "messages_attach_ic_music.png"
 
 // Edj:
 #define IMAGES_EDJ_PATH                  EDJ_PATH"/images.edj"
@@ -47,6 +48,7 @@
 #define VIEWER_PALYER_EDJ_PATH           EDJ_PATH"/viewer_player.edj"
 #define VIEWER_SUBJECT_LAYOUT_EDJ_PATH   EDJ_PATH"/viewer_subject_layout.edj"
 #define SMIL_ITEM_EDJ_PATH               EDJ_PATH"/smil_item.edj"
+#define CONV_LIST_ATTACHMENTS_EDJ_PATH   EDJ_PATH"/conv_list_attachments.edj"
 
 #define CONV_LIST_EDJ_PATH               EDJ_PATH"/conv_list.edj"
 #define CONV_LAYOUT_EDJ_PATH             EDJ_PATH"/conv_layout.edj"

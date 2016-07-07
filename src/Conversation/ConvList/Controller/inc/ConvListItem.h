@@ -20,7 +20,6 @@
 
 #include "ConvListViewItem.h"
 #include "MsgTypes.h"
-#include "BubbleView.h"
 #include "ThumbnailMaker.h"
 #include "Message.h"
 #include "ContextPopup.h"
@@ -29,6 +28,7 @@
 #include "FileViewer.h"
 #include "MsgUtils.h"
 #include "WorkingDir.h"
+#include "BubbleViewItem.h"
 
 namespace Msg
 {
@@ -37,7 +37,7 @@ namespace Msg
 
     class ConvListItem
         : public ConvListViewItem
-        , public IBubbleViewListener
+        , public IBubbleViewItemListener
     {
         public:
             /**
@@ -88,7 +88,9 @@ namespace Msg
             void prepareBubble(const MsgConversationItem &item, const std::string &searchWord);
             void addVideoItem(const MsgConvMedia &media);
             void addAudioItem(const MsgConvMedia &media);
+            void addDownloadButtonItem();
             void addTextItem(const MsgConvMedia &media, const std::string &searchWord);
+            void addTextItem(std::string text, bool markup, const std::string &searchWord);
             void addImageItem(const MsgConvMedia &media);
             void addAttachedFileItem(const MsgConvMedia &media);
 
@@ -114,9 +116,8 @@ namespace Msg
             void onDeleteButtonClicked(Popup &popup, int buttonId);
             void onPopupDel(Evas_Object *popup, void *eventInfo);
 
-            // IBubbleViewListener
-            virtual void onDownloadButtonClicked();
-            virtual void onItemClicked(BubbleEntity::Item &item);
+            // IBubbleViewItemListener
+            virtual void onAction(BubbleViewItem &item);
 
         private:
             IConvListItemListener *m_pListener;
@@ -129,7 +130,7 @@ namespace Msg
             Message::Type m_Type;
             time_t m_Time;
             std::string m_TimeStr;
-            BubbleEntity m_BubbleEntity;
+            std::list<BubbleEntity*> m_BubbleEntityList;
             const ThumbnailMaker::ThumbId &m_ThumbId;
     };
 

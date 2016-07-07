@@ -2,7 +2,7 @@
 # Usege : make -f <proj_root>/Build/makefile -C <proj_root> 
 #
  
-BUILD_SCRIPT_VERSION := 1.2.0
+BUILD_SCRIPT_VERSION := 1.2.1
 
 .PHONY : app_version app_clean build_version
 
@@ -85,7 +85,7 @@ endif
 
 ifneq ($(strip $(USER_LIB_DIRS)),)
 _ENC_USER_LIB_DIRS := $(call ENCODE_4MAKE,$(USER_LIB_DIRS))
-_ENC_USER_LIB_DIRS := $(addprefix -L,$(call $(_ENC_USER_LIB_DIRS))
+_ENC_USER_LIB_DIRS := $(addprefix -L,$(call $(_ENC_USER_LIB_DIRS)))
 LIBPATHS := $(call DECODE_4MAKE,$(_ENC_USER_LIB_DIRS))
 endif
 
