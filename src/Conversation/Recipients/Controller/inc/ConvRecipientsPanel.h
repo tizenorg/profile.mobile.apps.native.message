@@ -51,6 +51,7 @@ namespace Msg
             void removeSelectedItem();
             void editSelectedItem();
             bool addRecipientsFromEntry(bool showPopup = true);
+            MbeRecipients &getMbeRecipients();
 
         private:
             // RecipientsPanelView:
