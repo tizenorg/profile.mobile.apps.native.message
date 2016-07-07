@@ -116,6 +116,11 @@ bool ConvRecipientsPanel::addRecipientsFromEntry(bool showPopup)
     return true;
 }
 
+MbeRecipients &ConvRecipientsPanel::getMbeRecipients()
+{
+    return *m_pMbe;
+}
+
 void ConvRecipientsPanel::update(const MsgAddressList &addressList)
 {
     clearMbe();

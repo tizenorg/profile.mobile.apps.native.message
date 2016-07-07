@@ -149,6 +149,7 @@ void Conversation::create()
     createMainLayout(getParent());
     createMsgInputPanel(*m_pLayout);
     createBody(*m_pMsgInputPanel);
+    createConvList(*m_pLayout);
     updateMsgInputPanel();
 
     getApp().getContactManager().addListener(*this);
@@ -312,7 +313,6 @@ void Conversation::setNewMessageMode()
 
     createRecipPanel(*m_pLayout);
     createContactList(*m_pLayout);
-    destroyConvList();
     updateNavibar();
 
     m_pRecipPanel->update(m_ThreadId);
@@ -326,8 +326,6 @@ void Conversation::setConversationMode()
     MSG_LOG("");
 
     m_Mode = ConversationMode;
-    createConvList(*m_pLayout);
-
     updateNavibar();
 
     MsgAddressListRef addressList = getAddressList();
@@ -712,6 +710,21 @@ void Conversation::onMbeChanged(ConvRecipientsPanel &panel)
     MSG_LOG("");
     m_pBody->setMmsRecipFlag(m_pRecipPanel->isMms());
     checkAndSetMsgType();
+    if(m_pConvList)
+    {
+        std::list<std::string> recips;
+        auto items = panel.getMbeRecipients().getItems();
+        for(MbeRecipientItem *item : items)
+        {
+            recips.push_back(item->getAddress());
+        }
+        ThreadId id;
+        if(!recips.empty())
+            id = getMsgEngine().getStorage().getThreadId(recips);
+
+        m_pConvList->setThreadId(id);
+        m_pConvList->navigateToLastMsg();
+    }
 }
 
 void Conversation::onItemClicked(ConvRecipientsPanel &panel, MbeRecipientItem &item)
