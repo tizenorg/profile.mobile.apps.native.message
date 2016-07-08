@@ -50,10 +50,9 @@ collections {
 				scale: 1;
 				description {
 					state: "default" 0.0;
-					fixed: 1 0;
-					min: 0 0;
+					max: -1 0;
 					align: 0.0 1.0;
-					rel1 {to: "rect"; relative:0.0 1.0;}
+					rel1 {to: "rect"; relative:0.0 0.0;}
 					rel2 {to: "rect"; relative:1.0 1.0;}
 				}
 			}
