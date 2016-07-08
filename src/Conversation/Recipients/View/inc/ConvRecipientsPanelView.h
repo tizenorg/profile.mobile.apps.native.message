@@ -100,7 +100,7 @@ namespace Msg
 
         private:
             void create(Evas_Object *parent);
-            Evas_Object *createEntry(Evas_Object *parent);
+            Evas_Object *getEntry();
             Evas_Object *getPlusBtn();
             Evas_Object *getContactBtn();
             Evas_Object *createAreaRect(Evas_Object *parent);
