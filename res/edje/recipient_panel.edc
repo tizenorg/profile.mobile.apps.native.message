@@ -48,14 +48,13 @@ group {
             scale: 1;
             description {
                 state: "default" 0.0;   //when TO mbe is hidden
-                fixed: 1 0;
                 rel1 { to_x: "padding_left"; relative: 1.0 0.0; }
                 rel2 { to_x: "padding_right"; relative: 0.0 0.0; }
                 align: 0.0 1.0;
+                visible: 0;
             }
             description {
                 state: "show" 0.0;  //When TO mbe is shown
-                fixed: 1 0;
                 rel1 { to_x: "padding_left"; to_y: "padding_top"; relative: 1.0 1.0; }
                 rel2 { to_x: "padding_right"; to_y: "padding_top"; relative: 0.0 1.0; }
                 align: 0.0 0.0;
