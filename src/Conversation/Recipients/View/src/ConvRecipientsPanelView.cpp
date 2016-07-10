@@ -168,6 +168,7 @@ void ConvRecipientsPanelView::create(Evas_Object *parent)
     evas_object_size_hint_weight_set(box, EVAS_HINT_EXPAND, 0.0);
     evas_object_size_hint_align_set(box, EVAS_HINT_FILL, EVAS_HINT_FILL);
     setEo(box);
+    show();
 
     m_pLayout = elm_layout_add(box);
     std::string path = PathUtils::getResourcePath(RECIPIENT_PANEL_EDJ_PATH);

@@ -376,6 +376,7 @@ void Conversation::createRecipPanel(Evas_Object *parent)
     {
         m_pRecipPanel = new ConvRecipientsPanel(parent, getApp());
         m_pRecipPanel->setListener(this);
+        m_pRecipPanel->show();
         m_pLayout->setRecipientPanel(*m_pRecipPanel);
         m_pLayout->setRecipientRect(m_pRecipPanel->getAreaRect());
     }
