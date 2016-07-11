@@ -130,6 +130,8 @@ void ConvRecipientsPanelView::showMbe(bool show, bool animation)
 
 void ConvRecipientsPanelView::showEntry(bool show)
 {
+    if(show)
+        getEntry();
     const char *sig = show ? "show_entry" : "hide_entry";
     elm_object_signal_emit(m_pLayout, sig, "*");
     show ? evas_object_show(m_pEntry) : evas_object_hide(m_pEntry);
@@ -170,24 +172,23 @@ void ConvRecipientsPanelView::create(Evas_Object *parent)
     show();
 
     m_pLayout = elm_layout_add(box);
+    std::string path = PathUtils::getResourcePath(RECIPIENT_PANEL_EDJ_PATH);
+    elm_layout_file_set(m_pLayout, path.c_str(), "recipient_panel");
     evas_object_size_hint_weight_set(m_pLayout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
     evas_object_size_hint_align_set(m_pLayout, EVAS_HINT_FILL, EVAS_HINT_FILL);
     evas_object_show(m_pLayout);
 
     elm_box_pack_end(box, m_pLayout);
 
-    std::string path = PathUtils::getResourcePath(RECIPIENT_PANEL_EDJ_PATH);
-    elm_layout_file_set(m_pLayout, path.c_str(), "recipient_panel");
-
     createAreaRect(m_pLayout);
-    Evas_Object *entry =  createEntry(m_pLayout);
-
-    elm_object_part_content_set(m_pLayout, "swl.entry", entry);
 }
 
-Evas_Object *ConvRecipientsPanelView::createEntry(Evas_Object *parent)
+Evas_Object *ConvRecipientsPanelView::getEntry()
 {
-    m_pEntry = elm_entry_add(parent);
+    if(m_pEntry)
+        return m_pEntry;
+
+    m_pEntry = elm_entry_add(m_pLayout);
     evas_object_show(m_pEntry);
     evas_object_size_hint_weight_set(m_pEntry, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
     evas_object_size_hint_align_set(m_pEntry, EVAS_HINT_FILL, EVAS_HINT_FILL);
@@ -212,6 +213,7 @@ Evas_Object *ConvRecipientsPanelView::createEntry(Evas_Object *parent)
     evas_object_smart_callback_add(m_pEntry, "maxlength,reached", SMART_CALLBACK(ConvRecipientsPanelView, onEntryMaxlengthReached), this);
     evas_object_event_callback_add(m_pEntry, EVAS_CALLBACK_KEY_DOWN, EVAS_EVENT_CALLBACK(ConvRecipientsPanelView, onKeyDown), this);
     addGeometryChangedCb(m_pEntry);
+    elm_object_part_content_set(m_pLayout, "swl.entry", m_pEntry);
     return m_pEntry;
 }
 
