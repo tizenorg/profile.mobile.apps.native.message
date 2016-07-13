@@ -65,6 +65,7 @@ namespace Msg
 
             //ViewItem
             virtual void onAttached(ViewItem &item);
+            virtual void onTransitionFinished(NaviFrameItem &item) {};
 
         private:
             void setTitleVisibility(bool visible);

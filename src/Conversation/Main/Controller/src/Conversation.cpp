@@ -112,9 +112,7 @@ void Conversation::execCmd(const AppControlComposeRef &cmd)
     }
 
     if(isRecipExists() && m_pBody)
-    {
         m_pBody->setFocus(true);
-    }
     else if(m_pRecipPanel)
         m_pRecipPanel->setEntryFocus(true);
 }
@@ -318,7 +316,7 @@ void Conversation::setNewMessageMode()
     m_pRecipPanel->update(m_ThreadId);
     m_pRecipPanel->showMbe(!m_pRecipPanel->isMbeEmpty());
     m_pRecipPanel->showEntry(true);
-    m_pRecipPanel->setEntryFocus(true);
+    m_pRecipPanel->setFocus(true);
 }
 
 void Conversation::setConversationMode()
@@ -618,6 +616,40 @@ void Conversation::navigateToSlideShow(MsgId id)
     getParent().push(*viewer);
 }
 
+void Conversation::setBodyFocus()
+{
+    if(getOwner().getTransitionStatus())
+    {
+        m_TransFinishedFunc = [this]()
+        {
+            if(m_pBody)
+                m_pBody->setFocus(true);
+        };
+    }
+    else
+    {
+        if(m_pBody)
+            m_pBody->setFocus(true);
+    }
+}
+
+void Conversation::setRecipEntryFocus()
+{
+    if(getOwner().getTransitionStatus())
+    {
+        m_TransFinishedFunc = [this]()
+        {
+            if(m_pRecipPanel)
+                m_pRecipPanel->setEntryFocus(true);
+        };
+    }
+    else
+    {
+        if(m_pRecipPanel)
+            m_pRecipPanel->setEntryFocus(true);
+    }
+}
+
 PopupList &Conversation::createPopupList(const std::string &title)
 {
     PopupList &popup = getApp().getPopupManager().getPopupList();
@@ -843,9 +875,20 @@ void Conversation::onContactListChanged()
 
 void Conversation::onAttached(ViewItem &item)
 {
+    MSG_LOG("");
     FrameController::onAttached(item);
     updateNavibar();
     setContent(*m_pLayout);
+}
+
+void Conversation::onTransitionFinished(NaviFrameItem &item)
+{
+    MSG_LOG("");
+    if(m_TransFinishedFunc)
+    {
+        m_TransFinishedFunc();
+        m_TransFinishedFunc = nullptr;
+    }
 }
 
 void Conversation::onHwBackButtonClicked()

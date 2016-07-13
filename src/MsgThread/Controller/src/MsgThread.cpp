@@ -98,8 +98,8 @@ void MsgThread::showMainPopup()
 void MsgThread::composeNewMessage()
 {
     Conversation *frame = new Conversation(getParent());
-    frame->setThreadId(ThreadId());
     getParent().push(*frame);
+    frame->setThreadId(ThreadId());
 }
 
 void MsgThread::navigateToSettings()

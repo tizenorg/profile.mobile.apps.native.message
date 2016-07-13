@@ -58,9 +58,15 @@ namespace Msg
             void pop();
             void insertToBottom(NaviFrameItem &item);
             void promote(NaviFrameItem &item);
+            NaviFrameItem *getTopFrame() const;
+            bool getTransitionStatus() const;
 
         private:
             void create(Evas_Object *parent);
+            void onTransitionFinished(Evas_Object *obj, void *eventInfo);
+
+        private:
+            bool m_TransitionStatus;
     };
 }
 

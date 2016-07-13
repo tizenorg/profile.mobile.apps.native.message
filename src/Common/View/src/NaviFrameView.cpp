@@ -26,12 +26,14 @@ const char *naviTitleStyleEmpty = "empty";
 
 NaviFrameView::NaviFrameView(Evas_Object *parent)
     : View()
+    , m_TransitionStatus(false)
 {
     create(parent);
 }
 
 NaviFrameView::NaviFrameView(View &parent)
     : View()
+    , m_TransitionStatus(false)
 {
     create(parent.getEo());
 }
@@ -44,12 +46,18 @@ NaviFrameView::~NaviFrameView()
 void NaviFrameView::create(Evas_Object *parent)
 {
     setEo(elm_naviframe_add(parent));
+    addSmartCb("transition,finished", SMART_CALLBACK(NaviFrameView, onTransitionFinished), this);
     show();
 }
 
 bool NaviFrameView::isLastFrame() const
 {
     return elm_naviframe_bottom_item_get(getEo()) == elm_naviframe_top_item_get(getEo());
+}
+
+NaviFrameItem *NaviFrameView::getTopFrame() const
+{
+    return ViewItem::staticCast<NaviFrameItem*>(elm_naviframe_top_item_get(getEo()));
 }
 
 int NaviFrameView::getItemsCount() const
@@ -92,17 +100,20 @@ bool NaviFrameView::isEmpty() const
 
 void NaviFrameView::push(NaviFrameItem &item, Evas_Object *content)
 {
+    m_TransitionStatus = !isEmpty();
     Elm_Object_Item *it = elm_naviframe_item_push(getEo(), nullptr, nullptr, nullptr, content, naviTitleStyleEmpty);
     item.setElmObjItem(it);
 }
 
 void NaviFrameView::push(NaviFrameItem &item, View &content)
 {
+    m_TransitionStatus = !isEmpty();
     push(item, content);
 }
 
 void NaviFrameView::pop()
 {
+    m_TransitionStatus = getItemsCount() > 1;
     elm_naviframe_item_pop(getEo());
 }
 
@@ -121,5 +132,21 @@ void NaviFrameView::insertToBottom(NaviFrameItem &item)
 
 void NaviFrameView::promote(NaviFrameItem &item)
 {
+    m_TransitionStatus = &item != getTopFrame();
     elm_naviframe_item_promote(item);
+}
+
+void NaviFrameView::onTransitionFinished(Evas_Object *obj, void *eventInfo)
+{
+    MSG_LOG("");
+    m_TransitionStatus = false;
+    auto *item = ViewItem::staticCast<NaviFrameItem*>(eventInfo);
+    if(item)
+        item->onTransitionFinished(*item);
+}
+
+bool NaviFrameView::getTransitionStatus() const
+{
+    // TODO: Move functionality for gets TransitionStatus to EFL (elm_naviframe) side.
+    return m_TransitionStatus;
 }

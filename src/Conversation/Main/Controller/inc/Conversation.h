@@ -37,6 +37,8 @@
 #include "SystemSettingsManager.h"
 #include "WorkingDir.h"
 
+#include <functional>
+
 namespace Msg
 {
     class NaviFrameController;
@@ -85,6 +87,7 @@ namespace Msg
         private:
             // NaviFrameItem:
             virtual void onAttached(ViewItem &item);
+            virtual void onTransitionFinished(NaviFrameItem &item);
             virtual void onButtonClicked(NaviFrameItem &item, NaviButtonId buttonId);
 
             // IHwButtonListener:
@@ -167,6 +170,8 @@ namespace Msg
             void convertMsgTypeHandler();
             void checkAndSetMsgType();
             void navigateToSlideShow(MsgId id);
+            void setBodyFocus();
+            void setRecipEntryFocus();
 
             void showMainPopup();
             void showNoRecipPopup();
@@ -201,6 +206,7 @@ namespace Msg
             DefferedCmd m_DefferedCmd;
             ContactEditor m_ContactEditor;
             IConversationListener *m_pListener;
+            std::function<void()> m_TransFinishedFunc;
     };
 
     class IConversationListener
