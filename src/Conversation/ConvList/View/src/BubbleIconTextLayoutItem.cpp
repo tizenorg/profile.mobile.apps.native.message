@@ -27,9 +27,21 @@ using namespace Msg;
 BubbleIconTextLayoutItem::BubbleIconTextLayoutItem(BubbleEntity &entity, Evas_Object *parent, LayoutType layoutType)
     : BubbleViewItem(entity)
 {
-    // TODO: impl Layout1Icon1Text
-    Evas_Object *layout = addLayout(parent, CONV_LIST_ATTACHMENTS_EDJ_PATH, "conv/list/icon_text_attachment");
+    const char *group = nullptr;
+    switch(layoutType)
+    {
+        case Layout1Icon1Text:
+            group = "conv/list/1icon_1text_attachment";
+            break;
+
+        case Layout1Icon2Text:
+            group = "conv/list/1icon_2text_attachment";
+            break;
+    }
+
+    Evas_Object *layout = addLayout(parent, CONV_LIST_ATTACHMENTS_EDJ_PATH, group);
     setEo(layout);
+
 }
 
 BubbleIconTextLayoutItem::~BubbleIconTextLayoutItem()
