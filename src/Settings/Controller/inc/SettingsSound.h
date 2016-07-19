@@ -22,12 +22,22 @@ namespace Msg
 {
     class MsgSettings;
 
+    /**
+     * This class is aimed to launch preinstalled utility from settings-app that allows to chose message-alert sound.
+     */
     class SettingsSound
     {
         public:
+            /**
+             * @brief Constructs an instance of SettingsSound based on message-service settings wrapper passed from outside.
+             * @param[in] settingsHandle an instance of message-settings api wrapper.
+             */
             SettingsSound(MsgSettings &settingsHandle);
             ~SettingsSound();
 
+            /**
+             * @brief launches preinstalled sound-picker utility via app-control.
+             */
             void launchSoundPicker();
 
         private:

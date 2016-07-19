@@ -24,16 +24,28 @@ namespace Msg
 {
     class Settings;
 
+    /**
+     * Visual representation of particular element of message-settings list.
+     */
     class SettingsListItem
         : public SettingsListViewItem
     {
         public:
-            typedef void (Settings::*MethodHandler)(SettingsListItem &item);
+            typedef void (Settings::*MethodHandler)(SettingsListItem &item); /**< A delegate fired when user taps on particular settings list element. */
 
         public:
+            /**
+             * @brief Constructs settings list item based on style and "on-tap" handler passed from outside.
+             * @param[in] style a style to be applied to settings list item
+             * @param[in] method to handle tap on this settings list element.
+             */
             inline SettingsListItem(const ListItemStyleRef &style, MethodHandler method);
             virtual ~SettingsListItem() {};
 
+            /**
+             * @brief gets "on-tap" handler.
+             * @return a handler to be returned.
+             */
             inline MethodHandler getHandler() const;
 
         private:

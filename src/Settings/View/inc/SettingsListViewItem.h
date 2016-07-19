@@ -24,25 +24,70 @@ namespace Msg
 {
     class ISettingsListViewItemListener;
 
+    /**
+     * Generic visual representation of messages-settings list element.
+     */
     class SettingsListViewItem
         : public ListItem
     {
         public:
-            static ListItemStyleRef multiLineStyle;
-            static ListItemStyleRef multiLineIconStyle;
-            static ListItemStyleRef oneLineIconStyle;
+            static ListItemStyleRef multiLineStyle;     /**< style for "multiline" genlist-item. */
+            static ListItemStyleRef multiLineIconStyle; /**< style for "multiline + icon" genlist-item. */
+            static ListItemStyleRef oneLineIconStyle;   /**< style for "single-line + icon" genlist-item. */
 
         public:
+            /**
+             * @brief Constructs list-item style based on a genlist-item style passed from outside.
+             * @param[in] style to be applied.
+             */
             SettingsListViewItem(const ListItemStyleRef &style);
             virtual ~SettingsListViewItem();
 
+            /**
+             * @brief Manages visibility of check-button at the moment when user creates it.
+             * @param[in] show if true shows check-button, otherwise hides it.
+             */
             void showCheckButton(bool show);
+
+            /**
+             * @brief Enables\disables check-button at moment of it's creation. Nothing happens if showCheckButton(false) was called before.
+             * @param[in] disabled if true, check-button is created disabled, if false - check-button is enabled.
+             */
             void disabledCheckButton(bool disabled);
+
+            /**
+             * @brief checks\unchecks check-button at moment of it's creation. Nothing happens if showCheckButton(false) was called before.
+             * @param[in] state if true, check-button is created checked, if false - check-button is unchecked.
+             */
             void setCheckButtonState(bool state);
+
+            /**
+             * @brief Gets state of check-button.
+             * @return true if check-button is checked, otherwise false. Also returns false if no check-button was created.
+             */
             bool getCheckButtonState() const;
+
+            /**
+             * @brief Switches state of check-button to opposite(checked/unchecked).
+             */
             void changeCheckButtonState();
+
+            /**
+             * @brief Sets text to "elm.text" part.
+             * @param[in] text a text to be set.
+             */
             void setMainText(const std::string &text);
+
+            /**
+             * @brief Sets text to "elm.text.multiline" part. If instance of SettingsListViewItem have single-line style nothing happens.
+             * @param[in] text a text to be set.
+             */
             void setSubText(const std::string &text);
+
+            /**
+             * Sets a listener to notify subscriber about list-item events.
+             * @param[in] listener a listener to be notified.
+             */
             void setListener(ISettingsListViewItemListener *listener);
 
         private:
@@ -63,10 +108,18 @@ namespace Msg
             ISettingsListViewItemListener *m_pListener;
     };
 
+    /**
+     * Listener to send list-item events to subscribers.
+     */
     class ISettingsListViewItemListener
     {
         public:
             virtual ~ISettingsListViewItemListener(){}
+
+            /**
+             * @brief raised when state of check-button has been changed.
+             * @param[in] item an item that owns a check-button with state modified.
+             */
             virtual void onCheckButtonChanged(SettingsListViewItem &item) {};
     };
 }

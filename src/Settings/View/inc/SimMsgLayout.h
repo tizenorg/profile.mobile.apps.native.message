@@ -23,16 +23,42 @@
 
 namespace Msg
 {
+    /**
+     * Represents a layout of "Messages on SIM" view.
+     */
     class SimMsgLayout
         : public DefaultLayout
     {
         public:
+            /**
+             * @brief Constructs an instance of SimMsgLayout based on parent passed from outside.
+             * @param[in] an object responsible for automatic destroying of SimMsgLayout instance.
+             */
             SimMsgLayout(Evas_Object *parent);
             virtual ~SimMsgLayout();
 
+            /**
+             * @brief populates itself according to list passed from outside.
+             * @param[in] list to be placed on layout.
+             */
             void setSimMsgList(Evas_Object *list);
+
+            /**
+             * @brief acquires a layout for "No content" mode.
+             * @param[in] bg a background layout that will be shown if list of messages on SIM is empty.
+             */
             void setNoContent(Evas_Object *bg);
+
+            /**
+             * @brief Shows/hides "No content" layout.
+             * @param[in] show if true no list is shown, but "No messages on SIM card" text, if false hides "No content" layout.
+             */
             void setNoContentLayoutVisible(bool show);
+
+            /**
+             * @brief Shows/hides list of messages on SIM.
+             * @param[in] show if true the list is shown, otherwise list is hidden.
+             */
             void setSimMsgListVisible(bool show);
         private:
             void create(Evas_Object *parent);

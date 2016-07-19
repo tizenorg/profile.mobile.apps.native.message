@@ -23,10 +23,17 @@
 
 namespace Msg
 {
+    /**
+     * Visual representation of grouping settings list items(a genlist item with "group_index" style).
+     */
     class SettingsGroupListViewItem
         : public ListItem
     {
         public:
+            /**
+             * @brief Constructs genlist-item with "group_index style" and title based on text passed from outside.
+             * @param title a text to be displayed.
+             */
             SettingsGroupListViewItem(const std::string &title);
             virtual ~SettingsGroupListViewItem();
 

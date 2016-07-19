@@ -36,6 +36,9 @@ namespace Msg
     class NaviFrameController;
     class MsgSettings;
 
+    /**
+     * Visual representation of "Messages on SIM" list.
+     */
     class MsgOnSimCard
         : public FrameController
         , private IHwButtonListener
@@ -48,6 +51,11 @@ namespace Msg
             virtual ~MsgOnSimCard();
 
         public:
+            /**
+             * @brief Switches to(from) selection mode.
+             * @param[in] show if true switches to selection mode, otherwise switches to normal mode.
+             * @param[in] resetCheck if true forces "Select all" checkbox to be unchecked by default.
+             */
             void showSelectAllItem(bool show, bool resetCheck = true);
 
         private:

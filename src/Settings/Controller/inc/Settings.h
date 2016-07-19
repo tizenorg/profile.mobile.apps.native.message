@@ -31,6 +31,10 @@ namespace Msg
     class MsgSettings;
     class IMsgSettingsListener;
 
+    /**
+     * A core-class responsible for a whole lifecycle of settings-module and for managing
+     * sub-components of message settings.
+     */
     class Settings
         : public FrameController
         , private IListViewListener
@@ -39,6 +43,10 @@ namespace Msg
         , private ISystemSettingsManager
     {
         public:
+            /**
+             * @brief A constructor of Settings object based on outside parent object.
+             * @param[in] parent an object responsible for automatic removing of Settings instance.
+             */
             Settings(NaviFrameController &parent);
             virtual ~Settings();
 

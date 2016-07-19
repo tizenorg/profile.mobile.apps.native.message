@@ -24,13 +24,25 @@
 
 namespace Msg
 {
+    /**
+     * Visual representation of an element in "Messages on SIM" list.
+     */
     class SimListViewItem
         : public ListItem
     {
         public:
+            /**
+             * @brief Creates element of "Messages on SIM" list based on message-service structure and genlist item type passed from outside.
+             * @param[in] msg a reference to message-service structure wrapped into class from Common module.
+             * @param[in] type type of genlist-item.
+             */
             SimListViewItem(const MessageSMS &msg, Elm_Genlist_Item_Type type = ELM_GENLIST_ITEM_NONE);
             virtual ~SimListViewItem();
 
+            /**
+             * @brief gets message-id
+             * @return id of message associated with current list-element.
+             */
             MsgId getMsgId() const;
 
         protected:
