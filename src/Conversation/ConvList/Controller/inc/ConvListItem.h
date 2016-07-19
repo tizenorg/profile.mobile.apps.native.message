@@ -93,6 +93,7 @@ namespace Msg
             void addTextItem(std::string text, bool markup, const std::string &searchWord);
             void addImageItem(const MsgConvMedia &media);
             void addAttachedFileItem(const MsgConvMedia &media);
+            void addCalendarItem(const MsgConvMedia &media);
 
             // Create Popup when message is clicked
             void showMainListPopup();
