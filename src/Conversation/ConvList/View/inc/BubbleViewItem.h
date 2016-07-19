@@ -59,7 +59,7 @@ namespace Msg
                 AudioItem,
                 VideoItem,
                 ContactItem,
-                CalendarItem,
+                CalendarEventItem,
                 UnknownFileItem,
                 DownloadButtonItem
             };
