@@ -51,6 +51,7 @@ BuildRequires:  pkgconfig(capi-system-runtime-info)
 BuildRequires:  pkgconfig(storage)
 BuildRequires:  pkgconfig(attach-panel)
 BuildRequires:  pkgconfig(phonenumber-utils)
+BuildRequires:  pkgconfig(calendar-service2)
 
 
 %if %TIZEN_2_4_BUILD == 0

@@ -75,6 +75,7 @@ pkg_check_modules(pkgs REQUIRED
             storage
             attach-panel
             phonenumber-utils
+            calendar-service2
 )
 
 ADD_DEFINITIONS("-DAPP_DIR=\"${PKGDIR}\"")

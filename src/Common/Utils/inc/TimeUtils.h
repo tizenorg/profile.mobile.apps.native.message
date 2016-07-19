@@ -39,12 +39,14 @@ namespace Msg
             static std::string makeDateTimeString(time_t msgTime);
             static std::string makeSmsReportTimeString(time_t msgTime);
             static std::string makeMmsReportTimeString(time_t msgTime);
+            static std::string makeCalEventString(time_t time);
+            static std::string makeCalEventString(int year, int month, int mday, int hour, int min, const char *timezone = nullptr);
 
         protected:
             //made protected to allow inheritance of this class in tests
             static const std::string &getDefaultLocale();
             static std::string getDateBestPattern(const std::string &locale, const std::string &skeleton);
-            static std::string getFormattedDate(const std::string &locale, const std::string &bestPattern, time_t time);
+            static std::string getFormattedDate(const std::string &locale, const std::string &bestPattern, time_t time, const char *timezone = nullptr);
 
         private:
             static int getTimeFormat();
