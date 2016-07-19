@@ -24,6 +24,7 @@ BubbleUnknownFileViewItem::BubbleUnknownFileViewItem(BubbleEntity &entity, Evas_
     : BubbleIconTextLayoutItem(entity, parent, Layout1Icon1Text)
 {
     attachGestureTapLayer(getEo(), getEo());
+    setIcon(createIcon(getEo(), ATTACH_UNKNOWN_ICON));
 }
 
 BubbleUnknownFileViewItem::~BubbleUnknownFileViewItem()
