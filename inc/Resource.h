@@ -51,6 +51,7 @@
 #define CONV_LIST_EDJ_PATH               EDJ_PATH"/conv_list.edj"
 #define CONV_LAYOUT_EDJ_PATH             EDJ_PATH"/conv_layout.edj"
 #define CONV_CONTACT_LIST_LAYOUT         EDJ_PATH"/conv_contact_list_layout.edj"
+#define CONV_LIST_ATTACHMENTS            EDJ_PATH"/conv_list_attachments.edj"
 
 
 // Images(res):

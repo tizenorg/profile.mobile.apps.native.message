@@ -1,0 +1,97 @@
+#include "macros.inl"
+
+collections {
+    BASE_SCALE;
+group {
+      name: "conv/list/attachments/video_item";
+      images {
+         image: "00_video_play.png" COMP;
+      }
+      parts {
+         PADDING_TOP("padding_top", 0);
+         PADDING_LEFT("padding_left", 5);
+         PADDING_RIGHT("padding_right", 0);
+         PADDING_BOTTOM("padding_bottom", 0);
+         part {
+            name: "rect.bg";
+            type: RECT;
+            scale: 1;
+            mouse_events: 1;
+            repeat_events: 0;
+            description {
+               state: "default" 0.0;
+               rel1{
+                  to_x: "padding_left";
+                  to_y: "padding_top";
+                  relative: 1.0 1.0;
+               }
+               rel2{
+                  to: "rect.thumbnail";
+                  relative: 1.0 1.0;
+               }
+               align: 0.0 0.0;
+               visible: 1;
+               color: 255 255 255 255;
+            }
+         }
+         part {
+            name: "rect.thumbnail";
+            type: SPACER;
+            scale: 1;
+            mouse_events: 1;
+            repeat_events: 1;
+            description {
+               state: "default" 0.0;
+               rel1 {
+                  to: "rect.bg";
+                  relative: 0.0 0.0;
+                  offset: 2 2;
+               }
+               rel2 {
+                  to: "swl.thumbnail";
+                  relative: 1.0 1.0;
+                  offset: 1 1;
+               }
+               align: 0.0 0.0;
+            }
+         }
+         part {
+            name: "swl.thumbnail";
+            type: SWALLOW;
+            scale: 1;
+            mouse_events: 1;
+            repeat_events: 1;
+            description {
+               state: "default" 0.0;
+               fixed: 0 0;
+               rel1 {
+                  to: "rect.thumbnail";
+                  relative: 0.0 0.0;
+               }
+               align: 0.0 0.0;
+            }
+         }
+         part {
+            name: "play_button";
+            type: IMAGE;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               image.normal: "00_video_play.png";
+               align: 0.5 0.5;
+               min: 48 48;
+               rel1 {
+                  to: "swl.thumbnail";
+                  relative: 0.5 0.5;
+                  offset: -36 -36;
+               }
+               rel2 {
+                  to: "swl.thumbnail";
+                  relative: 0.5 0.5;
+                  offset: 36 36;
+               }
+            }
+         }
+      }
+   }
+}

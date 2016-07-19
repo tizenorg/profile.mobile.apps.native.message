@@ -131,7 +131,10 @@ Evas_Object *BubbleView::createImage(const std::string &path)
 
 Evas_Object *BubbleView::createVideo(const std::string &path)
 {
-    Evas_Object *image = elm_image_add(*this);
+    Evas_Object *layout = addLayout(*this, CONV_LIST_ATTACHMENTS, "conv/list/attachments/video_item");
+    evas_object_show(layout);
+
+    Evas_Object *image = elm_image_add(layout);
     elm_image_file_set(image, path.c_str(), nullptr);
     int imageWidth = 0;
     int imageHeight = 0;
@@ -144,7 +147,10 @@ Evas_Object *BubbleView::createVideo(const std::string &path)
     }
     evas_object_size_hint_min_set(image, imageWidth, imageHeight);
     evas_object_show(image);
-    return image;
+
+    elm_object_part_content_set(layout, "swl.thumbnail", image);
+    evas_object_smart_calculate(layout);
+    return layout;
 }
 
 Evas_Object *BubbleView::createDownloadButton()
