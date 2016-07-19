@@ -31,6 +31,7 @@
 #include "ContactMyProfile.h"
 #include "ContactMyProfileNumber.h"
 #include "ContactMyProfileEmail.h"
+#include "Contact.h"
 
 namespace Msg
 {
@@ -125,12 +126,19 @@ namespace Msg
              */
             std::string makeVcard(const int personId, bool myProfile);
 
-            /**
-             *@brief        Create content of contact by id list
+             /**
+-            *@brief        Create content of contact by id list
              *@param[in]    personId - contact id
              *@return       Content with all info about contacts
              */
-            std::string makeVcard(const std::list<int> &idList);
+             std::string makeVcard(const std::list<int> &idList);
+
+            /**
+             *@brief        Parse vCard file
+             *@param[in]    filePath Path to file
+             *@return       list of Contacts
+             */
+            std::shared_ptr<ContactList<Contact>> parseVcard(const std::string &filePath);
 
         private:
             typedef std::unordered_map<std::string, ContactAddressRef> AddressMap;

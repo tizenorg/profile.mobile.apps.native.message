@@ -20,7 +20,7 @@
 #define EDJ_PATH "edje"
 #define IMAGE_PATH "images"
 
-// Edj images:
+// Res images:
 #define CONV_SEND_IMG                   "btn_conversation_message_sending.png"
 #define CONV_ADD_IMG                    "btn_conversation_add.png"
 #define CONTACT_IMG                     "icon_btn_contact.png"
@@ -28,6 +28,8 @@
 #define ATTACH_IMG                      "attach_icon.png"
 #define ADD_PLUS_ICON                   "core_button_add.png"
 #define ATTACH_MUSIC_ICON               "messages_attach_ic_music.png"
+#define ATTACH_CAL_ICON                 "U01_icon_vcs.png"
+#define ATTACH_UNKNOWN_ICON             "U01_icon_etc.png"
 
 // Edj:
 #define IMAGES_EDJ_PATH                  EDJ_PATH"/images.edj"

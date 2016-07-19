@@ -115,6 +115,24 @@ std::string TimeUtils::makeMmsReportTimeString(time_t msgTime)
     return getFormattedDate(locale, getDateBestPattern(locale, timeFormat), msgTime);
 }
 
+std::string TimeUtils::makeCalEventString(time_t time)
+{
+    const std::string &locale = getDefaultLocale();
+    return getFormattedDate(locale, getDateBestPattern(locale, dateYear), time);
+}
+
+std::string TimeUtils::makeCalEventString(int year, int month, int mday, int hour, int min, const char *timezone)
+{
+    struct tm time = {};
+    time.tm_year = year - 1900;
+    time.tm_mon = month - 1;
+    time.tm_mday = mday;
+    time.tm_hour = hour;
+    time.tm_min = min;
+    const std::string &locale = getDefaultLocale();
+    return getFormattedDate(locale, getDateBestPattern(locale, dateYear), mktime(&time), timezone);
+}
+
 int TimeUtils::getTimeFormat()
 {
     bool timeFormat = false;
@@ -207,7 +225,7 @@ std::string TimeUtils::getDateBestPattern(const std::string &locale, const std::
     return bestPatternString;
 }
 
-std::string TimeUtils::getFormattedDate(const std::string &locale, const std::string &bestPattern, time_t time)
+std::string TimeUtils::getFormattedDate(const std::string &locale, const std::string &bestPattern, time_t time, const char *timezone)
 {
     int status = I18N_ERROR_NONE;
     i18n_udate date;
@@ -227,7 +245,7 @@ std::string TimeUtils::getFormattedDate(const std::string &locale, const std::st
         i18n_ustring_copy_ua_n(uBestPattern, bestPattern.c_str(), maxUcharLen);
 
     /* get current timezone and set as default timezone */
-    i18n_ustring_copy_ua(utimezoneId, getTimezone().c_str());
+    i18n_ustring_copy_ua(utimezoneId, timezone ? timezone : getTimezone().c_str());
 
     status = i18n_ucalendar_set_default_timezone(utimezoneId);
     if (status != I18N_ERROR_NONE)
