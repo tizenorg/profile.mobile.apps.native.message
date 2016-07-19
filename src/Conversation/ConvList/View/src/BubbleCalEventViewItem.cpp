@@ -15,48 +15,44 @@
  *
  */
 
-#include "BubbleAudioViewItem.h"
+#include "BubbleCalEventViewItem.h"
 #include "Resource.h"
 
 using namespace Msg;
 
-BubbleAudioViewItem::BubbleAudioViewItem(BubbleEntity &entity, Evas_Object *parent)
+BubbleCalEventViewItem::BubbleCalEventViewItem(BubbleEntity &entity, Evas_Object *parent)
     : BubbleIconTextLayoutItem(entity, parent, Layout1Icon2Text)
 {
     attachGestureTapLayer(getEo(), getEo());
-    setIcon(createIcon(getEo(), ATTACH_MUSIC_ICON));
+    setIcon(createIcon(getEo(), ATTACH_CAL_ICON));
 }
 
-BubbleAudioViewItem::~BubbleAudioViewItem()
+BubbleCalEventViewItem::~BubbleCalEventViewItem()
 {
 }
 
-
-BubbleAudioEntity::BubbleAudioEntity(const std::string &filePath, const std::string &fileName, const std::string &duration)
-    : BubbleEntity(AudioItem)
+BubbleCalEventEntity::BubbleCalEventEntity(const std::string &filePath, const std::string &name, const std::string &dateTime)
+    : BubbleEntity(CalendarEventItem)
     , m_FilePath(filePath)
-    , m_FileName(fileName)
-    , m_Duration(duration)
-{
+    , m_Name(name)
+    , m_DateTime(dateTime)
 
+{
 }
 
-BubbleAudioEntity::~BubbleAudioEntity()
+BubbleCalEventEntity::~BubbleCalEventEntity()
 {
-
 }
 
-BubbleAudioViewItem *BubbleAudioEntity::createView(Evas_Object *parent)
+BubbleCalEventViewItem *BubbleCalEventEntity::createView(Evas_Object *parent)
 {
-    auto *item = new BubbleAudioViewItem(*this, parent);
-    item->setMainText(m_FileName);
-    item->setSubText(m_Duration);
+    auto *item = new BubbleCalEventViewItem(*this, parent);
+    item->setMainText(m_Name);
+    item->setSubText(m_DateTime);
     return item;
 }
 
-const std::string &BubbleAudioEntity::getFilePath() const
+const std::string &BubbleCalEventEntity::getFilePath() const
 {
     return m_FilePath;
 }
-
-
