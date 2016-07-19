@@ -21,6 +21,7 @@
 #include "CallbackAssist.h"
 #include "FileUtils.h"
 #include "TimeUtils.h"
+#include "VCardParser.h"
 #include "SaveAttachmentsPopup.h"
 #include "TextDecorator.h"
 #include "MediaType.h"
@@ -28,16 +29,20 @@
 #include "TimeUtils.h"
 #include "FileViewer.h"
 #include "BubbleItemContainer.h"
+
+// Bubble items:
 #include "BubbleTextViewItem.h"
 #include "BubbleImageViewItem.h"
 #include "BubbleVideoViewItem.h"
 #include "BubbleAudioViewItem.h"
 #include "BubbleDownloadButtonViewItem.h"
 #include "BubbleUnknownFileViewItem.h"
+#include "BubbleCalEventViewItem.h"
 
 #include <notification_status.h>
 #include <sstream>
 #include <iomanip>
+#include <algorithm>
 
 using namespace Msg;
 
@@ -181,6 +186,18 @@ void ConvListItem::addAttachedFileItem(const MsgConvMedia &media)
     m_BubbleEntityList.push_back(entity);
 }
 
+void ConvListItem::addCalendarItem(const MsgConvMedia &media)
+{
+    auto list = VCardParser::getInst().parse(media.getPath());
+    if(!list.empty())
+    {
+        // TODO: if list.szie() > 1 ?
+        const CalendarEvent &event = list.front();
+        auto *entity = new BubbleCalEventEntity(media.getPath(), event.getSummary(), event.getStartDate());
+        m_BubbleEntityList.push_back(entity);
+    }
+}
+
 void ConvListItem::addDownloadButtonItem()
 {
     auto *entity = new BubbleDownloadButtonEntity;
@@ -237,6 +254,7 @@ void ConvListItem::prepareBubble(const MsgConversationItem &item, const std::str
             std::string mime = media.getMime();
             MsgMedia::Type msgMediaType = getMsgMediaTypeByMime(mime);
 
+            std::transform(mime.begin(), mime.end(), mime.begin(), ::tolower);
             switch(msgMediaType)
             {
                 case MsgMedia::TextType:
@@ -252,7 +270,9 @@ void ConvListItem::prepareBubble(const MsgConversationItem &item, const std::str
                     addVideoItem(media);
                     break;
                 default:
-                    if(mime != "application/smil")
+                    if(mime == "text/x-vcalendar" || mime == "text/calendar")
+                        addCalendarItem(media);
+                    else if(mime != "application/smil")
                         addAttachedFileItem(media);
                     break;
             }
@@ -266,7 +286,6 @@ Evas_Object *ConvListItem::getBubbleContent()
     for(BubbleEntity *entity : m_BubbleEntityList)
     {
         BubbleViewItem *item = entity->createView(*bubble);
-        item->show();
         bubble->append(*item);
         item->setListener(this);
     }
