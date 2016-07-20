@@ -29,6 +29,7 @@
 #include "TimeUtils.h"
 #include "FileViewer.h"
 #include "BubbleItemContainer.h"
+#include "ContactManager.h"
 
 // Bubble items:
 #include "BubbleTextViewItem.h"
@@ -38,6 +39,7 @@
 #include "BubbleDownloadButtonViewItem.h"
 #include "BubbleUnknownFileViewItem.h"
 #include "BubbleCalEventViewItem.h"
+#include "BubbleContactViewItem.h"
 
 #include <notification_status.h>
 #include <sstream>
@@ -71,6 +73,14 @@ namespace
            << std::setfill('0') << std::setw(2) << m;
         return ss.str();
     }
+
+    std::string getFileName(const MsgConvMedia &media)
+    {
+        std::string res = media.getName();
+        if(res.empty())
+            res = FileUtils::getFileName(media.getPath());
+        return res;
+    }
 }
 
 ConvListItem::ConvListItem(const MsgConversationItem &item,
@@ -78,7 +88,7 @@ ConvListItem::ConvListItem(const MsgConversationItem &item,
                            FileViewer &fileViewer,
                            WorkingDirRef workingDir,
                            const std::string &searchWord,
-                           const ThumbnailMaker::ThumbId &thumbId)
+                           const ThumbId &thumbId)
     : ConvListViewItem(getConvItemType(item))
     , m_pListener(nullptr)
     , m_App(app)
@@ -175,14 +185,10 @@ void ConvListItem::addAudioItem(const MsgConvMedia &media)
     m_BubbleEntityList.push_back(entity);
 }
 
-void ConvListItem::addAttachedFileItem(const MsgConvMedia &media)
+void ConvListItem::addUnknownFileItem(const MsgConvMedia &media)
 {
-    std::string dsipName = media.getName();
-    std::string path = media.getPath();
-    if(dsipName.empty())
-        dsipName = FileUtils::getFileName(path);
-
-    auto *entity = new BubbleUnknownFileEntity(path, dsipName);
+    std::string dsipName = getFileName(media);
+    auto *entity = new BubbleUnknownFileEntity(media.getPath(), dsipName);
     m_BubbleEntityList.push_back(entity);
 }
 
@@ -196,6 +202,28 @@ void ConvListItem::addCalendarItem(const MsgConvMedia &media)
         auto *entity = new BubbleCalEventEntity(media.getPath(), event.getSummary(), event.getStartDate());
         m_BubbleEntityList.push_back(entity);
     }
+}
+
+void ConvListItem::addContactItem(const MsgConvMedia &media)
+{
+    auto list = m_App.getContactManager().parseVcard(media.getPath());
+    if(list && !list->isEmpty())
+    {
+        BubbleContactEntity *entity = nullptr;
+
+        if(list->getCount() > 1)
+        {
+            std::string fileName = getFileName(media);
+            entity = new BubbleContactEntity(m_App.getThumbnailMaker(), media.getPath(), fileName);
+        }
+        else
+        {
+            const Contact &rec = list->get();
+            entity = new BubbleContactEntity(m_App.getThumbnailMaker(), media.getPath(), rec.getDispName(), rec.getAddress());
+        }
+        if(entity)
+            m_BubbleEntityList.push_back(entity);
+     }
 }
 
 void ConvListItem::addDownloadButtonItem()
@@ -253,8 +281,8 @@ void ConvListItem::prepareBubble(const MsgConversationItem &item, const std::str
             const MsgConvMedia &media = list.at(i);
             std::string mime = media.getMime();
             MsgMedia::Type msgMediaType = getMsgMediaTypeByMime(mime);
-
             std::transform(mime.begin(), mime.end(), mime.begin(), ::tolower);
+
             switch(msgMediaType)
             {
                 case MsgMedia::TextType:
@@ -272,8 +300,10 @@ void ConvListItem::prepareBubble(const MsgConversationItem &item, const std::str
                 default:
                     if(mime == "text/x-vcalendar" || mime == "text/calendar")
                         addCalendarItem(media);
+                    if(mime == "text/x-vcard" || mime == "text/vcard")
+                        addContactItem(media);
                     else if(mime != "application/smil")
-                        addAttachedFileItem(media);
+                        addUnknownFileItem(media);
                     break;
             }
         }

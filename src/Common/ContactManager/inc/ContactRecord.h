@@ -40,6 +40,13 @@ namespace Msg
         protected:
             std::string getStr(unsigned propertyId) const;
             int getInt(unsigned propertyId) const;
+            int getChildCount(unsigned propertyId) const;
+            contacts_record_h getChildP(unsigned propertyId, int index) const;
+
+            static std::string getStr(contacts_record_h rec, unsigned propertyId);
+            static int getInt(contacts_record_h rec, unsigned propertyId);
+            static int getChildCount(contacts_record_h rec, unsigned propertyId);
+            static contacts_record_h getChildP(contacts_record_h rec, unsigned propertyId, int index);
 
         private:
             contacts_record_h m_Record;
@@ -51,25 +58,58 @@ namespace Msg
         m_Record = record;
     }
 
-    inline std::string ContactRecord::getStr(unsigned propertyId) const
-    {
-        char *str = nullptr;
-        contacts_record_get_str_p(m_Record, propertyId, &str);
-        return str ? str : std::string();
-    }
-
-    inline int ContactRecord::getInt(unsigned propertyId) const
-    {
-        int val = 0;
-        contacts_record_get_int(m_Record, propertyId, &val);
-        return val;
-    }
-
     inline contacts_record_h ContactRecord::getRecord() const
     {
         return m_Record;
     }
 
+    inline std::string ContactRecord::getStr(contacts_record_h rec, unsigned propertyId)
+    {
+        char *str = nullptr;
+        contacts_record_get_str_p(rec, propertyId, &str);
+        return str ? str : std::string();
+    }
+
+    inline int ContactRecord::getChildCount(contacts_record_h rec, unsigned propertyId)
+    {
+        int count = 0;
+        contacts_record_get_child_record_count(rec, propertyId, &count);
+        return count;
+    }
+
+    inline contacts_record_h ContactRecord::getChildP(contacts_record_h rec, unsigned propertyId, int index)
+    {
+        contacts_record_h res = {};
+        contacts_record_get_child_record_at_p(rec, propertyId, index, &res);
+        return res;
+    }
+
+    inline int ContactRecord::getInt(contacts_record_h rec, unsigned propertyId)
+    {
+        int val = 0;
+        contacts_record_get_int(rec, propertyId, &val);
+        return val;
+    }
+
+    inline std::string ContactRecord::getStr(unsigned propertyId) const
+    {
+        return getStr(m_Record, propertyId);
+    }
+
+    inline int ContactRecord::getChildCount(unsigned propertyId) const
+    {
+        return getChildCount(m_Record, propertyId);
+    }
+
+    inline contacts_record_h ContactRecord::getChildP(unsigned propertyId, int index) const
+    {
+        return getChildP(m_Record, propertyId, index);
+    }
+
+    inline int ContactRecord::getInt(unsigned propertyId) const
+    {
+        return getInt(m_Record, propertyId);
+    }
 }
 
 #endif /* __ContactRecord_h__ */

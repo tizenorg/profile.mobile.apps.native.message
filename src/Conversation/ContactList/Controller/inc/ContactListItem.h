@@ -44,7 +44,7 @@ namespace Msg
         private:
             App &m_App;
             std::string m_Recipient;
-            ThumbnailMaker::ThumbId m_ThumbId;
+            ThumbId m_ThumbId;
             std::string m_MainText;
             std::string m_SubText;
     };

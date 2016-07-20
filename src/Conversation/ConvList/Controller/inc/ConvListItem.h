@@ -53,7 +53,7 @@ namespace Msg
                          FileViewer &fileViewer,
                          WorkingDirRef workingDir,
                          const std::string &searchWord,
-                         const ThumbnailMaker::ThumbId &thumbId = -1);
+                         const ThumbId &thumbId = -1);
 
             virtual ~ConvListItem();
 
@@ -92,8 +92,9 @@ namespace Msg
             void addTextItem(const MsgConvMedia &media, const std::string &searchWord);
             void addTextItem(std::string text, bool markup, const std::string &searchWord);
             void addImageItem(const MsgConvMedia &media);
-            void addAttachedFileItem(const MsgConvMedia &media);
+            void addUnknownFileItem(const MsgConvMedia &media);
             void addCalendarItem(const MsgConvMedia &media);
+            void addContactItem(const MsgConvMedia &media);
 
             // Create Popup when message is clicked
             void showMainListPopup();
@@ -132,7 +133,7 @@ namespace Msg
             time_t m_Time;
             std::string m_TimeStr;
             std::list<BubbleEntity*> m_BubbleEntityList;
-            const ThumbnailMaker::ThumbId &m_ThumbId;
+            const ThumbId &m_ThumbId;
     };
 
     class IConvListItemListener

@@ -53,18 +53,18 @@ ThumbnailMaker::~ThumbnailMaker()
     m_App.getContactManager().removeListener(*this);
 }
 
-ThumbnailMaker::ThumbId ThumbnailMaker::getThumbId(const MsgAddress &address)
+ThumbId ThumbnailMaker::getThumbId(const MsgAddress &address)
 {
     return getThumbId(address.getAddress());
 }
 
-ThumbnailMaker::ThumbId ThumbnailMaker::getThumbId(const std::string &address)
+ThumbId ThumbnailMaker::getThumbId(const std::string &address)
 {
     ContactAddressRef contact = m_App.getContactManager().getContactAddress(address);
     return contact ? getThumbIdFromFile(contact->getThumbnailPath()) : getThumbId(SingleThumb);
 }
 
-ThumbnailMaker::ThumbId ThumbnailMaker::getThumbIdFromFile(const std::string &path)
+ThumbId ThumbnailMaker::getThumbIdFromFile(const std::string &path)
 {
     if(path.empty())
     {
@@ -83,7 +83,7 @@ ThumbnailMaker::ThumbId ThumbnailMaker::getThumbIdFromFile(const std::string &pa
     }
 }
 
-ThumbnailMaker::ThumbId ThumbnailMaker::getThumbId(DefaultThumbs thumb)
+ThumbId ThumbnailMaker::getThumbId(DefaultThumbs thumb)
 {
     auto it = m_ContactsMap.find(defaultThumbsToStr(thumb));
     if(it != m_ContactsMap.end())

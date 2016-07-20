@@ -38,6 +38,7 @@ namespace Msg
             std::string getPhoneNumber() const;
             std::string getEmail() const;
             std::string getThumb() const;
+            std::string getAddress() const;
     };
 
     inline Contact::Contact(bool release, contacts_record_h record)
@@ -52,17 +53,33 @@ namespace Msg
 
     inline std::string Contact::getPhoneNumber() const
     {
-        return getStr(_contacts_contact.number);
+        std::string res;
+        int count = getChildCount(_contacts_contact.number);
+        if(count > 0)
+            res = getStr(getChildP(_contacts_contact.number, 0), _contacts_number.number);
+        return res;
     }
 
     inline std::string Contact::getEmail() const
     {
-        return getStr(_contacts_contact.email);
+        std::string res;
+        int count = getChildCount(_contacts_contact.email);
+        if(count > 0)
+            res = getStr(getChildP(_contacts_contact.number, 0), _contacts_email.email);
+        return res;
     }
 
     inline std::string Contact::getThumb() const
     {
         return getStr(_contacts_contact.image_thumbnail_path);
+    }
+
+    inline std::string Contact::getAddress() const
+    {
+        std::string address = getPhoneNumber();
+        if(address.empty())
+            address = getEmail();
+        return address;
     }
 }
 
