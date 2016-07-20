@@ -27,12 +27,12 @@
 namespace Msg
 {
     class App;
+    typedef long ThumbId;
 
     class ThumbnailMaker
         : public IContactManagerListener
     {
         public:
-            typedef long ThumbId;
             enum DefaultThumbs
             {
                 SingleThumb = 0, // Static thumb

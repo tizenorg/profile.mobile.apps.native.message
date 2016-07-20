@@ -55,7 +55,7 @@ namespace Msg
             virtual Evas_Object *getThumbnail();
 
             App &m_App;
-            ThumbnailMaker::ThumbId m_ThumbId;
+            ThumbId m_ThumbId;
             std::string m_Name;
             std::string m_Message;
             std::string m_Time;

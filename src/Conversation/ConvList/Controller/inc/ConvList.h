@@ -171,7 +171,7 @@ namespace Msg
             App &m_App;
             WorkingDirRef m_WorkingDir;
             FileViewer m_FileViewer;
-            ThumbnailMaker::ThumbId m_RecipThumbId;
+            ThumbId m_RecipThumbId;
             std::string m_SearchWord;
     };
 

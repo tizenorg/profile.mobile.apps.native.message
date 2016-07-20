@@ -26,6 +26,7 @@ using namespace Msg;
 
 BubbleIconTextLayoutItem::BubbleIconTextLayoutItem(BubbleEntity &entity, Evas_Object *parent, LayoutType layoutType)
     : BubbleViewItem(entity)
+    , m_LayoutType(layoutType)
 {
     const char *group = nullptr;
     switch(layoutType)
@@ -71,4 +72,9 @@ Evas_Object *BubbleIconTextLayoutItem::createIcon(Evas_Object *parent, const std
     evas_object_color_set(icon, DEF_ICON_COLOR);
     evas_object_show(icon);
     return icon;
+}
+
+BubbleIconTextLayoutItem::LayoutType BubbleIconTextLayoutItem::getLayoutType() const
+{
+    return m_LayoutType;
 }

@@ -31,16 +31,21 @@ namespace Msg
                 Layout1Icon1Text,
                 Layout1Icon2Text
             };
+            static const int iconSize = 50;
 
         public:
             BubbleIconTextLayoutItem(BubbleEntity &entity, Evas_Object *parent, LayoutType layoutType);
             virtual ~BubbleIconTextLayoutItem();
 
+            LayoutType getLayoutType() const;
             void setIcon(Evas_Object *icon);
             void setMainText(const std::string &text);
             void setSubText(const std::string &text);
 
             static Evas_Object *createIcon(Evas_Object *parent, const std::string &edjFileName);
+
+        private:
+            LayoutType m_LayoutType;
     };
 }
 

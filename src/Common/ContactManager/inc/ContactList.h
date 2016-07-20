@@ -66,6 +66,11 @@ namespace Msg
                 return count;
             }
 
+            bool isEmpty() const
+            {
+                return getCount() <= 0;
+            }
+
         private:
             contacts_list_h m_List;
             T m_Record;
