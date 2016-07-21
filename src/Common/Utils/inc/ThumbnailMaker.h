@@ -28,6 +28,7 @@ namespace Msg
 {
     class App;
     typedef long ThumbId;
+    const ThumbId invalidThumbId = -1;
 
     class ThumbnailMaker
         : public IContactManagerListener

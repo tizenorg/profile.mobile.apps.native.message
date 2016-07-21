@@ -54,7 +54,7 @@ namespace Msg
                          FileViewer &fileViewer,
                          WorkingDirRef workingDir,
                          const std::string &searchWord,
-                         const ThumbId &thumbId = -1);
+                         const ThumbId &thumbId = invalidThumbId);
 
             virtual ~ConvListItem();
 
