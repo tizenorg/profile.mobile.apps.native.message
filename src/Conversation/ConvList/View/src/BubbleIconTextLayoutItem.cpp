@@ -41,6 +41,7 @@ BubbleIconTextLayoutItem::BubbleIconTextLayoutItem(BubbleEntity &entity, Evas_Ob
     }
 
     Evas_Object *layout = addLayout(parent, CONV_LIST_ATTACHMENTS_EDJ_PATH, group);
+    evas_object_size_hint_align_set(layout, 0.0, EVAS_HINT_FILL);
     setEo(layout);
 
 }

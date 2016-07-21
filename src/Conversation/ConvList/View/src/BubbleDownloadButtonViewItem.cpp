@@ -28,7 +28,6 @@ BubbleDownloadButtonViewItem::BubbleDownloadButtonViewItem(BubbleEntity &entity,
     expand();
     setText(msgt("IDS_MSG_BUTTON_DOWNLOAD_ABB3"));
     evas_object_smart_callback_add(button, "clicked", SMART_CALLBACK(BubbleDownloadButtonViewItem, onPressed), this);
-    evas_object_smart_calculate(button);
     evas_object_show(button);
 }
 
@@ -40,25 +39,4 @@ BubbleDownloadButtonViewItem::~BubbleDownloadButtonViewItem()
 void BubbleDownloadButtonViewItem::onPressed(Evas_Object *obj, void *eventInfo)
 {
     emitActionEvent();
-}
-
-BubbleDownloadButtonEntity::BubbleDownloadButtonEntity()
-    : BubbleEntity(DownloadButtonItem)
-{
-}
-
-BubbleDownloadButtonEntity::~BubbleDownloadButtonEntity()
-{
-}
-
-BubbleDownloadButtonViewItem *BubbleDownloadButtonEntity::createView(Evas_Object *parent)
-{
-    auto *item = new BubbleDownloadButtonViewItem(*this, parent);
-    return item;
-}
-
-const std::string &BubbleDownloadButtonEntity::getFilePath() const
-{
-    static std::string empty;
-    return empty;
 }

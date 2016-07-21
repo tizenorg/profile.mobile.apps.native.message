@@ -19,8 +19,6 @@
 #define BubbleViewItem_h_
 
 #include "View.h"
-#include "MsgTypes.h"
-
 #include <string>
 
 namespace Msg
@@ -47,33 +45,6 @@ namespace Msg
         private:
             BubbleEntity &m_Entity;
             IBubbleViewItemListener *m_pListener;
-    };
-
-    class BubbleEntity
-    {
-        public:
-            enum Type
-            {
-                TextItem,
-                ImageItem,
-                AudioItem,
-                VideoItem,
-                ContactItem,
-                CalendarEventItem,
-                UnknownFileItem,
-                DownloadButtonItem
-            };
-
-        public:
-            BubbleEntity(Type type);
-            virtual ~BubbleEntity();
-
-            Type getType() const;
-            virtual const std::string &getFilePath() const = 0;
-            virtual BubbleViewItem *createView(Evas_Object *parent) = 0;
-
-        private:
-            Type m_Type;
     };
 
     class IBubbleViewItemListener

@@ -15,29 +15,28 @@
  *
  */
 
-#include "BubbleCalEventViewItem.h"
+#include "BubbleCalEventEntity.h"
+#include "VCalendarParser.h"
 #include "Resource.h"
 
 using namespace Msg;
 
-BubbleCalEventViewItem::BubbleCalEventViewItem(BubbleEntity &entity, Evas_Object *parent)
-    : BubbleIconTextLayoutItem(entity, parent, Layout1Icon2Text)
-{
-    attachGestureTapLayer(getEo(), getEo());
-    setIcon(createIcon(getEo(), ATTACH_CAL_ICON));
-}
 
-BubbleCalEventViewItem::~BubbleCalEventViewItem()
-{
-}
-
-BubbleCalEventEntity::BubbleCalEventEntity(const std::string &filePath, const std::string &name, const std::string &dateTime)
+BubbleCalEventEntity::BubbleCalEventEntity(const MsgConvMedia &convMedia)
     : BubbleEntity(CalendarEventItem)
-    , m_FilePath(filePath)
-    , m_Name(name)
-    , m_DateTime(dateTime)
-
+    , m_FilePath(convMedia.getPath())
 {
+    auto list = VCalendarParser::getInst().parse(convMedia.getPath());
+    if(list.size() == 1)
+    {
+        const CalendarEvent &event = list.front();
+        m_Name = event.getSummary();
+        m_DateTime = event.getStartDate();
+    }
+    else
+    {
+        m_Name = getFileName(convMedia);
+    }
 }
 
 BubbleCalEventEntity::~BubbleCalEventEntity()
@@ -46,13 +45,16 @@ BubbleCalEventEntity::~BubbleCalEventEntity()
 
 BubbleCalEventViewItem *BubbleCalEventEntity::createView(Evas_Object *parent)
 {
-    auto *item = new BubbleCalEventViewItem(*this, parent);
+    BubbleCalEventViewItem::LayoutType type = m_DateTime.empty() ? BubbleCalEventViewItem::Layout1Icon1Text :
+                                                                   BubbleCalEventViewItem::Layout1Icon2Text;
+    auto *item = new BubbleCalEventViewItem(*this, parent, type);
     item->setMainText(m_Name);
-    item->setSubText(m_DateTime);
+    if(!m_DateTime.empty())
+        item->setSubText(m_DateTime);
     return item;
 }
 
-const std::string &BubbleCalEventEntity::getFilePath() const
+std::string BubbleCalEventEntity::getFilePath() const
 {
     return m_FilePath;
 }

@@ -15,31 +15,29 @@
  *
  */
 
-#ifndef BubbleContactViewItem_h_
-#define BubbleContactViewItem_h_
+#ifndef BubbleAudioEntity_h_
+#define BubbleAudioEntity_h_
 
-#include "BubbleIconTextLayoutItem.h"
-#include "Resource.h"
+#include "BubbleAudioViewItem.h"
+#include "BubbleEntity.h"
 
 namespace Msg
 {
-    class BubbleContactViewItem
-        : public BubbleIconTextLayoutItem
+    class BubbleAudioEntity
+        : public BubbleEntity
     {
         public:
-            BubbleContactViewItem(BubbleEntity &entity, Evas_Object *parent, LayoutType type);
-            virtual ~BubbleContactViewItem();
+            BubbleAudioEntity(const MsgConvMedia &media);
+            virtual ~BubbleAudioEntity();
+
+            virtual BubbleAudioViewItem *createView(Evas_Object *parent);
+            virtual std::string getFilePath() const;
+
+        private:
+            const std::string m_FilePath;
+            const std::string m_FileName;
+            const std::string m_Duration;
     };
-
-    inline BubbleContactViewItem::BubbleContactViewItem(BubbleEntity &entity, Evas_Object *parent, LayoutType type)
-        : BubbleIconTextLayoutItem(entity, parent, type)
-    {
-        attachGestureTapLayer(getEo(), getEo());
-    }
-
-    inline BubbleContactViewItem::~BubbleContactViewItem()
-    {
-    }
 }
 
-#endif /* BubbleContactViewItem_h_ */
+#endif /* BubbleAudioEntity_h_ */

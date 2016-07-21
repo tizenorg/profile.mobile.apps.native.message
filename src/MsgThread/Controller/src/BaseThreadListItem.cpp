@@ -130,7 +130,7 @@ std::string BaseThreadListItem::getTime()
 Evas_Object *BaseThreadListItem::getThumbnail()
 {
     static const int thumbSize = 98;
-    return m_App.getThumbnailMaker().getThumbById(*getOwner(), m_ThumbId, thumbSize);
+    return m_App.getThumbnailMaker().getThumb(*getOwner(), m_ThumbId, thumbSize);
 }
 
 time_t BaseThreadListItem::getRawTime() const

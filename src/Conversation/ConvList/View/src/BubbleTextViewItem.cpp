@@ -63,25 +63,3 @@ Evas_Object *BubbleTextViewItem::createText(Evas_Object *parent, const std::stri
     evas_object_size_hint_align_set(label, 0.0, EVAS_HINT_FILL);
     return label;
 }
-
-BubbleTextEntity::BubbleTextEntity(const std::string &text)
-    : BubbleEntity(ImageItem)
-    , m_Text(text)
-{
-}
-
-BubbleTextEntity::~BubbleTextEntity()
-{
-}
-
-const std::string &BubbleTextEntity::getFilePath() const
-{
-    static std::string empty;
-    return empty;
-}
-
-BubbleTextViewItem *BubbleTextEntity::createView(Evas_Object *parent)
-{
-    auto *item = new BubbleTextViewItem(*this ,parent, m_Text);
-    return item;
-}

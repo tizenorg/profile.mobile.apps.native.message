@@ -138,7 +138,7 @@ namespace Msg
              *@param[in]    filePath Path to file
              *@return       list of Contacts
              */
-            std::shared_ptr<ContactList<Contact>> parseVcard(const std::string &filePath);
+            std::list<ContactRef> parseVcard(const std::string &filePath);
 
         private:
             typedef std::unordered_map<std::string, ContactAddressRef> AddressMap;

@@ -41,7 +41,6 @@ BubbleItemContainer::~BubbleItemContainer()
 
 void BubbleItemContainer::append(Evas_Object *item)
 {
-    evas_object_size_hint_align_set(item, 0.0, EVAS_HINT_FILL);
     evas_object_smart_calculate(item);
     evas_object_show(item);
     elm_box_pack_end(getEo(), item);

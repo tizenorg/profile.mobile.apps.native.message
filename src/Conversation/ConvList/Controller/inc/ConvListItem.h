@@ -29,6 +29,7 @@
 #include "MsgUtils.h"
 #include "WorkingDir.h"
 #include "BubbleViewItem.h"
+#include "BubbleEntity.h"
 
 namespace Msg
 {
@@ -86,15 +87,16 @@ namespace Msg
         private:
             ConvListViewItem::ConvItemType getConvItemType(const MsgConversationItem &item);
             void prepareBubble(const MsgConversationItem &item, const std::string &searchWord);
-            void addVideoItem(const MsgConvMedia &media);
-            void addAudioItem(const MsgConvMedia &media);
-            void addDownloadButtonItem();
-            void addTextItem(const MsgConvMedia &media, const std::string &searchWord);
-            void addTextItem(std::string text, bool markup, const std::string &searchWord);
-            void addImageItem(const MsgConvMedia &media);
-            void addUnknownFileItem(const MsgConvMedia &media);
-            void addCalendarItem(const MsgConvMedia &media);
-            void addContactItem(const MsgConvMedia &media);
+            BubbleEntity *createVideoEntity(const MsgConvMedia &media);
+            BubbleEntity *createAudioEntity(const MsgConvMedia &media);
+            BubbleEntity *createDownloadButtonEntity();
+            BubbleEntity *createTextEntity(const MsgConvMedia &media, const std::string &searchWord);
+            BubbleEntity *createTextEntity(std::string text, bool markup, const std::string &searchWord);
+            BubbleEntity *createImageEntity(const MsgConvMedia &media);
+            BubbleEntity *createUnknownFileEntity(const MsgConvMedia &media);
+            BubbleEntity *createCalendarEntity(const MsgConvMedia &media);
+            BubbleEntity *createContactEntity(const MsgConvMedia &media);
+            void addEntity(BubbleEntity *entity);
 
             // Create Popup when message is clicked
             void showMainListPopup();
