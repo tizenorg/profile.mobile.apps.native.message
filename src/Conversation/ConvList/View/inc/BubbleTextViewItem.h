@@ -32,20 +32,6 @@ namespace Msg
         private:
             Evas_Object *createText(Evas_Object *parent, const std::string &text);
     };
-
-    class BubbleTextEntity
-        : public BubbleEntity
-    {
-        public:
-            BubbleTextEntity(const std::string &text);
-            virtual ~BubbleTextEntity();
-
-            virtual const std::string &getFilePath() const;
-            virtual BubbleTextViewItem *createView(Evas_Object *parent);
-
-        private:
-            std::string m_Text;
-    };
 }
 
 #endif /* BubbleTextViewItem_h_ */

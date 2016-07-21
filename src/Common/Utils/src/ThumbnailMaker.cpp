@@ -109,7 +109,7 @@ ThumbId ThumbnailMaker::getThumbId(DefaultThumbs thumb)
     }
 }
 
-Evas_Object *ThumbnailMaker::getThumbById(Evas_Object *parent, ThumbId id, int thumbSize)
+Evas_Object *ThumbnailMaker::getThumb(Evas_Object *parent, ThumbId id, int thumbSize)
 {
     auto it = m_OriginsMap.find(id);
     if(it == m_OriginsMap.end())
@@ -125,6 +125,20 @@ Evas_Object *ThumbnailMaker::getThumbById(Evas_Object *parent, ThumbId id, int t
     evas_object_size_hint_min_set(ic, scaledThumbSize, scaledThumbSize);
     evas_object_size_hint_max_set(ic, scaledThumbSize, scaledThumbSize);
     View::expand(ic);
+    evas_object_show(ic);
+    return ic;
+}
+
+Evas_Object *ThumbnailMaker::getThumb(Evas_Object *parent, const std::string &path, int thumbSize)
+{
+    Evas_Object *ic = elm_layout_add(parent);
+    std::string edjePath = PathUtils::getResourcePath(THUMBNAIL_EDJ_PATH);
+    elm_layout_file_set(ic, edjePath.c_str(), MSG_THUMB_STYLE_LIST);
+
+    Evas_Object *img = makeFace(ic, path);
+    elm_object_part_content_set(ic, "content", img);
+    int scaledThumbSize = ELM_SCALE_SIZE(thumbSize);
+    evas_object_resize(ic, scaledThumbSize, scaledThumbSize);
     evas_object_show(ic);
     return ic;
 }

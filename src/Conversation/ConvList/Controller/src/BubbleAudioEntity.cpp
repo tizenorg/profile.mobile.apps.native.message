@@ -15,35 +15,36 @@
  *
  */
 
-#include "BubbleAudioViewItem.h"
+#include "BubbleAudioEntity.h"
+#include "MediaUtils.h"
 #include "Resource.h"
+
+#include <sstream>
+#include <iomanip>
 
 using namespace Msg;
 
-BubbleAudioViewItem::BubbleAudioViewItem(BubbleEntity &entity, Evas_Object *parent)
-    : BubbleIconTextLayoutItem(entity, parent, Layout1Icon2Text)
+std::string makeDurationStr(const std::string &filePath)
 {
-    attachGestureTapLayer(getEo(), getEo());
-    setIcon(createIcon(getEo(), ATTACH_MUSIC_ICON));
+    int duration = MediaUtils::getDurationSec(filePath);
+    std::stringstream ss;
+    int h = duration / 60;
+    int m = duration % 60;
+    ss << std::setfill('0') << std::setw(2) << h << ':'
+       << std::setfill('0') << std::setw(2) << m;
+    return ss.str();
 }
 
-BubbleAudioViewItem::~BubbleAudioViewItem()
-{
-}
-
-
-BubbleAudioEntity::BubbleAudioEntity(const std::string &filePath, const std::string &fileName, const std::string &duration)
+BubbleAudioEntity::BubbleAudioEntity(const MsgConvMedia &media)
     : BubbleEntity(AudioItem)
-    , m_FilePath(filePath)
-    , m_FileName(fileName)
-    , m_Duration(duration)
+    , m_FilePath(media.getPath())
+    , m_FileName(getFileName(media))
+    , m_Duration(makeDurationStr(media.getPath()))
 {
-
 }
 
 BubbleAudioEntity::~BubbleAudioEntity()
 {
-
 }
 
 BubbleAudioViewItem *BubbleAudioEntity::createView(Evas_Object *parent)
@@ -54,7 +55,7 @@ BubbleAudioViewItem *BubbleAudioEntity::createView(Evas_Object *parent)
     return item;
 }
 
-const std::string &BubbleAudioEntity::getFilePath() const
+std::string BubbleAudioEntity::getFilePath() const
 {
     return m_FilePath;
 }

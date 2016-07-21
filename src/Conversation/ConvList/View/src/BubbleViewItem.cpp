@@ -72,18 +72,3 @@ void BubbleViewItem::emitActionEvent()
     if(m_pListener)
         m_pListener->onAction(*this);
 }
-
-BubbleEntity::BubbleEntity(Type type)
-    : m_Type(type)
-{
-}
-
-BubbleEntity::~BubbleEntity()
-{
-}
-
-BubbleEntity::Type BubbleEntity::getType() const
-{
-    return m_Type;
-}
-

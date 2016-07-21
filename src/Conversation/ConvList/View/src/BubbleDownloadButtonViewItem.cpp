@@ -41,24 +41,3 @@ void BubbleDownloadButtonViewItem::onPressed(Evas_Object *obj, void *eventInfo)
 {
     emitActionEvent();
 }
-
-BubbleDownloadButtonEntity::BubbleDownloadButtonEntity()
-    : BubbleEntity(DownloadButtonItem)
-{
-}
-
-BubbleDownloadButtonEntity::~BubbleDownloadButtonEntity()
-{
-}
-
-BubbleDownloadButtonViewItem *BubbleDownloadButtonEntity::createView(Evas_Object *parent)
-{
-    auto *item = new BubbleDownloadButtonViewItem(*this, parent);
-    return item;
-}
-
-const std::string &BubbleDownloadButtonEntity::getFilePath() const
-{
-    static std::string empty;
-    return empty;
-}

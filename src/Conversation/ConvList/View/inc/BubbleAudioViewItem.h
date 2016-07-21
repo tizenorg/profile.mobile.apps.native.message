@@ -19,6 +19,7 @@
 #define BubbleAudioViewItem_h_
 
 #include "BubbleIconTextLayoutItem.h"
+#include "Resource.h"
 
 namespace Msg
 {
@@ -30,21 +31,16 @@ namespace Msg
             virtual ~BubbleAudioViewItem();
     };
 
-    class BubbleAudioEntity
-        : public BubbleEntity
+    inline BubbleAudioViewItem::BubbleAudioViewItem(BubbleEntity &entity, Evas_Object *parent)
+        : BubbleIconTextLayoutItem(entity, parent, Layout1Icon2Text)
     {
-        public:
-            BubbleAudioEntity(const std::string &filePath, const std::string &fileName, const std::string &duration);
-            virtual ~BubbleAudioEntity();
+        attachGestureTapLayer(getEo(), getEo());
+        setIcon(createIcon(getEo(), ATTACH_MUSIC_ICON));
+    }
 
-            virtual BubbleAudioViewItem *createView(Evas_Object *parent);
-            virtual const std::string &getFilePath() const;
-
-        private:
-            const std::string m_FilePath;
-            const std::string m_FileName;
-            const std::string m_Duration;
-    };
+    inline BubbleAudioViewItem::~BubbleAudioViewItem()
+    {
+    }
 }
 
 #endif /* BubbleAudioViewItem_h_ */

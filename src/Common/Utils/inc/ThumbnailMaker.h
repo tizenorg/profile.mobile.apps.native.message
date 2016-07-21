@@ -50,7 +50,8 @@ namespace Msg
             ThumbId getThumbId(const MsgAddress &address);
             ThumbId getThumbId(const std::string &address);
             ThumbId getThumbId(DefaultThumbs thumb);
-            Evas_Object *getThumbById(Evas_Object *parent, ThumbId id, int thumbSize);
+            Evas_Object *getThumb(Evas_Object *parent, ThumbId id, int thumbSize);
+            Evas_Object *getThumb(Evas_Object *parent, const std::string &path, int thumbSize);
 
         private:
             typedef std::unordered_map<std::string, ThumbId> ContactsMap;

@@ -19,6 +19,7 @@
 #define BubbleUnknownFileViewItem_h_
 
 #include "BubbleIconTextLayoutItem.h"
+#include "Resource.h"
 
 namespace Msg
 {
@@ -30,20 +31,16 @@ namespace Msg
             virtual ~BubbleUnknownFileViewItem();
     };
 
-    class BubbleUnknownFileEntity
-        : public BubbleEntity
+    inline BubbleUnknownFileViewItem::BubbleUnknownFileViewItem(BubbleEntity &entity, Evas_Object *parent)
+        : BubbleIconTextLayoutItem(entity, parent, Layout1Icon1Text)
     {
-        public:
-            BubbleUnknownFileEntity(const std::string &filePath, const std::string &fileName);
-            virtual ~BubbleUnknownFileEntity();
+        attachGestureTapLayer(getEo(), getEo());
+        setIcon(createIcon(getEo(), ATTACH_UNKNOWN_ICON));
+    }
 
-            virtual BubbleUnknownFileViewItem *createView(Evas_Object *parent);
-            virtual const std::string &getFilePath() const;
-
-        private:
-            const std::string m_FilePath;
-            const std::string m_FileName;
-    };
+    inline BubbleUnknownFileViewItem::~BubbleUnknownFileViewItem()
+    {
+    }
 }
 
 #endif /* BubbleUnknownFileViewItem_h_ */

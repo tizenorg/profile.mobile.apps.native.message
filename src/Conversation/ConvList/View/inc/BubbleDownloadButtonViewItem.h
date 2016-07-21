@@ -32,17 +32,6 @@ namespace Msg
         private:
             void onPressed(Evas_Object *obj, void *eventInfo);
     };
-
-    class BubbleDownloadButtonEntity
-        : public BubbleEntity
-    {
-        public:
-            BubbleDownloadButtonEntity();
-            virtual ~BubbleDownloadButtonEntity();
-
-            virtual BubbleDownloadButtonViewItem *createView(Evas_Object *parent);
-            virtual const std::string &getFilePath() const;
-    };
 }
 
 #endif /* BubbleDownloadButtonViewItem_h_ */
