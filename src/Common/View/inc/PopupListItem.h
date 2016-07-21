@@ -31,7 +31,7 @@ namespace Msg
     }
 
     /**
-     * Generic Popup-list item class
+     * @brief Generic Popup-list item class
      */
     class PopupListItem: public ListItem
     {
@@ -46,7 +46,7 @@ namespace Msg
     };
 
     /**
-     * A class of popup-item with single text displayed
+     * @brief A class of popup-item with single text displayed
      */
     class PopupTextListItem: public PopupListItem
     {
@@ -60,7 +60,7 @@ namespace Msg
     };
 
     /**
-     * A class of popup-item with text and check field
+     * @brief A class of popup-item with text and check field
      */
     class PopupCheckListItem: public PopupListItem
     {

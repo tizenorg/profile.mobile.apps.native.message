@@ -25,7 +25,7 @@
 namespace Msg
 {
     /**
-    * A Layout that shows a message text when ThreadList is empty
+    * @brief A Layout that shows a message text when ThreadList is empty
     */
     class NoContentLayout
         : public View

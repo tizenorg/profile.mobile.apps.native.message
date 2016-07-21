@@ -32,26 +32,26 @@ namespace Msg
             virtual ~NaviFrameView();
 
             /**
-             * Checks is it last frame.
+             * @brief Checks is it last frame.
              */
             bool isLastFrame() const;
 
             /**
-             * Get count of pushed frames.
+             * @brief Get count of pushed frames.
              */
             int getItemsCount() const;
             /**
-             * Get list of pushed frames.
+             * @brief Get list of pushed frames.
              */
             NaviFrameItemList getItems() const;
 
             /**
-             * Checks if any frame was pushed.
+             * @brief Checks if any frame was pushed.
              */
             bool isEmpty() const;
 
             /**
-             * Pushes new frame. Attaches @content to frame. Updates @item with created frame.
+             * @brief Pushes new frame. Attaches @content to frame. Updates @item with created frame.
              */
             void push(NaviFrameItem &item, Evas_Object *content = nullptr);
             void push(NaviFrameItem &item, View &content);

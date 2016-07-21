@@ -39,22 +39,22 @@ namespace Msg
             virtual ~NaviFrameController();
 
             /**
-             * Pops last frame. Exit from app if frame count reaches zero.
+             * @brief Pops last frame. Exit from app if frame count reaches zero.
              */
             void pop();
 
             /**
-             * Executes app control command of default type.
+             * @brief Executes app control command of default type.
              */
             void execCmd(const AppControlDefaultRef &cmd);
 
             /**
-             * Executes app control command of compose type. This is Compose, Share, MultiShare, ShareText.
+             * @brief Executes app control command of compose type. This is Compose, Share, MultiShare, ShareText.
              */
             void execCmd(const AppControlComposeRef &cmd);
 
             /**
-             * Destroys naviframe. Note, than this doesn't close app.
+             * @brief Destroys naviframe. Note, than this doesn't close app.
              */
             void destroy();
 

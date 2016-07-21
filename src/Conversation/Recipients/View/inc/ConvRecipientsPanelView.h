@@ -47,7 +47,7 @@ namespace Msg
             void clear();
 
             /**
-             * Gets a count of mbe items
+             * @brief Gets a count of mbe items
              */
             unsigned int getItemsCount() const;
             MbeRecipientItem *getSelectedItem() const;

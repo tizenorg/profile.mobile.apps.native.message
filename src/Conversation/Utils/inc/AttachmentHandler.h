@@ -39,8 +39,8 @@ namespace Msg
             AttachmentHandler(AttachmentHandler&) = delete;
             void operator=(AttachmentHandler&) = delete;
             /**
-             * Run checking and resizing of files asynchronously.
-             * Invokes functions of IAttachmentHandlerListener.
+             * @brief Run checking and resizing of files asynchronously.
+             *        Invokes functions of IAttachmentHandlerListener.
              */
             void processFile(const std::string &file);
             void setListener(IAttachmentHandlerListener *listener);

@@ -42,12 +42,12 @@ namespace Msg
             virtual ~AppControlCommand();
 
             /**
-             * Get raw operation string.
+             *@brief Get raw operation string.
              */
             const std::string &getOperationMsg() const;
 
             /**
-             * Get operation type.
+             *@brief Get operation type.
              */
             OperationType getOperationType() const;
 

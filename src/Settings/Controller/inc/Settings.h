@@ -32,8 +32,8 @@ namespace Msg
     class IMsgSettingsListener;
 
     /**
-     * A core-class responsible for a whole lifecycle of settings-module and for managing
-     * sub-components of message settings.
+     * @brief A core-class responsible for a whole lifecycle of settings-module and for managing
+     *        sub-components of message settings.
      */
     class Settings
         : public FrameController
