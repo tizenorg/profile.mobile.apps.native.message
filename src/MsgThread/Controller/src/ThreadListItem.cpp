@@ -59,23 +59,28 @@ void ThreadListItem::update(const MsgThreadItem &threadItem)
 {
     m_ThreadId = threadItem.getId();
 
+    MsgConversationListRef convList = m_App.getMsgEngine().getStorage().getConversationList(m_ThreadId);
+    MsgConversationItem &item = convList->at(convList->getLength() - 1);
+
     State state = NormalState;
-    if(threadItem.isSending())
+
+    Message::NetworkStatus status = item.getNetworkStatus();
+    if(status == Message::NS_Sending)
     {
         state = StatusState;
         m_Status = decorateSendingText(msg("IDS_MSG_BODY_SENDING_ING_M_STATUS_ABB"));
     }
-    else if(threadItem.hasFailedMessage())
+    else if(status == Message::NS_Send_Fail)
     {
         state = StatusState;
         m_Status = decorateFailedText(msg("IDS_MSG_BODY_FAILED_M_STATUS_ABB2"));
     }
-    else if(threadItem.hasDraftMessage())
+    else if(item.isDraft())
     {
         state = StatusState;
         m_Status = decorateDraftText(msg("IDS_MSG_BODY_DRAFT_M_STATUS_ABB"));
     }
-    else if(threadItem.getUnreadCount() > 0)
+    else if(!item.isRead() && item.getDirection() == Message::MD_Received)
     {
         state = IconState;
         m_UnreadCount = decorateUnreadText(std::to_string(threadItem.getUnreadCount()));
