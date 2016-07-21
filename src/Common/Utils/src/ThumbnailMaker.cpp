@@ -131,35 +131,26 @@ Evas_Object *ThumbnailMaker::getThumb(Evas_Object *parent, ThumbId id, int thumb
 
 Evas_Object *ThumbnailMaker::getThumb(Evas_Object *parent, const std::string &path, int thumbSize)
 {
-    Evas_Object *ic = elm_layout_add(parent);
-    std::string edjePath = PathUtils::getResourcePath(THUMBNAIL_EDJ_PATH);
-    elm_layout_file_set(ic, edjePath.c_str(), MSG_THUMB_STYLE_LIST);
-
-    Evas_Object *img = makeFace(ic, path);
-    elm_object_part_content_set(ic, "content", img);
     int scaledThumbSize = ELM_SCALE_SIZE(thumbSize);
-    evas_object_resize(ic, scaledThumbSize, scaledThumbSize);
-    evas_object_show(ic);
+
+    Evas_Object *ic = makeMask(parent, scaledThumbSize);
+    Evas_Object *img = makeImage(ic, path, scaledThumbSize);
+    elm_object_part_content_set(ic, "content", img);
     return ic;
 }
 
 Evas_Object *ThumbnailMaker::makeOriginThumb(Evas_Object *parent, const std::string &path)
 {
-    Evas_Object *ic = elm_layout_add(parent);
-    std::string edjePath = PathUtils::getResourcePath(THUMBNAIL_EDJ_PATH);
-    elm_layout_file_set(ic, edjePath.c_str(), MSG_THUMB_STYLE_LIST);
-
-    Evas_Object *img = makeFace(ic, path);
+    Evas_Object *ic = makeMask(parent, DEFAULT_THUMB_SIZE);
+    Evas_Object *img = makeImage(ic, path, DEFAULT_THUMB_SIZE);
     elm_object_part_content_set(ic, "content", img);
-    evas_object_resize(ic, DEFAULT_THUMB_SIZE, DEFAULT_THUMB_SIZE);
     evas_object_move(ic, -DEFAULT_THUMB_SIZE, -DEFAULT_THUMB_SIZE);
-    evas_object_show(ic);
     return ic;
 }
 
 Evas_Object *ThumbnailMaker::makeDefaultOriginThumb(Evas_Object *parent, const std::string &path)
 {
-    Evas_Object *img = makeFace(parent, path);
+    Evas_Object *img = makeImage(parent, path, DEFAULT_THUMB_SIZE);
     evas_object_color_set(img, COLOR_BLUE);
     evas_object_resize(img, DEFAULT_THUMB_SIZE, DEFAULT_THUMB_SIZE);
     evas_object_move(img, -DEFAULT_THUMB_SIZE, -DEFAULT_THUMB_SIZE);
@@ -167,15 +158,25 @@ Evas_Object *ThumbnailMaker::makeDefaultOriginThumb(Evas_Object *parent, const s
     return img;
 }
 
-Evas_Object *ThumbnailMaker::makeFace(Evas_Object *parent, const std::string &path)
+Evas_Object *ThumbnailMaker::makeImage(Evas_Object *parent, const std::string &path, int size)
 {
     Evas_Object *img = elm_image_add(parent);
     elm_image_file_set(img, path.c_str(), nullptr);
-    evas_object_size_hint_min_set(img, DEFAULT_THUMB_SIZE, DEFAULT_THUMB_SIZE);
-    evas_object_size_hint_max_set(img, DEFAULT_THUMB_SIZE, DEFAULT_THUMB_SIZE);
-    elm_image_aspect_fixed_set(img, EINA_TRUE);
-    elm_image_fill_outside_set(img, EINA_TRUE);
+    evas_object_size_hint_min_set(img, size, size);
+    evas_object_size_hint_max_set(img, size, size);
+    elm_image_aspect_fixed_set(img, true);
+    elm_image_fill_outside_set(img, true);
     return img;
+}
+
+Evas_Object *ThumbnailMaker::makeMask(Evas_Object *parent, int size)
+{
+    Evas_Object *ic = elm_layout_add(parent);
+    static std::string edjePath = PathUtils::getResourcePath(THUMBNAIL_EDJ_PATH);
+    elm_layout_file_set(ic, edjePath.c_str(), MSG_THUMB_STYLE_LIST);
+    evas_object_resize(ic, size, size);
+    evas_object_show(ic);
+    return ic;
 }
 
 void ThumbnailMaker::invalidate()

@@ -61,7 +61,8 @@ namespace Msg
         private:
             void invalidate();
             ThumbId getThumbIdFromFile(const std::string &path);
-            Evas_Object *makeFace(Evas_Object *parent, const std::string &path);
+            Evas_Object *makeMask(Evas_Object *parent, int size);
+            Evas_Object *makeImage(Evas_Object *parent, const std::string &path, int size);
             Evas_Object *makeOriginThumb(Evas_Object *parent, const std::string &path);
             Evas_Object *makeDefaultOriginThumb(Evas_Object *parent, const std::string &path);
             const std::string &defaultThumbsToStr(DefaultThumbs thumb);
