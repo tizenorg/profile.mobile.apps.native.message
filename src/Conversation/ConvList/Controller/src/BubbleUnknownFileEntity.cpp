@@ -15,32 +15,22 @@
  *
  */
 
-#include "BubbleUnknownFileViewItem.h"
+#include "BubbleUnknownFileEntity.h"
 #include "Resource.h"
+
+#include "Logger.h"
 
 using namespace Msg;
 
-BubbleUnknownFileViewItem::BubbleUnknownFileViewItem(BubbleEntity &entity, Evas_Object *parent)
-    : BubbleIconTextLayoutItem(entity, parent, Layout1Icon1Text)
-{
-    attachGestureTapLayer(getEo(), getEo());
-    setIcon(createIcon(getEo(), ATTACH_UNKNOWN_ICON));
-}
-
-BubbleUnknownFileViewItem::~BubbleUnknownFileViewItem()
-{
-}
-
-BubbleUnknownFileEntity::BubbleUnknownFileEntity(const std::string &filePath, const std::string &fileName)
+BubbleUnknownFileEntity::BubbleUnknownFileEntity(const MsgConvMedia &convMedia)
     : BubbleEntity(UnknownFileItem)
-    , m_FilePath(filePath)
-    , m_FileName(fileName)
+    , m_FilePath(convMedia.getPath())
+    , m_FileName(getFileName(convMedia))
 {
 }
 
 BubbleUnknownFileEntity::~BubbleUnknownFileEntity()
 {
-
 }
 
 BubbleUnknownFileViewItem *BubbleUnknownFileEntity::createView(Evas_Object *parent)
@@ -50,7 +40,7 @@ BubbleUnknownFileViewItem *BubbleUnknownFileEntity::createView(Evas_Object *pare
     return item;
 }
 
-const std::string &BubbleUnknownFileEntity::getFilePath() const
+std::string BubbleUnknownFileEntity::getFilePath() const
 {
     return m_FilePath;
 }

@@ -26,23 +26,28 @@
 
 using namespace Msg;
 
-std::shared_ptr<ContactList<Contact>> ContactManager::parseVcard(const std::string &filePath)
+std::list<ContactRef> ContactManager::parseVcard(const std::string &filePath)
 {
-    std::shared_ptr<ContactList<Contact>> res;
+    std::list<ContactRef> res;
 
     if(filePath.empty())
         return res;
 
-    std::string vcardStream = FileUtils::readTextFile(filePath);
-    if(vcardStream.empty())
-        return res;
-
-    contacts_list_h list = {};
-    int parseRes = contacts_vcard_parse_to_contacts(vcardStream.c_str(), &list);
-    if(list)
-        res = std::make_shared<ContactList<Contact>>(list);
+    int parseRes = contacts_vcard_parse_to_contact_foreach
+    (
+        filePath.c_str(),
+        [](contacts_record_h record, void *user_data)->bool
+        {
+            contacts_record_h recordClone = {};
+            contacts_record_clone(record, &recordClone);
+            auto *list = (std::list<ContactRef>*)user_data;
+            auto recRef = std::make_shared<Contact>(true, recordClone);
+            list->emplace_back(recRef);
+            return true;
+        },
+        &res
+    );
 
     MSG_LOG("Parse result: ", parseRes);
-
     return res;
 }

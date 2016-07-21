@@ -21,29 +21,24 @@
 #include "CallbackAssist.h"
 #include "FileUtils.h"
 #include "TimeUtils.h"
-#include "VCalendarParser.h"
 #include "SaveAttachmentsPopup.h"
 #include "TextDecorator.h"
 #include "MediaType.h"
 #include "MediaUtils.h"
-#include "TimeUtils.h"
 #include "FileViewer.h"
 #include "BubbleItemContainer.h"
-#include "ContactManager.h"
 
 // Bubble items:
-#include "BubbleTextViewItem.h"
-#include "BubbleImageViewItem.h"
-#include "BubbleVideoViewItem.h"
-#include "BubbleAudioViewItem.h"
-#include "BubbleDownloadButtonViewItem.h"
-#include "BubbleUnknownFileViewItem.h"
-#include "BubbleCalEventViewItem.h"
-#include "BubbleContactViewItem.h"
+#include "BubbleTextEntity.h"
+#include "BubbleImageEntity.h"
+#include "BubbleVideoEntity.h"
+#include "BubbleAudioEntity.h"
+#include "BubbleDownloadButtonEntity.h"
+#include "BubbleUnknownFileEntity.h"
+#include "BubbleCalEventEntity.h"
+#include "BubbleContactEntity.h"
 
 #include <notification_status.h>
-#include <sstream>
-#include <iomanip>
 #include <algorithm>
 
 using namespace Msg;
@@ -61,25 +56,6 @@ namespace
         std::transform(sw.begin(), sw.end(), sw.begin(), tolower);
         size_t size = s.find(sw);
         return size != std::string::npos;
-    }
-
-    std::string makeDurationStr(const std::string &filePath)
-    {
-        int duration = MediaUtils::getDurationSec(filePath);
-        std::stringstream ss;
-        int h = duration / 60;
-        int m = duration % 60;
-        ss << std::setfill('0') << std::setw(2) << h << ':'
-           << std::setfill('0') << std::setw(2) << m;
-        return ss.str();
-    }
-
-    std::string getFileName(const MsgConvMedia &media)
-    {
-        std::string res = media.getName();
-        if(res.empty())
-            res = FileUtils::getFileName(media.getPath());
-        return res;
     }
 }
 
@@ -155,123 +131,79 @@ ConvListViewItem::ConvItemType ConvListItem::getConvItemType(const MsgConversati
     return type;
 }
 
-void ConvListItem::addVideoItem(const MsgConvMedia &media)
+BubbleEntity *ConvListItem::createVideoEntity(const MsgConvMedia &media)
 {
-    const std::string thumbFileName = "thumbnail.jpeg";
-    std::string thumbFilePath =  m_WorkingDir->genUniqueFilePath(thumbFileName);
-
-    if(!thumbFilePath.empty())
-    {
-        std::string path = media.getPath();
-        if(MediaUtils::getVideoFrame(path, thumbFilePath))
-        {
-            auto *entity = new BubbleVideoEntity(path, thumbFilePath);
-            m_BubbleEntityList.push_back(entity);
-        }
-    }
+    return new BubbleVideoEntity(*m_WorkingDir, media);
 }
 
-void ConvListItem::addAudioItem(const MsgConvMedia &media)
+BubbleEntity * ConvListItem::createAudioEntity(const MsgConvMedia &media)
 {
-    std::string path = media.getPath();
-    if(path.empty())
-        return;
-
-    std::string dsipName = media.getName();
-    if(dsipName.empty())
-        dsipName = FileUtils::getFileName(path);
-
-    auto *entity = new BubbleAudioEntity(path, dsipName, makeDurationStr(path));
-    m_BubbleEntityList.push_back(entity);
+    return new BubbleAudioEntity(media);
 }
 
-void ConvListItem::addUnknownFileItem(const MsgConvMedia &media)
+BubbleEntity *ConvListItem::createUnknownFileEntity(const MsgConvMedia &media)
 {
-    std::string dsipName = getFileName(media);
-    auto *entity = new BubbleUnknownFileEntity(media.getPath(), dsipName);
-    m_BubbleEntityList.push_back(entity);
+    return new BubbleUnknownFileEntity(media);
 }
 
-void ConvListItem::addCalendarItem(const MsgConvMedia &media)
+BubbleEntity *ConvListItem::createCalendarEntity(const MsgConvMedia &media)
 {
-    auto list = VCalendarParser::getInst().parse(media.getPath());
-    if(!list.empty())
-    {
-        // TODO: if list.szie() > 1 ?
-        const CalendarEvent &event = list.front();
-        auto *entity = new BubbleCalEventEntity(media.getPath(), event.getSummary(), event.getStartDate());
-        m_BubbleEntityList.push_back(entity);
-    }
+    return new BubbleCalEventEntity(media);
 }
 
-void ConvListItem::addContactItem(const MsgConvMedia &media)
+BubbleEntity *ConvListItem::createContactEntity(const MsgConvMedia &media)
 {
-    auto list = m_App.getContactManager().parseVcard(media.getPath());
-    if(list && !list->isEmpty())
-    {
-        BubbleContactEntity *entity = nullptr;
-
-        if(list->getCount() > 1)
-        {
-            std::string fileName = getFileName(media);
-            entity = new BubbleContactEntity(m_App.getThumbnailMaker(), media.getPath(), fileName);
-        }
-        else
-        {
-            const Contact &rec = list->get();
-            entity = new BubbleContactEntity(m_App.getThumbnailMaker(), media.getPath(), rec.getDispName(), rec.getAddress());
-        }
-        if(entity)
-            m_BubbleEntityList.push_back(entity);
-     }
+    return new BubbleContactEntity(m_App, media);
 }
 
-void ConvListItem::addDownloadButtonItem()
+BubbleEntity *ConvListItem::createDownloadButtonEntity()
 {
-    auto *entity = new BubbleDownloadButtonEntity;
-    m_BubbleEntityList.push_back(entity);
+    return new BubbleDownloadButtonEntity;
 }
 
-void ConvListItem::addTextItem(const MsgConvMedia &media, const std::string &searchWord)
+BubbleEntity *ConvListItem::createTextEntity(const MsgConvMedia &media, const std::string &searchWord)
 {
     std::string text = FileUtils::readTextFile(media.getPath());
 
     if(findText(text, searchWord))
         showSearch();
 
-    auto *entity = new BubbleTextEntity(utf8ToMarkup(text));
-    m_BubbleEntityList.push_back(entity);
+    return new BubbleTextEntity(utf8ToMarkup(text));
 }
 
-void ConvListItem::addTextItem(std::string text, bool markup, const std::string &searchWord)
+BubbleEntity *ConvListItem::createTextEntity(std::string text, bool markup, const std::string &searchWord)
 {
     if(findText(text, searchWord))
         showSearch();
 
     std::string resText = markup ? utf8ToMarkup(text) : std::move(text);
 
-    auto *entity = new BubbleTextEntity(resText);
-    m_BubbleEntityList.push_back(entity);
+    return new BubbleTextEntity(resText);
 }
 
-void ConvListItem::addImageItem(const MsgConvMedia &media)
+BubbleEntity *ConvListItem::createImageEntity(const MsgConvMedia &media)
 {
     // TODO: msg service corrupts thumbnail's metadata, so it lost rotation. Use getPath instead getThumbPath until fix
-    auto *entity = new BubbleImageEntity(media.getPath());
-    m_BubbleEntityList.push_back(entity);
+    return new BubbleImageEntity(media);
+}
+
+void ConvListItem::addEntity(BubbleEntity *entity)
+{
+    if(entity)
+        m_BubbleEntityList.push_back(entity);
 }
 
 void ConvListItem::prepareBubble(const MsgConversationItem &item, const std::string &searchWord)
 {
     if(!MsgUtils::isMms(m_Type))
     {
-        addTextItem(item.getText(), true, searchWord);
+        addEntity(createTextEntity(item.getText(), true, searchWord));
     }
     else if(m_Type == Message::MT_MMS_Noti)
     {
         std::string text = MessageDetailContent::getMmsNotiConvListItemContent(m_App, m_MsgId);
-        addTextItem(text, false, searchWord);
-        addDownloadButtonItem();
+        addEntity(createTextEntity(text, false, searchWord));
+        addEntity(createDownloadButtonEntity());
     }
     else
     {
@@ -282,30 +214,32 @@ void ConvListItem::prepareBubble(const MsgConversationItem &item, const std::str
             std::string mime = media.getMime();
             MsgMedia::Type msgMediaType = getMsgMediaTypeByMime(mime);
             std::transform(mime.begin(), mime.end(), mime.begin(), ::tolower);
+            BubbleEntity *entity = nullptr;
 
             switch(msgMediaType)
             {
                 case MsgMedia::TextType:
-                    addTextItem(media, searchWord);
+                    entity = createTextEntity(media, searchWord);
                     break;
                 case MsgMedia::ImageType:
-                    addImageItem(media);
+                    entity = createImageEntity(media);
                     break;
                 case MsgMedia::AudioType:
-                    addAudioItem(media);
+                    entity = createAudioEntity(media);
                     break;
                 case MsgMedia::VideoType:
-                    addVideoItem(media);
+                    entity = createVideoEntity(media);
                     break;
                 default:
                     if(mime == "text/x-vcalendar" || mime == "text/calendar")
-                        addCalendarItem(media);
-                    if(mime == "text/x-vcard" || mime == "text/vcard")
-                        addContactItem(media);
+                        entity = createCalendarEntity(media);
+                    else if(mime == "text/x-vcard" || mime == "text/vcard")
+                        entity = createContactEntity(media);
                     else if(mime != "application/smil")
-                        addUnknownFileItem(media);
+                        entity = createUnknownFileEntity(media);
                     break;
             }
+            addEntity(entity);
         }
     }
 }
@@ -327,7 +261,7 @@ Evas_Object *ConvListItem::getBubbleContent()
 Evas_Object *ConvListItem::getThumbnail()
 {
     static const int thumbSize = 80;
-    return m_App.getThumbnailMaker().getThumbById(*getOwner(), m_ThumbId, thumbSize);
+    return m_App.getThumbnailMaker().getThumb(*getOwner(), m_ThumbId, thumbSize);
 }
 
 Evas_Object *ConvListItem::getProgress()
@@ -367,10 +301,7 @@ void ConvListItem::setListener(IConvListItemListener *l)
 
 void ConvListItem::showPopup()
 {
-    if(m_IsDraft)
-        showDraftListPopup();
-    else
-        showMainListPopup();
+    m_IsDraft ? showDraftListPopup() : showMainListPopup();
 }
 
 void ConvListItem::showMainListPopup()

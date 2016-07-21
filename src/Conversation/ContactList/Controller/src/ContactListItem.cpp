@@ -73,5 +73,5 @@ std::string ContactListItem::getMainText() const
 Evas_Object *ContactListItem::getThumbnail() const
 {
     static const int thumbSize = 80;
-    return m_App.getThumbnailMaker().getThumbById(*getOwner(), m_ThumbId, thumbSize);
+    return m_App.getThumbnailMaker().getThumb(*getOwner(), m_ThumbId, thumbSize);
 }

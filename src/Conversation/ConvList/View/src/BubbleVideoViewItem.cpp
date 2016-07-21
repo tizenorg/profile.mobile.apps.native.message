@@ -48,26 +48,3 @@ Evas_Object *BubbleVideoViewItem::createImage(Evas_Object *parent, const std::st
     evas_object_show(image);
     return image;
 }
-
-BubbleVideoEntity::BubbleVideoEntity(const std::string &videoPath, const std::string &imgPath)
-    : BubbleEntity(VideoItem)
-    , m_VideoPath(videoPath)
-    , m_ImgPath(imgPath)
-{
-}
-
-BubbleVideoEntity::~BubbleVideoEntity()
-{
-}
-
-BubbleVideoViewItem *BubbleVideoEntity::createView(Evas_Object *parent)
-{
-    auto *item = new BubbleVideoViewItem(*this, parent, m_ImgPath);
-    return item;
-}
-
-const std::string &BubbleVideoEntity::getFilePath() const
-{
-    return m_VideoPath;
-}
-

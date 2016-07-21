@@ -19,6 +19,7 @@
 #define BubbleCalEventViewItem_h_
 
 #include "BubbleIconTextLayoutItem.h"
+#include "Resource.h"
 
 namespace Msg
 {
@@ -26,25 +27,20 @@ namespace Msg
         : public BubbleIconTextLayoutItem
     {
         public:
-            BubbleCalEventViewItem(BubbleEntity &entity, Evas_Object *parent);
+            BubbleCalEventViewItem(BubbleEntity &entity, Evas_Object *parent, LayoutType layoutType);
             virtual ~BubbleCalEventViewItem();
     };
 
-    class BubbleCalEventEntity
-        : public BubbleEntity
+    inline BubbleCalEventViewItem::BubbleCalEventViewItem(BubbleEntity &entity, Evas_Object *parent, LayoutType layoutType)
+        : BubbleIconTextLayoutItem(entity, parent, layoutType)
     {
-        public:
-            BubbleCalEventEntity(const std::string &filePath, const std::string &name, const std::string &dateTime);
-            virtual ~BubbleCalEventEntity();
+        attachGestureTapLayer(getEo(), getEo());
+        setIcon(createIcon(getEo(), ATTACH_CAL_ICON));
+    }
 
-            virtual BubbleCalEventViewItem *createView(Evas_Object *parent);
-            virtual const std::string &getFilePath() const;
-
-        private:
-            const std::string m_FilePath;
-            const std::string m_Name;
-            const std::string m_DateTime;
-    };
+    inline BubbleCalEventViewItem::~BubbleCalEventViewItem()
+    {
+    }
 }
 
 #endif /* BubbleCalEventViewItem_h_ */

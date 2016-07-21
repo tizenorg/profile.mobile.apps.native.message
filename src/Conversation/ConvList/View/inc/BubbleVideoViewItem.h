@@ -32,21 +32,6 @@ namespace Msg
         private:
             Evas_Object *createImage(Evas_Object *parent, const std::string &path);
     };
-
-    class BubbleVideoEntity
-        : public BubbleEntity
-    {
-        public:
-            BubbleVideoEntity(const std::string &videoPath, const std::string &imgPath);
-            virtual ~BubbleVideoEntity();
-
-            virtual BubbleVideoViewItem *createView(Evas_Object *parent);
-            virtual const std::string &getFilePath() const;
-
-        private:
-            const std::string m_VideoPath;
-            const std::string m_ImgPath;
-    };
 }
 
 #endif /* BubbleVideoViewItem_h_ */
