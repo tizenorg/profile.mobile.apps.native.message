@@ -23,7 +23,7 @@ namespace Msg
     class MsgSettings;
 
     /**
-     * This class is aimed to launch preinstalled utility from settings-app that allows to chose message-alert sound.
+     * @brief This class is aimed to launch preinstalled utility from settings-app that allows to chose message-alert sound.
      */
     class SettingsSound
     {

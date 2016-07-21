@@ -26,7 +26,7 @@ namespace Msg
     class IContactEditorListener;
 
     /**
-     * An utility-class aimed to launch contacts-application with add-operation and edit-operation passed via app-control.
+     *@brief An utility-class aimed to launch contacts-application with add-operation and edit-operation passed via app-control.
      */
     class ContactEditor
     {
@@ -42,14 +42,14 @@ namespace Msg
             ~ContactEditor();
 
             /**
-             * Launches add-operation.
+             * @brief Launches add-operation.
              * @param address number or email
              * @return true in case of success, otherwise returns false.
              */
              bool launch(const std::string &address, Operation operation);
 
              /**
-              * Set listener
+              * @brief Set listener
               * @param l listener
               */
              void setListener(IContactEditorListener *l);

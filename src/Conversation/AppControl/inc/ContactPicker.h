@@ -25,7 +25,7 @@ namespace Msg
     class IContactPickerListener;
 
     /**
-     * An utility-class aimed to launch contacts-application with pick-operation passed via app-control.
+     * @brief An utility-class aimed to launch contacts-application with pick-operation passed via app-control.
      */
     class ContactPicker
     {
@@ -33,12 +33,12 @@ namespace Msg
         ContactPicker();
 
         /**
-         * Sets a listener-object to be notified when pick-operation succeeds.
+         * @brief Sets a listener-object to be notified when pick-operation succeeds.
          */
         void setListener(IContactPickerListener *pListener);
 
         /**
-         * Launches pick-operation.
+         * @brief Launches pick-operation.
          * @param howManyToPick defines a maximum count of contacts allowed to be picked.
          * @return true in case of success, otherwise returns false.
          */

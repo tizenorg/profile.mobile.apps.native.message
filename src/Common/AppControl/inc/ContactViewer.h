@@ -24,13 +24,13 @@
 namespace Msg
 {
     /**
-     * An utility-class aimed to launch contacts-application with view-operation passed via app-control.
+     *@brief An utility-class aimed to launch contacts-application with view-operation passed via app-control.
      */
     class ContactViewer
     {
         public:
             /**
-             * Launches view-operation.
+             * @brief Launches view-operation.
              * @param id Contact person id or MyProfile id
              * @param ownerType PersonType or MyProfileType
              * @return true in case of success, otherwise returns false.
@@ -38,7 +38,7 @@ namespace Msg
             static bool launch(int id, ContactAddress::OwnerType ownerType);
 
             /**
-             * Launches view-operation.
+             * @brief Launches view-operation.
              * @param address reference to ContactAddress object.
              * @return true in case of success, otherwise returns false.
              */
