@@ -31,7 +31,7 @@ namespace Msg
         FloatingButton(Evas_Object *parent);
 
         /**
-         * Allows to subscribe on floating button's events.
+         * @brief Allows to subscribe on floating button's events.
          * @param pListener handler of floating-button events
          */
         void setListener(IFloatingButtonListener* pListener);

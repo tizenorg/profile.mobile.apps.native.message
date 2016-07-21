@@ -25,7 +25,7 @@ namespace Msg
     class Settings;
 
     /**
-     * Visual representation of particular element of message-settings list.
+     * @brief Visual representation of particular element of message-settings list.
      */
     class SettingsListItem
         : public SettingsListViewItem

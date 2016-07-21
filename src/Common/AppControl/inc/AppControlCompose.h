@@ -55,37 +55,37 @@ namespace Msg
             virtual ~AppControlCompose();
 
             /**
-             * Gets compose type.
+             *@brief Gets compose type.
              */
             OpComposeType getComposeType() const;
 
             /**
-             * Gets data from APP_CONTROL_DATA_TO or URI(if exists).
+             *@brief Gets data from APP_CONTROL_DATA_TO or URI(if exists).
              */
             const RecipientList &getRecipientList() const;
 
             /**
-             * Checks if is MMS.
+             *@brief Checks if is MMS.
              */
             bool isMms() const;
 
             /**
-             * Gets data from APP_CONTROL_DATA_TEXT.
+             *@brief Gets data from APP_CONTROL_DATA_TEXT.
              */
             const std::string &getMessageText() const;
 
             /**
-             * Gets data from APP_CONTROL_DATA_SUBJECT.
+             *@brief Gets data from APP_CONTROL_DATA_SUBJECT.
              */
             const std::string &getMessageSubject() const;
 
             /**
-             * Gets data from APP_CONTROL_DATA_PATH or URI(if exists).
+             *@brief Gets data from APP_CONTROL_DATA_PATH or URI(if exists).
              */
             const FileList &getFileList() const;
 
             /**
-             * Gets vcf info from APP_CONTROL_DATA_ID
+             *@brief Gets vcf info from APP_CONTROL_DATA_ID
              */
             const VcfInfo &getVcfInfo() const;
 

@@ -24,7 +24,7 @@
 namespace Msg
 {
     /**
-     * Visual representation of grouping settings list items(a genlist item with "group_index" style).
+     * @brief Visual representation of grouping settings list items(a genlist item with "group_index" style).
      */
     class SettingsGroupListViewItem
         : public ListItem

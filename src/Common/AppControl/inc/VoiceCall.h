@@ -24,7 +24,7 @@
 namespace Msg
 {
     /**
-     * An utility-class aimed to make voice call passed via app-control.
+     * @brief An utility-class aimed to make voice call passed via app-control.
      */
     class VoiceCall
     {
@@ -32,7 +32,7 @@ namespace Msg
         VoiceCall();
 
         /**
-         * Launches call by number
+         * @brief Launches call by number
          * @param number Contact person number
          * @return true in case of success, otherwise returns false.
          */

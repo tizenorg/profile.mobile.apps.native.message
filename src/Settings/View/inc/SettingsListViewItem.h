@@ -25,7 +25,7 @@ namespace Msg
     class ISettingsListViewItemListener;
 
     /**
-     * Generic visual representation of messages-settings list element.
+     * @brief Generic visual representation of messages-settings list element.
      */
     class SettingsListViewItem
         : public ListItem
@@ -85,7 +85,7 @@ namespace Msg
             void setSubText(const std::string &text);
 
             /**
-             * Sets a listener to notify subscriber about list-item events.
+             * @brief Sets a listener to notify subscriber about list-item events.
              * @param[in] listener a listener to be notified.
              */
             void setListener(ISettingsListViewItemListener *listener);
@@ -109,7 +109,7 @@ namespace Msg
     };
 
     /**
-     * Listener to send list-item events to subscribers.
+     * @brief Listener to send list-item events to subscribers.
      */
     class ISettingsListViewItemListener
     {
