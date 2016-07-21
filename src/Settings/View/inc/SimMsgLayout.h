@@ -24,7 +24,7 @@
 namespace Msg
 {
     /**
-     * Represents a layout of "Messages on SIM" view.
+     * @brief Represents a layout of "Messages on SIM" view.
      */
     class SimMsgLayout
         : public DefaultLayout

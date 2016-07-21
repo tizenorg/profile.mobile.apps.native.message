@@ -25,7 +25,7 @@
 namespace Msg
 {
     /**
-     * Visual representation of an element in "Messages on SIM" list.
+     * @brief Visual representation of an element in "Messages on SIM" list.
      */
     class SimListViewItem
         : public ListItem

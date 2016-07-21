@@ -24,7 +24,7 @@ namespace Msg
 {
 
     /**
-     * A class of popup-for attach files
+     * @brief A class of popup-for attach files
      */
     class PopupAttachmentListItem
         : public PopupCheckListItem

@@ -37,7 +37,7 @@ namespace Msg
     class MsgSettings;
 
     /**
-     * Visual representation of "Messages on SIM" list.
+     * @brief Visual representation of "Messages on SIM" list.
      */
     class MsgOnSimCard
         : public FrameController
