@@ -41,9 +41,9 @@ namespace
     const char *cancelButtonDefTextId = "IDS_MSG_ACBUTTON_CANCEL_ABB";
     const char *okButtonDefTextId = "IDS_MSG_ACBUTTON_DONE_ABB";
     const char *buttonTypeKey = "BTkey";
-    const char *textColorWhiteTitleButtons = "#3db9cc";
+    const char *textColorWhiteTitleButtons = "#2e8b99";
     const char *textColorBlueTitleButtons = "#fafafa";
-    const int textSizeTitleButtons = 32;
+    const int textSizeTitleButtons = 50;
 }
 
 NaviFrameItem::NaviFrameItem(NaviFrameView &owner)
