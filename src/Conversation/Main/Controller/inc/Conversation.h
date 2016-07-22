@@ -125,7 +125,7 @@ namespace Msg
             void onEditItemPressed(PopupListItem &item);
             void onViewContactDetailsItemPressed(PopupListItem &item);
 
-            // ConvList callbacks:
+            // IConvListListener:
             virtual void onAllItemsDeleted(ConvList &list);
             virtual void onEditDraftMsg(MsgId id);
             virtual void onForwardMsg(MsgId id);
