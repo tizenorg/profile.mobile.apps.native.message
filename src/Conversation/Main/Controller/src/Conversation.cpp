@@ -546,6 +546,7 @@ void Conversation::editDraftMsg(MsgId id)
     if(msg)
     {
         saveDraftMsg(); // TODO: Check case if edit single(int ConvList) when Body not empty
+        m_pBody->clear();
         if(m_pConvList->getMessageCount() <= 1)
             setThreadId(ThreadId());
 
