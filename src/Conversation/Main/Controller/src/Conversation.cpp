@@ -512,6 +512,7 @@ void Conversation::sendMessage()
 
         m_pConvList->setThreadId(m_ThreadId);
         m_IsMms = false;
+        m_pMsgInputPanel->disabledButton(MessageInputPanel::SendButtonId, true);
         m_pBody->clear();
     }
     else
