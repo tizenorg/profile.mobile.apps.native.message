@@ -41,9 +41,10 @@ namespace
     const char *cancelButtonDefTextId = "IDS_MSG_ACBUTTON_CANCEL_ABB";
     const char *okButtonDefTextId = "IDS_MSG_ACBUTTON_DONE_ABB";
     const char *buttonTypeKey = "BTkey";
-    const char *textColorWhiteTitleButtons = "#3db9cc";
+    const char *textColorWhiteTitleButtons = "#2e8b99";
     const char *textColorBlueTitleButtons = "#fafafa";
-    const int textSizeTitleButtons = 32;
+    const int textSizeCenterButton = 50;
+    const int textSizeLateralButton = 35;
 }
 
 NaviFrameItem::NaviFrameItem(NaviFrameView &owner)
@@ -248,6 +249,11 @@ void NaviFrameItem::NaviBar::showDownButtonPart(bool value)
         emitSignal("right,clear", "*");
 }
 
+int NaviFrameItem::NaviBar::getTextSize(NaviFrameItem::NaviButtonId id) const
+{
+    return id == NaviFrameItem::NaviCenterButtonId ? textSizeCenterButton : textSizeLateralButton;
+}
+
 void NaviFrameItem::NaviBar::on_button_clicked(void *data, Evas_Object *obj, void *event_info)
 {
     NaviFrameItem::NaviBar *naviBar = static_cast<NaviFrameItem::NaviBar*>(data);
@@ -298,7 +304,7 @@ void NaviFrameItem::NaviBar::setButtonText(NaviButtonId id, const std::string &t
         default:
             break;
     }
-    style.setSize(textSizeTitleButtons);
+    style.setSize(getTextSize(id));
     elm_object_text_set(m_ButtonList[id].button, TextDecorator::make(text, style).c_str());
 }
 
@@ -345,7 +351,7 @@ void NaviFrameItem::NaviBar::setButtonColor(NaviButtonId id, NaviColorId titleCo
             default:
                 break;
         }
-        style.setSize(textSizeTitleButtons);
+        style.setSize(getTextSize(id));
         const char *buttonText = elm_object_text_get(m_ButtonList[id].button);
         if (buttonText != nullptr)
         {

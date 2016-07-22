@@ -120,6 +120,7 @@ namespace Msg
             void showCenterButtonPart(bool value);
             void showPrevButtonPart(bool value);
             void showDownButtonPart(bool value);
+            int getTextSize(NaviFrameItem::NaviButtonId id) const;
 
             static void on_button_clicked(void *data, Evas_Object *obj, void *event_info);
 
