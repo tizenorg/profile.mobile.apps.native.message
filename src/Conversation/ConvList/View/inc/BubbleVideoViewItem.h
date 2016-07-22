@@ -30,7 +30,7 @@ namespace Msg
             virtual ~BubbleVideoViewItem();
 
         private:
-            Evas_Object *createImage(Evas_Object *parent, const std::string &path);
+            Evas_Object *createLayout(Evas_Object *parent, const std::string &path);
     };
 }
 

@@ -16,24 +16,27 @@
  */
 
 #include "BubbleVideoViewItem.h"
+#include "Resource.h"
 
 using namespace Msg;
 
 BubbleVideoViewItem::BubbleVideoViewItem(BubbleEntity &entity, Evas_Object *parent, const std::string &imagePath)
     : BubbleViewItem(entity)
 {
-    Evas_Object *img = createImage(parent, imagePath);
-    attachGestureTapLayer(img, img);
-    setEo(img);
+    Evas_Object *layout = createLayout(parent, imagePath);
+    setEo(layout);
+    attachGestureTapLayer(layout, layout);
+    show();
 }
 
 BubbleVideoViewItem::~BubbleVideoViewItem()
 {
 }
 
-Evas_Object *BubbleVideoViewItem::createImage(Evas_Object *parent, const std::string &path)
+Evas_Object *BubbleVideoViewItem::createLayout(Evas_Object *parent, const std::string &path)
 {
-    Evas_Object *image = elm_image_add(parent);
+    Evas_Object *layout = addLayout(parent, CONV_LIST_ATTACHMENTS_EDJ_PATH, "conv/list/attachments/video_item");
+    Evas_Object *image = elm_image_add(layout);
     elm_image_file_set(image, path.c_str(), nullptr);
     int imageWidth = 0;
     int imageHeight = 0;
@@ -46,6 +49,7 @@ Evas_Object *BubbleVideoViewItem::createImage(Evas_Object *parent, const std::st
     }
     evas_object_size_hint_min_set(image, imageWidth, imageHeight);
     evas_object_show(image);
-    evas_object_size_hint_align_set(image, 0.0, EVAS_HINT_FILL);
-    return image;
+
+    elm_object_part_content_set(layout, "swl.thumbnail", image);
+    return layout;
 }

@@ -109,4 +109,45 @@ collections {
             }
         }
     }
+    group {
+      name: "conv/list/attachments/video_item";
+      images {
+         image: "messages_play_btn.png" COMP;
+      }
+      parts {
+         part {
+            name: "swl.thumbnail";
+            type: SWALLOW;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               rel1 {
+                  relative: 0.0 0.0;
+               }
+               rel2 {
+                  relative: 1.0 1.0;
+               }
+            }
+         }
+         part {
+            name: "play_button";
+            type: IMAGE;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               image.normal: "messages_play_btn.png";
+               max: 128 128;
+               align: 0.5 0.5;
+               rel1 {
+                  to: "swl.thumbnail";
+                  relative: 0.0 0.0;
+               }
+               rel2 {
+                  to: "swl.thumbnail";
+                  relative: 1.0 1.0;
+               }
+            }
+         }
+      }
+   }
 }
