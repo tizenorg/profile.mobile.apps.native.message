@@ -991,3 +991,12 @@ msgstr "Die Dateigrößen sind zu groß. Versuchen Sie, sie per E-Mail, Bluetoot
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "Benachrichtigungston"
 
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "Die Sicherheitsrichtlinie verhindert das Senden von Nachrichten an %s."
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "Die Sicherheitsrichtlinie verhindert das Senden von Nachrichten an folgende Empfänger:\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "Die Sicherheitsrichtlinie verhindert die Verwendung von SMS/MMS."
+

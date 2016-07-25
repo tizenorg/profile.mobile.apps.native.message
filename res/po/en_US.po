@@ -991,3 +991,12 @@ msgstr "The file sizes are too large. Try sending them via Email, Bluetooth, Wi-
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "Notification sound"
 
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "The security policy prevents sending messages to %s."
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "The security policy prevents sending messages to the following recipients:\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "The security policy prevents the use of text/multimedia messages."
+

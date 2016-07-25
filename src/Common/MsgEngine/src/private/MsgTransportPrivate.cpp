@@ -20,6 +20,11 @@
 
 using namespace Msg;
 
+namespace
+{
+    const int _MSG_ERR_DPM_RESTRICT = -200; //Temporary define. Delete this when msg service with DPM will be available in rootstrap.
+};
+
 MsgTransportPrivate::MsgTransportPrivate(msg_handle_t serviceHandle)
     : MsgTransport()
     , m_ServiceHandle(serviceHandle)
@@ -80,6 +85,11 @@ MsgTransport::SendResult MsgTransportPrivate::sendMessage(Message &msg, ThreadId
     {
         MSG_LOG_ERROR("sending failed error code MSG_ERR_PLUGIN_STORAGE: ", err);
         return SendMemoryFull;
+    }
+    else if (err == _MSG_ERR_DPM_RESTRICT)
+    {
+        MSG_LOG_ERROR("sending failed error code MSG_ERR_DPM_RESTRICT: ", err);
+        return SendDPMRestricted;
     }
     else
     {

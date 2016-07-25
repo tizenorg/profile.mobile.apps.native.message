@@ -991,3 +991,12 @@ msgstr "Soubory jsou příliš velké. Odešlete je prostřednictvím E-mailu, B
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "Zvuk oznámení"
 
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "Zásady zabezpečení zakazují odesílání zpráv na číslo %s."
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "Zásady zabezpečení zakazují odesílání zpráv následujícím příjemcům:\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "Zásady zabezpečení neumožňují použití SMS/MMS."
+

@@ -164,7 +164,7 @@ msgid "IDS_MSGF_POP_MAXIMUM_CHARACTERS"
 msgstr "تم الوصول إلى أقصى عدد من الحروف."
 
 msgid "IDS_MSGF_POP_IN_PROGRESS_ING"
-msgstr "جاري..."
+msgstr "جارٍ..."
 
 msgid "IDS_MSGF_POP_INTIALISING"
 msgstr "جاري البدء..."
@@ -905,7 +905,7 @@ msgid "IDS_MSG_BODY_TICK_BOX_T_TTS"
 msgstr "مربع التحديد"
 
 msgid "IDS_MSG_BODY_SEC"
-msgstr "ثواني"
+msgstr "من الثواني"
 
 msgid "IDS_MSG_BODY_MESSAGE"
 msgstr "رسالة"
@@ -920,7 +920,7 @@ msgid "IDS_MSG_ACBUTTON_SEND_ABB3"
 msgstr "إرسال"
 
 msgid "IDS_ST_BODY_LOADING_ING"
-msgstr "جاري التحميل ..."
+msgstr "جارٍ التحميل ..."
 
 msgid "IDS_MSGS_BODY_NOTIFICATIONS"
 msgstr "إشعارات"
@@ -990,4 +990,13 @@ msgstr "أحجام الملفات كبيرة للغاية. حاول إرساله
 
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "صوت الإشعار"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "تمنع سياسة الحماية إرسال الرسائل إلى %s."
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "تمنع سياسة الحماية إرسال الرسائل إلى المستلمين التالين:\n‏%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "تمنع سياسة الأمان استخدام الرسائل النصية القصيرة/رسائل الوسائط المتعددة."
 

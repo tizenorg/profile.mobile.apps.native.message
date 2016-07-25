@@ -991,3 +991,12 @@ msgstr "Filstørrelsene er for store. Prøv å sende dem via E-post, Bluetooth, 
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "Varselslyd"
 
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "Sikkerhetspolicyen hindrer sending av meldinger til %s."
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "Sikkerhetspolicyen hindrer sending av meldinger til følgende mottakere:\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "Sikkerhetspolicyen hindrer bruk av SMS/MMS."
+

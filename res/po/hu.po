@@ -991,3 +991,12 @@ msgstr "A fájlok túl nagyok. Próbálja őket e-mailben, Bluetooth-on, Wi-Fi-n
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "Értesítési hang"
 
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "A biztonsági házirend tiltja az üzenetek %s számára történő küldését."
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "A biztonsági házirend tiltja az üzenetek következő címzettek számára történő küldését:\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "A biztonsági irányelv tiltja az SMS/MMS használatát."
+

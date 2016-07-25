@@ -991,3 +991,12 @@ msgstr "ფაილების ზომა ძალიან დიდია
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "შეტყობინების ხმა"
 
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "უსაფრთხოების პოლიტიკა კრძალავს შეტყობინებების გაგზავნას ნომერზე %s."
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "უსაფრთხოების პოლიტიკა კრძალავს შეტყობინებების გაგზავნას შემდეგ მიმღებებთან:\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "უსაფრთხოების პოლიტიკა კრძალავს SMS/MMS-ის გამოყენებას."
+

@@ -991,3 +991,12 @@ msgstr "Datoteke su prevelike. Pokušajte ih poslati putem E-pošte, Bluetootha,
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "Zvuk obavijesti"
 
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "Sigurnosna pravila sprečavaju slanje poruka na %s."
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "Sigurnosna pravila sprečavaju slanje poruka sljedećim primateljima:\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "Sigurnosna pravila sprečavaju upotrebu SMS-a/MMS-a."
+

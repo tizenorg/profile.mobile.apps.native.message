@@ -991,3 +991,12 @@ msgstr "Skrárnar eru of stórar. Prófaðu að senda þær í tölvupósti, um 
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "Tilkynningahljóð"
 
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "Öryggisstefnan kemur í veg fyrir skilaboðasendingar til %s."
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "Öryggisstefnan kemur í veg fyrir skilaboðasendingar til eftirfarandi viðtakenda:\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "Öryggisstefnan kemur í veg fyrir notkun SMS-/MMS-skilaboða."
+

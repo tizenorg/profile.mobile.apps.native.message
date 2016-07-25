@@ -991,3 +991,12 @@ msgstr "Faili ir par lielu. Mēģiniet tos sūtīt, izmantojot e-pastu, Bluetoot
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "Paziņojuma skaņa"
 
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "Drošības politika neļauj sūtīt ziņas uz numuru %s."
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "Drošības politika neļauj sūtīt ziņas šiem adresātiem:\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "Drošības politika neļauj izmantot SMS/MMS."
+

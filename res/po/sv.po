@@ -991,3 +991,12 @@ msgstr "Filerna är för stora. Försök skicka dem med E-post, Bluetooth, Wi-Fi
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "Aviseringsljud"
 
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "Säkerhetspolicyn förhindrar att meddelanden skickas till %s."
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "Säkerhetspolicyn förhindrar att meddelanden skickas till följande mottagare:\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "Säkerhetspolicyn förhindrar att SMS/MMS används."
+

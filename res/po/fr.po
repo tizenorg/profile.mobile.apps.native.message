@@ -991,3 +991,12 @@ msgstr "Les fichiers sont trop volumineux. Essayez de les envoyer par e-mail, Bl
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "Son de notification"
 
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "La politique de sécurité empêche l'envoi de messages à %s."
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "La politique de sécurité empêche l'envoi de messages aux destinataires suivants :\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "La politique de sécurité empêche l'utilisation des SMS/MMS."
+

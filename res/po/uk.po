@@ -991,3 +991,12 @@ msgstr "Файли завеликі. Спробуйте надіслати їх 
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "Звук сповіщення"
 
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "Політикою безпеки заборонено надсилання повідомлень одержувачу %s."
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "Політикою безпеки заборонено надсилання повідомлень таким одержувачам:\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "Політика безпеки попереджає використання SMS- або MMS-повідомлень."
+

@@ -991,3 +991,12 @@ msgstr "Размерът на файловете е твърде голям. О�
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "Звук за уведомления"
 
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "Политиката за защита предотвратява изпращането на съобщения до %s."
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "Политиката за защита предотвратява изпращането на съобщения до следните получатели:\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "Политиката за защита пречи на използването на SMS/MMS."
+

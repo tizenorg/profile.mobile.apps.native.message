@@ -991,3 +991,12 @@ msgstr "文件过大。请尝试通过电子邮件、蓝牙、Wi-Fi 等发送。
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "通知声音"
 
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "安全政策阻止向 %s 发送信息。"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "安全政策阻止向以下收件人发送信息：\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "安全策略可防止短信/多媒体信息的使用。"
+

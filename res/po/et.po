@@ -991,3 +991,12 @@ msgstr "Failid on liiga suured. Proovige neid saata e-kirja, Bluetooth-ühenduse
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "Teavituse heli"
 
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "Turvalisuse poliis takistab sõnumite saatmist adressaadile %s."
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "Turvalisuse poliis takistab sõnumite saatmist järgmistele adressaatidele:\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "Turvalisuse poliis takistab SMS-i/MMS-i kasutamist."
+
