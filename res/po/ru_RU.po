@@ -991,3 +991,12 @@ msgstr "Файлы слишком большие. Попробуйте отпр�
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "Звук уведомления"
 
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "Политика безопасности запрещает отправлять сообщения получателю %s."
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "Политика безопасности запрещает отправлять сообщения таким получателям:\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "Политика безопасности запрещает использовать SMS и MMS."
+

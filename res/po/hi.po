@@ -35,7 +35,7 @@ msgid "IDS_MSGC_POP_UNABLE_TO_ADD_FILE_IS_FORWARD_LOCKED"
 msgstr "आगे भेजने में असमर्थ।\n फाइल अग्रेषण लॉक है।"
 
 msgid "IDS_MSGC_POP_THERE_IS_NOT_ENOUGH_SPACE_IN_YOUR_DEVICE_STORAGE_GO_TO_SETTINGS_POWER_AND_STORAGE_STORAGE_THEN_DELETE_SOME_FILES_AND_TRY_AGAIN"
-msgstr "आपके डिवाइस स्टोरेज में पर्याप्त स्थान नहीं है। सेटिंग्स > पॉवर और संग्रहण > संग्रहण पर जाएँ, फिर कुछ फाइलें हटाएँ और फिर से प्रयास करें।"
+msgstr "आपके डिवाइस स्टोरेज में पर्याप्त स्थान नहीं है। सेटिंग्स > पॉवर और स्टोरेज > स्टोरेज पर जाएँ, फिर कुछ फाइलें हटाएँ और फिर से प्रयास करें।"
 
 msgid "IDS_MSGC_POP_TEXT_AT_TOP"
 msgstr "शीर्ष पर टेक्‍स्‍ट"
@@ -296,7 +296,7 @@ msgid "IDS_MSGF_BODY_DETAILSSENDINGFAILED"
 msgstr "भेजना विफल हुआ।"
 
 msgid "IDS_MSGF_BODY_DELIVERY_REPORT"
-msgstr "वितरण रिपोर्ट"
+msgstr "डिलीवरी रिपोर्ट"
 
 msgid "IDS_MSGF_BODY_CP_MESSAGES"
 msgstr "CP संदेशों"
@@ -317,7 +317,7 @@ msgid "IDS_MSGS_BODY_REQUEST_A_READ_REPORT_FOR_EACH_MESSAGE_YOU_SEND"
 msgstr "आपके द्वारा भेजे गए प्रत्येक संदेश के लिए पठन रिपोर्ट का अनुरोध करें।"
 
 msgid "IDS_MSGS_BODY_REQUEST_A_DELIVERY_REPORT_FOR_EACH_MESSAGE_YOU_SEND"
-msgstr "आपके द्वारा भेजे गए प्रत्येक संदेश के लिए वितरण रिपोर्ट का अनुरोध करें।"
+msgstr "आपके द्वारा भेजे गए प्रत्येक सन्देश के लिए डिलीवरी रिपोर्ट का अनुरोध करें।"
 
 msgid "IDS_MSGS_BODY_RADIO_BUTTON"
 msgstr "रेडियो बटन"
@@ -692,7 +692,7 @@ msgid "IDS_MSG_BODY_DRAFT_M_STATUS_ABB"
 msgstr "ड्राफ्ट"
 
 msgid "IDS_MSG_BODY_DELIVERY_REPORT_C_PS"
-msgstr "वितरण रिपोर्ट: %s"
+msgstr "डिलीवरी रिपोर्ट: %s"
 
 msgid "IDS_MSG_BODY_CB_MESSAGE"
 msgstr "CB सन्देश"
@@ -990,4 +990,13 @@ msgstr "फाइल का आकार बहुत बड़ा है। इन
 
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "अधिसूचना ध्वनि"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "सुरक्षा नीति %s को सन्देश भेजने से रोकती है।"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "सुरक्षा नीति निम्नलिखत प्राप्तकर्ताओं को सन्देश भेजने से रोकती है:\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "सुरक्षा नीति SMS/MMS के उपयोग को प्रतिबंधित करती है"
 

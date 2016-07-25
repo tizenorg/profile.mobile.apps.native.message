@@ -991,3 +991,12 @@ msgstr "De bestanden zijn te groot. Probeer ze te verzenden via E-mail, Bluetoot
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "Meldingsgeluid"
 
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "Het beveiligingsbeleid verhindert het verzenden van berichten naar %s."
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "Het beveiligingsbeleid verhindert het verzenden van berichten naar de volgende ontvangers:\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "Het beveiligingsbeleid verhindert het gebruik van sms/mms."
+

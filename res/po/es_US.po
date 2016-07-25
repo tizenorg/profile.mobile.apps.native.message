@@ -991,3 +991,12 @@ msgstr "El tamaño de los archivos es demasiado grande. Intente enviarlos vía C
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "Sonido de notificación"
 
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "La política de seguridad impide el envío de mensajes a %s."
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "La política de seguridad impide el envío de mensajes a los siguientes destinatarios:\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "La política de seguridad impide el uso de mensajes de texto/multimedia."
+

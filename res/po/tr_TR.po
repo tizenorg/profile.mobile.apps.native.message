@@ -991,3 +991,12 @@ msgstr "Dosya boyutları çok büyük. Bunları E-posta, Bluetooth, Wi-Fi vb. yo
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "Bildirim sesi"
 
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "Güvenlik ilkesi, %s hedefine mesaj göndermeyi engelliyor."
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "Güvenlik ilkesi, şu alıcılara mesaj göndermeyi engelliyor:\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "Güvenlik ilkesi SMS/MMS kullanımını engelliyor."
+

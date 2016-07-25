@@ -437,7 +437,7 @@ msgid "IDS_MSG_POP_THIS_MESSAGE_WILL_BE_RESENT"
 msgstr "Se reenviará este mensaje."
 
 msgid "IDS_MSG_POP_PD_MESSAGES_WILL_BE_DELETED"
-msgstr "Se han eliminado %d mensajes."
+msgstr "Se eliminarán %d mensajes."
 
 msgid "IDS_MSG_POP_PD_CONVERSATIONS_WILL_BE_DELETED"
 msgstr "Se eliminarán %d conversaciones."
@@ -990,4 +990,13 @@ msgstr "El tamaño de los archivos es demasiado grande. Intente enviarlos por Co
 
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "Sonido de notificación"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "La política de seguridad impide el envío de mensajes a %s."
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "La política de seguridad impide el envío de mensajes a los siguientes destinatarios:\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "La política de seguridad impide el uso de SMS/MMS"
 

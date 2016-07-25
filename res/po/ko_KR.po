@@ -986,8 +986,17 @@ msgid "IDS_MSG_TPOP_CANT_ADD_MORE_THAN_P1SS_P2SS_OF_ATTACHMENTS_RESIZING_ATTACHM
 msgstr "첨부파일을 %1$s%2$s 이상 추가할 수 없습니다. 첨부파일 크기 조절 중..."
 
 msgid "IDS_MSG_POP_THE_FILE_SIZES_ARE_TOO_LARGE_TRY_SENDING_THEM_VIA_EMAIL_BLUETOOTH_WI_FI_ETC"
-msgstr "파일 크기가 너무 큽니다. 이메일, 블루투스, Wi-Fi 등으로 파일을 보내세요."
+msgstr "파일 크기가 너무 큽니다. 이메일, 블루투스, Wi-Fi 등을 통해 파일을 보내세요."
 
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "알림 소리"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "보안정책에 따라 %s에게 메시지를 보낼 수 없습니다."
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "보안정책에 따라 다음 받는 사람에게는 메시지를 보낼 수 없습니다.\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "보안정책에 따라 문자 메시지 및 MMS를 사용할 수 없습니다."
 

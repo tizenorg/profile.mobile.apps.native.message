@@ -991,3 +991,12 @@ msgstr "Datoteke so prevelike. Poskusite jih poslati prek e-pošte, povezave Blu
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "Zvok obvestila"
 
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "Varnostni pravilnik preprečuje pošiljanje sporočil osebi %s."
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "Varnostni pravilnik preprečuje pošiljanje sporočil naslednjim prejemnikom:\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "Varnostni pravilnik preprečuje uporabo sporočil SMS/MMS."
+

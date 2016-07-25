@@ -991,3 +991,12 @@ msgstr "Ֆայլերի չափերը շատ մեծ են: Փորձեք դրանք 
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "Ծանուցման ձայն"
 
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "Անվտանգության քաղաքականությունը թույլ չի տալիս հաղորդագրությունների ուղարկում %s-ին:"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "Անվտանգության քաղաքականությունը թույլ չի տալիս հաղորդագրությունների ուղարկում հետևյալ հասցեատերերին՝\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "Անվտանգության քաղաքականությունը կանխում է SMS/MMS-ի օգտագործումը:"
+

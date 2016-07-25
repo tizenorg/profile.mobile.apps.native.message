@@ -991,3 +991,12 @@ msgstr "Rozmiary plików są zbyt duże. Spróbuj wysłać je za pomocą funkcji
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "Dźwięk powiadomienia"
 
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "Zasady zabezpieczeń uniemożliwiają wysyłanie wiadomości do odbiorcy %s."
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "Zasady zabezpieczeń uniemożliwiają wysyłanie wiadomości do następujących odbiorców:\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "Zasady zabezpieczeń uniemożliwiają korzystanie z SMS/MMS."
+

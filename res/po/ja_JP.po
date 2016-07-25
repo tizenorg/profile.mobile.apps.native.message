@@ -991,3 +991,12 @@ msgstr "ファイルサイズが大きすぎます。Eメール、Bluetooth、Wi
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "通知音"
 
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "%sへのメッセージ送信は、セキュリティポリシーによって制限されています。"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "以下の宛先へのメッセージ送信は、セキュリティポリシーによって制限されています。\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "SMS/MMSの使用は、セキュリティポリシーによって制限されています。"
+

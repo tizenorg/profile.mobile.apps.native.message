@@ -687,6 +687,9 @@ void Conversation::showSendResultPopup(MsgTransport::SendResult result)
         case MsgTransport::SendNoSIM:
             strId = "IDS_MSG_BODY_UNABLE_TO_SEND_THIS_MESSAGE_INSERT_YOUR_SIM_CARD_AND_TRY_AGAIN";
             break;
+        case MsgTransport::SendDPMRestricted:
+            strId = "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS";
+            break;
         default:
             strId = "IDS_MSGC_BODY_UNABLE_TO_SEND_MESSAGE";
     };

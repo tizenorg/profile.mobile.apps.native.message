@@ -991,3 +991,12 @@ msgstr "Файлдардың өлшемдері тым үлкен. Оларды 
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "Хабарландыру дыбысы"
 
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "Қауіпсіздік саясаты хабарларды %s нөміріне жіберуге жол бермейді."
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "Қауіпсіздік саясаты хабарларды келесі алушыларға жіберуге жол бермейді:\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "Қауіпсіздік саясаты SMS/MMS пайдалануға жол бермейді."
+

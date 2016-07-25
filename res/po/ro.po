@@ -991,3 +991,12 @@ msgstr "Dimensiunile fișierelor sunt prea mari. Încercați să le trimiteți p
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "Sunet notificare"
 
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "Politica de securitate nu permite trimiterea mesajelor către %s."
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "Politica de securitate nu permite trimiterea mesajelor către următorii destinatari:\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "Politica de securitate nu permite utilizarea mesajelor SMS/MMS."
+

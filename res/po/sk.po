@@ -991,3 +991,12 @@ msgstr "Súbory sú príliš veľké. Skúste ich odoslať cez e-mail, Bluetooth
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "Zvuk oznámenia"
 
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "Politika zabezpečenia zabraňuje odosielaniu správ príjemcovi %s."
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "Politika zabezpečenia zabraňuje odosielaniu správ nasledujúcim príjemcom:\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "Politika zabezpečenia zabraňuje používaniu správ SMS/MMS."
+

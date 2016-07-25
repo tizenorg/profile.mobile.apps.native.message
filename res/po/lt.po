@@ -991,3 +991,12 @@ msgstr "Per didelio dydžio failai. Pabandykite juos siųsti el. paštu, per „
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "Pranešimo garsas"
 
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "Saugos politika neleidžia siųsti žinučių %s."
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "Saugos politika neleidžia siųsti žinučių šiems gavėjams:\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "Saugos politika neleidžia naudotis SMS/MMS."
+

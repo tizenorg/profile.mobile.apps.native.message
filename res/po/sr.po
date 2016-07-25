@@ -991,3 +991,12 @@ msgstr "Fajlovi su preveliki. Pokušajte da ih pošaljete putem E-pošte, Blueto
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "Zvuk obaveštenja"
 
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "Politika bezbednosti sprečava slanje poruka osobi %s."
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "Politika bezbednosti sprečava slanje poruka sledećim primaocima:\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "Politika bezbednosti sprečava korišćenje SMS/MMS poruka."
+

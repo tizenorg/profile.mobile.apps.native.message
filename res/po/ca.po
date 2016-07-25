@@ -991,3 +991,12 @@ msgstr "La mida dels fitxers és massa gran. Provi d'enviar-los mitjançant el C
 msgid "IDS_MSG_TMBODY_NOTIFICATION_SOUND"
 msgstr "So de notificació"
 
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_PS"
+msgstr "La política de seguretat impedeix l'enviament de missatges a %s."
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_SENDING_MESSAGES_TO_THE_FOLLOWING_RECIPIENTS_C_NPS"
+msgstr "La política de seguretat impedeix l'enviament de missatges als següents destinataris:\n%s"
+
+msgid "IDS_MSG_POP_THE_SECURITY_POLICY_PREVENTS_THE_USE_OF_SMS_MMS"
+msgstr "La política de seguretat evita l'ús d'SMS/MMS"
+

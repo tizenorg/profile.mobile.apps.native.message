@@ -34,6 +34,7 @@ namespace Msg
                 SendNullPointer       = -2,
                 SendNoSIM             = -3,
                 SendMemoryFull        = -4,
+                SendDPMRestricted     = -5,
             };
 
         public:
