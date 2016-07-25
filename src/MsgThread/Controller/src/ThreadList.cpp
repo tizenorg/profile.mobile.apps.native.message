@@ -347,6 +347,7 @@ void ThreadList::onMsgStorageDelete(const MsgIdList &msgIdList)
 {
     MSG_LOG("");
     deleteItems();
+    updateItems(); // TODO: Inefficiently. How to get list of threads by dead msgIdList ?
     if(m_pListener)
         m_pListener->onThreadListChanged();
 }
