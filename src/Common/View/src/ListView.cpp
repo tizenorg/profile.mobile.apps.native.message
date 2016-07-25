@@ -220,6 +220,23 @@ void ListView::notifyListener(void *data, Evas_Object *obj, void *event_info, Li
 void ListView::setCheckMode(bool check)
 {
     m_CheckMode = check;
+    if(!check)
+    {
+        // Restore "default" state:
+        Eina_List *list = elm_genlist_realized_items_get(getEo());
+        if(list)
+        {
+            void *obj = nullptr;
+            Eina_List *l = nullptr;
+
+            EINA_LIST_FOREACH(list, l, obj)
+            {
+                elm_object_item_signal_emit((Elm_Widget_Item*)obj, "elm,state,default", "elm");
+            }
+
+            eina_list_free(list);
+        }
+    }
 }
 
 bool ListView::getCheckMode() const
