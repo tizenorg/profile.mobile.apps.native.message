@@ -28,7 +28,8 @@
 #define ATTACH_IMG                      "attach_icon.png"
 #define ADD_PLUS_ICON                   "core_button_add.png"
 #define ATTACH_MUSIC_ICON               "messages_attach_ic_music.png"
-#define ATTACH_CAL_ICON                 "U01_icon_vcs.png"
+#define ATTACH_CAL_ICON                 "messages_attach_ic_calendar.png"
+#define ATTACH_CONTACT_ICON             "messages_attach_ic_contact.png"
 #define ATTACH_UNKNOWN_ICON             "U01_icon_etc.png"
 
 // Edj:

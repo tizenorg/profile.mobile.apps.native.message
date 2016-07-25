@@ -8,7 +8,7 @@ collections {
     styles {
         style {
             name: "main_text_style";
-            base: "font=Tizen:style=Roman font_size="32" color=#000000 left_margin=1 right_margin=2 wrap=mixed ellipsis=1 align=left";
+            base: "font=Samsung Condensed:style=Latin font_size="32" color=#000000 left_margin=1 right_margin=2 wrap=mixed ellipsis=1 align=left";
             tag:  "tab" "\t";
             tag:  "em" "+ font=Tizen:style=Oblique";
             tag:  "b" "+ font=Tizen:style=Bold";
@@ -18,7 +18,7 @@ collections {
         }
         style {
             name: "sub_text_style";
-            base: "font=Tizen:style=Roman font_size="30" color=#000000 left_margin=1 right_margin=2 wrap=mixed ellipsis=1 align=left";
+            base: "font=Samsung Condensed:style=Latin font_size="28" color=#000000 left_margin=1 right_margin=2 wrap=mixed ellipsis=1 align=left";
             tag:  "tab" "\t";
             tag:  "em" "+ font=Tizen:style=Oblique";
             tag:  "b" "+ font=Tizen:style=Bold";
@@ -78,7 +78,7 @@ collections {
         name: "conv/list/1icon_2text_attachment";
         inherit: "conv/list/1icon_1text_attachment";
         parts {
-            PADDING_TOP("padding.top", 10);
+            PADDING_TOP("padding.top", 0);
             PADDING_BOTTOM("padding.bottom", 16);
             part {
                 name: "main.text";
