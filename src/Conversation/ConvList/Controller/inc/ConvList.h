@@ -101,6 +101,13 @@ namespace Msg
             void deleteSelectedItems();
 
             /**
+             * @brief Delete items by MsgId list.
+             * @param[in] MsgId list.
+             * @return true if one or more items were removed.
+             */
+            bool deleteItems(const MsgIdList &idList);
+
+            /**
              * @brief Get message count
              * @return message count
              */
@@ -167,7 +174,7 @@ namespace Msg
             ListView *m_pList;
             ConvListItemMap m_ConvListItemMap;
             DateLineItemSet m_DateLineItemSet;
-            IConvListListener *m_pListner;
+            IConvListListener *m_pListener;
             App &m_App;
             WorkingDirRef m_WorkingDir;
             FileViewer m_FileViewer;

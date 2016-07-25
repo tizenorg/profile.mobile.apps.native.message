@@ -37,7 +37,7 @@ ConvList::ConvList(Evas_Object *parent, App &app, WorkingDirRef workingDir)
     , m_pList(nullptr)
     , m_ConvListItemMap()
     , m_DateLineItemSet()
-    , m_pListner(nullptr)
+    , m_pListener(nullptr)
     , m_App(app)
     , m_WorkingDir(workingDir)
     , m_FileViewer()
@@ -56,7 +56,7 @@ ConvList::~ConvList()
 
 void ConvList::setListener(IConvListListener *l)
 {
-    m_pListner = l;
+    m_pListener = l;
 }
 
 void ConvList::setMode(ConvList::Mode mode)
@@ -204,6 +204,25 @@ void ConvList::deleteItem(ConvListItem *item)
     m_pList->deleteItem(*item);
 }
 
+bool ConvList::deleteItems(const MsgIdList &idList)
+{
+    bool res = false;
+    for(const MsgId &id: idList)
+    {
+        ConvListItem *deleted = getItem(id);
+        if(deleted)
+        {
+            res = true;
+            deleteItem(deleted);
+        }
+    }
+
+    if(m_pListener && m_pList->isEmpty())
+        m_pListener->onAllItemsDeleted(*this);
+
+    return res;
+}
+
 void ConvList::demoteItem(ConvListItem *item)
 {
     dateLineDelIfNec(item);
@@ -297,8 +316,8 @@ void ConvList::selectListItems(bool state)
         item->setCheckedState(state, false);
     }
     m_pList->updateRealizedItems();
-    if(m_pListner)
-        m_pListner->onConvListItemChecked();
+    if(m_pListener)
+        m_pListener->onConvListItemChecked();
 }
 
 void ConvList::onListItemLongPressed(ListItem &listItem)
@@ -317,8 +336,8 @@ void ConvList::onListItemChecked(ListItem &listItem)
     bool allSelected = isAllListItemSelected();
     m_pSelectAll->setCheckState(allSelected);
 
-    if(m_pListner)
-        m_pListner->onConvListItemChecked();
+    if(m_pListener)
+        m_pListener->onConvListItemChecked();
 }
 
 void ConvList::onMsgStorageUpdate(const MsgIdList &msgIdList)
@@ -359,33 +378,25 @@ void ConvList::onMsgStorageInsert(const MsgIdList &msgIdList)
 
 void ConvList::onMsgStorageDelete(const MsgIdList &msgIdList)
 {
-    for(auto &itemId: msgIdList)
-    {
-        ConvListItem *deleted = getItem(itemId);
-        if(deleted)
-            deleteItem(deleted);
-    }
-
-    if(m_pListner && m_pList->isEmpty())
-        m_pListner->onAllItemsDeleted(*this);
+    deleteItems(msgIdList);
 }
 
 void ConvList::onForwardMsg(ConvListItem &item)
 {
-    if(m_pListner)
-        m_pListner->onForwardMsg(item.getMsgId());
+    if(m_pListener)
+        m_pListener->onForwardMsg(item.getMsgId());
 }
 
 void ConvList::onSlideShow(ConvListItem &item)
 {
-    if(m_pListner)
-        m_pListner->onSlideShow(item.getMsgId());
+    if(m_pListener)
+        m_pListener->onSlideShow(item.getMsgId());
 }
 
 void ConvList::onEditDraftMsg(ConvListItem &item)
 {
-    if(m_pListner)
-        m_pListner->onEditDraftMsg(item.getMsgId());
+    if(m_pListener)
+        m_pListener->onEditDraftMsg(item.getMsgId());
 }
 
 void ConvList::onContactChanged()

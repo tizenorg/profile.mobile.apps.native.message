@@ -524,9 +524,9 @@ void Conversation::sendMessage()
         m_pListener->onConversationSentMessage();
 }
 
-void Conversation::saveDraftMsg()
+MsgId Conversation::saveDraftMsg()
 {
-    MSG_LOG("");
+    MsgId msgId;
     if(!isBodyEmpty())
     {
         MessageRef msg = getMsgEngine().getComposer().createMessage(m_IsMms ? Message::MT_MMS : Message::MT_SMS);
@@ -534,10 +534,11 @@ void Conversation::saveDraftMsg()
         {
             read(*msg);
             msg->setMessageStorageType(Message::MS_Phone);
-            MsgId msgId = getMsgEngine().getStorage().saveMessage(*msg, false);
+            msgId = getMsgEngine().getStorage().saveMessage(*msg, false);
             MSG_LOG("Draft message id = ", msgId);
         }
     }
+    return msgId;
 }
 
 void Conversation::editDraftMsg(MsgId id)
@@ -545,13 +546,17 @@ void Conversation::editDraftMsg(MsgId id)
     MessageRef msg = getMsgEngine().getStorage().getMessage(id);
     if(msg)
     {
-        saveDraftMsg(); // TODO: Check case if edit single(int ConvList) when Body not empty
+        MsgId draftMsgId = saveDraftMsg();
         m_pBody->clear();
-        if(m_pConvList->getMessageCount() <= 1)
+        if(m_pConvList->getMessageCount() <= 1 && !draftMsgId.isValid())
             setThreadId(ThreadId());
 
         write(*msg);
-        getMsgEngine().getStorage().deleteMessage(id);
+        if(getMsgEngine().getStorage().deleteMessage(id))
+        {
+            // Fast remove item in order to avoid blink:
+            m_pConvList->deleteItems({id});
+        }
         m_pBody->setFocus(true);
     }
 }
@@ -1126,7 +1131,11 @@ void Conversation::onAllItemsDeleted(ConvList &list)
 {
     MSG_LOG("");
     if(m_Mode != NewMessageMode)
-        onHwBackButtonClicked();
+    {
+        auto convList = getMsgEngine().getStorage().getConversationList(m_ThreadId);
+        if(convList && convList->getLength() == 0)
+            onHwBackButtonClicked();
+    }
 }
 
 void Conversation::onEditDraftMsg(MsgId id)

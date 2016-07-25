@@ -184,7 +184,7 @@ namespace Msg
             bool read(Message &msg);
             bool readMsgAddress(Message &msg);
             void write(const Message &msg);
-            void saveDraftMsg();
+            MsgId saveDraftMsg();
             void editDraftMsg(MsgId id);
 
             void onNaviOkButtonClicked();
