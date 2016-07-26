@@ -31,15 +31,15 @@ namespace Msg
         public:
             /**
              * @brief Launches view-operation.
-             * @param id Contact person id or MyProfile id
-             * @param ownerType PersonType or MyProfileType
+             * @param[in] id Contact person id or MyProfile id
+             * @param[in] ownerType PersonType or MyProfileType
              * @return true in case of success, otherwise returns false.
              */
             static bool launch(int id, ContactAddress::OwnerType ownerType);
 
             /**
              * @brief Launches view-operation.
-             * @param address reference to ContactAddress object.
+             * @param[in] address reference to ContactAddress object.
              * @return true in case of success, otherwise returns false.
              */
             static bool launch(const ContactAddress &address);

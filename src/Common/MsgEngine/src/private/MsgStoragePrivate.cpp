@@ -60,8 +60,6 @@ void MsgStoragePrivate::msg_storage_change_cb(msg_handle_t handle, msg_storage_c
         msgIdList.push_back(pMsgIdList->msgIdList[i]);
     }
 
-    self->notifyListeners(msgIdList, &IMsgStorageListener::onMsgStorageChange);
-
     switch(storageChangeType)
     {
         case MSG_STORAGE_CHANGE_UPDATE:
