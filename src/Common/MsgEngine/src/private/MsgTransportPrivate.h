@@ -25,6 +25,9 @@
 
 namespace Msg
 {
+    /**
+     * @brief private msg-service API specific implementation of sending messages routine.
+     */
     class MsgTransportPrivate
         : public MsgTransport
     {

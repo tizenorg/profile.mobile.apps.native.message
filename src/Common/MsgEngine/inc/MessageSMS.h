@@ -23,7 +23,6 @@
 
 namespace Msg
 {
-    // TODO: rename to MessageSms
     class MessageSMS;
     typedef std::shared_ptr<MessageSMS> MessageSMSRef;
     typedef MsgList<MessageSMS> MessageSMSList;

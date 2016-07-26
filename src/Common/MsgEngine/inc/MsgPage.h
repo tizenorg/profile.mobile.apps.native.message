@@ -26,15 +26,43 @@ namespace Msg
     typedef MsgList<MsgPage> MsgPageList;
     typedef std::shared_ptr<MsgList<MsgPage>> MsgPageListRef;
 
+    /**
+     * @brief An abstraction that represents a concept of "page".
+     * This is a part of MMS that contains one previewable attachment(video or image) and a number of attachments that have no preview(documents, audio-files etc).
+     */
     class MsgPage
     {
         public:
             virtual ~MsgPage();
 
+            /**
+             * @brief Non-constant getter of media-attachment list.
+             * @return list of media-attachments.
+             */
             virtual MsgMediaList &getMediaList() = 0;
+
+            /**
+             * @brief Constant getter of media-attachment list.
+             * @return read-only media-attachment list.
+             */
             const MsgMediaList &getMediaList() const;
+
+            /**
+             * @brief Adds media to pages.
+             * @return media-structure that was added.
+             */
             virtual MsgMedia &addMedia() = 0;
+
+            /**
+             * @brief Sets page duration.
+             * @param[in] duration page duration in seconds.
+             */
             virtual void setPageDuration(int duration) = 0;
+
+            /**
+             * @brief Gets page duration.
+             * @return duration page duration in seconds.
+             */
             virtual int getPageDuration() const = 0;
     };
 }

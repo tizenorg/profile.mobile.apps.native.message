@@ -115,31 +115,6 @@ int MsgConversationItemPrivate::getAttachCount() const
     return attachments;
 }
 
-std::string MsgConversationItemPrivate::getAttachName() const
-{
-    return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_CONV_MSG_ATTACH_NAME_STR, MSG_FILENAME_LEN_MAX);
-}
-
-std::string MsgConversationItemPrivate::getAudioName() const
-{
-    return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_CONV_MSG_AUDIO_NAME_STR, MSG_FILENAME_LEN_MAX);
-}
-
-std::string MsgConversationItemPrivate::getImageThumbPath() const
-{
-    return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_CONV_MSG_IMAGE_THUMB_PATH_STR, MSG_FILEPATH_LEN_MAX);
-}
-
-std::string MsgConversationItemPrivate::getVideoThumbPath() const
-{
-    return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_CONV_MSG_VIDEO_THUMB_PATH_STR, MSG_FILEPATH_LEN_MAX);
-}
-
-std::string MsgConversationItemPrivate::getFirstMediaPath() const
-{
-    return MsgUtilsPrivate::getStr(m_MsgStruct, MSG_CONV_MSG_1ST_MEDIA_PATH_STR, MSG_FILEPATH_LEN_MAX);
-}
-
 const MsgConvMediaListHandlePrivate &MsgConversationItemPrivate::getMediaList() const
 {
     msg_list_handle_t multipartList = nullptr;

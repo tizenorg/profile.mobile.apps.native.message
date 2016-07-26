@@ -33,7 +33,7 @@ namespace Msg
 
         /**
          * @brief Launches call by number
-         * @param number Contact person number
+         * @param[in] number Contact person number
          * @return true in case of success, otherwise returns false.
          */
         static bool launch(const std::string &number);
