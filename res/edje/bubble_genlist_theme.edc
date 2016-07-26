@@ -1,15 +1,16 @@
+#include "macros.inl"
 #include "colors_define.inl"
 #define ENTRY_BUBBLE_TEXT_SIZE 30
 
 #define BUBBLE_MSG_TYPE_PAD_WIDTH 8
 #define BUBBLE_INFO_HEIGHT 88
 #define BUBBLE_CONTENT_WIDTH_MAX 340
-#define BUBBLE_BG_IMAGE_MIN_WIDTH 120
-#define BUBBLE_BG_IMAGE_MIN_HEIGHT 122
-#define BUBBLE_CONTENT_PAD_TOP_HEIGHT 10
-#define BUBBLE_CONTENT_PAD_BOTTOM_HEIGHT 16
-#define BUBBLE_CONTENT_PAD_LEFT_WIDTH 34
-#define BUBBLE_CONTENT_PAD_RIGHT_WIDTH 34
+#define BUBBLE_BG_IMAGE_MIN_WIDTH 0
+#define BUBBLE_BG_IMAGE_MIN_HEIGHT 0
+#define BUBBLE_CONTENT_PAD_TOP_HEIGHT 0
+#define BUBBLE_CONTENT_PAD_BOTTOM_HEIGHT 0
+#define BUBBLE_CONTENT_PAD_LEFT_WIDTH 0
+#define BUBBLE_CONTENT_PAD_RIGHT_WIDTH 0
 #define BUBBLE_PAD_BOTTOM_HEIGHT 17
 #define BUBBLE_PAD_LEFT_WIDTH 32
 #define BUBBLE_PAD_RIGHT_WIDTH 32
@@ -32,14 +33,7 @@
 #define BUBBLE_FAILED_BUTTON_WIDTH 56
 #define BUBBLE_FAILED_BUTTON_HEIGHT 56
 
-#define BUBBLE_BG_COLOR 90 111 199 230
-#define BUBBLE_BG_COLOR_PRESSED 78 97 173 230
-#define BUBBLE_BG_DRAFT_COLOR 106 126 204 255
-#define BUBBLE_BG_DRAFT_COLOR_PRESSED 80 94 153 255
-#define BUBBLE_BG_FAILED_COLOR 0 0 0 102
-#define BUBBLE_BG_FAILED_COLOR_PRESSED 0 0 0 133
-#define BUBBLE_BG_RECEIVED_COLOR 65 197 217 255
-#define BUBBLE_BG_RECEIVED_COLOR_PRESSED 50 150 166 255
+#define BUBBLE_BG_COLOR 90 111 199 64
 
 #define DATELINE_TEXT_SIZE 28
 #define DATELINE_TOP_PADDING 16
@@ -53,14 +47,10 @@
 
 collections {
 
-    base_scale: 2.6;
+    BASE_SCALE;
 
 images {
-    image: "messages_bubble_bg.#.png" COMP;
-    image: "messages_bubble_bg_ef.#.png" COMP;
-    image: "messages_bubble_bg_search.#.png" COMP;
-    image: "messages_bubble_line_draft.#.png" COMP;
-    image: "messages_date_divider.#.png" COMP;
+    image: "messages_date_divider.#.png" RAW;
 }
 
 styles {
@@ -265,38 +255,14 @@ group { name: "elm/genlist/item/sentbubble/default";
                 max: BUBBLE_CHECK_WIDTH BUBBLE_CHECK_HEIGHT;
             }
         }
-        image { "bubble.bg.image"; scale;
+        rect { "bubble.bg.image"; scale;
             desc { "default";
-                image.normal: "messages_bubble_bg.#.png";
                 rel1.to_x: "bubble.pad.left";
                 rel1.to_y: "bubble.pad.top";
                 rel2.to_x: "bubble.pad.right";
                 rel2.to_y: "bubble.pad.bottom";
                 min: BUBBLE_BG_IMAGE_MIN_WIDTH BUBBLE_BG_IMAGE_MIN_HEIGHT;
                 color: BUBBLE_BG_COLOR;
-            }
-            desc { "pressed";
-                inherit: "default";
-                color: BUBBLE_BG_COLOR_PRESSED;
-            }
-        }
-        image { "bubble.bg.effect"; scale;
-            desc { "default";
-                image.normal: "messages_bubble_bg_ef.#.png";
-                rel1.to: "bubble.bg.image";
-                rel2.to: "bubble.bg.image";
-            }
-        }
-        image { "bubble.bg.search"; scale;
-            desc { "default";
-                visible: 0;
-            }
-            desc { "show_search";
-                inherit: "default";
-                visible: 1;
-                image.normal: "messages_bubble_bg_search.#.png";
-                rel1.to: "bubble.bg.image";
-                rel2.to: "bubble.bg.image";
             }
         }
         spacer { "bubble.pad.top"; scale;
@@ -381,18 +347,6 @@ group { name: "elm/genlist/item/sentbubble/default";
             target: "bubble.check";
             target: "pad.check";
         }
-        program { name: "show_search";
-            signal: "show_search";
-            source: "*";
-            action: STATE_SET "show_search" 0.0;
-            target: "bubble.bg.search";
-        }
-        program { name: "hide_search";
-            signal: "hide_search";
-            source: "*";
-            action: STATE_SET "default" 0.0;
-            target: "bubble.bg.search";
-        }
         program { name: "default_mode";
             signal: "elm,state,default";
             source: "elm";
@@ -410,16 +364,6 @@ group { name: "elm/genlist/item/draft/default";
     data.item: "contents" "bubble.content info.status info.status1 bubble.check draft.button";
 
     parts {
-        image { "bubble.bg.image"; scale;
-            desc { "default";
-                image.normal: "messages_bubble_line_draft.#.png";
-                color: BUBBLE_BG_DRAFT_COLOR;
-            }
-            desc { "pressed";
-                inherit: "default";
-                color: BUBBLE_BG_DRAFT_COLOR_PRESSED;
-            }
-        }
         spacer { "bubble.pad.right"; scale;
             desc { "default";
                 rel2.to_x: "draft.pad";
@@ -464,15 +408,6 @@ group { name: "elm/genlist/item/failed/default";
     data.item: "contents" "bubble.content info.status info.status1 bubble.check failed.button";
 
     parts {
-        image { "bubble.bg.image"; scale;
-            desc { "default";
-                color: BUBBLE_BG_FAILED_COLOR;
-            }
-            desc { "pressed";
-                inherit: "default";
-                color: BUBBLE_BG_FAILED_COLOR_PRESSED;
-            }
-        }
         swallow { "failed.button"; scale;
             desc { "default";
                 min: BUBBLE_FAILED_BUTTON_WIDTH BUBBLE_FAILED_BUTTON_HEIGHT;
@@ -585,15 +520,6 @@ group { name: "elm/genlist/item/receivebubble/default";
                 max: -1 -1;
                 rel1.to_x: "bubble.pad.right";
                 rel1.relative: 1.0 0.0;
-            }
-        }
-        image { "bubble.bg.image"; scale;
-            desc { "default";
-                color: BUBBLE_BG_RECEIVED_COLOR;
-            }
-            desc { "pressed";
-                inherit: "default";
-                color: BUBBLE_BG_RECEIVED_COLOR_PRESSED;
             }
         }
         spacer { "bubble.pad.left"; scale;

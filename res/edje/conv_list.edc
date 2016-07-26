@@ -58,6 +58,7 @@ collections {
             action: STATE_SET "selection" 0.0;
             target: "swl.select";
             target: "swl.list";
+            transition: LINEAR  0.3;
          }
          program { name: "hide.select";
             signal: "hide.select";
@@ -65,6 +66,7 @@ collections {
             action: STATE_SET "default" 0.0;
             target: "swl.select";
             target: "swl.list";
+            transition: LINEAR  0.3;
          }
       }
    }

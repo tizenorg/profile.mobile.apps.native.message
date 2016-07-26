@@ -55,7 +55,7 @@ bool App::init()
     std::string imagesPath = PathUtils::getResourcePath(IMAGES_EDJ_PATH);
     elm_theme_extension_add(nullptr, imagesPath.c_str());
 
-    std::string bubbleThemePath = PathUtils::getResourcePath(BUBBLE_THEME_EDJ_PATH);
+    std::string bubbleThemePath = PathUtils::getResourcePath(BUBBLE_GENLIST_THEME_EDJ_PATH);
     elm_theme_extension_add(nullptr, bubbleThemePath.c_str());
 
     std::string buttonThemePath = PathUtils::getResourcePath(BUTTON_THEME_EDJ_PATH);
