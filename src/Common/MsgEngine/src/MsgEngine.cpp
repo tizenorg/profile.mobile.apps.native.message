@@ -55,8 +55,8 @@ int MsgEngine::openService()
 
 
 #ifdef TIZEN_PRIVATE_API
-    int res = msg_open_msg_handle(&m_MsgHandle);
-    MSG_LOG("handle open error = ", res);
+    result = msg_open_msg_handle(&m_MsgHandle);
+    MSG_LOG("handle open error = ", result);
 
     m_Storage.reset(new MsgStoragePrivate(m_MsgHandle));
     m_Transport.reset(new MsgTransportPrivate(m_MsgHandle));
@@ -82,7 +82,7 @@ int MsgEngine::closeService()
     if(m_MsgHandle)
     {
 #ifdef TIZEN_PRIVATE_API
-        msg_close_msg_handle(&m_MsgHandle);
+        result = msg_close_msg_handle(&m_MsgHandle);
 #else
         result = messages_close_service(m_MsgHandle);
 #endif

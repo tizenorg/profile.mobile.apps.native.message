@@ -26,6 +26,9 @@
 
 namespace Msg
 {
+    /**
+     * @brief Wraps all basic Elm_Object_Item operations and manages automatic self-removal by delete-callback.
+     */
     class ViewItem
         : public BaseView
     {
@@ -35,22 +38,109 @@ namespace Msg
             ViewItem& operator=(const ViewItem&) = delete;
 
             operator Elm_Object_Item *() const;
-            virtual void destroy();
-            Evas_Object *setContent(Evas_Object *content, const char *part = nullptr, bool saveOldContent = false);
-            Evas_Object *getContent(const char *part = nullptr) const;
-            void emitSignal(const char *signal, const char *source = "elm");
-            void *getData() const;
-            void setData(void *data);
-            Elm_Object_Item *getElmObjItem() const;
-            Evas_Object *getWidget() const;
-            void disabled(bool val);
-            bool isDisabled() const;
-            void setTranslateble(bool translateble, const char *domain, const char *part = nullptr);
 
+            /**
+             * @brief Destroys view-item.
+             */
+            virtual void destroy();
+
+            /**
+             * @brief Sets specified content into specified part.
+             * @param[in] content a content to set into view-item.
+             * @param[in] part a part content should be placed to. If part is nullptr the default part is used.
+             * @param[in] saveOldContent a flag that checks whether old view's content should be returned or not.
+             * @return if saveOldContent is true returns old content set into view before, otherwise returns nullptr.
+             */
+            Evas_Object *setContent(Evas_Object *content, const char *part = nullptr, bool saveOldContent = false);
+
+            /**
+             * @brief Gets view-items's content.
+             * @param[in] part a content-part. If part is nullptr the default part is used.
+             * @return view's content in case of success, nullptr in case of errors.
+             */
+            Evas_Object *getContent(const char *part = nullptr) const;
+
+            /**
+             * @brief Sends a signal to edje-object.
+             * @param[in] emission The signal's name.
+             * @param[in] source The signal's source.
+             */
+            void emitSignal(const char *signal, const char *source = "elm");
+
+            /**
+             * @brief Gets item-data.
+             * @return item-data.
+             */
+            void *getData() const;
+
+            /**
+             * @brief Sets item-data.
+             * @param[in] data item-data.
+             */
+            void setData(void *data);
+
+            /**
+             * @brief Gets Elm_Object_Item current view-item is wrapping.
+             * @return wrapped object-item.
+             */
+            Elm_Object_Item *getElmObjItem() const;
+
+            /**
+             * @brief Get the widget object's handle which contains a given view-item.
+             */
+            Evas_Object *getWidget() const;
+
+            /**
+             * @brief Disables(enables) view-item.
+             * @param[in] val if true disables view-item, otherwise enables it.
+             */
+            void disabled(bool val);
+
+            /**
+             * @brief Checks whether view-item is disabled or not.
+             * @return true if view-item is disabled, otherwise false.
+             */
+            bool isDisabled() const;
+
+            /**
+             * @brief Mark the part text to be translatable or not.
+             * @param[in] translatable @c true, the part text will be translated internally. @c false, otherwise.
+             * @param[in] domain The translation domain to use.
+             * @param[in] part The part name of the translatable text, if part is nullptr the default part is used.
+             */
+            void setTranslatable(bool translatable, const char *domain, const char *part = nullptr);
+
+            /**
+             * @brief Gets text placed in specified part.
+             * @param[in] part a part to get text from. If part is nullptr the default part is used.
+             * @return a text part contains. If part contains no text returns empty string.
+             */
             std::string getText(const char *part = nullptr) const;
+
+            /**
+             * @brief a C-style implementation of getText().
+             */
             const char *getTextCStr(const char *part = nullptr) const;
+
+            /**
+             * @brief Sets text into specified part.
+             * @param[in] text a text to be set in specified part
+             * @param[in] part a part to get text from. If part is nullptr the default part is used.
+             */
             void setText(const char *text, const char *part = nullptr);
+
+            /**
+             * @brief Sets text into specified part.
+             * @param[in] text a text to be set in specified part
+             * @param[in] part a part to get text from. If part is nullptr the default part is used.
+             */
             void setText(const std::string &text, const char *part = nullptr);
+
+            /**
+             * @brief Sets IDS of translatable string into specified part.
+             * @param[in] text a translatable text to be set in specified part.
+             * @param[in] part a part to get text from. If part is nullptr the default part is used.
+             */
             void setText(const TText &text, const char *part = nullptr);
             static void setText(Elm_Object_Item *it, const TText &text, const char *part = nullptr);
 
@@ -113,9 +203,9 @@ namespace Msg
         elm_object_item_part_text_set(m_pItem, part, text);
     }
 
-    inline void ViewItem::setTranslateble(bool translateble, const char *domain, const char *part)
+    inline void ViewItem::setTranslatable(bool translatable, const char *domain, const char *part)
     {
-        elm_object_item_domain_part_text_translatable_set(m_pItem, part, domain, translateble);
+        elm_object_item_domain_part_text_translatable_set(m_pItem, part, domain, translatable);
     }
 
     inline void ViewItem::setText(const std::string &text, const char *part)
