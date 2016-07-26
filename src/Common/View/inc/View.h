@@ -27,39 +27,186 @@
 
 namespace Msg
 {
+    /**
+     * @brief Wraps all basic Evas_Object operations and manages automatic self-removal by EVAS_CALLBACK_FREE and EVAS_CALLBACK_DEL events.
+     */
     class View
         : public BaseView
     {
         public:
             View();
 
+            /**
+             * @brief Destroys nested Evas_Object.
+             */
             void destroy();
             operator Evas_Object *() const;
             Evas_Object *getEo() const;
+
+            /**
+             * @brief Checks whether view is visible or not.
+             * @return true if view is visible, otherwise false.
+             */
             bool isVisible() const;
+
+            /**
+             * @brief Shows view.
+             */
             void show();
+
+            /**
+             * @brief Hides view.
+             */
             void hide();
+
+            /**
+             * @brief Manages view's visibility.
+             * @param[in] show if true shows view, otherwise hides it.
+             */
             void setVisibility(bool show);
+
+            /**
+             * @brief Moves view to specified Evas-coordinates.
+             * @param[in] x x-coordinate
+             * @param[in] y y-coordinate
+             */
             void move(Evas_Coord x, Evas_Coord y);
+
+            /**
+             * @brief Sets size-weight hints.
+             * @param[in] x x-coordinate
+             * @param[in] y y-coordinate
+             */
             void setSizeHintWeight(double x = EVAS_HINT_EXPAND, double y = EVAS_HINT_EXPAND);
+
+            /**
+             * @brief Sets size-align hints.
+             * @param[in] x x-coordinate
+             * @param[in] y y-coordinate
+             */
             void setSizeHintAlign(double x = EVAS_HINT_FILL, double y = EVAS_HINT_FILL);
+
+            /**
+             * @brief Make the scroller minimum size limited to the minimum size of the view's content
+             *
+             * @param[in] w Enable limiting minimum size horizontally
+             * @param[in] h Enable limiting minimum size vertically
+             */
             void setScrollerContentMinLimit(Eina_Bool w, Eina_Bool h);
+
+            /**
+             * @brief Sets size-weight and size-align hints in order to make view expanded.
+             */
             void expand();
+
+            /**
+             * @brief Sets specified Evas_object's size-weight and size-align hints in order to make it expanded.
+             * @param[in] obj an Evas_Object to be expanded.
+             */
             static void expand(Evas_Object *obj);
+
+            /**
+             * @brief Sets min size hints.
+             * @param[in] w width hint.
+             * @param[in] h height hint.
+             */
             void setSizeHintMin(Evas_Coord w, Evas_Coord h);
+
+            /**
+             * @brief Sets max size hints.
+             * @param[in] w width hint.
+             * @param[in] h height hint.
+             */
             void setSizeHintMax(Evas_Coord w, Evas_Coord h);
+
+            /**
+             * @brief Gets min size hints.
+             * @param[out] w width hint.
+             * @param[out] h height hint.
+             */
             void getSizeHintMin(Evas_Coord *w, Evas_Coord *h) const;
+
+            /**
+             * @brief Gets max size hints.
+             * @param[out] w width hint.
+             * @param[out] h height hint.
+             */
             void getSizeHintMax(Evas_Coord *w, Evas_Coord *h) const;
+
+            /**
+             * @brief Sets specified content into specified part.
+             * @param[in] content a content to set into view.
+             * @param[in] part a part content should be placed to. If part is nullptr the default part is used.
+             * @param[in] saveOldContent a flag that checks whether old view's content should be returned or not.
+             * @return if saveOldContent is true returns old content set into view before, otherwise returns nullptr.
+             */
             Evas_Object *setContent(Evas_Object *content, const char *part = nullptr, bool saveOldContent = false);
+
+            /**
+             * @brief Unsets view's content.
+             * @param[in] part a part content should be removed from. If part is nullptr the default part is used.
+             * @return old view's content in case of success, nullptr in case of errors.
+             */
             Evas_Object *unsetContent(const char *part = nullptr);
+
+            /**
+             * @brief Gets view's content.
+             * @param[in] part a content-part. If part is nullptr the default part is used.
+             * @return view's content in case of success, nullptr in case of errors.
+             */
             Evas_Object* getContent(const char *part = nullptr) const;
+
+            /**
+             * @brief Set the ability for an view object to be focused.
+             * @param[in] enable if true view is enabled to be focused, otherwise it can not be focused.
+             */
             void setFocusAllow(bool enable);
+
+            /**
+             * @brief Checks whether view can be focused or not.
+             * @return true if view is able to be focused, otherwise false.
+             */
             bool getFocusAllow() const;
+
+            /**
+             * @brief Sets(unsets) focus to view.
+             * @param[in] focus if true sets focus to view, otherwise onfocuses it.
+             */
             void setFocus(bool focus);
+
+            /**
+             * @brief Checks whether view is focused or not.
+             * @return true if view is focused, otherwise false.
+             */
             bool getFocus() const;
-            void setTranslateble(bool translateble, const char *domain, const char *part = nullptr);
+
+            /**
+             * @brief Mark the part text to be translatable or not.
+             * @param[in] translatable @c true, the part text will be translated internally. @c false, otherwise.
+             * @param[in] domain The translation domain to use.
+             * @param[in] part The part name of the translatable text, if part is nullptr the default part is used.
+             */
+            void setTranslatable(bool translatable, const char *domain, const char *part = nullptr);
+
+            /**
+             * @brief Sends a signal to edje-object.
+             * @param[in] emission The signal's name.
+             * @param[in] source The signal's source.
+             */
             void emitSignal(const char *emission, const char *source);
+
+            /**
+             * @brief Sets user-data associated with specified key-string.
+             * @param[in] key a string-key.
+             * @param[in] data to be stored.
+             */
             void setData(const char *key, const void *data);
+
+            /**
+             * @brief Gets data associated with specified key-string.
+             * @param[in] key a string-key.
+             * @return user-data.
+             */
             void *getData(const char *key) const;
             void addEventCb(Evas_Callback_Type type, Evas_Object_Event_Cb func, const void *data);
             void addSmartCb(const char *event, Evas_Smart_Cb func, const void *data);
@@ -72,11 +219,39 @@ namespace Msg
             template<typename T>
             static T dynamicCast(void *evasObj);
 
+            /**
+             * @brief Gets text placed in specified part.
+             * @param[in] part a part to get text from. If part is nullptr the default part is used.
+             * @return a text part contains. If part contains no text returns empty string.
+             */
             std::string getText(const char *part = nullptr) const;
+
+            /**
+             * @brief A C-style implementation of getText().
+             */
             const char *getTextCStr(const char *part = nullptr) const;
+
+            /**
+             * @brief Sets text into specified part.
+             * @param[in] text a text to be set in specified part
+             * @param[in] part a part to get text from. If part is nullptr the default part is used.
+             */
             void setText(const char *text, const char *part = nullptr);
+
+            /**
+             * @brief Sets text into specified part.
+             * @param[in] text a text to be set in specified part
+             * @param[in] part a part to get text from. If part is nullptr the default part is used.
+             */
             void setText(const std::string &text, const char *part = nullptr);
+
+            /**
+             * @brief Sets IDS of translatable string into specified part.
+             * @param[in] text a translatable text to be set in specified part.
+             * @param[in] part a part to get text from. If part is nullptr the default part is used.
+             */
             void setText(const TText &text, const char *part = nullptr);
+
             static void setText(Evas_Object *obj, const TText &text, const char *part = nullptr);
 
             static Evas_Object *addLayout(Evas_Object *parent, const std::string &edjePath, const std::string &group);
@@ -214,9 +389,9 @@ namespace Msg
         return elm_object_focus_get(m_pEo);
     }
 
-    inline void View::setTranslateble(bool translateble, const char *domain, const char *part)
+    inline void View::setTranslatable(bool translatable, const char *domain, const char *part)
     {
-        elm_object_domain_part_text_translatable_set(m_pEo, part, domain, translateble);
+        elm_object_domain_part_text_translatable_set(m_pEo, part, domain, translatable);
     }
 
     inline void View::emitSignal(const char *emission, const char *source)

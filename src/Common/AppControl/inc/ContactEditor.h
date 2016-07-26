@@ -43,14 +43,14 @@ namespace Msg
 
             /**
              * @brief Launches add-operation.
-             * @param address number or email
+             * @param[in] address number or email
              * @return true in case of success, otherwise returns false.
              */
              bool launch(const std::string &address, Operation operation);
 
              /**
               * @brief Set listener
-              * @param l listener
+              * @param[in] l listener
               */
              void setListener(IContactEditorListener *l);
 

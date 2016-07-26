@@ -24,28 +24,65 @@
 
 namespace Msg
 {
+    /**
+     * @brief Manages sending(receiving) messages activity.
+     */
     class MsgTransport
     {
         public:
+            /**
+             * @brief Possible results message sending could cause to.
+             */
             enum SendResult
             {
-                SendSuccess           = 0,
-                SendFail              = -1,
-                SendNullPointer       = -2,
-                SendNoSIM             = -3,
-                SendMemoryFull        = -4,
-                SendDPMRestricted     = -5,
+                SendSuccess           = 0,      /**< Sending successful.*/
+                SendFail              = -1,     /**< Sending failure.*/
+                SendNullPointer       = -2,     /**< Invalid parameter passed into sendMessage().*/
+                SendNoSIM             = -3,     /**< No SIM was found.*/
+                SendMemoryFull        = -4,     /**< No free space available for message-storage.*/
+                SendDPMRestricted     = -5,     /**< Sending message is restricted by DPM.*/
             };
 
         public:
             MsgTransport();
             virtual ~MsgTransport();
 
+            /**
+             * @brief Message-service specific implementation of sending message of any type(sms or mms).
+             * @param[in, out] msg a message to be sent.
+             * @param[out] threadId an id of thread the sent message belongs to.
+             * @return result-code.
+             */
             virtual SendResult sendMessage(Message &msg, ThreadId *threadId = nullptr) = 0;
+
+            /**
+             * @brief General(for calling by client) implementation of sending message of any type(sms or mms).
+             * @param[in, out] msg a message to be sent.
+             * @param[out] threadId an id of thread the sent message belongs to.
+             * @return result-code.
+             */
             SendResult sendMessage(MessageRef &msg, ThreadId *threadId = nullptr);
+
+            /**
+             * @brief Sending MMS.
+             * @param[in, out] msg a message to be sent.
+             * @param[out] threadId an id of thread the sent message belongs to.
+             * @return result-code.
+             */
             SendResult sendMessage(MessageMmsRef &msg, ThreadId *threadId = nullptr);
+
+            /**
+             * @brief Sending SMS.
+             * @param[in, out] msg a message to be sent.
+             * @param[out] threadId an id of thread the sent message belongs to.
+             * @return result-code.
+             */
             SendResult sendMessage(MessageSMSRef &msg, ThreadId *threadId = nullptr);
 
+            /**
+             * @brief Manually downloads MMS by demand.
+             * @param[in] msgId id of message to be downloaded.
+             */
             virtual void retrieveMessage(MsgId msgId) = 0;
     };
 }

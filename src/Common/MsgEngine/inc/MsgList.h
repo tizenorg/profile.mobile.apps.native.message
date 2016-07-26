@@ -21,6 +21,9 @@
 
 namespace Msg
 {
+    /**
+     * @brief Generic container for message-objects.
+     */
     template<typename T>
     class MsgList
     {
@@ -29,8 +32,25 @@ namespace Msg
 
         public:
             virtual ~MsgList() {}
+
+            /**
+             * @brief Constant getter by index..
+             * @param[in] i index.
+             * @return message-object.
+             */
             virtual const T &at(int i) const = 0;
+
+            /**
+             * @brief Nonconstant getter by index..
+             * @param[in] i index.
+             * @return message-object.
+             */
             virtual T &at(int i) = 0;
+
+            /**
+             * @brief Gets count of message-objects list contains.
+             * @return list size.
+             */
             virtual int getLength() const = 0;
 
             inline const T &operator[](int i) const
@@ -43,6 +63,10 @@ namespace Msg
                 return at(i);
             }
 
+            /**
+             * @brief Checks if list is empty or not.
+             * @return true if list is empty, false otherwise.
+             */
             inline bool isEmpty() const
             {
                 return getLength() <= 0;

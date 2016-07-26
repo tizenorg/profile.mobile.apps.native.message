@@ -31,31 +31,91 @@ namespace Msg
     typedef std::shared_ptr<MsgConversationItem> MsgConversationItemRef;
     typedef std::shared_ptr<MsgList<MsgConversationItem>> MsgConversationListRef;
 
+    /**
+     * @brief An interface that provides basic information about conversation-list item.
+     */
     class MsgConversationItem
     {
         public:
             virtual ~MsgConversationItem();
 
+            /**
+             * @brief Gets id of thread this conversation-item belongs to.
+             * @return thread id.
+             */
             virtual ThreadId getThreadId() const = 0;
-            virtual MsgId getMsgId() const = 0;
-            virtual std::string getText() const = 0;
-            virtual std::string getSubject() const = 0;
-            virtual time_t getTime() const = 0;
-            virtual Message::Direction getDirection() const = 0;
-            virtual Message::Type getType() const = 0;
-            virtual Message::NetworkStatus getNetworkStatus() const = 0;
-            virtual bool isDraft() const = 0;
-            virtual bool isRead() const = 0;
-            virtual int getPagesCount() const = 0;
-            virtual int getAttachCount() const = 0;
-            virtual std::string getAttachName() const = 0;
-            virtual const MsgConvMediaList &getMediaList() const = 0;
 
-            // TODO: check this methods
-            virtual std::string getAudioName() const = 0;
-            virtual std::string getImageThumbPath() const = 0;
-            virtual std::string getVideoThumbPath() const = 0;
-            virtual std::string getFirstMediaPath() const = 0;
+            /**
+             * @brief Gets id of message this conversation-item is related with.
+             * @return message id.
+             */
+            virtual MsgId getMsgId() const = 0;
+
+            /**
+             * @brief Gets message-text displayed in conversation-item.
+             * @return message text.
+             */
+            virtual std::string getText() const = 0;
+
+            /**
+             * @brief Gets subject-string.
+             * @brief subject.
+             */
+            virtual std::string getSubject() const = 0;
+
+            /**
+             * @brief Gets a time when message status was updated last time(it could happen after sending\receiving\editing draft/etc).
+             * @return time.
+             */
+            virtual time_t getTime() const = 0;
+
+            /**
+             * @brief Gets message direction.
+             * @return direction: Outgoing or Incoming
+             */
+            virtual Message::Direction getDirection() const = 0;
+
+            /**
+             * @brief Gets message type.
+             * @return message type.
+             */
+            virtual Message::Type getType() const = 0;
+
+            /**
+             * @brief Gets message network status.
+             * @return message network status.
+             */
+            virtual Message::NetworkStatus getNetworkStatus() const = 0;
+
+            /**
+             * @brief Checks whether conversation-item is related to draft message or not.
+             * @return true if message is draft, false otherwise.
+             */
+            virtual bool isDraft() const = 0;
+
+            /**
+             * @brief Checks whether conversation-item is related to read message or not.
+             * @return true if message is read, false otherwise.
+             */
+            virtual bool isRead() const = 0;
+
+            /**
+             * @brief Gets the count of pages message related to this conversation item contains.
+             * @return number of pages.
+             */
+            virtual int getPagesCount() const = 0;
+
+            /**
+             * @brief Gets the count of attachments message related to this conversation item contains.
+             * @return number of attachments.
+             */
+            virtual int getAttachCount() const = 0;
+
+            /**
+             * @brief Gets media-files list.
+             * @return media-files list.
+             */
+            virtual const MsgConvMediaList &getMediaList() const = 0;
     };
 }
 

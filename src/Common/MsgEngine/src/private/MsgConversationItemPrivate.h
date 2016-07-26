@@ -24,6 +24,9 @@
 
 namespace Msg
 {
+    /**
+     * @brief Implementation of MsgConversationItem with msg-service private API usage.
+     */
     class MsgConversationItemPrivate
         : public MsgStructPrivate
         , public MsgConversationItem
@@ -44,11 +47,6 @@ namespace Msg
             virtual bool isRead() const;
             virtual int getPagesCount() const;
             virtual int getAttachCount() const;
-            virtual std::string getAttachName() const;
-            virtual std::string getAudioName() const;
-            virtual std::string getImageThumbPath() const;
-            virtual std::string getVideoThumbPath() const;
-            virtual std::string getFirstMediaPath() const;
             virtual const MsgConvMediaListHandlePrivate &getMediaList() const;
 
         protected:

@@ -36,15 +36,32 @@
 
 namespace Msg
 {
+    /**
+     * @brief Core-instance of whole mechanism that interacts with message-service.
+     */
     class MsgEngine
     {
         public:
             MsgEngine();
             ~MsgEngine();
 
+            /**
+             * @brief Initiates connection to message-service.
+             * @returns msg-service specific success code in case of success, otherwise returns error-code.
+             */
             int openService();
+
+            /**
+             * @brief Closes connection to message-service.
+             * @returns msg-service specific success code in case of success, otherwise returns error-code.
+             */
             int closeService();
 
+            /**
+             * @brief Checks whether message-service opened is ready to operate(was openService() called before or not).
+             * @param[out] error-message string filled if no connection to message service was opened.
+             * @result true if message-service is already opened, otherwise false.
+             */
             bool isReady(std::string &errorMsg) const;
 
             MsgStorage &getStorage();
@@ -59,7 +76,18 @@ namespace Msg
             MsgComposer &getComposer();
             const MsgComposer &getComposer() const;
 
+            /**
+             * @brief Converts msg-service error codes into a string representation.
+             * @param[in] error an msg-service side error code
+             * @result msg-service define name string, e.g "MESSAGES_ERROR_NONE" for MESSAGES_ERROR_NONE code.
+             */
             static std::string whatError(int error);
+
+            /**
+             * @brief Calculates input text length by encode type.
+             * @param[in] text input text.
+             * @param[out] text metric.
+             **/
             static void calculateTextMetric(const std::string &text, MsgTextMetric &textMetric);
 
         private:
