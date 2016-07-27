@@ -56,6 +56,9 @@ namespace Msg
             Elm_Genlist_Item_Class *m_pGenlistItemClass;
     };
 
+    /**
+     * @brief Wraps all basic genlist item operations.
+     */
     class ListItem
         : public ViewItem
     {
@@ -63,26 +66,99 @@ namespace Msg
         friend class ListView;
 
         public:
+            /**
+             * @brief Creates instance of ListItem of specified genlist-item type.
+             * @param[in] type genlist item-type.
+             */
             ListItem(Elm_Genlist_Item_Type type = ELM_GENLIST_ITEM_NONE);
+
+            /**
+             * @brief Creates instance of ListItem of specified genlist-item type with predefined style.
+             * @param[in] itemStyle predefined item style.
+             * @param[in] type genlist item-type.
+             */
             ListItem(const ListItemStyleRef &itemStyle, Elm_Genlist_Item_Type type = ELM_GENLIST_ITEM_NONE);
             virtual ~ListItem();
 
             // Base elm methods:
+            /**
+             * @brief gets list-item style.
+             * @return item style.
+             */
             const ListItemStyleRef &getStyle() const;
+
+            /**
+             * @brief Sets specified style to list-item.
+             * @param[in] style a style to be set.
+             */
             void setStyle(ListItemStyleRef &style);
+
+            /**
+             * @brief Makes list-item selected(unselected).
+             * @param[in] selected if true makes list-item selected, if false - unselects it.
+             */
             void setSelected(bool selected);
+
+            /**
+             * @brief Checks whether list-item is selected or not.
+             * @return true if list-item is selected, false otherwise.
+             */
             bool getSelected() const;
+
+            /**
+             * @brief Sets the expanded state of an list-item.
+             * @param[in] expand expanded state.
+             */
             void setExpanded(bool expand);
+
+            /**
+             * @brief Update all the contents of an item.
+             */
             void update();
+
+            /**
+             * @brief Updates specified parts in list-item.
+             * @param[in] parts a parts to be updated. Used for globbing to match '*', '?', and '.'.
+             * @param[in] type The type of item's part type.
+             */
             void updateFields(const char *parts, Elm_Genlist_Item_Field_Type type);
+
+            /**
+             * @brief Gets a ListView instance that owns this list-item.
+             * @return owner ListView.
+             */
             ListView *getOwner() const;
+
+            /**
+             * @brief Gets type of nested genlist-item.
+             * @return genlist item type.
+             */
             Elm_Genlist_Item_Type getType() const;
-            int getUserType() const;
 
             // Check(Select) methods:
+            /**
+             * @brief Changes checked state of list-item. Also item optionally can update full it's content.
+             * @param[in] updateUi if true all list-item's content will be forced to update.
+             */
             void changeCheckedState(bool updateUi);
+
+            /**
+             * @brief Updates list-item's checked state with state specified. Also item optionally can update full it's content.
+             * @param[in] state a new checked-state to be applied.
+             * @param[in] updateUi if true all list-item's content will be forced to update.
+             */
             void setCheckedState(bool state, bool updateUi);
+
+            /**
+             * @brief Checks whether list- item is checked or not.
+             * @return true if list-item is checked, false otherwise.
+             */
             bool getCheckedState() const;
+
+            /**
+             * @brief Checks whether checkbox was created and put into specific list-item's part.
+             * @return true if checkbox is created and available to manage, false otherwise.
+             */
             bool isCheckable() const;
 
         protected:

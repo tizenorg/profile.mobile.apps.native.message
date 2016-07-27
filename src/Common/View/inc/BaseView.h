@@ -23,6 +23,9 @@
 
 namespace Msg
 {
+    /**
+     * @brief Basic interface for all visual objects used across the whole application.
+     */
     class BaseView
     {
         public:
@@ -30,6 +33,9 @@ namespace Msg
             virtual void destroy() = 0;
 
         protected:
+            /**
+             * @brief Performs self-removing by request from children-classes.
+             */
             virtual void onViewDestroyed() { delete this; };
     };
 }
