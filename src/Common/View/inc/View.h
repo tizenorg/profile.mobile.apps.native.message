@@ -170,7 +170,7 @@ namespace Msg
 
             /**
              * @brief Sets(unsets) focus to view.
-             * @param[in] focus if true sets focus to view, otherwise onfocuses it.
+             * @param[in] focus if true sets focus to view, otherwise unfocuses it.
              */
             void setFocus(bool focus);
 
@@ -258,6 +258,11 @@ namespace Msg
 
         protected:
             virtual ~View();
+
+            /**
+             * @brief Allows children-classes to perform some cleanup activities before they destroying.
+             * @param[in] view to be destroyed after exiting onBeforeDelete().
+             */
             virtual void onBeforeDelete(View &view) {};
 
             void setEventCb(Evas_Callback_Type type);

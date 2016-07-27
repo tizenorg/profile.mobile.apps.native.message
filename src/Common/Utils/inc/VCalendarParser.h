@@ -22,6 +22,8 @@
 #include <string>
 #include <list>
 
+namespace Msg
+{
 class CalendarEvent
 {
     public:
@@ -49,5 +51,5 @@ class VCalendarParser
 
 };
 
-
+}
 #endif /* VCardParser_h_ */
