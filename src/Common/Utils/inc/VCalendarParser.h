@@ -22,32 +22,33 @@
 #include <string>
 #include <list>
 
-class CalendarEvent
+namespace Msg
 {
-    public:
-        CalendarEvent(calendar_record_h record);
+    class CalendarEvent
+    {
+        public:
+            CalendarEvent(calendar_record_h record);
 
-        const std::string &getSummary() const;
-        const std::string &getStartDate() const;
+            const std::string &getSummary() const;
+            const std::string &getStartDate() const;
 
-    private:
-        std::string m_Summary;
-        std::string m_StartDate;
-};
+        private:
+            std::string m_Summary;
+            std::string m_StartDate;
+    };
 
-class VCalendarParser
-{
-    public:
-        static VCalendarParser &getInst();
-        static std::list<CalendarEvent> parse(const std::string &filePath);
+    class VCalendarParser
+    {
+        public:
+            static VCalendarParser &getInst();
+            static std::list<CalendarEvent> parse(const std::string &filePath);
 
-    private:
-        VCalendarParser();
-        ~VCalendarParser();
-        VCalendarParser& operator=(VCalendarParser&) = delete;
-        VCalendarParser(VCalendarParser&) = delete;
+        private:
+            VCalendarParser();
+            ~VCalendarParser();
+            VCalendarParser& operator=(VCalendarParser&) = delete;
+            VCalendarParser(VCalendarParser&) = delete;
+    };
 
-};
-
-
+}
 #endif /* VCardParser_h_ */
