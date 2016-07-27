@@ -47,6 +47,7 @@ void NaviFrameView::create(Evas_Object *parent)
 {
     setEo(elm_naviframe_add(parent));
     addSmartCb("transition,finished", SMART_CALLBACK(NaviFrameView, onTransitionFinished), this);
+    elm_naviframe_event_enabled_set(getEo(), EINA_TRUE); //Enables event receiving during pushing/popping items
     show();
 }
 
