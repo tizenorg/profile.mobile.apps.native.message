@@ -24,16 +24,46 @@ namespace Msg
 {
     class ISystemSettingsManager;
 
+    /**
+     * @brief Monitors changing of time format and system language. Also reads telephony settings.
+     */
     class SystemSettingsManager
     {
         public:
+            /**
+             * @brief A constructor initializes telephony handle to make system settings manager instance to read telephony settings.
+             */
             SystemSettingsManager();
             ~SystemSettingsManager();
 
+            /**
+             * @brief Adds a subscriber on system settings change events.
+             * @param[in] l a listener.
+             */
             void addListener(ISystemSettingsManager &l);
+
+            /**
+             * @brief Removes system settings changes listener.
+             * @param[in] l a listener to be removed.
+             */
             void removeListener(ISystemSettingsManager&l);
+
+            /**
+             * @brief Checks whether SIM is inserted or not.
+             * @return true if SIM is inserted, false otherwise.
+             */
             bool isSimInserted() const;
+
+            /**
+             * @brief Checks whether network service is available or not.
+             * @return true network service available, false otherwise(service is unavailable or only emergency calls are available).
+             */
             bool isSimActive() const;
+
+            /**
+             * @brief Checks whether mobile data is enabled or not.
+             * @return true 3g mobile data is enabled, false otherwise.
+             */
             bool isMobileDataEnabled() const;
 
         private:
@@ -48,12 +78,22 @@ namespace Msg
             telephony_handle_list_s m_TelHandleList;
     };
 
+    /**
+     * @brief A listener-interface that should be implemented by subscriber in order to be notified about time format or nsystem language change.
+     */
     class ISystemSettingsManager
     {
         public:
             virtual ~ISystemSettingsManager() {}
 
+            /**
+             * @brief Notification about change of time format.
+             */
             virtual void onTimeFormatChanged() {};
+
+            /**
+             * @brief Notification about change of system language.
+             */
             virtual void onLanguageChanged() {};
     };
 }

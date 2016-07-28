@@ -25,20 +25,53 @@ namespace Msg
 {
     class MbeRecipientsView;
 
+    /**
+     * @brief Wraps all basic multibutton entry item operations.
+     */
     class MbeRecipientItem
         : public ViewItem
     {
         friend class MbeRecipientsView;
 
         public:
+            /**
+             * @brief Constructs instance of MbeRecipientItem with a specified display-name, address etc.
+             * @param[in] address recipient-address(phone number or email).
+             * @param[in] dispName displayable mbe-item text.
+             * @param[in] addressType type of recipient address.
+             * @param[in] recipType type of recipient.
+             */
             MbeRecipientItem(const std::string &address, const std::string &dispName,
                     MsgAddress::AddressType addressType, MsgAddress::RecipientType recipType = MsgAddress::To);
 
+            /**
+             * @brief Gets recipient's display-name.
+             * @return display-name.
+             */
             const std::string &getDispName() const;
+
+            /**
+             * @brief Gets recipient address.
+             * @return recipient address.
+             */
             const std::string &getAddress() const;
+
+            /**
+             * @brief Gets address-type.
+             * @return address-type.
+             */
             MsgAddress::AddressType getAddressType() const;
+
+            /**
+             * @brief Gets recipient type.
+             * @return recipient type.
+             */
             MsgAddress::RecipientType getRecipType() const;
 
+            /**
+             * @brief Sets new display name.
+             * @param[in] dispName new display name.
+             */
             void setDispName(const std::string &dispName);
 
         private:

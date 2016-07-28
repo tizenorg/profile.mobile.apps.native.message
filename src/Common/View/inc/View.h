@@ -260,7 +260,7 @@ namespace Msg
             virtual ~View();
 
             /**
-             * @brief Allows children-classes to perform some cleanup activities before they destroying.
+             * @brief Allows children-classes to perform some cleanup activities before their destroying.
              * @param[in] view to be destroyed after exiting onBeforeDelete().
              */
             virtual void onBeforeDelete(View &view) {};

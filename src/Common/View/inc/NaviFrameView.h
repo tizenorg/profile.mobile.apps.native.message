@@ -23,6 +23,9 @@
 
 namespace Msg
 {
+    /**
+     * @brief Wraps all basic Naviframe operations.
+     */
     class NaviFrameView
         : public View
     {
@@ -55,10 +58,34 @@ namespace Msg
              */
             void push(NaviFrameItem &item, Evas_Object *content = nullptr);
             void push(NaviFrameItem &item, View &content);
+
+            /**
+             * @brief Pops item from Naviframe.
+             */
             void pop();
+
+            /**
+             * @brief Inserts specified item to bottom of item's stack.
+             * @param[in] item an item to be inserted.
+             */
             void insertToBottom(NaviFrameItem &item);
+
+            /**
+             * @brief Promote an item already in the naviframe stack to the top of the stack
+             * @param[in] item an item to be promoted.
+             */
             void promote(NaviFrameItem &item);
+
+            /**
+             * @brief Gets top frame from items-stack.
+             * @return Top naviframe-item or nullptr if item-stack is empty.
+             */
             NaviFrameItem *getTopFrame() const;
+
+            /**
+             * Checks if item transition is in progress.
+             * @return true if transition is in progress, false otherwise.
+             */
             bool getTransitionStatus() const;
 
         private:

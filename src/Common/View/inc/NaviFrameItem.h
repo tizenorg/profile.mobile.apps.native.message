@@ -32,31 +32,50 @@ namespace Msg
     class NaviFrameItem;
     typedef std::vector<NaviFrameItem*> NaviFrameItemList;
 
+    /**
+     * @brief Wraps all basic Naviframe-item operations.
+     */
     class NaviFrameItem
         : public ViewItem
     {
         friend class NaviFrameView;
 
         public:
+            /**
+             * @brief An identifiers of buttons that can be shown on the top naviframe-item.
+             */
             enum NaviButtonId
             {
-                NaviCancelButtonId = 0,
-                NaviOkButtonId,
-                NaviCenterButtonId,
-                NaviPrevButtonId,
-                NaviExpandButtonId,
+                NaviCancelButtonId = 0,/**< Cancel-button */
+                NaviOkButtonId,        /**< OK-button */
+                NaviCenterButtonId,    /**< Central-button */
+                NaviPrevButtonId,      /**< "Previous"-button */
+                NaviExpandButtonId,    /**< "Expand"-button */
                 NaviButtonMax
             };
 
         public:
             class NaviBar;
 
+            /**
+             * A constructor of NaviFrameItem object based on outside parent object. Creates nested navibar.
+             * @param[in] owner an object responsible for automatic removing of NaviFrameItem instance.
+             */
             NaviFrameItem(NaviFrameView &owner);
             virtual ~NaviFrameItem();
 
         public:
+            /**
+             * @brief Gets nested navibar.
+             * @return nested navibar.
+             */
             const NaviBar &getNaviBar() const;
             NaviBar &getNaviBar();
+
+            /**
+             * @brief Gets NaviframeView that owns this item.
+             * @return owner of this item.
+             */
             NaviFrameView &getOwner();
             const NaviFrameView &getOwner() const;
 
@@ -75,37 +94,123 @@ namespace Msg
             NaviBar *m_pNaviBar;
     };
 
+    /**
+     * @brief A bar at the top of NaviFrameItem.
+     */
     class NaviFrameItem::NaviBar
         : public View
     {
         friend class NaviFrameItem;
 
         public:
+            /**
+             * @brief An enumeration of colors that could be applied to Navibar's background.
+             */
             enum NaviColorId
             {
-                NaviBlueColorId = 0,
-                NaviWhiteColorId,
+                NaviBlueColorId = 0,/**< Blue */
+                NaviWhiteColorId,   /**< White */
                 NaviColorMax
             };
 
         public:
+            /**
+             * @brief Gets NaviframeItem instance that owns this navibar
+             * @return owner of this navibar.
+             */
             NaviFrameItem &getOwner();
             const NaviFrameItem &getOwner() const;
+
+            /**
+             * @brief Manages navibar's visibility.
+             * @param[in] visible if true shows navibar, if false - hides it.
+             */
             void setVisible(bool visible);
+
+            /**
+             * @brief Sets navibar title with a specified plain text.
+             * @param[in] title a plain text of new title.
+             */
             void setTitle(const std::string &title);
+
+            /**
+             * @brief Sets Title with translatable string-id.
+             * @param[in] title translatable text.
+             */
             void setTitle(const TText &title);
+
+            /**
+             * @brief Gets navibar title text.
+             * @return title.
+             */
             std::string getTitle() const;
+
+            /**
+             * @brief Manages visibility of navibar-button identified with specified id.
+             * @param[in] id button-id.
+             * @param[in] value if true the button is visible, if false - hides the button.
+             */
             void showButton(NaviButtonId id, bool value);
+
+            /**
+             * @brief Disables(enables) button with specified id.
+             * @param[in] id id of button to be disabled(enabled).
+             * @param[in] value if true disables the button otherwise enables it.
+             */
             void disabledButton(NaviButtonId id, bool value);
+
+            /**
+             * @brief Sets specified plain text to a button with specified id.
+             * @param[in] id button-id.
+             * @param[in] text a plain text to set.
+             */
             void setButtonText(NaviButtonId id, const std::string &text);
+
+            /**
+             * @brief Sets specified translatable text to a button with specified id.
+             * @param[in] id button-id.
+             * @param[in] text a translatable text to set.
+             */
             void setButtonText(NaviButtonId id, const TText &text);
+
+            /**
+             * @brief Hides all buttons on navibar.
+             */
             void clear();
+
+            /**
+             * @brief Sets search-panel layout.
+             * @param[in] searchPanel a layout with search panel.
+             */
             void setSearch(Evas_Object *searchPanel);
+
+            /**
+             * @brief Gets search-panel layout.
+             * @return layout with search panel.
+             */
             Evas_Object *getSearch();
             const Evas_Object *getSearch() const;
+
+            /**
+             * @brief Shows search-panel.
+             */
             void showSearch();
+
+            /**
+             * @brief Hides search-panel.
+             */
             void hideSearch();
+
+            /**
+             * @brief Changes navibar color.
+             * @param[in] id code of supported color.
+             */
             void setColor(NaviColorId id);
+
+            /**
+             * @brief Manages state of down-button.
+             * @param Changes picture of down-button. If true sets down-arrow to down-button otherwise sets up-arrow there.
+             */
             void setDownButtonState(bool expand);
 
         private:

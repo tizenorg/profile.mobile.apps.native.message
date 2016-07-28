@@ -23,6 +23,9 @@
 
 namespace Msg
 {
+    /**
+     * @brief Wraps all basic Box operations.
+     */
     class Box
         : public View
     {
@@ -30,15 +33,63 @@ namespace Msg
             Box(Evas_Object *parent);
             virtual ~Box();
 
+            /**
+             * @brief Set the horizontal orientation of box.
+             * @param[in] val if true box's orientation becomes horizontal otherwise it becomes vertical.
+             */
             inline void setHorizontal(bool val);
+
+            /**
+             * @brief Manages homogeneous mode of box.
+             * @param[in] val if true homogeneous mode is on, otherwise it's off.
+             */
             inline void setHomogeneous(bool val);
+
+            /**
+             * @brief Add an object to the beginning of the pack list.
+             * @param[in] obj an object to be added.
+             */
             inline void packStart(Evas_Object *obj);
+
+            /**
+             * @brief Add an object at the end of the pack list.
+             * @param[in] obj an object to be added.
+             */
             inline void packEnd(Evas_Object *obj);
+
+            /**
+             * @brief Adds an object to the box before the indicated object.
+             * @param[in] subobj an object to be added.
+             * @param[in] before the object before which to add it.
+             */
             inline void packBefore(Evas_Object *subobj, Evas_Object *before);
+
+            /**
+             * @brief Adds an object to the box after the indicated object.
+             * @param[in] subobj an object to be added.
+             * @param[in] after the object after which to add it.
+             */
             inline void packAfter(Evas_Object *subobj, Evas_Object *after);
+
+            /**
+             * @brief Remove the object given by @c subobj from the box without deleting it.
+             * @param[in] subobj an object to be removed.
+             */
             inline void unpack(Evas_Object *subobj);
+
+            /**
+             * @brief Remove all items from the box, without deleting them.
+             */
             inline void unpackAll();
+
+            /**
+             * @brief Clear the box of all children, children will be deleted.
+             */
             inline void clear();
+
+            /**
+             * @brief Force the box to recalculate its children packing.
+             */
             inline void recalculate();
     };
 
