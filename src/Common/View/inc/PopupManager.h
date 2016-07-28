@@ -26,27 +26,84 @@ namespace Msg
 {
     class Window;
 
+    /**
+     * @brief A global instance that manages context popups and regular popups lifecycle in context of one window.
+     */
     class PopupManager
     {
         public:
+            /**
+             * @brief Creating PopupManager instance in context of specified window.
+             * @param[in] window a window context.
+             */
             PopupManager(Window &window);
             ~PopupManager();
 
             PopupManager(PopupManager&) = delete;
             PopupManager &operator=(PopupManager&) = delete;
 
+            /**
+             * @brief Gets window-context.
+             * @return window-context.
+             */
             Window &getWindow() const;
+
+            /**
+             * @brief Checks whether any context or regular popup is visible.
+             * @return false if no popup is visible otherwise true.
+             */
             bool isVisible() const;
+
+            /**
+             * @brief Destroys all popups (context and regular) created before.
+             * If no popup was created nothing happens.
+             */
             void reset();
+
+            /**
+             * @brief Destroys specified popup.
+             * @param[in] popup a popup to be destroyed.
+             */
             void reset(Popup &popup);
 
+            /**
+             * @brief Creates popup-list.
+             * @return created popup-list.
+             */
             PopupList &getPopupList();
+
+            /**
+             * @brief Creates popup.
+             * @return popup created.
+             */
             Popup &getPopup();
+
+            /**
+             * @brief Checks whether popup exists and it's visible.
+             * @return true if popup exists and it's visible, false otherwise.
+             */
             bool isPopupVisible() const;
+
+            /**
+             * @brief Destroys popup. If no popup exists nothing happens.
+             */
             void resetPopup();
 
+            /**
+             * @brief Creates context popup.
+             * @return context popup created.
+             */
             ContextPopup &getCtxPopup();
+
+            /**
+             * @brief Checks whether context popup exists and it's visible.
+             * @return true if context popup exists and it's visible, false otherwise.
+             */
             bool isCtxPopupVisible() const;
+
+            /**
+             * @brief Destroys context popup. If no context popup exists nothing happens.
+             */
             void resetCtxPopup();
 
         private:

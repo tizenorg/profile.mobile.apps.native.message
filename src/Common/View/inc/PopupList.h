@@ -24,6 +24,9 @@
 
 namespace Msg
 {
+    /**
+     * @brief A popup with list of available popup items.
+     */
     class PopupList
         : public Popup
         , private IListViewListener
@@ -33,9 +36,33 @@ namespace Msg
             PopupList(PopupManager &parent);
             virtual ~PopupList();
 
+            /**
+             * @brief Appends specified existing item to popup list.
+             * @param[in] item an item created outside to be appended.
+             */
             void appendItem(PopupListItem &item);
+
+            /**
+             * @brief Creates an item with a single string based on specified parameters and appends it to popup list.
+             * @param[in] text a text displayed on popup list item.
+             * @param[in] cb a callback raised by tap on this item.
+             * @param[in] userData user data passed to item's on-press callback.
+             */
             void appendItem(const std::string &text, PopupListItemPressedCb cb, void *userData);
+
+            /**
+             * Creates an item with a single string and a stored filepath based on specified parameters and appends it to popup list.
+             * @param[in] text a text displayed on popup list item.
+             * @param[in] path filepath.
+             * @param[in] cb a callback raised by tap on this item.
+             * @param[in] userData user data passed to item's on-press callback.
+             */
             void appendItem(const std::string &text, const std::string &path, PopupListItemPressedCb cb, void *userData);
+
+            /**
+             * @brief Gets nested list-view.
+             * @return list-view.
+             */
             ListView &getListView();
             const ListView &getListView() const;
 

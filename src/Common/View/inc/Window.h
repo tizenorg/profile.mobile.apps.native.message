@@ -23,6 +23,9 @@
 
 namespace Msg
 {
+    /**
+     * @brief An interface that should be implemented by all window-classes across whole application.
+     */
     class Window
         : public View
     {
