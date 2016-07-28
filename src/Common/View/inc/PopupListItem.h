@@ -24,6 +24,8 @@ namespace Msg
 {
     class PopupList;
     class PopupListItem;
+
+    /** @brief Callback raised when popup-list item was clicked.*/
     typedef void (*PopupListItemPressedCb)(PopupListItem &item, void *userData);
     #define POPUPLIST_ITEM_PRESSED_CB(ClassName, method) [](PopupListItem &item, void *userData) \
     {                                                                                            \
@@ -46,7 +48,7 @@ namespace Msg
     };
 
     /**
-     * @brief A class of popup-item with single text displayed
+     * @brief A class of popup-item with single text displayed.
      */
     class PopupTextListItem: public PopupListItem
     {
@@ -60,7 +62,7 @@ namespace Msg
     };
 
     /**
-     * @brief A class of popup-item with text and check field
+     * @brief A class of popup-item with text and check field.
      */
     class PopupCheckListItem: public PopupListItem
     {
