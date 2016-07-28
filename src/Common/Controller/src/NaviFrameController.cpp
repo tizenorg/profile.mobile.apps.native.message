@@ -81,7 +81,8 @@ void NaviFrameController::execCmd(const AppControlDefaultRef &cmd)
             insertToBottom(*new MsgThread(*this)); // Push thread list to the bottom
 
         Conversation *conv = getTopFrame<Conversation>(); // Check if conversation is open
-        if(type != AppControlDefault::MainType)
+        MessageRef msg = getMsgEngine().getStorage().getMessage(cmd->getMessageId()); //To avoid opening conversation if MsgId is invalid
+        if(type != AppControlDefault::MainType && msg != nullptr)
         {
             if(conv)
             {
