@@ -22,6 +22,7 @@
 #include "BubbleViewItem.h"
 #include "MsgConvMedia.h"
 #include "FileUtils.h"
+#include "Message.h"
 
 #include <string>
 
@@ -43,10 +44,11 @@ namespace Msg
             };
 
         public:
-            BubbleEntity(Type type);
+            BubbleEntity(Type type, Message::Direction direction);
             virtual ~BubbleEntity();
 
             Type getType() const;
+            Message::Direction getDirection() const;
             virtual std::string getFilePath() const = 0;
             virtual BubbleViewItem *createView(Evas_Object *parent) = 0;
 
@@ -54,10 +56,12 @@ namespace Msg
 
         private:
             Type m_Type;
+            Message::Direction m_Direction;
     };
 
-    inline BubbleEntity::BubbleEntity(Type type)
+    inline BubbleEntity::BubbleEntity(Type type, Message::Direction direction)
         : m_Type(type)
+        , m_Direction(direction)
     {
     }
 
@@ -68,6 +72,11 @@ namespace Msg
     inline BubbleEntity::Type BubbleEntity::getType() const
     {
         return m_Type;
+    }
+
+    inline Message::Direction BubbleEntity::getDirection() const
+    {
+        return m_Direction;
     }
 
     inline std::string BubbleEntity::getFileName(const MsgConvMedia &media)

@@ -35,7 +35,7 @@ BubbleVideoViewItem::~BubbleVideoViewItem()
 
 Evas_Object *BubbleVideoViewItem::createLayout(Evas_Object *parent, const std::string &path)
 {
-    Evas_Object *layout = addLayout(parent, CONV_LIST_ATTACHMENTS_EDJ_PATH, "conv/list/attachments/video_item");
+    Evas_Object *layout = addLayout(parent, CONV_LIST_BUBBLE_EDJ_PATH, "conv/list/video_item");
     Evas_Object *image = elm_image_add(layout);
     elm_image_file_set(image, path.c_str(), nullptr);
     int imageWidth = 0;

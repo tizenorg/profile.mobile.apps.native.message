@@ -22,8 +22,8 @@
 
 using namespace Msg;
 
-BubbleUnknownFileEntity::BubbleUnknownFileEntity(const MsgConvMedia &convMedia)
-    : BubbleEntity(UnknownFileItem)
+BubbleUnknownFileEntity::BubbleUnknownFileEntity(const MsgConvMedia &convMedia, BubbleBgViewItem::BgType bgType, Message::Direction direction)
+    : BubbleBgEntity(UnknownFileItem, bgType, direction)
     , m_FilePath(convMedia.getPath())
     , m_FileName(getFileName(convMedia))
 {
@@ -35,7 +35,7 @@ BubbleUnknownFileEntity::~BubbleUnknownFileEntity()
 
 BubbleUnknownFileViewItem *BubbleUnknownFileEntity::createView(Evas_Object *parent)
 {
-    auto *item = new BubbleUnknownFileViewItem(*this, parent);
+    auto *item = new BubbleUnknownFileViewItem(*this, parent, m_BgType);
     item->setMainText(m_FileName);
     return item;
 }
@@ -44,5 +44,3 @@ std::string BubbleUnknownFileEntity::getFilePath() const
 {
     return m_FilePath;
 }
-
-

@@ -27,15 +27,14 @@ namespace Msg
         : public BubbleIconTextLayoutItem
     {
         public:
-            BubbleCalEventViewItem(BubbleEntity &entity, Evas_Object *parent, LayoutType layoutType);
+            BubbleCalEventViewItem(BubbleEntity &entity, Evas_Object *parent, BgType bgType, LayoutType layoutType);
             virtual ~BubbleCalEventViewItem();
     };
 
-    inline BubbleCalEventViewItem::BubbleCalEventViewItem(BubbleEntity &entity, Evas_Object *parent, LayoutType layoutType)
-        : BubbleIconTextLayoutItem(entity, parent, layoutType)
+    inline BubbleCalEventViewItem::BubbleCalEventViewItem(BubbleEntity &entity, Evas_Object *parent, BgType bgType, LayoutType layoutType)
+        : BubbleIconTextLayoutItem(entity, parent, bgType, layoutType)
     {
-        attachGestureTapLayer(getEo(), getEo());
-        setIcon(createIcon(getEo(), ATTACH_CAL_ICON));
+        setIcon(createIcon(getContent(), ATTACH_CAL_ICON));
     }
 
     inline BubbleCalEventViewItem::~BubbleCalEventViewItem()

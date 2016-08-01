@@ -15,24 +15,33 @@
  *
  */
 
-#ifndef BubbleItemContainer_h_
-#define BubbleItemContainer_h_
+#ifndef BubbleBgViewItem_h_
+#define BubbleBgViewItem_h_
 
-#include "View.h"
-#include "Message.h"
+#include "BubbleViewItem.h"
 
 namespace Msg
 {
-    class BubbleItemContainer
-        : public View
+    class BubbleBgViewItem
+        : public BubbleViewItem
     {
         public:
-            BubbleItemContainer(Evas_Object *parent);
-            virtual ~BubbleItemContainer();
+            enum BgType
+            {
+                SentStyle,
+                ReceivedStyle,
+                DraftStyle,
+                FailedStyle
+            };
 
-            void append(Evas_Object *item, Message::Direction direction);
-            void go();
+        public:
+            BubbleBgViewItem(BubbleEntity &entity, Evas_Object *parent, BgType bgType);
+            virtual ~BubbleBgViewItem();
+
+            void showSearch(bool search);
+            void setContent(Evas_Object *obj);
+            Evas_Object *getContent() const;
     };
 }
 
-#endif /* BubbleItemContainer_h_ */
+#endif /* BubbleBgViewItem_h_ */

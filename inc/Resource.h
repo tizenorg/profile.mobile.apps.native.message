@@ -37,7 +37,7 @@
 #define BUTTON_THEME_EDJ_PATH            EDJ_PATH"/button_theme.edj"
 #define THREAD_THEME_EDJ_PATH            EDJ_PATH"/thread_genlist_theme.edj"
 
-#define BUBBLE_GENLIST_THEME_EDJ_PATH    EDJ_PATH"/bubble_genlist_theme.edj"
+#define CONV_GENLIST_THEME_EDJ_PATH      EDJ_PATH"/conv_genlist_theme.edj"
 #define MSG_INPUT_PANEL_EDJ_PATH         EDJ_PATH"/msg_input_panel.edj"
 #define RECIPIENT_PANEL_EDJ_PATH         EDJ_PATH"/recipient_panel.edj"
 
@@ -51,7 +51,7 @@
 #define VIEWER_PALYER_EDJ_PATH           EDJ_PATH"/viewer_player.edj"
 #define VIEWER_SUBJECT_LAYOUT_EDJ_PATH   EDJ_PATH"/viewer_subject_layout.edj"
 #define SMIL_ITEM_EDJ_PATH               EDJ_PATH"/smil_item.edj"
-#define CONV_LIST_ATTACHMENTS_EDJ_PATH   EDJ_PATH"/conv_list_attachments.edj"
+#define CONV_LIST_BUBBLE_EDJ_PATH        EDJ_PATH"/conv_list_bubble.edj"
 
 #define CONV_LIST_EDJ_PATH               EDJ_PATH"/conv_list.edj"
 #define CONV_LAYOUT_EDJ_PATH             EDJ_PATH"/conv_layout.edj"

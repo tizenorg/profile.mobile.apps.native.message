@@ -99,13 +99,26 @@ void ConvListItem::updateStatus()
     }
 
     if(m_NetworkStatus == Message::NS_Send_Fail)
+    {
         updateItemType(ConvItemType::Failed);
+        updateEntityBgType(BubbleBgViewItem::FailedStyle);
+    }
     else if(m_NetworkStatus == Message::NS_Send_Success || m_NetworkStatus == Message::NS_Sending)
+    {
         updateItemType(ConvItemType::Sent);
+        updateEntityBgType(BubbleBgViewItem::SentStyle);
+    }
     else if(m_NetworkStatus == Message::NS_Not_Send)
+    {
         updateItemType(ConvItemType::Draft);
+        updateEntityBgType(BubbleBgViewItem::DraftStyle);
+    }
     else if(m_NetworkStatus == Message::NS_Received)
+    {
         updateItemType(ConvItemType::Received);
+        updateEntityBgType(BubbleBgViewItem::ReceivedStyle);
+    }
+
     update();
 }
 
@@ -131,60 +144,42 @@ ConvListViewItem::ConvItemType ConvListItem::getConvItemType(const MsgConversati
     return type;
 }
 
-BubbleEntity *ConvListItem::createVideoEntity(const MsgConvMedia &media)
+BubbleBgViewItem::BgType ConvListItem::getBubbleBgType(const MsgConversationItem &item)
 {
-    return new BubbleVideoEntity(*m_WorkingDir, media);
+    BubbleBgViewItem::BgType type = BubbleBgViewItem::SentStyle;
+    if(item.getDirection() == Message::Direction::MD_Sent)
+    {
+        if(item.isDraft())
+            type = BubbleBgViewItem::DraftStyle;
+        else if(item.getNetworkStatus() == Message::NS_Send_Fail)
+            type = BubbleBgViewItem::FailedStyle;
+    }
+    else
+    {
+        type = BubbleBgViewItem::ReceivedStyle;
+    }
+    return type;
 }
 
-BubbleEntity * ConvListItem::createAudioEntity(const MsgConvMedia &media)
-{
-    return new BubbleAudioEntity(media);
-}
 
-BubbleEntity *ConvListItem::createUnknownFileEntity(const MsgConvMedia &media)
-{
-    return new BubbleUnknownFileEntity(media);
-}
-
-BubbleEntity *ConvListItem::createCalendarEntity(const MsgConvMedia &media)
-{
-    return new BubbleCalEventEntity(media);
-}
-
-BubbleEntity *ConvListItem::createContactEntity(const MsgConvMedia &media)
-{
-    return new BubbleContactEntity(m_App, media);
-}
-
-BubbleEntity *ConvListItem::createDownloadButtonEntity()
-{
-    return new BubbleDownloadButtonEntity;
-}
-
-BubbleEntity *ConvListItem::createTextEntity(const MsgConvMedia &media, const std::string &searchWord)
+BubbleEntity *ConvListItem::createTextEntity(BubbleBgViewItem::BgType bgType, Message::Direction direction, const MsgConvMedia &media, const std::string &searchWord)
 {
     std::string text = FileUtils::readTextFile(media.getPath());
 
     if(findText(text, searchWord))
         showSearch();
 
-    return new BubbleTextEntity(utf8ToMarkup(text));
+    return new BubbleTextEntity(bgType, direction, utf8ToMarkup(text));
 }
 
-BubbleEntity *ConvListItem::createTextEntity(std::string text, bool markup, const std::string &searchWord)
+BubbleEntity *ConvListItem::createTextEntity(BubbleBgViewItem::BgType bgType, Message::Direction direction, std::string text, bool markup, const std::string &searchWord)
 {
     if(findText(text, searchWord))
         showSearch();
 
     std::string resText = markup ? utf8ToMarkup(text) : std::move(text);
 
-    return new BubbleTextEntity(resText);
-}
-
-BubbleEntity *ConvListItem::createImageEntity(const MsgConvMedia &media)
-{
-    // TODO: msg service corrupts thumbnail's metadata, so it lost rotation. Use getPath instead getThumbPath until fix
-    return new BubbleImageEntity(media);
+    return new BubbleTextEntity(bgType, direction, resText);
 }
 
 void ConvListItem::addEntity(BubbleEntity *entity)
@@ -193,17 +188,29 @@ void ConvListItem::addEntity(BubbleEntity *entity)
         m_BubbleEntityList.push_back(entity);
 }
 
+void ConvListItem::updateEntityBgType(BubbleBgViewItem::BgType bgType)
+{
+    for(BubbleEntity *entity : m_BubbleEntityList)
+    {
+        auto *bgEntity = dynamic_cast<BubbleBgEntity*>(entity);
+        if(bgEntity)
+            bgEntity->setBgType(bgType);
+    }
+}
+
 void ConvListItem::prepareBubble(const MsgConversationItem &item, const std::string &searchWord)
 {
+    BubbleBgViewItem::BgType bgType = getBubbleBgType(item);
+    Message::Direction direction = item.getDirection();
     if(!MsgUtils::isMms(m_Type))
     {
-        addEntity(createTextEntity(item.getText(), true, searchWord));
+        addEntity(createTextEntity(bgType, direction, item.getText(), true, searchWord));
     }
     else if(m_Type == Message::MT_MMS_Noti)
     {
         std::string text = MessageDetailContent::getMmsNotiConvListItemContent(m_App, m_MsgId);
-        addEntity(createTextEntity(text, false, searchWord));
-        addEntity(createDownloadButtonEntity());
+        addEntity(createTextEntity(bgType, direction, text, false, searchWord));
+        addEntity(new BubbleDownloadButtonEntity(direction));
     }
     else
     {
@@ -219,24 +226,25 @@ void ConvListItem::prepareBubble(const MsgConversationItem &item, const std::str
             switch(msgMediaType)
             {
                 case MsgMedia::TextType:
-                    entity = createTextEntity(media, searchWord);
+                    entity = createTextEntity(bgType, direction, media, searchWord);
                     break;
                 case MsgMedia::ImageType:
-                    entity = createImageEntity(media);
+                    // TODO: msg service corrupts thumbnail's metadata, so it lost rotation. Use getPath instead getThumbPath until fix
+                    entity = new BubbleImageEntity(media, direction);
                     break;
                 case MsgMedia::AudioType:
-                    entity = createAudioEntity(media);
+                    entity = new BubbleAudioEntity(media, bgType, direction);
                     break;
                 case MsgMedia::VideoType:
-                    entity = createVideoEntity(media);
+                    entity = new BubbleVideoEntity(*m_WorkingDir, media, direction);
                     break;
                 default:
                     if(mime == "text/x-vcalendar" || mime == "text/calendar")
-                        entity = createCalendarEntity(media);
+                        entity =  new BubbleCalEventEntity(media, bgType, direction);
                     else if(mime == "text/x-vcard" || mime == "text/vcard")
-                        entity = createContactEntity(media);
+                        entity = new BubbleContactEntity(m_App, media, bgType, direction);
                     else if(mime != "application/smil")
-                        entity = createUnknownFileEntity(media);
+                        entity = new BubbleUnknownFileEntity(media, bgType, direction);
                     break;
             }
             addEntity(entity);
@@ -250,7 +258,7 @@ Evas_Object *ConvListItem::getBubbleContent()
     for(BubbleEntity *entity : m_BubbleEntityList)
     {
         BubbleViewItem *item = entity->createView(*bubble);
-        bubble->append(*item);
+        bubble->append(*item, entity->getDirection());
         item->setListener(this);
     }
     bubble->go();

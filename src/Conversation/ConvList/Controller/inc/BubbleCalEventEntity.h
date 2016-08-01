@@ -19,15 +19,15 @@
 #define BubbleCalEventEntity_h_
 
 #include "BubbleCalEventViewItem.h"
-#include "BubbleEntity.h"
+#include "BubbleBgEntity.h"
 
 namespace Msg
 {
     class BubbleCalEventEntity
-        : public BubbleEntity
+        : public BubbleBgEntity
     {
         public:
-            BubbleCalEventEntity(const MsgConvMedia &convMedia);
+            BubbleCalEventEntity(const MsgConvMedia &convMedia, BubbleBgViewItem::BgType bgType, Message::Direction direction);
             virtual ~BubbleCalEventEntity();
 
             virtual BubbleCalEventViewItem *createView(Evas_Object *parent);

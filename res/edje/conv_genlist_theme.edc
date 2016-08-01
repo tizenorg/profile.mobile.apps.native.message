@@ -5,8 +5,6 @@
 #define BUBBLE_MSG_TYPE_PAD_WIDTH 8
 #define BUBBLE_INFO_HEIGHT 88
 #define BUBBLE_CONTENT_WIDTH_MAX 340
-#define BUBBLE_BG_IMAGE_MIN_WIDTH 0
-#define BUBBLE_BG_IMAGE_MIN_HEIGHT 0
 #define BUBBLE_CONTENT_PAD_TOP_HEIGHT 0
 #define BUBBLE_CONTENT_PAD_BOTTOM_HEIGHT 0
 #define BUBBLE_CONTENT_PAD_LEFT_WIDTH 0
@@ -257,11 +255,11 @@ group { name: "elm/genlist/item/sentbubble/default";
         }
         rect { "bubble.bg.image"; scale;
             desc { "default";
+                visible: 0;
                 rel1.to_x: "bubble.pad.left";
                 rel1.to_y: "bubble.pad.top";
                 rel2.to_x: "bubble.pad.right";
                 rel2.to_y: "bubble.pad.bottom";
-                min: BUBBLE_BG_IMAGE_MIN_WIDTH BUBBLE_BG_IMAGE_MIN_HEIGHT;
                 color: BUBBLE_BG_COLOR;
             }
         }
@@ -295,6 +293,18 @@ group { name: "elm/genlist/item/sentbubble/default";
                 rel2.relative: 0.0 0.0;
                 align: 1.0 0.0;
                 fixed: 1 0;
+            }
+        }
+        rect { "bubble.content_event_blocker"; scale;
+            desc { "default";
+                rel1.to: "bubble.content";
+                rel2.to: "bubble.content";
+                color: 0 0 0 0;
+                max: 0 0;
+            }
+            desc { "selection";
+                inherit: "default";
+                max: -1 -1;
             }
         }
         spacer { "bubble.pad.right"; scale;
@@ -346,6 +356,7 @@ group { name: "elm/genlist/item/sentbubble/default";
             action: STATE_SET "selection" 0.0;
             target: "bubble.check";
             target: "pad.check";
+            target: "bubble.content_event_blocker";
         }
         program { name: "default_mode";
             signal: "elm,state,default";
@@ -353,6 +364,7 @@ group { name: "elm/genlist/item/sentbubble/default";
             action: STATE_SET "default" 0.0;
             target: "bubble.check";
             target: "pad.check";
+            target: "bubble.content_event_blocker";
         }
     }
 }

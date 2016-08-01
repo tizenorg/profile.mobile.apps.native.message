@@ -23,9 +23,8 @@
 
 using namespace Msg;
 
-
-BubbleContactEntity::BubbleContactEntity(App &app, const MsgConvMedia &media)
-    : BubbleEntity(ContactItem)
+BubbleContactEntity::BubbleContactEntity(App &app, const MsgConvMedia &media, BubbleBgViewItem::BgType bgType, Message::Direction direction)
+    : BubbleBgEntity(ContactItem, bgType, direction)
     , m_ThumbMaker(app.getThumbnailMaker())
     , m_FilePath(media.getPath())
 {
@@ -55,7 +54,7 @@ BubbleContactViewItem *BubbleContactEntity::createView(Evas_Object *parent)
 {
     BubbleContactViewItem::LayoutType type = m_Address.empty() ? BubbleContactViewItem::Layout1Icon1Text :
                                                                  BubbleContactViewItem::Layout1Icon2Text;
-    auto *item = new BubbleContactViewItem(*this, parent, type);
+    auto *item = new BubbleContactViewItem(*this, parent, m_BgType, type);
     item->setMainText(m_Name);
 
     Evas_Object *thumb = m_ThumbPath.empty() ? BubbleContactViewItem::createIcon(*item, ATTACH_CONTACT_ICON)

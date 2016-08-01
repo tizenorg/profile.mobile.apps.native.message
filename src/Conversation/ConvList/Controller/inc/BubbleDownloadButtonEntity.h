@@ -27,15 +27,15 @@ namespace Msg
         : public BubbleEntity
     {
         public:
-            BubbleDownloadButtonEntity();
+            BubbleDownloadButtonEntity(Message::Direction direction);
             virtual ~BubbleDownloadButtonEntity();
 
             virtual BubbleDownloadButtonViewItem *createView(Evas_Object *parent);
             virtual std::string getFilePath() const;
     };
 
-    inline BubbleDownloadButtonEntity::BubbleDownloadButtonEntity()
-        : BubbleEntity(DownloadButtonItem)
+    inline BubbleDownloadButtonEntity::BubbleDownloadButtonEntity(Message::Direction direction)
+        : BubbleEntity(DownloadButtonItem, direction)
     {
     }
 

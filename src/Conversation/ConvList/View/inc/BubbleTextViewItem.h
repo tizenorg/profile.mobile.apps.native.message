@@ -18,15 +18,15 @@
 #ifndef BubbleTextViewItem_h_
 #define BubbleTextViewItem_h_
 
-#include "BubbleViewItem.h"
+#include "BubbleBgViewItem.h"
 
 namespace Msg
 {
     class BubbleTextViewItem
-        : public BubbleViewItem
+        : public BubbleBgViewItem
     {
         public:
-            BubbleTextViewItem(BubbleEntity &entity, Evas_Object *parent, const std::string &text);
+            BubbleTextViewItem(BubbleEntity &entity, Evas_Object *parent, BgType bgType, const std::string &text);
             virtual ~BubbleTextViewItem();
 
         private:

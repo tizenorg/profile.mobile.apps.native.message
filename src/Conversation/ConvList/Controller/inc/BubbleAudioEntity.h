@@ -19,15 +19,15 @@
 #define BubbleAudioEntity_h_
 
 #include "BubbleAudioViewItem.h"
-#include "BubbleEntity.h"
+#include "BubbleBgEntity.h"
 
 namespace Msg
 {
     class BubbleAudioEntity
-        : public BubbleEntity
+        : public BubbleBgEntity
     {
         public:
-            BubbleAudioEntity(const MsgConvMedia &media);
+            BubbleAudioEntity(const MsgConvMedia &media, BubbleBgViewItem::BgType bgType, Message::Direction direction);
             virtual ~BubbleAudioEntity();
 
             virtual BubbleAudioViewItem *createView(Evas_Object *parent);
