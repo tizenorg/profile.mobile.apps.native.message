@@ -1,7 +1,5 @@
 #include "macros.inl"
 
-#define COLOR_BLUE_EDC  2 61 132 255
-
 collections {
 
     BASE_SCALE;
@@ -125,6 +123,42 @@ collections {
                         min: 1 1;
                         align: 0.0 0.5;
                     }
+                }
+            }
+        }
+    }
+    
+    group {
+        name: "conv/list/image_item";
+        images {
+            image: "messages_attach_image_round_line.#.png" RAW;
+            image: "messages_attach_image_round_mask.#.png" RAW;
+        }
+        parts {
+            part {
+                name: "masking";
+                type: IMAGE;
+                precise_is_inside: 1;
+                description {
+                    state: "default" 0.0;
+                    image.normal: "messages_attach_image_round_mask.#.png";
+                }
+            }
+            part {
+                name: "content";
+                type: SWALLOW;
+                clip_to: "masking";
+                description {
+                    state: "default" 0.0;
+                }
+            }
+            part {
+                name: "line";
+                type: IMAGE;
+                description {
+                    state: "default" 0.0;
+                    image.normal: "messages_attach_image_round_line.#.png";
+                    color: 0 0 0 51;
                 }
             }
         }
