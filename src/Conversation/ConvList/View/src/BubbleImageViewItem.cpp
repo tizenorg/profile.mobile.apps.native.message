@@ -16,15 +16,17 @@
  */
 
 #include "BubbleImageViewItem.h"
+#include "Resource.h"
 
 using namespace Msg;
 
 BubbleImageViewItem::BubbleImageViewItem(BubbleEntity &entity, Evas_Object *parent, const std::string &imagePath)
     : BubbleViewItem(entity)
 {
+    setEo(addLayout(parent, CONV_LIST_BUBBLE_EDJ_PATH, "conv/list/image_item"));
+    attachGestureTapLayer(getEo(), getEo());
     Evas_Object *img = createImage(parent, imagePath);
-    attachGestureTapLayer(img, img);
-    setEo(img);
+    setContent(img, "content");
 }
 
 BubbleImageViewItem::~BubbleImageViewItem()

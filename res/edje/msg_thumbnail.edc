@@ -2,7 +2,7 @@
 group {\
     name: NAME;\
         images {\
-        image: MASK COMP;\
+        image: MASK RAW;\
         }\
     parts {\
         part {\
