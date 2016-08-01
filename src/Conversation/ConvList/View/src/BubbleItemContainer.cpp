@@ -16,6 +16,9 @@
  */
 
 #include "BubbleItemContainer.h"
+#include "Logger.h"
+
+#include <string.h>
 
 using namespace Msg;
 
@@ -39,8 +42,16 @@ BubbleItemContainer::~BubbleItemContainer()
 {
 }
 
-void BubbleItemContainer::append(Evas_Object *item)
+void BubbleItemContainer::append(Evas_Object *item, Message::Direction direction)
 {
+    const char *itemType = evas_object_type_get(item);
+    if(strcmp(itemType, "elm_button") == 0)
+        expand(item);
+    else if (direction == Message::MD_Sent)
+        evas_object_size_hint_align_set(item, 1.0, EVAS_HINT_FILL);
+    else
+        evas_object_size_hint_align_set(item, 0.0, EVAS_HINT_FILL);
+
     evas_object_smart_calculate(item);
     evas_object_show(item);
     elm_box_pack_end(getEo(), item);

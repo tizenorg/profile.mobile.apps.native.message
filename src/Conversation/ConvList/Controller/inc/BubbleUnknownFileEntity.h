@@ -19,15 +19,15 @@
 #define BubbleUnknownFileEntity_h_
 
 #include "BubbleUnknownFileViewItem.h"
-#include "BubbleEntity.h"
+#include "BubbleBgEntity.h"
 
 namespace Msg
 {
     class BubbleUnknownFileEntity
-        : public BubbleEntity
+        : public BubbleBgEntity
     {
         public:
-            BubbleUnknownFileEntity(const MsgConvMedia &convMedia);
+            BubbleUnknownFileEntity(const MsgConvMedia &convMedia, BubbleBgViewItem::BgType bgType, Message::Direction direction);
             virtual ~BubbleUnknownFileEntity();
 
             virtual BubbleUnknownFileViewItem *createView(Evas_Object *parent);

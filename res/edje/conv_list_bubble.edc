@@ -3,8 +3,26 @@
 #define COLOR_BLUE_EDC  2 61 132 255
 
 collections {
+
     BASE_SCALE;
+
     #define MAX_TEXT_LEN 300
+    #define BUBBLE_BG_COLOR 90 111 199 230
+    #define BUBBLE_BG_COLOR_PRESSED 78 97 173 230
+    #define BUBBLE_BG_DRAFT_COLOR 106 126 204 255
+    #define BUBBLE_BG_DRAFT_COLOR_PRESSED 80 94 153 255
+    #define BUBBLE_BG_FAILED_COLOR 0 0 0 102
+    #define BUBBLE_BG_FAILED_COLOR_PRESSED 0 0 0 133
+    #define BUBBLE_BG_RECEIVED_COLOR 65 197 217 255
+    #define BUBBLE_BG_RECEIVED_COLOR_PRESSED 50 150 166 255
+
+    images {
+       image: "messages_bubble_bg.#.png" RAW;
+       image: "messages_bubble_bg_ef.#.png" RAW;
+       image: "messages_bubble_bg_search.#.png" RAW;
+       image: "messages_bubble_line_draft.#.png" RAW;
+    }
+
     styles {
         style {
             name: "main_text_style";
@@ -27,8 +45,9 @@ collections {
             tag:  "match" "+ color=#FFFFFF color_class=T1067";
         }
     }
+
     group {
-        name: "conv/list/1icon_1text_attachment";
+        name: "conv/list/1icon_1text";
         parts {
             part {
                 name: "padding.left";
@@ -74,9 +93,10 @@ collections {
             }
         }
     }
+
     group {
-        name: "conv/list/1icon_2text_attachment";
-        inherit: "conv/list/1icon_1text_attachment";
+        name: "conv/list/1icon_2text";
+        inherit: "conv/list/1icon_1text";
         parts {
             PADDING_TOP("padding.top", 0);
             PADDING_BOTTOM("padding.bottom", 16);
@@ -109,8 +129,9 @@ collections {
             }
         }
     }
+
     group {
-      name: "conv/list/attachments/video_item";
+      name: "conv/list/video_item";
       images {
          image: "messages_play_btn.png" COMP;
       }
@@ -149,5 +170,133 @@ collections {
             }
          }
       }
+   }
+
+   group {
+       name: "conv/list/bubble_sent_bg";
+       parts {
+           part {
+               name: "bg";
+               type: IMAGE;
+               scale: 1;
+               description {
+                  state: "default";
+                  image.normal: "messages_bubble_bg.#.png";
+                  rel1 { relative: 0.0 0.0; }
+                  rel2 { relative: 1.0 1.0; }
+                  min: 120 122;
+                  color: BUBBLE_BG_COLOR;
+               }
+               description {
+                  state: "pressed";
+                  inherit: "default";
+                  color: BUBBLE_BG_COLOR_PRESSED;
+               }
+           }
+           part {
+               name: "bg.effect";
+               type: IMAGE;
+               scale: 1;
+               description {
+                  state: "default";
+                  image.normal: "messages_bubble_bg_ef.#.png";
+                  rel1.to: "bg";
+                  rel2.to: "bg";
+               }
+           }
+           PADDING_TOP("pad.top", 10);
+           PADDING_BOTTOM("pad.bottom", 16);
+           PADDING_LEFT("pad.left", 34);
+           PADDING_RIGHT("pad.right", 34);
+           part {
+               name: "content";
+               type: SWALLOW;
+               scale: 1;
+               description {
+                   state: "default" 0.0;
+                   rel1 { to_x: "pad.left"; to_y: "pad.top";  relative: 1.0 1.0; }
+                   rel2 { to_x: "pad.right"; to_y: "pad.bottom";  relative: 0.0 0.0; }
+               }
+           }
+       }
+       programs {
+           program { name: "pressed";
+               signal: "mouse,down,1";
+               source: "*";
+               action: STATE_SET "pressed" 0.0;
+               target: "bg";
+           }
+           program { name: "unpressed";
+               signal: "mouse,up,1";
+               source: "*";
+               action: STATE_SET "default" 0.0;
+               target: "bg";
+           }
+       }
+   }
+
+   group {
+       name: "conv/list/bubble_received_bg";
+       inherit: "conv/list/bubble_sent_bg";
+       parts {
+           part {
+               name: "bg";
+               description {
+                  state: "default";
+                  color: BUBBLE_BG_RECEIVED_COLOR;
+               }
+               description {
+                  state: "pressed";
+                  inherit: "default";
+                  color: BUBBLE_BG_RECEIVED_COLOR_PRESSED;
+               }
+           }
+       }
+   }
+
+   group {
+       name: "conv/list/bubble_draft_bg";
+       inherit: "conv/list/bubble_sent_bg";
+       parts {
+           part {
+               name: "bg";
+               description {
+                  state: "default";
+                  image.normal: "messages_bubble_line_draft.#.png";
+                  color: BUBBLE_BG_DRAFT_COLOR;
+               }
+               description {
+                  state: "pressed";
+                  inherit: "default";
+                  color: BUBBLE_BG_DRAFT_COLOR_PRESSED;
+               }
+           }
+           part {
+               name: "bg.effect";
+               description {
+                  state: "default";
+                  visible: 0;
+               }
+           }
+       }
+   }
+
+   group {
+       name: "conv/list/bubble_failed_bg";
+       inherit: "conv/list/bubble_draft_bg";
+       parts {
+           part {
+               name: "bg";
+               description {
+                  state: "default";
+                  color: BUBBLE_BG_FAILED_COLOR;
+               }
+               description {
+                  state: "pressed";
+                  inherit: "default";
+                  color: BUBBLE_BG_FAILED_COLOR_PRESSED;
+               }
+           }
+       }
    }
 }

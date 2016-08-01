@@ -27,15 +27,14 @@ namespace Msg
         : public BubbleIconTextLayoutItem
     {
         public:
-            BubbleUnknownFileViewItem(BubbleEntity &entity, Evas_Object *parent);
+            BubbleUnknownFileViewItem(BubbleEntity &entity, Evas_Object *parent, BgType bgType);
             virtual ~BubbleUnknownFileViewItem();
     };
 
-    inline BubbleUnknownFileViewItem::BubbleUnknownFileViewItem(BubbleEntity &entity, Evas_Object *parent)
-        : BubbleIconTextLayoutItem(entity, parent, Layout1Icon1Text)
+    inline BubbleUnknownFileViewItem::BubbleUnknownFileViewItem(BubbleEntity &entity, Evas_Object *parent, BgType bgType)
+        : BubbleIconTextLayoutItem(entity, parent, bgType, Layout1Icon1Text)
     {
-        attachGestureTapLayer(getEo(), getEo());
-        setIcon(createIcon(getEo(), ATTACH_UNKNOWN_ICON));
+        setIcon(createIcon(getContent(), ATTACH_UNKNOWN_ICON));
     }
 
     inline BubbleUnknownFileViewItem::~BubbleUnknownFileViewItem()

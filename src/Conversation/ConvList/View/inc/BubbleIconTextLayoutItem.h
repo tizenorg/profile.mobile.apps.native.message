@@ -18,12 +18,12 @@
 #ifndef BubbleIconTextLayoutItem_h_
 #define BubbleIconTextLayoutItem_h_
 
-#include "BubbleViewItem.h"
+#include "BubbleBgViewItem.h"
 
 namespace Msg
 {
     class BubbleIconTextLayoutItem
-        : public BubbleViewItem
+        : public BubbleBgViewItem
     {
         public:
             enum LayoutType
@@ -34,7 +34,7 @@ namespace Msg
             static const int iconSize = 50;
 
         public:
-            BubbleIconTextLayoutItem(BubbleEntity &entity, Evas_Object *parent, LayoutType layoutType);
+            BubbleIconTextLayoutItem(BubbleEntity &entity, Evas_Object *parent, BgType bgType, LayoutType layoutType);
             virtual ~BubbleIconTextLayoutItem();
 
             LayoutType getLayoutType() const;
@@ -46,6 +46,7 @@ namespace Msg
 
         private:
             LayoutType m_LayoutType;
+            Evas_Object *m_pIconTextLayout;
     };
 }
 

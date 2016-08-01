@@ -19,17 +19,17 @@
 #define BubbleContactEntity_h_
 
 #include "BubbleContactViewItem.h"
-#include "BubbleEntity.h"
+#include "BubbleBgEntity.h"
 #include "App.h"
 #include "Contact.h"
 
 namespace Msg
 {
     class BubbleContactEntity
-        : public BubbleEntity
+        : public BubbleBgEntity
     {
         public:
-            BubbleContactEntity(App &app, const MsgConvMedia &media);
+            BubbleContactEntity(App &app, const MsgConvMedia &media, BubbleBgViewItem::BgType bgType, Message::Direction direction);
             virtual ~BubbleContactEntity();
 
             virtual BubbleContactViewItem *createView(Evas_Object *parent);

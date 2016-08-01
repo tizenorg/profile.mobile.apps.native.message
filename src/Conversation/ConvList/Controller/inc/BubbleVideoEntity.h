@@ -28,7 +28,7 @@ namespace Msg
         : public BubbleEntity
     {
         public:
-            BubbleVideoEntity(WorkingDir &workingDir, const MsgConvMedia &media);
+            BubbleVideoEntity(WorkingDir &workingDir, const MsgConvMedia &media, Message::Direction direction);
             virtual ~BubbleVideoEntity();
 
             virtual BubbleVideoViewItem *createView(Evas_Object *parent);

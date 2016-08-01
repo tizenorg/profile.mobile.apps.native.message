@@ -45,7 +45,7 @@ Evas_Object *BubbleImageViewItem::createImage(Evas_Object *parent, const std::st
         imageHeight *= scale;
     }
     evas_object_size_hint_min_set(image, imageWidth, imageHeight);
-    evas_object_size_hint_align_set(image, 0.0, EVAS_HINT_FILL);
+    evas_object_size_hint_align_set(image, 1.0, EVAS_HINT_FILL);
     evas_object_show(image);
     return image;
 }

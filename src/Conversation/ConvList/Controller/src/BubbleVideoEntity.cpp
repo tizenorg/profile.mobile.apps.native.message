@@ -20,8 +20,8 @@
 
 using namespace Msg;
 
-BubbleVideoEntity::BubbleVideoEntity(WorkingDir &workingDir, const MsgConvMedia &media)
-    : BubbleEntity(VideoItem)
+BubbleVideoEntity::BubbleVideoEntity(WorkingDir &workingDir, const MsgConvMedia &media, Message::Direction direction)
+    : BubbleEntity(VideoItem, direction)
     , m_VideoPath(media.getPath())
 {
     static const std::string thumbFileName = "thumbnail.jpeg";

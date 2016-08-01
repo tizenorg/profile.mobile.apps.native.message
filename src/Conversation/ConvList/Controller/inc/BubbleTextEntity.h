@@ -19,15 +19,15 @@
 #define BubbleTextEntity_h_
 
 #include "BubbleTextViewItem.h"
-#include "BubbleEntity.h"
+#include "BubbleBgEntity.h"
 
 namespace Msg
 {
     class BubbleTextEntity
-        : public BubbleEntity
+        : public BubbleBgEntity
     {
         public:
-            BubbleTextEntity(const std::string &text);
+            BubbleTextEntity(BubbleBgViewItem::BgType type, Message::Direction direction, const std::string &text);
             virtual ~BubbleTextEntity();
 
             virtual std::string getFilePath() const;
@@ -37,8 +37,8 @@ namespace Msg
             std::string m_Text;
     };
 
-    inline BubbleTextEntity::BubbleTextEntity(const std::string &text)
-        : BubbleEntity(ImageItem)
+    inline BubbleTextEntity::BubbleTextEntity(BubbleBgViewItem::BgType type, Message::Direction direction, const std::string &text)
+        : BubbleBgEntity(TextItem, type, direction)
         , m_Text(text)
     {
     }
@@ -55,7 +55,7 @@ namespace Msg
 
     inline BubbleTextViewItem *BubbleTextEntity::createView(Evas_Object *parent)
     {
-        auto *item = new BubbleTextViewItem(*this ,parent, m_Text);
+        auto *item = new BubbleTextViewItem(*this ,parent, m_BgType, m_Text);
         return item;
     }
 }

@@ -24,10 +24,10 @@ namespace
     const char *textStyle = "DEFAULT='font=Tizen:style=Regular font_size=24 wrap=mixed text_class=label'";
 }
 
-BubbleTextViewItem::BubbleTextViewItem(BubbleEntity &entity, Evas_Object *parent, const std::string &text)
-    : BubbleViewItem(entity)
+BubbleTextViewItem::BubbleTextViewItem(BubbleEntity &entity, Evas_Object *parent, BgType bgType, const std::string &text)
+    : BubbleBgViewItem(entity, parent, bgType)
 {
-    setEo(createText(parent, text));
+    setContent(createText(*this, text));
 }
 
 BubbleTextViewItem::~BubbleTextViewItem()
@@ -56,10 +56,10 @@ Evas_Object *BubbleTextViewItem::createText(Evas_Object *parent, const std::stri
     evas_object_del(textBlock);
 
     int wrapWidth = ww > maxWidth ? (int)ELM_SCALE_SIZE(maxWidth) : (int)ELM_SCALE_SIZE(ww);
+
     elm_label_line_wrap_set(label, ELM_WRAP_MIXED);
     elm_label_wrap_width_set(label, wrapWidth);
     elm_object_part_text_set(label, nullptr, text.c_str());
     evas_object_show(label);
-    evas_object_size_hint_align_set(label, 0.0, EVAS_HINT_FILL);
     return label;
 }

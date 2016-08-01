@@ -22,8 +22,8 @@
 using namespace Msg;
 
 
-BubbleCalEventEntity::BubbleCalEventEntity(const MsgConvMedia &convMedia)
-    : BubbleEntity(CalendarEventItem)
+BubbleCalEventEntity::BubbleCalEventEntity(const MsgConvMedia &convMedia, BubbleBgViewItem::BgType bgType, Message::Direction direction)
+    : BubbleBgEntity(CalendarEventItem, bgType, direction)
     , m_FilePath(convMedia.getPath())
 {
     auto list = VCalendarParser::getInst().parse(convMedia.getPath());
@@ -47,7 +47,7 @@ BubbleCalEventViewItem *BubbleCalEventEntity::createView(Evas_Object *parent)
 {
     BubbleCalEventViewItem::LayoutType type = m_DateTime.empty() ? BubbleCalEventViewItem::Layout1Icon1Text :
                                                                    BubbleCalEventViewItem::Layout1Icon2Text;
-    auto *item = new BubbleCalEventViewItem(*this, parent, type);
+    auto *item = new BubbleCalEventViewItem(*this, parent, m_BgType, type);
     item->setMainText(m_Name);
     if(!m_DateTime.empty())
         item->setSubText(m_DateTime);

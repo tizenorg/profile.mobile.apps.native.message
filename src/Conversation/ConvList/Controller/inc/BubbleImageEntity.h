@@ -27,7 +27,7 @@ namespace Msg
         : public BubbleEntity
     {
         public:
-            BubbleImageEntity(const MsgConvMedia &media);
+            BubbleImageEntity(const MsgConvMedia &media, Message::Direction direction);
             virtual ~BubbleImageEntity();
 
             virtual BubbleImageViewItem *createView(Evas_Object *parent);
@@ -37,8 +37,8 @@ namespace Msg
             const std::string m_ImgPath;
     };
 
-    inline BubbleImageEntity::BubbleImageEntity(const MsgConvMedia &media)
-        : BubbleEntity(ImageItem)
+    inline BubbleImageEntity::BubbleImageEntity(const MsgConvMedia &media, Message::Direction direction)
+        : BubbleEntity(ImageItem, direction)
         , m_ImgPath(media.getPath())
     {
     }

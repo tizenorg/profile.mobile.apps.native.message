@@ -24,26 +24,25 @@ using namespace Msg;
 
 #define DEF_ICON_COLOR  128, 128, 128, 255
 
-BubbleIconTextLayoutItem::BubbleIconTextLayoutItem(BubbleEntity &entity, Evas_Object *parent, LayoutType layoutType)
-    : BubbleViewItem(entity)
+BubbleIconTextLayoutItem::BubbleIconTextLayoutItem(BubbleEntity &entity, Evas_Object *parent, BgType bgType, LayoutType layoutType)
+    : BubbleBgViewItem(entity, parent, bgType)
     , m_LayoutType(layoutType)
+    , m_pIconTextLayout(nullptr)
 {
     const char *group = nullptr;
     switch(layoutType)
     {
         case Layout1Icon1Text:
-            group = "conv/list/1icon_1text_attachment";
+            group = "conv/list/1icon_1text";
             break;
 
         case Layout1Icon2Text:
-            group = "conv/list/1icon_2text_attachment";
+            group = "conv/list/1icon_2text";
             break;
     }
 
-    Evas_Object *layout = addLayout(parent, CONV_LIST_ATTACHMENTS_EDJ_PATH, group);
-    evas_object_size_hint_align_set(layout, 0.0, EVAS_HINT_FILL);
-    setEo(layout);
-
+    m_pIconTextLayout = addLayout(getEo(), CONV_LIST_BUBBLE_EDJ_PATH, group);
+    setContent(m_pIconTextLayout);
 }
 
 BubbleIconTextLayoutItem::~BubbleIconTextLayoutItem()
@@ -52,17 +51,17 @@ BubbleIconTextLayoutItem::~BubbleIconTextLayoutItem()
 
 void BubbleIconTextLayoutItem::setIcon(Evas_Object *icon)
 {
-    setContent(icon, "icon");
+    elm_object_part_content_set(m_pIconTextLayout, "icon", icon);
 }
 
 void BubbleIconTextLayoutItem::setMainText(const std::string &text)
 {
-    setText(text, "main.text");
+    elm_object_part_text_set(m_pIconTextLayout, "main.text", text.c_str());
 }
 
 void BubbleIconTextLayoutItem::setSubText(const std::string &text)
 {
-    setText(text, "sub.text");
+    elm_object_part_text_set(m_pIconTextLayout, "sub.text", text.c_str());
 }
 
 Evas_Object *BubbleIconTextLayoutItem::createIcon(Evas_Object *parent, const std::string &edjFileName)
