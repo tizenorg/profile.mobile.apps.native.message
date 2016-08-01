@@ -27,14 +27,13 @@ namespace Msg
         : public BubbleIconTextLayoutItem
     {
         public:
-            BubbleContactViewItem(BubbleEntity &entity, Evas_Object *parent, LayoutType type);
+            BubbleContactViewItem(BubbleEntity &entity, Evas_Object *parent, BgType bgType, LayoutType type);
             virtual ~BubbleContactViewItem();
     };
 
-    inline BubbleContactViewItem::BubbleContactViewItem(BubbleEntity &entity, Evas_Object *parent, LayoutType type)
-        : BubbleIconTextLayoutItem(entity, parent, type)
+    inline BubbleContactViewItem::BubbleContactViewItem(BubbleEntity &entity, Evas_Object *parent, BgType bgType, LayoutType type)
+        : BubbleIconTextLayoutItem(entity, parent, bgType, type)
     {
-        attachGestureTapLayer(getEo(), getEo());
     }
 
     inline BubbleContactViewItem::~BubbleContactViewItem()

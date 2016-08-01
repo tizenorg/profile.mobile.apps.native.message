@@ -35,8 +35,8 @@ std::string makeDurationStr(const std::string &filePath)
     return ss.str();
 }
 
-BubbleAudioEntity::BubbleAudioEntity(const MsgConvMedia &media)
-    : BubbleEntity(AudioItem)
+BubbleAudioEntity::BubbleAudioEntity(const MsgConvMedia &media, BubbleBgViewItem::BgType bgType, Message::Direction direction)
+    : BubbleBgEntity(AudioItem, bgType, direction)
     , m_FilePath(media.getPath())
     , m_FileName(getFileName(media))
     , m_Duration(makeDurationStr(media.getPath()))
@@ -49,7 +49,7 @@ BubbleAudioEntity::~BubbleAudioEntity()
 
 BubbleAudioViewItem *BubbleAudioEntity::createView(Evas_Object *parent)
 {
-    auto *item = new BubbleAudioViewItem(*this, parent);
+    auto *item = new BubbleAudioViewItem(*this, parent, m_BgType);
     item->setMainText(m_FileName);
     item->setSubText(m_Duration);
     return item;

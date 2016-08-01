@@ -27,15 +27,14 @@ namespace Msg
         : public BubbleIconTextLayoutItem
     {
         public:
-            BubbleAudioViewItem(BubbleEntity &entity, Evas_Object *parent);
+            BubbleAudioViewItem(BubbleEntity &entity, Evas_Object *parent, BgType bgType);
             virtual ~BubbleAudioViewItem();
     };
 
-    inline BubbleAudioViewItem::BubbleAudioViewItem(BubbleEntity &entity, Evas_Object *parent)
-        : BubbleIconTextLayoutItem(entity, parent, Layout1Icon2Text)
+    inline BubbleAudioViewItem::BubbleAudioViewItem(BubbleEntity &entity, Evas_Object *parent, BgType bgType)
+        : BubbleIconTextLayoutItem(entity, parent, bgType, Layout1Icon2Text)
     {
-        attachGestureTapLayer(getEo(), getEo());
-        setIcon(createIcon(getEo(), ATTACH_MUSIC_ICON));
+        setIcon(createIcon(getContent(), ATTACH_MUSIC_ICON));
     }
 
     inline BubbleAudioViewItem::~BubbleAudioViewItem()

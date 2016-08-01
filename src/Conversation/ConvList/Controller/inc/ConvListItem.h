@@ -30,6 +30,7 @@
 #include "WorkingDir.h"
 #include "BubbleViewItem.h"
 #include "BubbleEntity.h"
+#include "BubbleBgViewItem.h"
 
 namespace Msg
 {
@@ -87,16 +88,11 @@ namespace Msg
         private:
             ConvListViewItem::ConvItemType getConvItemType(const MsgConversationItem &item);
             void prepareBubble(const MsgConversationItem &item, const std::string &searchWord);
-            BubbleEntity *createVideoEntity(const MsgConvMedia &media);
-            BubbleEntity *createAudioEntity(const MsgConvMedia &media);
-            BubbleEntity *createDownloadButtonEntity();
-            BubbleEntity *createTextEntity(const MsgConvMedia &media, const std::string &searchWord);
-            BubbleEntity *createTextEntity(std::string text, bool markup, const std::string &searchWord);
-            BubbleEntity *createImageEntity(const MsgConvMedia &media);
-            BubbleEntity *createUnknownFileEntity(const MsgConvMedia &media);
-            BubbleEntity *createCalendarEntity(const MsgConvMedia &media);
-            BubbleEntity *createContactEntity(const MsgConvMedia &media);
+            BubbleEntity *createTextEntity(BubbleBgViewItem::BgType bgType, Message::Direction direction, const MsgConvMedia &media, const std::string &searchWord);
+            BubbleEntity *createTextEntity(BubbleBgViewItem::BgType bgType, Message::Direction direction, std::string text, bool markup, const std::string &searchWord);
             void addEntity(BubbleEntity *entity);
+            void updateEntityBgType(BubbleBgViewItem::BgType bgType);
+            BubbleBgViewItem::BgType getBubbleBgType(const MsgConversationItem &item);
 
             // Create Popup when message is clicked
             void showMainListPopup();
