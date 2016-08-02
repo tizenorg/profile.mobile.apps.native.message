@@ -38,9 +38,18 @@ namespace Msg
             BubbleBgViewItem(BubbleEntity &entity, Evas_Object *parent, BgType bgType);
             virtual ~BubbleBgViewItem();
 
+            BgType getBgType() const;
             void showSearch(bool search);
             void setContent(Evas_Object *obj);
             Evas_Object *getContent() const;
+
+            static std::string applyColor(const std::string &text, BgType bgType);
+            static void applyColor(Evas_Object *obj, BgType bgType);
+            std::string applyColor(const std::string &text) const;
+            void applyColor(Evas_Object *obj) const;
+
+        private:
+            BgType m_BgType;
     };
 }
 

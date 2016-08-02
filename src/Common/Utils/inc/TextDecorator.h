@@ -63,6 +63,7 @@ namespace Msg
     {
         public:
             static std::string make(const std::string &text, const TextStyle &style);
+            static std::string make(const std::string &text, const std::string &color);
             static std::string make(const std::string &text,
                                     int size = TextStyle::defaultFontSize,
                                     const std::string &color = TextStyle::defaultColor,

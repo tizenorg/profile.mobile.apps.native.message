@@ -34,7 +34,7 @@ namespace Msg
     inline BubbleUnknownFileViewItem::BubbleUnknownFileViewItem(BubbleEntity &entity, Evas_Object *parent, BgType bgType)
         : BubbleIconTextLayoutItem(entity, parent, bgType, Layout1Icon1Text)
     {
-        setIcon(createIcon(getContent(), ATTACH_UNKNOWN_ICON));
+        setIcon(createIcon(ATTACH_UNKNOWN_ICON));
     }
 
     inline BubbleUnknownFileViewItem::~BubbleUnknownFileViewItem()

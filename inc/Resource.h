@@ -38,6 +38,7 @@
 #define THREAD_THEME_EDJ_PATH            EDJ_PATH"/thread_genlist_theme.edj"
 
 #define CONV_GENLIST_THEME_EDJ_PATH      EDJ_PATH"/conv_genlist_theme.edj"
+#define CONV_LABEL_THEME_EDJ_PATH        EDJ_PATH"/conv_label_theme.edj"
 #define MSG_INPUT_PANEL_EDJ_PATH         EDJ_PATH"/msg_input_panel.edj"
 #define RECIPIENT_PANEL_EDJ_PATH         EDJ_PATH"/recipient_panel.edj"
 

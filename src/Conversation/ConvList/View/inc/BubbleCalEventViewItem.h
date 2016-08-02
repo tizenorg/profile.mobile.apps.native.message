@@ -34,7 +34,7 @@ namespace Msg
     inline BubbleCalEventViewItem::BubbleCalEventViewItem(BubbleEntity &entity, Evas_Object *parent, BgType bgType, LayoutType layoutType)
         : BubbleIconTextLayoutItem(entity, parent, bgType, layoutType)
     {
-        setIcon(createIcon(getContent(), ATTACH_CAL_ICON));
+        setIcon(createIcon(ATTACH_CAL_ICON));
     }
 
     inline BubbleCalEventViewItem::~BubbleCalEventViewItem()

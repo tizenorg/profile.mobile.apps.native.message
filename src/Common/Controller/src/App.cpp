@@ -64,6 +64,9 @@ bool App::init()
     std::string threadThemePath = PathUtils::getResourcePath(THREAD_THEME_EDJ_PATH);
     elm_theme_extension_add(nullptr, threadThemePath.c_str());
 
+    std::string convLabelThemePath = PathUtils::getResourcePath(CONV_LABEL_THEME_EDJ_PATH);
+    elm_theme_extension_add(nullptr, convLabelThemePath.c_str());
+
     return true;
 }
 

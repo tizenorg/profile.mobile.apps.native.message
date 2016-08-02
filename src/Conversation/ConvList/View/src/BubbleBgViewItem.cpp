@@ -17,11 +17,17 @@
 
 #include "BubbleBgViewItem.h"
 #include "Resource.h"
+#include "TextDecorator.h"
 
 using namespace Msg;
+const std::string whiteTextColor = "#fafafa";
+const std::string darkTextColor = "#808080";
+#define WHITE_OBJ_COLOR  250, 250, 250, 255
+#define DARK_OBJ_COLOR  128, 128, 128, 255
 
 BubbleBgViewItem::BubbleBgViewItem(BubbleEntity &entity, Evas_Object *parent, BgType bgType)
     : BubbleViewItem(entity)
+    , m_BgType(bgType)
 {
     const char *group = nullptr;
     switch(bgType)
@@ -50,6 +56,11 @@ BubbleBgViewItem::~BubbleBgViewItem()
 
 }
 
+BubbleBgViewItem::BgType BubbleBgViewItem::getBgType() const
+{
+    return m_BgType;
+}
+
 void BubbleBgViewItem::setContent(Evas_Object *obj)
 {
     View::setContent(obj, "content");
@@ -64,3 +75,28 @@ void BubbleBgViewItem::showSearch(bool search)
 {
     // TODO: impl
 }
+
+std::string BubbleBgViewItem::applyColor(const std::string &text, BgType bgType)
+{
+    const std::string &color = (bgType == SentStyle || bgType == ReceivedStyle) ? whiteTextColor : darkTextColor;
+    return TextDecorator::make(text, color);
+}
+
+void BubbleBgViewItem::applyColor(Evas_Object *obj, BgType bgType)
+{
+    if(bgType == SentStyle || bgType == ReceivedStyle)
+        evas_object_color_set(obj, WHITE_OBJ_COLOR);
+    else
+        evas_object_color_set(obj, DARK_OBJ_COLOR);
+}
+
+std::string BubbleBgViewItem::applyColor(const std::string &text) const
+{
+    return applyColor(text, m_BgType);
+}
+
+void BubbleBgViewItem::applyColor(Evas_Object *obj) const
+{
+    applyColor(obj, m_BgType);
+}
+
