@@ -34,7 +34,7 @@ namespace Msg
     inline BubbleAudioViewItem::BubbleAudioViewItem(BubbleEntity &entity, Evas_Object *parent, BgType bgType)
         : BubbleIconTextLayoutItem(entity, parent, bgType, Layout1Icon2Text)
     {
-        setIcon(createIcon(getContent(), ATTACH_MUSIC_ICON));
+        setIcon(createIcon(ATTACH_MUSIC_ICON));
     }
 
     inline BubbleAudioViewItem::~BubbleAudioViewItem()

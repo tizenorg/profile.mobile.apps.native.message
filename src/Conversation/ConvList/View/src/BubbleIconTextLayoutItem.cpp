@@ -20,9 +20,9 @@
 #include "TextDecorator.h"
 #include "Resource.h"
 
-using namespace Msg;
+#include "TextDecorator.h"
 
-#define DEF_ICON_COLOR  128, 128, 128, 255
+using namespace Msg;
 
 BubbleIconTextLayoutItem::BubbleIconTextLayoutItem(BubbleEntity &entity, Evas_Object *parent, BgType bgType, LayoutType layoutType)
     : BubbleBgViewItem(entity, parent, bgType)
@@ -42,6 +42,7 @@ BubbleIconTextLayoutItem::BubbleIconTextLayoutItem(BubbleEntity &entity, Evas_Ob
     }
 
     m_pIconTextLayout = addLayout(getEo(), CONV_LIST_BUBBLE_EDJ_PATH, group);
+    evas_object_smart_calculate(m_pIconTextLayout);
     setContent(m_pIconTextLayout);
 }
 
@@ -56,22 +57,27 @@ void BubbleIconTextLayoutItem::setIcon(Evas_Object *icon)
 
 void BubbleIconTextLayoutItem::setMainText(const std::string &text)
 {
-    elm_object_part_text_set(m_pIconTextLayout, "main.text", text.c_str());
+    elm_object_part_text_set(m_pIconTextLayout, "main.text", applyColor(text).c_str());
 }
 
 void BubbleIconTextLayoutItem::setSubText(const std::string &text)
 {
-    elm_object_part_text_set(m_pIconTextLayout, "sub.text", text.c_str());
+    elm_object_part_text_set(m_pIconTextLayout, "sub.text", applyColor(text).c_str());
 }
 
-Evas_Object *BubbleIconTextLayoutItem::createIcon(Evas_Object *parent, const std::string &edjFileName)
+Evas_Object *BubbleIconTextLayoutItem::createIcon(Evas_Object *parent, const std::string &edjFileName, BgType bgType)
 {
     Evas_Object *icon = elm_icon_add(parent);
     std::string resPath = PathUtils::getResourcePath(IMAGES_EDJ_PATH);
     elm_image_file_set(icon, resPath.c_str(), edjFileName.c_str());
-    evas_object_color_set(icon, DEF_ICON_COLOR);
+    applyColor(icon, bgType);
     evas_object_show(icon);
     return icon;
+}
+
+Evas_Object *BubbleIconTextLayoutItem::createIcon(const std::string &edjFileName) const
+{
+    return createIcon(*this, edjFileName, getBgType());
 }
 
 BubbleIconTextLayoutItem::LayoutType BubbleIconTextLayoutItem::getLayoutType() const

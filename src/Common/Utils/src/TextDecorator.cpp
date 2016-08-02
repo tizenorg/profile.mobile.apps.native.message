@@ -26,6 +26,7 @@ const char *TextStyle::defaultColor = "#000000FF";
 const char *TextStyle::whiteColor = "#FFFFFFFF";
 const int TextStyle::defaultFontSize = 28;
 
+#define OPEN_TAG_STR(name, str) "<" name "=" + str + ">"
 #define OPEN_TAG(name, val) "<" name "=" << (val) << ">"
 #define CLOSE_TAG(name) "</" name ">"
 
@@ -103,6 +104,12 @@ TextAlign TextStyle::getAlign() const
 std::string TextDecorator::make(const std::string &text, const TextStyle &style)
 {
     return make(text, style.getSize(), style.getColor(), style.getAlign());
+}
+
+std::string TextDecorator::make(const std::string &text, const std::string &color)
+{
+    std::string res = OPEN_TAG_STR("color", color) + text + CLOSE_TAG("color");
+    return res;
 }
 
 std::string TextDecorator::make(const std::string &text,

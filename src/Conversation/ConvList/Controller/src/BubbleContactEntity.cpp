@@ -57,7 +57,7 @@ BubbleContactViewItem *BubbleContactEntity::createView(Evas_Object *parent)
     auto *item = new BubbleContactViewItem(*this, parent, m_BgType, type);
     item->setMainText(m_Name);
 
-    Evas_Object *thumb = m_ThumbPath.empty() ? BubbleContactViewItem::createIcon(*item, ATTACH_CONTACT_ICON)
+    Evas_Object *thumb = m_ThumbPath.empty() ? item->createIcon(ATTACH_CONTACT_ICON)
                                              : m_ThumbMaker.getThumb(*item, m_ThumbPath, BubbleContactViewItem::iconSize);
     if(thumb)
         item->setIcon(thumb);

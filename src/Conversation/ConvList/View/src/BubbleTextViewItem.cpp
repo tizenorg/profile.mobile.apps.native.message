@@ -16,18 +16,15 @@
  */
 
 #include "BubbleTextViewItem.h"
+#include "Resource.h"
+#include "Logger.h"
 
 using namespace Msg;
-
-namespace
-{
-    const char *textStyle = "DEFAULT='font=Tizen:style=Regular font_size=24 wrap=mixed text_class=label'";
-}
 
 BubbleTextViewItem::BubbleTextViewItem(BubbleEntity &entity, Evas_Object *parent, BgType bgType, const std::string &text)
     : BubbleBgViewItem(entity, parent, bgType)
 {
-    setContent(createText(*this, text));
+    setContent(createText(*this, applyColor(text)));
 }
 
 BubbleTextViewItem::~BubbleTextViewItem()
@@ -36,30 +33,24 @@ BubbleTextViewItem::~BubbleTextViewItem()
 
 Evas_Object *BubbleTextViewItem::createText(Evas_Object *parent, const std::string &text)
 {
-    //TODO: apply to label the same text style as to textblock (figure out how-to)
     if(text.empty())
         return nullptr;
 
-    Evas_Coord ww = 0;
-    Evas_Coord hh = 0;
-
     Evas_Object *label = elm_label_add(parent);
-    Evas_Object *textBlock = evas_object_textblock_add(evas_object_evas_get(label));
-    Evas_Textblock_Style *ts = evas_textblock_style_new();
-
-    evas_textblock_style_set(ts, textStyle);
-    evas_object_textblock_style_set(textBlock, ts);
-    evas_object_textblock_text_markup_set(textBlock, text.c_str());
-    evas_object_textblock_size_native_get(textBlock, &ww, &hh);
-
-    evas_textblock_style_free(ts);
-    evas_object_del(textBlock);
-
-    int wrapWidth = ww > maxWidth ? (int)ELM_SCALE_SIZE(maxWidth) : (int)ELM_SCALE_SIZE(ww);
+    elm_object_style_set(label, "conv_bubble");
 
     elm_label_line_wrap_set(label, ELM_WRAP_MIXED);
-    elm_label_wrap_width_set(label, wrapWidth);
     elm_object_part_text_set(label, nullptr, text.c_str());
     evas_object_show(label);
+
+    Evas_Object *edjeLabel = elm_layout_edje_get(label);
+    const Evas_Object *textBlock = edje_object_part_object_get(edjeLabel, "elm.text");
+
+    Evas_Coord ww = 0;
+    Evas_Coord hh = 0;
+    evas_object_textblock_size_native_get(textBlock, &ww, &hh);
+    int wrapWidth = ww > maxWidth ? maxWidth : ww;
+    elm_label_wrap_width_set(label, wrapWidth);
+
     return label;
 }

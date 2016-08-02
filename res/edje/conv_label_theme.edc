@@ -1,0 +1,44 @@
+#include "macros.inl"
+
+#define SLIDE_SPEED_WEIGHT 0.5
+#define SLIDE_TEXT_GAP 60
+#define SLIDE_TEXT_CHAR_GAP "      " //60 (6 spaces)
+#define SLIDE_TEXT_MAX_LENGTH (2*(1024+6))
+#define  LABEL_FONT_SIZE_INC 30
+
+collections {
+      BASE_SCALE;
+
+      styles {
+         style { name: "textblock_style";
+            base: "font=Samsung Condensed:style=Latin font_size="36" color=#080808ff wrap=mixed text_class=label align=left";
+            tag:  "br" "\n";
+            tag:  "ps" "ps";
+            tag:  "highlight" "+ font_weight=Bold";
+            tag:  "b" "+ font_weight=Bold";
+            tag:  "tab" "\t";
+         }
+      }
+
+      group { name: "elm/label/base/conv_bubble";
+         parts {
+            part { name: "label.text.clip";
+               type: RECT;
+               description { state: "default" 0.0;
+               }
+            }
+            part { name: "elm.text";
+               type: TEXTBLOCK;
+               scale: 1;
+               clip_to: "label.text.clip";
+               description { state: "default" 0.0;
+                  text {
+                     style: "textblock_style";
+                     min: 0 1;
+                     align: 0.0 0.0;
+                  }
+               }
+            }
+         }
+      }
+}

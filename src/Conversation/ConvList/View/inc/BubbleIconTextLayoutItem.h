@@ -42,7 +42,8 @@ namespace Msg
             void setMainText(const std::string &text);
             void setSubText(const std::string &text);
 
-            static Evas_Object *createIcon(Evas_Object *parent, const std::string &edjFileName);
+            static Evas_Object *createIcon(Evas_Object *parent, const std::string &edjFileName, BgType bgType);
+            Evas_Object *createIcon(const std::string &edjFileName) const;
 
         private:
             LayoutType m_LayoutType;
