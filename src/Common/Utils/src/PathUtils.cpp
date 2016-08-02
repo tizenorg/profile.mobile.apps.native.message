@@ -27,11 +27,19 @@ using namespace Msg;
 std::string PathUtils::getResourcePath(const std::string &filePath)
 {
     std::string res;
-    char *absolutePath = app_get_resource_path();
+    static std::string basePath;
+    if(basePath.empty())
+    {
+        char *path = app_get_resource_path();
+        if(path)
+        {
+            basePath = path;
+            free(path);
+        }
+    }
 
-    res += absolutePath;
+    res += basePath;
     res += filePath;
-    free(absolutePath);
 
     return res;
 }
@@ -39,11 +47,19 @@ std::string PathUtils::getResourcePath(const std::string &filePath)
 std::string PathUtils::getDataPath(const std::string &filePath)
 {
     std::string res;
-    char *absolutePath = app_get_data_path();
+    static std::string basePath;
+    if(basePath.empty())
+    {
+        char *path = app_get_data_path();
+        if(path)
+        {
+            basePath = path;
+            free(path);
+        }
+    }
 
-    res += absolutePath;
+    res += basePath;
     res += filePath;
-    free(absolutePath);
 
     return res;
 }

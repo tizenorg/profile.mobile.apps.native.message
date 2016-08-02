@@ -29,7 +29,7 @@ FloatingButton::FloatingButton(Evas_Object *parent)
     setEo(eext_floatingbutton_add(parent));
     Evas_Object *composeBtn = elm_button_add(getEo());
 
-    Evas_Object *icon = elm_image_add(getEo());
+    Evas_Object *icon = elm_image_add(composeBtn);
     std::string resPath = PathUtils::getResourcePath(MSG_THREAD_FLOATING_BTN_ICON);
     elm_image_file_set(icon, resPath.c_str(), NULL);
     evas_object_size_hint_min_set(icon, COMPOSE_BUTTON_ICON_SIZE, COMPOSE_BUTTON_ICON_SIZE);

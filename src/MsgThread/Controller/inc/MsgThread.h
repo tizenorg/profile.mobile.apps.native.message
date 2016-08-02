@@ -121,7 +121,6 @@ namespace Msg
             ThreadSearchList *m_pSearchList;
             MsgThreadSearchPanel *m_pSearchPanel;
             Mode m_Mode;
-
             FloatingButton *m_pFloatingBtn;
     };
 }
