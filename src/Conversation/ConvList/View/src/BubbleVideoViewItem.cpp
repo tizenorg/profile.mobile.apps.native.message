@@ -50,6 +50,6 @@ Evas_Object *BubbleVideoViewItem::createLayout(Evas_Object *parent, const std::s
     evas_object_size_hint_min_set(image, imageWidth, imageHeight);
     evas_object_show(image);
 
-    elm_object_part_content_set(layout, "swl.thumbnail", image);
+    elm_object_part_content_set(layout, "content", image);
     return layout;
 }

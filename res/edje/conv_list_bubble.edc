@@ -19,6 +19,8 @@ collections {
        image: "messages_bubble_bg_ef.#.png" RAW;
        image: "messages_bubble_bg_search.#.png" RAW;
        image: "messages_bubble_line_draft.#.png" RAW;
+       image: "messages_attach_image_round_line.#.png" RAW;
+       image: "messages_attach_image_round_mask.#.png" RAW;
     }
 
     styles {
@@ -130,10 +132,6 @@ collections {
 
     group {
         name: "conv/list/image_item";
-        images {
-            image: "messages_attach_image_round_line.#.png" RAW;
-            image: "messages_attach_image_round_mask.#.png" RAW;
-        }
         parts {
             part {
                 name: "masking";
@@ -147,10 +145,10 @@ collections {
             part {
                 name: "content";
                 type: SWALLOW;
+                scale: 1;
                 clip_to: "masking";
                 description {
                     state: "default" 0.0;
-                    color: 0 0 0 128;
                 }
             }
             part {
@@ -202,9 +200,19 @@ collections {
       }
       parts {
          part {
-            name: "swl.thumbnail";
+             name: "masking";
+             type: IMAGE;
+             precise_is_inside: 1;
+             description {
+                 state: "default" 0.0;
+                 image.normal: "messages_attach_image_round_mask.#.png";
+             }
+         }
+         part {
+            name: "content";
             type: SWALLOW;
             scale: 1;
+            clip_to: "masking";
             description {
                state: "default" 0.0;
                rel1 {
@@ -216,6 +224,15 @@ collections {
             }
          }
          part {
+             name: "line";
+             type: IMAGE;
+             description {
+                 state: "default" 0.0;
+                 image.normal: "messages_attach_image_round_line.#.png";
+                 color: 0 0 0 51;
+             }
+         }
+         part {
             name: "play_button";
             type: IMAGE;
             scale: 1;
@@ -225,16 +242,37 @@ collections {
                max: 128 128;
                align: 0.5 0.5;
                rel1 {
-                  to: "swl.thumbnail";
+                  to: "content";
                   relative: 0.0 0.0;
                }
                rel2 {
-                  to: "swl.thumbnail";
+                  to: "content";
                   relative: 1.0 1.0;
                }
             }
+            description {
+                state: "pressed";
+                inherit: "default";
+                color: 190 190 190 255;
+            }
          }
       }
+      programs {
+           program { name: "pressed";
+               signal: "mouse,down,1";
+               source: "*";
+               action: STATE_SET "pressed" 0.0;
+               transition: LINEAR  0.1;
+               target: "play_button";
+           }
+           program { name: "unpressed";
+               signal: "mouse,up,1";
+               source: "*";
+               action: STATE_SET "default" 0.0;
+               transition: LINEAR  0.1;
+               target: "play_button";
+           }
+       }
    }
 
    group {
