@@ -18,6 +18,7 @@
 #include "ConvListViewItem.h"
 #include "CallbackAssist.h"
 #include "ListView.h"
+#include "Resource.h"
 
 using namespace Msg;
 
@@ -37,9 +38,6 @@ namespace
     const char *failedButtonPart = "failed.button";
     const char *infoStatus = "info.status";
     const char *msgType = "msg.type";
-
-    const char *draftButtonStyle = "edit_button";
-    const char *failedButtonStyle = "resend_button";
 }
 
 ConvListViewItem::ConvListViewItem(ConvItemType type)
@@ -96,27 +94,49 @@ const char *ConvListViewItem::getCheckPart(ListItem &item)
 
 Evas_Object *ConvListViewItem::createButton(bool isEnabled, ConvItemType type)
 {
-    Evas_Object *button = nullptr;
-    if(type == Draft || type == Failed)
+    Evas_Object *button = elm_button_add(*getOwner());
+    evas_object_event_callback_add
+    (
+        button,
+        EVAS_CALLBACK_MOUSE_DOWN,
+        [](void *data, Evas *e, Evas_Object *obj, void *event_info)
+        {
+            if(!elm_object_disabled_get(obj))
+                elm_object_signal_emit(elm_object_content_get(obj), "pressed", "*");
+        },
+        this
+    );
+    evas_object_event_callback_add
+    (
+        button,
+        EVAS_CALLBACK_MOUSE_UP,
+        [](void *data, Evas *e, Evas_Object *obj, void *event_info)
+        {
+            if(!elm_object_disabled_get(obj))
+                elm_object_signal_emit(elm_object_content_get(obj), "unpressed", "*");
+        },
+        this
+    );
+
+    elm_object_style_set(button, "transparent");
+    Evas_Object *icon =  nullptr;
+    evas_object_show(icon);
+
+    if(type == Draft)
     {
-        button = elm_button_add(*getOwner());
-        if(type == Draft)
-        {
-            elm_object_style_set(button, draftButtonStyle);
-            evas_object_smart_callback_add(button, "clicked", SMART_CALLBACK(ConvListViewItem, onEditButtonClicked), this);
-        }
-        else if(type == Failed)
-        {
-            elm_object_style_set(button, failedButtonStyle);
-            evas_object_smart_callback_add(button, "clicked", SMART_CALLBACK(ConvListViewItem, onFailedButtonClicked), this);
-        }
-        View::expand(button);
-        evas_object_show(button);
-
-        evas_object_propagate_events_set(button, !isEnabled);
-        elm_object_disabled_set(button, !isEnabled);
-
+        icon = View::addLayout(button, ICONS_EDJ_PATH, "draft_icon");
+        evas_object_smart_callback_add(button, "clicked", SMART_CALLBACK(ConvListViewItem, onEditButtonClicked), this);
     }
+    else if(type == Failed)
+    {
+        icon = View::addLayout(button, ICONS_EDJ_PATH, "failed_icon");
+        evas_object_smart_callback_add(button, "clicked", SMART_CALLBACK(ConvListViewItem, onFailedButtonClicked), this);
+    }
+
+    elm_object_content_set(button, icon);
+    evas_object_propagate_events_set(button, !isEnabled);
+    elm_object_disabled_set(button, !isEnabled);
+
     return button;
 }
 

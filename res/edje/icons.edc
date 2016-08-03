@@ -1,0 +1,106 @@
+#include "macros.inl"
+
+collections {
+    BASE_SCALE;
+    images {
+        image: "messages_icon_bg.png" RAW;
+    }
+    group {
+        name: "draft_icon";
+        images {
+            image: "messages_icon_draft.png" RAW;
+        }
+        parts {
+            part {
+                name: "bg";
+                type: IMAGE;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    image.normal: "messages_icon_bg.png";
+                    color: 90 111 199 255;
+                }
+                description {
+                    state: "pressed" 0.0;
+                    inherit: "default";
+                    color: 70 80 170 255;
+                }
+            }
+            part {
+                name: "draft";
+                type: IMAGE;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    image.normal: "messages_icon_draft.png";
+                    color: 250 250 250 255;
+                }
+            }
+        }
+        programs {
+           program { name: "pressed";
+               source: "*";
+               signal: "pressed";
+               action: STATE_SET "pressed" 0.0;
+               target: "bg";
+               transition: LINEAR  0.1;
+           }
+           program { name: "unpressed";
+               source: "*";
+               signal: "unpressed";
+               action: STATE_SET "default" 0.0;
+               target: "bg";
+               transition: LINEAR  0.1;
+           }
+       }
+    }
+    group {
+        name: "failed_icon";
+        images {
+            image: "messages_icon_failed.png" RAW;
+        }
+        parts {
+            part {
+                name: "bg";
+                type: IMAGE;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    image.normal: "messages_icon_bg.png";
+                    color: 224 34 34 255;
+                }
+                description {
+                    state: "pressed" 0.0;
+                    inherit: "default";
+                    color: 204 14 14 255;
+                }
+            }
+            part {
+                name: "failed";
+                type: IMAGE;
+                scale: 1;
+                description {
+                    state: "default" 0.0;
+                    image.normal: "messages_icon_failed.png";
+                    color: 250 250 250 255;
+                }
+            }
+        }
+        programs {
+           program { name: "pressed";
+               source: "*";
+               signal: "pressed";
+               action: STATE_SET "pressed" 0.0;
+               target: "bg";
+               transition: LINEAR  0.1;
+           }
+           program { name: "unpressed";
+               source: "*";
+               signal: "unpressed";
+               action: STATE_SET "default" 0.0;
+               target: "bg";
+               transition: LINEAR  0.1;
+           }
+       }
+    }
+}

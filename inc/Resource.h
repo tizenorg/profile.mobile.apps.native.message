@@ -33,6 +33,7 @@
 #define ATTACH_UNKNOWN_ICON             "U01_icon_etc.png"
 
 // Edj:
+#define ICONS_EDJ_PATH                   EDJ_PATH"/icons.edj"
 #define IMAGES_EDJ_PATH                  EDJ_PATH"/images.edj"
 #define BUTTON_THEME_EDJ_PATH            EDJ_PATH"/button_theme.edj"
 #define THREAD_THEME_EDJ_PATH            EDJ_PATH"/thread_genlist_theme.edj"
