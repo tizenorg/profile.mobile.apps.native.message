@@ -1,6 +1,6 @@
 #include "macros.inl"
 #include "colors_define.inl"
-#define ENTRY_BUBBLE_TEXT_SIZE 30
+#define ENTRY_BUBBLE_TEXT_SIZE 28
 
 #define BUBBLE_MSG_TYPE_PAD_WIDTH 8
 #define BUBBLE_INFO_HEIGHT 88
@@ -54,7 +54,7 @@ images {
 styles {
     style {
         name: "entry_bubble_sent_textblock_style";
-        base: "font=Tizen:style=Roman font_size="ENTRY_BUBBLE_TEXT_SIZE" color=#000000 left_margin=1 right_margin=2 wrap=mixed align=right";
+        base: "font=Tizen:style=Regular font_size="ENTRY_BUBBLE_TEXT_SIZE" color=#808080 left_margin=1 right_margin=2 wrap=mixed align=right";
         tag:  "tab" "\t";
         tag:  "em" "+ font=Tizen:style=Oblique";
         tag:  "b" "+ font=Tizen:style=Bold";
@@ -64,7 +64,7 @@ styles {
     }
     style {
         name: "entry_bubble_receive_textblock_style";
-        base: "font=Tizen:style=Roman font_size="ENTRY_BUBBLE_TEXT_SIZE" color=#000000  left_margin=1 right_margin=2 wrap=mixed";
+        base: "font=Tizen:style=Regular font_size="ENTRY_BUBBLE_TEXT_SIZE" color=#808080  left_margin=1 right_margin=2 wrap=mixed";
         tag:  "tab" "\t";
         tag:  "em" "+ font=Tizen:style=Oblique";
         tag:  "b" "+ font=Tizen:style=Bold";
@@ -74,7 +74,7 @@ styles {
     }
     style {
         name: "entry_textblock_disabled_style";
-        base: "font=Tizen:style=Roman font_size="ENTRY_BUBBLE_TEXT_SIZE" color=#00000080 left_margin=1 right_margin=2 wrap=mixed text_class=bubble";
+        base: "font=Tizen:style=Regular font_size="ENTRY_BUBBLE_TEXT_SIZE" color=#00000080 left_margin=1 right_margin=2 wrap=mixed text_class=bubble";
         tag:  "tab" "\t";
         tag:  "em" "+ font=Tizen:style=Oblique";
         tag:  "b" "+ font=Tizen:style=Bold";
@@ -383,8 +383,8 @@ group { name: "elm/genlist/item/draft/default";
         }
         spacer { "draft.pad"; scale;
             desc { "default";
-                min: BUBBLE_DRAFT_PAD_WIDTH 50;
-                max: BUBBLE_DRAFT_PAD_WIDTH 50;
+                min: BUBBLE_DRAFT_PAD_WIDTH 0;
+                max: BUBBLE_DRAFT_PAD_WIDTH -1;
                 rel2.to_x: "pad.right";
                 rel2.relative: 0.0 0.0;
                 align: 1.0 0.0;
