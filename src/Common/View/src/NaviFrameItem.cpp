@@ -323,11 +323,11 @@ void NaviFrameItem::NaviBar::setButtonColor(NaviButtonId id, NaviColorId titleCo
         switch(titleColor)
         {
             case NaviBlueColorId:
-                elm_object_signal_emit(m_ButtonList[id].button, "button,color,white", "*");
+                emitSignal(m_ButtonList[id].button, "button,color,white", "*");
                 break;
 
             case NaviWhiteColorId:
-                elm_object_signal_emit(m_ButtonList[id].button, "button,color,blue", "*");
+                emitSignal(m_ButtonList[id].button, "button,color,blue", "*");
                 break;
 
             default:
@@ -400,5 +400,5 @@ void NaviFrameItem::NaviBar::hideSearch()
 void NaviFrameItem::NaviBar::setDownButtonState(bool expand)
 {
     const char *sig = expand ? "button,expand" : "button,collapse";
-    elm_object_signal_emit(m_ButtonList[NaviExpandButtonId].button, sig, "*");
+    emitSignal(m_ButtonList[NaviExpandButtonId].button, sig, "*");
 }

@@ -183,7 +183,7 @@ Evas_Object *PageView::createMainLayout(Evas_Object *parent)
 {
     Evas_Object *layout = elm_layout_add(parent);
     elm_layout_file_set(layout, getEdjPath().c_str(), itemLayoutGroup);
-    elm_object_signal_emit(layout, "show.normal.mode", "*");
+    emitSignal(layout, "show.normal.mode", "*");
     expand(layout);
     evas_object_show(layout);
     return layout;

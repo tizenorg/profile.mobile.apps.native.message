@@ -102,7 +102,7 @@ Evas_Object *ConvListViewItem::createButton(bool isEnabled, ConvItemType type)
         [](void *data, Evas *e, Evas_Object *obj, void *event_info)
         {
             if(!elm_object_disabled_get(obj))
-                elm_object_signal_emit(elm_object_content_get(obj), "pressed", "*");
+                View::emitSignal(elm_object_content_get(obj), "pressed", "*");
         },
         this
     );
@@ -113,14 +113,13 @@ Evas_Object *ConvListViewItem::createButton(bool isEnabled, ConvItemType type)
         [](void *data, Evas *e, Evas_Object *obj, void *event_info)
         {
             if(!elm_object_disabled_get(obj))
-                elm_object_signal_emit(elm_object_content_get(obj), "unpressed", "*");
+                View::emitSignal(elm_object_content_get(obj), "unpressed", "*");
         },
         this
     );
 
     elm_object_style_set(button, "transparent");
     Evas_Object *icon =  nullptr;
-    evas_object_show(icon);
 
     if(type == Draft)
     {

@@ -124,6 +124,19 @@ void View::expand(Evas_Object *obj)
     evas_object_size_hint_align_set(obj, EVAS_HINT_FILL, EVAS_HINT_FILL);
 }
 
+void View::processSignal(Evas_Object *obj)
+{
+    Evas_Object *edj = elm_layout_edje_get(obj);
+    edje_object_message_signal_process(edj);
+}
+
+void View::emitSignal(Evas_Object *obj, const char *emission, const char *source, bool async)
+{
+    elm_object_signal_emit(obj, emission, source);
+    if(!async)
+        processSignal(obj);
+}
+
 Evas_Object *View::addLayout(Evas_Object *parent, const std::string &edjePath, const std::string &group)
 {
     Evas_Object *layout = elm_layout_add(parent);

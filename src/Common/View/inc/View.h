@@ -192,8 +192,29 @@ namespace Msg
              * @brief Sends a signal to edje-object.
              * @param[in] emission The signal's name.
              * @param[in] source The signal's source.
+             * @param[in] async true - process an object's message queue in job/timer, false - process immediately.
              */
-            void emitSignal(const char *emission, const char *source);
+            void emitSignal(const char *emission, const char *source, bool async = false);
+
+            /**
+             * @brief Sends a signal to edje-object.
+             * @param[in] obj Target object
+             * @param[in] emission The signal's name.
+             * @param[in] source The signal's source.
+             * @param[in] async true - process the signal postponed, false - process immediately.
+             */
+            static void emitSignal(Evas_Object *obj, const char *emission, const char *source, bool async = false);
+
+            /**
+             * @brief Process all edje signals for object
+             * @param[in] obj Target object
+             */
+            static void processSignal(Evas_Object *obj);
+
+            /**
+             * @brief Process all edje signals for object
+             */
+            void processSignal();
 
             /**
              * @brief Sets user-data associated with specified key-string.
@@ -399,9 +420,14 @@ namespace Msg
         elm_object_domain_part_text_translatable_set(m_pEo, part, domain, translatable);
     }
 
-    inline void View::emitSignal(const char *emission, const char *source)
+    inline void View::emitSignal(const char *emission, const char *source, bool async)
     {
-        elm_object_signal_emit(m_pEo, emission, source);
+        emitSignal(m_pEo, emission, source, async);
+    }
+
+    inline void View::processSignal()
+    {
+        processSignal(m_pEo);
     }
 
     inline void View::setText(const char *text, const char *part)

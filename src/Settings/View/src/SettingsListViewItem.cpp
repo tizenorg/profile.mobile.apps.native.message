@@ -132,6 +132,7 @@ Evas_Object *SettingsListViewItem::createCheckButton(Evas_Object *parent)
         elm_check_state_pointer_set(check, &m_CheckButtonState);
         evas_object_propagate_events_set(check, EINA_FALSE);
         evas_object_smart_callback_add(check, "changed", SMART_CALLBACK(SettingsListViewItem, onCheckButtonChanged), this);
+        View::processSignal(check);
     }
     return check;
 }

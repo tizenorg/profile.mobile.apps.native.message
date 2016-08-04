@@ -125,7 +125,7 @@ void ConvRecipientsPanelView::showMbe(bool show, bool animation)
     else
         sig = show ? "show_to_mbe" : "hide_to_mbe";
 
-    elm_object_signal_emit(m_pLayout, sig, "*");
+    emitSignal(m_pLayout, sig, "*");
 }
 
 void ConvRecipientsPanelView::showEntry(bool show)
@@ -133,7 +133,7 @@ void ConvRecipientsPanelView::showEntry(bool show)
     if(show)
         getEntry();
     const char *sig = show ? "show_entry" : "hide_entry";
-    elm_object_signal_emit(m_pLayout, sig, "*");
+    emitSignal(m_pLayout, sig, "*");
     show ? evas_object_show(m_pEntry) : evas_object_hide(m_pEntry);
 }
 
@@ -192,7 +192,7 @@ Evas_Object *ConvRecipientsPanelView::getEntry()
     evas_object_show(m_pEntry);
     evas_object_size_hint_weight_set(m_pEntry, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
     evas_object_size_hint_align_set(m_pEntry, EVAS_HINT_FILL, EVAS_HINT_FILL);
-    elm_object_signal_emit(m_pEntry, "elm,action,hide,search_icon", "");
+    emitSignal(m_pEntry, "elm,action,hide,search_icon", "");
     elm_entry_editable_set(m_pEntry, EINA_TRUE);
     elm_entry_single_line_set(m_pEntry, EINA_TRUE);
     elm_entry_scrollable_set(m_pEntry, EINA_TRUE);
@@ -400,7 +400,7 @@ void ConvRecipientsPanelView::setEditMode(bool isEdit)
 void ConvRecipientsPanelView::showInvalidIcon(bool show)
 {
     const char *sig = show ? "show_invalid_icon" : "hide_invalid_icon";
-    elm_object_signal_emit(m_pLayout, sig, "*");
+    emitSignal(m_pLayout, sig, "*");
 }
 
 void ConvRecipientsPanelView::onEntryChanged(Evas_Object *obj, void *event_info)

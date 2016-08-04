@@ -34,7 +34,7 @@ ConversationLayout::~ConversationLayout()
 void ConversationLayout::showContactList(bool value)
 {
     const char *sig = value ? "show.predictsearch" : "hide.predictsearch";
-    elm_object_signal_emit(m_pLayout, sig, "*");
+    emitSignal(m_pLayout, sig, "*");
 }
 
 void ConversationLayout::setRecipientRect(Evas_Object *layout)

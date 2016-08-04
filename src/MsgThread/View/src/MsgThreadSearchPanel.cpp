@@ -143,7 +143,7 @@ void MsgThreadSearchPanel::clearEntry()
 void MsgThreadSearchPanel::showClearButton(bool visible)
 {
     const char *sig = visible ? "elm,action,show,button" : "elm,action,hide,button";
-    elm_object_signal_emit(getEo(), sig, "");
+    emitSignal(sig, "");
 }
 
 void MsgThreadSearchPanel::setGuideText(const std::string &text)

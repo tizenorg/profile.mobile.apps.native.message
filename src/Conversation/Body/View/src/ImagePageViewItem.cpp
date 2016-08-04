@@ -58,7 +58,7 @@ ImagePageViewItem::~ImagePageViewItem()
 
 void ImagePageViewItem::showPlayIcon()
 {
-    elm_object_signal_emit(m_pImageLayout, showPlayIconSig, "");
+    emitSignal(m_pImageLayout, showPlayIconSig, "");
 }
 
 const std::string &ImagePageViewItem::getImagePath() const
@@ -79,7 +79,7 @@ bool ImagePageViewItem::isEmpty() const
 void ImagePageViewItem::highlight(bool value)
 {
     const char *sig = value ? "focused" : "unfocused";
-    elm_object_signal_emit(m_pImageLayout, sig, "*");
+    emitSignal(m_pImageLayout, sig, "*");
 }
 
 std::string ImagePageViewItem::getFileName() const
@@ -152,7 +152,7 @@ Evas_Object *ImagePageViewItem::createImage(Evas_Object *parent)
         iconHeight = (int)ELM_SCALE_SIZE(thumbEqual);
         sig = mediaImageEqualSig;
     }
-    elm_object_signal_emit(getMediaLayout(), sig, "*");
+    emitSignal(getMediaLayout(), sig, "*");
 
     // Create and load icon image:
     Evas_Object *icon = elm_icon_add(parent);
